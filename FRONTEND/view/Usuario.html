@@ -1,0 +1,148 @@
+﻿<style>
+    .label-flag {
+        height: 30px !important;
+        padding-top: 8px !important;
+    }
+</style>
+{{Ctrl.NivelAcesso}}
+<!--==============================================Grid -->
+<div class="container" >
+    <div class="block table-responsive" ng-show="CurrentShow=='Grid'">
+        <button id="btnNovoUsuarioUsuario" class="btn btn-primary" ng-click="EditarUsuario(0)" ng-disabled="!PermissaoNew">Novo Usuario</button>
+        <button id="ExportReporttoExcel" class="btn btn-warning" ng-disabled="Usuarios.length==1">Exportar Excel</button>
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>#ID</th>
+                        <th>Login</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>Nivel de Acesso</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Usuario in Usuarios track by $index"  on-finish-render="ngRepeatFinished()">
+                        <td style="width:50px">
+                            <button class="btn btn-default" ng-click="EditarUsuario(Usuario.Id_Usuario)" ng-disabled="!PermissaoEdit">
+                                <span class="fa fa-edit fa-crud"></span>
+                            </button>
+                        </td>
+                        <td style="white-space:nowrap">
+                        {{Usuario.Login}}
+                        </td>
+                        <td>{{::Usuario.Nome}}</td>
+                        <td>{{::Usuario.Email}}</td>
+                        <td>{{::Usuario.Telefone}}</td>
+                        <td>{{::Usuario.Descricao_Nivel_Acesso}}</td>
+                        <td style="text-align:center">
+                            <label ng-class="Usuario.Status ? 'label label-success' : 'label label-danger'" style="width:100% ">
+                                {{::Usuario.Descricao_Status}}
+                            </label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!--==============================================Cadastro -->
+<div class="container" ng-show="CurrentShow=='Dados'">
+    <div class="block">
+        {{Ctrl.NivelAcesso}}
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="txtLogin">Login</label>
+                    <input id="txtLogin" class="form-control" maxlength="20" style="text-transform:uppercase" ng-model="Ctrl.Login" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtNome">Nome</label>
+                    <input id="txtNome" class="form-control" maxlength="20" style="text-transform:uppercase" ng-model="Ctrl.Nome" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="Email">Email</label>
+                    <input id="txtEmail" class="form-control" maxlength="20" style="text-transform:uppercase" ng-model="Ctrl.Email" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="txtTelefone">Telefone</label>
+                    <input id="txtTelefone" class="form-control" maxlength="20" style="text-transform:uppercase" ng-model="Ctrl.Telefone" />
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="optNivelAcesso">Nivel de Acesso</label>
+                    <div class="input-group">
+                        <select class="form-control" ng-model="Ctrl.Id_Nivel_Acesso" name="optNivelAcesso" ng-options="NivelAcesso.Id as NivelAcesso.Descricao for NivelAcesso in NivelAcesso"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-top-10">
+            <div class="col-md-12">
+                <button ng-class="CurrentTab=='Perfil' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="CurrentTab='Perfil'">Perfil de Acesso</button>
+                <button ng-class="CurrentTab=='Empresa' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="CurrentTab='Empresa'">Empresas Validas</button>
+            </div>
+        </div>
+
+        <div class="block" ng-show="CurrentTab=='Perfil'">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="app-checkbox">
+                        <label><input type="checkbox" name="app-checkbox-1" ng-model="checkBoxPerfil" ng-click="MarcarPerfil()" /> Marcar/Desmarcar Todos<span></span></label>
+                    </div>
+                </div>
+            </div>
+            <div style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px silver">
+                <div class="col-md-12" ng-repeat="perfil in Ctrl.Perfil">
+                    <div class="app-checkbox" style="width:auto;margin-top:5px" ng-style="{'margin-left':((perfil.Nivel-1)*60)}">
+                        <label><input type="checkbox" name="app-checkbox-1" ng-model="perfil.Selected" ng-click="CheckPerfil(perfil)" />  {{perfil.Descricao_Funcao}} <span></span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="block" ng-show="CurrentTab=='Empresa'">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="app-checkbox">
+                        <label><input type="checkbox" name="app-checkbox-1" ng-model="checkBoxEmpresa" ng-click="MarcarEmpresa()" /> Marcar/Desmarcar Todos<span></span></label>
+                    </div>
+                </div>
+            </div>
+            <div style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px silver">
+                <div class="col-md-12" ng-repeat="empresa in Ctrl.Empresas">
+                    <div class="app-checkbox" style="width:auto;margin-top:5px">
+                        <label><input type="checkbox" name="app-checkbox-1" ng-model="empresa.Selected" ng-click="CheckEmpresa(empresa)" />  {{empresa.Cod_Empresa}}-{{empresa.Nome_Empresa}} <span></span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--=============================Botoes-->
+        <div class="row margin-top-10">
+            <div class="col-md-12">
+                <btn class="btn btn-success" ng-click="SalvarUsuario()">Salvar</btn>
+                <btn class="btn btn-danger" ng-click="ExcluirUsuario(Ctrl.Id_Usuario)" ng-show="PermissaoExcluir">Excluir</btn>
+                <btn class="btn btn-info" ng-click="DesativarReativar(Ctrl.Id_Usuario, false)" ng-show="PermissaoDesativar && Ctrl.Status==1">Desativar</btn>
+                <btn class="btn btn-info" ng-click="DesativarReativar(Ctrl.Id_Usuario, true)" ng-show="PermissaoDesativar && Ctrl.Status==0">Reativar</btn>
+                <btn class="btn btn-warning" ng-click="CancelaEdicao()">Cancela</btn>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

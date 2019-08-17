@@ -1,0 +1,7 @@
+﻿--- To fazendo agora o excluir Midia....
+--- To fazendo o funcaa change_midia....//falta tratar a funcao
+--- To fazendo o controle entre digitacao da midia e grid das insercoes...
+--------ja fiz a procedure//agora tratar o botao ok da midia
+-------------tratando a passagem de parametros para a API
+---Comecando o SALVAR SIMULACAO---ok salvaldo
+--fazendo e conferindo a valoracao

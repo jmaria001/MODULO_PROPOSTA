@@ -1,0 +1,39 @@
+﻿<div class="modal fade" id="modalTabela" tabindex="-1" role="dialog" aria-labelledby="modal-warning-header">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-info-header">Consulta de Tabelas</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-times" style="color:#fff"></span></button>
+            </div>
+            <div class="modal-body">
+                <div class="app-header-buttons" ng-show="loading" style="margin-left:50%">
+                    <i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+                </div>
+                <div ng-show="!loading">
+                    <div class="row" ng-show="filteredSelect.length>0">
+                        <div class="col-md-11" style="margin-bottom:10px;margin-left:10px">
+                            <input class="form-control input-sm" type="text" ng-model="PesquisaTabelas.FiltroTexto" placeholder="Pesquisar" />
+                        </div>
+                    </div>
+                    <div style="margin-bottom:10px" ng-show="!filteredSelect.length">
+                        <p style="text-align:center"> Nenhum registro disponível para essa pesquisa</p>
+                    </div>
+
+                    <div style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px #f5f5f5">
+                        <div ng-repeat="datarow in filteredSelect = (PesquisaTabelas.Items| filter:PesquisaTabelas.FiltroTexto) track by $index">
+                                <div class="col-md-2">
+                                    <label class="itemselect" ng-click="PesquisaTabelas.cback(datarow.Codigo)" data-dismiss="modal"> {{datarow.Codigo}}</label>
+                                </div>
+                                <div class="col-md-10">
+                                    <label class="itemselect"> {{datarow.Descricao}}</label>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancela</button>
+            </div>
+        </div>
+    </div>
+</div>

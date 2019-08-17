@@ -1,0 +1,877 @@
+﻿<style>
+    #tbDescontoDetalhado td {
+        vertical-align: top;
+    }
+
+    .labelVeiculo {
+        display: block;
+        height: 35px;
+        text-align: left;
+        vertical-align: middle;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+        .labelVeiculo span {
+            display: inline-block;
+            width: 80%;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+    .inputEsquema {
+        height: 30px;
+    }
+
+    #btnEsquema {
+        height: 50px !important;
+        line-height: 20px !important;
+    }
+
+    #tbDigitacaoEsquema td {
+        padding: 5px 5px !important;
+        white-space: nowrap;
+    }
+
+    #tbDigitacaoEsquema .input-group {
+        margin-bottom: 0px;
+    }
+
+
+    .td-insercoes {
+        width: 30px !important;
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+        text-align: center !important;
+    }
+
+
+
+    #tbMidia tr {
+    }
+
+    #tbMidia td, #tbMidia th {
+        padding: 2px 2px 2px 2px !important;
+        text-align: center !important;
+        vertical-align: middle !important;
+        font-size: 11px !important;
+        white-space: nowrap;
+    }
+</style>
+<div class="container">
+    <form id="frmSimulacao" autocomplete="off">
+        <div class="app-container">
+
+            <!--================================TABS-->
+            <div class="block" id="divTab">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button ng-class="currentShow=='Base' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="currentShow='Base'">Dados Base</button>
+                        <button ng-class="currentShow=='Esquema' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="currentShow='Esquema'">Esquema Comercial</button>
+                        <button ng-class="currentShow=='Desconto' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="currentShow='Desconto'">Descontos Detalhado</button>
+
+                        <button class="btn btn-success pull-right"  ng-click="SalvarSimulacao()">Salvar</button>
+                        <a class="btn btn-warning pull-right margin-right-10" href="#Simulacao"><span class="nav-icon-hexa"></span>Voltar</a>
+                        <button class="btn btn-primary pull-right margin-right-10" ng-click="TotalizarSimulacao()">Recalcular Simulação</button>
+                    </div>
+                </div>
+            </div>
+
+            <!--================================Dados Base-->
+            <div class="block" id="divDadosBase" ng-show="currentShow=='Base'">
+                <div class="alert alert-warning alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <span class="icon-checkmark-circle"></span>
+                    </div>
+                    <strong>Dados Base</strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="block block-condensed">
+                            <div class="row  padding-right-10 padding-left-10">
+                                <!--==============================================Identificacao da Simulacao-->
+                                <div class="col-md-1">
+                                    <div class="form-group">
+                                        <label for="txtIdSimulacao" class="field-x">#Id</label>
+                                        <div class="input-group">
+                                            <input type="text" Id="txtIdSimulacao" class="form-control" ng-model="Simulacao.Id_Simulacao" disabled="disabled">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5" ng-controller="dictionaryController">
+                                    <div class="dictionary" dictionary="Simulacao_Identificacao">
+                                        <input id="txtSimulacao_Identificacao" ng-model="Simulacao.Identificacao" ng-model-options="{updateOn: 'blur'}">
+                                    </div>
+                                </div>
+                                <!--==============================================Validade Inicio-->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="txtInicioValidade" class="field-x">Início Validade</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="txtInicioValidade" ng-model="Simulacao.Inicio_Validade" onkeydown="return tabOnly(event)">
+                                            <div class="input-group-addon">
+                                                <span class="fa fa-calendar span-btn" onclick="OpenCalendar('txtInicioValidade')"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--==============================================Validade Termino-->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="txtTerminoValidade" class="field-x">Término Validade</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="txtTerminoValidade" ng-model="Simulacao.Termino_Validade" onkeydown="return tabOnly(event)">
+                                            <div class="input-group-addon">
+                                                <span class="fa fa-calendar span-btn" onclick="OpenCalendar('txtTerminoValidade')"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row  padding-right-10 padding-left-10">
+                                <!--==============================================Empresa de Venda-->
+                                <div class="col-md-3" ng-controller="dictionaryController">
+                                    <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Venda">
+                                        <input ng-disabled="Operacao=='View'" id="txtCodEmpresa" ng-model="Simulacao.Cod_Empresa_Venda" ng-model-options="{updateOn: 'blur'}"
+                                               ng-change="DicionaryValidate('txtCodEmpresa')" primarybind="txtCodEmpresa" secondarybind="txtNomeEmpresa">
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="txtNomeEmpresa" class="field-x" style="visibility:hidden">..</label>
+                                        <div class="input-group">
+                                            <input type="text" disabled="disabled" id="txtNomeEmpresa" class="form-control " ng-model="Simulacao.Nome_Empresa_Venda">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="txtTabelaPreco" class="field-x">Tabela de Preços</label>
+                                        <div class="input-group">
+                                            <input type="text" tabindex="-1" class="form-control datepicker-mmyyyy" id="txtTabelaPreco" ng-model="Simulacao.Tabela_Preco" placeholder="Vigente" onkeydown="return tabOnly(event)">
+                                            <div class="input-group-addon">
+                                                <span class="fa fa-calendar span-btn" onclick="OpenCalendar('txtTabelaPreco')"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row  padding-right-10 padding-left-10 margin-bottom-20">
+                                <!--<div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="field-x" for="txtValorTabela">Valor Tabela</label>
+                                        <div class="input-group">
+                                            <input id="txtValorTabela" type="text" class="form-control money" style="text-align:right" disabled="disabled" ng-model="Simulacao.Valor_Tabela" ng-model-options="{updateOn: 'blur'}" />
+                                        </div>
+                                    </div>
+                                </div>-->
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="field-x" for="txtValorInformado">Valor Negociado</label>
+                                        <div class="input-group">
+                                            <!--<span class="input-group-addon">$</span>-->
+                                            <div class="input-group-addon">
+                                                <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                                    <label><input type="checkbox" name="app-checkbox-1" ng-disabled="Simulacao.FixarDesconto" ng-model="Simulacao.FixarValor" ng-click="Fixar('Valor')"> &nbsp;&nbsp;Fixar<span></span></label>
+                                                </div>
+                                            </div>
+                                            <input id="txtValorInformado" type="text" class="form-control money" maxlength="15" ng-disabled="!Simulacao.FixarValor || Simulacao.FixarDesconto" style="text-align:right" ng-model="Simulacao.Valor_Informado" ng-model-options="{updateOn: 'blur'}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="field-x" for="txtValorTabela">Desconto Padrão</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                                    <label><input type="checkbox" name="app-checkbox-1" ng-disabled="Simulacao.FixarValor" ng-model="Simulacao.FixarDesconto" ng-click="Fixar('Desconto')"> &nbsp;&nbsp;Fixar<span></span></label>
+                                                </div>
+                                            </div>
+                                            <input type="text" class="form-control decimal" ng-disabled="!Simulacao.FixarDesconto || Simulacao.FixarValor" ng-model="Simulacao.Desconto_Padrao" maxlength="5" ng-model-options="{updateOn: 'blur'}" ng-change="Calcular()" />
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="block block-condensed">
+                                <div class="row padding-10">
+                                    <div class="col-md-12">
+                                        <table class="table margin-bottom-10">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2">
+                                                        <h3 style="text-align:center">Totais da Simulacao</h3>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><h4>Valor Tabela</h4> </td>
+                                                    <td style="text-align:right">
+                                                        <h4>
+                                                            {{Simulacao.Valor_Tabela}}
+                                                        </h4>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><h4>Valor Negociado</h4> </td>
+                                                    <th style="text-align:right"><h4>{{Simulacao.Valor_Negociado}}</h4> </th>
+                                                </tr>
+                                                <tr>
+                                                    <td><h4>Desconto Real</h4> </td>
+                                                    <td style="text-align:right"><h4>{{Simulacao.Desconto_Real}}</h4> </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--================================Descontos Detalhado-->
+            <div class="block" id="divDesconto" ng-show="currentShow=='Desconto'">
+                <!--<label class="alert alert-primary">Descontos Detalhado</label>-->
+                <div class="alert alert-primary alert-icon-block" role="alert">
+                    <div class="alert-icon"> 
+                        <span class="fa fa-calculator"></span>
+                    </div>
+                    <strong>Desconto Detalhado</strong>
+                    <button type="button" ng-click="currentShow='Base'" class="close" aria-label="Close"><span class="fa fa-times" style="color:#ffffff"></span></button>
+
+                </div>
+                <div class="row">
+
+                    <!--------------------------Digitacao dos Descontos--->
+                    <div class="col-md-6">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="tbDescontoDetalhado">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2">
+                                            <label for="optTipoDesconto">Desconto por</label>
+                                            <select class="form-control" ng-model="DescontoDetalhado.TipoDesconto" name="optTipoDesconto" ng-options="Param_Desconto.Descricao for Param_Desconto in Param_Desconto"></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div style="max-width:200px">
+                                                <label for="txtDesconto">Desconto</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control decimal" maxlength="5" ng-model="DescontoDetalhado.Desconto" />
+                                                    <span class="input-group-addon">%</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td style="text-align:center;vertical-align:middle">
+                                            <button class="btn btn-default btn-icon-fixed btn-sm" ng-click="AdicionarDescontoDetalhado()" ng-disabled="!DescontoDetalhado.TipoDesconto || !DescontoDetalhado.Desconto">
+                                                <span class="fa fa-plus"></span> Adicionar
+                                            </button>
+                                        </td>
+                                    </tr>
+
+                                    <tr ng-show="DescontoDetalhado.TipoDesconto.Codigo==1">
+                                        <td colspan="2">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="txtDescontoDataInicio" class="field-x">Data Início </label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtDescontoDataInicio" ng-model="DescontoDetalhado.Data_Inicio" onkeydown="return tabOnly(event)">
+                                                        <div class="input-group-addon">
+                                                            <span class="fa fa-calendar span-btn" onclick="OpenCalendar('txtDescontoDataInicio')"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--<div ng-controller="dictionaryController">
+                                                <div class="col-md-4  dictionary" dictionary="Data" caption="Data Inicio">
+                                                    <input id="txtDescontoDataInicio" ng-model="DescontoDetalhado.Data_Inicio" ui-date ng-model-options="{updateOn: 'blur'}">
+                                                    <div class="dictionary-ui-calendar" ui-calendar typdate="DescontoDetalhado.Data_Inicio"></div>
+                                                </div>
+                                            </div>-->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="txtDescontoDataTermino" class="field-x">Data Término</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" id="txtDescontoDataTermino" ng-model="DescontoDetalhado.Data_Termino" onkeydown="return tabOnly(event)">
+                                                        <div class="input-group-addon">
+                                                            <span class="fa fa-calendar span-btn" onclick="OpenCalendar('txtDescontoDataTermino')"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!--<div ng-controller="dictionaryController">
+                                                <div class="col-md-4  dictionary" dictionary="Data" caption="Data Término">
+                                                    <input id="txtDescontoDataTermino" ng-model="DescontoDetalhado.Data_Termino" ui-date ng-model-options="{updateOn: 'blur'}">
+                                                    <div class="dictionary-ui-calendar" ui-calendar typdate="DescontoDetalhado.Data_Termino"></div>
+                                                </div>
+                                            </div>-->
+                                        </td>
+
+                                    <tr ng-show="DescontoDetalhado.TipoDesconto.Codigo!=1">
+                                        <td colspan="2">
+                                            <input ng-show="DescontoDetalhado.TipoDesconto" ng-model="TipoDescontoFilter" class="form-control" type="text" placeholder="Procurar" />
+                                            <br />
+                                            <div ng-show="DescontoDetalhado.TipoDesconto" style="height:350px;overflow-y:auto;border:solid 1px #e0e0e0">
+                                                <div ng-repeat="f in filteredOpcoes= ( OpcoesDesconto| filter:TipoDescontoFilter) track by $index">
+                                                    <div class="col-md-6">
+                                                        <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                                            <label><input type="checkbox" name="app-checkbox-1" ng-model="f.Selecionado"> {{f.Descricao}}<span></span></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button class="btn btn-warning" style="margin-top:45px" ng-click="currentShow='Base'">Fechar</button>
+                    </div>
+                    <!-------------------------------Grid dos descontos detalhado-->
+                    <div class="col-md-6" ng-show="Simulacao.DescontoDetalhado.length > 0">
+                        <div class="table-responsive" style="max-height:620px;min-height:230px; overflow-y:auto;border:solid 1px #e0e0e0">
+                            <table class="table table-striped table-bordered" id="tbDescontoDetalhadoLista">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Tipo de Desconto</th>
+                                        <th>Conteudo</th>
+                                        <th>Desconto</th>
+                                        <th></th>
+                                    </tr>
+                                    <tr ng-repeat="row in Simulacao.DescontoDetalhado track by $index">
+                                        <td>{{row.Id_Desconto_Detalhado}}</td>
+                                        <td>{{row.TipoDesconto.Descricao}}</td>
+                                        <td>{{row.Conteudo  }}</td>
+                                        <td>{{row.Desconto | percentage:2}}</td>
+                                        <td>
+                                            <button class="btn btn-danger btn-sm" style="margin:0px 0px !important" ng-click="RemoverDescontoDetalhado(row.Id_Desconto_Detalhado)"><span class="fa fa-trash"></span></button>
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--================================Esquema Comercial -->
+            <div class="block" id="divEsquema" ng-show="currentShow=='Esquema'">
+                <div class="alert alert-success alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <span class="fa fa-book"></span>
+                    </div>
+                    <strong>Esquema Comercial</strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button style="width:170px" id="btnEsquema" class="btn btn-default margin-bottom-5 margin-right-5 btntab" ng-repeat="Esquema in Esquemas track by $index" ng-style="{'background-color':(Esquema.Id_Esquema==Esquemas[currentEsquema].Id_Esquema) ?'orange':'#e0e0e0'}" ng-click="SetCurrenEsquema(Esquema.Id_Esquema)">
+                            ({{Esquema.Id_Esquema}})-{{Esquema.Competencia | MesExtenso}}
+                            <br />
+                            {{Esquema.Valor_Negociado}}
+                        </button>
+                        <button class="btn btn-primary pull-right" ng-disabled="!Simulacao.Inicio_Validade || !Simulacao.Termino_Validade || !Simulacao.Cod_Empresa_Venda" ng-click="AdicionarEsquema()">Adicionar Esquema</button>
+                    </div>
+                </div>
+
+                <!--lado Esquerdo do esquema-->
+                <div class="row">
+                    <div class="col-md-8 padding-0">
+                        <div class="block block-condensed margin-top-10">
+                            <div class="row margin-left-10">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="field-x">Competência</label>
+                                        <div class="input-group">
+                                            <!--<input type="text" class="form-control" id="txtEsquemaCompetencia" ng-model="Esquemas[currentEsquema].Competencia" ng-disabled="!Simulacao.Inicio_Validade || !Simulacao.Termino_Validade" onkeydown="return false" />-->
+                                            <input type="text" class="form-control" id="txtEsquemaCompetencia" ng-model="Esquemas[currentEsquema].Competencia" ng-disabled="!Simulacao.Inicio_Validade || !Simulacao.Termino_Validade" onkeydown="return tabOnly(event)" />
+                                            <div class="input-group-addon">
+                                                <span class="fa fa-calendar span-btn" onclick="OpenCalendar('txtEsquemaCompetencia')" ng-disabled="!Simulacao.Inicio_Validade || !Simulacao.Termino_Validade"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="field-x" for="txtAbrangenciaEsquema">Abrangência</label>
+                                        <select class="form-control" ng-model="Esquemas[currentEsquema].Abrangencia" name="txtAbrangenciaEsquema" ng-options="Abrangencias.Descricao for Abrangencias in Abrangencias" ng-change="Abrangencia_Change(Esquemas[currentEsquema].Abrangencia.Id)"></select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div ng-controller="dictionaryController" ng-hide="Esquemas[currentEsquema].Abrangencia.Id==0">
+                                        <div class="dictionary" dictionary="Mercado" caption="Mercado">
+                                            <input id="txtCodMercado" ng-model="Esquemas[currentEsquema].Cod_Mercado" ng-model-options="{updateOn: 'blur'}" style="text-transform:uppercase"
+                                                   ng-change="DicionaryValidate('txtCodMercado')" primarybind="txtCodMercado" secondarybind="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 margin-bottom-10">
+                                    <div class="form-group">
+                                        <label class="field-x" style="visibility:hidden">Veiculos</label>
+                                        <button class="btn btn-success btn-block" id="btnSelecionarVeiculos" ng-click="SelecionarVeiculos()" ng-disabled="Esquemas[currentEsquema].Abrangencia.Id==0 || !Esquemas[currentEsquema].Abrangencia">Selecionar Veiculos</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label class="margin-left-15">Veiculos</label>
+                                    <div class="row margin-top-5 margin-left-20 margin-bottom-10" style="border:solid 1px #e5e5e5;width:90%;height:140px;overflow-y:scroll ;overflow-x:hidden">
+                                        <div class="row margin-top-5"></div>
+                                        <div class="col-md-2" ng-repeat="Veiculo in Esquemas[currentEsquema].Veiculos track by $index">
+                                            <label class="label label-default labelVeiculo">
+                                                <span>
+                                                    {{Veiculo.Descricao}}
+                                                </span>
+                                                <span class="fa fa-times span-btn" style="font-size:13px" ng-click="RemoverVeiculo(Veiculo.Cod_Veiculo)"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <!--lado Direito do esquema-->
+                        <div class="block block-condensed margin-top-10 margin-left-10">
+                            <div class="row margin-left-20 margin-top-10">
+                                <strong>Orçamento do Mapa</strong>
+                            </div>
+                            <div class="row margin-left-10">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="field-x" for="txtValorTabelaEsquema">Valor Tabela</label>
+                                        <div class="input-group">
+                                            <!--<span class="input-group-addon">$</span>-->
+                                            <input id="txtValorTabelaEsquema" type="text" class="form-control money" style="text-align:right" disabled="disabled" ng-model="Esquemas[currentEsquema].Valor_Tabela" ng-model-options="{updateOn: 'blur'}" />
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="field-x" for="txtValorNegociadoEsquema">Valor Negociado</label>
+                                        <div class="input-group">
+                                            <!--<span class="input-group-addon">$</span>-->
+                                            <div class="input-group-addon">
+                                                <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                                    <label><input type="checkbox" name="app-checkbox-1" ng-disabled="Esquemas[currentEsquema].FixarDesconto" ng-model="Esquemas[currentEsquema].FixarValor" ng-click="Fixar('ValorEsquema')"> &nbsp;&nbsp;Fixar<span></span></label>
+                                                </div>
+                                            </div>
+                                            <input id="txtValorNegociadoEsquema" type="text" ng-disabled="!Esquemas[currentEsquema].FixarValor || Esquemas[currentEsquema].FixarDesconto" class="form-control money" style="text-align:right" ng-model="Esquemas[currentEsquema].Valor_Negociado" ng-model-options="{updateOn: 'blur'}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row margin-left-10">
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="field-x" for="txtDescontoEsquema">Desconto no Mapa</label>
+                                        <div class="input-group">
+                                            <div class="input-group-addon">
+                                                <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                                    <label><input type="checkbox" name="app-checkbox-1" ng-disabled="Esquemas[currentEsquema].FixarValor" ng-model="Esquemas[currentEsquema].FixarDesconto" ng-click="Fixar('DescontoEsquema')"> &nbsp;&nbsp;Fixar<span></span></label>
+                                                </div>
+                                            </div>
+                                            <input id="txtValorDescontoEsquema" type="text" class="form-control decimal" ng-disabled="!Esquemas[currentEsquema].FixarDesconto|| Esquemas[currentEsquema].FixarValor" ng-model="Esquemas[currentEsquema].Desconto_Padrao" ng-model-options="{updateOn: 'blur'}" maxlength="5" ng-change="Calcular()" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label class="field-x" for="txtparticipacao">Perc. Sobre a Simulacao</label>
+                                        <div class="input-group">
+                                            <input id="txtparticipacao" type="text" class="form-control decimal" disabled="disabled" ng-model="Esquemas[currentEsquema].Participacao" />
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row margin-left-10 margin-bottom-10">
+                                <div class="col-md-5">
+                                    <div ng-controller="dictionaryController">
+                                        <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Faturamento">
+                                            <input ng-disabled="Operacao=='View'" id="txtCodEmpresaFaturamento" ng-model="Esquemas[currentEsquema].Cod_Empresa_Faturamento" ng-model-options="{updateOn: 'blur'}"
+                                                   ng-change="DicionaryValidate('txtCodEmpresaFaturamento')" primarybind="txtCodEmpresaFaturamento" secondarybind="">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--<div class="col-md-5">
+                                <label class="field-x" for="txtNomeEmpresaFaturamento" style="visibility:hidden">..</label>
+                                <div class="form-group">
+                                    <input ng-disabled="Operacao=='View'" id="txtNomeEmpresaFaturamento" class="form-control" ng-model="Simulacao.Cod_Empresa_Venda" ng-model-options="{updateOn: 'blur'}">
+                                </div>
+
+                                </div>-->
+                            </div>
+                        </div>
+                    </div> <!--//fim do lado direito do esquela-->
+                </div>
+                <!--==========digitacao do esquema-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table table-responsive">
+                            <table id="tbDigitacaoEsquema" class="table table-bordered" style="border:solid 2px #e5e5e5 !important">
+                                <thead>
+                                    <tr>
+                                        <td style="width:140px">
+                                            <label class="fieldrequired">Programa</label>
+                                        </td>
+                                        <td style="width:120px">
+                                            <label class="fieldrequired">Carac</label>
+                                        </td>
+                                        <td style="width:150px">
+                                            <label class="fieldrequired">Tipo do Comercial</label>
+                                        </td>
+                                        <td>
+                                            <label>Título Comercial</label>
+                                        </td>
+                                        <td style="width:80px">
+                                            <label class="fieldrequired">Dur.</label>
+                                        </td>
+                                        <td style="width:80px">
+                                            <label class="fieldrequired">Início</label>
+                                        </td>
+                                        <td style="width:80px">
+                                            <label class="fieldrequired">Fim</label>
+                                        </td>
+                                        <td style="width:80px">
+                                            <label class="fieldrequired">Qtd.</label>
+                                        </td>
+                                        <td style="width:80px">
+                                            <label>Desc.</label>
+                                        </td>
+                                        <td style="width:140px">
+                                            <label>Valor Tabela</label>
+                                        </td>
+                                        <td style="width:140px">
+                                            <label>Valor Negociado</label>
+                                        </td>
+                                        <td style="width:60px"></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="input-group">
+                                                <input id="txtCodPrograma" class="form-control inputEsquema" ng-model="DigitacaoEsquema.Cod_Programa" ng-required="required" maxlength="4" style="text-transform:uppercase">
+                                                <div class="input-group-addon">
+                                                    <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaTabela_Grade()"></span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input id="txtCodCaracteristica" class="form-control inputEsquema" ng-model="DigitacaoEsquema.Cod_Caracteristica" maxlength="2" style="text-transform:uppercase">
+                                                <div class="input-group-addon">
+                                                    <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaCaracteristica()"></span>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input class="form-control inputEsquema" ng-model="DigitacaoEsquema.Cod_Tipo_Comercial" style="text-transform:uppercase">
+                                                <div class="input-group-addon">
+                                                    <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaTipoComercial()"></span>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input class="form-control inputEsquema" placeholder="A Determinar" ng-model="DigitacaoEsquema.Titulo_Comercial" maxlength="30" style="text-transform:uppercase">
+                                            </div>
+                                        <td>
+                                            <div class="input-group">
+                                                <input class="form-control inputEsquema numeric" ng-model="DigitacaoEsquema.Duracao" maxlength="3">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <select class="form-control inputEsquema" ng-model="DigitacaoEsquema.DiaInicio" ng-options="n for n in [] | rangeDiaInicio:Simulacao.Inicio_Validade:Simulacao.Termino_Validade:Esquemas[currentEsquema].Competencia" ng-change="DigitacaoEsquema.DiaFim=''"></select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <select class="form-control inputEsquema" ng-model="DigitacaoEsquema.DiaFim" ng-options="n for n in [] | rangeDiaFim:Simulacao.Inicio_Validade:Simulacao.Termino_Validade:Esquemas[currentEsquema].Competencia:DigitacaoEsquema.DiaInicio"></select>
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="input-group">
+                                                <input class="form-control inputEsquema numeric" ng-model="DigitacaoEsquema.Qtd" maxlength="4">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input class="form-control inputEsquema decimal" ng-model="DigitacaoEsquema.Desconto" maxlength="5">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input class="form-control inputEsquema decimal" disabled="disabled" ng-model="DigitacaoEsquema.Valor_Tabela" maxlength="5">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input class="form-control inputEsquema decimal" disabled="disabled" ng-model="DigitacaoEsquema.Valor_Negociado" maxlength="5">
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <button class="btn btn-success btn-sm" style="margin:0px 0px !important" ng-click="AdicionarInsercoes()"><span class="fa fa-plus"></span></button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!--================Midia-->
+                <div class="block" id="divMidia" ng-show="currentShow=='Esquema' && Esquemas[currentEsquema].Insercoes.length  >0">
+                    <div class="alert alert-info alert-icon-block" role="alert">
+                        <div class="alert-icon">
+                            <span class="fa fa-camera"></span>
+                        </div>
+                        <strong>Sugestão de Mídia</strong>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="tbMidia">
+                            <thead>
+
+                                <tr>
+                                    <th colspan="5">
+                                        {{Esquemas[currentEsquema].Competencia | MesExtenso}}
+                                    </th>
+                                    <th class="td-insercoes" ng-repeat="item in Esquemas[currentEsquema].Insercoes[0].Digitacao track by $index">
+                                        <span style="text-transform:initial;font-size:9px" ng-style="{'color':(item.Dia_Semana=='Dom') ?'Red':'Black'}">
+                                            {{item.Dia_Semana}}
+                                        </span>
+                                    </th>
+                                    <th colspan="7">{{}}</th>
+                                </tr>
+
+                                <tr>
+                                    <td>Programa</td>
+                                    <td>Carac.</td>
+                                    <td>Leg</td>
+                                    <td>Tipo</td>
+                                    <td>Dur.</td>
+                                    <td class="td-insercoes" ng-repeat="item in Esquemas[currentEsquema].Insercoes[0].Digitacao track by $index">
+                                        {{item.Dia}}
+                                    </td>
+                                    <td>Qtd Total</td>
+                                    <td>Vlr Tabela Unit.</td>
+                                    <td>Desc. Informado</td>
+                                    <td>Desc. Real</td>
+                                    <td>Vlr Negociado</td>
+                                    <td>Critica</td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="Linha in Esquemas[currentEsquema].Insercoes track by $index">
+                                    <td>{{Linha.Cod_Programa}}</td>
+                                    <td>{{Linha.Cod_Caracteristica}}</td>
+                                    <td>{{Linha.Legenda}}</td>
+                                    <td>{{Linha.Cod_Tipo_Comercial}}</td>
+                                    <td>{{Linha.Duracao}}</td>
+                                    <td class="td-insercoes" ng-repeat="item in Linha.Digitacao track by $index" ng-style="{'background-color':(item.Tem_Grade) ?'#fff':'#f2f2f2'}">
+                                        <span ng-show="item.Qtd>0">{{item.Qtd}}</span>
+                                    </td>
+                                    <td>{{Linha.Qtd_Total}}</td>
+                                    <td>{{Linha.Valor_Tabela| currency:"R$ ":2}}
+                                    <td>{{Linha.Desconto_Linha | percentage:6}}  </td>
+                                    <td>{{Linha.Desconto_Real | percentage:6}}  </td>
+                                    <td>{{Linha.Valor_Negociado | currency:"R$ ":2}}  </td>
+
+                                    <td>
+                                        <span ng-show="Linha.Critica_Tabela.length==1  && Linha.Critica_Parametro.length==1" class="fa fa-check fa-2x" style="color:forestgreen"></span>
+                                        <span ng-show="Linha.Critica_Tabela.length >1 || Linha.Critica_Parametro.length >1" class="fa fa-times-circle fa-2x span-btn" ng-click="MostraCritica(Linha)" style="color:red"></span>
+                                    </td>
+                                    <td><button class="btn btn-danger btn-sm" style="margin:0px 0px !important" ng-click="RemoverLinhaDigitacao(Linha.Id_Insercoes)"><span class="fa fa-trash"></span></button></td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div> <!--fim da div do esquema-->
+            <!--================Salvar-->
+            <div class="block" id="divFinalizar">
+                <div class="row">
+                    <div class="col-md-1">
+                    
+                    </div>
+                    <div class="col-md-1">
+                        
+                    </div>
+
+                    <div class="col-md-1">
+                        <button class="btn btn-danger" ng-show="Critica_Simulacao.length>0" ng-click="MostraCritica()">Ver Inconsistências</button>
+                    </div>
+
+                </div>
+            </div>
+        </div><!--fim da div app containter-->
+        <div class="totalizadores-negociacao ng-scope">
+            <div class="row">
+                <div class="col-md-1">
+                    <label>Totais</label>
+                </div>
+                <div class="col-md-2">
+                    <label>Valor Tabela</label>
+                    <span></span>{{Simulacao.Valor_Tabela}}
+                </div>
+                <div class="col-md-2">
+                    <label>Valor Negociado</label>
+                    <span></span>{{Simulacao.Valor_Negociado}}
+                </div>
+                <div class="col-md-2">
+                    <label>Desconto Real</label>
+                    <span></span>{{Simulacao.Desconto_Real}}
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/modalConfirm.html'"></div>
+<div ng-include="'template/MultiSelecaoVeiculo.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<div ng-include="'template/modalCritica.html'"></div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        GetDictionary();
+        $(".decimal, .money").attr("onkeypress", "return DecimalOnly(event)")
+        $(".numeric").attr("onkeypress", "return NumericOnly(event)")
+        $(".money").blur(function () {
+            this.value = MoneyFormat(this.value);
+        });
+        $(".money").focus(function () {
+            this.value = DecimalUnformat(this.value);
+        });
+
+        $(".datepicker-dd").datepicker({
+            language: "pt-BR",
+            autoclose: true,
+            format: "dd",
+            startView: "days",
+            minViewMode: "days",
+            showOnFocus: true,
+            clearBtn: true,
+        })
+
+
+        $(".datepicker-mmyyyy").datepicker({
+            language: "pt-BR",
+            autoclose: true,
+            format: "mm/yyyy",
+            startView: "months",
+            minViewMode: "months",
+            showOnFocus: true,
+            clearBtn: true,
+        })
+
+        $("#txtEsquemaCompetencia").datepicker({
+            language: "pt-BR",
+            autoclose: true,
+            format: "mm/yyyy",
+            startView: "months",
+            minViewMode: "months",
+            showOnFocus: true,
+            //todayBtn: "linked",
+            clearBtn: true,
+        })
+        //    .on('changeDate', function (selected) {
+        //    var _data = new Date(selected.date.valueOf());
+        //    var lastDay = new Date(_data.getFullYear(), _data.getMonth() + 1, 0);
+        //    var firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+        //});
+
+        $("#txtTerminoValidade").datepicker({
+            language: "pt-BR",
+            autoclose: true,
+            format: "dd/mm/yyyy",
+            startView: "days",
+            minViewMode: "days",
+            showOnFocus: true,
+            //todayBtn: "linked",
+            clearBtn: true,
+        }).on('changeDate', function (selected) {
+            if (selected) {
+                var _data = new Date(selected.date.valueOf());
+                $('#txtEsquemaCompetencia').datepicker('setEndDate', _data);
+                //$('#txtEsquemaCompetencia').datepicker('clearDates');
+            }
+        });
+
+        $("#txtInicioValidade").datepicker({
+            language: "pt-BR",
+            autoclose: true,
+            format: "dd/mm/yyyy",
+            startView: "days",
+            minViewMode: "days",
+            showOnFocus: true,
+            //todayBtn: "linked",
+            clearBtn: true,
+            //startDate: "dateToday",
+        }).on('changeDate', function (selected) {
+            var _data = new Date(selected.date.valueOf());
+            $('#txtTerminoValidade').datepicker('setStartDate', _data);
+            $('#txtEsquemaCompetencia').datepicker('setStartDate', _data);
+            //$('#txtEsquemaCompetencia').datepicker('clearDates');
+        });
+
+        $("#txtDescontoDataTermino").datepicker({
+            language: "pt-BR",
+            autoclose: true,
+            format: "dd/mm/yyyy",
+            startView: "days",
+            minViewMode: "days",
+            showOnFocus: true,
+            //todayBtn: "linked",
+            clearBtn: true,
+            //startDate: "dateToday",
+        });
+
+        $("#txtDescontoDataInicio").datepicker({
+            language: "pt-BR",
+            autoclose: true,
+            format: "dd/mm/yyyy",
+            startView: "days",
+            minViewMode: "days",
+            showOnFocus: true,
+            //todayBtn: "linked",
+            clearBtn: true,
+            //startDate: "dateToday",
+        }).on('changeDate', function (selected) {
+            var _data = new Date(selected.date.valueOf());
+            $("#txtDescontoDataTermino").datepicker('setStartDate', _data);
+            $("#txtDescontoDataTermino").datepicker('clearDates');
+        });
+
+
+    });
+    function OpenCalendar(element) {
+        $("#" + element).datepicker('show');
+    }
+
+
+</script>
+

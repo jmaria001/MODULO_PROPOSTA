@@ -1,0 +1,42 @@
+﻿<div class="container">
+    <div class="block">
+
+
+
+
+        <div class="row">
+            <div class="col-md-6 margin-top-20">
+                <div class="form-group field-x">
+                    <label for="txtMensagem">Mensagem</label>
+                    <div class="input-group input-group-sm">
+                        <textarea class="form-control input-sm" maxlength="700" name="txtMensagem" ng-model="Mensagem" style="min-height:150px"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="block col-md-6" style="max-height:500px;overflow-x:auto">
+                    <span class="text-muted">Enviar Mensagem para:</span>
+                    <button class="btn btn-default btn-sm margin-left-20" ng-click="MarcarTodos(true)">Marcar Todos</button>
+                    <button class="btn btn-default btn-sm margin-left-20" ng-click="MarcarTodos(false)">Desmarcar Todos</button>
+                    <div ng-repeat="Usuario in UsuarioAlerta track by $index">
+                        <div class="col-md-4">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" ng-click ="Count()"name="app-checkbox-1" ng-model="Usuario.Selecionado"> {{Usuario.Usuario_Nome}}<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <button ng-disabled="! Mensagem || SelectCount ==0" class="btn btn-success" ng-click="EnviarMensagem()">Enviar</button>
+                <button class="btn btn-warning" ng-click="CancelarMensagem()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

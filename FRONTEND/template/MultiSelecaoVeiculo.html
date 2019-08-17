@@ -1,0 +1,29 @@
+﻿<div class="modal fade" id="modalVeiculo" tabindex="-1" role="dialog" aria-labelledby="modal-warning-header">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-info-header">Seleção de Veiculos</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-times" style="color:#fff"></span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                </div>
+                <div style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px #f5f5f5">
+                    <div ng-repeat=" Veiculo in ListadeVeiculos track by $index">
+                        <div class="col-md-12">
+                            <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Veiculo.Selected"> {{Veiculo.Cod_Veiculo}}-{{Veiculo.Descricao}}<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" data-dismiss="modal" ng-click="SelecaoVeiculoOk()">Ok</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancela</button>
+            </div>
+        </div>
+    </div>
+</div>

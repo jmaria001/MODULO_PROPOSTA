@@ -1,0 +1,50 @@
+﻿<div class="container">
+
+    <div class="block table-responsive">
+
+        <div >
+            <button class="btn btn-default" ng-click="salvar()" >mostre o botao merda</button>
+        </div>
+
+        <div ng-show="showbotao">
+            <button class="btn btn-default" ng-click="showbotao=false">botao de merda</button>
+        </div>
+        <!--=======================Botoes-->
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-primary">Novo Veículo</button>
+                <button id="ExportReporttoExcel"class="btn btn-warning">Exportar Excel</button>
+            </div>
+        </div>
+        <!--==========================Grid-->
+        <div class="table-responsive" ng-show="showGrid" style="margin-top:20PX">
+            <table id ="dataTable" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Cidade</th>
+                        <th>Sigla</th>
+                        <th>Empresa</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="veiculo in Veiculos track by $index" on-finish-render="ngRepeatFinished()">
+                        <td>{{veiculo.Cod_Veiculo}}</td>
+                        <td>{{veiculo.Nome_Veiculo}}</td>
+                        <td>{{veiculo.Cidade}}</td>
+                        <td>{{veiculo.Sigla}}</td>
+                        <td>{{veiculo.Cod_Empresa}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

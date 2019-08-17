@@ -1,0 +1,370 @@
+﻿.HideButton {
+    display: none;
+}
+
+.scrollToTop {
+    width: 100px;
+    height: 130px;
+    padding: 10px;
+    text-align: center;
+    background: whiteSmoke;
+    font-weight: bold;
+    color: #444;
+    text-decoration: none;
+    position: fixed;
+    top: 75px;
+    right: 40px;
+    display: none;
+    background: url('arrow_up.png') no-repeat 0px 20px;
+}
+
+    .scrollToTop:hover {
+        text-decoration: none;
+    }
+
+.BackgroundUnLogged {
+    background: url('../images/Background.jpg') no-repeat scroll left top rgba(0, 0, 0, 0);
+}
+
+.BackgroundLogged {
+    background-image: none;
+}
+
+.scrollToTop .fa {
+    font-size: 60px;
+    transition: all ease-in-out 0.5s;
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    opacity: 0.4;
+    color: darkblue;
+}
+
+#hideAll {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    background-color: white;
+    z-index: 99; /* Higher than anything else in the document */
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.field-x {
+    margin-top: 10px;
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+
+    .fileUpload input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+    }
+
+.span-btn {
+    cursor: pointer;
+}
+
+    .span-btn:hover {
+        font-weight: bolder;
+    }
+
+.fa-crud {
+    font-size: 25px !important;
+    padding: 2px;
+    color: darkblue;
+    /*cursor:pointer;*/
+}
+
+.btn-crud {
+    width: 40px !important;
+    background-color: red !important;
+}
+
+.form-group.required.control-label:after {
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 8px;
+}
+
+.fieldrequired:after {
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 2px;
+}
+
+.label-tag {
+    text-align: left;
+    background-color: cornflowerblue;
+    line-height: 25px !important;
+    margin-right: 10px;
+}
+
+*.label-tag > span {
+    font-size: 16px;
+}
+
+.btn-primary {
+    background-color: midnightblue !important;
+}
+
+.form-group label {
+    color: gray;
+}
+
+.Portal-Icon {
+    height: 110px;
+    cursor: pointer;
+    box-shadow: 0 5px 5px 0 rgba(0,0,0,0.2),0 10px 10px 0 rgba(0,10,20,30.19) !important;
+    margin-bottom: 30px;
+}
+
+    .Portal-Icon:hover {
+        border: solid 10px;
+        border-color: white;
+    }
+
+.Portal-Link {
+    text-align: center;
+    vertical-align: middle;
+    padding-top: 32px;
+    font-size: 20px;
+}
+
+
+
+.transparent {
+    background-color: transparent !important;
+}
+
+
+.inputGridVeiculacao {
+    border: none;
+    text-transform: uppercase;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+}
+
+.inputGridVeiculacao-dia {
+    width: 15px !important;
+}
+
+.GridVeiculacao {
+    border: 1px solid #ddd;
+    line-height: 20px;
+}
+
+    .GridVeiculacao th, .GridVeiculacao td {
+        border: 1px solid #ddd;
+        font-weight: normal !important;
+        height: 25px !important;
+        padding: 5px 5px 5px 5px !important;
+        text-align: center !important;
+        min-width: 30px;
+    }
+
+    .GridVeiculacao thead, .GridVeiculacao tfoot {
+        background-color: #f5f5f5;
+    }
+
+.GridVeiculacao-Wk {
+    font-size: xx-small !important;
+}
+
+.GridVeiculacao-Day {
+    font-size: 11px !important;
+}
+
+.Vermelho {
+    color: red;
+}
+
+.Azul {
+    color: Blue;
+}
+
+.Verde {
+    color: green;
+}
+
+
+.calendar {
+ 
+}
+
+.calendar thead {
+    background-color: #f5f5f5;
+    text-transform: none;
+}
+
+.app .calendar tr td,
+.app .calendar tr th {
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 20px;
+    padding: 5px 5px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.app .calendar td:hover {
+    background: silver;
+    font-weight: bold;
+}
+
+.app .calendar td {
+    cursor: pointer;
+}
+
+.app .calendar > thead > tr > th {
+    font-size: 11px;
+    text-transform: none;
+    color: #1B2431;
+    border-bottom: 1px solid #DBE0E4;
+}
+
+.UpperCase {
+    text-transform: uppercase;
+}
+
+input:focus, textarea:focus {
+    background-color: lightyellow;
+}
+
+.form-control:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+}
+
+.box {
+    width: auto;
+    background: #fff;
+    border: solid 10px;
+    border-color: transparent;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    zoom: 1;
+}
+
+
+
+.btntab {
+    background-color: silver;
+    min-width: 100px;
+    -webkit-border-radius: 0px 15px 0px 0px;
+    -moz-border-radius: 05px 15px 0px 0px;
+    border-radius: 0px 15px 0px 0px;
+}
+
+    .btntab:hover {
+    }
+
+.btntab-Selected {
+    background-color: yellowgreen;
+    min-width: 100px;
+    -webkit-border-radius: 0px 15px 0px 0px;
+    -moz-border-radius: 05px 15px 0px 0px;
+    border-radius: 0px 15px 0px 0px;
+}
+
+.app-confirm-header {
+    font-weight: bold;
+    background-color: #DBE0E4;
+    color: #000;
+}
+
+.app-modal-header {
+    font-weight: bold;
+    background-color: #DBE0E4;
+    color: #000;
+}
+
+.app-modal-footer {
+    background-color: #DBE0E4;
+    color: #000;
+}
+
+.closetag {
+    cursor: pointer;
+    background-color: transparent;
+}
+
+.itemselect {
+    cursor: pointer;
+}
+
+    .itemselect:hover {
+        color: black;
+    }
+
+#Icon-Grid {
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.decimal {
+    text-align: right;
+}
+
+.barra-simulacao{
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: #2D3349;
+    z-index: 999;
+    padding: 5px 5px 5px;
+    color: #fff;
+    white-space:nowrap;
+    overflow-x:auto
+}
+.totalizadores-negociacao {
+    width: 100%;
+    height: 40px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background: #2D3349;
+    z-index: 999;
+    padding: 5px 5px 5px;
+    color: #fff;
+}
+   
+
+.table-competencia td
+{
+    padding:5px 5px 5px 5px !important;
+    border:none !important;
+}
+
+.table-competencia button
+{
+    width:70px;
+    line-height:15px !important;
+}
+.table-competencia button:hover
+{
+    background-color:black;
+    color:white;
+}
+

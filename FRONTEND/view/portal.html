@@ -1,0 +1,31 @@
+﻿<div class="container" ng-controller="muralController">
+    <div class="block">
+        <div class="app-heading app-heading-condensed app-heading-small padding-left-0">
+            <div class="icon icon-lg">
+                <span class="icon-alarm"></span>
+            </div>
+            <div class="title">
+                <h2>Mensagens</h2>
+                <p><strong> {{ (Mensagens).length }} ( {{ (Mensagens | filter : { Status: 'Nova' } : true).length }} nova(s))</strong> </p>
+            </div>
+        </div>
+        <div class="listing margin-bottom-10" style="border-bottom:groove 1px" ng-repeat="Mensagem in Mensagens">
+            <div class="listing-item margin-bottom-10">
+                <strong>Mensagem {{$index+1}} </strong>
+                <!--<span style="width:100px" ng-class="Mensagem.Status=='Nova' ? 'label label-danger pull-right' : 'label label-success pull-right' ">{{Mensagem.Status}}</span>-->
+                <span style="width:100px" ng-class="{'label label-danger pull-right':Mensagem.Status=='Nova','label label-success pull-right':Mensagem.Status=='Lida','label label-info pull-right':Mensagem.Status=='Automatica'}" >{{Mensagem.Status}}</span>
+                <p class="margin-0 margin-top-5">
+                    {{Mensagem.Mensagem}}
+                </p>
+                <p class="text-muted">
+                    <span class="fa fa-check margin-right-5"></span> Enviada por {{Mensagem.Remetente}} em {{Mensagem.Data | date:'dd/MM/yy hh:mm:ss'}}
+                </p>
+                <p class="text-muted">
+                    <label ng-show="Mensagem.Status =='Nova' && Mensagem.Mensagem_Id !=0" ng-click="VistoMensagem(Mensagem.Mensagem_Id)" class="label label-success" style="cursor:pointer">Marcar como Lida</label>
+                    <label ng-show="Mensagem.Status =='Lida'" class="label label-warning" ng-click="RemoverMensagem(Mensagem.Mensagem_Id)" style="cursor:pointer">Excluir Mensagem</label>
+                    <label ng-show="Mensagem.Atividade_Id" class="label label-info" ng-click="MostrarAtividade(Mensagem.Atividade_Id)" style="cursor:pointer">Ver Atividade</label>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

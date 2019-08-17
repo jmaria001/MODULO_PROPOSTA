@@ -1,0 +1,58 @@
+﻿
+<ul id="CalendarMesAno" class="dropdown-menu" style="width:250px;right:0">
+    <!--<li id="CalendarMesAnocontent">
+
+        <div style="margin-top:5px;margin-left:5px;margin-right:5px">
+
+            <div class="row">
+                <div class="col-md-1">
+                    <a href="" ng-click="addYear(-1)"><span class="icon-arrow-left " style="color:black;margin-top:-10px"></span></a>
+                </div>
+                <div class="col-md-9">
+                    <p style="text-align:center;margin-top:-3px">{{Year}}</p>
+                </div>
+                <div class="col-md-1">
+                    <a href="" ng-click="addYear(1  )"><span class="icon-arrow-right" style="color:black;margin-top:-10px"></span></a>
+                </div>
+            </div>
+        </div>
+    </li>-->
+    <li>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-competencia">
+                    <thead>
+                        <tr>
+                            <th class="CalendarMesAnocontent" ><a href="" ng-click="addYear(-1)"><span class="icon-arrow-left " style="color:black;margin-top:-10px"></span></a></th>
+                            <th class="CalendarMesAnocontent" ><h4>{{Year}}</h4></th>
+                            <th class="CalendarMesAnocontent" ><a href="" ng-click="addYear(1  )"><span class="icon-arrow-right" style="color:black;margin-top:-10px"></span></a></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><button class="btn" ng-click="ClickOnDate(1,Year)">JAN</button></td>
+                            <td><button class="btn" ng-click="ClickOnDate(2,Year)">FEV</button></td>
+                            <td><button class="btn" ng-click="ClickOnDate(3,Year)">MAR</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="btn" ng-click="ClickOnDate(4,Year)">ABR</button></td>
+                            <td><button class="btn" ng-click="ClickOnDate(5,Year)">MAI</button></td>
+                            <td><button class="btn" ng-click="ClickOnDate(6,Year)">JUN</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="btn" ng-click="ClickOnDate(7,Year)">JUL</button></td>
+                            <td><button class="btn" ng-click="ClickOnDate(8,Year)">AGO</button></td>
+                            <td><button class="btn" ng-click="ClickOnDate(9,Year)">SET</button></td>
+                        </tr>
+                        <tr>
+                            <td><button class="btn" ng-click="ClickOnDate(10,Year)">OUT</button></td>
+                            <td><button class="btn" ng-click="ClickOnDate(11,Year)">NOV</button></td>
+                            <td><button class="btn" ng-click="ClickOnDate(12,Year)">DEZ</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <button class="btn btn-primary btn-block">Cancelar</button>
+    </li>
+</ul>

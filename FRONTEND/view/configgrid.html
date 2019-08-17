@@ -1,0 +1,52 @@
+﻿<div class="modal fade" id="modal-ConfigGrid" tabindex="-1" role="dialog" aria-labelledby="modal-warning-header">
+    <div class="modal-dialog modal-primary" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-info-header">Configuração da Consulta</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-times" style="color:#fff"></span></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="GridModo.ScroolY">Scrool Vertical<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        <div class="app-checkbox">
+                            <label><input type="checkbox" name="app-checkbox-1" ng-model="GridModo.ScroolX">Scrool Horizontal<span></span></label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr >
+                            <th style="text-align:center">Coluna</th>
+                            <th style="text-align:center">Mostrar</th>
+                            <th style="text-align:center">Usar na Busca</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="header in gridheaders track by $index" ng-show="header.config">
+                            <td >
+                                {{header.title}}
+                            </td>
+                            <td style="text-align:center"><input class="" type="checkbox" name="app-checkbox-1" ng-model="header.visible"></td>
+                            <td style="text-align:center"><input type="checkbox" name="app-checkbox-1" ng-model="header.searchable"></td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="GridRefresh()"class="btn btn-success" data-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancela</button>
+            </div>
+        </div>
+    </div>
+
+</div>

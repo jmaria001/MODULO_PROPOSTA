@@ -1,0 +1,65 @@
+﻿<ul id="calendar" class="dropdown-menu dropdown" style="width:250px;right:0">
+    <!--<li id="calendarcontent">
+        <div style="margin-top:5px;margin-left:5px;margin-right:5px">
+            <div class="row">
+                <div class="col-md-1">
+                    <a href="" ng-click="addMonth(-1)"><span class="icon-arrow-left " style="color:black;margin-top:-10px"></span></a>
+                </div>
+                <div class="col-md-9">
+                    <p style="text-align:center;margin-top:-3px">{{MonthTitle}}</p>
+                </div>
+                <div class="col-md-1">
+                    <a href="" ng-click="addMonth(1)"><span class="icon-arrow-right" style="color:black;margin-top:-10px"></span></a>
+                </div>
+            </div>
+            
+        </div>
+    </li>-->
+    <li>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered calendar margin-bottom-0">
+                    <thead>
+                        <tr style="background-color:#fff">
+                            <td class="calendarcontent" style="border:none">
+                                <a href="" ng-click="addMonth(-1)"><span class="icon-arrow-left" style="color:black"></span></a>
+                            </td>
+                            <th colspan="5" class="calendarcontent"  style="border:none">
+                                <h5  style="text-align:center">{{MonthTitle}}</h5>
+                            </th>
+                            <th class="calendarcontent"  style="border:none">
+                                <a href="" ng-click="addMonth(1)"><span class="icon-arrow-right" style="color:black"></span></a>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Dom</th>
+                            <th>Seg</th>
+                            <th>Ter</th>
+                            <th>Qua</th>
+                            <th>Qui</th>
+                            <th>Sex</th>
+                            <th>Sab</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="days in CalendarDays">
+                            <td ng-click="days.Dom ? ClickOnDate(days.Dom) : ''" ng-style="{'background-color':(days.Dom) ? '#fff' : '#f5f5f5'}"> {{days.Dom}}</td>
+                            <td ng-click="days.Seg ? ClickOnDate(days.Seg) : ''" ng-style="{'background-color':(days.Seg) ? '#fff' : '#f5f5f5'}"> {{days.Seg}}</td>
+                            <td ng-click="days.Ter ? ClickOnDate(days.Ter) : ''" ng-style="{'background-color':(days.Ter) ? '#fff' : '#f5f5f5'}"> {{days.Ter}}</td>
+                            <td ng-click="days.Qua ? ClickOnDate(days.Qua) : ''" ng-style="{'background-color':(days.Qua) ? '#fff' : '#f5f5f5'}"> {{days.Qua}}</td>
+                            <td ng-click="days.Qui ? ClickOnDate(days.Qui) : ''" ng-style="{'background-color':(days.Qui) ? '#fff' : '#f5f5f5'}"> {{days.Qui}}</td>
+                            <td ng-click="days.Sex ? ClickOnDate(days.Sex) : ''" ng-style="{'background-color':(days.Sex) ? '#fff' : '#f5f5f5'}"> {{days.Sex}}</td>
+                            <td ng-click="days.Sab ? ClickOnDate(days.Sab) : ''" ng-style="{'background-color':(days.Sab) ? '#fff' : '#f5f5f5'}"> {{days.Sab}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary btn-block">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </li>
+</ul>
