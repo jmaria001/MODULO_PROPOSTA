@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -213,6 +214,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Mercado\MercadoController.cs" />
+    <Compile Include="Mercado\MercadoModel.cs" />
+    <Compile Include="Mercado\MercadoSql.cs" />
     <Compile Include="Veiculo\VeiculoController.cs" />
     <Compile Include="Veiculo\VeiculoModel.cs" />
     <Compile Include="Veiculo\VeiculoSql.cs" />
