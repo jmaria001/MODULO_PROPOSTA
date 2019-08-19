@@ -1,0 +1,73 @@
+﻿<div class="container">
+    <form name="frmMercadoCadastro" autocomplete="off">
+        <div class="block">
+            <div class="row">
+                <!--===================Codigo-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="fieldrequired">Código</label>
+                        <input type="text"
+                               name="txtCodMercado"
+                               ng-required="true"
+                               ng-model="Mercado.Cod_Mercado"
+                               class="form-control"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="5" />
+                    </div>
+                </div>
+                <!--===================Nome-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="fieldrequired">Nome</label>
+                        <input type="text" name="txtNomeMercado" class="form-control" ng-model="Mercado.Nome" maxlength="30" ng-required="true" />
+                    </div>
+                </div>
+                <!--===================JOVE-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label>JOVE</label>
+                        <input type="text" name="txtCod_JOVE" class="form-control" ng-model="Mercado.Cod_JOVE" maxlength="3" />
+                    </div>
+                </div>
+                <!--====================Indica Net-->
+                <div class="col-md-2 margin-top-20">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Mercado.Indica_Net" /> Net<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--=================== Seleção de Veículos-->
+            <div style="margin-top:20px; max-height:300px;overflow-y:auto;overflow-x:hidden;border:solid 1px silver">
+                <div class="col-md-4" ng-repeat="veiculo in Mercado.ListaVeiculo">
+                    <div class="app-checkbox" style="width:auto;margin-top:5px">
+                        <label><input type="checkbox" name="app-checkbox-1" ng-model="veiculo.Selected" />  {{veiculo.Cod_Veiculo}}-{{veiculo.Nome_Veiculo}} <span></span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!--===================Botoes-->
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <button class="btn btn-success" ng-click="SalvarMercado(Mercado)">Salvar</button>
+                    <button class="btn btn-danger" ng-disabled="!PermissaoDestroy" ng-click="ExcluirMercado(Mercado) ">Excluir</button>
+                    <!--<button class="btn btn-danger" data-toggle="tooltip" title="Excluir Mercado!" ng-click="ExcluirMercado(Mercado) ">Excluir</button>-->
+                    <a href="#mercado" class="btn btn-warning">Cancelar</a>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<!--<div ng-include="'template/SelectItem.html'"></div>--> <!--'PARA ABRIR JANELA COM LUPINHA'-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        //$('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

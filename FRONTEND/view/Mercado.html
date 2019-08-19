@@ -1,0 +1,51 @@
+﻿
+<div class="container">
+    <div class="block table-responsive" ng-show="ShowGrid">
+        <!--===================================Botoes-->
+        <a id="btnNovoMercado" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#MercadoCadastroNew/New/0">Novo Mercado</a>
+
+        <button id="ExportReporttoExcel" class="btn btn-warning" ng-disabled="Mercados.length==1">Exportar Excel</button>
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Codigo</th>
+                        <th>Nome</th>
+                        <th>JOVE</th>
+                        <th>Net</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="mercado in Mercados track by $index" on-finish-render="ngRepeatFinished()">
+                        <td style="width:50px; text-align:center"  >
+                            <a  href="#MercadoCadastroEdit/Edit/{{mercado.Cod_Mercado}}" ng-show="PermissaoEdit">
+                                <span class="fa fa-edit fa-2x"></span>
+                            </a>
+                        </td>
+                        <td>{{::mercado.Cod_Mercado}}</td>
+                        <td>{{::mercado.Nome}}</td>
+                        <td>{{::mercado.Cod_JOVE}}</td>
+                        <!--<td>
+                            <label ng-show="mercado.Indica_Net" class="label label-success">Sim</label>
+                            <label ng-show="!mercado.Indica_Net" class="label label-danger">Não</label>
+                        </td>-->
+                        <td>
+                            <label ng-show="mercado.Indica_Net" ><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>
