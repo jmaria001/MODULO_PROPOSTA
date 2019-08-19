@@ -28,6 +28,8 @@
                             <a href="#cadastro"><span class="nav-icon-hexa">Cd</span>Cadastros</a>
                             <ul>
                                 <li><a href="#usuario"><span class="nav-icon-hexa">Us</span>Usuários</a></li>
+                                <li><a href="#veiculo"><span class="nav-icon-hexa">Us</span>Veículos</a></li>
+                                <li><a href="#TipoComercial"><span class="nav-icon-hexa">Us</span>Tipo de Comercial</a></li>
                             </ul>
                         </li>
                         <li><a href="#Simulacao"><span class="nav-icon-hexa">Si</span>Minhas Simulações</a></li>
@@ -39,10 +41,8 @@
             </div>
         </div>
         <div class="app-container">
-
             <!-- START APP CONTENT -->
             <div ng-class="Islogged?' app-content BackgroundLogged':'app-content BackgroundUnLogged'">
-
                 <!-- START PAGE HEADING -->
                 <div class="app-heading app-heading-bordered app-heading-page" style="height:60px" ng-show="Islogged">
                     <div class="col-md-6">
@@ -138,21 +138,17 @@
     <script src="angular/interceptor/loadingInterceptor.js?hash=V001"></script>
     <script src="angular/interceptor/timestampInterceptor.js?hash=V001"></script>
     <script src="angular/Diretivas/repeatfinished.js?hash=V001"></script>
-    <script src="angular/Diretivas/uiDate.js"></script>
-    <script src="angular/Diretivas/uiCompetencia.js"></script>
     <script src="angular/Diretivas/uiCalendar.js?hash=V001"></script>
-
-    <!--<script src="angular/Diretivas/uiCompetencia.js?hash=V001"></script>
-    <script src="angular/Diretivas/uiDate.js?hash=V001"></script>-->
+    <script src="angular/Diretivas/uiCompetencia.js?hash=V001"></script>
+    <script src="angular/Diretivas/uiDate.js?hash=V001"></script>
 
     <script src="angular/Services/tokenApi.js?hash=V001"></script>
-    <!--<script src="angular/Services/AccountApi.js?hash=V001"></script>
-    <script src="angular/Services/GenericApi.js?hash=V001"></script>-->
-    <!--<script src="angular/Services/SimulacaoApi.js?hash=V001"></script>-->
     <script src="angular/Services/httpService.js?hash=V001"></script>
     <script src="angular/Controller/mainController.js?hash=V001"></script>
     <script src="angular/Controller/MensagemController.js?hash=V001"></script>
-
+    <script src="angular/Controller/VeiculoControlller.js?hash=001"></script>
+    <script src="angular/Controller/TipoComercialController.js?hash=001"></script>
+    <script src="angular/Controller/TipoComercialCadastroController.js?hash=001"></script>
     <script src="angular/Controller/dictionaryController.js?hash=V001"></script>
     <script src="angular/Controller/NewPasswordController.js?hash=V001"></script>
     <script src="angular/Controller/Simulacao_List_Controller.js?hash=V001"></script>
@@ -160,8 +156,7 @@
     <script src="angular/Controller/UsuarioController.js?hash=V001"></script>
     <script src="angular/Controller/login.js?hash=V001"></script>
     <script src="angular/Controller/muralController.js?hash=V001"></script>
-    <script src="angular/Controller/VeiculoController.js?hash=V001"></script>
-
+    <script src="angular/Controller/VeiculoCadastroController.js?hash=V001"></script>
     <!--====================================================================================PLUGINS -->
     <!--<script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.min.js?hash=V001"></script>-->
     <script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.js?hash=V001"></script>
@@ -191,13 +186,18 @@
 </html>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('body').keydown(function (e) {
-            if ($('.dropdown-menu').is(':visible')) {
-                if (e.keyCode == 8) {
-                    e.preventDefault();
-                }
-            }
-        });
+        //$(window).scroll(function () {
+        //    if ($(this).scrollTop() > 100) {
+        //        $('.scrollToTop').fadeIn();9
+        //    } else {
+        //        $('.scrollToTop').fadeOut();
+        //    }
+        //});
+
+        //$('.scrollToTop').click(function () {
+        //    $('html, body').animate({ scrollTop: 0 }, 800);
+        //    return false;
+        //});
     });
 
 </script>
