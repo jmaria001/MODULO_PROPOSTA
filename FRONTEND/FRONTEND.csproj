@@ -112,8 +112,6 @@
     <Content Include="img\no-image.png" />
     <Content Include="img\SIMLOGO.png" />
     <Content Include="img\user_1.png" />
-    <Content Include="index - Copy - Copy.html" />
-    <Content Include="index - Copy.html" />
     <Content Include="js\vendor\mask\jquery.mask.js" />
     <Content Include="js\vendor\mask\jquery.mask.min.js" />
     <Content Include="js\vendor\moment\moment_locale_pt_br.js" />
