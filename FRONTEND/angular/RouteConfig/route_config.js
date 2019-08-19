@@ -60,25 +60,49 @@
             authorize: true,
             controller:'UsuarioController',
             routeName: 'Cadastro de Usuários',
-            RouteId: 'Veiculo@Index'
+            RouteId: 'Usuario@Index'
         })
 
         .when('/veiculo', {
             templateUrl: 'view/Veiculo.html',
             authorize: true,
             controller: 'VeiculoController',
-            routeName: 'Cadastro de Veiculos',
+            routeName: 'Cadastro de Veículos',
             RouteId: 'Veiculo@Index'
         })
 
-        .when('/empresa', {
-            templateUrl: 'view/Empresa.html',
+        .when('/mercado', {
+            templateUrl: 'view/Mercado.html',
             authorize: true,
-            controller: 'EmpresaController',
-            routeName: 'Cadastro de Empresa',
-            RouteId: 'Empresa@Index'
+            controller: 'MercadoController',
+            routeName: 'Cadastro de Mercado',
+            RouteId: 'Mercado@Index'
         })
-        
+        .when('/VeiculoCadastro/:Action/:Id', {
+            templateUrl: 'view/VeiculoCadastro.html',
+            authorize: true,
+            controller: 'VeiculoCadastroController',
+            routeName: 'Inclusao de Veículos',
+            RouteId: 'Veiculo@New'
+        })
+
+        .when('/MercadoCadastroEdit/:Action/:Id', {
+            templateUrl: 'view/MercadoCadastro.html',
+            authorize: true,
+            controller: 'MercadoCadastroController',
+            routeName: 'Edição de Mercados',
+            RouteId: 'Mercado@Edit'
+        })
+
+        .when('/MercadoCadastroNew/:Action/:Id', {
+            templateUrl: 'view/MercadoCadastro.html',
+            authorize: true,
+            controller: 'MercadoCadastroController',
+            routeName: 'Inclusao de Mercados',
+            RouteId: 'Mercado@New'
+        })
+
+
         .when('/Simulacao', {
             //templateUrl: 'view/simulacao.html',
             templateUrl: 'view/simulacao_List.html',

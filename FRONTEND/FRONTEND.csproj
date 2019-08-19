@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -94,6 +95,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="angular\Controller\MercadoCadastroController.js" />
+    <Content Include="angular\Controller\MercadoController.js" />
     <Content Include="angular\Controller\Simulacao_List_Controller.js" />
     <Content Include="angular\Controller\dictionaryController.js" />
     <Content Include="angular\Controller\UsuarioController.js" />
@@ -169,6 +172,8 @@
     <Content Include="template\PesquisaTabela.html" />
     <Content Include="template\MultiSelecaoVeiculo.html" />
     <Content Include="template\wait.html" />
+    <Content Include="view\Mercado.html" />
+    <Content Include="view\MercadoCadastro.html" />
     <Content Include="view\SimulacaoComAbas.html" />
     <Content Include="view\Simulacao_List.html" />
     <Content Include="view\simulacao_copy_2803.html" />
