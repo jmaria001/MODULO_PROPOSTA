@@ -1,0 +1,127 @@
+﻿<div class="container">
+    <form name="frmTipoComercialCadastro" autocomplete="off">
+        <div class="block">
+            <div class="row">
+                <!--===================Codigo-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="fieldrequired">Código</label>
+                        <input type="text"
+                               name="txtCod_Tipo_Comercial"
+                               ng-required="true"
+                               ng-model="TipoComercial.Cod_Tipo_Comercial"
+                               class="form-control"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="3" />
+                    </div>
+                </div>
+                <!--===================Nome-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired">Descricao</label>
+                        <input type="text" name="txtDescricao" class="form-control" ng-model="TipoComercial.Descricao" maxlength="30" ng-required="true" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired">Exibidora_DAD</label>
+                        <input type="text" name="txtDescricao" class="form-control" ng-model="TipoComercial.Exibidora_DAD" maxlength="30" ng-required="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================TipoComercial.Absorcao-->
+                <div class="col-md-2 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="TipoComercial.Absorcao" /> Absolve Disp. Comercial<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================TipoComercial.INDICA_ABSORCAO_MERCHA-->
+                <div class="col-md-2 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="TipoComercial.INDICA_ABSORCAO_MERCHA" />Absolver Disp. Merch.<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <!--====================TipoComercial.Roteiro_Tecnico-->
+                <div class="col-md-2 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="TipoComercial.Roteiro_Tecnico" /> Roteiro Tecnico<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================TipoComercial.Merchandising-->
+                <div class="col-md-2 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="TipoComercial.Merchandising" /> Merchandising<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================TipoComercial.Tipo_Valoracao-->
+                <div class="col-md-2 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="TipoComercial.Tipo_Valoracao" /> Valor Tabela Merchandising<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================TipoComercial.Indica_Midia_On_Line-->
+                <div class="col-md-2 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="TipoComercial.Indica_Midia_On_Line" /> Midia_On_Line<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Botoes-->
+                <div class="row margin-top-20">
+                    <div class="col-md-12">
+                        <button class="btn btn-success" ng-click="SalvarTipoComercial(TipoComercial)" 
+                                ng-disabled="frmTipoComercialCadastro.$invalid">
+                            Salvar
+                        </button>
+                        <a href="#veiculo" class="btn btn-warning">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+</form>
+    </div>
+
+    <div ng-include="'template/SelectItem.html'"></div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GetDictionary();
+        });
+    </script>
