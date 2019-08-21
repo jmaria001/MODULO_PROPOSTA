@@ -99,6 +99,8 @@
     <Content Include="angular\Controller\MercadoController.js" />
     <Content Include="angular\Controller\Simulacao_List_Controller.js" />
     <Content Include="angular\Controller\dictionaryController.js" />
+    <Content Include="angular\Controller\TipoComercialCadastroController.js" />
+    <Content Include="angular\Controller\TipoComercialController.js" />
     <Content Include="angular\Controller\UsuarioController.js" />
     <Content Include="angular\Controller\VeiculoController.js" />
     <Content Include="angular\Filter\AppFilter.js" />
@@ -175,6 +177,8 @@
     <Content Include="view\SimulacaoComAbas.html" />
     <Content Include="view\Simulacao_List.html" />
     <Content Include="view\simulacao_copy_2803.html" />
+    <Content Include="view\TipoComercial.html" />
+    <Content Include="view\TipoComercialCadastro.html" />
     <Content Include="view\UnderConstrution.html" />
     <Content Include="view\Usuario.html" />
     <Content Include="view\Veiculo.Html" />
