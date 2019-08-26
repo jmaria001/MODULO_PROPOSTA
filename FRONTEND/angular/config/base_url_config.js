@@ -1,6 +1,6 @@
 ﻿angular.module("App").value("config", {
-    baseUrl: "http://localhost/proposta-api/",
-    pageUrl: "http://localhost/proposta/",
+    baseUrl: "http://localhost/modulo_proposta-api/",
+    pageUrl: "http://localhost/modulo_proposta/",
     Version: "1.1.1-Beta"
 });
 
