@@ -41,7 +41,7 @@
         httpService.Get('TipoComercialListar').then(function (response) {
             if (response) {
                 $scope.TipoComerciais = response.data;
-                if ($scope.TipoComerciais.length == 0) {
+                if ($scope.TipoComerciais.length === 0) {
                     $scope.RepeatFinished();
                 }
             }
