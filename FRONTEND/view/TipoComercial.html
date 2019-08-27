@@ -1,0 +1,66 @@
+﻿<div class="container">
+    <div class="block table-responsive" ng-show="ShowGrid">
+        <!--===================================Botoes-->
+        <a id="btnNovoTipoComercial" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#TipoComercialCadastro/New/0">Novo Tipo Comercial</a>
+        <!--<a a href="#tipodocumentoNew/New/0" id="btnNovoTipoDocumento" display="none"></a>-->
+
+        <button id="ExportReporttoExcel" class="btn btn-warning" ng-disabled="TipoComerciais.length==1">Exportar Excel</button>
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Cod. Tipo Comercial</th>
+                        <th>Descricao</th>
+                        <th>Absolve Disp. Comercial</th>
+                        <th>Absolve Disp. Merch</th>
+                        <th>Roteiro Tecnico</th>
+                        <th>Merchandising</th>
+                        <th>Valor Tabela Merchandising</th>
+                        <th>Midia On Line</th>
+                        <th>Exibidora DAD</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="TipoComercial in TipoComerciais track by $index" on-finish-render="ngRepeatFinished()">
+                        <td style="width:50px;text-align:center">
+                            <a href="#TipoComercialCadastro/Edit/{{TipoComercial.Cod_Cod_Tipo_Comercial}}" ng-show="PermissaoEdit">
+
+                                <span class="fa fa-edit fa-2x"></span>
+                            </a>
+                        </td>
+                        <td>{{::TipoComercial.Cod_Tipo_Comercial}}</td>
+                        <td>{{::TipoComercial.Descricao}}</td>
+                        <td>
+                            <label ng-show="TipoComercial.Absorcao"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
+                        <td>
+                            <label ng-show="TipoComercial.INDICA_ABSORCAO_MERCHA"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
+                        <td>
+                            <label ng-show="TipoComercial.Roteiro_Tecnico"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
+                        <td>
+                            <label ng-show="TipoComercial.Merchandising"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
+                        <td>
+                            <label ng-show="TipoComercial.Tipo_Valoracao"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
+                        <td>
+                            <label ng-show="TipoComercial.Indica_Midia_On_Line"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
+                        <td>{{::TipoComercial.Exibidora_DAD}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

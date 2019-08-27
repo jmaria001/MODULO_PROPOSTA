@@ -220,6 +220,9 @@
     <Compile Include="Veiculo\VeiculoController.cs" />
     <Compile Include="Veiculo\VeiculoModel.cs" />
     <Compile Include="Veiculo\VeiculoSql.cs" />
+    <Compile Include="TipoComercial\TipoComercialController.cs" />
+    <Compile Include="TipoComercial\TipoComercialModel.cs" />
+    <Compile Include="TipoComercial\TipoComercialSql.cs" />    
     <Compile Include="Usuario\UsuarioController.cs" />
     <Compile Include="Usuario\UsuarioModel.cs" />
     <Compile Include="Usuario\UsuarioSql.cs" />

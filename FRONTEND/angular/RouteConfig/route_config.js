@@ -103,6 +103,31 @@
         })
 
 
+        .when('/TipoComercial', {
+            templateUrl: 'view/TipoComercial.html',
+            authorize: true,
+            controller: 'TipoComercialController',
+            routeName: 'Cadastro de Tipo Comercial',
+            RouteId: 'TipoComercial@Index'
+        })
+
+        .when('/TipoComercialCadastroNew/:Action/:Id', {
+            templateUrl: 'view/TipoComercialCadastro.html',
+            authorize: true,
+            controller: 'TipoComercialCadastroController',
+            routeName: 'Inclusao de Tipo Comercial',
+            RouteId: 'TipoComercial@New'
+        })
+
+        .when('/TipoComercialCadastroEdit/:Action/:Id', {
+            templateUrl: 'view/TipoComercialCadastro.html',
+            authorize: true,
+            controller: 'TipoComercialCadastroController',
+            routeName: 'Edição de Tipo Comercial',
+            RouteId: 'TipoComercial@Edit'
+        })
+
+
         .when('/Simulacao', {
             //templateUrl: 'view/simulacao.html',
             templateUrl: 'view/simulacao_List.html',
