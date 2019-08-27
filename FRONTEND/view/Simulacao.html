@@ -300,7 +300,7 @@
                             ng-disabled="!Simulacao.Validade_Inicio || !Simulacao.Validade_Termino || !Simulacao.Cod_Empresa_Venda"
                             ng-click="AdicionarEsquema()"
                             style="margin:0px 0px 0px 0px;margin-right:50px">
-                        <span class="fa fa-plus" ng-disabled="true"></span> Adicionar Esquema
+                            <span class="fa fa-plus" ng-disabled="true"></span> Adicionar Esquema
                     </button>
 
                 </div>
@@ -309,6 +309,7 @@
                         <div class="col-md-12">
                             <button style="width:180px" id="btnEsquema" class="btn btn-default margin-bottom-5 margin-right-5 btntab" ng-repeat="Esquema in Simulacao.Esquemas track by $index" ng-style="{'background-color':(Esquema.Id_Esquema==Simulacao.Esquemas[currentEsquema].Id_Esquema) ?'orange':'#e0e0e0'}" ng-click="SetCurrenEsquema(Esquema.Id_Esquema)">
                                 ({{$index+1}})-{{Esquema.Competencia | MesExtenso}}
+                                <span class="fa fa-times pull-right span-btn" ng-click="RemoverEsquema(Simulacao.Esquemas[currentEsquema].Id_Esquema)"></span>
                                 <br />
                                 {{Esquema.Valor_Total_Negociado}}
                             </button>
@@ -378,8 +379,7 @@
                                             </button>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-2 margin-bottom-10">
+                                    <!--<div class="col-md-2 margin-bottom-10">
                                         <div class="form-group">
                                             <label class="field-x" style="visibility:hidden">remover</label>
                                             <button class="btn btn-danger btn-sm"
@@ -388,7 +388,7 @@
                                                     Remover Esquema
                                             </button>
                                         </div>
-                                    </div>
+                                    </div>-->
 
 
                                 </div>
