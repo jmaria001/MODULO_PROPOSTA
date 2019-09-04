@@ -1,5 +1,4 @@
 ﻿angular.module('App').controller('VeiculoController', ['$scope', '$rootScope', 'httpService', '$location', '$timeout', function ($scope, $rootScope, httpService, $location, $timeout) {
-
     //===================Declarar scopes
     $scope.Veiculos = "";
     $scope.showGrid = false;
@@ -9,7 +8,6 @@
                             { 'title': 'Sigla', 'visible': true, 'searchable': true, 'sortable': true },
                             { 'title': 'Empresa', 'visible': true, 'searchable': true, 'sortable': true },
     ];
-
     //====================Quando terminar carga do grid, torna view do grid visible
     $scope.RepeatFinished = function () {
         $rootScope.routeloading = false;
@@ -62,7 +60,6 @@
             param.columns.push({ "visible": $scope.gridheaders[i].visible, "searchable": $scope.gridheaders[i].searchable, "sortable": $scope.gridheaders[i].sortable });
         }
         $('#dataTable').DataTable(param);
-
     };
     //===========================fim do load da pagina
     $scope.$watch('$viewContentLoaded', function () {
@@ -77,6 +74,5 @@
     $scope.salvar = function () {
         $scope.showbotao = true;
     }
-    
 }]);
 

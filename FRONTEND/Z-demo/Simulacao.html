@@ -360,6 +360,7 @@ o valor é {{Simulacao.Valor_Total_Tabela}}
                     <div class="col-md-12">
                         <button style="width:170px" id="btnEsquema" class="btn btn-default margin-bottom-5 margin-right-5 btntab" ng-repeat="Esquema in Esquemas track by $index" ng-style="{'background-color':(Esquema.Id_Esquema==Esquemas[currentEsquema].Id_Esquema) ?'orange':'#e0e0e0'}" ng-click="SetCurrenEsquema(Esquema.Id_Esquema)">
                             ({{Esquema.Id_Esquema}})-{{Esquema.Competencia | MesExtenso}}
+
                             <br />
                             {{Esquema.Valor_Negociado}}
 

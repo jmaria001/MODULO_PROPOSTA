@@ -148,7 +148,7 @@ namespace PROPOSTA
                         Data_Exibicao = FirstDay,
                         Dia = FirstDay.Day.ToString().PadLeft(2, '0'),
                         Dia_Semana = strDW[FirstDay.DayOfWeek.ToString("d").ConvertToInt32()],
-                        Qtd = 0,
+                        Qtd = null,
                         Valor_Tabela_Unitario = "",
                         Valor_Negociado_Unitario = "",
                         Valor_Negociado_Total= "",

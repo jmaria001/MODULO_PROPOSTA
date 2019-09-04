@@ -197,6 +197,7 @@ namespace PROPOSTA
                         Nome_Caracteristica = drw["Nome_Caracteristica"].ToString(),
                         Cod_Tipo_Comercial = drw["Cod_Tipo_Comercial"].ToString(),
                         Nome_Tipo_Comercial = drw["Nome_Tipo_Comercial"].ToString(),
+                        Titulo_Comercial = drw["Titulo_Comercial"].ToString(),
                         Cod_Comercial = drw["Cod_Comercial"].ToString(),
                         Duracao = drw["Duracao"].ToString().ConvertToInt32(),
                         Dia_Inicio = drw["Dia_Inicio"].ToString().ConvertToInt32(),
@@ -283,7 +284,7 @@ namespace PROPOSTA
                         //Id_Insercao = drw["Id_Insercoes"].ToString().ConvertToInt32(),
                         Id_Midia = ContadorMidia,
                         Data_Exibicao = drw["Data_Exibicao"].ToString().ConvertToDatetime(),
-                        Qtd= drw["Qtd"].ToString().ConvertToInt32(),
+                        Qtd = (drw["Qtd"].ToString()) == "0" ? null : drw["Qtd"].ToString(),
                         Valor_Tabela_Unitario= drw["Valor_Tabela_Unitario"].ToString().ConvertToMoney(),
                         Valor_Negociado_Unitario= drw["Valor_Negociado_Unitario"].ToString().ConvertToMoney(),
                         Valor_Negociado_Total= drw["Valor_Negociado_Total"].ToString().ConvertToMoney(),
@@ -433,7 +434,7 @@ namespace PROPOSTA
                             Tem_Grade = drw["Tem_Grade"].ToString().ConvertToBoolean(),
                             Status = drw["Status"].ToString().ConvertToBoolean(),
                             Critica = drw["Critica"].ToString(),
-                            Qtd = drw["Qtd"].ToString().ConvertToInt32(),
+                            Qtd = (drw["Qtd"].ToString()) == "0" ? null : drw["Qtd"].ToString(),
                         });
                     }
                 }

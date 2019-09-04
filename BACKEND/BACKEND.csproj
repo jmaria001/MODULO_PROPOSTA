@@ -217,12 +217,12 @@
     <Compile Include="Mercado\MercadoController.cs" />
     <Compile Include="Mercado\MercadoModel.cs" />
     <Compile Include="Mercado\MercadoSql.cs" />
+    <Compile Include="TipoComecial\TipoComercialController.cs" />
+    <Compile Include="TipoComecial\TipoComercialModel.cs" />
+    <Compile Include="TipoComecial\TipoComercialSql.cs" />
     <Compile Include="Veiculo\VeiculoController.cs" />
     <Compile Include="Veiculo\VeiculoModel.cs" />
     <Compile Include="Veiculo\VeiculoSql.cs" />
-    <Compile Include="TipoComercial\TipoComercialController.cs" />
-    <Compile Include="TipoComercial\TipoComercialModel.cs" />
-    <Compile Include="TipoComercial\TipoComercialSql.cs" />    
     <Compile Include="Usuario\UsuarioController.cs" />
     <Compile Include="Usuario\UsuarioModel.cs" />
     <Compile Include="Usuario\UsuarioSql.cs" />

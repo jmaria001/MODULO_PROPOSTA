@@ -92,7 +92,7 @@ namespace PROPOSTA
             public DateTime Data_Exibicao { get; set; }
             public String Dia { get; set; }
             public String Dia_Semana{ get; set; }
-            public Int32 Qtd { get; set; }
+            public String Qtd { get; set; }
             public String Valor_Tabela_Unitario { get; set; }
             public String Valor_Negociado_Unitario { get; set; }
             public String Valor_Negociado_Total{ get; set; }

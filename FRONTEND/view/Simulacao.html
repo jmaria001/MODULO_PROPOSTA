@@ -68,7 +68,7 @@
                     </div>
                     <strong>Dados Base</strong>
                 </div>
-
+                
                 <div class="row">
                     <div class="col-md-8">
                         <div class="block block-condensed">
@@ -329,19 +329,6 @@
                                                    ui-MesAno ng-model-options="{updateOn: 'blur'}">
                                             <div class="dictionary-ui-competencia" ui-Competencia typmesano="Simulacao.Esquemas[currentEsquema].Competencia"></div>
                                         </div>
-                                        <!--<div class="form-group">
-                                            <label for="Competência" class="field-x">Competência</label>
-                                            <div class="input-group bs-datepicker" id="dtpEsquemaCompetencia">
-                                                <input type="text"
-                                                       class="form-control"
-                                                       id="txtEsquemaCompetencia"
-                                                       ng-model="Simulacao.Esquemas[currentEsquema].Competencia"
-                                                       ng-disabled="!Simulacao.Validade_Inicio || !Simulacao.Validade_Termino || Simulacao.Esquemas[currentEsquema].Midias.length >0">
-                                                <span class="input-group-addon">
-                                                    <span class="icon-calendar-full"></span>
-                                                </span>
-                                            </div>
-                                        </div>-->
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
@@ -379,18 +366,6 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <!--<div class="col-md-2 margin-bottom-10">
-                                        <div class="form-group">
-                                            <label class="field-x" style="visibility:hidden">remover</label>
-                                            <button class="btn btn-danger btn-sm"
-                                                    id="btnSelecionarVeiculos"
-                                                    ng-click="RemoverEsquema(Simulacao.Esquemas[currentEsquema].Id_Esquema)">
-                                                    Remover Esquema
-                                            </button>
-                                        </div>
-                                    </div>-->
-
-
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
@@ -506,7 +481,7 @@
                             </div>
                         </div> <!--//fim do lado direito do esquela-->
                     </div>
-                    <!--=======================================digitacao do midia-->
+                    <!--=======================================digitacao da midia-->
                     <div class="row">
                         <div class="col-md-12">
                             <button class="btn btn-default btn-icon-fixed btn-sm"
@@ -518,6 +493,7 @@
                                 <table id="tbDigitacaoEsquema" class="table table-bordered" style="border:solid 2px #e5e5e5 !important">
                                     <thead>
                                         <tr>
+                                            <td>#</td>
                                             <td>
                                                 <label class="fieldrequired">Programa</label>
                                             </td>
@@ -550,6 +526,9 @@
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="midia in Simulacao.Esquemas[currentEsquema].Midias track by $index">
+                                            <td>
+                                                {{midia.Id_Midia}}
+                                            </td>
                                             <td>
                                                 <div class="input-group">
                                                     <input id="txtCodPrograma"
@@ -691,9 +670,9 @@
                                     </tr>
 
                                     <tr class="bg-warning">
+                                        <td>#</td>
                                         <td>Programa</td>
                                         <td>Carac.</td>
-                                        <td>Leg</td>
                                         <td>Tipo</td>
                                         <td>Dur.</td>
                                         <td class="td-insercoes" ng-repeat="item in Simulacao.Esquemas[currentEsquema].Midias[0].Insercoes track by $index">
@@ -701,7 +680,7 @@
                                         </td>
                                         <td>Qtd Total</td>
                                         <td>Vlr Tabela Unit.</td>
-                                        <td>Desc.Midia</td>
+                                        <!--<td>Desc.Midia</td>-->
                                         <td>Desc. Real</td>
                                         <td>Vlr Negociado</td>
                                         <td>Critica</td>
@@ -710,17 +689,27 @@
                                 <tbody>
                                     <!--<tr ng-repeat="Linha in Simulacao.Esquemas[currentEsquema].Midias | filter:{IsValid:true} track by $index ">-->
                                     <tr ng-repeat="Linha in Simulacao.Esquemas[currentEsquema].Midias track by $index">
-                                        <td style="min-height:40px"><span ng-show="Linha.IsValid">{{Linha.Cod_Programa | uppercase}}</span></td>
+                                        <td><span ng-show="Linha.IsValid">{{Linha.Id_Midia}}</span></td>
+                                        <td style="min-height:40px">
+                                            <span ng-show="Linha.IsValid">{{Linha.Cod_Programa | uppercase}}</span>
+                                            <!--<input ng-show="Linha.IsValid" ng-model="Linha.Cod_Programa" />-->
+                                        </td>
                                         <td><span ng-show="Linha.IsValid">{{Linha.Cod_Caracteristica | uppercase}}</span></td>
-                                        <td><span ng-show="Linha.IsValid">{{Linha.Cod_Comercial | uppercase}}</span></td>
                                         <td><span ng-show="Linha.IsValid">{{Linha.Cod_Tipo_Comercial | uppercase}}</span></td>
                                         <td><span ng-show="Linha.IsValid">{{Linha.Duracao}}</span></td>
                                         <td class="td-insercoes" ng-repeat="insercao in Linha.Insercoes track by $index" ng-style="{'background-color':(insercao.Tem_Grade) ?'#fff':'#f2f2f2'}">
-                                            <span ng-show="insercao.Qtd>0">{{insercao.Qtd}}</span>
+                                            <!--<span ng-show="insercao.Qtd>0">{{insercao.Qtd}}</span>-->
+                                            <input ng-model="insercao.Qtd" 
+                                                   ng-model-options="{updateOn: 'blur'}"
+                                                   style="width:20px;border:none" 
+                                                   maxlength="3" 
+                                                   ng-show="insercao.Tem_Grade" 
+                                                   onkeypress="return NumericOnly(event)"
+                                                   ng-change="fnChangeMidia(Linha,'Qtd_Dia_Linha')">
                                         </td>
                                         <td><span ng-show="Linha.IsValid">{{Linha.Qtd_Insercoes}}</span></td>
                                         <td><span ng-show="Linha.IsValid">{{Linha.Valor_Tabela_Unitario}}</span></td>
-                                        <td><span ng-show="Linha.IsValid">{{Linha.Desconto_Informado}}</span></td>
+                                        <!--<td><span ng-show="Linha.IsValid">{{Linha.Desconto_Informado}}</span></td>-->
                                         <td><span ng-show="Linha.IsValid">{{Linha.Desconto_Real}}  </span></td>
                                         <td><span ng-show="Linha.IsValid">{{Linha.Valor_Negociado_Total}} </span></td>
                                         <td>
@@ -735,7 +724,7 @@
                 </div>
             </div> <!--fim da div do esquema-->
             <!--================Salvar-->
-            <div class="block visible-sm" id="divFinalizar" ng-show="currentShow=='Base'">
+            <!--<div class="block visible-sm" id="divFinalizar" ng-show="currentShow=='Base'">
                 <div class="row">
                     <div class="col-md-12">
                         <button class="btn btn-success" ng-click="SalvarSimulacao()">Salvar</button>
@@ -743,7 +732,7 @@
                     </div>
 
                 </div>
-            </div>
+            </div>-->
         </div><!--fim da div app containter-->
         <div class="barra-simulacao" >
                 <div class="col-md-8" style="margin-top:5px !important">
@@ -754,7 +743,7 @@
                     <button class="btn btn-default btn-sm">Enviar para Aprovação</button>
                     <button class="btn btn-default btn-sm">Imprimir Simulação</button>
                     <button class="btn btn-default btn-sm">Imprimir Midias</button>
-                    <button class="btn btn-success btn-sm" ng-click="SalvarSimulacao(Simulacao)">Salvar</button>
+                    <button class="btn btn-success btn-sm" ng-click="SalvarSimulacao(Simulacao,true)">Salvar</button>
                     <a class="btn btn-warning btn-sm" href="#Simulacao"><span class="nav-icon-hexa"></span>Cancela</a>
                 </div>
                 <div class="col-md-2 pull-right hidden-mobile hidden-sm" style="margin-top:5px !important">
@@ -879,7 +868,7 @@
         //            scope.Simulacao.Esquemas[scope.currentEsquema].Competencia = DateToMonthYear(e.date._d);
         //        }
 
-        //    }
+        //    }cons
         //    scope.$digest();
         //}).on('dp.error', function (e) {
         //    var scope = angular.element(document.getElementById('frmSimulacao')).scope();
@@ -904,7 +893,6 @@
                 event.stopPropagation();
             };
         });
-
     });
 
 </script>

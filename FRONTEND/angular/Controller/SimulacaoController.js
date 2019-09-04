@@ -1,22 +1,26 @@
-﻿angular.module('App').controller('SimulacaoController', ['$scope', '$filter', '$routeParams', 'httpService', '$timeout',function ($scope, $filter, $routeParams, httpService,$timeout) {
+﻿angular.module('App').controller('SimulacaoController', ['$scope', '$filter', '$routeParams', 'httpService', '$timeout', function ($scope, $filter, $routeParams, httpService, $timeout) {
 
     //============ Inicializa Variaveis Scopes
     $scope.Parameters = $routeParams;
+
     $scope.currentShow = 'Base';
-    $scope.Abrangencias = [{'Id': 3, 'Descricao':'' },{'Id': 0, 'Descricao': 'Net' }, { 'Id': 1, 'Descricao': 'Rede' }, { 'Id': 2, 'Descricao': 'Local' }];
+    $scope.Abrangencias = [{ 'Id': 3, 'Descricao': '' }, { 'Id': 0, 'Descricao': 'Net' }, { 'Id': 1, 'Descricao': 'Rede' }, { 'Id': 2, 'Descricao': 'Local' }];
     $scope.Simulacao = {};
     $scope.currentEsquema = 0;
     $scope.PesquisaTabelas = { "Items": [], 'FiltroTexto': '', cback: '' };
     $scope.IniciarCalculo = false;
+
     //=====================Carrega a Simulacao 
-    httpService.Get("GetSimulacao/" + $scope.Parameters.Id).then(function (response) {
-        if (response.data) {
-            $scope.Simulacao = response.data;
-            //$scope.Simulacao.Validade_Inicio = $filter('date')($scope.Simulacao.Validade_Inicio, 'dd/MM/yyyy');
-            //$scope.Simulacao.Validade_Termino = $filter('date')($scope.Simulacao.Validade_Termino, 'dd/MM/yyyy');
-        }
-    });
-    
+    $scope.CarregarSimulacao = function () {
+        httpService.Get("GetSimulacao/" + $scope.Parameters.Id).then(function (response) {
+            if (response.data) {
+                $scope.Simulacao = response.data;
+                //$scope.Simulacao.Validade_Inicio = $filter('date')($scope.Simulacao.Validade_Inicio, 'dd/MM/yyyy');
+                //$scope.Simulacao.Validade_Termino = $filter('date')($scope.Simulacao.Validade_Termino, 'dd/MM/yyyy');
+            }
+        });
+    };
+    $scope.CarregarSimulacao();
     //===================================Clicou na Aba dos Esquemas 
     $scope.SetCurrenEsquema = function (pIdEsquema) {
         for (var i = 0; i < $scope.Simulacao.Esquemas.length; i++) {
@@ -62,7 +66,8 @@
             httpService.Get(_url).then(function (response) {
                 if (response.data) {
                     for (var i = 0; i < response.data.length; i++) {
-                        $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos.push({'Id_Esquema':$scope.Simulacao.Esquemas[$scope.currentEsquema].Id_Esquema,
+                        $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos.push({
+                            'Id_Esquema': $scope.Simulacao.Esquemas[$scope.currentEsquema].Id_Esquema,
                             'Cod_Veiculo': response.data[i].Cod_Veiculo,
                             'Nome_Veiculo': response.data[i].Descricao
                         })
@@ -92,7 +97,7 @@
                 }
                 else {
                     ShowAlert('Mercado Inválido ou não tem Veículos associados', 'warning', 2000, 'topRight');
-                    
+
                 }
             });
         }
@@ -100,14 +105,22 @@
     $scope.fnChangeMidia = function (pMidia, pField) {
         switch (pField) {
             case 'Dia_Fim':
-            case 'Dia_Inicio':
             case 'Qtd_Insercoes':
             case 'Programa':
                 for (var i = 0; i < pMidia.Insercoes.length; i++) {
                     pMidia.Insercoes[i].Qtd = "";
                     pMidia.IsValid = false;
                 }
+                break;
+            case 'Qtd_Dia_Linha':
+                var _tot = 0
+                for (var i = 0; i < pMidia.Insercoes.length; i++) {
+                    _tot += parseInt(pMidia.Insercoes[i].Qtd ? pMidia.Insercoes[i].Qtd : 0);
+                }
+                pMidia.Qtd_Insercoes = _tot;
+                break;
             default:
+                break;
         }
         $scope.ChangePendenteCalculo();
     };
@@ -131,7 +144,8 @@
                 if ($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Mercado) {
                     $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos = [];
                     for (var x = 0; x < $scope.ListadeVeiculos.length; x++) {
-                        $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos.push({'Cod_Veiculo': $scope.ListadeVeiculos[x].Cod_Veiculo,'Nome_Veiculo': $scope.ListadeVeiculos[x].Descricao
+                        $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos.push({
+                            'Cod_Veiculo': $scope.ListadeVeiculos[x].Cod_Veiculo, 'Nome_Veiculo': $scope.ListadeVeiculos[x].Descricao
                         });
                     }
                 }
@@ -156,7 +170,7 @@
         var _Id_Esquema = $scope.Simulacao.Esquemas[$scope.currentEsquema].Id_Esquema;
         for (var i = 0; i < $scope.ListadeVeiculos.length; i++) {
             if ($scope.ListadeVeiculos[i].Selected) {
-                $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos.push({ 'Id_Esquema':_Id_Esquema,  'Cod_Veiculo': $scope.ListadeVeiculos[i].Cod_Veiculo, 'Nome_Veiculo': $scope.ListadeVeiculos[i].Descricao });
+                $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos.push({ 'Id_Esquema': _Id_Esquema, 'Cod_Veiculo': $scope.ListadeVeiculos[i].Cod_Veiculo, 'Nome_Veiculo': $scope.ListadeVeiculos[i].Descricao });
             }
         }
         $scope.ChangePendenteCalculo();
@@ -173,7 +187,7 @@
             if (response.data) {
                 $scope.PesquisaTabelas.Items = response.data
                 $scope.PesquisaTabelas.FiltroTexto = ""
-                $scope.PesquisaTabelas.cback = function (value) { pMidia.Cod_Programa = value;$scope.fnChangeMidia(pMidia,'Programa') }
+                $scope.PesquisaTabelas.cback = function (value) { pMidia.Cod_Programa = value; $scope.fnChangeMidia(pMidia, 'Programa') }
                 $("#modalTabela").modal(true);
             }
         });
@@ -200,8 +214,7 @@
             }
         });
     }
-    //===============Quando mudou algum item da midia que requer nova distribuicao das insercoes
-    
+
     //===============Controla a Digitacao de Desconto ou Valor Informado da Midia
     $scope.fnControleDescontoValorMidia = function (pField, pMidia) {
         if (pField == 'Desconto') {
@@ -228,7 +241,7 @@
     //==================================Distribuir Insercoes no grid do mapa 
     $scope.DistrubuirInsercoes = function (pEsquema, pMidia) {
         var _data = {
-            'Id_Midia':pMidia.Id_Midia,
+            'Id_Midia': pMidia.Id_Midia,
             'Competencia': pEsquema.Competencia,
             'Cod_Programa': pMidia.Cod_Programa,
             'Cod_Tipo_Comercial': pMidia.Cod_Tipo_Comercial,
@@ -250,44 +263,62 @@
                 }
             }
         });
-        
-        
     }
     //===================================watch na tabela de preco porque ui-data nao dispara change
-    $scope.$watch('Simulacao.Tabela_Preco', function (newValue,oldValue) {
+    $scope.$watch('Simulacao.Tabela_Preco', function (newValue, oldValue) {
         if (newValue != oldValue && $scope.IniciarCalculo) {
             $scope.ChangePendenteCalculo();
         }
     });
+    //===================================Clicou em Fixar Desconto ou Valor
+    //$scope.Fixar = function (pTipo) {
+    //    if (pTipo = 'Valor') {
+    //        $scope.Simulacao.Valor_Informado = "";
+    //    }
+    //    if (pTipo = 'Desconto') {
+    //        $scope.Simulacao.Desconto_Padrao = "";
+    //    }
+    //};
+
     //===================================Mudou campos que precisam recalcular simulacao
     $scope.ChangePendenteCalculo = function () {
         if ($scope.Simulacao.Esquemas) {
-            if ($scope.Simulacao.Esquemas.length>0) {
+            if ($scope.Simulacao.Esquemas.length > 0) {
                 $scope.Simulacao.PendenteCalculo = true;
             }
         }
     }
-    $scope.SalvarSimulacao = function (pSimulacao) {
+    //===================================Salvar Simulacao
+    $scope.SalvarSimulacao = function (pSimulacao, pShowMessage) {
         httpService.Post('SalvarSimulacao', pSimulacao).then(function (response) {
             if (response) {
-                if (response.data[0].Status==1 && $scope.Parameters.Action=='New') {
-                    $scope.Simulacao.Id_Simulacao=response.data[0].Id_Simulacao;
+                if (response.data[0].Status == 1 && $scope.Parameters.Action == 'New') {
+                    $scope.Simulacao.Id_Simulacao = response.data[0].Id_Simulacao;
+                    $scope.Parameters.Id = response.data[0].Id_Simulacao;
+                    $scope.Parameters.Action = "Edit";
+                    pSimulacao.PendenteCalculo = false;
                 }
-                ShowAlert(response.data[0].Mensagem,response.data[0].Status ? 'success' : 'warning');
+                $scope.CarregarSimulacao();
+                if (pShowMessage) {
+                    ShowAlert(response.data[0].Mensagem, response.data[0].Status ? 'success' : 'warning');
+
+                }
             }
         });
     };
+    //===================================Recalcular Simulacao
     $scope.RecalcularSimulacao = function (pSimulacao) {
+        $scope.SalvarSimulacao(pSimulacao, false)
         pSimulacao.PendenteCalculo = false;
     }
-
+    //===================================Remover esquema
     $scope.RemoverEsquema = function (pIdEsquema) {
         swal({
             title: "Tem certeza que deseja Excluir esse Esquema ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
-            confirmButtonText: "Sim, Excluir" ,
+            confirmButtonText: "Sim, Excluir",
             cancelButtonText: "Cancelar",
             closeOnConfirm: true
         }, function () {
@@ -305,14 +336,13 @@
 
     //===================================Mostra a critica da Valoracao
     $scope.MostraCritica = function (pLinha) {
-        console.log(pLinha);
         if (pLinha) {
             $scope.Critica_Tabela = pLinha.Critica.split('#');
         }
         $("#modalCritica").modal(true);
-        }
+    }
     //===================================Seta Iniciar calculo false apos o load da pagina
     $timeout(function () {
         $scope.IniciarCalculo = true;
-    },3000);
+    }, 3000);
 }]);
