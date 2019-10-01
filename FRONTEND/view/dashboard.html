@@ -1,0 +1,282 @@
+﻿<div class="app-container">
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="block block-condensed">
+                <canvas id="chart_Meta" height="1434" width="4304" style="display: block; width: 2152px; height: 717px;"></canvas>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="block block-condensed">
+                <canvas id="chart_Ranking" height="1434" width="4304" style="display: block; width: 2152px; height: 717px;"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="block block-condensed">
+                <canvas id="chart_Pie" height="1434" width="4304" style="display: block; width: 2152px; height: 717px;"></canvas>
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="block block-condensed">
+                <canvas id="chart_Evolucao" height="1434" width="4304" style="display: block; width: 2152px; height: 717px;"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
+<script type="text/javascript">
+    window.chartColors = {
+        red: 'rgb(239, 64, 67)',
+        orange: 'rgb(246, 159, 0)',
+        yellow: 'rgb(242, 255, 37)',
+        green: 'rgb(118, 171, 60)',
+        blue: 'rgb(79, 181, 221)',
+        purple: 'rgb(153, 102, 255)',
+        grey: 'rgb(231,233,237)'
+    };
+
+    var ctx = document.getElementById('chart_Meta').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho",'Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            datasets: [{
+                label: "Ana Maria",
+                backgroundColor: window.chartColors.red,
+                borderColor: window.chartColors.red,
+                data: [
+                    40,60,20,60,10,20,70,60,60,90,100,95
+                ],
+                fill: false,
+            },
+            {
+                label: "Paulo Souza",
+                fill: false,
+                backgroundColor: window.chartColors.green,
+                borderColor: window.chartColors.green,
+                data: [
+                    60, 90, 90, 60, 80, 70, 70, 75, 60, 90, 90, 95
+                ],
+            },
+            {
+                label: "Daniela",
+                fill: false,
+                backgroundColor: window.chartColors.blue,
+                borderColor: window.chartColors.blue,
+                data: [
+                    70, 70, 80, 70, 50, 40, 70, 65, 80, 80, 80, 70
+                ],
+            },
+            ]
+        },
+        options: {
+            responsive: true,
+            title:{
+                display:true,
+                text:'Meta de Vendas Atingida'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Janeiro a Dezembro 2019'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Percentual da Meta'
+                    }
+                }]
+            }
+        }
+    });
+
+
+    //=========================
+
+    var ctxRanking = document.getElementById('chart_Ranking').getContext('2d');
+    var chart = new Chart(ctxRanking, {
+        type: 'bar',
+        data: {
+            labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho",'Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            datasets: [{
+                label: "DPZRJ",
+                backgroundColor: window.chartColors.red,
+                borderColor: window.chartColors.red,
+                data: [
+                    145000, 130000, 120000, 160000, 215000, 222000, 300000, 200000, 100000, 123333, 333222, 332333
+                ],
+                fill: false,
+            },
+            {
+                label: "ARTPLAN",
+                fill: false,
+                backgroundColor: window.chartColors.green,
+                borderColor: window.chartColors.green,
+                data: [
+                    145000, 130000, 120000, 160000, 215000, 222000, 300000, 200000, 100000, 123333, 333222, 332333
+                ],
+            },
+            {
+                label: "SOLUTION",
+                fill: false,
+                backgroundColor: window.chartColors.blue,
+                borderColor: window.chartColors.blue,
+                data: [
+                    123123, 323123, 222222, 300000, 300000, 122222, 333333, 222222, 221111,323233, 312323, 323231
+                ],
+            },
+            ]
+        },
+        options: {
+            responsive: true,
+            title:{
+                display:true,
+                text:'Top  Agências'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Janeiro a Dezembro 2019'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Valores em R$'
+                    }
+                }]
+            }
+        }
+    });
+    //=============================
+    var ctxPie = document.getElementById('chart_Pie').getContext('2d');
+    var myPieChart = new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            datasets: [{
+                data: [
+                    60,20,5,15
+                ],
+                backgroundColor: [
+                    window.chartColors.red,
+                    window.chartColors.orange,
+                    window.chartColors.yellow,
+                    window.chartColors.green,
+                
+                ],
+                label: 'Dataset 1'
+            }],
+            labels: [
+                "Normal",
+                "Patrocinio",
+                "Calhau",
+                "Antecipado",
+                
+            ]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Caracterização das Mídias no Periodo'
+            },
+        }
+    });
+    //=========================
+
+    var ctxEvolucao = document.getElementById('chart_Evolucao').getContext('2d');
+    var chart = new Chart(ctxEvolucao, {
+        type: 'line',
+        data: {
+            labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            datasets: [{
+                label: "Vendas no Mes",
+                backgroundColor: window.chartColors.purple,
+                borderColor: window.chartColors.purple,
+                data: [
+                    2000000,4000000,7000000,6000000,5000000,5000000,8000000,8000000,7000000,8000000,9000000,6000000
+                ],
+                fill: false,
+            },
+            //{
+            //    label: "ARTPLAN",
+            //    fill: false,
+            //    backgroundColor: window.chartColors.green,
+            //    borderColor: window.chartColors.green,
+            //    data: [
+            //        145000, 130000, 120000, 160000, 215000, 222000, 300000, 200000, 100000, 123333, 333222, 332333
+            //    ],
+            //},
+            //{
+            //    label: "SOLUTION",
+            //    fill: false,
+            //    backgroundColor: window.chartColors.blue,
+            //    borderColor: window.chartColors.blue,
+            //    data: [
+            //        123123, 323123, 222222, 300000, 300000, 122222, 333333, 222222, 221111, 323233, 312323, 323231
+            //    ],
+            //},
+            ]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Evolução das Vendas'
+            },
+            tooltips: {
+                mode: 'index',
+                intersect: false,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Janeiro a Dezembro 2019'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Valores em R$'
+                    }
+                }]
+            }
+        }
+    });
+</script>

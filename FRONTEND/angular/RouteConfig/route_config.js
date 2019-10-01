@@ -4,7 +4,7 @@
             templateUrl: 'view/portal.html',
             authorize: false,
             routeName: 'Portal',
-            RouteId:0
+            RouteId: 0
         })
         .when('/cadastro', {
             templateUrl: 'view/UnderConstrution.html',
@@ -16,7 +16,7 @@
             templateUrl: 'view/blank.html',
             authorize: false,
             routeName: 'SIM - Módulo Propostas',
-            RouteId:0
+            RouteId: 0
         })
         .when('/login', {
             templateUrl: 'view/login.html',
@@ -47,10 +47,11 @@
             templateUrl: 'view/unauthorized.html',
             authorize: false,
             routeName: 'Acesso não autorizado',
-           RouteId: 0
+            RouteId: 0
         })
         .when('/dashboard', {
-            templateUrl: 'view/UnderConstrution.html',
+            //templateUrl: 'view/UnderConstrution.html',
+            templateUrl: 'view/dashboard.html',
             authorize: true,
             routeName: 'Dashboard',
             RouteId: 0
@@ -58,7 +59,7 @@
         .when('/usuario', {
             templateUrl: 'view/Usuario.html',
             authorize: true,
-            controller:'UsuarioController',
+            controller: 'UsuarioController',
             routeName: 'Cadastro de Usuários',
             RouteId: 'Usuario@Index'
         })
@@ -126,17 +127,15 @@
             routeName: 'Edição de Tipo Comercial',
             RouteId: 'TipoComercial@Edit'
         })
-
-
+        
         .when('/Simulacao', {
-            //templateUrl: 'view/simulacao.html',
             templateUrl: 'view/simulacao_List.html',
             controller: 'Simulacao_List_Controller',
             authorize: true,
             routeName: 'Simulação',
             RouteId: 'Simulacao@Index'
         })
-        .when('/SimulacaoCadastro/:Action/:Id', {
+        .when('/SimulacaoCadastro/:Action/:Id/:Processo', {
             templateUrl: 'view/simulacao.html',
             controller: 'SimulacaoController',
             authorize: true,
@@ -145,19 +144,39 @@
         })
 
         .when('/Proposta', {
-            templateUrl: 'view/UnderConstrution.html',
+            templateUrl: 'view/simulacao_List.html',
+            controller: 'Simulacao_List_Controller',
             authorize: true,
             routeName: 'Proposta',
             RouteId: 'Proposta@Index'
         })
 
-    .when('/Politica', {
-        templateUrl: 'view/UnderConstrution.html',
+    .when('/pacote', {
+        templateUrl: 'view/PacoteDesconto_List.html',
+        controller: 'PacoteDesconto_List_Controller',
         authorize: true,
-        routeName: 'Politica de Descontos',
-        RouteId: 'Politica@Index'
+        routeName: 'Pacote de Descontos',
+        RouteId: 'Pacote@Index'
     })
-
+    .when('/PacoteNew/:Action/:Id', {
+        templateUrl: 'view/PacoteCadastro.html',
+        controller: 'PacoteCadastroController',
+        authorize: true,
+        routeName: 'Novo Pacote de Descontos',
+        RouteId: 'Pacote@New'
+    })
+    .when('/PacoteEdit/:Action/:Id', {
+        templateUrl: 'view/PacoteCadastro.html',
+        controller: 'PacoteCadastroController',
+        authorize: true,
+        routeName: 'Edição de Pacotes',
+        RouteId: 'Pacote@New'
+    })
+        .when('/PacoteShow/:Action/:Id', {
+            templateUrl: 'view/PacoteCadastro.html',
+            controller: 'PacoteCadastroController',
+            routeName: 'Visualização do Pacote ',
+        })
 
     .otherwise({ redirectTo: "/blank" })
 
@@ -171,8 +190,8 @@ angular.module('App')
                 httpService.Get('Credential/' + next.RouteId)
                     .then(function (response) {
                         if (response) {
-                            if (response.data==false) {
-                                 $location.path("/unauthorized")
+                            if (response.data == false) {
+                                $location.path("/unauthorized")
                             }
                         }
                     })
@@ -185,7 +204,7 @@ angular.module('App')
         $rootScope.$on('$routeChangeSuccess', function (route, current) {
             $rootScope.routeloading = false;
             $rootScope.routeName = current.$$route.routeName;
-            $rootScope.RouteTitle = current.$$route.routeTitle;
+            $rootScope.routeId = current.$$route.RouteId;
         });
     }]);
 

@@ -1,0 +1,48 @@
+﻿<div class="container">
+    <div class="block">
+        <a id="btnNovoPacote" class="btn btn-primary" ng-show="PermissaoNew"  href="#PacoteNew/New/0">Novo Pacote</a>
+        <button id="ExportReporttoExcel" class="btn btn-warning" ng-disabled="Mercados.length==1">Exportar Excel</button>
+        <!--==============================================Grid -->
+        <div class="box table-responsive " style="min-height:600px" ng-show="ShowGrid">
+            <table id="dataTable" class="table table-striped table-bordered " cellspacing="0">
+                <thead>
+                    <tr>
+                        <th style="width:50px"></th>
+                        <th style="width:50px">Id</th>
+                        <th>Descrição</th>
+                        <th style="text-align:center">Início Validade</th>
+                        <th style="text-align:center">Término Validade</th>
+                        <th style="width:50px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="pacote in Pacotes track by $index" on-finish-render="ngRepeatFinished">
+                        <td style="width:50px;text-align:center">
+                            <a href="#PacoteEdit/Edit/{{pacote.Id_Pacote}}" ng-show="PermissaoEdit">
+                                <span class="fa fa-edit fa-2x fa-crud"></span>
+                            </a>
+                        </td>
+                        <td style="text-align:center">
+                            <a class="btn btn-sm  btn-default" href="#PacoteShow/Show/{{pacote.Id_Pacote}}">
+                                {{::pacote.Id_Pacote}}
+                            </a>
+                            </td>
+                        <td>{{::pacote.Descricao}}</td>
+                        <td style="text-align:center">{{::pacote.Validade_Inicio | date:'dd/MM/yyyy'}}</td>
+                        <td style="text-align:center">{{::pacote.Validade_Termino  | date:'dd/MM/yyyy'}}</td>
+                        <td>
+                            <button class="btn btn-danger btn-sm" style="margin:0px 0px !important" ng-disabled="!PermissaoDelete"  ng-click="RemoverPacote(pacote)"><span class="fa fa-trash"></span></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

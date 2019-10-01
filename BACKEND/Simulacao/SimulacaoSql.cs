@@ -11,7 +11,7 @@ namespace PROPOSTA
     {
         Int32 ContadorMidia = 0;
         Int32 ContadorEsquema = 0;
-        public DataTable ListSimulacao()
+        public DataTable ListSimulacao(String pProcesso)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
@@ -22,7 +22,8 @@ namespace PROPOSTA
             {
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Simulacao_List");
                 Adp.SelectCommand = cmd;
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login ", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Processo", pProcesso);
                 Adp.Fill(dtb);
             }
             catch (Exception)
@@ -80,6 +81,7 @@ namespace PROPOSTA
                 {
                     Simulacao.Id_Simulacao = drwBase["Id_Simulacao"].ToString().ConvertToInt32();
                     Simulacao.Identificacao = drwBase["Identificacao"].ToString();
+                    Simulacao.Tipo= drwBase["Tipo"].ToString();
                     Simulacao.Validade_Inicio = drwBase["Validade_Inicio"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
                     Simulacao.Validade_Termino = drwBase["Validade_Termino"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
                     Simulacao.Cod_Empresa_Venda = drwBase["Cod_Empresa_Venda"].ToString();
@@ -87,6 +89,25 @@ namespace PROPOSTA
                     Simulacao.PendenteCalculo = false;
                     Simulacao.Tabela_Preco = clsLib.CompetenciaString(drwBase["Tabela_Preco"].ToString().ConvertToInt32());
                     Simulacao.Desconto_Padrao = drwBase["Desconto_Padrao"].ToString().ConvertToPercent();
+
+                    Simulacao.Cod_Agencia= drwBase["Cod_Agencia"].ToString();
+                    Simulacao.Nome_Agencia= drwBase["Nome_Agencia"].ToString();
+                    Simulacao.Cnpj_Agencia= drwBase["Cnpj_Agencia"].ToString();
+                    Simulacao.Cod_Cliente= drwBase["Cod_Cliente"].ToString();
+                    Simulacao.Nome_Cliente= drwBase["Nome_Cliente"].ToString();
+                    Simulacao.Cnpj_Cliente= drwBase["Cnpj_Cliente"].ToString();
+                    Simulacao.Cod_Contato= drwBase["Cod_Contato"].ToString();
+                    Simulacao.Nome_Contato= drwBase["Nome_Contato"].ToString();
+                    Simulacao.Forma_Pgto= drwBase["Forma_Pgto"].ToString().ConvertToInt32();
+                    Simulacao.Tipo_Vencimento= drwBase["Tipo_Vencimento"].ToString().ConvertToInt32();
+                    Simulacao.Condicao_Pagamento= drwBase["Condicao_Pagamento"].ToString().ConvertToInt32();
+                    Simulacao.Comissao_Agencia= drwBase["Comissao_Agencia"].ToString().ConvertToPercent();
+                    Simulacao.Observacao= drwBase["Observacao"].ToString();
+                    if (drwBase["Id_Pacote"].ToString().ConvertToInt32()>0)
+                    {
+                        Simulacao.Id_Pacote = drwBase["Id_Pacote"].ToString().ConvertToInt32();
+                    }
+                    Simulacao.Descricao_Pacote= drwBase["Descricao_Pacote"].ToString();
                     Simulacao.Valor_Informado = drwBase["Valor_Informado"].ToString().ConvertToMoney();
                     Simulacao.Valor_Total_Negociado = drwBase["Valor_Total_Negociado"].ToString().ConvertToMoney();
                     Simulacao.Valor_Total_Tabela = drwBase["Valor_Total_Tabela"].ToString().ConvertToMoney();
@@ -136,11 +157,12 @@ namespace PROPOSTA
 
                 foreach (DataRow drw in dtb.Rows)
                 {
-                    ContadorEsquema++;
+                    //ContadorEsquema++;
+                    ContadorEsquema = drw["Id_Esquema"].ToString().ConvertToInt32();
                     ListEsquema.Add(new EsquemaModel()
                     {
-                        //Id_Esquema = drw["Id_Esquema"].ToString().ConvertToInt32(),
-                        Id_Esquema = ContadorEsquema,
+                        Id_Esquema = drw["Id_Esquema"].ToString().ConvertToInt32(),
+                        //Id_Esquema = ContadorEsquema,
                         Id_Simulacao = drw["Id_Simulacao"].ToString().ConvertToInt32(),
                         Competencia = clsLib.CompetenciaString( drw["Competencia"].ToString().ConvertToInt32()),
                         Abrangencia = drw["Abrangencia"].ToString().ConvertToByte(),
@@ -153,7 +175,6 @@ namespace PROPOSTA
                         Cod_Empresa_Faturamento = drw["Cod_Empresa_Faturamento"].ToString(),
                         Midias= AddListMidia(drw["Id_Esquema"].ToString().ConvertToInt32()),
                         Veiculos  = AddListVeiculos(drw["Id_Esquema"].ToString().ConvertToInt32()),
-                        
                     });
                 }
             }
@@ -185,7 +206,8 @@ namespace PROPOSTA
 
                 foreach (DataRow drw in dtb.Rows)
                 {
-                    ContadorMidia++;
+                    //ContadorMidia++;
+                    ContadorMidia = drw["Id_Midia"].ToString().ConvertToInt32();
                     ListMidia.Add(new MidiaModel()
                     {
                         //Id_Midia = drw["Id_Midia"].ToString().ConvertToInt32(),
@@ -203,6 +225,8 @@ namespace PROPOSTA
                         Dia_Inicio = drw["Dia_Inicio"].ToString().ConvertToInt32(),
                         Dia_Fim = drw["Dia_Fim"].ToString().ConvertToInt32(),
                         Qtd_Insercoes = drw["Qtd_Insercoes"].ToString().ConvertToInt32(),
+                        Distribuicao = drw["Distribuicao"].ToString(),
+                        Qtd_Total_Insercoes= drw["Qtd_Total_Insercoes"].ToString().ConvertToInt32(),
                         Desconto_Informado = drw["Desconto_Informado"].ToString().ConvertToPercent(),
                         Desconto_Real = drw["Desconto_Real"].ToString().ConvertToPercent(),
                         Valor_Informado= drw["Valor_Informado"].ToString().ConvertToMoney(),
@@ -306,30 +330,6 @@ namespace PROPOSTA
             }
             return ListInsercoes;
         }
-        public DataTable GetOpcoesDesconto(Int32 pTipoDesconto)
-        {
-            clsConexao cnn = new clsConexao(this.Credential);
-            cnn.Open();
-            SqlDataAdapter Adp = new SqlDataAdapter();
-            DataTable dtb = new DataTable("dtb");
-            SimLib clsLib = new SimLib();
-            try
-            {
-                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_Opcoes_Desconto");
-                Adp.SelectCommand = cmd;
-                Adp.SelectCommand.Parameters.AddWithValue("@pTipoDesconto", pTipoDesconto);
-                Adp.Fill(dtb);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                cnn.Close();
-            }
-            return dtb;
-        }
         public DataTable GetVeiculos(Int32 pAbrangencia, String pCod_Mercado, String pCod_Empresa, String pCod_Empresa_Faturamento)
         {
             clsConexao cnn = new clsConexao(this.Credential);
@@ -417,6 +417,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Tipo_Comercial", Param.Cod_Tipo_Comercial);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Caracteristica", Param.Cod_Caracteristica);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Qtd", Param.Qtd_Insercoes);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Distribuicao", Param.Distribuicao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Dia_Inicio", Param.Dia_Inicio);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Dia_Fim", Param.Dia_Fim);
                 Adp.Fill(dtb);
@@ -482,6 +483,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Simulacao", Param.Id_Simulacao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Identificacao", Param.Identificacao);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo", Param.Tipo);
                 if (Param.Validade_Inicio!=null)
                 {
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Inicio", Param.Validade_Inicio.ConvertToDatetime());
@@ -490,10 +492,21 @@ namespace PROPOSTA
                 {
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Termino", Param.Validade_Termino.ConvertToDatetime());
                 }                
-                
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Empresa_Venda", Param.Cod_Empresa_Venda);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Agencia", Param.Cod_Agencia);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome_Agencia", Param.Nome_Agencia);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cnpj_Agencia", Param.Cnpj_Agencia);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Cliente", Param.Cod_Cliente);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome_Cliente", Param.Nome_Cliente );
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cnpj_Cliente", Param.Cnpj_Cliente);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Contato", Param.Cod_Contato);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Forma_Pgto", Param.Forma_Pgto);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo_Vencimento", Param.Tipo_Vencimento);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Condicao_Pagamento", Param.Condicao_Pagamento);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Comissao_Agencia", Param.Comissao_Agencia);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Tabela_Preco", iTabelaPreco);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Desconto_Padrao", Param.Desconto_Padrao);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Pacote", Param.Id_Pacote);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Valor_Informado", Param.Valor_Informado);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Valor_Total_Negociado", Param.Valor_Total_Negociado);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Valor_Total_Tabela", Param.Valor_Total_Tabela);
@@ -502,6 +515,32 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Fixar_Valor", Param.Fixar_Valor);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Status", Param.Id_Status);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Esquemas", xmlEsquemas);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Observacao", Param.Observacao);
+                Adp.Fill(dtb);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
+        public DataTable DetalharDesconto(Int32 pId_Midia)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_Detalhar_Desconto");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Midia", pId_Midia);
                 Adp.Fill(dtb);
             }
             catch (Exception)
@@ -514,5 +553,32 @@ namespace PROPOSTA
             }
             return dtb;
         }
+        public DataTable DuplicarEsquema(Int32 pId_Esquema,Int32 pTipo)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Exportar_Esquema");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login",this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Esquema", pId_Esquema);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo", pTipo);
+                Adp.Fill(dtb);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
+
     }
 }

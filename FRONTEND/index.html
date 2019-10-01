@@ -22,8 +22,8 @@
             <div class="app-header-navigation app-header-navigation-hover app-navigation-style-blue">
                 <nav>
                     <ul ng-show="Islogged">
-                        <li><a href="#dashboard"><span class="nav-icon-hexa">Ds</span>Dashboard</a></li>
                         <li><a href="#portal"><span class="nav-icon-hexa">Pt</span>Portal</a></li>
+                        <li><a href="#dashboard"><span class="nav-icon-hexa">Ds</span>Dashboard</a></li>
                         <li>
                             <a href="#cadastro"><span class="nav-icon-hexa">Cd</span>Cadastros</a>
                             <ul>
@@ -36,7 +36,13 @@
                         </li>
                         <li><a href="#Simulacao"><span class="nav-icon-hexa">Si</span>Minhas Simulações</a></li>
                         <li><a href="#Proposta"><span class="nav-icon-hexa">Pr</span>Propostas</a></li>
-                        <li><a href="#Politica"><span class="nav-icon-hexa">Pd</span>Politica de Desconto</a></li>
+                        <li>
+                            <a href="#"><span class="nav-icon-hexa">Pd</span>Política de Descontos</a>
+                               <ul>
+                                   <li><a href="#pacote"><span class="nav-icon-hexa">Us</span>Pacotes de Descontos</a></li>
+                                   <li><a href="#"><span class="nav-icon-hexa">Us</span>Follow-up de Aprovações</a></li>
+                               </ul>
+                        </li>
                         <li ng-controller="loginController"><a href="" ng-click="app_Logout()"><span class="icon-exit"></span> Sair</a></li>
                     </ul>
                 </nav>
@@ -157,6 +163,8 @@
     <script src="angular/Controller/NewPasswordController.js?hash=V001"></script>
     <script src="angular/Controller/Simulacao_List_Controller.js?hash=V001"></script>
     <script src="angular/Controller/SimulacaoController.js?hash=V001"></script>
+    <script src="angular/Controller/PacoteDesconto_List_Controller.js?hash=V001"></script>
+    <script src="angular/Controller/PacoteCadastroController.js?hash=V001"></script>
     <script src="angular/Controller/UsuarioController.js?hash=V001"></script>
     <script src="angular/Controller/login.js?hash=V001"></script>
     <script src="angular/Controller/muralController.js?hash=V001"></script>
@@ -178,8 +186,9 @@
     <link href="js/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css?hash=V001" rel="stylesheet" />-->
     <!--<script src="js/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.min.js?hash=V001"></script>-->
     <script src="js/vendor/moment/moment_locale_pt_br.js"></script>
-    <script src="js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.js?hash=V001"></script>
-    <script src="js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js?hash=V001"></script>
+    <!--<script src="js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.js?hash=V001"></script>
+    <script src="js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js?hash=V001"></script>-->
+    <script src="js/vendor/charts/charts.bundle.js"></script>
     <!--====================================================================================Export-->
     <script src="js/vendor/jspdf/png.js?hash=V001"></script>
     <script src="js/vendor/jspdf/zlib.js?hash=V001"></script>
@@ -190,18 +199,16 @@
 </html>
 <script type="text/javascript">
     $(document).ready(function () {
-        //$(window).scroll(function () {
-        //    if ($(this).scrollTop() > 100) {
-        //        $('.scrollToTop').fadeIn();9
-        //    } else {
-        //        $('.scrollToTop').fadeOut();
-        //    }
-        //});
-
-        //$('.scrollToTop').click(function () {
-        //    $('html, body').animate({ scrollTop: 0 }, 800);
-        //    return false;
-        //});
+        $('body').keydown(function (e) {
+            if ($('[id*="modal"],.sweet-alert').is(':visible')) {
+                var rx = /INPUT|SELECT|TEXTAREA/i;
+                if (e.keyCode == 8) {
+                    if (!rx.test(e.target.tagName) || e.target.disabled || e.target.readOnly) {
+                        e.preventDefault();
+                    }
+                }
+            }
+            
+        });
     });
-
 </script>

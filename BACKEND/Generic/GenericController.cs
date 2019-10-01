@@ -167,6 +167,28 @@ namespace PROPOSTA
 
         }
 
+        [Route("api/ListarTabela/{pTabela}/{pFilter}")]
+        [HttpGet]
+        [ActionName("ListarTabela")]
+        [Authorize()]
+        public IHttpActionResult ListarTabela(String pTabela,String pFilter)
+        {
+            SimLib clsLib = new SimLib();
+            Generic Cls = new Generic(User.Identity.Name);
+            try
+            {
+                DataTable dtbRetorno = Cls.ListarTabela(pTabela,pFilter);
+                return Ok(dtbRetorno);
+
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+
+        }
+
         [Route("api/ValidarTabela/{pTabela}/{pCodigo}")]
         [HttpGet]
         [ActionName("ValidarTabela")]

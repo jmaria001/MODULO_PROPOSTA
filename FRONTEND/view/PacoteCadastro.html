@@ -1,0 +1,170 @@
+﻿<div class="container">
+    <form name="frmPacoteCadastro" autocomplete="off">
+        <div class="block" id="divDados">
+            <div class="row">
+                <!--===================ID-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label>#ID</label>
+                        <input type="text"
+                               name="txtIdPacote"
+                               ng-model="Pacote.Id_Pacote"
+                               class="form-control"
+                               ng-disabled=true>
+                    </div>
+                </div>
+                <!--===================Descricao-->
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="fieldrequired">Descrição do Pacote</label>
+                        <input type="text"
+                               name="txtNomePacote"
+                               class="form-control"
+                               ng-model="Pacote.Descricao" maxlength="50"/>
+                    </div>
+                </div>
+                <!--==============================================Validade Inicio-->
+                <div class="col-md-3">
+                    <div class="dictionary" dictionary="Data" caption="Início Validade">
+                        <input ng-model="Pacote.Validade_Inicio"
+                               ui-date ng-model-options="{updateOn: 'blur'}">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="Pacote.Validade_Inicio"></div>
+                    </div>
+                </div>
+                <!--==============================================Validade Termino-->
+                <div class="col-md-3">
+                    <div class="dictionary" dictionary="Data" caption="Término Validade">
+                        <input ng-model="Pacote.Validade_Termino"
+                               ui-date ng-model-options="{updateOn: 'blur'}">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="Pacote.Validade_Termino"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--=========================Descontos-->
+        <div class="row" >
+            <!--===========================Escolha dos Descontos-->
+            <div class="col-md-6" ng-show="Parameters.Action!='Show'">
+                <div class="block block-condensed" style="height:500px">
+                    <div class="app-heading">
+                        <div class="title">
+                            <h2>Informação dos Descontos</h2>
+                        </div>
+                        <div class="heading-elements">
+                            <button class="btn btn-default btn-icon-fixed" ng-click="AdicionarDesconto(DigitacaoDesconto)"><span class="fa fa-plus"></span> Adicionar</button>
+                        </div>
+                        <!--=================Tipo do Desconto-->
+                        <div class="row margin-top-40">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Tipo</label>
+                                    <select class="form-control"
+                                            ng-model="DigitacaoDesconto.Tipo"
+                                            name="optTipoDesconto"
+                                            ng-change="CarregarOpcoesDesconto(DigitacaoDesconto)"
+                                            ng-options="Param_Desconto.Descricao for Param_Desconto in Param_Desconto"></select>
+                                </div>
+                            </div>
+                            <!--=================Percentual do Desconto do Desconto-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="txtDesconto">Desconto</label>
+                                    <div class="input-group">
+                                        <input type="text"
+                                               class="form-control decimal"
+                                               maxlength="5"
+                                               ng-model="DigitacaoDesconto.Desconto" />
+                                        <span class="input-group-addon">%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--===========================Desconto por Data-->
+                        <div class="row" ng-show="DigitacaoDesconto.Tipo.Codigo==1">
+                            <div class="col-md-6">
+                                <div class="dictionary" dictionary="Data" caption="Data Início">
+                                    <input ng-model="DigitacaoDesconto.Data_Inicio"
+                                           ui-date
+                                           ng-model-options="{updateOn: 'blur'}">
+                                    <div class="dictionary-ui-calendar" ui-calendar typdate="DigitacaoDesconto.Data_Inicio"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="dictionary" dictionary="Data" caption="Data Término">
+                                    <input ng-model="DigitacaoDesconto.Data_Termino"
+                                           ui-date ng-model-options="{updateOn: 'blur'}">
+                                    <div class="dictionary-ui-calendar" ui-calendar typdate="DigitacaoDesconto.Data_Termino"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--===========================Desconto por selecao de itens-->
+                        <div class="row margin-top-10" ng-show="DigitacaoDesconto.Tipo.Codigo>1">
+                            <div class="col-md-12">
+                                <input ng-model="TipoDescontoFilter" class="form-control" type="text" placeholder="Procurar" />
+                            </div>
+                            <div class="col-md-12 margin-top-10">
+                                <div style="height:300px;overflow-y:auto;  border:solid 1px silver">
+                                    <div ng-repeat="f in filteredOpcoes= ( OpcoesDesconto| filter:TipoDescontoFilter) track by $index">
+                                        <div class="col-md-6">
+                                            <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                                <label><input type="checkbox" name="app-checkbox-1" ng-model="f.Selecionado"> {{f.Descricao}}<span></span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--===========================Grid dos Descontos-->
+            <div ng-class="Parameters.Action!='Show' ? 'col-md-6':'col-md-12'">
+                <div class="block block-condensed" style="height:500px;overflow-y:auto">
+                    <div class="app-heading" style="margin-bottom:0px">
+                        <div class="title">
+                            <h2>Descontos Informados</h2>
+                        </div>
+                    </div>
+                    <div class="table table-responsive" style="padding:10px">
+                        <table class="table table-striped table-bordered" id="tbDescontoDetalhadoLista">
+                            <thead>
+                                <tr>
+                                    <!--<th>#</th>-->
+                                    <th>Tipo de Desconto</th>
+                                    <th>Conteudo</th>
+                                    <th>Desconto</th>
+                                    <th></th>
+                                </tr>
+                                <tr ng-repeat="row in Pacote.DescontoDetalhe track by $index">
+                                    <!--<td>{{row.id_Pacote_Detalhe}}</td>-->
+                                    <td>{{row.Descricao}}</td>
+                                    <td>{{row.Conteudo  }}</td>
+                                    <td style="text-align:right">{{row.Desconto | percentage:4}} </td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm" style="margin:0px 0px !important" ng-show="Parameters.Action!='Show'"  ng-click="RemoverDesconto(row.id_Pacote_Detalhe)"><span class="fa fa-trash"></span></button>
+                                    </td>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--=========================Botoes-->
+        <div class="fixed-buttons-bottom">
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-success" ng-show="Parameters.Action!='Show'" ng-click="SalvarPacote(Pacote)">Salvar</button>
+                    <a href="#pacote" class="btn btn-warning">Cancela</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!--<div ng-include="'template/SelectItem.html'"></div>--> <!--'PARA ABRIR JANELA COM LUPINHA'-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

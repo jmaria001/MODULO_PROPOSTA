@@ -15,13 +15,22 @@
                             { 'title': 'Status', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Delete', 'visible': true, 'searchable': false, 'config': false, 'sortable': false}
     ];
+    //====================Check se é Simulacao ou Proposta
+    if ($rootScope.routeId=='Proposta@Index') {
+        $scope.Processo = 'P'
+        $scope.Descricao_Processo = 'Proposta'
+    }
+    else {
+        $scope.Processo = 'S'
+        $scope.Descricao_Processo = 'Simulacao'
+    }
     //====================Permissoes
     $scope.PermissaoExcluir = 'false';
     $scope.PermissaoEditar= 'false';
-    httpService.Get("credential/Simulacao@Edit").then(function (response) {
+    httpService.Get("credential/" + $scope.Descricao_Processo+ "@Edit").then(function (response) {
         $scope.PermissaoEditar= response.data;
     });
-    httpService.Get("credential/Simulacao@Destroy").then(function (response) {
+    httpService.Get("credential/" + $scope.Descricao_Processo + "@Destroy").then(function (response) {
         $scope.PermissaoExcluir = response.data;
     });
     //====================Quando terminar carga do grid, torna view do grid visible
@@ -31,15 +40,15 @@
         $scope.CurrentShow = 'Grid';
         setTimeout(function () {
             $("#dataTable").dataTable().fnAdjustColumnSizing();
-        }, 10)
+        }, 1000)
     };
 
     //====================Carrega o Grid
-    $scope.CarregarSimulacao= function () {
+    $scope.CarregarSimulacao = function () {
         $scope.Simulacoes = [];
         $scope.CurrentShow = '';
         $('#dataTable').dataTable().fnDestroy();
-        httpService.Get('ListSimulacao').then(function (response) {
+        httpService.Get('ListSimulacao/'+$scope.Processo).then(function (response) {
             if (response) {
                 $scope.Simulacoes= response.data;
                 if ($scope.Simulacoes.length ==0) {
@@ -51,7 +60,7 @@
 
     //==================== Editacao da Simulacao
     $scope.EditarSimulacao = function (pIdSimulacao) {
-        $location.path("/SimulacaoCadastro/:Edit/" + pIdSimulacao)
+        $location.path("/SimulacaoCadastro/Edit/" + pIdSimulacao + '/' + $scope.Processo)
     }
     //==================== Exclusao da Simulacao
     $scope.ExcluirSimulacao= function (pIdSimulacao) {
@@ -83,7 +92,7 @@
         param.paging = true;
         param.dom = "<'row'<'col-sm-6'B><'col-sm-3'l><'col-sm-3'f>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
         param.buttons = [
-            { text: 'Nova Simulação<span class="fa fa-file margin-left-10"></span>', className: 'btn btn-primary btnNew', action: function (e, dt, button, config) { $('#btnNovaSimulacao').click(); } },
+            { text: 'Nova ' + $scope.Descricao_Processo +'<span class="fa fa-file margin-left-10"></span>', className: 'btn btn-primary btnNew', action: function (e, dt, button, config) { $('#btnNovaSimulacao').click(); } },
             {
                 text: 'Exportar<span class="fa fa-file-excel-o margin-left-10" style="color:white"></span>', type: 'excel', className: 'btn btn-warning', extend: 'excel', exportOptions: {
                     columns: ':visible:not(:first-child)'
@@ -116,7 +125,7 @@
     });
 
     $scope.NovaSimulacao= function (){
-        $location.path("/SimulacaoCadastro/New/0");
+        $location.path("/SimulacaoCadastro/New/0/"+$scope.Processo);
     }
     //===========================Evento chamado ao fim do ngrepeat ao carregar grid 
     $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {

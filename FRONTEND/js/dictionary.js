@@ -2,12 +2,16 @@
 function GetDictionary() {
     //=======dicionario
     var _dicionario = [
-                        { 'Id': 'Simulacao_Identificacao', 'label': 'Identificação', 'caption':'Identificação','atributos': { 'maxlength': '50', 'type': 'text', 'keymode': 'text'} },
+                        { 'Id': 'Simulacao_Identificacao', 'label': 'Identificação', 'caption': 'Identificação', 'atributos': { 'maxlength': '50', 'type': 'text', 'keymode': 'text', } },
                         { 'Id': 'Data', 'label': 'Data', 'icon': 'calendarDay', 'atributos': { 'maxlength': '10', 'type': 'text', 'keymode': 'numeric', 'placeholder': 'ddmmyyyy' } },
                         { 'Id': 'Competencia', 'label': 'Competência', 'icon': 'calendarMonth', 'atributos': { 'maxlength': '7', 'type': 'text', 'keymode': 'numeric', 'placeholder': 'mes/ano' } },
                         { 'Id': 'Money', 'label': '', 'icon': '', 'atributos': { 'maxlength': '15', 'type': 'text', 'keymode': '', 'placeholder': '/ano' } },
-                        { 'Id': 'Empresa_Usuario', 'label': 'Empresa', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Empresa_Usuario', 'label': 'Empresa', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric'} },
                         { 'Id': 'Mercado', 'label': 'Mercado', 'icon': 'search', 'atributos': { 'maxlength': '5', 'type': 'text' } },
+                        { 'Id': 'Pacote_Desconto', 'label': 'Pacote de Desconto', 'icon': 'search', 'atributos': { 'maxlength': '30', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Agencia', 'label': 'Agência', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric', 'filter': true } },
+                        { 'Id': 'Cliente', 'label': 'Cliente', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric', 'filter': true } },
+                        { 'Id': 'Contato', 'label': 'Contato', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric'} },
 
     ];
 
@@ -36,7 +40,9 @@ function GetDictionary() {
 
         //==================Label  dentro do form-group
         var _label = document.createElement("label");
+        _label.setAttribute("style","white-space:nowrap")
         _label.setAttribute("for", _text_name);
+
         if (_required) {
             _label.setAttribute("class", 'fieldrequired field-x');
         }
@@ -160,14 +166,14 @@ function GetDictionary() {
 
         var _ix = _dicionario.findIndex(x => x.Id === pName);
         if (_ix == -1) {
-            alert('Favor Adicionar ' + pName + ' em dictionary.js')
+            alert('Adicionar ' + pName + ' em dictionary.js')
         }
         return _dicionario[_ix];
     }
 
     $(".decimal, .money .percent").attr("onkeypress", "return DecimalOnly(event)")
 
-    $(".numeric,calendar-date").attr("onkeypress", "return NumericOnly(event)")
+    $(".numeric,.cnpj calendar-date").attr("onkeypress", "return NumericOnly(event)")
     $(".money").blur(function () {
         this.value = MoneyFormat(this.value);
     });
@@ -177,11 +183,16 @@ function GetDictionary() {
     $(".percent").blur(function () {
         this.value = PercentFormat(this.value);
     });
+
     $(".money").focus(function () {
         this.value = DecimalUnformat(this.value);
     });
-
-
+    $(".cnpj").focus(function () {
+        this.value = cnpjUnformat(this.value);
+    });
+    $(".cnpj").blur(function () {
+        this.value = cnpjFormat(this.value);
+    });
 }
 
 
@@ -236,10 +247,13 @@ function ShowSelectItem(elm, pMultiSelect) {
     if ($(_element).is(':disabled')) {
         return;
     }
-
+    var _filter = false;
+    if (_element[0].attributes.filter) {
+        _filter =_element[0].attributes.filter.value;
+    }
     var _table = _element[0].attributes.dictionary.value;
     var _elemendId = _element[0].attributes.id.value;
     $("#modal-Table").modal();
-    angular.element(document.getElementById('modal-Table')).scope().DicionaryLoadTable(_table, _elemendId, pMultiSelect);
+    angular.element(document.getElementById('modal-Table')).scope().DicionaryLoadTable(_table, _elemendId, pMultiSelect,_filter);
 }
 

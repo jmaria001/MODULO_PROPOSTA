@@ -21,12 +21,27 @@ namespace PROPOSTA
         {
             public Int32 Id_Simulacao { get; set; }
             public String Identificacao { get; set; }
+            public String Tipo  { get; set; }
             public String Validade_Inicio { get; set; }
             public String Validade_Termino{ get; set; }
             public String Cod_Empresa_Venda { get; set; }
             public String Nome_Empresa_Venda { get; set; }
+            public String Cod_Agencia { get; set; }
+            public String Nome_Agencia { get; set; }
+            public String Cnpj_Agencia { get; set; }
+            public String Cod_Cliente { get; set; }
+            public String Nome_Cliente { get; set; }
+            public String Cnpj_Cliente{ get; set; }
+            public String Cod_Contato { get; set; }
+            public String Nome_Contato { get; set; }
+            public Int32? Forma_Pgto{ get; set; }
+            public Int32? Condicao_Pagamento { get; set; }
+            public Int32? Tipo_Vencimento { get; set; }
             public String Tabela_Preco { get; set; }
             public String Desconto_Padrao { get; set; }
+            public String Comissao_Agencia { get; set; }
+            public Int32? Id_Pacote{ get; set; }
+            public String Descricao_Pacote{ get; set; }
             public String Valor_Informado { get; set; }
             public String Valor_Total_Negociado { get; set; }
             public String Valor_Total_Tabela { get; set; }
@@ -38,7 +53,9 @@ namespace PROPOSTA
             public Int32 ContadorMidia{ get; set; }
             public Int32  Id_Status{ get; set; }
             public Boolean PendenteCalculo { get; set; }
+            public String Observacao{ get; set; }
             public List<EsquemaModel> Esquemas { get; set; }
+            public String Critica { get; set; }
 
         }
         public class EsquemaModel
@@ -75,6 +92,8 @@ namespace PROPOSTA
             public Int32 Dia_Inicio { get; set; }
             public Int32 Dia_Fim { get; set; }
             public Int32 Qtd_Insercoes { get; set; }
+            public String Distribuicao { get; set; } = "D";
+            public Int32 Qtd_Total_Insercoes { get; set; }
             public String Valor_Tabela_Unitario { get; set; }
             public String Valor_Tabela_Total { get; set; }
             public String Valor_Negociado_Total { get; set; }
@@ -141,6 +160,7 @@ namespace PROPOSTA
             public String Cod_Tipo_Comercial { get; set; }
             public String Cod_Caracteristica { get; set; }
             public Int32 Qtd_Insercoes { get; set; }
+            public String Distribuicao { get; set; }
             public  Byte Dia_Inicio { get; set; }
             public Byte Dia_Fim { get; set; }
             public List<VeiculoModel> Veiculos { get; set; }
