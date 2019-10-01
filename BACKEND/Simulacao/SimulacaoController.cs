@@ -8,18 +8,18 @@ namespace PROPOSTA
 {
     public class SimulacaoController : ApiController
     {
-        [Route("api/ListSimulacao")]
+        [Route("api/ListSimulacao/{Processo}")]
         [HttpGet]
         [ActionName("ListSimulacao")]
         [Authorize()]
-        public IHttpActionResult ListSimulacao()
+        public IHttpActionResult ListSimulacao(String Processo)
         {
             SimLib clsLib = new SimLib();
             Simulacao Cls = new Simulacao(User.Identity.Name);
 
             try
             {
-                DataTable dtbRetorno = Cls.ListSimulacao();
+                DataTable dtbRetorno = Cls.ListSimulacao(Processo);
                 return Ok(dtbRetorno);
             }
             catch (Exception Ex)
@@ -48,11 +48,11 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
-        [Route("api/GetSimulacao/{Id_Simulacao}")]
+        [Route("api/GetSimulacao/{Id_Simulacao}/{Tipo}")]
         [HttpGet]
         [ActionName("GetSimulacao")]
         [Authorize()]
-        public IHttpActionResult GetSimulacao(Int32 Id_Simulacao)
+        public IHttpActionResult GetSimulacao(Int32 Id_Simulacao,String Tipo)
         {
             SimLib clsLib = new SimLib();
             Simulacao Cls = new Simulacao(User.Identity.Name);
@@ -63,7 +63,7 @@ namespace PROPOSTA
                 if (Id_Simulacao == 0)
                 {
                     Retorno.Esquemas = new List<Simulacao.EsquemaModel>();
-                    Retorno.Validade_Inicio = null;
+                    Retorno.Tipo = Tipo;
                 }
                 else
                 {
@@ -77,26 +77,7 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
-        [Route("api/GetOpcoesDesconto/{p1}")]
-        [HttpGet]
-        [ActionName("GetOpcoesDesconto")]
-        [Authorize()]
-        public IHttpActionResult GetOpcoesDesconto(Int32 p1)
-        {
-            SimLib clsLib = new SimLib();
-            Simulacao Cls = new Simulacao(User.Identity.Name);
-
-            try
-            {
-                DataTable dtbRetorno = Cls.GetOpcoesDesconto(p1);
-                return Ok(dtbRetorno);
-            }
-            catch (Exception Ex)
-            {
-                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
-                throw new Exception(Ex.Message);
-            }
-        }
+        
         
         [Route("api/GetNewEsquema")]
         [HttpGet]
@@ -244,11 +225,21 @@ namespace PROPOSTA
         {
             SimLib clsLib = new SimLib();
             Simulacao Cls = new Simulacao(User.Identity.Name);
-
+            Simulacao.SimulacaoModel Simulacao = new Simulacao.SimulacaoModel();
             try
             {
                 DataTable dtb = Cls.SalvarSimulacao(Param);
-                return Ok(dtb);
+                if (dtb.Rows[0]["Status"].ToString().ConvertToBoolean())
+                {
+                    Simulacao = Cls.GetSimulacao(dtb.Rows[0]["Id_Simulacao"].ToString().ConvertToInt32());
+                    Simulacao.Critica = null;
+                }
+                else
+                {
+                    Simulacao.Critica = dtb.Rows[0]["Mensagem"].ToString();
+                }
+                return Ok(Simulacao);
+                
             }
             catch (Exception Ex)
             {
@@ -256,64 +247,90 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
-        //[Route("api/CalcularSimulacao")]
-        //[HttpPost]
-        //[ActionName("CalcularSimulacao")]
-        //[Authorize()]
-        //public IHttpActionResult CalcularSimulacao([FromBody]  Simulacao.SalvarSimulacaoParam Param)
-        //{
-        //    SimLib clsLib = new SimLib();
-        //    Simulacao Cls = new Simulacao(User.Identity.Name);
 
-        //    try
-        //    {
-        //        DataTable dtb = Cls.CalcularSimulacao(Param);
-        //        return Ok(dtb);
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
-        //        throw new Exception(Ex.Message);
-        //    }
-        //}
-        //[Route("api/GetSimulacao/{IdSimulacao}")]
-        //[HttpGet]
-        //[ActionName("GetSimulacao")]
-        //[Authorize()]
-        //public IHttpActionResult GetSimulacao(Int32 IdSimulacao)
-        //{
-        //    SimLib clsLib = new SimLib();
-        //    Simulacao Cls = new Simulacao(User.Identity.Name);
+        [Route("api/DetalharDesconto/{Id_Midia}")]
+        [Route("api/DetalharDesconto")]
+        [HttpGet]
+        [ActionName("DetalharDesconto")]
+        [Authorize()]
+        public IHttpActionResult DetalharDesconto(Int32 Id_Midia)
+        {
+            SimLib clsLib = new SimLib();
+            Simulacao Cls = new Simulacao(User.Identity.Name);
 
-        //    try
-        //    {
-        //        Simulacao.GetSimulacaoModel Retorno = Cls.GetSimulacao(IdSimulacao);
-        //        return Ok(Retorno);
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
-        //        throw new Exception(Ex.Message);
-        //    }
-        //}
+            try
+            {
+                DataTable dtbRetorno = Cls.DetalharDesconto(Id_Midia);
+                return Ok(dtbRetorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
 
-        //[Route("api/Testex")]
-        //[HttpGet]
-        //[ActionName("Testex")]
-        ////[Authorize()]
-        //public IHttpActionResult Testex()
-        //{
+        [Route("api/DuplicarEsquema/{Id_Esquema}/{Tipo}")]
+        [Route("api/DuplicarEsquema")]
+        [HttpGet]
+        [ActionName("DuplicarEsquema")]
+        [Authorize()]
+        public IHttpActionResult DuplicarEsquema(Int32 Id_Esquema,Int32 Tipo)
+        {
+            SimLib clsLib = new SimLib();
+            Simulacao Cls = new Simulacao(User.Identity.Name);
 
-        //    try
-        //    {
+            try
+            {
+                DataTable dtbRetorno = Cls.DuplicarEsquema(Id_Esquema,Tipo);
+                return Ok(dtbRetorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
 
-        //        return Ok("testex");
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        throw new Exception(Ex.Message);
-        //    }
-        //}
+        [Route("api/ImprimirMidia/{Id_Simulacao}")]
+        [Route("api/ImprimirMidia")]
+        [HttpGet]
+        [Authorize()]
+        public IHttpActionResult ImprimirMidia(Int32 Id_Simulacao)
+        {
+            SimLib clsLib = new SimLib();
+            try
+            {
+                ImpressaoMidia Cls = new ImpressaoMidia(User.Identity.Name);
+
+                return Ok(Cls.ImprimirMIDIA(Id_Simulacao));
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/ImprimirAnalise/{Id_Simulacao}")]
+        [Route("api/ImprimirAnalise")]
+        [HttpGet]
+        [Authorize()]
+        public IHttpActionResult ImprimirAnalise(Int32 Id_Simulacao)
+        {
+            SimLib clsLib = new SimLib();
+            try
+            {
+                ImpressaoAnalise Cls = new ImpressaoAnalise(User.Identity.Name);
+
+                return Ok(Cls.ImprimirAnalise(Id_Simulacao));
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
 
     }
 }

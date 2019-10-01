@@ -1,26 +1,44 @@
-﻿angular.module('App').controller('SimulacaoController', ['$scope', '$filter', '$routeParams', 'httpService', '$timeout', function ($scope, $filter, $routeParams, httpService, $timeout) {
+﻿angular.module('App').controller('SimulacaoController', ['$scope', '$rootScope', '$filter', '$routeParams', 'httpService', '$timeout', function ($scope, $rootScope, $filter, $routeParams, httpService, $timeout) {
 
     //============ Inicializa Variaveis Scopes
     $scope.Parameters = $routeParams;
-
     $scope.currentShow = 'Base';
     $scope.Abrangencias = [{ 'Id': 3, 'Descricao': '' }, { 'Id': 0, 'Descricao': 'Net' }, { 'Id': 1, 'Descricao': 'Rede' }, { 'Id': 2, 'Descricao': 'Local' }];
+    $scope.Forma_Pgto = [{ 'Id': 1, 'Descricao': 'Espécie' }, { 'Id': 2, 'Descricao': 'Permuta' }];
+    $scope.Tipo_Vencimento = [{ 'Id': 1, 'Descricao': 'À Vista' }, { 'Id': 2, 'Descricao': 'DFM' }, { 'Id': 3, 'Descricao': 'DDL' }];
     $scope.Simulacao = {};
     $scope.currentEsquema = 0;
     $scope.PesquisaTabelas = { "Items": [], 'FiltroTexto': '', cback: '' };
     $scope.IniciarCalculo = false;
-
+    $scope.DescontoDetalhado = "[]";
+    $scope.Distribuicao = [{ 'Tipo': 'D', 'Descricao': 'Por Dia' }, { 'Tipo': 'M', 'Descricao': 'No Periodo' }]
+    //=====================Check processo simulacao ou proposta
+    if ($scope.Parameters.Processo=='P') {
+        $scope.Descricao_Processo = 'Proposta'
+        $rootScope.routeName = 'Proposta - ' + $scope.Parameters.Action
+    }
+    else {
+        $scope.Descricao_Processo = 'Simulação'
+        $rootScope.routeName = 'Simulação - ' + $scope.Parameters.Action
+    }
+    
     //=====================Carrega a Simulacao 
-    $scope.CarregarSimulacao = function () {
-        httpService.Get("GetSimulacao/" + $scope.Parameters.Id).then(function (response) {
+    $scope.CarregarSimulacao = function (pId_Simulacao,pProcesso,pImportacao) {
+        httpService.Get("GetSimulacao/" + pId_Simulacao + "/" + pProcesso).then(function (response) {
             if (response.data) {
                 $scope.Simulacao = response.data;
-                //$scope.Simulacao.Validade_Inicio = $filter('date')($scope.Simulacao.Validade_Inicio, 'dd/MM/yyyy');
-                //$scope.Simulacao.Validade_Termino = $filter('date')($scope.Simulacao.Validade_Termino, 'dd/MM/yyyy');
+                $timeout(function () {
+                    $scope.IniciarCalculo = true;
+                }, 1000);
+                if (pImportacao) {
+                    $scope.Simulacao.Id_Simulacao = 0;
+                    $scope.Simulacao.Tipo = 'P';
+                    
+                }
             }
         });
     };
-    $scope.CarregarSimulacao();
+    $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo,false);
     //===================================Clicou na Aba dos Esquemas 
     $scope.SetCurrenEsquema = function (pIdEsquema) {
         for (var i = 0; i < $scope.Simulacao.Esquemas.length; i++) {
@@ -46,7 +64,7 @@
         var _mmyy = CompetenciaToInt(pEsquema.Competencia);
         httpService.Get("GetNewMidia/" + _mmyy).then(function (response) {
             _tempMidia = response.data;
-            _tempMidia.Id_Midia = $scope.Simulacao.ContadorMidia++;
+            _tempMidia.Id_Midia = $scope.Simulacao.ContadorMidia;
             _tempMidia.Id_Esquema = pEsquema.Id_Esquema,
             _tempMidia.IsValid = false;
             $scope.Simulacao.Esquemas[$scope.currentEsquema].Midias.push(angular.copy(_tempMidia));
@@ -102,11 +120,13 @@
             });
         }
     }
+    //==============================Mudou algum dado da midia
     $scope.fnChangeMidia = function (pMidia, pField) {
         switch (pField) {
             case 'Dia_Fim':
             case 'Qtd_Insercoes':
             case 'Programa':
+            case 'Distribuicao':
                 for (var i = 0; i < pMidia.Insercoes.length; i++) {
                     pMidia.Insercoes[i].Qtd = "";
                     pMidia.IsValid = false;
@@ -117,7 +137,10 @@
                 for (var i = 0; i < pMidia.Insercoes.length; i++) {
                     _tot += parseInt(pMidia.Insercoes[i].Qtd ? pMidia.Insercoes[i].Qtd : 0);
                 }
-                pMidia.Qtd_Insercoes = _tot;
+                pMidia.Qtd_Total_Insercoes = _tot;
+                if (pMidia.Distribuicao == 'M') {
+                    pMidia.Qtd_Insercoes = _tot;
+                }
                 break;
             default:
                 break;
@@ -247,6 +270,7 @@
             'Cod_Tipo_Comercial': pMidia.Cod_Tipo_Comercial,
             'Cod_Caracteristica': pMidia.Cod_Caracteristica,
             'Qtd_Insercoes': pMidia.Qtd_Insercoes,
+            'Distribuicao': pMidia.Distribuicao,
             'Dia_Inicio': pMidia.Dia_Inicio,
             'Dia_Fim': pMidia.Dia_Fim,
             'Veiculos': pEsquema.Veiculos
@@ -255,8 +279,9 @@
             if (response) {
                 if (response.data[0].Status) {
                     pMidia.Insercoes = response.data;
-                    pMidia.IsValid = true;
-                    $scope.ChangePendenteCalculo();
+                    //pMidia.IsValid = true;
+                    //$scope.ChangePendenteCalculo();
+                    $scope.SalvarSimulacao($scope.Simulacao, false);
                 }
                 else {
                     ShowAlert(response.data[0].Critica, 'warning');
@@ -271,37 +296,34 @@
         }
     });
     //===================================Clicou em Fixar Desconto ou Valor
-    //$scope.Fixar = function (pTipo) {
-    //    if (pTipo = 'Valor') {
-    //        $scope.Simulacao.Valor_Informado = "";
-    //    }
-    //    if (pTipo = 'Desconto') {
-    //        $scope.Simulacao.Desconto_Padrao = "";
-    //    }
-    //};
-
-    //===================================Mudou campos que precisam recalcular simulacao
-    $scope.ChangePendenteCalculo = function () {
-        if ($scope.Simulacao.Esquemas) {
-            if ($scope.Simulacao.Esquemas.length > 0) {
-                $scope.Simulacao.PendenteCalculo = true;
-            }
+    $scope.Fixar = function (pTipo) {
+        if (pTipo == 'Valor') {
+            $scope.Simulacao.Valor_Informado = "";
+            //$scope.Simulacao.Id_Pacote = ""
+            //$scope.Simulacao.Descricao_Pacote = ""
+            $scope.Simulacao.Desconto_Padrao = ""
         }
-    }
+        if (pTipo = 'Desconto') {
+            if ($scope.Simulacao.Fixar_Desconto) {
+                $scope.Simulacao.Id_Pacote = ""
+                $scope.Simulacao.Descricao_Pacote = ""
+            }
+            //$scope.Simulacao.Desconto_Padrao = "";
+        } 
+    };
     //===================================Salvar Simulacao
     $scope.SalvarSimulacao = function (pSimulacao, pShowMessage) {
         httpService.Post('SalvarSimulacao', pSimulacao).then(function (response) {
             if (response) {
-                if (response.data[0].Status == 1 && $scope.Parameters.Action == 'New') {
-                    $scope.Simulacao.Id_Simulacao = response.data[0].Id_Simulacao;
-                    $scope.Parameters.Id = response.data[0].Id_Simulacao;
-                    $scope.Parameters.Action = "Edit";
+                if (!response.data.Critica) {
+                    $scope.Simulacao = response.data
+                    if ($scope.Parameters.Action == 'New') {
+                        $scope.Parameters.Action = "Edit";
+                    }
                     pSimulacao.PendenteCalculo = false;
                 }
-                $scope.CarregarSimulacao();
-                if (pShowMessage) {
-                    ShowAlert(response.data[0].Mensagem, response.data[0].Status ? 'success' : 'warning');
-
+                else {
+                    ShowAlert(response.data.Critica,  'warning');
                 }
             }
         });
@@ -311,10 +333,19 @@
         $scope.SalvarSimulacao(pSimulacao, false)
         pSimulacao.PendenteCalculo = false;
     }
+    //===================================Mudou campos que precisam recalcular simulacao
+    $scope.ChangePendenteCalculo = function () {
+        if ($scope.Simulacao.Esquemas) {
+            if ($scope.Simulacao.Esquemas.length > 0) {
+                $scope.Simulacao.PendenteCalculo = true;
+                //$scope.RecalcularSimulacao($scope.Simulacao) //analisar se valor automaticamente ou somente ao clicar
+            }
+        }
+    }
     //===================================Remover esquema
-    $scope.RemoverEsquema = function (pIdEsquema) {
+    $scope.RemoverEsquema = function (pIdEsquema, pTodos) {
         swal({
-            title: "Tem certeza que deseja Excluir esse Esquema ?",
+            title: "Tem certeza que deseja exclur " + (pTodos ? 'todos os Esquemas ?' : 'esse Esquema ?'),
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
@@ -322,27 +353,103 @@
             cancelButtonText: "Cancelar",
             closeOnConfirm: true
         }, function () {
-            for (var i = 0; i < $scope.Simulacao.Esquemas.length; i++) {
-                if ($scope.Simulacao.Esquemas[i].Id_Esquema == pIdEsquema) {
-                    $scope.Simulacao.Esquemas.splice(i, 1);
-                    $scope.Simulacao.PendenteCalculo = true;
-                    $scope.$digest();
-                    break;
+            if (pTodos) {
+                $scope.Simulacao.Esquemas = [];
+                $scope.currentEsquema = 0;
+            }
+            else {
+
+                for (var i = 0; i < $scope.Simulacao.Esquemas.length; i++) {
+                    if ($scope.Simulacao.Esquemas[i].Id_Esquema == pIdEsquema) {
+                        $scope.Simulacao.Esquemas.splice(i, 1);
+                        $scope.currentEsquema--;
+                        if ($scope.currentEsquema < 0) {
+                            $scope.currentEsquema = 0;
+                        }
+                        $scope.Simulacao.PendenteCalculo = true;
+                        break;
+                    }
                 }
             }
-
+            $scope.$digest();
+            $scope.SalvarSimulacao($scope.Simulacao)
         });
     }
-
     //===================================Mostra a critica da Valoracao
     $scope.MostraCritica = function (pLinha) {
         if (pLinha) {
             $scope.Critica_Tabela = pLinha.Critica.split('#');
+            $("#modalCritica").modal(true);
         }
-        $("#modalCritica").modal(true);
+
     }
+    //===================================Detalhar Desconto
+    $scope.DetalharDesconto = function (pMidia) {
+        $scope.DescontoDetalhado = [];
+        httpService.Get("DetalharDesconto/" + pMidia.Id_Midia).then(function (response) {
+            if (response) {
+                $scope.DescontoDetalhado = response.data;
+                $("#modalDescontoDetalhe").modal(true);
+            }
+        });
+    };
+    //===================================Duplicar Esquemas
+    $scope.DuplicarEsquema = function (pIdSimulacao,pId_Esquema, pTipo) {
+        httpService.Get("DuplicarEsquema/" + pId_Esquema + '/' + pTipo).then(function (response) {
+            if (response) {
+                if (response.data[0].Qtd_Exportado > 0) {
+                    $scope.CarregarSimulacao(pIdSimulacao,$scope.Parameters.Processo,false);
+                }
+                if (response.data[0].Critica) {
+                    $scope.Critica_Simulacao = response.data[0].Critica.split('#');
+                    $("#modalCritica").modal(true);
+                }
+            }
+        });
+    }
+    //===================================Importar Simulacao Para gerar Nova Proposta
+    $scope.ImportarSimulacao = function () {
+        httpService.Get('ListarTabela/Simulacao').then(function (response) {
+            if (response.data) {
+                $scope.PesquisaTabelas.Items = response.data;
+                $scope.PesquisaTabelas.FiltroTexto = "";
+                $scope.PesquisaTabelas.cback = function (value) { $scope.CarregarSimulacao(value,'S',true) };
+                $("#modalTabela").modal(true);
+            }
+        });
+
+    }
+    //===================================Impressao da Midia
+    $scope.ImprimirMidia = function (pId_Simulacao) {
+        httpService.Get("ImprimirMidia/" + pId_Simulacao).then(function (response) {
+            if (response.data) {
+                url = $rootScope.baseUrl + "PDFFILES/MIDIA/" + $rootScope.UserData.Login.trim() + "/" + response.data;
+                var win = window.open(url, '_blank');
+                win.focus();
+            }
+            else {
+                ShowAlert("Não existe mídia a sem impressa para essa " + $scope.Descricao_Processo, "warning")
+            }
+        });
+    };
+    //===================================Analisar Simulacao
+    $scope.ImprimirSimulacao= function (pId_Simulacao) {
+        httpService.Get("ImprimirAnalise/" + pId_Simulacao).then(function (response) {
+            if (response.data) {
+                url = $rootScope.baseUrl + "PDFFILES/ANALISE/" + $rootScope.UserData.Login.trim() + "/" + response.data;
+                var win = window.open(url, '_blank');
+                win.focus();
+            }
+            else {
+                ShowAlert("Não existe dados para Análise", "warning")
+            }
+        });
+    };
     //===================================Seta Iniciar calculo false apos o load da pagina
-    $timeout(function () {
-        $scope.IniciarCalculo = true;
-    }, 3000);
+    //$timeout(function () {
+    //    console.log("mudando para ")
+    //    $scope.IniciarCalculo = true;
+    //},30000);
+
+
 }]);

@@ -309,6 +309,30 @@ function DecimalUnformat(pValue) {
         return "";
     }
 }
+function cnpjUnformat(pValue) {
+    if (pValue) {
+        return pValue.toString().replace(/[^0-9,]+/g, "");
+    }
+    else {
+        return "";
+    }
+}
+function cnpjFormat(pValue) {
+    
+    if (pValue) {
+        if (pValue.length == 14) {
+            return pValue.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "\$1.\$2.\$3\/\$4\-\$5");
+        }
+        else {
+            return pValue.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4");
+        }
+        
+    }
+    else {
+        return "";
+    }
+}
+
 function PercentFormat(pValue) {
     var formatter = new Intl.NumberFormat('pt-BR', {
         style: 'decimal',

@@ -95,7 +95,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="angular\Controller\PacoteCadastroController.js" />
     <Content Include="angular\Controller\MercadoCadastroController.js" />
+    <Content Include="angular\Controller\PacoteDesconto_List_Controller.js" />
     <Content Include="angular\Controller\MercadoController.js" />
     <Content Include="angular\Controller\Simulacao_List_Controller.js" />
     <Content Include="angular\Controller\dictionaryController.js" />
@@ -169,11 +171,15 @@
     <Content Include="TASKS.TXT" />
     <Content Include="template\modalCritica.html" />
     <Content Include="template\modalConfirm.html" />
+    <Content Include="template\DescontoDetalhe.html" />
     <Content Include="template\PesquisaTabela.html" />
     <Content Include="template\MultiSelecaoVeiculo.html" />
     <Content Include="template\wait.html" />
+    <Content Include="view\dashboard.html" />
     <Content Include="view\Mercado.html" />
+    <Content Include="view\PacoteCadastro.html" />
     <Content Include="view\MercadoCadastro.html" />
+    <Content Include="view\PacoteDesconto_List.html" />
     <Content Include="view\SimulacaoComAbas.html" />
     <Content Include="view\Simulacao_List.html" />
     <Content Include="view\simulacao_copy_2803.html" />

@@ -1,36 +1,41 @@
-﻿<div class="modal fade" id="modal-Table" tabindex="-1" role="dialog" aria-labelledby="modal-warning-header" ng-controller="dictionaryController">
-    <div class="modal-dialog modal-primary" role="document">
+﻿<div class="modal fade" id="modal-Table" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="modal-warning-header" ng-controller="dictionaryController">
+    <div class="modal-dialog modal-primary" role="document" ng-show="!loading">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="modal-info-header">Consulta de Tabelas</h4>
+                <h4 class="modal-title" ng-show="!tableTitle" id="modal-info-header">Consulta de Tabelas</h4>
+                <h4 class="modal-title" ng-show="tableTitle" id="modal-info-header">Tabela de {{tableTitle}}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-times" style="color:#fff"></span></button>
             </div>
             <div class="modal-body">
-                <div class="app-header-buttons" ng-show="loading" style="margin-left:50%">
-                    <i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
-                </div>
                 <div ng-show="!loading">
-                    <div class="row" ng-show="filteredSelect.length>0">
+                    <div class="row" ng-show="!ShowFilter">
                         <div class="col-md-11" style="margin-bottom:10px;margin-left:10px">
                             <input class="form-control input-sm" type="text" ng-model="filtrotexto" placeholder="Pesquisar" />
                         </div>
                     </div>
-                    <div style="margin-bottom:10px" ng-show="!filteredSelect.length">
+                    <div class="row" ng-show="ShowFilter">
+                        <div class="col-md-9" style="margin-bottom:10px;margin-left:10px">
+                            <input style="margin-top:5px" class="form-control input-sm" type="text" ng-model="filtrotexto" placeholder="Informe uma parte do campo e clique em pesquisar" />
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-success btn-sm" ng-disabled="filtrotexto.length<3" ng-click="DicionaryLoadWithFilter(filtrotexto)">Pesquisar</button>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom:10px" ng-show="!filteredSelect.length && !ShowFilter">
                         <p style="text-align:center"> Nenhum registro disponível para essa pesquisa</p>
                     </div>
 
-                    <div style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px #f5f5f5">
+                    <div style="max-height:300px;overflow-y:auto;overflow-x:hidden;border:solid 1px #f5f5f5">
                         <div ng-repeat="datarow in filteredSelect = (dictionaryTable| filter:filtrotexto  ) track by $index">
-
                             <div ng-if="!MultiSelect">
                                 <div class="col-md-2">
-                                    <label class="itemselect" ng-click="ItemSelectClickId(datarow.Codigo,datarow.Descricao,elementToBind)"> {{datarow.Codigo}}</label>
+                                    <label class="itemselect" ng-click="ItemSelectClickId(datarow.Codigo,datarow.Descricao,datarow.Extra)"> {{datarow.Codigo}}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    <label class="itemselect" ng-click="ItemSelectClickId(datarow.Codigo,datarow.Descricao,elementToBind)"> {{datarow.Descricao}}</label>
+                                    <label class="itemselect" ng-click="ItemSelectClickId(datarow.Codigo,datarow.Descricao,datarow.Extra)"> {{datarow.Descricao}}</label>
                                 </div>
                             </div>
-
                             <div ng-if="MultiSelect">
                                 <div class="col-md-3">
                                     <input type="checkbox" ng-model="datarow.Value"><span style="margin-left:10px">{{datarow.Codigo}}</span>
@@ -41,29 +46,13 @@
                             </div>
                         </div>
                     </div>
-                    <!--<div style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px #f5f5f5">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Código</th>
-                                    <th>Descrição</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="datarow in filteredSelect = (dictionaryTable| filter:filtrotexto  ) track by $index" style="border-top:none !important">
-                                    <td style="line-height:10px">{{datarow.Codigo}}</td>
-                                    <td style="line-height:10px">{{datarow.Descricao}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>-->
                 </div>
             </div>
             <div class="modal-footer">
                 <button ng-if="MultiSelect" class="btn btn-primary" ng-click="Marcar(true)">Marcar Todos</button>
                 <button ng-if="MultiSelect" class="btn btn-primary" ng-click="Marcar(false)">Desmarcar Todos</button>
                 <button ng-if="MultiSelect" class="btn btn-success" ng-click="ItemSelectClickOk()">Ok</button>
-                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancela</button>
+                <button type="button" class="btn btn-warning" ng-click="CloseSelect()">Cancela</button>
             </div>
         </div>
     </div>

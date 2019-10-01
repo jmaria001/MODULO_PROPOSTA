@@ -221,7 +221,6 @@
                     Id_Desconto_Detalhado++
                     _TempDesconto.Id_Desconto_Detalhado = Id_Desconto_Detalhado
                     $scope.Simulacao.DescontoDetalhado.push(_TempDesconto);
-                    console.log($scope.Simulacao.DescontoDetalhado);
                 }
             }
             if (_qtd_Selecionado == 0) {
@@ -246,7 +245,6 @@
     //===================================Quando mudou a opcao de tipo de desconto
     $scope.$watch('DescontoDetalhado.TipoDesconto', function (newValue, oldValue) {
         if (newValue) {
-            console.log(newValue);
             if (newValue != oldValue) {
                 $scope.TipoDescontoFilter = ""
                 $scope.OpcoesDesconto = [];
@@ -525,9 +523,7 @@
     //=================================Mostra a critica de Valoracao
     $scope.MostraCritica = function (pLinha) {
         if (pLinha) {
-            console.log(pLinha)
             $scope.Critica_Tabela = pLinha.Critica_Tabela.split('<br/>')
-            console.log($scope.Critica_Tabela);
         }
         $("#modalCritica").modal(true);
     }
