@@ -1,0 +1,43 @@
+﻿<div class="container">
+    <div class="block table-responsive" ng-show="ShowGrid">
+        <!--===================================Botoes-->
+        <a id="btnNovoCondPgto" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#CondPgtoCadastro/New/0">Novo Condições de Pagamentos</a>
+        <!--<a a href="#tipodocumentoNew/New/0" id="btnNovoTipoDocumento" display="none"></a>-->
+
+        <button id="ExportReporttoExcel" class="btn btn-warning" ng-disabled="CondPgtos.length==1">Exportar Excel</button>
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Código</th>
+                        <th>Descricao</th>
+                        <th>Qtde Dias</th>
+                        <th>Sigla</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="CondPgto in CondPgtos track by $index" on-finish-render="ngRepeatFinished()">
+                        <td style="width:50px;text-align:center">
+                            <a href="#CondPgtoCadastro/Edit/{{CondPgto.Cod_Condicao.trim()}}" ng-show="PermissaoEdit">
+
+                                <span class="fa fa-edit fa-2x"></span>
+                            </a>
+                        </td>
+                        <td>{{::CondPgto.Cod_Condicao}}</td>
+                        <td>{{::CondPgto.Descricao}}</td>
+                        <td>{{::CondPgto.Qtd_Dias}}</td>
+                        <td>{{::CondPgto.Tipo_Vencimento}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>
