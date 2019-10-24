@@ -17,11 +17,11 @@ angular.module('App').controller('MainController', ['$scope', '$rootScope', '$co
             }
         });
 
-        httpService.Post('GetMensagem').then(function (response) {
-            if (response) {
-                $rootScope.Mensagens = response.data;
-            }
-        });
+        //httpService.Post('GetMensagem').then(function (response) {
+        //    if (response) {
+        //        $rootScope.Mensagens = response.data;
+        //    }
+        //});
     }
 
     httpService.Get("GetDataBaseName").then(function (response) {

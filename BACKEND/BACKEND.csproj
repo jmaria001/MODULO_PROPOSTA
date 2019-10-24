@@ -242,6 +242,9 @@
     <Compile Include="TipoComecial\TipoComercialController.cs" />
     <Compile Include="TipoComecial\TipoComercialModel.cs" />
     <Compile Include="TipoComecial\TipoComercialSql.cs" />
+    <Compile Include="RegraAprovacao\RegraAprovacaoController.cs" />
+    <Compile Include="RegraAprovacao\RegraAprovacaoModel.cs" />
+    <Compile Include="RegraAprovacao\RegraAprovacaoSql.cs" />
     <Compile Include="Veiculo\VeiculoController.cs" />
     <Compile Include="Veiculo\VeiculoModel.cs" />
     <Compile Include="Veiculo\VeiculoSql.cs" />

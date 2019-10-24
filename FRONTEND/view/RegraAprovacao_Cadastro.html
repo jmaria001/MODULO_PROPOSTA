@@ -1,0 +1,289 @@
+﻿<div class="container">
+    <form name="frmPacoteCadastro" autocomplete="off">
+        <!--======================================Dados -->
+        <div class="block">
+            <!--=======================================ID-->
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label for="txtIdSimulacao" class="field-x">#Id</label>
+                    <div class="input-group">
+                        <input type="text"
+                               Id="txtIdSimulacao"
+                               class="form-control"
+                               ng-model="Regra.Id_Regra"
+                               disabled="disabled">
+                    </div>
+                </div>
+            </div>
+            <!--=======================================Nome-->
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="txtNomeRegra" class="field-x">Nome da Regra</label>
+                    <div class="input-group">
+                        <input type="text"
+                               maxlength="20"
+                               Id="txtNomeRegra"
+                               class="form-control"
+                               ng-model="Regra.Nome_Regra" />
+                    </div>
+                </div>
+            </div>
+            <!--=======================================Descricao da Regra-->
+            <div class="col-md-7">
+                <div class="form-group">
+                    <label for="txtDescricaoRegra" class="field-x">Descrição</label>
+                    <div class="input-group">
+                        <input type="text"
+                               Id="txtDescricaoRegra"
+                               maxlength="255"
+                               class="form-control"
+                               ng-model="Regra.Descricao_Regra" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--======================================Table Regras-->
+        <div class="block">
+            <div class="alert alert-primary alert-icon-block" role="alert">
+                <div class="alert-icon">
+                    <span class="icon-checkmark-circle"></span>
+                </div>
+                <strong class="pull-right">Regras</strong>
+                <button class="btn btn-default btn-icon-fixed btn-sm pull-left"
+                        ng-click="AdicionarFaixa()"
+                        style="margin:0px 0px 0px 0px;margin-right:50px">
+                    <span class="fa fa-plus"></span> Adicionar Faixa de Descontos
+                </button>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>De</th>
+                            <th>Até</th>
+                            <th style="text-align:center">Qtd Min Aprovadores</th>
+                            <th colspan="2">Aprovadores</th>
+                            <th>Remover</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="range in Regra.Range track by $index">
+                            <td style="width:150px;min-width:150px">
+                                <input type="text"
+                                       ng-model="range.Desconto_De"
+                                       class="form-control"
+                                       onblur="this.value = PercentFormat(this.value)"
+                                       onfocus="this.value = DecimalUnformat(this.value)"
+                                       onkeypress="return DecimalOnly(event)"
+                                       maxlength="10" />
+                            </td>
+                            <td style="width:150px;min-width:150px">
+                                <input type="text"
+                                       ng-model="range.Desconto_Ate"
+                                       class="form-control"
+                                       onblur="this.value = PercentFormat(this.value)"
+                                       onfocus="this.value = DecimalUnformat(this.value)"
+                                       onkeypress="return DecimalOnly(event)"
+                                       maxlength="10" />
+                            </td>
+                            <td style="width:100px;min-width:150px">
+                                <input type="text"
+                                       ng-model="range.QtdAprovadores"
+                                       class="form-control numeric"
+                                       onkeypress="return NumericOnly(event)"
+                                       maxlength="2" />
+                            </td>
+                            <td style="border-right:none">
+                                <label ng-repeat="aprovador in range.Aprovadores track by $index"
+                                       ng-class="aprovador.Indica_Obrigatorio?'label label-success' : 'label label-info'"
+                                       style="margin-right:10px;display:inline-block">
+                                    {{aprovador.Nome_Usuario}}
+                                    <span class="fa fa-times span-btn pull-right" ng-click="RemoverAprovador(range.Id_Range,aprovador.Id_Usuario)"></span>
+                                </label>
+                            </td>
+                            <td style="width:90px;min-width:90px;border-left:none">
+                                <button class="btn btn-default btn-sm" ng-click="SelecionarAprovadores(range)">
+                                    <span class="fa fa-search"></span>
+                                </button>
+                            </td>
+
+                            <td style="width:90px;min-width:90px">
+                                <button class="btn btn-default btn-sm" ng-click="ExcluirRange(range.Id_Range)">
+                                    <span class="fa fa-trash fa-crud"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--==================validacao de empresas-->
+        <div class="block">
+            <label class="text-muted">Validação de Empresas</label>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="app-checkbox">
+                        <label><input type="checkbox" ng-model="Regra.SemEmpresa" name="app-checkbox-1" />Qualquer Empresa<span></span></label>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <button class="btn btn-default" ng-click="SelecionarEmpresas(Regra.Empresas)" ng-disabled="Regra.SemEmpresa">Selecionar Empresas</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="border:solid 1px silver;min-height:40px;margin-top:10px" ng-show="Regra.Empresas.length>0 && !Regra.SemEmpresa">
+                    <label ng-repeat="empresa in Regra.Empresas track by $index"
+                           class="label label-info"
+                           style="margin-right:10px;margin-top:5px;display:inline-block;">
+                        <span>{{empresa.Cod_Empresa}}-{{empresa.Nome_Empresa}}</span>
+                        <span class="fa fa-times span-btn pull-right margin-left-20" ng-click="RemoverEmpresa(empresa)"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <!--==================validacao de emissoras-->
+        <div class="block">
+            <label class="text-muted">Validação de Emissoras</label>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="app-checkbox">
+                        <label><input type="checkbox" ng-model="Regra.SemVeiculo" name="app-checkbox-1" />Qualquer Emissora<span></span></label>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <button class="btn btn-default" ng-click="SelecionarVeiculos(Regra.Veiculos)" ng-disabled="Regra.SemVeiculo">Selecionar Emissoras</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="border:solid 1px silver;min-height:40px;margin-top:10px" ng-show="Regra.Veiculos.length>0 && !Regra.SemVeiculo">
+                    <label ng-repeat="veiculo in Regra.Veiculos track by $index"
+                           class="label label-info"
+                           style="margin-right:10px;margin-top:5px;display:inline-block;">
+                        <span>{{veiculo.Cod_Veiculo}}-{{veiculo.Nome_Veiculo}}</span>
+                        <span class="fa fa-times span-btn pull-right margin-left-20" ng-click="RemoverVeiculo(veiculo)"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <!--==================validacao de Agência-->
+        <div class="block">
+            <label class="text-muted">Validação de Agências</label>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="app-checkbox">
+                        <label><input type="checkbox" ng-model="Regra.SemAgencia" name="app-checkbox-1" />Qualquer Agencia<span></span></label>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <button class="btn btn-default" ng-click="SelecionarAgencias(Regra.Agencias)" ng-disabled="Regra.SemAgencia">Selecionar Agências</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="border:solid 1px silver;min-height:40px;margin-top:10px" ng-show="Regra.Agencias.length>0 && !Regra.SemAgencia">
+                    <label ng-repeat="agencia in Regra.Agencias track by $index"
+                           class="label label-info"
+                           style="margin-right:10px;margin-top:5px;display:inline-block;">
+                        <span>{{agencia.Cod_Agencia}}-{{agencia.Nome_Agencia}}</span>
+                        <span class="fa fa-times span-btn pull-right margin-left-20" ng-click="RemoverAgencia(agencia)"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <!--==================validacao de Agência-->
+        <div class="block">
+            <label class="text-muted">Validação de Cliente</label>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="app-checkbox">
+                        <label><input type="checkbox" ng-model="Regra.SemCliente" name="app-checkbox-1" />Qualquer Cliente<span></span></label>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <button class="btn btn-default" ng-click="SelecionarClientes(Regra.Clientes)" ng-disabled="Regra.SemCliente">Selecionar Clientes</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12" style="border:solid 1px silver;min-height:40px;margin-top:10px" ng-show="Regra.Clientes.length>0 && !Regra.SemCliente">
+                    <label ng-repeat="Cliente in Regra.Clientes track by $index"
+                           class="label label-info"
+                           style="margin-right:10px;margin-top:5px;display:inline-block;">
+                        <span>{{Cliente.Cod_Cliente}}-{{Cliente.Nome_Cliente}}</span>
+                        <span class="fa fa-times span-btn pull-right margin-left-20" ng-click="RemoverCliente(Cliente)"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <!--=========================Botoes-->
+        <div class="fixed-buttons-bottom">
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-success" ng-click="SalvarRegra(Regra)">Salvar</button>
+                    <a href="#regraaprovacao" class="btn btn-warning">Cancela</a>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--=================================Selecao de Usuários-->
+    <div class="modal fade" id="ModalSelecaoUsuario" tabindex="-1" role="dialog" aria-labelledby="modal-warning-header">
+        <div class="modal-dialog modal-primary" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-info-header">Seleção de Aprovadores</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-times" style="color:#fff"></span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="app-header-buttons" ng-show="loading" style="margin-left:50%">
+                        <i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+                    </div>
+                    <div ng-show="!loading">
+                        <div class="row" ng-show="filteredSelect.length>0">
+                            <div class="col-md-11" style="margin-bottom:10px;margin-left:10px">
+                                <input class="form-control input-sm" type="text" ng-model="ListaAprovadores.FiltroTexto" placeholder="Pesquisar" />
+                            </div>
+                        </div>
+                        <div class="table-responsive" style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px #f5f5f5">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Id</th>
+                                        <th>Nome</th>
+                                        <th>Tipo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="datarow in filteredSelect = (ListaAprovadores.Items| filter:ListaAprovadores.FiltroTexto) track by $index">
+                                        <td style="width:50px">
+                                            <div class="app-checkbox">
+                                                <label><input type="checkbox" name="app-checkbox-1" ng-model="datarow.Selected" style="position:relative" /> <span></span></label>
+                                            </div>
+                                        </td>
+                                        <td>{{datarow.Codigo}}</td>
+                                        <td>{{datarow.Descricao}}</td>
+                                        <td>
+                                            <select class="form-control" ng-model="datarow.Tipo" ng-disabled="!datarow.Selected">
+                                                <option value=1>Obrigatório</option>
+                                                <option value=2>Opcional</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="SelecaoAprovadorOk()">Ok</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Cancela</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

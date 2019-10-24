@@ -28,10 +28,10 @@
                             <a href="#cadastro"><span class="nav-icon-hexa">Cd</span>Cadastros</a>
                             <ul>
                                 <li><a href="#usuario"><span class="nav-icon-hexa">Us</span>Usuários</a></li>
-                                <li><a href="#veiculo"><span class="nav-icon-hexa">Us</span>Veículos</a></li>
+                                <li><a href="#veiculo"><span class="nav-icon-hexa">Ve</span>Veículos</a></li>
                                 <li><a href="#TipoComercial"><span class="nav-icon-hexa">Us</span>Tipo de Comercial</a></li>
-                                <li><a href="#mercado"><span class="nav-icon-hexa">Us</span>Mercado</a></li>
-                                <li><a href="#Programa"><span class="nav-icon-hexa">Us</span>Programa</a></li>
+                                <li><a href="#mercado"><span class="nav-icon-hexa">Me</span>Mercado</a></li>
+                                <li><a href="#Programa"><span class="nav-icon-hexa">Pr</span>Programa</a></li>
                             </ul>
                         </li>
                         <li><a href="#Simulacao"><span class="nav-icon-hexa">Si</span>Minhas Simulações</a></li>
@@ -40,7 +40,7 @@
                             <a href="#"><span class="nav-icon-hexa">Pd</span>Política de Descontos</a>
                                <ul>
                                    <li><a href="#pacote"><span class="nav-icon-hexa">Us</span>Pacotes de Descontos</a></li>
-                                   <li><a href="#"><span class="nav-icon-hexa">Us</span>Follow-up de Aprovações</a></li>
+                                   <li><a href="#regraaprovacao"><span class="nav-icon-hexa">Fl</span>Regras de Aprovações</a></li>
                                </ul>
                         </li>
                         <li ng-controller="loginController"><a href="" ng-click="app_Logout()"><span class="icon-exit"></span> Sair</a></li>
@@ -168,6 +168,8 @@
     <script src="angular/Controller/UsuarioController.js?hash=V001"></script>
     <script src="angular/Controller/login.js?hash=V001"></script>
     <script src="angular/Controller/muralController.js?hash=V001"></script>
+    <script src="angular/Controller/RegraAprovacao_Controller.js?hash=V001"></script>
+    <script src="angular/Controller/RegraAprovacaoCadastro_Controller.js?hash=V001"></script>
 
     <!--====================================================================================PLUGINS -->
     <!--<script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.min.js?hash=V001"></script>-->
@@ -181,6 +183,7 @@
     <script src="js/vendor/XTABLES/Buttons-1.5.1/js/vfs_fonts.js?hash=V001"></script>
     <script src="js/vendor/dropzone/dropzone.js?hash=V001"></script>
     <script src="js/vendor/charts/charts.bundle.js?hash=V001"></script>
+    
     <!--<script src="js/app_demo.js?hash=V001"></script>-->
     <!--<script src="js/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js?hash=V001"></script>
     <link href="js/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css?hash=V001" rel="stylesheet" />-->
@@ -188,26 +191,26 @@
     <script src="js/vendor/moment/moment_locale_pt_br.js"></script>
     <!--<script src="js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.js?hash=V001"></script>
     <script src="js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js?hash=V001"></script>-->
-    <script src="js/vendor/charts/charts.bundle.js"></script>
     <!--====================================================================================Export-->
     <script src="js/vendor/jspdf/png.js?hash=V001"></script>
     <script src="js/vendor/jspdf/zlib.js?hash=V001"></script>
     <script src="js/vendor/jspdf/jspdf.min.js?hash=V001"></script>
     <script src="js/vendor/jspdf/html2canvas.js?hash=V001"></script>
+
     <div ng-include="'template/wait.html'"></div>
 </body>
 </html>
 <script type="text/javascript">
     $(document).ready(function () {
         $('body').keydown(function (e) {
-            if ($('[id*="modal"],.sweet-alert').is(':visible')) {
+            //if ($('[id*="modal"],.sweet-alert').is(':visible')) {
                 var rx = /INPUT|SELECT|TEXTAREA/i;
                 if (e.keyCode == 8) {
                     if (!rx.test(e.target.tagName) || e.target.disabled || e.target.readOnly) {
                         e.preventDefault();
                     }
                 }
-            }
+            //}
             
         });
     });

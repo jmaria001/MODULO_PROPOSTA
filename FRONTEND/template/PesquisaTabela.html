@@ -2,36 +2,52 @@
     <div class="modal-dialog modal-primary" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="modal-info-header">Consulta de Tabelas</h4>
+                <h4 ng-hide="PesquisaTabelas.Titulo" class="modal-title" id="modal-info-header">Consulta de Tabelas</h4>
+                <h4 ng-show="PesquisaTabelas.Titulo" class="modal-title" id="modal-info-header">{{PesquisaTabelas.Titulo}}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-times" style="color:#fff"></span></button>
             </div>
             <div class="modal-body">
-                <div class="app-header-buttons" ng-show="loading" style="margin-left:50%">
-                    <i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
-                </div>
                 <div ng-show="!loading">
-                    <div class="row" ng-show="filteredSelect.length>0">
+                    <div class="row" ng-show="filteredSelect.length>0 && !PesquisaTabelas.PreFilter">
                         <div class="col-md-11" style="margin-bottom:10px;margin-left:10px">
                             <input class="form-control input-sm" type="text" ng-model="PesquisaTabelas.FiltroTexto" placeholder="Pesquisar" />
                         </div>
                     </div>
-                    <div style="margin-bottom:10px" ng-show="!filteredSelect.length">
-                        <p style="text-align:center"> Nenhum registro disponível para essa pesquisa</p>
+
+                    <div style="margin-bottom:10px" ng-show="filteredSelect.length == 0 && !PesquisaTabelas.PreFilter">
+                        <p style="text-align:center"> Nenhum registro disponível para essa Consulta</p>
+                    </div>
+
+                    <div class="row" ng-show="PesquisaTabelas.PreFilter ">
+                        <div class="col-md-9" style="margin-bottom:10px;margin-left:10px">
+                            <input style="margin-top:5px" class="form-control input-sm" type="text" ng-model="PesquisaTabelas.PreFiltroTexto" placeholder="Informe uma parte do campo e clique em pesquisar" />
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-success btn-sm" ng-disabled="PesquisaTabelas.PreFiltroTexto.length<3" ng-click="PesquisaTabelas.LoadCallBack(PesquisaTabelas.PreFiltroTexto)" >Pesquisar</button>
+                        </div>
                     </div>
 
                     <div style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px #f5f5f5">
                         <div ng-repeat="datarow in filteredSelect = (PesquisaTabelas.Items| filter:PesquisaTabelas.FiltroTexto) track by $index">
+                                <div class="col-md-1" ng-show="PesquisaTabelas.MultiSelect">
+                                    <div class="app-checkbox" style="margin:0px 0px 0px 0px">
+                                        <label><input type="checkbox" name="app-checkbox-1" ng-model="datarow.Selected" style="position:relative" /> <span></span></label>
+                                    </div>
+                                </div>
                                 <div class="col-md-2">
-                                    <label class="itemselect" ng-click="PesquisaTabelas.cback(datarow.Codigo)" data-dismiss="modal"> {{datarow.Codigo}}</label>
+                                    <label ng-show="!PesquisaTabelas.MultiSelect"  class="itemselect" ng-click="PesquisaTabelas.ClickCallBack(datarow.Codigo)" data-dismiss="modal"> {{datarow.Codigo}}</label>
+                                    <label ng-show="PesquisaTabelas.MultiSelect" class="itemselect" >{{datarow.Codigo}}</label>
                                 </div>
-                                <div class="col-md-10">
-                                    <label class="itemselect" ng-click="PesquisaTabelas.cback(datarow.Codigo)" data-dismiss="modal"> {{datarow.Descricao}}</label>
+                                <div class="col-md-9">
+                                    <label ng-show="!PesquisaTabelas.MultiSelect"  class="itemselect" ng-click="PesquisaTabelas.ClickCallBack(datarow.Codigo)" data-dismiss="modal"> {{datarow.Descricao}}</label>
+                                    <label ng-show="PesquisaTabelas.MultiSelect" class="itemselect"> {{datarow.Descricao}}</label>
                                 </div>
-                        </div>
+                            </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
+                <button ng-show="PesquisaTabelas.MultiSelect" type="button" class="btn btn-success" data-dismiss="modal" ng-click="PesquisaTabelas.ClickCallBack(PesquisaTabelas.Items)">Ok</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancela</button>
             </div>
         </div>

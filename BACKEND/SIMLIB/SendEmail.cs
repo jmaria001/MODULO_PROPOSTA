@@ -124,14 +124,11 @@ namespace PROPOSTA
             // Anexa o arquivo a mensagemn+
             //objEmail.Attachments.Add(anexo);
 
-            //===================================Cliente do emailComCopia 
+            //===================================Cliente do email
             System.Net.Mail.SmtpClient objSmtp = new System.Net.Mail.SmtpClient();
             objSmtp.Host = server;
             objSmtp.Credentials = new NetworkCredential(User, this.Decriptografa(Password));
             objSmtp.Port = int.Parse(porta);
-
-            
-              
 
             try
             {
