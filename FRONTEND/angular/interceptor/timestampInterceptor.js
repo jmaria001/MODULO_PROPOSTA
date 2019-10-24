@@ -4,7 +4,6 @@ angular.module("App").factory("timestampInterceptor", function ($cookies) {
 
         request: function (config) {
             var url = config.url;
-            //var hash = "001.001.007";
             var hash = "";
             if (!hash) {
                 hash = new Date().getTime();

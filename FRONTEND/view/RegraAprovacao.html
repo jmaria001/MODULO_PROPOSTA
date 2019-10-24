@@ -1,0 +1,54 @@
+﻿<div class="container">
+    <div class="block">
+        <button id="btnNovaRegra" class="btn btn-primary" style="display:none" ng-click="NovaRegra()">Nova Regra</button>
+        <!--==============================================Filtros-->
+        <!--==============================================Grid -->
+        <div class="box table-responsive " style="min-height:600px" ng-show="CurrentShow=='Grid'">
+            <table id="dataTable" class="table table-striped table-bordered " cellspacing="0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Id</th>
+                        <th>Nome da Regra</th>
+                        <th>Descrição</th>
+                        <th>Regras / Aprovadores</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="regra in Regras track by $index" on-finish-render="ngRepeatFinished">
+                        <td style="width:50px; text-align:center">
+                            <a href="#regracadastro/Edit/{{regra.Id_Regra}}" ng-show="PermissaoEditar">
+                                <span class="fa fa-edit fa-2x"></span>
+                            </a>
+                        </td>
+                        <td style="width:50px">{{::regra.Id_Regra}}</td>
+                        <td >{{::regra.Nome_Regra}}</td>
+                        <td>{{::regra.Descricao_Regra}}</td>
+                        <td>
+                            <table class="table table-bordered">
+                                <tr ng-repeat="range in regra.Range track by $index">
+                                    <td style="min-width:20%;white-space:nowrap">{{::range.Range_Text}}</td>
+                                    <td style="width:80%">
+                                        <label ng-class="aprovador.Indica_Obrigatorio?'label label-success' : 'label label-info'" style="margin-right:10px" ng-repeat="aprovador in range.Aprovadores track by $index">{{::aprovador.Nome_Usuario}}</label>
+                                    </td>
+                                </tr>
+
+                            </table>
+                        </td>
+                        
+                        <td width="50px">
+                            <button class="btn btn-default btn-sm" ng-click="ExcluirRegra(regra.Id_Regra)" ng-disabled="!PermissaoExcluir">
+                                <span class="fa fa-trash fa-crud"></span>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+    });
+</script>

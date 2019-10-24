@@ -1,4 +1,10 @@
-﻿angular.module('App').controller('muralController', ['$scope', '$rootScope', 'httpService', function ($scope, $rootScope, httpService,$location) {
+﻿angular.module('App').controller('muralController', ['$scope', '$rootScope', 'httpService', function ($scope, $rootScope, httpService, $location) {
+    httpService.Post('GetMensagem').then(function (response) {
+        if (response) {
+            $rootScope.Mensagens = response.data;
+        }
+    });
+
     $scope.VistoMensagem = function (pIdMensagem)
     {
         httpService.Post('VistoMensagem', {'Id_Mensagem':pIdMensagem}).then(function (response) {

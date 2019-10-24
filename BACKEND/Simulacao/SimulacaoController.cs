@@ -292,6 +292,26 @@ namespace PROPOSTA
             }
         }
 
+        
+        [Route("api/MostrarAprovadores/{Id_Simulacao}")]
+        [Route("api/MostrarAprovadores")]
+        [HttpGet]
+        [Authorize()]
+        public IHttpActionResult MostrarAprovadores(Int32 Id_Simulacao)
+        {
+            SimLib clsLib = new SimLib();
+            Simulacao Cls = new Simulacao(User.Identity.Name);
+            try
+            {
+                return Ok(Cls.GetAprovadores(Id_Simulacao));
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+       
         [Route("api/ImprimirMidia/{Id_Simulacao}")]
         [Route("api/ImprimirMidia")]
         [HttpGet]
@@ -324,6 +344,75 @@ namespace PROPOSTA
                 ImpressaoAnalise Cls = new ImpressaoAnalise(User.Identity.Name);
 
                 return Ok(Cls.ImprimirAnalise(Id_Simulacao));
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/SolicitarAprovacao/{Id_Simulacao}")]
+        [Route("api/SolicitarAprovacao")]
+        [HttpPost]
+        [Authorize()]
+        public IHttpActionResult SolicitarAprovacao([FromBody]  Simulacao.Param_Aprovacao_Model Param)
+        {
+            
+            SimLib clsLib = new SimLib();
+            try
+            {
+                Simulacao Cls = new Simulacao(User.Identity.Name);
+                DataTable dtbEmail = Cls.SendAprovacao(Param);
+                foreach (DataRow drw in dtbEmail.Rows)
+                {
+                    clsLib.EnviaEmail(drw["Destinatario"].ToString(), null, null, "Módulo Proposta - Solicitação de Aprovação", drw["Texto_Email"].ToString());
+                };
+                return Ok(true);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/GetAprovacaoData/{token}")]
+        [Route("api/GetAprovacaoData")]
+        [HttpGet]
+        //[Authorize()]
+        public IHttpActionResult GetAprovacaoData(String token)
+        {
+            SimLib clsLib = new SimLib();
+            try
+            {
+                Simulacao.SimulacaoModel Retorno = new Simulacao.SimulacaoModel();
+                Simulacao Cls = new Simulacao(User.Identity.Name);
+                Int32 Id_Simulacao = Cls.GetIdSimulacaoFromAprovacao(token);
+                if (Id_Simulacao>0)
+                {
+                    Retorno = Cls.GetSimulacao(Id_Simulacao);
+                }
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+        [Route("api/AprovarProposta/{token}")]
+        [Route("api/AprovarProposta")]
+        [HttpPost]
+        //[Authorize()]
+        public IHttpActionResult AprovarProposta([FromBody]  Simulacao.Param_Aprovacao_Model Param)
+        {
+            SimLib clsLib = new SimLib();
+            try
+            {
+                Simulacao Cls = new Simulacao(User.Identity.Name);
+                DataTable Retorno = Cls.AprovarProposta(Param);
+                return Ok(Retorno);
             }
             catch (Exception Ex)
             {

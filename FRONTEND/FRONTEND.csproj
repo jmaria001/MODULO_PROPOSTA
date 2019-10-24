@@ -95,10 +95,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="angular\Controller\AprovacaoProposta.js" />
     <Content Include="angular\Controller\PacoteCadastroController.js" />
     <Content Include="angular\Controller\MercadoCadastroController.js" />
     <Content Include="angular\Controller\PacoteDesconto_List_Controller.js" />
     <Content Include="angular\Controller\MercadoController.js" />
+    <Content Include="angular\Controller\RegraAprovacao_Controller.js" />
+    <Content Include="angular\Controller\RegraAprovacaoCadastro_Controller.js" />
     <Content Include="angular\Controller\Simulacao_List_Controller.js" />
     <Content Include="angular\Controller\dictionaryController.js" />
     <Content Include="angular\Controller\TipoComercialCadastroController.js" />
@@ -168,8 +171,9 @@
     <Content Include="js\vendor\XTABLES\Buttons-1.5.1\css\common.scss" />
     <Content Include="js\vendor\XTABLES\Buttons-1.5.1\css\mixins.scss" />
     <Content Include="js\vendor\XTABLES\language\Pt_BR.json" />
+    <Content Include="Proposta_Aprovacao.html" />
     <Content Include="TASKS.TXT" />
-    <Content Include="template\modalCritica.html" />
+    <Content Include="template\modalInfo.html" />
     <Content Include="template\modalConfirm.html" />
     <Content Include="template\DescontoDetalhe.html" />
     <Content Include="template\PesquisaTabela.html" />
@@ -177,9 +181,11 @@
     <Content Include="template\wait.html" />
     <Content Include="view\dashboard.html" />
     <Content Include="view\Mercado.html" />
+    <Content Include="view\RegraAprovacao_Cadastro.html" />
     <Content Include="view\PacoteCadastro.html" />
     <Content Include="view\MercadoCadastro.html" />
     <Content Include="view\PacoteDesconto_List.html" />
+    <Content Include="view\RegraAprovacao.html" />
     <Content Include="view\SimulacaoComAbas.html" />
     <Content Include="view\Simulacao_List.html" />
     <Content Include="view\simulacao_copy_2803.html" />
@@ -188,12 +194,8 @@
     <Content Include="view\UnderConstrution.html" />
     <Content Include="view\Usuario.html" />
     <Content Include="view\Veiculo.Html" />
-    <Content Include="Z-demo\forms-elements-select-datepicker.html" />
-    <Content Include="Z-demo\Simulacao.html" />
-    <Content Include="Z-demo\SimulacaoController.js" />
-    <Content Include="Z-demo\Simulacao_List.html" />
-    <Content Include="Z-demo\Simulacao_List_Controller.js" />
     <Content Include="img\web.config" />
+    <Content Include="Z-demo\forms-elements-other.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -392,6 +394,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="js\vendor\bootstrap-datetimepicker\" />
+    <Folder Include="js\vendor\bootstrap-tagsinput\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

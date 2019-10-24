@@ -55,6 +55,9 @@
         white-space: nowrap;
         height: 30px !important;
     }
+    #tableTotalizador tr td {
+        padding:5px;
+    }
 </style>
 <div class="container">
     <form id="frmSimulacao" autocomplete="off">
@@ -231,22 +234,18 @@
                         </div>
                     </div>
                     <!--========================Totais da Simulacao-->
-                    <div >
+                    <div>
                         <div class="col-md-4">
                             <div class="block block-condensed">
-                                <div class="row padding-10">
+                                <div class="row">
                                     <div class="col-md-12">
-                                        <table class="table margin-bottom-10">
+                                        <table id="tableTotalizador" class="table">
                                             <thead>
                                                 <tr>
                                                     <th>
                                                         Totais da {{Descricao_Processo}}
                                                     </th>
                                                     <th style="text-align:right;height:60px">
-                                                        <!--<button class="btn btn-default btn-sm" style="margin:0px 0px 0px 0px" ng-click="RecalcularSimulacao(Simulacao)" ng-show="Simulacao.PendenteCalculo">
-                                                            Recalcular
-                                                            <span class="app-spinner scaleout " style="background-color:red"></span>
-                                                        </button>-->
                                                         <button class="btn btn-default btn-sm" id="btnFixarTopo" style="display:inline-block; margin:0px 0px 0px 0px">
                                                             Fixar no topo
                                                         </button>
@@ -255,20 +254,32 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td><h4>Valor Tabela</h4> </td>
+                                                    <td>Valor Tabela</td>
                                                     <td style="text-align:right">
-                                                        <h4>
-                                                            {{Simulacao.Valor_Total_Tabela}}
-                                                        </h4>
+                                                        {{Simulacao.Valor_Total_Tabela}}
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td><h4>Valor Negociado</h4> </td>
-                                                    <td style="text-align:right"><h4>{{Simulacao.Valor_Total_Negociado}}</h4> </td>
+                                                    <td>Valor Negociado</td>
+                                                    <td style="text-align:right">{{Simulacao.Valor_Total_Negociado}}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td><h4>Desconto Real</h4> </td>
-                                                    <td style="text-align:right"><h4>{{Simulacao.Desconto_Real |percentage:4}}</h4> </td>
+                                                    <td>Desconto Real </td>
+                                                    <td style="text-align:right">{{Simulacao.Desconto_Real |percentage:4}} </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Status</td>
+                                                    <td style="text-align:right">
+                                                        <label class="label" ng-style="{'background-color':Simulacao.BackColorStatus,'color':Simulacao.ForeColorStatus}">{{Simulacao.Descricao_Status}}</label>
+                                                    </td>
+                                                </tr>
+                                                <tr >
+                                                    <td>
+                                                        <label ng-show="Simulacao.Requer_Aprovacao" class="label label-danger btn-block">Requer Aprovação</label>
+                                                    </td>
+                                                    <td>
+                                                        <button ng-show="Simulacao.Requer_Aprovacao" class="btn btn-default btn-block" ng-click="MostrarAprovadores(Simulacao.Id_Simulacao)">Ver Aprovadores</button>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -298,19 +309,18 @@
                                    ng-change="DicionaryValidate('txtCodAgencia')"
                                    primarybind="txtCodAgencia"
                                    secondarybind="txtNomeAgencia"
-                                   extrabind="txtCnpjAgencia"
-                                   >
+                                   extrabind="txtCnpjAgencia">
                         </div>
                     </div>
                     <div class="col-md-5">
                         <div class="form-group">
                             <label for="txtNomeAgencia" class="field-x">Razão Social</label>
                             <div class="input-group">
-                                <input type="text" 
+                                <input type="text"
                                        maxlength="50"
-                                       disabled="disabled" 
-                                       id="txtNomeAgencia" 
-                                       class="form-control " 
+                                       disabled="disabled"
+                                       id="txtNomeAgencia"
+                                       class="form-control "
                                        ng-model="Simulacao.Nome_Agencia"
                                        ng-disabled="Simulacao.Cod_Agencia">
                             </div>
@@ -320,12 +330,25 @@
                         <div class="form-group">
                             <label for="txtCnpjAgencia" class="field-x">CNPJ</label>
                             <div class="input-group">
-                                <input type="text" 
+                                <input type="text"
                                        maxlength="14"
-                                       ng-disabled="Simulacao.Cod_Agencia" 
-                                       id="txtCnpjAgencia" 
-                                       class="form-control cnpj" 
+                                       ng-disabled="Simulacao.Cod_Agencia"
+                                       id="txtCnpjAgencia"
+                                       class="form-control cnpj"
                                        ng-model="Simulacao.Cnpj_Agencia ">
+                            </div>
+                        </div>
+                    </div>
+                    <!--=============================Comissao de Agencia-->
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label class="field-x" for="txtComissaoAgencia">Com.Agência</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control percent"
+                                       ng-model="Simulacao.Comissao_Agencia"
+                                       maxlength="10"
+                                       style="text-align:right"
+                                       ng-model-options="{updateOn: 'blur'}" />
                             </div>
                         </div>
                     </div>
@@ -348,10 +371,10 @@
                         <div class="form-group">
                             <label for="txtNomeCliente" class="field-x">Razao Social</label>
                             <div class="input-group">
-                                <input type="text" 
-                                       ng-disabled="Simulacao.Cod_Cliente" 
-                                       id="txtNomeCliente" 
-                                       class="form-control " 
+                                <input type="text"
+                                       ng-disabled="Simulacao.Cod_Cliente"
+                                       id="txtNomeCliente"
+                                       class="form-control "
                                        ng-model="Simulacao.Nome_Cliente">
                             </div>
                         </div>
@@ -360,16 +383,16 @@
                         <div class="form-group">
                             <label for="txtCnpjCliente" class="field-x">CNPJ</label>
                             <div class="input-group">
-                                <input type="text" 
+                                <input type="text"
                                        maxlength="14"
                                        ng-disabled="Simulacao.Cod_Cliente"
-                                       id="txtCnpjCliente" 
-                                       class="form-control cnpj" 
+                                       id="txtCnpjCliente"
+                                       class="form-control cnpj"
                                        ng-model="Simulacao.Cnpj_Cliente">
                             </div>
                         </div>
                     </div>
-                    </div>
+                </div>
                 <div class="row">
                     <!--==============================================Contato-->
                     <div class="col-md-2" ng-controller="dictionaryController">
@@ -424,20 +447,8 @@
                             </div>
                         </div>
                     </div>
-                    <!--=============================Comissao de Agencia-->
-                    <div class="col-md-1">
-                        <div class="form-group">
-                            <label class="field-x" for="txtComissaoAgencia">Com.Agência</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control percent"
-                                       ng-model="Simulacao.Comissao_Agencia"
-                                       maxlength="10"
-                                       style="text-align:right"
-                                       ng-model-options="{updateOn: 'blur'}" />
-                            </div>
-                        </div>
-                    </div>
-                    </div>
+
+                </div>
                 <div class="row">
                     <!--==============================================Obsercacao-->
                     <div class="col-md-12 margin-bottom-20">
@@ -634,7 +645,7 @@
                                                     </div>
                                                 </div>
                                                 <input id="txtValorDescontoEsquema"
-                                                       type="text" class="form-control decimal"
+                                                       type="text" class="form-control percent"
                                                        ng-disabled="!Simulacao.Esquemas[currentEsquema].Fixar_Desconto|| Simulacao.Esquemas[currentEsquema].Fixar_Valor"
                                                        ng-model="Simulacao.Esquemas[currentEsquema].Desconto_Padrao"
                                                        ng-change="ChangePendenteCalculo()"
@@ -673,39 +684,39 @@
                                     <thead>
                                         <tr>
                                             <td>
-                                                <label class="fieldrequired">Programa</label>
+                                                <label >Programa</label>
                                             </td>
-                                            <td>
-                                                <label class="fieldrequired">Carac</label>
-                                            </td>
-                                            <td>
-                                                <label class="fieldrequired">Tipo do Comercial</label>
-                                            </td>
-                                            <td>
+                                            <th>
+                                                <label >Carac</label>
+                                            </th>
+                                            <th>
+                                                <label >Tipo do Comercial</label>
+                                            </th>
+                                            <th>
                                                 <label>Título Comercial</label>
+                                            </th>
+                                            <th>
+                                                <label >Dur.</label>
+                                            </th>
+                                            <th style="min-width:80px">
+                                                <label >Início</label>
+                                            </th>
+                                            <td style="min-width:80px">
+                                                <label >Fim</label>
                                             </td>
                                             <td>
-                                                <label class="fieldrequired">Dur.</label>
+                                                <label >Qtd.</label>
                                             </td>
-                                            <td style="min-width:80px">
-                                                <label class="fieldrequired">Início</label>
-                                            </td>
-                                            <td style="min-width:80px">
-                                                <label class="fieldrequired">Fim</label>
-                                            </td>
-                                            <td>
-                                                <label class="fieldrequired">Qtd.</label>
-                                            </td>
-                                            <td>Distribuição</td>
-                                            <td colspan="2">
+                                            <th>Distribuição</th>
+                                            <th colspan="2">
                                                 <label>Desc. ou Valor Informado</label>
-                                            </td>
+                                            </th>
                                             <td colspan="2"></td>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr ng-repeat="midia in Simulacao.Esquemas[currentEsquema].Midias track by $index">
-                                            <td >
+                                            <td>
                                                 <div class="input-group" style="min-width:110px">
                                                     <input id="txtCodPrograma"
                                                            class="form-control inputEsquema"
@@ -800,7 +811,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="input-group" style="min-width:150px">
+                                                <div class="input-group" style="min-width:90px">
                                                     <input class="form-control inputEsquema"
                                                            ng-model="midia.Desconto_Informado"
                                                            style="max-width:100px"
@@ -856,7 +867,7 @@
                                     </tr>
 
                                     <tr class="bg-warning">
-                                        
+
                                         <td>Programa</td>
                                         <td>Carac.</td>
                                         <td>Tipo</td>
@@ -881,7 +892,7 @@
                                         <td><span ng-show="Linha.IsValid">{{Linha.Cod_Tipo_Comercial | uppercase}}</span></td>
                                         <td><span ng-show="Linha.IsValid">{{Linha.Duracao}}</span></td>
                                         <td class="td-insercoes" ng-repeat="insercao in Linha.Insercoes track by $index" ng-style="{'background-color':(insercao.Tem_Grade) ?'#fff':'#f2f2f2'}">
-                                                <input ng-model="insercao.Qtd"
+                                            <input ng-model="insercao.Qtd"
                                                    ng-model-options="{updateOn: 'blur'}"
                                                    style="width:20px;border:none;text-align:center"
                                                    maxlength="3"
@@ -909,16 +920,20 @@
         <!--========================botoes de acoes-->
         <div class="fixed-buttons-bottom">
             <div class="col-md-8">
-                <button class="btn btn-default btn-sm" ng-click="RecalcularSimulacao(Simulacao)">
+                <button class="btn btn-default btn-sm" ng-show="Simulacao.Indica_Valoracao" ng-click="RecalcularSimulacao(Simulacao)">
                     Recalcular
                     <span class="app-spinner scaleout " style="background-color:red" ng-show="Simulacao.PendenteCalculo"></span>
                 </button>
-                <button class="btn btn-default btn-sm" ng-show="Parameters.Processo=='P'">Enviar para Aprovação</button>
+                <button class="btn btn-default btn-sm" ng-click="EnviarAprovacao(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Envio_Aprovacao">Enviar para Aprovação</button>
+                <button class="btn btn-default btn-sm" ng-click="AprovarProposta(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Aprovacao">Aprovar</button>
                 <button class="btn btn-default btn-sm" ng-click="ImprimirMidia(Simulacao.Id_Simulacao)">Imprimir Midias</button>
                 <button class="btn btn-default btn-sm" ng-click="ImprimirSimulacao(Simulacao.Id_Simulacao)">Analisar {{Descricao_Processo}}</button>
                 <button class="btn btn-success btn-sm" ng-click="SalvarSimulacao(Simulacao,true)">Salvar</button>
                 <a class="btn btn-warning btn-sm" href="#Simulacao" ng-if="Parameters.Processo=='S'"><span class="nav-icon-hexa"></span>Cancela</a>
                 <a class="btn btn-warning btn-sm" href="#Proposta" ng-if="Parameters.Processo=='P'"><span class="nav-icon-hexa"></span>Cancela</a>
+            </div>
+            <div class="col-md-1">
+
             </div>
             <div class="col-md-3 pull-right hidden-mobile hidden-sm">
                 <button class="btn btn-warning btn-sm anchorscroll" target="divDadosBase"><span class="icon-checkmark-circle"></span></button>
@@ -948,7 +963,7 @@
                 <div class="col-md-3">
                     <span id="btnCloseTotal" class="fa fa-times fa-2x span-btn pull-right" style="color:#e0e0e0"></span>
 
-                    <button class="btn btn-default btn-sm" style="margin:0px 0px 0px 0px" ng-click="RecalcularSimulacao(Simulacao)" ng-show="Simulacao.PendenteCalculo">
+                    <button class="btn btn-default btn-sm" style="margin:0px 0px 0px 0px" ng-click="RecalcularSimulacao(Simulacao)" ng-show="Simulacao.PendenteCalculo && Simulacao.Indica_Valoracao">
                         Recalcular
                         <span class="app-spinner scaleout " style="background-color:red"></span>
                     </button>
@@ -960,7 +975,7 @@
 <div ng-include="'template/SelectItem.html'"></div>
 <div ng-include="'template/MultiSelecaoVeiculo.html'"></div>
 <div ng-include="'template/PesquisaTabela.html'"></div>
-<div ng-include="'template/modalCritica.html'"></div>
+<div ng-include="'template/modalInfo.html'"></div>
 <div ng-include="'template/DescontoDetalhe.html'"></div>
 
 

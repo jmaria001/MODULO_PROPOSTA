@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="App">
+<head>
+    <title> Módulo Propostas</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="css/custom.css" rel="stylesheet" />
+</head>
+
+<body ng-cloak" ng-controller="AprovacaoProposta">
+    <div id="todo" ng-show="ShowPage">
+        <div class="app">
+            <div class="app-container">
+                <div class="app-header app-header-design-default">
+                    <ul class="app-header-buttons" ng-show="loading || routeloading" style="margin-top:5px">
+                        <li>
+                            <i class="fa fa-circle-o-notch fa-spin fa-2x"></i>
+                        </li>
+                    </ul>
+
+                    <ul class="app-header-buttons" style="margin-top:10px;margin-left:20px" ng-show="!loading && !routeloading">
+                        <li>
+                            <span style="font-weight:bold;font-size:15px">Módulo Propostas- Aprovação de Proposta</span>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="block" style="max-width:700px;margin-top:20px;margin-left:20px">
+                    <form name="formAprovacao" ng-submit="AprovarProposta(Simulacao.Id_Simulacao,token)">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Dados da Proposta</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>N.Proposta</td>
+                                        <td>{{Simulacao.Id_Simulacao}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Identificação</td>
+                                        <td>{{Simulacao.Identificacao}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Agência</td>
+                                        <td>{{Simulacao.Nome_Agencia}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cliente</td>
+                                        <td>{{Simulacao.Nome_Cliente}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Valor Tabela</td>
+                                        <td>{{Simulacao.Valor_Total_Tabela}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Desconto</td>
+                                        <td>{{Simulacao.Desconto_Real}}%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Valor Negociado</td>
+                                        <td>{{Simulacao.Valor_Total_Negociado}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Observação</td>
+                                        <td>{{Simulacao.Observacao}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Elaborada por</td>
+                                        <td>{{Simulacao.Nome_Usuario}}</td>
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="divBotoes" >
+                            <button type="submit" class="btn btn-success" ng-show="ShowOk">Aprovar</button>
+                            <a ng-href="{{pageUrl}}" class="btn btn-primary">Ir para o Sistema</a>
+                        </div>
+                    </form>
+                    <div ng-show="Aviso.Mensagem">
+                        <!--<label ng-class="Usuario.Status ? 'label label-success' : 'label label-danger'" style="width:100% "></label>-->
+                        <div ng-class="Aviso.Status ? 'alert alert-success alert-icon-block margin-top-20' : 'alert alert-warning alert-icon-block margin-top-20'">
+                            <div class="alert-icon">
+                                <span class="icon-checkmark-circle"></span>
+                            </div>
+                            <strong ng-show="!Aviso.Status">Atenção!</strong> <br />
+                            {{Aviso.Mensagem}}
+                            <button type="button" class="close" ng-click="Aviso='{}'" aria-label="Close"><span class="fa fa-times"></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--====================================================================================angular scripts-->
+        <script src="angular/angular-bin/angular.min.js"></script>
+        <script src="angular/angular-route/angular-route.min.js"></script>
+        <script src="angular/angular-cookies/angular-cookies.min.js"></script>
+        <!------------------------------------- IMPORTANT SCRIPTS ---------------------------------->
+        <script type="text/javascript" src="js/vendor/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="js/vendor/jquery/jquery-migrate.min.js"></script>
+        <script type="text/javascript" src="js/vendor/jquery/jquery-ui.min.js"></script>
+        <script type="text/javascript" src="js/vendor/bootstrap/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/vendor/moment/moment.min.js"></script>
+        <script type="text/javascript" src="js/vendor/customscrollbar/jquery.mCustomScrollbar.min.js"></script>
+
+        <!------------------------------------- Page SCRIPTS ---------------------------------->
+        <script src="js/vendor/sweetalert/sweetalert.min.js?hash=V001"></script>
+        <!------------------------------------- App SCRIPTS ---------------------------------->
+        <script type="text/javascript" src="js/app.js"></script>
+        <script type="text/javascript" src="js/app_plugins.js"></script>
+        <!------------------------------------- Controller/api/service ---------------------------------->
+        <script src="js/SimLib.js"></script>
+        <script src="js/dictionary.js"></script>
+        <script src="angular/Module/app.js"></script>
+        <script src="angular/config/base_url_config.js"></script>
+        <script src="angular/interceptor/errorInterceptor.js"></script>
+        <script src="angular/interceptor/interceptorsConfig.js"></script>
+        <script src="angular/interceptor/loadingInterceptor.js"></script>
+        <script src="angular/interceptor/timestampInterceptor.js"></script>
+        <script src="angular/Services/httpService.js"></script>
+        <script src="angular/Services/tokenApi.js"></script>
+        <script src="angular/Controller/AprovacaoProposta.js"></script>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+    };
+
+    $(document).ready(function () {
+
+    });
+</script>

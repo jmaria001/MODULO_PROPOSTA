@@ -8,12 +8,13 @@
     $scope.Tipo_Vencimento = [{ 'Id': 1, 'Descricao': 'À Vista' }, { 'Id': 2, 'Descricao': 'DFM' }, { 'Id': 3, 'Descricao': 'DDL' }];
     $scope.Simulacao = {};
     $scope.currentEsquema = 0;
-    $scope.PesquisaTabelas = { "Items": [], 'FiltroTexto': '', cback: '' };
+    $scope.PesquisaTabelas = { "Items": [], 'FiltroTexto': '', ClickCallBack: '', 'Titulo': '', 'MultiSelect': false };
     $scope.IniciarCalculo = false;
     $scope.DescontoDetalhado = "[]";
     $scope.Distribuicao = [{ 'Tipo': 'D', 'Descricao': 'Por Dia' }, { 'Tipo': 'M', 'Descricao': 'No Periodo' }]
+    $scope.Info = { 'Title': '', 'Text': '' };
     //=====================Check processo simulacao ou proposta
-    if ($scope.Parameters.Processo=='P') {
+    if ($scope.Parameters.Processo == 'P') {
         $scope.Descricao_Processo = 'Proposta'
         $rootScope.routeName = 'Proposta - ' + $scope.Parameters.Action
     }
@@ -21,9 +22,9 @@
         $scope.Descricao_Processo = 'Simulação'
         $rootScope.routeName = 'Simulação - ' + $scope.Parameters.Action
     }
-    
+
     //=====================Carrega a Simulacao 
-    $scope.CarregarSimulacao = function (pId_Simulacao,pProcesso,pImportacao) {
+    $scope.CarregarSimulacao = function (pId_Simulacao, pProcesso, pImportacao) {
         httpService.Get("GetSimulacao/" + pId_Simulacao + "/" + pProcesso).then(function (response) {
             if (response.data) {
                 $scope.Simulacao = response.data;
@@ -33,12 +34,12 @@
                 if (pImportacao) {
                     $scope.Simulacao.Id_Simulacao = 0;
                     $scope.Simulacao.Tipo = 'P';
-                    
+
                 }
             }
         });
     };
-    $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo,false);
+    $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo, false);
     //===================================Clicou na Aba dos Esquemas 
     $scope.SetCurrenEsquema = function (pIdEsquema) {
         for (var i = 0; i < $scope.Simulacao.Esquemas.length; i++) {
@@ -210,7 +211,9 @@
             if (response.data) {
                 $scope.PesquisaTabelas.Items = response.data
                 $scope.PesquisaTabelas.FiltroTexto = ""
-                $scope.PesquisaTabelas.cback = function (value) { pMidia.Cod_Programa = value; $scope.fnChangeMidia(pMidia, 'Programa') }
+                $scope.PesquisaTabelas.Titulo = "Seleção de Programas da Grade"
+                $scope.PesquisaTabelas.MultiSelect = false;
+                $scope.PesquisaTabelas.ClickCallBack = function (value) { pMidia.Cod_Programa = value; $scope.fnChangeMidia(pMidia, 'Programa') }
                 $("#modalTabela").modal(true);
             }
         });
@@ -221,7 +224,9 @@
             if (response.data) {
                 $scope.PesquisaTabelas.Items = response.data
                 $scope.PesquisaTabelas.FiltroTexto = ""
-                $scope.PesquisaTabelas.cback = function (value) { pMidia.Cod_Caracteristica = value; }
+                $scope.PesquisaTabelas.Titulo = "Seleção de Características"
+                $scope.PesquisaTabelas.MultiSelect = false;
+                $scope.PesquisaTabelas.ClickCallBack = function (value) { pMidia.Cod_Caracteristica = value; }
                 $("#modalTabela").modal(true);
             }
         });
@@ -232,7 +237,9 @@
             if (response.data) {
                 $scope.PesquisaTabelas.Items = response.data
                 $scope.PesquisaTabelas.FiltroTexto = ""
-                $scope.PesquisaTabelas.cback = function (value) { pMidia.Cod_Tipo_Comercial = value; }
+                $scope.PesquisaTabelas.Titulo = "Seleção de Tipo de Comercial"
+                $scope.PesquisaTabelas.MultiSelect = false;
+                $scope.PesquisaTabelas.ClickCallBack = function (value) { pMidia.Cod_Tipo_Comercial = value; }
                 $("#modalTabela").modal(true);
             }
         });
@@ -279,9 +286,9 @@
             if (response) {
                 if (response.data[0].Status) {
                     pMidia.Insercoes = response.data;
-                    //pMidia.IsValid = true;
-                    //$scope.ChangePendenteCalculo();
-                    $scope.SalvarSimulacao($scope.Simulacao, false);
+                    pMidia.IsValid = true;
+                    $scope.ChangePendenteCalculo();
+                    //$scope.SalvarSimulacao($scope.Simulacao, false); //verifica se é viavel ja salvar e revalorar ou espera clicar em recalcular
                 }
                 else {
                     ShowAlert(response.data[0].Critica, 'warning');
@@ -309,7 +316,7 @@
                 $scope.Simulacao.Descricao_Pacote = ""
             }
             //$scope.Simulacao.Desconto_Padrao = "";
-        } 
+        }
     };
     //===================================Salvar Simulacao
     $scope.SalvarSimulacao = function (pSimulacao, pShowMessage) {
@@ -320,10 +327,13 @@
                     if ($scope.Parameters.Action == 'New') {
                         $scope.Parameters.Action = "Edit";
                     }
+                    if (pShowMessage) {
+                        ShowAlert('Dados Gravados com Sucesso', 'success');
+                    }
                     pSimulacao.PendenteCalculo = false;
                 }
                 else {
-                    ShowAlert(response.data.Critica,  'warning');
+                    ShowAlert(response.data.Critica, 'warning');
                 }
             }
         });
@@ -378,8 +388,11 @@
     //===================================Mostra a critica da Valoracao
     $scope.MostraCritica = function (pLinha) {
         if (pLinha) {
-            $scope.Critica_Tabela = pLinha.Critica.split('#');
-            $("#modalCritica").modal(true);
+            $scope.Info = {
+                'Title': 'Crítica do Calculo',
+                'Text': pLinha.Critica.split('#')
+            }
+            $("#modalInfo").modal(true);
         }
 
     }
@@ -394,15 +407,18 @@
         });
     };
     //===================================Duplicar Esquemas
-    $scope.DuplicarEsquema = function (pIdSimulacao,pId_Esquema, pTipo) {
+    $scope.DuplicarEsquema = function (pIdSimulacao, pId_Esquema, pTipo) {
         httpService.Get("DuplicarEsquema/" + pId_Esquema + '/' + pTipo).then(function (response) {
             if (response) {
                 if (response.data[0].Qtd_Exportado > 0) {
-                    $scope.CarregarSimulacao(pIdSimulacao,$scope.Parameters.Processo,false);
+                    $scope.CarregarSimulacao(pIdSimulacao, $scope.Parameters.Processo, false);
                 }
                 if (response.data[0].Critica) {
-                    $scope.Critica_Simulacao = response.data[0].Critica.split('#');
-                    $("#modalCritica").modal(true);
+                    $scope.Info = {
+                        'Title': 'Crítica da Duplicação de Esquemas',
+                        'Text': response.data[0].Critica.split('#')
+                    }
+                    $("#modalInfo").modal(true);
                 }
             }
         });
@@ -413,12 +429,52 @@
             if (response.data) {
                 $scope.PesquisaTabelas.Items = response.data;
                 $scope.PesquisaTabelas.FiltroTexto = "";
-                $scope.PesquisaTabelas.cback = function (value) { $scope.CarregarSimulacao(value,'S',true) };
+                $scope.PesquisaTabelas.Titulo = "Seleção Simulações"
+                $scope.PesquisaTabelas.MultiSelect = false;
+                $scope.PesquisaTabelas.ClickCallBack = function (value) { $scope.CarregarSimulacao(value, 'S', true) };
                 $("#modalTabela").modal(true);
             }
         });
-
     }
+    //===================================Mostrar Aprovadores
+    $scope.MostrarAprovadores = function (pId_Simulacao) {
+        httpService.Get("MostrarAprovadores/" + pId_Simulacao).then(function (response) {
+            if (response.data) {
+                var _text = [];
+                for (var i = 0; i < response.data.length; i++) {
+                    _text.push(  response.data[i].Aprovador + '( Regra:' + response.data[i].Nome_Regra +   ' - ' + response.data[i].Status +' ) ');
+                }
+                $scope.Info = {
+                    'Title': 'Aprovadores',
+                    'Text': _text
+                }
+                $("#modalInfo").modal(true);
+            }
+        });
+    }
+    //===================================Enviar para aprovacao
+    $scope.EnviarAprovacao = function (pId_Simulacao) {
+        var _data = { 'Id_Simulacao': pId_Simulacao, 'url': $rootScope.pageUrl };
+        httpService.Post('SolicitarAprovacao', _data).then(function (response) {
+            if (response.data) {
+                ShowAlert('Solicitação de aprovação enviada com sucesso.    ', 'success');
+                $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo, false);
+            }
+        });
+    }
+    //===================================Aprovar Proposta
+    $scope.AprovarProposta = function (pId_Simulacao) {
+        var _data = { 'Id_Simulacao':pId_Simulacao};
+        httpService.Post("AprovarProposta", _data).then(function (response) {
+            if (response) {
+                $scope.Aviso = response.data[0];
+                $scope.ShowOk = false;
+                ShowAlert(response.data[0].Mensagem, response.data[0].Status ? 'success' : 'warning');
+                $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo, false);
+            }
+        });
+    }
+
     //===================================Impressao da Midia
     $scope.ImprimirMidia = function (pId_Simulacao) {
         httpService.Get("ImprimirMidia/" + pId_Simulacao).then(function (response) {
@@ -433,7 +489,7 @@
         });
     };
     //===================================Analisar Simulacao
-    $scope.ImprimirSimulacao= function (pId_Simulacao) {
+    $scope.ImprimirSimulacao = function (pId_Simulacao) {
         httpService.Get("ImprimirAnalise/" + pId_Simulacao).then(function (response) {
             if (response.data) {
                 url = $rootScope.baseUrl + "PDFFILES/ANALISE/" + $rootScope.UserData.Login.trim() + "/" + response.data;
@@ -447,7 +503,6 @@
     };
     //===================================Seta Iniciar calculo false apos o load da pagina
     //$timeout(function () {
-    //    console.log("mudando para ")
     //    $scope.IniciarCalculo = true;
     //},30000);
 

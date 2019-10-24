@@ -49,10 +49,18 @@ namespace PROPOSTA
             public Boolean Fixar_Desconto { get; set; }
             public Boolean Fixar_Valor { get; set; }
             public Int32 Id_Usuario { get; set; }
+            public String Nome_Usuario { get; set; }
             public Int32 ContadorEsquema{ get; set; }
             public Int32 ContadorMidia{ get; set; }
             public Int32  Id_Status{ get; set; }
+            public String Descricao_Status { get; set; }
+            public String BackColorStatus { get; set; }
+            public String ForecolorStatus { get; set; }
+            public Boolean Indica_Valoracao { get; set; }
             public Boolean PendenteCalculo { get; set; }
+            public Boolean Requer_Aprovacao { get; set; }
+            public Boolean Permite_Aprovacao { get; set; }
+            public Boolean Permite_Envio_Aprovacao { get; set; }
             public String Observacao{ get; set; }
             public List<EsquemaModel> Esquemas { get; set; }
             public String Critica { get; set; }
@@ -165,6 +173,11 @@ namespace PROPOSTA
             public Byte Dia_Fim { get; set; }
             public List<VeiculoModel> Veiculos { get; set; }
         }
-
+        public class Param_Aprovacao_Model
+        {
+            public Int32 Id_Simulacao { get; set; }
+            public String url { get; set; }
+            public String Token{ get; set; }
+        }
     }
 }

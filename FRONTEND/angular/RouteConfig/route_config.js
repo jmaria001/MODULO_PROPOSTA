@@ -150,7 +150,6 @@
             routeName: 'Proposta',
             RouteId: 'Proposta@Index'
         })
-
     .when('/pacote', {
         templateUrl: 'view/PacoteDesconto_List.html',
         controller: 'PacoteDesconto_List_Controller',
@@ -177,7 +176,20 @@
             controller: 'PacoteCadastroController',
             routeName: 'Visualização do Pacote ',
         })
-
+    .when('/regraaprovacao', {
+        templateUrl: 'view/RegraAprovacao.html',
+        controller: 'RegraAprovacao_Controller',
+        authorize: true,
+        routeName: 'Regras de Aprovação de Descontos',
+        RouteId: 'Aprovacao@Index'
+    })
+        .when('/regracadastro/:Action/:Id', {
+            templateUrl: 'view/RegraAprovacao_Cadastro.html',
+            controller: 'RegraAprovacaoCadastro_Controller',
+            authorize: true,
+            routeName: 'Regra de Aprovação de Desconto',
+            RouteId: 'Pacote@New'
+        })
     .otherwise({ redirectTo: "/blank" })
 
 });

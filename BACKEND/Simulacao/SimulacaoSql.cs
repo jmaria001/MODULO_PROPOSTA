@@ -90,24 +90,24 @@ namespace PROPOSTA
                     Simulacao.Tabela_Preco = clsLib.CompetenciaString(drwBase["Tabela_Preco"].ToString().ConvertToInt32());
                     Simulacao.Desconto_Padrao = drwBase["Desconto_Padrao"].ToString().ConvertToPercent();
 
-                    Simulacao.Cod_Agencia= drwBase["Cod_Agencia"].ToString();
-                    Simulacao.Nome_Agencia= drwBase["Nome_Agencia"].ToString();
-                    Simulacao.Cnpj_Agencia= drwBase["Cnpj_Agencia"].ToString();
-                    Simulacao.Cod_Cliente= drwBase["Cod_Cliente"].ToString();
-                    Simulacao.Nome_Cliente= drwBase["Nome_Cliente"].ToString();
-                    Simulacao.Cnpj_Cliente= drwBase["Cnpj_Cliente"].ToString();
-                    Simulacao.Cod_Contato= drwBase["Cod_Contato"].ToString();
-                    Simulacao.Nome_Contato= drwBase["Nome_Contato"].ToString();
+                    Simulacao.Cod_Agencia= drwBase["Cod_Agencia"].ToString().Trim();
+                    Simulacao.Nome_Agencia= drwBase["Nome_Agencia"].ToString().Trim();
+                    Simulacao.Cnpj_Agencia= drwBase["Cnpj_Agencia"].ToString().Trim();
+                    Simulacao.Cod_Cliente= drwBase["Cod_Cliente"].ToString().Trim();
+                    Simulacao.Nome_Cliente= drwBase["Nome_Cliente"].ToString().Trim();
+                    Simulacao.Cnpj_Cliente= drwBase["Cnpj_Cliente"].ToString().Trim();
+                    Simulacao.Cod_Contato= drwBase["Cod_Contato"].ToString().Trim();
+                    Simulacao.Nome_Contato= drwBase["Nome_Contato"].ToString().Trim();
                     Simulacao.Forma_Pgto= drwBase["Forma_Pgto"].ToString().ConvertToInt32();
                     Simulacao.Tipo_Vencimento= drwBase["Tipo_Vencimento"].ToString().ConvertToInt32();
                     Simulacao.Condicao_Pagamento= drwBase["Condicao_Pagamento"].ToString().ConvertToInt32();
                     Simulacao.Comissao_Agencia= drwBase["Comissao_Agencia"].ToString().ConvertToPercent();
-                    Simulacao.Observacao= drwBase["Observacao"].ToString();
+                    Simulacao.Observacao= drwBase["Observacao"].ToString().Trim();
                     if (drwBase["Id_Pacote"].ToString().ConvertToInt32()>0)
                     {
                         Simulacao.Id_Pacote = drwBase["Id_Pacote"].ToString().ConvertToInt32();
                     }
-                    Simulacao.Descricao_Pacote= drwBase["Descricao_Pacote"].ToString();
+                    Simulacao.Descricao_Pacote= drwBase["Descricao_Pacote"].ToString().Trim();
                     Simulacao.Valor_Informado = drwBase["Valor_Informado"].ToString().ConvertToMoney();
                     Simulacao.Valor_Total_Negociado = drwBase["Valor_Total_Negociado"].ToString().ConvertToMoney();
                     Simulacao.Valor_Total_Tabela = drwBase["Valor_Total_Tabela"].ToString().ConvertToMoney();
@@ -115,7 +115,15 @@ namespace PROPOSTA
                     Simulacao.Fixar_Desconto = drwBase["Fixar_Desconto"].ToString().ConvertToBoolean();
                     Simulacao.Fixar_Valor = drwBase["Fixar_Valor"].ToString().ConvertToBoolean();
                     Simulacao.Id_Usuario = drwBase["Id_Usuario"].ToString().ConvertToInt32();
+                    Simulacao.Nome_Usuario = drwBase["Nome_Usuario"].ToString();
                     Simulacao.Id_Status = drwBase["Id_Status"].ToString().ConvertToInt32();
+                    Simulacao.Descricao_Status = drwBase["Descricao_Status"].ToString();
+                    Simulacao.BackColorStatus = drwBase["BackColorStatus"].ToString();
+                    Simulacao.ForecolorStatus = drwBase["ForecolorStatus"].ToString();
+                    Simulacao.Indica_Valoracao = drwBase["Indica_Valoracao"].ToString().ConvertToBoolean();
+                    Simulacao.Requer_Aprovacao = drwBase["Requer_Aprovacao"].ToString().ConvertToBoolean();
+                    Simulacao.Permite_Aprovacao = drwBase["Permite_Aprovacao"].ToString().ConvertToBoolean();
+                    Simulacao.Permite_Envio_Aprovacao = drwBase["Permite_Envio_Aprovacao"].ToString().ConvertToBoolean();
                 }
                 //===========================================Adicionas esquemas/Midias/Insercoes/Veiculos
                 //DataTable dtbDesconto = new DataTable();
@@ -567,6 +575,122 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login",this.CurrentUser);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Esquema", pId_Esquema);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo", pTipo);
+                Adp.Fill(dtb);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
+        public DataTable GetAprovadores(Int32 pId_Simulacao)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Simulacao_Aprovadores_Get");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Simulacao",pId_Simulacao);
+                Adp.Fill(dtb);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
+
+        public DataTable SendAprovacao(Param_Aprovacao_Model Param)
+        {
+            DataTable dtbRetorno = new DataTable();
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Solicitar_Aprovacao");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Simulacao", Param.Id_Simulacao);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Url", Param.url);
+                Adp.Fill(dtbRetorno);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtbRetorno;
+        }
+        public Int32 GetIdSimulacaoFromAprovacao(String Token)
+        {
+            Int32 intRetorno = 0;
+            DataTable dtb= new DataTable();
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            SimLib clsLib = new SimLib();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_GetAprovacaoData");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Token", Token);
+                Adp.Fill(dtb);
+                if (dtb.Rows.Count>0)
+                {
+                    intRetorno = dtb.Rows[0]["Id_Simulacao"].ToString().ConvertToInt32();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return intRetorno;
+        }
+
+        public DataTable AprovarProposta(Simulacao.Param_Aprovacao_Model Param)
+        {
+            DataTable dtb = new DataTable();
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            SimLib clsLib = new SimLib();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Aprovar");
+                Adp.SelectCommand = cmd;
+                if (String.IsNullOrEmpty(Param.Token))
+                {
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                }
+                else
+                {
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", DBNull.Value);
+                }
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Token", Param.Token);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Simulacao", Param.Id_Simulacao);
                 Adp.Fill(dtb);
             }
             catch (Exception)
