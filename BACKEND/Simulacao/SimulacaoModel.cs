@@ -61,6 +61,7 @@ namespace PROPOSTA
             public Boolean Requer_Aprovacao { get; set; }
             public Boolean Permite_Aprovacao { get; set; }
             public Boolean Permite_Envio_Aprovacao { get; set; }
+            public Boolean Permite_Gerar{ get; set; }
             public String Observacao{ get; set; }
             public List<EsquemaModel> Esquemas { get; set; }
             public String Critica { get; set; }
@@ -178,6 +179,14 @@ namespace PROPOSTA
             public Int32 Id_Simulacao { get; set; }
             public String url { get; set; }
             public String Token{ get; set; }
+        }
+        public class Param_Geracao_Model
+        {
+            public Int32 Id_Simulacao { get; set; }
+            public String Nome_Contato { get; set; }
+            public String Email_Contato{ get; set; }
+            public String Email_Copia{ get; set; }
+            public String Observacao{ get; set; }
         }
     }
 }

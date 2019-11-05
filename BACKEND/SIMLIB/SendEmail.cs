@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Net;
+using System.Net.Mail;
 using System.Net.Pop3;
 
 namespace PROPOSTA
@@ -77,7 +78,7 @@ namespace PROPOSTA
 
             return "";
         }
-        public void EnviaEmail(String emailDestinatario, String emailComCopia, String emailComCopiaOculta, String assuntoMensagem, String conteudoMensagem)
+        public void EnviaEmail(String emailDestinatario, String emailComCopia, String emailComCopiaOculta, String assuntoMensagem, String conteudoMensagem,String Anexo)
         {
             //======================Obtem valores do Config
             String emailRemetente = System.Configuration.ConfigurationManager.AppSettings["EmailFrom"];
@@ -120,9 +121,12 @@ namespace PROPOSTA
             // Ou especifique o caminho manualmente
             //string arquivo = @"e:\home\LoginFTP\Web\arquivo.jpg";
             // Cria o anexo para o e-mail
-            //Attachment anexo = new Attachment(arquivo, System.Net.Mime.MediaTypeNames.Application.Octet);
-            // Anexa o arquivo a mensagemn+
-            //objEmail.Attachments.Add(anexo);
+            if (!String.IsNullOrEmpty(Anexo))
+            {
+                Attachment Atach = new Attachment(Anexo, System.Net.Mime.MediaTypeNames.Application.Octet);
+                objEmail.Attachments.Add(Atach);
+            }
+            
 
             //===================================Cliente do email
             System.Net.Mail.SmtpClient objSmtp = new System.Net.Mail.SmtpClient();

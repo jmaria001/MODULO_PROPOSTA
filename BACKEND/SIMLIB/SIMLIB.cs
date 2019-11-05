@@ -117,6 +117,27 @@ namespace PROPOSTA
         {
             return new DateTime(Year, Month, 1);
         }
+        public String CompetenciaExtenso(Int32 pCompetencia)
+        {
+            String strMes= pCompetencia.ToString().Substring(4,2);
+            switch (pCompetencia.ToString().Substring(4, 2))
+            {
+                case "01":strMes = "Janeiro";break;
+                case "02": strMes = "Fevereiro"; break;
+                case "03": strMes = "Março"; break;
+                case "04": strMes = "Abril"; break;
+                case "05": strMes = "Maio"; break;
+                case "06": strMes = "Junho"; break;
+                case "07": strMes = "Julho"; break;
+                case "08": strMes = "Agosto"; break;
+                case "09": strMes = "Setembro"; break;
+                case "10": strMes = "Outubro"; break;
+                case "11": strMes = "Novembro"; break;
+                case "12": strMes = "Dezembro"; break;
+                default:break;
+            }
+            return strMes+'/' + pCompetencia.ToString().Substring(0, 4);
+        }
     }
     
 }

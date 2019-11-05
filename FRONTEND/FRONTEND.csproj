@@ -173,6 +173,7 @@
     <Content Include="js\vendor\XTABLES\language\Pt_BR.json" />
     <Content Include="Proposta_Aprovacao.html" />
     <Content Include="TASKS.TXT" />
+    <Content Include="template\GeracaoProposta.html" />
     <Content Include="template\modalInfo.html" />
     <Content Include="template\modalConfirm.html" />
     <Content Include="template\DescontoDetalhe.html" />

@@ -928,6 +928,7 @@
                 <button class="btn btn-default btn-sm" ng-click="AprovarProposta(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Aprovacao">Aprovar</button>
                 <button class="btn btn-default btn-sm" ng-click="ImprimirMidia(Simulacao.Id_Simulacao)">Imprimir Midias</button>
                 <button class="btn btn-default btn-sm" ng-click="ImprimirSimulacao(Simulacao.Id_Simulacao)">Analisar {{Descricao_Processo}}</button>
+                <button class="btn btn-default btn-sm" ng-click="PreencherProposta(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Gerar">Gerar/Enviar Proposta</button>
                 <button class="btn btn-success btn-sm" ng-click="SalvarSimulacao(Simulacao,true)">Salvar</button>
                 <a class="btn btn-warning btn-sm" href="#Simulacao" ng-if="Parameters.Processo=='S'"><span class="nav-icon-hexa"></span>Cancela</a>
                 <a class="btn btn-warning btn-sm" href="#Proposta" ng-if="Parameters.Processo=='P'"><span class="nav-icon-hexa"></span>Cancela</a>
@@ -977,6 +978,7 @@
 <div ng-include="'template/PesquisaTabela.html'"></div>
 <div ng-include="'template/modalInfo.html'"></div>
 <div ng-include="'template/DescontoDetalhe.html'"></div>
+<div ng-include="'template/GeracaoProposta.html'"></div>
 
 
 <script type="text/javascript">

@@ -150,12 +150,11 @@ namespace PROPOSTA
             }
         }
 
-        [Route("api/GetVeiculos/{Abrangencia}/{Mercado}/{Empresa}/{EmpresaFaturamento}")]
+
         [Route("api/GetVeiculos")]
         [HttpGet]
         [ActionName("GetVeiculos")]
         [Authorize()]
-        //public IHttpActionResult GetVeiculos(Int32 Abrangencia, String Mercado=null, String Empresa= null, String EmpresaFaturamento)
         public IHttpActionResult GetVeiculos([FromUri]Simulacao.GetVeiculoParam query)
         {
             SimLib clsLib = new SimLib();
@@ -249,7 +248,6 @@ namespace PROPOSTA
         }
 
         [Route("api/DetalharDesconto/{Id_Midia}")]
-        [Route("api/DetalharDesconto")]
         [HttpGet]
         [ActionName("DetalharDesconto")]
         [Authorize()]
@@ -271,7 +269,6 @@ namespace PROPOSTA
         }
 
         [Route("api/DuplicarEsquema/{Id_Esquema}/{Tipo}")]
-        [Route("api/DuplicarEsquema")]
         [HttpGet]
         [ActionName("DuplicarEsquema")]
         [Authorize()]
@@ -294,7 +291,6 @@ namespace PROPOSTA
 
         
         [Route("api/MostrarAprovadores/{Id_Simulacao}")]
-        [Route("api/MostrarAprovadores")]
         [HttpGet]
         [Authorize()]
         public IHttpActionResult MostrarAprovadores(Int32 Id_Simulacao)
@@ -313,7 +309,6 @@ namespace PROPOSTA
         }
        
         [Route("api/ImprimirMidia/{Id_Simulacao}")]
-        [Route("api/ImprimirMidia")]
         [HttpGet]
         [Authorize()]
         public IHttpActionResult ImprimirMidia(Int32 Id_Simulacao)
@@ -333,7 +328,6 @@ namespace PROPOSTA
         }
 
         [Route("api/ImprimirAnalise/{Id_Simulacao}")]
-        [Route("api/ImprimirAnalise")]
         [HttpGet]
         [Authorize()]
         public IHttpActionResult ImprimirAnalise(Int32 Id_Simulacao)
@@ -353,7 +347,6 @@ namespace PROPOSTA
         }
 
         [Route("api/SolicitarAprovacao/{Id_Simulacao}")]
-        [Route("api/SolicitarAprovacao")]
         [HttpPost]
         [Authorize()]
         public IHttpActionResult SolicitarAprovacao([FromBody]  Simulacao.Param_Aprovacao_Model Param)
@@ -366,7 +359,7 @@ namespace PROPOSTA
                 DataTable dtbEmail = Cls.SendAprovacao(Param);
                 foreach (DataRow drw in dtbEmail.Rows)
                 {
-                    clsLib.EnviaEmail(drw["Destinatario"].ToString(), null, null, "Módulo Proposta - Solicitação de Aprovação", drw["Texto_Email"].ToString());
+                    clsLib.EnviaEmail(drw["Destinatario"].ToString(), null, null, "Módulo Proposta - Solicitação de Aprovação", drw["Texto_Email"].ToString(),"");
                 };
                 return Ok(true);
             }
@@ -378,7 +371,6 @@ namespace PROPOSTA
         }
 
         [Route("api/GetAprovacaoData/{token}")]
-        [Route("api/GetAprovacaoData")]
         [HttpGet]
         //[Authorize()]
         public IHttpActionResult GetAprovacaoData(String token)
@@ -401,7 +393,6 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
-        [Route("api/AprovarProposta/{token}")]
         [Route("api/AprovarProposta")]
         [HttpPost]
         //[Authorize()]
@@ -420,7 +411,51 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
-
+        [Route("api/GerarProposta")]
+        [HttpPost]
+        [Authorize()]
+        public IHttpActionResult GerarProposta([FromBody]  Simulacao.Param_Geracao_Model Param)
+        {
+            SimLib clsLib = new SimLib();
+            try
+            {
+                Simulacao Cls = new Simulacao(User.Identity.Name);
+                Boolean Retorno = Cls.GerarProposta(Param);
+                String strPdfName = "";
+                if (Retorno)
+                {
+                    ImpressaoProposta clsProposta = new ImpressaoProposta(User.Identity.Name);
+                    string strPath = clsProposta.GetPath();
+                    strPdfName =  clsProposta.ImprimirProposta(Param.Id_Simulacao);
+                    if (!String.IsNullOrEmpty(Param.Email_Contato))
+                    {
+                        String strAssinatura = Cls.GetAssinatura();
+                        String strBody = "<style>";
+                        strBody += "p {font-family:verdana;font-size:12;font-style:italic}";
+                        strBody += "}";
+                        strBody += "</style>";
+                        strBody +=  "<p>Prezado(a) Sr(a) " + Param.Nome_Contato  + "</p>";
+                        strBody += "<p>É com satisfação que apresentamos a V.Sa. nossa proposta Comercial.</p>";
+                        strBody += "<p>Desde já agradecemos a oportunidade que nos foi concedida e colocamo-nos a disposição para quaisquer esclarecimentos.</p>";
+                        strBody += "<br>";
+                        strBody += "<p>Atenciosamente,</p>";
+                        strBody += "<br>";
+                        strBody += "<p>" + strAssinatura + "</p>";
+                        strBody += "<br>";
+                        strBody += "<br>";
+                        strBody += "<p style='font-size=9'>" + "Email enviado automáticamente,favor não responder."+ "</p>";
+                        clsLib.EnviaEmail(Param.Email_Contato,Param.Email_Copia,"","Módulo Proposta - Proposta Comercial",strBody,strPath+strPdfName);
+                    }
+                    
+                }
+                return Ok(strPdfName);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
     }
 }
 

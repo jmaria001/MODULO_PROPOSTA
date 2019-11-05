@@ -19,6 +19,7 @@
                         <th>Nome</th>
                         <th>Email</th>
                         <th>Telefone</th>
+                        <th>Cargo</th>
                         <th>Nivel de Acesso</th>
                         <th>Status</th>
                     </tr>
@@ -36,6 +37,7 @@
                         <td>{{::Usuario.Nome}}</td>
                         <td>{{::Usuario.Email}}</td>
                         <td>{{::Usuario.Telefone}}</td>
+                        <td>{{::Usuario.Cargo}}</td>
                         <td>{{::Usuario.Descricao_Nivel_Acesso}}</td>
                         <td style="text-align:center">
                             <label ng-class="Usuario.Status ? 'label label-success' : 'label label-danger'" style="width:100% ">
@@ -59,13 +61,13 @@
                     <input id="txtLogin" class="form-control" maxlength="20" style="text-transform:uppercase" ng-model="Ctrl.Login" />
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="txtNome">Nome</label>
                     <input id="txtNome" class="form-control" maxlength="20" style="text-transform:uppercase" ng-model="Ctrl.Nome" />
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="form-group">
                     <label for="Email">Email</label>
                     <input id="txtEmail" class="form-control" maxlength="50" style="text-transform:uppercase" ng-model="Ctrl.Email" />
@@ -77,6 +79,13 @@
                     <input id="txtTelefone" class="form-control" maxlength="20" style="text-transform:uppercase" ng-model="Ctrl.Telefone" />
                 </div>
             </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label for="txtCargo">Cargo</label>
+                    <input id="txtCargo" class="form-control" maxlength="20" style="text-transform:uppercase" ng-model="Ctrl.Cargo" />
+                </div>
+            </div>
+
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="optNivelAcesso">Nivel de Acesso</label>
@@ -127,14 +136,15 @@
             </div>
         </div>
         <!--=============================Botoes-->
-        <div class="row margin-top-10">
-            <div class="col-md-12">
-                <btn class="btn btn-success" ng-click="SalvarUsuario()">Salvar</btn>
-                <btn class="btn btn-danger" ng-click="ExcluirUsuario(Ctrl.Id_Usuario)" ng-show="PermissaoExcluir">Excluir</btn>
-                <btn class="btn btn-info" ng-click="DesativarReativar(Ctrl.Id_Usuario, false)" ng-show="PermissaoDesativar && Ctrl.Status==1">Desativar</btn>
-                <btn class="btn btn-info" ng-click="DesativarReativar(Ctrl.Id_Usuario, true)" ng-show="PermissaoDesativar && Ctrl.Status==0">Reativar</btn>
-                <btn class="btn btn-warning" ng-click="CancelaEdicao()">Cancela</btn>
-
+        <div class="fixed-buttons-bottom">
+            <div class="row" >
+                <div class="col-md-12">
+                    <btn class="btn btn-success" ng-click="SalvarUsuario()">Salvar</btn>
+                    <btn class="btn btn-danger" ng-click="ExcluirUsuario(Ctrl.Id_Usuario)" ng-show="PermissaoExcluir">Excluir</btn>
+                    <btn class="btn btn-info" ng-click="DesativarReativar(Ctrl.Id_Usuario, false)" ng-show="PermissaoDesativar && Ctrl.Status==1">Desativar</btn>
+                    <btn class="btn btn-info" ng-click="DesativarReativar(Ctrl.Id_Usuario, true)" ng-show="PermissaoDesativar && Ctrl.Status==0">Reativar</btn>
+                    <btn class="btn btn-warning" ng-click="CancelaEdicao()">Cancela</btn>
+                </div>
             </div>
         </div>
     </div>

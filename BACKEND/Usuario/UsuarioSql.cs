@@ -60,6 +60,7 @@ namespace PROPOSTA
                     Usuario.Status = dtb.Rows[0]["Status"].ToString().ConvertToBoolean();
                     Usuario.Descricao_Status = dtb.Rows[0]["Descricao_Status"].ToString();
                     Usuario.Telefone = dtb.Rows[0]["Telefone"].ToString();
+                    Usuario.Cargo = dtb.Rows[0]["Cargo"].ToString();
                     Usuario.Id_Nivel_Acesso= dtb.Rows[0]["Id_Nivel_Acesso"].ToString().ConvertToInt32();
                 }
 
@@ -138,6 +139,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", Usuario.Login);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome", Usuario.Nome);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Telefone", Usuario.Telefone);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cargo", Usuario.Cargo);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Email", Usuario.Email);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Nivel_Acesso", Usuario.Id_Nivel_Acesso);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Perfil", xmlPerfil);

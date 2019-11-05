@@ -20,6 +20,7 @@ namespace PROPOSTA
             public String Login { get; set; }
             public String Nome { get; set; }
             public String Telefone { get; set; }
+            public String Cargo{ get; set; }
             public String Email { get; set; }
             public Boolean Status { get; set; }
             public String Descricao_Status { get; set; }

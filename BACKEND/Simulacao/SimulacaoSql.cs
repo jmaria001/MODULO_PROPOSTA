@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 namespace PROPOSTA
 {
     public partial class Simulacao
-       
+
     {
         Int32 ContadorMidia = 0;
         Int32 ContadorEsquema = 0;
@@ -81,7 +81,7 @@ namespace PROPOSTA
                 {
                     Simulacao.Id_Simulacao = drwBase["Id_Simulacao"].ToString().ConvertToInt32();
                     Simulacao.Identificacao = drwBase["Identificacao"].ToString();
-                    Simulacao.Tipo= drwBase["Tipo"].ToString();
+                    Simulacao.Tipo = drwBase["Tipo"].ToString();
                     Simulacao.Validade_Inicio = drwBase["Validade_Inicio"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
                     Simulacao.Validade_Termino = drwBase["Validade_Termino"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
                     Simulacao.Cod_Empresa_Venda = drwBase["Cod_Empresa_Venda"].ToString();
@@ -90,24 +90,24 @@ namespace PROPOSTA
                     Simulacao.Tabela_Preco = clsLib.CompetenciaString(drwBase["Tabela_Preco"].ToString().ConvertToInt32());
                     Simulacao.Desconto_Padrao = drwBase["Desconto_Padrao"].ToString().ConvertToPercent();
 
-                    Simulacao.Cod_Agencia= drwBase["Cod_Agencia"].ToString().Trim();
-                    Simulacao.Nome_Agencia= drwBase["Nome_Agencia"].ToString().Trim();
-                    Simulacao.Cnpj_Agencia= drwBase["Cnpj_Agencia"].ToString().Trim();
-                    Simulacao.Cod_Cliente= drwBase["Cod_Cliente"].ToString().Trim();
-                    Simulacao.Nome_Cliente= drwBase["Nome_Cliente"].ToString().Trim();
-                    Simulacao.Cnpj_Cliente= drwBase["Cnpj_Cliente"].ToString().Trim();
-                    Simulacao.Cod_Contato= drwBase["Cod_Contato"].ToString().Trim();
-                    Simulacao.Nome_Contato= drwBase["Nome_Contato"].ToString().Trim();
-                    Simulacao.Forma_Pgto= drwBase["Forma_Pgto"].ToString().ConvertToInt32();
-                    Simulacao.Tipo_Vencimento= drwBase["Tipo_Vencimento"].ToString().ConvertToInt32();
-                    Simulacao.Condicao_Pagamento= drwBase["Condicao_Pagamento"].ToString().ConvertToInt32();
-                    Simulacao.Comissao_Agencia= drwBase["Comissao_Agencia"].ToString().ConvertToPercent();
-                    Simulacao.Observacao= drwBase["Observacao"].ToString().Trim();
-                    if (drwBase["Id_Pacote"].ToString().ConvertToInt32()>0)
+                    Simulacao.Cod_Agencia = drwBase["Cod_Agencia"].ToString().Trim();
+                    Simulacao.Nome_Agencia = drwBase["Nome_Agencia"].ToString().Trim();
+                    Simulacao.Cnpj_Agencia = drwBase["Cnpj_Agencia"].ToString().Trim();
+                    Simulacao.Cod_Cliente = drwBase["Cod_Cliente"].ToString().Trim();
+                    Simulacao.Nome_Cliente = drwBase["Nome_Cliente"].ToString().Trim();
+                    Simulacao.Cnpj_Cliente = drwBase["Cnpj_Cliente"].ToString().Trim();
+                    Simulacao.Cod_Contato = drwBase["Cod_Contato"].ToString().Trim();
+                    Simulacao.Nome_Contato = drwBase["Nome_Contato"].ToString().Trim();
+                    Simulacao.Forma_Pgto = drwBase["Forma_Pgto"].ToString().ConvertToInt32();
+                    Simulacao.Tipo_Vencimento = drwBase["Tipo_Vencimento"].ToString().ConvertToInt32();
+                    Simulacao.Condicao_Pagamento = drwBase["Condicao_Pagamento"].ToString().ConvertToInt32();
+                    Simulacao.Comissao_Agencia = drwBase["Comissao_Agencia"].ToString().ConvertToPercent();
+                    Simulacao.Observacao = drwBase["Observacao"].ToString().Trim();
+                    if (drwBase["Id_Pacote"].ToString().ConvertToInt32() > 0)
                     {
                         Simulacao.Id_Pacote = drwBase["Id_Pacote"].ToString().ConvertToInt32();
                     }
-                    Simulacao.Descricao_Pacote= drwBase["Descricao_Pacote"].ToString().Trim();
+                    Simulacao.Descricao_Pacote = drwBase["Descricao_Pacote"].ToString().Trim();
                     Simulacao.Valor_Informado = drwBase["Valor_Informado"].ToString().ConvertToMoney();
                     Simulacao.Valor_Total_Negociado = drwBase["Valor_Total_Negociado"].ToString().ConvertToMoney();
                     Simulacao.Valor_Total_Tabela = drwBase["Valor_Total_Tabela"].ToString().ConvertToMoney();
@@ -124,6 +124,7 @@ namespace PROPOSTA
                     Simulacao.Requer_Aprovacao = drwBase["Requer_Aprovacao"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Aprovacao = drwBase["Permite_Aprovacao"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Envio_Aprovacao = drwBase["Permite_Envio_Aprovacao"].ToString().ConvertToBoolean();
+                    Simulacao.Permite_Gerar = drwBase["Permite_Gerar"].ToString().ConvertToBoolean();
                 }
                 //===========================================Adicionas esquemas/Midias/Insercoes/Veiculos
                 //DataTable dtbDesconto = new DataTable();
@@ -172,7 +173,7 @@ namespace PROPOSTA
                         Id_Esquema = drw["Id_Esquema"].ToString().ConvertToInt32(),
                         //Id_Esquema = ContadorEsquema,
                         Id_Simulacao = drw["Id_Simulacao"].ToString().ConvertToInt32(),
-                        Competencia = clsLib.CompetenciaString( drw["Competencia"].ToString().ConvertToInt32()),
+                        Competencia = clsLib.CompetenciaString(drw["Competencia"].ToString().ConvertToInt32()),
                         Abrangencia = drw["Abrangencia"].ToString().ConvertToByte(),
                         Cod_Mercado = drw["Cod_Mercado"].ToString().Trim(),
                         Valor_Total_Negociado = drw["Valor_Total_Negociado"].ToString().ConvertToMoney(),
@@ -181,8 +182,8 @@ namespace PROPOSTA
                         Fixar_Desconto = drw["Fixar_Desconto"].ToString().ConvertToBoolean(),
                         Fixar_Valor = drw["Fixar_Valor"].ToString().ConvertToBoolean(),
                         Cod_Empresa_Faturamento = drw["Cod_Empresa_Faturamento"].ToString(),
-                        Midias= AddListMidia(drw["Id_Esquema"].ToString().ConvertToInt32()),
-                        Veiculos  = AddListVeiculos(drw["Id_Esquema"].ToString().ConvertToInt32()),
+                        Midias = AddListMidia(drw["Id_Esquema"].ToString().ConvertToInt32()),
+                        Veiculos = AddListVeiculos(drw["Id_Esquema"].ToString().ConvertToInt32()),
                     });
                 }
             }
@@ -234,14 +235,14 @@ namespace PROPOSTA
                         Dia_Fim = drw["Dia_Fim"].ToString().ConvertToInt32(),
                         Qtd_Insercoes = drw["Qtd_Insercoes"].ToString().ConvertToInt32(),
                         Distribuicao = drw["Distribuicao"].ToString(),
-                        Qtd_Total_Insercoes= drw["Qtd_Total_Insercoes"].ToString().ConvertToInt32(),
+                        Qtd_Total_Insercoes = drw["Qtd_Total_Insercoes"].ToString().ConvertToInt32(),
                         Desconto_Informado = drw["Desconto_Informado"].ToString().ConvertToPercent(),
                         Desconto_Real = drw["Desconto_Real"].ToString().ConvertToPercent(),
-                        Valor_Informado= drw["Valor_Informado"].ToString().ConvertToMoney(),
+                        Valor_Informado = drw["Valor_Informado"].ToString().ConvertToMoney(),
                         Valor_Tabela_Unitario = drw["Valor_Tabela_Unitario"].ToString().ConvertToMoney(),
                         Valor_Tabela_Total = drw["Valor_Tabela_Total"].ToString().ConvertToMoney(),
                         Valor_Negociado_Total = drw["Valor_Negociado_Total"].ToString().ConvertToMoney(),
-                        Critica= drw["Critica"].ToString(),
+                        Critica = drw["Critica"].ToString(),
                         IsValid = true,
                         Insercoes = AddListInsercoes(drw["Id_Midia"].ToString().ConvertToInt32()),
                     });
@@ -317,14 +318,14 @@ namespace PROPOSTA
                         Id_Midia = ContadorMidia,
                         Data_Exibicao = drw["Data_Exibicao"].ToString().ConvertToDatetime(),
                         Qtd = (drw["Qtd"].ToString()) == "0" ? null : drw["Qtd"].ToString(),
-                        Valor_Tabela_Unitario= drw["Valor_Tabela_Unitario"].ToString().ConvertToMoney(),
-                        Valor_Negociado_Unitario= drw["Valor_Negociado_Unitario"].ToString().ConvertToMoney(),
-                        Valor_Negociado_Total= drw["Valor_Negociado_Total"].ToString().ConvertToMoney(),
+                        Valor_Tabela_Unitario = drw["Valor_Tabela_Unitario"].ToString().ConvertToMoney(),
+                        Valor_Negociado_Unitario = drw["Valor_Negociado_Unitario"].ToString().ConvertToMoney(),
+                        Valor_Negociado_Total = drw["Valor_Negociado_Total"].ToString().ConvertToMoney(),
                         Desconto_Aplicado = drw["Desconto_Aplicado"].ToString().ConvertToMoney(),
-                        Tipo_Desconto= drw["Tipo_Desconto"].ToString(),
-                        Tem_Grade= drw["Tem_Grade"].ToString().ConvertToBoolean(),
+                        Tipo_Desconto = drw["Tipo_Desconto"].ToString(),
+                        Tem_Grade = drw["Tem_Grade"].ToString().ConvertToBoolean(),
                         Dia_Semana = drw["Dia_Semana"].ToString(),
-                        Dia= drw["Dia"].ToString(),
+                        Dia = drw["Dia"].ToString(),
                     });
                 }
             }
@@ -475,13 +476,13 @@ namespace PROPOSTA
             SimLib clsLib = new SimLib();
             try
             {
-                String xmlEsquemas= null;
+                String xmlEsquemas = null;
                 if (Param.Esquemas.Count > 0)
                 {
-                    xmlEsquemas= clsLib.SerializeToString(Param.Esquemas);
+                    xmlEsquemas = clsLib.SerializeToString(Param.Esquemas);
                 }
                 Int32? iTabelaPreco = null;
-                if (Param.Tabela_Preco!=null)
+                if (Param.Tabela_Preco != null)
                 {
                     iTabelaPreco = clsLib.CompetenciaInt(Param.Tabela_Preco);
                 }
@@ -492,20 +493,20 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Simulacao", Param.Id_Simulacao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Identificacao", Param.Identificacao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo", Param.Tipo);
-                if (Param.Validade_Inicio!=null)
+                if (Param.Validade_Inicio != null)
                 {
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Inicio", Param.Validade_Inicio.ConvertToDatetime());
                 }
-                if (Param.Validade_Termino!=null)
+                if (Param.Validade_Termino != null)
                 {
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Termino", Param.Validade_Termino.ConvertToDatetime());
-                }                
+                }
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Empresa_Venda", Param.Cod_Empresa_Venda);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Agencia", Param.Cod_Agencia);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome_Agencia", Param.Nome_Agencia);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cnpj_Agencia", Param.Cnpj_Agencia);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Cliente", Param.Cod_Cliente);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome_Cliente", Param.Nome_Cliente );
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome_Cliente", Param.Nome_Cliente);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cnpj_Cliente", Param.Cnpj_Cliente);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Contato", Param.Cod_Contato);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Forma_Pgto", Param.Forma_Pgto);
@@ -561,7 +562,7 @@ namespace PROPOSTA
             }
             return dtb;
         }
-        public DataTable DuplicarEsquema(Int32 pId_Esquema,Int32 pTipo)
+        public DataTable DuplicarEsquema(Int32 pId_Esquema, Int32 pTipo)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
@@ -572,7 +573,7 @@ namespace PROPOSTA
             {
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Exportar_Esquema");
                 Adp.SelectCommand = cmd;
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login",this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Esquema", pId_Esquema);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo", pTipo);
                 Adp.Fill(dtb);
@@ -599,7 +600,7 @@ namespace PROPOSTA
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Simulacao_Aprovadores_Get");
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Simulacao",pId_Simulacao);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Simulacao", pId_Simulacao);
                 Adp.Fill(dtb);
             }
             catch (Exception)
@@ -643,7 +644,7 @@ namespace PROPOSTA
         public Int32 GetIdSimulacaoFromAprovacao(String Token)
         {
             Int32 intRetorno = 0;
-            DataTable dtb= new DataTable();
+            DataTable dtb = new DataTable();
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
             SqlDataAdapter Adp = new SqlDataAdapter();
@@ -654,7 +655,7 @@ namespace PROPOSTA
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Token", Token);
                 Adp.Fill(dtb);
-                if (dtb.Rows.Count>0)
+                if (dtb.Rows.Count > 0)
                 {
                     intRetorno = dtb.Rows[0]["Id_Simulacao"].ToString().ConvertToInt32();
                 }
@@ -703,6 +704,63 @@ namespace PROPOSTA
             }
             return dtb;
         }
-
+        public Boolean GerarProposta(Simulacao.Param_Geracao_Model Param)
+        {
+            Boolean Retorno = true;
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SimLib clsLib = new SimLib();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Gerar");
+                cmd.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                cmd.Parameters.AddWithValue("@Par_Id_Simulacao", Param.Id_Simulacao);
+                cmd.Parameters.AddWithValue("@Par_Nome_Contato", Param.Nome_Contato);
+                cmd.Parameters.AddWithValue("@Par_Email_Contato", Param.Email_Contato);
+                cmd.Parameters.AddWithValue("@Par_Email_Copia", Param.Email_Copia);
+                cmd.Parameters.AddWithValue("@Par_Observacao", Param.Observacao);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                Retorno = false;
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Retorno;
+        }
+        public String GetAssinatura()
+        {
+            String Retorno = "";
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SimLib clsLib = new SimLib();
+            try
+            {
+                DataTable dtb = new DataTable();
+                SqlCommand cmd = cnn.Text(cnn.Connection, "Select Nome + Isnull(' ('+  Cargo + ')','') as Assinatura from Tb_proposta_Usuario where login = '" + this.CurrentUser + "'");
+                SqlDataAdapter Adp = new SqlDataAdapter();
+                Adp.SelectCommand = cmd;
+                Adp.Fill(dtb);
+                if (dtb.Rows.Count>0)
+                {
+                    Retorno = dtb.Rows[0]["Assinatura"].ToString();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Retorno;
+        }
+        
     }
+
 }

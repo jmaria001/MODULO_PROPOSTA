@@ -118,7 +118,7 @@ namespace PROPOSTA
                 {
                     if (int.Parse(dtb.Rows[0]["Status"].ToString())==1)
                     {
-                        clsLib.EnviaEmail(Param.Email,  "", "", "Solicitação de Alteração de Senha", dtb.Rows[0]["Email"].ToString());
+                        clsLib.EnviaEmail(Param.Email,  "", "", "Solicitação de Alteração de Senha", dtb.Rows[0]["Email"].ToString(),"");
                     }
                     Retorno = dtb.Rows[0]["Mensagem"].ToString();
                 }

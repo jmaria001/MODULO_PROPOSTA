@@ -2,7 +2,7 @@
 function redirect(url) {
     window.location = url;
 }
-function fnDatepickerIcon(){
+function fnDatepickerIcon() {
     var a = {
         time: "icon-clock",
         date: "icon-calendar-full",
@@ -118,12 +118,12 @@ function Right(str, n) {
     }
 }
 function LeftZero(pNumber, pLen) {
-    return Right("0".repeat(pLen) + pNumber.toString(),pLen);
+    return Right("0".repeat(pLen) + pNumber.toString(), pLen);
 }
-    
+
 function DateToString(pDate) {
     var _dia = pDate.getDate();
-    var _mes =  pDate.getMonth()+1;
+    var _mes = pDate.getMonth() + 1;
     var _ano = pDate.getFullYear();
     return LeftZero(_dia, 2) + '/' + LeftZero(_mes, 2) + '/' + _ano.toString()
 }
@@ -135,7 +135,7 @@ function DateToMonthYear(pDate) {
 }
 function StringToDate(pData, pFormat) {
     if (!pFormat) {
-        pFormat="dd/mm/yyyy";
+        pFormat = "dd/mm/yyyy";
     }
     if (pData) {
         var _formato = pFormat.replace("/", "-");
@@ -318,7 +318,7 @@ function cnpjUnformat(pValue) {
     }
 }
 function cnpjFormat(pValue) {
-    
+
     if (pValue) {
         if (pValue.length == 14) {
             return pValue.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, "\$1.\$2.\$3\/\$4\-\$5");
@@ -326,7 +326,7 @@ function cnpjFormat(pValue) {
         else {
             return pValue.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/g, "\$1.\$2.\$3\-\$4");
         }
-        
+
     }
     else {
         return "";
@@ -373,8 +373,7 @@ function DoubleVal(pValue) {
     return _ret;
 }
 
-function NullToString(pValue)
-{
+function NullToString(pValue) {
     var _ret = "";
     if (pValue) {
         _ret = pValue.trim();
@@ -382,8 +381,30 @@ function NullToString(pValue)
     return _ret;
 }
 
-function SetDatepicker(element, date) {
-    setTimeout(function () {
-        $("#" + element).data("DateTimePicker").date(date);
-    });
+function ValidaEmail(pfield, pRequired) {
+    var _ret = true
+    if (!pfield) {
+        if (pRequired) {
+            _ret=false
+        }
+    }
+    else {
+        var _usuario = pfield.substring(0, pfield.indexOf("@"));
+        var _dominio = pfield.substring(pfield.indexOf("@") + 1, pfield.length);
+        if ((_usuario.length >= 1) &&
+            (_dominio.length >= 3) &&
+            (_usuario.search("@") == -1) &&
+            (_dominio.search("@") == -1) &&
+            (_usuario.search(" ") == -1) &&
+            (_dominio.search(" ") == -1) &&
+            (_dominio.search(".") != -1) &&
+            (_dominio.indexOf(".") >= 1) &&
+            (_dominio.lastIndexOf(".") < _dominio.length - 1)) {
+            _ret = true
+        }
+        else {
+            _ret = false
+        }
+    }
+    return _ret;
 }

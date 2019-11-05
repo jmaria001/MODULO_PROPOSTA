@@ -1,0 +1,77 @@
+﻿<style>
+    #tbProposta td
+    {
+        padding:5px 10px !important;
+    }
+</style>
+<div class="modal fade" id="ModalGeracaoProposta" tabindex="-1" role="dialog" aria-labelledby="modal-warning-header">
+    <div class="modal-dialog modal-primary" role="document" style="width:700px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-info-header">Geração da Proposta</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-times" style="color:#fff"></span></button>
+            </div>
+            <div class="modal-body">
+                    <div class="table-responsive" style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px #f5f5f5">
+                        <table class="table table-bordered" id="tbProposta">
+                            <tbody>
+                                <tr style="background-color:#E5E5E5">
+                                    <td colspan="2" style="text-align:center">Enviar Proposta para </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:20%">
+                                        Nome
+                                    </td>
+                                    <td style="width:80%">
+                                        <input class="form-control" type="text"  ng-model="GeracaoProposta.Nome_Contato" placeholder="Informe o nome do destinario" maxlength="50"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:20%">
+                                    Email
+                                    </td>
+                                    <td style="width:80%">
+                                        <input class="form-control" type="text" ng-model="GeracaoProposta.Email_Contato" placeholder="Informe o Email do destinario" maxlength="255"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:20%">Cópias</td>
+                                    <td style="width:80%">
+                                        <input class="form-control" type="text" ng-model="GeracaoProposta.Email_Copia" placeholder="Informe os Email's a serem copiados" maxlength="255"/>
+                                    </td>
+                                </tr>
+                                <tr style="background-color:#E5E5E5">
+                                    <td colspan="2" style="text-align:center">Observações</td>
+                                </tr>
+                                <tr >
+                                    <td colspan="2"><textarea class="form-control" ng-model="GeracaoProposta.Observacao" style="width:100%;min-height:120px" maxlength="4000"></textarea> </td>
+                                </tr>
+                                <tr style="height:30px">
+                                    <td colspan="2" style="text-align:center;color:red"> 
+                                        <span ng-show="GeracaoProposta.Alerta">
+                                            {{GeracaoProposta.Alerta}}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <div class="app-checkbox" style="width:auto;margin-top:5px">
+                    <label>
+                        <input type="checkbox"
+                               name="app-checkbox-1"
+                               ng-model="GeracaoProposta.Visualizar"> &nbsp;&nbsp;Visualizar<span></span>
+                    </label>
+                </div>
+                <button type="button" 
+                        class="btn btn-success" 
+                        ng-disabled="!GeracaoProposta.Email_Contato || !GeracaoProposta.Nome_Contato"
+                        ng-click="GerarProposta(GeracaoProposta)">Confirmar</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancela</button>
+            </div>
+        </div>
+    </div>
+</div>

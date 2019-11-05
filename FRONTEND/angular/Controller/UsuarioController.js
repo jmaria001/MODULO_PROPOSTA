@@ -12,6 +12,7 @@
                             { 'title': 'Nome', 'visible': true, 'searchable': true, 'sortable': true },
                             { 'title': 'Email', 'visible': true, 'searchable': true, 'sortable': true },
                             { 'title': 'Telefone', 'visible': true, 'searchable': true, 'sortable': true },
+                            { 'title': 'Cargo', 'visible': true, 'searchable': true, 'sortable': true },
                             { 'title': 'Nivel de Acesso', 'visible': true, 'searchable': true, 'sortable': true },
                             { 'title': 'Status', 'visible': true, 'searchable': true, 'sortable': true },
     ];

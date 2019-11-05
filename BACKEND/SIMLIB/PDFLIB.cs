@@ -23,13 +23,23 @@ namespace webapi.SIMLIB
 
         public void addCell(PdfPTable table, pdfLibCell celula)
         {
+            PdfPCell cell = new PdfPCell();
+            if (celula.Picture==null)
+            {
+                //Font fFont = fFont = new Font(Font.GetFamilyIndex(celula.FontName), celula.FontSize, celula.FontStyle);
+                Phrase phrase = new Phrase(" " + celula.Text);
+                phrase.Font.SetFamily(celula.FontName);
+                phrase.Font.Size = celula.FontSize;
+                phrase.Font.Color = new BaseColor(celula.FontColor);
+                phrase.Font.SetStyle(celula.FontStyle);
+                cell = new PdfPCell(phrase);
+            }
+            else
+            {
+                cell = new PdfPCell(celula.Picture,true);
+            }
 
-            Font fFont = fFont = new Font(Font.GetFamilyIndex(celula.FontName), celula.FontSize, celula.FontStyle);
-            Phrase phrase = new Phrase(" " + celula.Text);
-            phrase.Font.SetFamily(celula.FontName);
-            phrase.Font.Size = celula.FontSize;
-            phrase.Font.Color = new BaseColor(celula.FontColor);
-            PdfPCell cell = new PdfPCell(phrase);
+            
             cell.Colspan = celula.colspan;
             cell.BorderWidthTop = BorderScale(celula.BorderTop);
             cell.BorderWidthBottom = BorderScale(celula.BorderBottom);
@@ -46,8 +56,14 @@ namespace webapi.SIMLIB
             }
             
             cell.HorizontalAlignment = celula.Align;
-            cell.VerticalAlignment = PdfPCell.ALIGN_CENTER;
+            cell.VerticalAlignment = celula.VerticalAlign;
             cell.BackgroundColor = new BaseColor(celula.Background);
+            cell.PaddingLeft = celula.PaddingLeft;
+            cell.PaddingRight= celula.PaddingRight;
+            cell.PaddingTop= celula.PaddingTop;
+            cell.PaddingBottom= celula.PaddingBottom;
+
+
             table.AddCell(cell);
         }
         public void addBorder(PdfWriter ww, Document dd)
@@ -85,6 +101,15 @@ namespace webapi.SIMLIB
             tb.SetWidths(CellWidths);
             return tb;
         }
+        public void AddRectangle(PdfWriter ww,  float posX,float posY,float pWidth ,float pHeigth)
+        {
+            PdfContentByte Content = ww.DirectContent;
+            Content.SetColorStroke(BaseColor.BLACK);
+            Content.Rectangle(posX,posY,pWidth,pHeigth)   ;
+            Content.Stroke();
+
+
+        }
     }
     public class pdfLibCell
     {
@@ -96,11 +121,18 @@ namespace webapi.SIMLIB
         public float BorderLeft { get; set; } = 1;
         public float BorderRight { get; set; } = 1;
         public int Align { get; set; } = PdfPCell.ALIGN_CENTER;
+        public int VerticalAlign { get; set; } = PdfPCell.ALIGN_MIDDLE;
         public String FontName { get; set; } = "verdana";
         public int FontSize { get; set; } = 9;
         public System.Drawing.Color Background { get; set; } = System.Drawing.Color.White;
         public System.Drawing.Color FontColor { get; set; } = System.Drawing.Color.Black;
-        public float Height { get; set; } = 15f;
+        public Image Picture { get; set; }
+        public float PaddingTop { get; set; } = 2f;
+        public float PaddingBottom{ get; set; } = 2f;
+        public float PaddingLeft{ get; set; } = 2f;
+        public float PaddingRight{ get; set; } = 2f;
+
+        public float Height { get; set; } 
     }
     public class pdfLibText
     {

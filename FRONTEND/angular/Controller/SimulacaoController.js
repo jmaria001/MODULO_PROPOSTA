@@ -13,6 +13,7 @@
     $scope.DescontoDetalhado = "[]";
     $scope.Distribuicao = [{ 'Tipo': 'D', 'Descricao': 'Por Dia' }, { 'Tipo': 'M', 'Descricao': 'No Periodo' }]
     $scope.Info = { 'Title': '', 'Text': '' };
+    $scope.GeracaoProposta = {};
     //=====================Check processo simulacao ou proposta
     if ($scope.Parameters.Processo == 'P') {
         $scope.Descricao_Processo = 'Proposta'
@@ -25,6 +26,7 @@
 
     //=====================Carrega a Simulacao 
     $scope.CarregarSimulacao = function (pId_Simulacao, pProcesso, pImportacao) {
+        $scope.GeracaoProposta = {};
         httpService.Get("GetSimulacao/" + pId_Simulacao + "/" + pProcesso).then(function (response) {
             if (response.data) {
                 $scope.Simulacao = response.data;
@@ -500,6 +502,48 @@
                 ShowAlert("Não existe dados para Análise", "warning")
             }
         });
+    };
+    //===================================PDF da Proposta
+    $scope.GerarProposta = function (pProposta) {
+        pProposta.Alerta = '';
+        pProposta.Email_Contato = pProposta.Email_Contato.replace(';', ',');
+        pProposta.Email_Copia = pProposta.Email_Copia.replace(',', ',');
+        var _arrayEmail = pProposta.Email_Contato.split(',');
+        for (var i = 0; i < _arrayEmail.length; i++) {
+            if (!ValidaEmail(_arrayEmail[i])) {
+                pProposta.Alerta = _arrayEmail[i] +' não é um email válido'
+                return;
+            }
+        }
+        _arrayEmail = pProposta.Email_Copia.split(',');
+        for (var i = 0; i < _arrayEmail.length; i++) {
+            if (!ValidaEmail(_arrayEmail[i])) {
+                pProposta.Alerta = _arrayEmail[i] + ' não é um email válido'
+                return;
+            }
+        }
+        httpService.Post("GerarProposta/",pProposta).then(function (response) {
+            if (response.data) {
+                $("#ModalGeracaoProposta").modal('hide');
+                if ($scope.GeracaoProposta.Visualizar) {
+                    url = $rootScope.baseUrl + "PDFFILES/Proposta/" + $rootScope.UserData.Login.trim() + "/" + response.data;
+                    var win = window.open(url, '_blank');
+                    win.focus();
+                }
+                else {
+                    ShowAlert("Proposta Gera e enviada com Sucesso!", "warning")
+                }
+                
+            }
+            else {
+                ShowAlert("Não há dados para geração da proposta", "warning")
+            }
+        });
+    };
+    //===================================Preencher dados para geracao da proposta
+    $scope.PreencherProposta = function (pId_Simulacao) {
+        $scope.GeracaoProposta = { 'Id_Simulacao': pId_Simulacao, 'Nome_Contato': '', 'Email_Contato': '', 'Email_Copia': '', 'Observacao': '','Alerta':'','Visualizar':false};
+        $("#ModalGeracaoProposta").modal(true);
     };
     //===================================Seta Iniciar calculo false apos o load da pagina
     //$timeout(function () {
