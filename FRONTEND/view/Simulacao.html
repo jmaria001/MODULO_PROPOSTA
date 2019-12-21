@@ -74,7 +74,7 @@
                             ng-show="Parameters.Action == 'New' && Parameters.Processo == 'P'"
                             ng-click="ImportarSimulacao()"
                             style="margin:0px 0px 0px 0px;margin-right:50px">
-                        <span class="fa fa-upload" ng-disabled="true"></span> Importar Simulacão
+                        <span class="fa fa-upload" ng-disabled="true"></span> Importar Modelo
                     </button>
 
                 </div>
@@ -100,6 +100,7 @@
                                     <div class="dictionary" dictionary="Simulacao_Identificacao">
                                         <input id="txtSimulacao_Identificacao"
                                                ng-model="Simulacao.Identificacao"
+                                               ng-disabled="!Simulacao.Permite_Editar"
                                                ng-model-options="{updateOn: 'blur'}">
                                     </div>
                                 </div>
@@ -107,7 +108,7 @@
                                 <div class="col-md-3">
                                     <div class="dictionary" dictionary="Data" caption="Início Validade">
                                         <input ng-model="Simulacao.Validade_Inicio"
-                                               ng-disabled="Simulacao.Esquemas.length>0"
+                                               ng-disabled="!Simulacao.Permite_Editar"
                                                ui-date ng-model-options="{updateOn: 'blur'}">
                                         <div class="dictionary-ui-calendar" ui-calendar typdate="Simulacao.Validade_Inicio"></div>
                                     </div>
@@ -116,7 +117,7 @@
                                 <div class="col-md-3">
                                     <div class="dictionary" dictionary="Data" caption="Término Validade">
                                         <input ng-model="Simulacao.Validade_Termino"
-                                               ng-disabled="Simulacao.Esquemas.length>0"
+                                               ng-disabled="!Simulacao.Permite_Editar"
                                                ui-date ng-model-options="{updateOn: 'blur'}">
                                         <div class="dictionary-ui-calendar" ui-calendar typdate="Simulacao.Validade_Termino"></div>
                                     </div>
@@ -127,7 +128,7 @@
                                 <div class="col-md-3" ng-controller="dictionaryController">
                                     <div class="dictionary" dictionary="Empresa_Usuario">
                                         <input id="txtCodEmpresa"
-                                               ng-disabled="Simulacao.Esquemas.length>0"
+                                               ng-disabled="!Simulacao.Permite_Editar"
                                                ng-model="Simulacao.Cod_Empresa_Venda"
                                                ng-model-options="{updateOn: 'blur'}"
                                                ng-change="DicionaryValidate('txtCodEmpresa');ChangePendenteCalculo()"
@@ -147,9 +148,10 @@
                                 <div class="col-md-4">
                                     <div class="dictionary" dictionary="Competencia" caption="Tabela de Preços">
                                         <input ng-model="Simulacao.Tabela_Preco"
+                                               ng-disabled="!Simulacao.Permite_Editar"
                                                ui-MesAno ng-model-options="{updateOn: 'blur'}"
                                                placeholder="Vigente">
-                                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="Simulacao.Tabela_Preco"></div>
+                                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="Simulacao.Tabela_Preco" params="TabelaPrecoKeys"></div>
                                     </div>
                                 </div>
                             </div>
@@ -164,7 +166,6 @@
                                                     <label>
                                                         <input type="checkbox"
                                                                name="app-checkbox-1"
-                                                               ng-disabled="Simulacao.Fixar_Desconto"
                                                                ng-model="Simulacao.Fixar_Valor"
                                                                ng-change="ChangePendenteCalculo()"
                                                                ng-click="Fixar('Valor')"> &nbsp;&nbsp;Fixar<span></span>
@@ -174,7 +175,7 @@
                                             <input id="txtValorInformado"
                                                    type="text" class="form-control money"
                                                    maxlength="15"
-                                                   ng-disabled="!Simulacao.Fixar_Valor || Simulacao.Fixar_Desconto"
+                                                   ng-disabled="!Simulacao.Fixar_Valor || Simulacao.Fixar_Desconto || !Simulacao.Permite_Editar"
                                                    style="text-align:right"
                                                    ng-model="Simulacao.Valor_Informado"
                                                    ng-change="ChangePendenteCalculo()"
@@ -192,7 +193,6 @@
                                                     <label>
                                                         <input type="checkbox"
                                                                name="app-checkbox-1"
-                                                               ng-disabled="Simulacao.Fixar_Valor"
                                                                ng-model="Simulacao.Fixar_Desconto"
                                                                ng-change="ChangePendenteCalculo()"
                                                                ng-click="Fixar('Desconto')"> &nbsp;&nbsp;Fixar<span></span>
@@ -200,7 +200,7 @@
                                                 </div>
                                             </div>
                                             <input type="text" class="form-control percent"
-                                                   ng-disabled="Simulacao.Fixar_Valor"
+                                                   ng-disabled="Simulacao.Fixar_Valor || !Simulacao.Fixar_Desconto || !Simulacao.Permite_Editar"
                                                    ng-model="Simulacao.Desconto_Padrao"
                                                    maxlength="10"
                                                    style="text-align:right"
@@ -214,7 +214,7 @@
                                 <div class="col-md-2" ng-controller="dictionaryController">
                                     <div class="dictionary" dictionary="Pacote_Desconto">
                                         <input id="txtId_Pacote"
-                                               ng-disabled="Simulacao.Fixar_Valor"
+                                               ng-disabled="Simulacao.Fixar_Valor || !Simulacao.Permite_Editar"
                                                ng-model="Simulacao.Id_Pacote"
                                                ng-model-options="{updateOn: 'blur'}"
                                                ng-change="DicionaryValidate('txtId_Pacote');ChangePendenteCalculo()"
@@ -239,7 +239,7 @@
                             <div class="block block-condensed">
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <table id="tableTotalizador" class="table">
+                                        <table id="tableTotalizador" class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th>
@@ -273,7 +273,11 @@
                                                         <label class="label" ng-style="{'background-color':Simulacao.BackColorStatus,'color':Simulacao.ForeColorStatus}">{{Simulacao.Descricao_Status}}</label>
                                                     </td>
                                                 </tr>
-                                                <tr >
+                                                <tr ng-show="Simulacao.Motivo_Recusa">
+                                                    <td style="vertical-align:top">Motivo da Recusa</td>
+                                                    <td>{{Simulacao.Motivo_Recusa}}</td>
+                                                </tr>
+                                                <tr ng-show="Simulacao.Tipo=='P'">
                                                     <td>
                                                         <label ng-show="Simulacao.Requer_Aprovacao" class="label label-danger btn-block">Requer Aprovação</label>
                                                     </td>
@@ -305,6 +309,7 @@
                         <div class="dictionary" dictionary="Agencia">
                             <input id="txtCodAgencia"
                                    ng-model="Simulacao.Cod_Agencia"
+                                   ng-disabled="!Simulacao.Permite_Editar"
                                    ng-model-options="{updateOn: 'blur'}"
                                    ng-change="DicionaryValidate('txtCodAgencia')"
                                    primarybind="txtCodAgencia"
@@ -318,11 +323,10 @@
                             <div class="input-group">
                                 <input type="text"
                                        maxlength="50"
-                                       disabled="disabled"
                                        id="txtNomeAgencia"
                                        class="form-control "
                                        ng-model="Simulacao.Nome_Agencia"
-                                       ng-disabled="Simulacao.Cod_Agencia">
+                                       ng-disabled="Simulacao.Cod_Agencia || !Simulacao.Permite_Editar">
                             </div>
                         </div>
                     </div>
@@ -332,7 +336,7 @@
                             <div class="input-group">
                                 <input type="text"
                                        maxlength="14"
-                                       ng-disabled="Simulacao.Cod_Agencia"
+                                       ng-disabled="Simulacao.Cod_Agencia || !Simulacao.Permite_Editar"
                                        id="txtCnpjAgencia"
                                        class="form-control cnpj"
                                        ng-model="Simulacao.Cnpj_Agencia ">
@@ -345,6 +349,7 @@
                             <label class="field-x" for="txtComissaoAgencia">Com.Agência</label>
                             <div class="input-group">
                                 <input type="text" class="form-control percent"
+                                       ng-disabled="!Simulacao.Permite_Editar"
                                        ng-model="Simulacao.Comissao_Agencia"
                                        maxlength="10"
                                        style="text-align:right"
@@ -359,6 +364,7 @@
                         <div class="dictionary" dictionary="Cliente">
                             <input id="txtCodCliente"
                                    maxlength="50"
+                                   ng-disabled="!Simulacao.Permite_Editar"
                                    ng-model="Simulacao.Cod_Cliente"
                                    ng-model-options="{updateOn: 'blur'}"
                                    ng-change="DicionaryValidate('txtCodCliente')"
@@ -372,7 +378,7 @@
                             <label for="txtNomeCliente" class="field-x">Razao Social</label>
                             <div class="input-group">
                                 <input type="text"
-                                       ng-disabled="Simulacao.Cod_Cliente"
+                                       ng-disabled="Simulacao.Cod_Cliente || !Simulacao.Permite_Editar"
                                        id="txtNomeCliente"
                                        class="form-control "
                                        ng-model="Simulacao.Nome_Cliente">
@@ -385,7 +391,7 @@
                             <div class="input-group">
                                 <input type="text"
                                        maxlength="14"
-                                       ng-disabled="Simulacao.Cod_Cliente"
+                                       ng-disabled="Simulacao.Cod_Cliente || !Simulacao.Permite_Editar"
                                        id="txtCnpjCliente"
                                        class="form-control cnpj"
                                        ng-model="Simulacao.Cnpj_Cliente">
@@ -400,6 +406,7 @@
                             <input id="txtCodContato"
                                    ng-model="Simulacao.Cod_Contato"
                                    ng-model-options="{updateOn: 'blur'}"
+                                   ng-disabled="!Simulacao.Permite_Editar"
                                    ng-change="DicionaryValidate('txtCodContato')"
                                    primarybind="txtCodContato"
                                    secondarybind="txtNomeContato">
@@ -409,7 +416,7 @@
                         <div class="form-group">
                             <label for="txtNomeContato" class="field-x" style="visibility:hidden">..</label>
                             <div class="input-group">
-                                <input type="text" disabled="disabled" id="txtNomeContato" class="form-control " ng-model="Simulacao.Nome_Contato">
+                                <input type="text" disabled="disabled" id="txtNomeContato" class="form-control " ng-model="Simulacao.Nome_Contato" ng-disabled="true">
                             </div>
                         </div>
                     </div>
@@ -419,6 +426,7 @@
                             <label class="field-x" for="txtFormaPagamento">Forma Pgto</label>
                             <select class="form-control"
                                     ng-model="Simulacao.Forma_Pgto"
+                                    ng-disabled="!Simulacao.Permite_Editar"
                                     name="txtFormaPagamento"
                                     ng-options="Forma_Pgto.Id as Forma_Pgto.Descricao for Forma_Pgto in Forma_Pgto"></select>
                         </div>
@@ -429,6 +437,7 @@
                             <label class="field-x" for="txtTipoVencimento">Tipo Vcto</label>
                             <select class="form-control"
                                     ng-model="Simulacao.Tipo_Vencimento"
+                                    ng-disabled="!Simulacao.Permite_Editar"
                                     name="txtFormaPagamento"
                                     ng-options="Tipo_Vencimento.Id as Tipo_Vencimento.Descricao for Tipo_Vencimento in Tipo_Vencimento"></select>
                         </div>
@@ -440,6 +449,7 @@
                             <div class="input-group">
                                 <input id="txtCondicaoPagamento"
                                        type="text" class="form-control numeric"
+                                       ng-disabled="!Simulacao.Permite_Editar"
                                        maxlength="3"
                                        style="text-align:right"
                                        ng-model="Simulacao.Condicao_Pagamento"
@@ -457,6 +467,7 @@
                             <div class="input-group">
                                 <textarea id="txtObservacao"
                                           class="form-control"
+                                          ng-disabled="!Simulacao.Permite_Editar"
                                           maxlength="2000"
                                           ng-model="Simulacao.Observacao"
                                           ng-model-options="{updateOn: 'blur'}"
@@ -476,6 +487,7 @@
                     </div>
                     <strong class="pull-right">Esquema Comercial</strong>
                     <button class="btn btn-default btn-icon-fixed btn-sm pull-left"
+                            ng-show="Simulacao.Permite_Editar"
                             ng-disabled="!Simulacao.Validade_Inicio || !Simulacao.Validade_Termino || !Simulacao.Cod_Empresa_Venda"
                             ng-click="AdicionarEsquema()"
                             style="margin:0px 0px 0px 0px;margin-right:50px">
@@ -483,7 +495,7 @@
                     </button>
 
                     <button class="btn btn-default btn-icon-fixed btn-sm pull-left"
-                            ng-show="Simulacao.Esquemas.length>0"
+                            ng-show="Simulacao.Esquemas.length && Simulacao.Permite_Editar>0"
                             ng-disabled="!Simulacao.Validade_Inicio || !Simulacao.Validade_Termino || !Simulacao.Cod_Empresa_Venda"
                             ng-click="RemoverEsquema(0,true)"
                             style="margin:0px 0px 0px 0px;margin-right:50px">
@@ -510,9 +522,9 @@
                                         <div class="dictionary " dictionary="Competencia" caption="Competência">
                                             <input id="txtEsquemaCompetencia"
                                                    ng-model="Simulacao.Esquemas[currentEsquema].Competencia"
-                                                   ng-disabled="!Simulacao.Validade_Inicio || !Simulacao.Validade_Termino || Simulacao.Esquemas[currentEsquema].Midias.length >0"
+                                                   ng-disabled="!Simulacao.Validade_Inicio || !Simulacao.Validade_Termino || Simulacao.Esquemas[currentEsquema].Midias.length>0 || !Simulacao.Permite_Editar"
                                                    ui-MesAno ng-model-options="{updateOn: 'blur'}">
-                                            <div class="dictionary-ui-competencia" ui-Competencia typmesano="Simulacao.Esquemas[currentEsquema].Competencia"></div>
+                                            <div class="dictionary-ui-competencia" ui-Competencia typmesano="Simulacao.Esquemas[currentEsquema].Competencia" params="CompetenciaEsquemaKeys"></div>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -521,7 +533,7 @@
                                             <select class="form-control"
                                                     ng-model="Simulacao.Esquemas[currentEsquema].Abrangencia"
                                                     name="txtAbrangenciaEsquema"
-                                                    ng-disabled="Simulacao.Esquemas[currentEsquema].Midias.length"
+                                                    ng-disabled="Simulacao.Esquemas[currentEsquema].Midias.length || !Simulacao.Permite_Editar"
                                                     ng-options="Abrangencia.Id as Abrangencia.Descricao for Abrangencia in Abrangencias"
                                                     ng-change="Abrangencia_Change()"></select>
                                         </div>
@@ -534,7 +546,7 @@
                                                        ng-model-options="{updateOn: 'blur'}"
                                                        style="text-transform:uppercase"
                                                        ng-change="MercadoChange(Simulacao.Esquemas[currentEsquema].Cod_Mercado)"
-                                                       ng-disabled="Simulacao.Esquemas[currentEsquema].Midias.length>0"
+                                                       ng-disabled="Simulacao.Esquemas[currentEsquema].Midias.length>0 || !Simulacao.Permite_Editar"
                                                        primarybind="txtCodMercado"
                                                        secondarybind="">
                                             </div>
@@ -542,13 +554,16 @@
                                     </div>
 
                                     <div class="pull-right margin-right-10">
-                                        <button class="btn btn-default btn-sm" ng-click="DuplicarEsquema(Simulacao.Id_Simulacao,Simulacao.Esquemas[currentEsquema].Id_Esquema,'2')">Duplicar no Período</button>
+                                        <button class="btn btn-default btn-sm" 
+                                                ng-click="DuplicarEsquema(Simulacao.Id_Simulacao,Simulacao.Esquemas[currentEsquema].Id_Esquema,'2')" ng-show="Simulacao.Permite_Editar">Duplicar no Período
+                                        </button>
                                     </div>
                                     <div class="pull-right margin-right-10">
-                                        <button class="btn btn-default btn-sm" ng-click="DuplicarEsquema(Simulacao.Id_Simulacao,Simulacao.Esquemas[currentEsquema].Id_Esquema,'1')">Duplicar Mês</button>
+                                        <button class="btn btn-default btn-sm" ng-click="DuplicarEsquema(Simulacao.Id_Simulacao,Simulacao.Esquemas[currentEsquema].Id_Esquema,'1')" ng-show="Simulacao.Permite_Editar">Duplicar Mês
+                                        </button>
                                     </div>
                                     <div class="pull-right margin-right-10">
-                                        <button class="btn btn-default btn-sm" ng-click="RemoverEsquema(Simulacao.Esquemas[currentEsquema].Id_Esquema)">Excluir Esquema </button>
+                                        <button class="btn btn-default btn-sm" ng-click="RemoverEsquema(Simulacao.Esquemas[currentEsquema].Id_Esquema)" ng-show="Simulacao.Permite_Editar">Excluir Esquema </button>
                                     </div>
 
                                 </div>
@@ -557,7 +572,7 @@
                                         <button class="btn btn-default btn-sm margin-left-20"
                                                 id="btnSelecionarVeiculos"
                                                 ng-click="SelecionarVeiculos()"
-                                                ng-disabled="Simulacao.Esquemas[currentEsquema].Abrangencia==0 || !Simulacao.Esquemas[currentEsquema].Abrangencia">
+                                                ng-disabled="Simulacao.Esquemas[currentEsquema].Abrangencia==0 || !Simulacao.Esquemas[currentEsquema].Abrangencia || !Simulacao.Permite_Editar">
                                             Selecionar Veiculos
                                         </button>
                                         <div class="row margin-top-5 margin-left-20 margin-bottom-10" style="border:solid 1px #e5e5e5;width:95%;height:140px;overflow-y:scroll ;overflow-x:hidden">
@@ -606,7 +621,7 @@
                                                         <label>
                                                             <input type="checkbox"
                                                                    name="app-checkbox-1"
-                                                                   ng-disabled="Simulacao.Esquemas[currentEsquema].Fixar_Desconto"
+                                                                   ng-disabled="Simulacao.Esquemas[currentEsquema].Fixar_Desconto || !Simulacao.Permite_Editar"
                                                                    ng-model="Simulacao.Esquemas[currentEsquema].Fixar_Valor"
                                                                    ng-change="ChangePendenteCalculo()"
                                                                    ng-click="Fixar('ValorEsquema')"> &nbsp;&nbsp;Fixar<span></span>
@@ -615,7 +630,7 @@
                                                 </div>
                                                 <input id="txtValorNegociadoEsquema"
                                                        type="text"
-                                                       ng-disabled="!Simulacao.Esquemas[currentEsquema].Fixar_Valor || Simulacao.Esquemas[currentEsquema].Fixar_Desconto"
+                                                       ng-disabled="!Simulacao.Esquemas[currentEsquema].Fixar_Valor || Simulacao.Esquemas[currentEsquema].Fixar_Desconto || Simulacao.Permite_Editar"
                                                        class="form-control money"
                                                        style="text-align:right"
                                                        ng-model="Simulacao.Esquemas[currentEsquema].Valor_Total_Negociado"
@@ -637,7 +652,7 @@
                                                         <label>
                                                             <input type="checkbox"
                                                                    name="app-checkbox-1"
-                                                                   ng-disabled="Simulacao.Esquemas[currentEsquema].Fixar_Valor"
+                                                                   ng-disabled="Simulacao.Esquemas[currentEsquema].Fixar_Valor || !Simulacao.Permite_Editar"
                                                                    ng-model="Simulacao.Esquemas[currentEsquema].Fixar_Desconto"
                                                                    ng-change="ChangePendenteCalculo()"
                                                                    ng-click="Fixar('DescontoEsquema')"> &nbsp;&nbsp;Fixar<span></span>
@@ -646,7 +661,7 @@
                                                 </div>
                                                 <input id="txtValorDescontoEsquema"
                                                        type="text" class="form-control percent"
-                                                       ng-disabled="!Simulacao.Esquemas[currentEsquema].Fixar_Desconto|| Simulacao.Esquemas[currentEsquema].Fixar_Valor"
+                                                       ng-disabled="!Simulacao.Esquemas[currentEsquema].Fixar_Desconto|| Simulacao.Esquemas[currentEsquema].Fixar_Valor || !Simulacao.Permite_Editar"
                                                        ng-model="Simulacao.Esquemas[currentEsquema].Desconto_Padrao"
                                                        ng-change="ChangePendenteCalculo()"
                                                        ng-model-options="{updateOn: 'blur'}" maxlength="5" />
@@ -657,6 +672,7 @@
                                         <div ng-controller="dictionaryController">
                                             <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Faturamento">
                                                 <input id="txtCodEmpresaFaturamento"
+                                                       ng-disabled="!Simulacao.Permite_Editar"
                                                        ng-model="Simulacao.Esquemas[currentEsquema].Cod_Empresa_Faturamento"
                                                        ng-model-options="{updateOn: 'blur'}"
                                                        ng-change="DicionaryValidate('txtCodEmpresaFaturamento');ChangePendenteCalculo()"
@@ -675,7 +691,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <button class="btn btn-default btn-icon-fixed btn-sm"
-                                    ng-disabled="!Simulacao.Esquemas[currentEsquema].Competencia"
+                                    ng-disabled="!Simulacao.Esquemas[currentEsquema].Competencia || !Simulacao.Permite_Editar"
                                     ng-click="AdicionarMidia(Simulacao.Esquemas[currentEsquema])">
                                 <span class="fa fa-plus" ng-disabled="true"></span> Adicionar Mídias
                             </button>
@@ -720,11 +736,12 @@
                                                 <div class="input-group" style="min-width:110px">
                                                     <input id="txtCodPrograma"
                                                            class="form-control inputEsquema"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-model="midia.Cod_Programa"
                                                            maxlength="4"
                                                            style="text-transform:uppercase"
                                                            ng-change="fnChangeMidia(midia,'Programa')">
-                                                    <div class="input-group-addon">
+                                                    <div class="input-group-addon" ng-show="Simulacao.Permite_Editar" >
                                                         <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaTabela_Grade(midia)"></span>
                                                     </div>
                                                 </div>
@@ -733,11 +750,12 @@
                                                 <div class="input-group " style="min-width:90px">
                                                     <input id="txtCodCaracteristica"
                                                            class="form-control inputEsquema"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-model="midia.Cod_Caracteristica"
                                                            ng-change="fnChangeMidia(midia,'Caracteristica')"
                                                            maxlength="2"
                                                            style="text-transform:uppercase">
-                                                    <div class="input-group-addon">
+                                                    <div class="input-group-addon" ng-show="Simulacao.Permite_Editar">
                                                         <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaCaracteristica(midia)"></span>
                                                     </div>
                                                 </div>
@@ -746,10 +764,11 @@
                                                 <div class="input-group" style="min-width:90px">
                                                     <input class="form-control inputEsquema"
                                                            ng-model="midia.Cod_Tipo_Comercial"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-change="fnChangeMidia(midia,'Tipo_Comercial')"
                                                            maxlength="2"
                                                            style="text-transform:uppercase">
-                                                    <div class="input-group-addon">
+                                                    <div class="input-group-addon" ng-show="Simulacao.Permite_Editar">
                                                         <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaTipoComercial(midia)"></span>
                                                     </div>
                                                 </div>
@@ -759,6 +778,7 @@
                                                 <div class="input-group" style="min-width:200px">
                                                     <input class="form-control inputEsquema"
                                                            placeholder="A Determinar"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-model="midia.Titulo_Comercial"
                                                            ng-change="fnChangeMidia(midia,'Titulo_Comercial')"
                                                            maxlength="30"
@@ -768,6 +788,7 @@
                                                 <div class="input-group" style="min-width:50px">
                                                     <input id="midiaDuracao"
                                                            class="form-control numeric inputEsquema "
+                                                           ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-model="midia.Duracao"
                                                            maxlength="3"
                                                            ng-change="fnChangeMidia(midia,'Duracao')"
@@ -778,6 +799,7 @@
                                                 <div class="input-group" style="min-width:40px">
                                                     <select class="form-control inputEsquema"
                                                             ng-model="midia.Dia_Inicio"
+                                                            ng-disabled="!Simulacao.Permite_Editar"
                                                             ng-options="n for n in [] | rangeDiaInicio:Simulacao.Validade_Inicio:Simulacao.Validade_Termino:Simulacao.Esquemas[currentEsquema].Competencia"
                                                             ng-change="fnChangeMidia(midia,'Dia_Inicio')"></select>
                                                 </div>
@@ -786,6 +808,7 @@
                                                 <div class="input-group" style="min-width:40px">
                                                     <select class="form-control inputEsquema"
                                                             ng-model="midia.Dia_Fim"
+                                                            ng-disabled="!Simulacao.Permite_Editar"
                                                             ng-change="fnChangeMidia(midia,'Dia_Fim')"
                                                             ng-options="n for n in [] | rangeDiaFim:Simulacao.Validade_Inicio:Simulacao.Validade_Termino:Simulacao.Esquemas[currentEsquema].Competencia:midia.Dia_Inicio"></select>
                                                 </div>
@@ -794,6 +817,7 @@
                                                 <div class="input-group" style="min-width:40px">
                                                     <input class="form-control inputEsquema"
                                                            ng-model="midia.Qtd_Insercoes"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-change="fnChangeMidia(midia,'Qtd_Insercoes')"
                                                            maxlength="4"
                                                            onkeypress="return NumericOnly(event)">
@@ -803,6 +827,7 @@
                                                 <div class="input-group" style="min-width:100px">
                                                     <select class="form-control inputEsquema"
                                                             ng-model="midia.Distribuicao"
+                                                            ng-disabled="!Simulacao.Permite_Editar"
                                                             ng-change="fnChangeMidia(midia,'Distribuicao')"
                                                             ng-options="Distribuicao.Tipo as Distribuicao.Descricao for Distribuicao in Distribuicao">
                                                         TipoDestribuicao
@@ -815,6 +840,7 @@
                                                     <input class="form-control inputEsquema"
                                                            ng-model="midia.Desconto_Informado"
                                                            style="max-width:100px"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-change="fnControleDescontoValorMidia('Desconto',midia)"
                                                            ng-model-options="{updateOn: 'blur'}"
                                                            onblur="this.value = PercentFormat(this.value)"
@@ -829,14 +855,14 @@
                                                            ng-model="midia.Valor_Informado"
                                                            ng-change="fnControleDescontoValorMidia('Valor',midia)"
                                                            ng-model-options="{updateOn: 'blur'}"
-                                                           ng-disabled="midia.Desconto_Informado>0"
+                                                           ng-disabled="midia.Desconto_Informado>0 || !Simulacao.Permite_Editar"
                                                            onblur="this.value = MoneyFormat(this.value)"
                                                            onfocus="this.value = DecimalUnformat(this.value)"
-                                                           onkeypress="return DecimalOnly(event)">
+                                                           onkeypress="return DecimalOnly(event)">  
                                                 </div>
                                             </td>
-                                            <td><button class="btn btn-default btn-sm" style="margin:0px 0px !important" ng-click="RemoverMidia(midia)"><span class="fa fa-trash"></span></button></td>
-                                            <td style="width:80px"><button class="btn btn-success btn-sm" style="margin:0px 0px !important" ng-show="!midia.IsValid" ng-click="DistrubuirInsercoes(Simulacao.Esquemas[currentEsquema] ,midia)">Ok</button></td>
+                                            <td><button ng-show="Simulacao.Permite_Editar" class="btn btn-default btn-sm" style="margin:0px 0px !important" ng-click="RemoverMidia(midia)"><span class="fa fa-trash"></span></button></td>
+                                            <td style="width:80px"><button ng-show="Simulacao.Permite_Editar" class="btn btn-success btn-sm" style="margin:0px 0px !important" ng-show="!midia.IsValid" ng-click="DistrubuirInsercoes(Simulacao.Esquemas[currentEsquema] ,midia)">Ok</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -893,8 +919,9 @@
                                         <td><span ng-show="Linha.IsValid">{{Linha.Duracao}}</span></td>
                                         <td class="td-insercoes" ng-repeat="insercao in Linha.Insercoes track by $index" ng-style="{'background-color':(insercao.Tem_Grade) ?'#fff':'#f2f2f2'}">
                                             <input ng-model="insercao.Qtd"
+                                                   ng-disabled="!Simulacao.Permite_Editar"
                                                    ng-model-options="{updateOn: 'blur'}"
-                                                   style="width:20px;border:none;text-align:center"
+                                                   style="width:20px;border:none;text-align:center;background-color:#fff"
                                                    maxlength="3"
                                                    ng-show="insercao.Tem_Grade"
                                                    onkeypress="return NumericOnly(event)"
@@ -924,12 +951,13 @@
                     Recalcular
                     <span class="app-spinner scaleout " style="background-color:red" ng-show="Simulacao.PendenteCalculo"></span>
                 </button>
-                <button class="btn btn-default btn-sm" ng-click="EnviarAprovacao(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Envio_Aprovacao">Enviar para Aprovação</button>
-                <button class="btn btn-default btn-sm" ng-click="AprovarProposta(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Aprovacao">Aprovar</button>
+                <button class="btn btn-default btn-sm" ng-click="EnviarAprovacao(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Envio_Aprovacao && Simulacao.Requer_Aprovacao">Enviar para Aprovação</button>
+                <!--Botao aprovar nao fica mais na lista, e sim nas aprovacoes pendentes--> 
+                <!--<button class="btn btn-default btn-sm" ng-click="AprovarProposta(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Aprovacao">Aprovar</button>-->
                 <button class="btn btn-default btn-sm" ng-click="ImprimirMidia(Simulacao.Id_Simulacao)">Imprimir Midias</button>
                 <button class="btn btn-default btn-sm" ng-click="ImprimirSimulacao(Simulacao.Id_Simulacao)">Analisar {{Descricao_Processo}}</button>
                 <button class="btn btn-default btn-sm" ng-click="PreencherProposta(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Gerar">Gerar/Enviar Proposta</button>
-                <button class="btn btn-success btn-sm" ng-click="SalvarSimulacao(Simulacao,true)">Salvar</button>
+                <button class="btn btn-success btn-sm" ng-click="SalvarSimulacao(Simulacao,true)" ng-show="Simulacao.Permite_Editar" >Salvar</button>
                 <a class="btn btn-warning btn-sm" href="#Simulacao" ng-if="Parameters.Processo=='S'"><span class="nav-icon-hexa"></span>Cancela</a>
                 <a class="btn btn-warning btn-sm" href="#Proposta" ng-if="Parameters.Processo=='P'"><span class="nav-icon-hexa"></span>Cancela</a>
             </div>

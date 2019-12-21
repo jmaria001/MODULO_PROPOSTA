@@ -59,6 +59,7 @@ function CompetenciaToInt(pCompetencia) {
         return null;
     }
 }
+
 function MesExtenso(pParam, pFormat) {
     var _dt = new Date(pParam);
     var _mes = _dt.getMonth();
@@ -361,13 +362,15 @@ function DecimalFormat(pValue) {
 function DoubleVal(pValue) {
     var _ret = 0;
     if (pValue) {
+        pValue = pValue.toString().replace(",", ".");
+        pValue = pValue.toString().replace(" ","");
         if (pValue.toString().indexOf("$") > -1) {
-            pValue = pValue.toString().replace(/[^0-9,]+/g, "");
+            pValue = pValue.toString().replace(/[^0-9,-]+/g, "");
         }
         if (pValue.toString().indexOf(".") > -1 && pValue.toString().indexOf(",") > -1) {
-            pValue = pValue.toString().replace(/[^0-9,]+/g, "");
+            pValue = pValue.toString().replace(/[^0-9,-]+/g, "");
         }
-        pValue = pValue.toString().replace(",", ".");
+        
         _ret = parseFloat(pValue);
     }
     return _ret;

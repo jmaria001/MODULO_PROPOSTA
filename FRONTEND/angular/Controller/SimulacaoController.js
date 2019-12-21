@@ -14,6 +14,27 @@
     $scope.Distribuicao = [{ 'Tipo': 'D', 'Descricao': 'Por Dia' }, { 'Tipo': 'M', 'Descricao': 'No Periodo' }]
     $scope.Info = { 'Title': '', 'Text': '' };
     $scope.GeracaoProposta = {};
+
+    $scope.TabelaPrecoKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
+    $scope.CompetenciaEsquemaKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
+
+    $scope.SetaCompetenciaEsquema = function (pDataInicio, pDataFim) {
+        $scope.CompetenciaEsquemaKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
+        if (pDataInicio) {
+            $scope.CompetenciaEsquemaKeys.Year = StringToDate(pDataInicio, 'dd/mm/yyyy').getFullYear();
+            var _m = StringToDate(pDataInicio, 'dd/mm/yyyy').getMonth()+1;
+            var _y = StringToDate(pDataInicio, 'dd/mm/yyyy').getFullYear();
+            var _ym = parseInt(_y.toString() + LeftZero(_m, 2));
+            $scope.CompetenciaEsquemaKeys.First = _ym;
+        }
+        if (pDataFim) {
+            $scope.CompetenciaEsquemaKeys.Year = StringToDate(pDataFim, 'dd/mm/yyyy').getFullYear();
+            var _m = StringToDate(pDataFim, 'dd/mm/yyyy').getMonth()+1;
+            var _y = StringToDate(pDataFim, 'dd/mm/yyyy').getFullYear();
+            var _ym = parseInt(_y.toString() + LeftZero(_m, 2));
+            $scope.CompetenciaEsquemaKeys.Last= _ym;
+        }
+    }
     //=====================Check processo simulacao ou proposta
     if ($scope.Parameters.Processo == 'P') {
         $scope.Descricao_Processo = 'Proposta'
@@ -36,8 +57,8 @@
                 if (pImportacao) {
                     $scope.Simulacao.Id_Simulacao = 0;
                     $scope.Simulacao.Tipo = 'P';
-
                 }
+                $scope.SetaCompetenciaEsquema($scope.Simulacao.Validade_Inicio, $scope.Simulacao.Validade_Termino);
             }
         });
     };
@@ -83,7 +104,6 @@
             _url += '&Mercado=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Mercado);
             _url += '&Empresa=' + NullToString($scope.Simulacao.Cod_Empresa_Venda);
             _url += '&Empresa_Faturamento=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Empresa_Faturamento);
-
             httpService.Get(_url).then(function (response) {
                 if (response.data) {
                     for (var i = 0; i < response.data.length; i++) {
@@ -290,7 +310,7 @@
                     pMidia.Insercoes = response.data;
                     pMidia.IsValid = true;
                     $scope.ChangePendenteCalculo();
-                    //$scope.SalvarSimulacao($scope.Simulacao, false); //verifica se é viavel ja salvar e revalorar ou espera clicar em recalcular
+                    $scope.SalvarSimulacao($scope.Simulacao, false); //verifica se é viavel ja salvar e revalorar ou espera clicar em recalcular
                 }
                 else {
                     ShowAlert(response.data[0].Critica, 'warning');
@@ -304,20 +324,32 @@
             $scope.ChangePendenteCalculo();
         }
     });
+    //===================================quando mudar a validade inicio ou final setar as chaves da competencia do esquema
+    $scope.$watch('[Simulacao.Validade_Inicio,Simulacao.Validade_Termino]', function (newValue, oldValue) {
+        $scope.SetaCompetenciaEsquema(newValue[0], newValue[1]);
+    });
     //===================================Clicou em Fixar Desconto ou Valor
     $scope.Fixar = function (pTipo) {
         if (pTipo == 'Valor') {
-            $scope.Simulacao.Valor_Informado = "";
-            //$scope.Simulacao.Id_Pacote = ""
-            //$scope.Simulacao.Descricao_Pacote = ""
-            $scope.Simulacao.Desconto_Padrao = ""
+            if($scope.Simulacao.Fixar_Valor){
+             
+                $scope.Simulacao.Fixar_Desconto = false;
+                $scope.Simulacao.Desconto_Padrao = ""
+            }
+            else {
+                $scope.Simulacao.Valor_Informado = "";
+            }
         }
         if (pTipo = 'Desconto') {
             if ($scope.Simulacao.Fixar_Desconto) {
                 $scope.Simulacao.Id_Pacote = ""
                 $scope.Simulacao.Descricao_Pacote = ""
+                $scope.Simulacao.Fixar_Valor = false;
+                $scope.Simulacao.Valor_Informado = "";
             }
-            //$scope.Simulacao.Desconto_Padrao = "";
+            else {
+                $scope.Simulacao.Desconto_Padrao = "";
+            }
         }
     };
     //===================================Salvar Simulacao
@@ -384,7 +416,7 @@
                 }
             }
             $scope.$digest();
-            $scope.SalvarSimulacao($scope.Simulacao)
+            $scope.SalvarSimulacao($scope.Simulacao, false)
         });
     }
     //===================================Mostra a critica da Valoracao
@@ -431,7 +463,7 @@
             if (response.data) {
                 $scope.PesquisaTabelas.Items = response.data;
                 $scope.PesquisaTabelas.FiltroTexto = "";
-                $scope.PesquisaTabelas.Titulo = "Seleção Simulações"
+                $scope.PesquisaTabelas.Titulo = "Seleção Modelos"
                 $scope.PesquisaTabelas.MultiSelect = false;
                 $scope.PesquisaTabelas.ClickCallBack = function (value) { $scope.CarregarSimulacao(value, 'S', true) };
                 $("#modalTabela").modal(true);
@@ -444,7 +476,7 @@
             if (response.data) {
                 var _text = [];
                 for (var i = 0; i < response.data.length; i++) {
-                    _text.push(  response.data[i].Aprovador + '( Regra:' + response.data[i].Nome_Regra +   ' - ' + response.data[i].Status +' ) ');
+                    _text.push(response.data[i].Aprovador + '( Regra:' + response.data[i].Nome_Regra + ' - ' + response.data[i].Status + ' ) ');
                 }
                 $scope.Info = {
                     'Title': 'Aprovadores',
@@ -466,7 +498,7 @@
     }
     //===================================Aprovar Proposta
     $scope.AprovarProposta = function (pId_Simulacao) {
-        var _data = { 'Id_Simulacao':pId_Simulacao};
+        var _data = { 'Id_Simulacao': pId_Simulacao };
         httpService.Post("AprovarProposta", _data).then(function (response) {
             if (response) {
                 $scope.Aviso = response.data[0];
@@ -511,7 +543,7 @@
         var _arrayEmail = pProposta.Email_Contato.split(',');
         for (var i = 0; i < _arrayEmail.length; i++) {
             if (!ValidaEmail(_arrayEmail[i])) {
-                pProposta.Alerta = _arrayEmail[i] +' não é um email válido'
+                pProposta.Alerta = _arrayEmail[i] + ' não é um email válido'
                 return;
             }
         }
@@ -522,7 +554,7 @@
                 return;
             }
         }
-        httpService.Post("GerarProposta/",pProposta).then(function (response) {
+        httpService.Post("GerarProposta/", pProposta).then(function (response) {
             if (response.data) {
                 $("#ModalGeracaoProposta").modal('hide');
                 if ($scope.GeracaoProposta.Visualizar) {
@@ -533,16 +565,22 @@
                 else {
                     ShowAlert("Proposta Gera e enviada com Sucesso!", "warning")
                 }
-                
             }
             else {
                 ShowAlert("Não há dados para geração da proposta", "warning")
             }
         });
     };
+    //=========================Marcar/Desmarcar todos os veiculos
+    $scope.SelectAllVeiculo = function(pLista,pCheck)
+    {
+        for (var i = 0; i < pLista.length; i++) {
+            pLista[i].Selected = pCheck;
+        }
+    }
     //===================================Preencher dados para geracao da proposta
     $scope.PreencherProposta = function (pId_Simulacao) {
-        $scope.GeracaoProposta = { 'Id_Simulacao': pId_Simulacao, 'Nome_Contato': '', 'Email_Contato': '', 'Email_Copia': '', 'Observacao': '','Alerta':'','Visualizar':false};
+        $scope.GeracaoProposta = { 'Id_Simulacao': pId_Simulacao, 'Nome_Contato': '', 'Email_Contato': '', 'Email_Copia': '', 'Observacao': '', 'Alerta': '', 'Visualizar': false };
         $("#ModalGeracaoProposta").modal(true);
     };
     //===================================Seta Iniciar calculo false apos o load da pagina

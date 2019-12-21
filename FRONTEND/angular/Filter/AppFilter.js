@@ -1,7 +1,6 @@
 ﻿angular.module('App').filter('percentage', ['$filter', function ($filter) {
     return function (input, decimals) {
         if (input) {
-            //input = input.replace(',', '.');
             input = DoubleVal(input);
             return $filter('number')(input, decimals) + '%';
         }

@@ -8,19 +8,29 @@ namespace PROPOSTA
 {
     public class SimulacaoController : ApiController
     {
-        [Route("api/ListSimulacao/{Processo}")]
+        [Route("api/ListSimulacao")]
         [HttpGet]
         [ActionName("ListSimulacao")]
         [Authorize()]
-        public IHttpActionResult ListSimulacao(String Processo)
+        public IHttpActionResult ListSimulacao([FromUri]Simulacao.SimulacaoFiltroParam query)
         {
             SimLib clsLib = new SimLib();
             Simulacao Cls = new Simulacao(User.Identity.Name);
 
             try
             {
-                DataTable dtbRetorno = Cls.ListSimulacao(Processo);
+                DataTable dtbRetorno = new DataTable();
+                if (query.Processo== "P" || query.Processo== "S")
+                {
+                    dtbRetorno = Cls.ListSimulacao(query);
+                }
+                else
+                {
+                    dtbRetorno = Cls.ListPendenteAprovacao();
+                }
+
                 return Ok(dtbRetorno);
+                
             }
             catch (Exception Ex)
             {
@@ -63,6 +73,7 @@ namespace PROPOSTA
                 if (Id_Simulacao == 0)
                 {
                     Retorno.Esquemas = new List<Simulacao.EsquemaModel>();
+                    Retorno.Permite_Editar = true;
                     Retorno.Tipo = Tipo;
                 }
                 else
@@ -118,6 +129,8 @@ namespace PROPOSTA
                 Int32 ano = pCompetencia.ToString().Substring(0, 4).ConvertToInt32();
                 DateTime Lastday = clsLib.LastDay(mes, ano);
                 DateTime FirstDay = clsLib.FirstDay(mes, ano);
+                Midia.Dia_Inicio = FirstDay.Day;
+                Midia.Dia_Fim = Lastday.Day;
                 List<Simulacao.InsercaoModel> Insercao = new List<Simulacao.InsercaoModel>();
                 var strDW = new string[7] { "DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB" };
                 while (FirstDay.Month == Lastday.Month)
@@ -346,7 +359,7 @@ namespace PROPOSTA
             }
         }
 
-        [Route("api/SolicitarAprovacao/{Id_Simulacao}")]
+        [Route("api/SolicitarAprovacao")]
         [HttpPost]
         [Authorize()]
         public IHttpActionResult SolicitarAprovacao([FromBody]  Simulacao.Param_Aprovacao_Model Param)
@@ -393,6 +406,30 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
+        
+        [Route("api/GetAprovacaoProposta/{Id_Simulacao}")]
+        [HttpGet]
+        [Authorize()]
+        public IHttpActionResult GetAprovacaoProposta(Int32 Id_Simulacao)
+        {
+            SimLib clsLib = new SimLib();
+            try
+            {
+                Simulacao.SimulacaoModel Retorno = new Simulacao.SimulacaoModel();
+                Simulacao Cls = new Simulacao(User.Identity.Name);
+
+                    Retorno = Cls.GetSimulacao(Id_Simulacao);
+
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+        
+
         [Route("api/AprovarProposta")]
         [HttpPost]
         //[Authorize()]

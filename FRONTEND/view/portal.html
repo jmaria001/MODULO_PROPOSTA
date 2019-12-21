@@ -22,8 +22,8 @@
                 </p>
                 <p class="text-muted">
                     <label ng-show="Mensagem.Status =='Nova' && Mensagem.Mensagem_Id !=0" ng-click="VistoMensagem(Mensagem.Mensagem_Id)" class="label label-success" style="cursor:pointer">Marcar como Lida</label>
-                    <label ng-show="Mensagem.Status =='Lida'" class="label label-warning" ng-click="RemoverMensagem(Mensagem.Mensagem_Id)" style="cursor:pointer">Excluir Mensagem</label>
-                    <label ng-show="Mensagem.Atividade_Id" class="label label-info" ng-click="MostrarAtividade(Mensagem.Atividade_Id)" style="cursor:pointer">Ver Atividade</label>
+                    <label ng-show="Mensagem.Status=='Lida'" class="label label-warning" ng-click="RemoverMensagem(Mensagem.Mensagem_Id)" style="cursor:pointer">Excluir Mensagem</label>
+                    <a ng-show="Mensagem.Acao_Text" href={{Mensagem.Acao_url}}    class="label label-primary span-btn" >{{Mensagem.Acao_Text}}</a>
                 </p>
             </div>
         </div>

@@ -11,7 +11,7 @@ namespace PROPOSTA
     {
         Int32 ContadorMidia = 0;
         Int32 ContadorEsquema = 0;
-        public DataTable ListSimulacao(String pProcesso)
+        public DataTable ListSimulacao(SimulacaoFiltroParam Param)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
@@ -23,7 +23,24 @@ namespace PROPOSTA
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Simulacao_List");
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Processo", pProcesso);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Processo", Param.Processo);
+
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Status", Param.Id_Status);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Empresa_Venda", Param.Cod_Empresa_Venda);
+                if (Param.Validade_Inicio !=null)
+                {
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Inicio", Param.Validade_Inicio.ConvertToDatetime());
+                }
+                if (Param.Validade_Termino !=null)
+                {
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Termino", Param.Validade_Termino.ConvertToDatetime());
+                }
+                
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Agencia", Param.Cod_Agencia);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Cliente", Param.Cod_Cliente);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Contato", Param.Cod_Contato);
+
+
                 Adp.Fill(dtb);
             }
             catch (Exception)
@@ -36,6 +53,33 @@ namespace PROPOSTA
             }
             return dtb;
         }
+
+        public DataTable ListPendenteAprovacao()
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Pendente_Aprovacao_List");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.Fill(dtb);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
+
+
         public DataTable SimulacaoDestroy(SimulacaoModel Param)
         {
             clsConexao cnn = new clsConexao(this.Credential);
@@ -102,6 +146,7 @@ namespace PROPOSTA
                     Simulacao.Tipo_Vencimento = drwBase["Tipo_Vencimento"].ToString().ConvertToInt32();
                     Simulacao.Condicao_Pagamento = drwBase["Condicao_Pagamento"].ToString().ConvertToInt32();
                     Simulacao.Comissao_Agencia = drwBase["Comissao_Agencia"].ToString().ConvertToPercent();
+                    Simulacao.Motivo_Recusa = drwBase["Motivo_Recusa"].ToString();
                     Simulacao.Observacao = drwBase["Observacao"].ToString().Trim();
                     if (drwBase["Id_Pacote"].ToString().ConvertToInt32() > 0)
                     {
@@ -125,6 +170,7 @@ namespace PROPOSTA
                     Simulacao.Permite_Aprovacao = drwBase["Permite_Aprovacao"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Envio_Aprovacao = drwBase["Permite_Envio_Aprovacao"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Gerar = drwBase["Permite_Gerar"].ToString().ConvertToBoolean();
+                    Simulacao.Permite_Editar= drwBase["Permite_Editar"].ToString().ConvertToBoolean();
                 }
                 //===========================================Adicionas esquemas/Midias/Insercoes/Veiculos
                 //DataTable dtbDesconto = new DataTable();
@@ -692,6 +738,16 @@ namespace PROPOSTA
                 }
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Token", Param.Token);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Simulacao", Param.Id_Simulacao);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Action", Param.Action);
+                if (String.IsNullOrEmpty(Param.Motivo))
+                {
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Motivo", DBNull.Value);
+                }
+                else
+                {
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Motivo", Param.Motivo);
+                }
+
                 Adp.Fill(dtb);
             }
             catch (Exception)

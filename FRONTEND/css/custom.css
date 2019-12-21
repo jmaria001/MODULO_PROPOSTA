@@ -1,7 +1,13 @@
 ﻿.HideButton {
     display: none;
 }
-
+<style>
+    .table-select td {
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-size: 0.75rem;
+    }
+</style>    
 .scrollToTop {
     width: 100px;
     height: 130px;
@@ -83,7 +89,7 @@
 }
 
     .span-btn:hover {
-        font-weight: bolder;
+        color:blue;
     }
 
 .fa-crud {
@@ -91,11 +97,6 @@
     padding: 2px;
     color: darkblue;
     /*cursor:pointer;*/
-}
-
-.btn-crud {
-    width: 40px !important;
-    background-color: red !important;
 }
 
 .form-group.required.control-label:after {
@@ -378,7 +379,7 @@ input:focus, textarea:focus {
 }
 .table-competencia button:hover
 {
-    background-color:black;
-    color:white;
+    /*background-color:black;
+    color:white;*/
 }
 

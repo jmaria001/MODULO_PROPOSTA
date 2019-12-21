@@ -1,0 +1,85 @@
+﻿<div class="container">
+
+    <div class="block">
+        <form name="formAprovacao" ng-submit="AprovarProposta(Simulacao.Id_Simulacao,token)">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th colspan="2">Dados da Proposta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td width="20%">N.Proposta</td>
+                            <td width="80%">{{Simulacao.Id_Simulacao}}</td>
+                        </tr>
+                        <tr>
+                            <td>Identificação</td>
+                            <td>{{Simulacao.Identificacao}}</td>
+                        </tr>
+                        <tr>
+                            <td>Agência</td>
+                            <td>{{Simulacao.Nome_Agencia}}</td>
+                        </tr>
+                        <tr>
+                            <td>Cliente</td>
+                            <td>{{Simulacao.Nome_Cliente}}</td>
+                        </tr>
+                        <tr>
+                            <td>Valor Tabela</td>
+                            <td>{{Simulacao.Valor_Total_Tabela}}</td>
+                        </tr>
+                        <tr>
+                            <td>Desconto</td>
+                            <td>{{Simulacao.Desconto_Real}}%</td>
+                        </tr>
+                        <tr>
+                            <td>Valor Negociado</td>
+                            <td>{{Simulacao.Valor_Total_Negociado}}</td>
+                        </tr>
+                        <tr>
+                            <td>Observação</td>
+                            <td>{{Simulacao.Observacao}}</td>
+                        </tr>
+                        <tr>
+                            <td>Elaborada por</td>
+                            <td>{{Simulacao.Nome_Usuario}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="divBotoes">
+                <button type="button"  ng-show="!Simulacao.Aprovado" ng-click="AprovarProposta(Simulacao.Id_Simulacao)" class="btn btn-success">Aprovar</button>
+                <button type="button" ng-show="!Simulacao.Aprovado" class="btn btn-danger" id="btnRecusar" target="divRecusa" ng-click="optRecusar=true ">Rejeitar</button>
+                <!--<a href="#PendenciaAprovacao"class="btn btn-warning">Cancela</a>-->
+                <a href="{{urlCallBack}}" class="btn btn-warning">Cancela</a>
+            </div>
+            <div id="divRecusa" ng-show="optRecusar">
+                <div class="row margin-top-20">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="txtMotivoRecusa">Motivo da Recusa</label>
+                            <textarea name="txtMotivoRecusa"  maxlength="4000" ng-model="Simulacao.MotivoRecusa" class="form-control" style="height:100px" placeholder="Informe o Motivo de Recusa em clique em Confirmar Recusa"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="col-12">
+                        <button type="button" class="btn btn-danger" ng-disabled="!Simulacao.MotivoRecusa" ng-click="RecusarProposta(Simulacao.Id_Simulacao,Simulacao.MotivoRecusa)">Confirmar Recusa</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnRecusar').click(function (e) {
+            var _target = this.getAttribute("target")
+            $('html, body').animate({
+                scrollTop: $('#' + _target).offset().top - 50
+            }, 'slow');
+        });
+    });
+</script>

@@ -95,6 +95,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="angular\Controller\AprovarPendentes_Controller.js" />
     <Content Include="angular\Controller\AprovacaoProposta.js" />
     <Content Include="angular\Controller\PacoteCadastroController.js" />
     <Content Include="angular\Controller\MercadoCadastroController.js" />
@@ -102,6 +103,7 @@
     <Content Include="angular\Controller\MercadoController.js" />
     <Content Include="angular\Controller\RegraAprovacao_Controller.js" />
     <Content Include="angular\Controller\RegraAprovacaoCadastro_Controller.js" />
+    <Content Include="angular\Controller\PendenciaAprovacao_Controller.js" />
     <Content Include="angular\Controller\Simulacao_List_Controller.js" />
     <Content Include="angular\Controller\dictionaryController.js" />
     <Content Include="angular\Controller\TipoComercialCadastroController.js" />
@@ -182,6 +184,8 @@
     <Content Include="template\wait.html" />
     <Content Include="view\dashboard.html" />
     <Content Include="view\Mercado.html" />
+    <Content Include="view\PendenciaAprovacao.html" />
+    <Content Include="view\PropostaPendenteAprovacao.html" />
     <Content Include="view\RegraAprovacao_Cadastro.html" />
     <Content Include="view\PacoteCadastro.html" />
     <Content Include="view\MercadoCadastro.html" />
@@ -196,7 +200,7 @@
     <Content Include="view\Usuario.html" />
     <Content Include="view\Veiculo.Html" />
     <Content Include="img\web.config" />
-    <Content Include="Z-demo\forms-elements-other.html" />
+    <Content Include="Z-demo\MaterialListController.js" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

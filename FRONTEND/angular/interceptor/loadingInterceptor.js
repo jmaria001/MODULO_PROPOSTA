@@ -1,28 +1,28 @@
 angular.module("App").factory("loadingInterceptor", function ($q, $rootScope, $timeout) {
-    var _RequestCount= 0;
+    $rootScope.RequestCount= 0;
     	return {
-	    request: function (config) {
-	        _RequestCount++;
+    	    request: function (config) {
+	        $rootScope.RequestCount++;
 	        $rootScope.loading = true;
 			return config;
 		},
-	    requestError: function (rejection) {
+    	    requestError: function (rejection) {
 	        $rootScope.loading = false;
-	        _RequestCount = 0;
+	        $rootScope.RequestCount = 0;
 			return $q.reject(rejection);
 		},
-	    response: function (response) {
-	        _RequestCount--
+    	    response: function (response) {
+	        $rootScope.RequestCount--
 	        $timeout(function () {
-	            if (_RequestCount== 0) {
+	            if ($rootScope.RequestCount == 0) {
 	                $rootScope.loading = false;
 	            }
 			},500);
 			return response;
 		},
-	    responseError: function (rejection) {
-	        $rootScope.loading = false;
-	        _RequestCount = 0;
+    	    responseError: function (rejection) {
+	        $rootScope.RequestCount.loading = false;
+	        $rootScope.RequestCount --;
 			return $q.reject(rejection);
 		}
 	};

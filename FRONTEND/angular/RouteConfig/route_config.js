@@ -183,6 +183,20 @@
         routeName: 'Regras de Aprovação de Descontos',
         RouteId: 'Aprovacao@Index'
     })
+        .when('/PendenciaAprovacao', {
+            templateUrl: 'view/PendenciaAprovacao.html',
+            controller: 'PendenciaAprovacaoController',
+            authorize: true,
+            routeName: 'Pendencias de Aprovação',
+            RouteId: 'Proposta@Approve'
+        })
+        .when('/PropostaAprovacao/:Id/:From', {
+            templateUrl: 'view/PropostaPendenteAprovacao.html',
+            controller: 'AprovarPendentes_Controller',
+            authorize: true,
+            routeName: 'Aprovação da Proposta',
+            RouteId: 'Proposta@Approve'
+        })
         .when('/regracadastro/:Action/:Id', {
             templateUrl: 'view/RegraAprovacao_Cadastro.html',
             controller: 'RegraAprovacaoCadastro_Controller',

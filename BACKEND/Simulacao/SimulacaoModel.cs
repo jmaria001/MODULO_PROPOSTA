@@ -62,7 +62,9 @@ namespace PROPOSTA
             public Boolean Permite_Aprovacao { get; set; }
             public Boolean Permite_Envio_Aprovacao { get; set; }
             public Boolean Permite_Gerar{ get; set; }
+            public Boolean Permite_Editar{ get; set; }
             public String Observacao{ get; set; }
+            public String Motivo_Recusa{ get; set; }
             public List<EsquemaModel> Esquemas { get; set; }
             public String Critica { get; set; }
 
@@ -179,6 +181,8 @@ namespace PROPOSTA
             public Int32 Id_Simulacao { get; set; }
             public String url { get; set; }
             public String Token{ get; set; }
+            public String Action { get; set; }
+            public String Motivo{ get; set; }
         }
         public class Param_Geracao_Model
         {
@@ -187,6 +191,17 @@ namespace PROPOSTA
             public String Email_Contato{ get; set; }
             public String Email_Copia{ get; set; }
             public String Observacao{ get; set; }
+        }
+        public class SimulacaoFiltroParam
+        {
+            public String Processo { get; set; }
+            public Int32 Id_Status { get; set; }
+            public String Cod_Empresa_Venda{ get; set; }
+            public String Validade_Inicio { get; set; }
+            public String Validade_Termino{ get; set; }
+            public String Cod_Agencia{ get; set; }
+            public String Cod_Cliente{ get; set; }
+            public String Cod_Contato{ get; set; }
         }
     }
 }

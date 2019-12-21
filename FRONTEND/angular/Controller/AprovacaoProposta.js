@@ -10,21 +10,24 @@
     $scope.ShowOk= false
     $scope.Simulacao = "{}";
     $scope.Aviso = {'Mensagem':'','Status':false};
-    $scope.Ok= false;
-    
+    $scope.Ok = false;
+    $scope.ShowButton = false;
+    $scope.optRecusar = false;   
     $scope.token = getUrlParameter('token');
-    
+    console.log($scope.token);
     httpService.Get('GetAprovacaoData/' + $scope.token).then(function (response) {
         if (response) {
             $scope.Simulacao= response.data;
             if ($scope.Simulacao.Id_Simulacao == 0) {
                 $scope.Aviso.Mensagem = "O Token para essa Aprovação não existe ou não é mais valido. A Proposta somente pode ser aprovada pelo Sistema";
-                $scope.ShowOk = false
+                $scope.ShowOk = false;
                 $scope.Aviso.Status = false;
             }
             else {
-                $scope.ShowOk=true
+                $scope.ShowOk = true
+                $scope.ShowButton = true;
             }
+            
         }
     });
     $scope.AprovarProposta = function (pId_Simulacao,pToken) {
@@ -33,6 +36,23 @@
             if (response) {
                 $scope.Aviso = response.data[0];
                 $scope.ShowOk = false;
+                $scope.ShowButton = false;
+            }
+        });
+    }
+
+    //===================================Recusar Aprovacao
+    $scope.RecusarProposta = function (pId_Simulacao, pMotivo,pToken) {
+
+        var _data = { 'Id_Simulacao': pId_Simulacao, 'Action': 'Recusar', 'Motivo': pMotivo,'Token':pToken };
+        console.log(_data);
+        httpService.Post("AprovarProposta", _data).then(function (response) {
+            if (response) {
+                $scope.Aviso = response.data[0];
+                if (response.data[0].Status == 1) {
+                    $scope.ShowButton = false;
+                    $scope.optRecusar = false;
+                }
             }
         });
     }

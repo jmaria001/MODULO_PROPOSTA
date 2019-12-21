@@ -1,18 +1,19 @@
 ﻿<!DOCTYPE html>
 <html lang="en" ng-app="App">
 <head>
-    <title> SIM PROPOSTAS</title>
+    <title>SIM VENDAS</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/styles.css?hash=V001">
-    <link href="css/custom.css?hash=V001" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css?hash=V013">
+    <link href="css/custom.css?hash=V013" rel="stylesheet" />
 </head>
 <body ng-cloak ng-controller="MainController as Mc">
     <!-- APP WRAPPER -->
     <div class="app">
+        
         <!-- START APP HEADER -->
         <div class="app-header app-header-design-dark">
             <ul class="app-header-buttons visible-mobile">
@@ -21,6 +22,7 @@
             <a href="" class="app-header-logo app-header-logo-light app-header-logo-condensed" style="width:200px">Project</a>
             <div class="app-header-navigation app-header-navigation-hover app-navigation-style-blue">
                 <nav>
+                   
                     <ul ng-show="Islogged">
                         <li><a href="#portal"><span class="nav-icon-hexa">Pt</span>Portal</a></li>
                         <li><a href="#dashboard"><span class="nav-icon-hexa">Ds</span>Dashboard</a></li>
@@ -34,8 +36,9 @@
                                 <li><a href="#Programa"><span class="nav-icon-hexa">Pr</span>Programa</a></li>
                             </ul>
                         </li>
-                        <li><a href="#Simulacao"><span class="nav-icon-hexa">Si</span>Minhas Simulações</a></li>
+                        <li><a href="#Simulacao"><span class="nav-icon-hexa">Si</span>Modelo de Vendas</a></li>
                         <li><a href="#Proposta"><span class="nav-icon-hexa">Pr</span>Propostas</a></li>
+                        <li><a href="#PendenciaAprovacao"><span class="nav-icon-hexa">Pr</span>Pendentes de Aprovação</a></li>
                         <li>
                             <a href="#"><span class="nav-icon-hexa">Pd</span>Política de Descontos</a>
                                <ul>
@@ -60,8 +63,8 @@
                     </div>
                     <div class="col-md-2 hidden-mobile">
                         <div class="app-header-buttons pull-right" ng-show="Islogged">
-                            <div class="contact contact-rounded contact-bordered contact-lg contact-ps-controls">
-                                <img src="images/server.png" alt="Usuario" />
+                            <div class="contact contact-lg contact-ps-controls" style="display:contents">
+                                <!--<img src="images/server.png" alt="Usuario" />-->
                                 <div class="contact-container">
                                     {{ServerName}}
                                     <span>{{DataBaseName}}</span>
@@ -89,7 +92,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div ng-view>
                     <!--view area-->
                 </div>
@@ -113,89 +115,91 @@
     </div>
     <button id="buttonWait" class="btn btn-default" data-toggle="modal" data-target="#modalWait" data-backdrop="static" style="visibility:hidden"></button>
     <!------------------------------------- IMPORTANT SCRIPTS ---------------------------------->
-    <script type="text/javascript" src="js/vendor/jquery/jquery.min.js?hash=V001"></script>
-    <script type="text/javascript" src="js/vendor/jquery/jquery-migrate.min.js?hash=V001"></script>
-    <script type="text/javascript" src="js/vendor/jquery/jquery-ui.min.js?hash=V001"></script>
-    <script type="text/javascript" src="js/vendor/bootstrap/bootstrap.min.js?hash=V001"></script>
-    <script type="text/javascript" src="js/vendor/moment/moment.min.js?hash=V001"></script>
-    <script type="text/javascript" src="js/vendor/customscrollbar/jquery.mCustomScrollbar.min.js?hash=V001"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery.min.js?hash=V013"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery-migrate.min.js?hash=V013"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery-ui.min.js?hash=V013"></script>
+    <script type="text/javascript" src="js/vendor/bootstrap/bootstrap.min.js?hash=V013"></script>
+    <script type="text/javascript" src="js/vendor/moment/moment.min.js?hash=V013"></script>
+    <script type="text/javascript" src="js/vendor/customscrollbar/jquery.mCustomScrollbar.min.js?hash=V013"></script>
     <!--====================================================================================angular scripts-->
-    <script src="angular/angular-bin/angular.min.js?hash=V001"></script>
-    <script src="angular/angular-route/angular-route.min.js?hash=V001"></script>
-    <script src="angular/angular-cookies/angular-cookies.min.js?hash=V001"></script>
-    <script src="angular/angular-bin/angular-locale_pt-br.js?hash=V001"></script>
+    <script src="angular/angular-bin/angular.min.js?hash=V013"></script>
+    <script src="angular/angular-route/angular-route.min.js?hash=V013"></script>
+    <script src="angular/angular-cookies/angular-cookies.min.js?hash=V013"></script>
+    <script src="angular/angular-bin/angular-locale_pt-br.js?hash=V013"></script>
     <!------------------------------------- Page SCRIPTS ---------------------------------->
-    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap.min.js?hash=V001"></script>
-    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-world-mill-en.js?hash=V001"></script>
-    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-us-aea-en.js?hash=V001"></script>
-    <script src="js/vendor/noty/jquery.noty.packaged.js?hash=V001"></script>
-    <script src="js/vendor/sweetalert/sweetalert.min.js?hash=V001"></script>
+    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap.min.js?hash=V013"></script>
+    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-world-mill-en.js?hash=V013"></script>
+    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-us-aea-en.js?hash=V013"></script>
+    <script src="js/vendor/noty/jquery.noty.packaged.js?hash=V013"></script>
+    <script src="js/vendor/sweetalert/sweetalert.min.js?hash=V013"></script>
 
     <!------------------------------------- App SCRIPTS ---------------------------------->
-    <script type="text/javascript" src="js/app.js?hash=V001"></script>
-    <script type="text/javascript" src="js/app_plugins.js?hash=V001"></script>
+    <script type="text/javascript" src="js/app.js?hash=V013"></script>
+    <script type="text/javascript" src="js/app_plugins.js?hash=V013"></script>
     <!------------------------------------- Controllerangular/Services/service ---------------------------------->
-    <script src="js/dictionary.js?hash=V001"></script>
-    <script src="js/SimLib.js?hash=V001"></script>
-    <script src="angular/Module/app.js?hash=V001"></script>
-    <script src="angular/Filter/AppFilter.js?hash=V001"></script>
-    <script src="angular/config/base_url_config.js?hash=V001"></script>
-    <script src="angular/RouteConfig/route_config.js?hash=V001"></script>
-    <script src="angular/interceptor/errorInterceptor.js?hash=V001"></script>
-    <script src="angular/interceptor/interceptorsConfig.js?hash=V001"></script>
-    <script src="angular/interceptor/loadingInterceptor.js?hash=V001"></script>
-    <script src="angular/interceptor/timestampInterceptor.js?hash=V001"></script>
-    <script src="angular/Diretivas/repeatfinished.js?hash=V001"></script>
-    <script src="angular/Diretivas/uiCalendar.js?hash=V001"></script>
-    <script src="angular/Diretivas/uiCompetencia.js?hash=V001"></script>
-    <script src="angular/Diretivas/uiDate.js?hash=V001"></script>
+    <script src="js/SimLib.js?hash=V013"></script>
+    <script src="js/dictionary.js?hash=V013"></script>
+    <script src="angular/Module/app.js?hash=V013"></script>
+    <script src="angular/Filter/AppFilter.js?hash=V013"></script>
+    <script src="angular/config/base_url_config.js?hash=V013"></script>
+    <script src="angular/RouteConfig/route_config.js?hash=V013"></script>
+    <script src="angular/interceptor/errorInterceptor.js?hash=V013"></script>
+    <script src="angular/interceptor/interceptorsConfig.js?hash=V013"></script>
+    <script src="angular/interceptor/loadingInterceptor.js?hash=V013"></script>
+    <script src="angular/interceptor/timestampInterceptor.js?hash=V013"></script>
+    <script src="angular/Diretivas/repeatfinished.js?hash=V013"></script>
+    <script src="angular/Diretivas/uiCalendar.js?hash=V013"></script>
+    <script src="angular/Diretivas/uiCompetencia.js?hash=V013"></script>
+    <script src="angular/Diretivas/uiDate.js?hash=V013"></script>
 
-    <script src="angular/Services/tokenApi.js?hash=V001"></script>
-    <script src="angular/Services/httpService.js?hash=V001"></script>
-    <script src="angular/Controller/mainController.js?hash=V001"></script>
-    <script src="angular/Controller/MensagemController.js?hash=V001"></script>
+    <script src="angular/Services/tokenApi.js?hash=V013"></script>
+    <script src="angular/Services/httpService.js?hash=V013"></script>
+    <script src="angular/Controller/mainController.js?hash=V013"></script>
+    <script src="angular/Controller/MensagemController.js?hash=V013"></script>
     <script src="angular/Controller/VeiculoController.js"></script>
-    <script src="angular/Controller/MercadoController.js?hash=V001"></script>
-    <script src="angular/Controller/MercadoCadastroController.js?hash=V001"></script>
-    <script src="angular/Controller/TipoComercialController.js?hash=V001"></script>
+    <script src="angular/Controller/MercadoController.js?hash=V013"></script>
+    <script src="angular/Controller/MercadoCadastroController.js?hash=V013"></script>
+    <script src="angular/Controller/TipoComercialController.js?hash=V013"></script>
     <script src="angular/Controller/TipoComercialCadastroController.js"></script>
-    <script src="angular/Controller/dictionaryController.js?hash=V001"></script>
-    <script src="angular/Controller/NewPasswordController.js?hash=V001"></script>
-    <script src="angular/Controller/Simulacao_List_Controller.js?hash=V001"></script>
-    <script src="angular/Controller/SimulacaoController.js?hash=V001"></script>
-    <script src="angular/Controller/PacoteDesconto_List_Controller.js?hash=V001"></script>
-    <script src="angular/Controller/PacoteCadastroController.js?hash=V001"></script>
-    <script src="angular/Controller/UsuarioController.js?hash=V001"></script>
-    <script src="angular/Controller/login.js?hash=V001"></script>
-    <script src="angular/Controller/muralController.js?hash=V001"></script>
-    <script src="angular/Controller/RegraAprovacao_Controller.js?hash=V001"></script>
-    <script src="angular/Controller/RegraAprovacaoCadastro_Controller.js?hash=V001"></script>
+    <script src="angular/Controller/dictionaryController.js?hash=V013"></script>
+    <script src="angular/Controller/NewPasswordController.js?hash=V013"></script>
+    <script src="angular/Controller/Simulacao_List_Controller.js?hash=V013"></script>
+    <script src="angular/Controller/SimulacaoController.js?hash=V013"></script>
+    <script src="angular/Controller/PacoteDesconto_List_Controller.js?hash=V013"></script>
+    <script src="angular/Controller/PacoteCadastroController.js?hash=V013"></script>
+    <script src="angular/Controller/UsuarioController.js?hash=V013"></script>
+    <script src="angular/Controller/login.js?hash=V013"></script>
+    <script src="angular/Controller/muralController.js?hash=V013"></script>
+    <script src="angular/Controller/RegraAprovacao_Controller.js?hash=V013"></script>
+    <script src="angular/Controller/RegraAprovacaoCadastro_Controller.js?hash=V013"></script>
+    <script src="angular/Controller/PendenciaAprovacao_Controller.js"></script>
+    <script src="angular/Controller/AprovarPendentes_Controller.js"></script>
 
     <!--====================================================================================PLUGINS -->
-    <!--<script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.min.js?hash=V001"></script>-->
-    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.js?hash=V001"></script>
-    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/dataTables.bootstrap.min.js?hash=V001"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/dataTables.buttons.min.js?hash=V001"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/pdfmake.min.js?hash=V001"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.print.min.js?hash=V001"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.html5.min.js?hash=V001"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/jszip.min.js?hash=V001"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/vfs_fonts.js?hash=V001"></script>
-    <script src="js/vendor/dropzone/dropzone.js?hash=V001"></script>
-    <script src="js/vendor/charts/charts.bundle.js?hash=V001"></script>
+    <!--<script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.min.js?hash=V013"></script>-->
+    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.js?hash=V013"></script>
+    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/dataTables.bootstrap.min.js?hash=V013"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/dataTables.buttons.min.js?hash=V013"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/pdfmake.min.js?hash=V013"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.print.min.js?hash=V013"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.html5.min.js?hash=V013"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/jszip.min.js?hash=V013"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/vfs_fonts.js?hash=V013"></script>
+    <script src="js/vendor/dropzone/dropzone.js?hash=V013"></script>
+    <script src="js/vendor/charts/charts.bundle.js?hash=V013"></script>
     
-    <!--<script src="js/app_demo.js?hash=V001"></script>-->
-    <!--<script src="js/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js?hash=V001"></script>
-    <link href="js/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css?hash=V001" rel="stylesheet" />-->
-    <!--<script src="js/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.min.js?hash=V001"></script>-->
+    <!--<script src="js/app_demo.js?hash=V013"></script>-->
+    <!--<script src="js/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js?hash=V013"></script>
+    <link href="js/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css?hash=V013" rel="stylesheet" />-->
+    <!--<script src="js/vendor/bootstrap-datepicker/locales/bootstrap-datepicker.pt-BR.min.js?hash=V013"></script>-->
     <script src="js/vendor/moment/moment_locale_pt_br.js"></script>
-    <!--<script src="js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.js?hash=V001"></script>
-    <script src="js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js?hash=V001"></script>-->
+    <!--<script src="js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.js?hash=V013"></script>
+    <script src="js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js?hash=V013"></script>-->
     <!--====================================================================================Export-->
-    <script src="js/vendor/jspdf/png.js?hash=V001"></script>
-    <script src="js/vendor/jspdf/zlib.js?hash=V001"></script>
-    <script src="js/vendor/jspdf/jspdf.min.js?hash=V001"></script>
-    <script src="js/vendor/jspdf/html2canvas.js?hash=V001"></script>
+    <script src="js/vendor/jspdf/png.js?hash=V013"></script>
+    <script src="js/vendor/jspdf/zlib.js?hash=V013"></script>
+    <script src="js/vendor/jspdf/jspdf.min.js?hash=V013"></script>
+    <script src="js/vendor/jspdf/html2canvas.js?hash=V013"></script>
 
     <div ng-include="'template/wait.html'"></div>
 </body>

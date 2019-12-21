@@ -29,12 +29,12 @@
                     <div style="max-height:300px;overflow-y:auto;overflow-x:hidden;border:solid 1px #f5f5f5">
                         <div ng-repeat="datarow in filteredSelect = (dictionaryTable| filter:filtrotexto  ) track by $index">
                             <div ng-if="!MultiSelect">
-                                <div class="col-md-2">
-                                    <label class="itemselect" ng-click="ItemSelectClickId(datarow.Codigo,datarow.Descricao,datarow.Extra)"> {{datarow.Codigo}}</label>
+                                <div class="col-md-12">
+                                    <label class="itemselect" ng-click="ItemSelectClickId(datarow.Codigo,datarow.Descricao,datarow.Extra)"> {{datarow.Codigo}} - {{datarow.Descricao}}</label>
                                 </div>
-                                <div class="col-md-10">
+                                <!--<div class="col-md-10">
                                     <label class="itemselect" ng-click="ItemSelectClickId(datarow.Codigo,datarow.Descricao,datarow.Extra)"> {{datarow.Descricao}}</label>
-                                </div>
+                                </div>-->
                             </div>
                             <div ng-if="MultiSelect">
                                 <div class="col-md-3">
