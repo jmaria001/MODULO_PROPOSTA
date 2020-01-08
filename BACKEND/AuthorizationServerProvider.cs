@@ -26,11 +26,12 @@ namespace webapi
             try
             {
                 apiCredential cls = new apiCredential();
+                SimLib clsLib = new SimLib();
                 var user = context.UserName;
                 var password = context.Password;
-                SimLib clsLib = new SimLib();
 
-                
+                user = clsLib.Criptografa(user); //Criptogradar aqui por causa do Genexus que nao criptografa por javascript
+                password = clsLib.Criptografa(password); //Criptogradar aqui por causa do Genexus  por javascript
 
                 var identity = new ClaimsIdentity(context.Options.AuthenticationType);
 

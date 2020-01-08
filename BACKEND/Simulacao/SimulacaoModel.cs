@@ -67,6 +67,7 @@ namespace PROPOSTA
             public String Motivo_Recusa{ get; set; }
             public List<EsquemaModel> Esquemas { get; set; }
             public String Critica { get; set; }
+            public Boolean Indica_Inconsistencia{ get; set; }
 
         }
         public class EsquemaModel
@@ -194,6 +195,7 @@ namespace PROPOSTA
         }
         public class SimulacaoFiltroParam
         {
+            public Int32 Id_Simulacao { get; set; }
             public String Processo { get; set; }
             public Int32 Id_Status { get; set; }
             public String Cod_Empresa_Venda{ get; set; }

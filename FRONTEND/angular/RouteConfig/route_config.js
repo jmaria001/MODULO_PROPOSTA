@@ -132,14 +132,14 @@
             templateUrl: 'view/simulacao_List.html',
             controller: 'Simulacao_List_Controller',
             authorize: true,
-            routeName: 'Simulação',
+            routeName: 'Modelo de Vendas',
             RouteId: 'Simulacao@Index'
         })
         .when('/SimulacaoCadastro/:Action/:Id/:Processo', {
             templateUrl: 'view/simulacao.html',
             controller: 'SimulacaoController',
             authorize: true,
-            routeName: 'Simulação',
+            routeName: 'Modelo de Vendas',
             RouteId: 'Simulacao@Edit'
         })
 

@@ -69,10 +69,16 @@
                         <span class="icon-checkmark-circle"></span>
                     </div>
                     <strong class="pull-right">Dados Base</strong>
+                    <button class="btn btn-danger btn-icon-fixed btn-sm"
+                            ng-show="Simulacao.Indica_Inconsistencia"
+                            ng-click="MostrarInconsistencias(Simulacao.Id_Simulacao)"
+                            style="margin:0px 0px 0px 0px;">
+                        <span class="fa fa-exclamation-triangle" ng-disabled="true"></span>Inconsistências
+                    </button>
 
                     <button class="btn btn-default btn-icon-fixed btn-sm pull-left"
                             ng-show="Parameters.Action == 'New' && Parameters.Processo == 'P'"
-                            ng-click="ImportarSimulacao()"
+                            ng-click="SelecionarImportacao()"
                             style="margin:0px 0px 0px 0px;margin-right:50px">
                         <span class="fa fa-upload" ng-disabled="true"></span> Importar Modelo
                     </button>
@@ -167,6 +173,7 @@
                                                         <input type="checkbox"
                                                                name="app-checkbox-1"
                                                                ng-model="Simulacao.Fixar_Valor"
+                                                               ng-disabled="!Simulacao.Permite_Editar"
                                                                ng-change="ChangePendenteCalculo()"
                                                                ng-click="Fixar('Valor')"> &nbsp;&nbsp;Fixar<span></span>
                                                     </label>
@@ -193,6 +200,7 @@
                                                     <label>
                                                         <input type="checkbox"
                                                                name="app-checkbox-1"
+                                                               ng-disabled="!Simulacao.Permite_Editar"
                                                                ng-model="Simulacao.Fixar_Desconto"
                                                                ng-change="ChangePendenteCalculo()"
                                                                ng-click="Fixar('Desconto')"> &nbsp;&nbsp;Fixar<span></span>
@@ -630,7 +638,7 @@
                                                 </div>
                                                 <input id="txtValorNegociadoEsquema"
                                                        type="text"
-                                                       ng-disabled="!Simulacao.Esquemas[currentEsquema].Fixar_Valor || Simulacao.Esquemas[currentEsquema].Fixar_Desconto || Simulacao.Permite_Editar"
+                                                       ng-disabled="!Simulacao.Esquemas[currentEsquema].Fixar_Valor || Simulacao.Esquemas[currentEsquema].Fixar_Desconto || !Simulacao.Permite_Editar"
                                                        class="form-control money"
                                                        style="text-align:right"
                                                        ng-model="Simulacao.Esquemas[currentEsquema].Valor_Total_Negociado"
@@ -862,7 +870,7 @@
                                                 </div>
                                             </td>
                                             <td><button ng-show="Simulacao.Permite_Editar" class="btn btn-default btn-sm" style="margin:0px 0px !important" ng-click="RemoverMidia(midia)"><span class="fa fa-trash"></span></button></td>
-                                            <td style="width:80px"><button ng-show="Simulacao.Permite_Editar" class="btn btn-success btn-sm" style="margin:0px 0px !important" ng-show="!midia.IsValid" ng-click="DistrubuirInsercoes(Simulacao.Esquemas[currentEsquema] ,midia)">Ok</button></td>
+                                            <td style="width:80px"><button class="btn btn-success btn-sm" style="margin:0px 0px !important" ng-show="!midia.IsValid" ng-click="DistrubuirInsercoes(Simulacao.Esquemas[currentEsquema] ,midia)">Ok</button></td>
                                         </tr>
                                     </tbody>
                                 </table>

@@ -171,15 +171,9 @@ namespace PROPOSTA
                     Simulacao.Permite_Envio_Aprovacao = drwBase["Permite_Envio_Aprovacao"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Gerar = drwBase["Permite_Gerar"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Editar= drwBase["Permite_Editar"].ToString().ConvertToBoolean();
+                    Simulacao.Indica_Inconsistencia= drwBase["Indica_Inconsistencia"].ToString().ConvertToBoolean();
                 }
                 //===========================================Adicionas esquemas/Midias/Insercoes/Veiculos
-                //DataTable dtbDesconto = new DataTable();
-                //SqlDataAdapter AdpDesconto = new SqlDataAdapter();
-                //SqlCommand cmdDesconto = cnn.Procedure(cnn.Connection, "Pr_Proposta_Desconto_Get");
-                //AdpDesconto.SelectCommand = cmdDesconto;
-                //AdpDesconto.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
-                //AdpDesconto.SelectCommand.Parameters.AddWithValue("@Par_Id_Simulacao", pId_Simulacao);
-                //AdpDesconto.Fill(dtbDesconto);
                 Simulacao.Esquemas = AddListEsquema(pId_Simulacao);
                 Simulacao.ContadorEsquema = ContadorEsquema;
                 Simulacao.ContadorMidia = ContadorMidia;
@@ -209,7 +203,6 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Simulacao", pId_Simulacao);
                 Adp.Fill(dtb);
-
                 foreach (DataRow drw in dtb.Rows)
                 {
                     //ContadorEsquema++;
@@ -747,7 +740,6 @@ namespace PROPOSTA
                 {
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Motivo", Param.Motivo);
                 }
-
                 Adp.Fill(dtb);
             }
             catch (Exception)
@@ -816,7 +808,88 @@ namespace PROPOSTA
             }
             return Retorno;
         }
-        
+        public DataTable ImportarSimulacao(SimulacaoFiltroParam Param)
+        {
+            DataTable dtb = new DataTable();
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Importar_Simulacao");
+                cmd.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                cmd.Parameters.AddWithValue("@Par_Id_Simulacao", Param.Id_Simulacao);
+                if (!String.IsNullOrEmpty(Param.Validade_Inicio))
+                {
+                    cmd.Parameters.AddWithValue("@Par_Validade_Inicio", Param.Validade_Inicio.ConvertToDatetime());
+                }
+                if (!String.IsNullOrEmpty(Param.Validade_Termino))
+                {
+                    cmd.Parameters.AddWithValue("@Par_Validade_Termino", Param.Validade_Termino.ConvertToDatetime());
+                }
+                SqlDataAdapter Adp = new SqlDataAdapter();
+                Adp.SelectCommand = cmd;
+                Adp.Fill(dtb);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
+        public List<string> MostrarInconsistencias(Int32 pId_Simulacao)
+        {
+            DataTable dtb = new DataTable();
+            clsConexao cnn = new clsConexao(this.Credential);
+            List<string> Critica = new List<string>();
+            cnn.Open();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Simulacao_Critica");
+                cmd.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                cmd.Parameters.AddWithValue("@Par_Id_Simulacao", pId_Simulacao);
+                SqlDataAdapter Adp = new SqlDataAdapter();
+                Adp.SelectCommand = cmd;
+                Adp.Fill(dtb);
+                foreach (DataRow drw  in dtb.Rows)
+                {
+                    Critica.Add(drw["Critica"].ToString());
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Critica;
+        }
+        public void MockAprovacao(Int32 pId_Simulacao)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Mock_Aprovacao");
+                cmd.Parameters.AddWithValue("@Par_Id_Simulacao", pId_Simulacao);
+                cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+        }
+
     }
 
 }

@@ -1,5 +1,4 @@
 ﻿angular.module('App').controller('SimulacaoController', ['$scope', '$rootScope', '$filter', '$routeParams', 'httpService', '$timeout', function ($scope, $rootScope, $filter, $routeParams, httpService, $timeout) {
-
     //============ Inicializa Variaveis Scopes
     $scope.Parameters = $routeParams;
     $scope.currentShow = 'Base';
@@ -35,34 +34,32 @@
             $scope.CompetenciaEsquemaKeys.Last= _ym;
         }
     }
-    //=====================Check processo simulacao ou proposta
+    //=====================Check se processo é simulacao ou proposta
     if ($scope.Parameters.Processo == 'P') {
         $scope.Descricao_Processo = 'Proposta'
         $rootScope.routeName = 'Proposta - ' + $scope.Parameters.Action
     }
     else {
-        $scope.Descricao_Processo = 'Simulação'
-        $rootScope.routeName = 'Simulação - ' + $scope.Parameters.Action
+        $scope.Descricao_Processo = 'Modelo de Vendas'
+        $rootScope.routeName = 'Modelo de Vendas - ' + $scope.Parameters.Action
     }
 
     //=====================Carrega a Simulacao 
-    $scope.CarregarSimulacao = function (pId_Simulacao, pProcesso, pImportacao) {
+    $scope.CarregarSimulacao = function (pId_Simulacao, pProcesso) {
         $scope.GeracaoProposta = {};
+
         httpService.Get("GetSimulacao/" + pId_Simulacao + "/" + pProcesso).then(function (response) {
+        //httpService.Get(_url).then(function (response) {
             if (response.data) {
                 $scope.Simulacao = response.data;
                 $timeout(function () {
                     $scope.IniciarCalculo = true;
                 }, 1000);
-                if (pImportacao) {
-                    $scope.Simulacao.Id_Simulacao = 0;
-                    $scope.Simulacao.Tipo = 'P';
-                }
                 $scope.SetaCompetenciaEsquema($scope.Simulacao.Validade_Inicio, $scope.Simulacao.Validade_Termino);
             }
         });
     };
-    $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo, false);
+    $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo);
     //===================================Clicou na Aba dos Esquemas 
     $scope.SetCurrenEsquema = function (pIdEsquema) {
         for (var i = 0; i < $scope.Simulacao.Esquemas.length; i++) {
@@ -445,7 +442,7 @@
         httpService.Get("DuplicarEsquema/" + pId_Esquema + '/' + pTipo).then(function (response) {
             if (response) {
                 if (response.data[0].Qtd_Exportado > 0) {
-                    $scope.CarregarSimulacao(pIdSimulacao, $scope.Parameters.Processo, false);
+                    $scope.CarregarSimulacao(pIdSimulacao, $scope.Parameters.Processo);
                 }
                 if (response.data[0].Critica) {
                     $scope.Info = {
@@ -457,15 +454,31 @@
             }
         });
     }
-    //===================================Importar Simulacao Para gerar Nova Proposta
-    $scope.ImportarSimulacao = function () {
+    //===================================Processa a Importação da Simulacao para Gerar a Proposta
+    $scope.ImportarSimulacao = function(pId_Simulacao)
+    {
+        var _data = {
+            'Id_Simulacao': pId_Simulacao,
+            'Validade_Inicio' :($scope.Simulacao.Validade_Inicio) ? $scope.Simulacao.Validade_Inicio:null,
+            'Validade_Termino': ($scope.Simulacao.Validade_Termino) ? $scope.Simulacao.Validade_Termino : null,
+        }
+
+
+        httpService.Post('ImportarSimulacao', _data).then(function (response) {
+            if (response) {
+                $scope.CarregarSimulacao(response.data[0].Id_Simulacao,'P') 
+            }
+        });
+    }
+    //===================================Selecionar Simulacao Para Importacao e gerar nova proposta
+    $scope.SelecionarImportacao= function () {
         httpService.Get('ListarTabela/Simulacao').then(function (response) {
             if (response.data) {
                 $scope.PesquisaTabelas.Items = response.data;
                 $scope.PesquisaTabelas.FiltroTexto = "";
                 $scope.PesquisaTabelas.Titulo = "Seleção Modelos"
                 $scope.PesquisaTabelas.MultiSelect = false;
-                $scope.PesquisaTabelas.ClickCallBack = function (value) { $scope.CarregarSimulacao(value, 'S', true) };
+                $scope.PesquisaTabelas.ClickCallBack = function (value) { $scope.ImportarSimulacao(value, 'S', true) };
                 $("#modalTabela").modal(true);
             }
         });
@@ -492,7 +505,13 @@
         httpService.Post('SolicitarAprovacao', _data).then(function (response) {
             if (response.data) {
                 ShowAlert('Solicitação de aprovação enviada com sucesso.    ', 'success');
-                $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo, false);
+                $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo);
+
+                //aqui chamar api da Genexos
+                var _urlMobile = $rootScope.mobileUrl + "anotificacaoenvia.aspx?" + $rootScope.UserData.Login + ',' + pId_Simulacao.toString();
+                httpService.MobileGet(_urlMobile).then(function (response) {
+
+                });
             }
         });
     }
@@ -504,7 +523,7 @@
                 $scope.Aviso = response.data[0];
                 $scope.ShowOk = false;
                 ShowAlert(response.data[0].Mensagem, response.data[0].Status ? 'success' : 'warning');
-                $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo, false);
+                $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo);
             }
         });
     }
@@ -583,6 +602,22 @@
         $scope.GeracaoProposta = { 'Id_Simulacao': pId_Simulacao, 'Nome_Contato': '', 'Email_Contato': '', 'Email_Copia': '', 'Observacao': '', 'Alerta': '', 'Visualizar': false };
         $("#ModalGeracaoProposta").modal(true);
     };
+
+    $scope.MostrarInconsistencias = function(pId_Simulacao)
+    {
+        httpService.Get('MostrarInconsistencias/' + pId_Simulacao).then(function (response) {
+            if (response.data) {
+                $scope.Info = {
+                    'Title': $scope.Descricao_Processo + ' - Incosistências',
+                    'Text': response.data
+                };
+                $("#modalInfo").modal(true);
+            }
+        });
+
+        
+
+    }
     //===================================Seta Iniciar calculo false apos o load da pagina
     //$timeout(function () {
     //    $scope.IniciarCalculo = true;

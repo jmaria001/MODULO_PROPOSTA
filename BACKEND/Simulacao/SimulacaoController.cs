@@ -58,11 +58,11 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
-        [Route("api/GetSimulacao/{Id_Simulacao}/{Tipo}")]
+        [Route("api/GetSimulacao/{Id_Simulacao}/{Processo}")]
         [HttpGet]
         [ActionName("GetSimulacao")]
         [Authorize()]
-        public IHttpActionResult GetSimulacao(Int32 Id_Simulacao,String Tipo)
+        public IHttpActionResult GetSimulacao(Int32 Id_Simulacao,String Processo)
         {
             SimLib clsLib = new SimLib();
             Simulacao Cls = new Simulacao(User.Identity.Name);
@@ -74,7 +74,7 @@ namespace PROPOSTA
                 {
                     Retorno.Esquemas = new List<Simulacao.EsquemaModel>();
                     Retorno.Permite_Editar = true;
-                    Retorno.Tipo = Tipo;
+                    Retorno.Tipo = Processo;
                 }
                 else
                 {
@@ -88,8 +88,28 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
-        
-        
+
+
+        [Route("api/ImportarSimulacao")]
+        [HttpPost]
+        [ActionName("ImportarSimulacao")]
+        [Authorize()]
+        public IHttpActionResult ImportarSimulacao([FromBody] Simulacao.SimulacaoFiltroParam Param)
+        {
+            SimLib clsLib = new SimLib();
+            Simulacao Cls = new Simulacao(User.Identity.Name);
+            try
+            {
+                DataTable Retorno = Cls.ImportarSimulacao(Param);
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
         [Route("api/GetNewEsquema")]
         [HttpGet]
         [ActionName("GetNewEsquema")]
@@ -417,8 +437,7 @@ namespace PROPOSTA
             {
                 Simulacao.SimulacaoModel Retorno = new Simulacao.SimulacaoModel();
                 Simulacao Cls = new Simulacao(User.Identity.Name);
-
-                    Retorno = Cls.GetSimulacao(Id_Simulacao);
+                Retorno = Cls.GetSimulacao(Id_Simulacao);
 
                 return Ok(Retorno);
             }
@@ -493,6 +512,45 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
+
+        [Route("api/MostrarInconsistencias/{Id_Simulacao}")]
+        [HttpGet]
+        [Authorize()]
+        public IHttpActionResult MostrarInconsistencias(Int32 Id_Simulacao)
+        {
+            SimLib clsLib = new SimLib();
+            Simulacao Cls = new Simulacao(User.Identity.Name);
+            try
+            {
+                return Ok(Cls.MostrarInconsistencias(Id_Simulacao));
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/MockAprovacao/{Id_Simulacao}")]
+        [HttpGet]
+        //[Authorize()]
+        public IHttpActionResult MockAprovacao(Int32 Id_Simulacao)
+        {
+            SimLib clsLib = new SimLib();
+            Simulacao Cls = new Simulacao(User.Identity.Name);
+            try
+            {
+                Cls.MockAprovacao(Id_Simulacao);
+                return Ok("Ok. Concluido");
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+
     }
 }
 

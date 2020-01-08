@@ -13,8 +13,10 @@ angular.module('App').controller('loginController', ['$scope', '$rootScope', 'to
         {
             $scope.CookieEnabled = navigator.cookieEnabled;
             if (!$scope.CookieEnabled) return
-            var cuser = Salt(user.login);
-            var cpassword = Salt(user.password);
+            //var cuser = Salt(user.login);
+            //var cpassword = Salt(user.password);
+            var cuser = user.login;
+            var cpassword = user.password;
             $rootScope.App_Erro = "";
             var _data = "username=" + cuser + "&password=" + cpassword + "&grant_type=password";
             httpService.Post('security/token', _data).then(function (response) {

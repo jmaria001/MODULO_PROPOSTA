@@ -134,7 +134,7 @@
         }, function () {
             httpService.Post('SimulacaoDestroy', { 'Id_Simulacao': pIdSimulacao }).then(function (response) {
                 if (response) {
-                    $scope.CarregarSimulacao();
+                    $scope.CarregarSimulacao($scope.Filtro);
                     $scope.CurrentShow = "Grid";
                 }
             });
@@ -159,7 +159,7 @@
             },
             { text: 'Novo Filtro' + '<span class="fa fa-filter margin-left-10"></span>', className: 'btn btn-info', action: function (e, dt, button, config) { $('#btnNovoFiltro').click(); } },
         ];
-        param.order = [[1, 'asc']];
+        param.order = [[1, 'desc']];
         param.autoWidth = false;
 
         param.columns = [];

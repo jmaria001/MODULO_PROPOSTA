@@ -2,6 +2,8 @@ angular.module('App').controller('MainController', ['$scope', '$rootScope', '$co
     var _config = httpService.GetConfig();
     $rootScope.baseUrl = _config.baseUrl;
     $rootScope.pageUrl = _config.pageUrl;
+    $rootScope.mobileUrl = _config.mobileUrl;
+    
     $rootScope.AppVersion = _config.Version;
     $scope.User = {}
     var _token = $cookies.get('oAuth_token');

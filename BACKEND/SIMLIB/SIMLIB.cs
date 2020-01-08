@@ -49,6 +49,35 @@ namespace PROPOSTA
             }
             return key.Substring(0, 5) + "-" + key.Substring(5, 5) + "-" + key.Substring(10, 5) + "-" + key.Substring(15,5);
         }
+
+        public String Criptografa(String Par_Campo)
+        {
+            
+                int _byte1 = 0;
+                int _byte2 = 0;
+                int _byte3 = 0;
+                var _byte4 = "";
+                var _byte5 = "";
+                Random rnd = new Random();
+
+            for (int i = 0; i < Par_Campo.Length; i++)
+            {
+                //_byte1 = Int32.Parse(Par_Campo.Substring(i, 1));
+
+                _byte1 = (int)Par_Campo[i];
+
+                _byte2 = rnd.Next(1,700);
+                _byte3 = _byte1 + _byte2;
+                    _byte4 += ("0000" + _byte3.ToString()).Right(3) + ("0000" + _byte2.ToString()).Right(3);
+                }
+                for (var x = 0; x < _byte4.Length; x += 2)
+                {
+                    _byte5 += _byte4.Substring(x + 1, 1) + _byte4.Substring(x, 1);
+                }
+                return _byte5;
+            }
+        
+
         public  String Decriptografa(string Par_Campo)
         {
             String Var_Senha = "";
@@ -78,6 +107,7 @@ namespace PROPOSTA
             {
             }
             return Var_Senha.TrimEnd();
+            
         }
         public  String GetJsonItem(String pJsonString,String pItem)
         {
