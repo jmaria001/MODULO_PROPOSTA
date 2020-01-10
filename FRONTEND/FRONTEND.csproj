@@ -97,6 +97,10 @@
   <ItemGroup>
     <Content Include="angular\Controller\AprovarPendentes_Controller.js" />
     <Content Include="angular\Controller\AprovacaoProposta.js" />
+    <Content Include="angular\Controller\CondPgtoCadastroController.js" />
+    <Content Include="angular\Controller\CondPgtoController.js" />
+    <Content Include="angular\Controller\EmpresaCadastroController.js" />
+    <Content Include="angular\Controller\EmpresaController.js" />
     <Content Include="angular\Controller\PacoteCadastroController.js" />
     <Content Include="angular\Controller\MercadoCadastroController.js" />
     <Content Include="angular\Controller\PacoteDesconto_List_Controller.js" />

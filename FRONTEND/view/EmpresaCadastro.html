@@ -1,0 +1,167 @@
+﻿
+<div class="container">
+    <form name="frmEmpresaCadastro" autocomplete="off">
+
+        <div class="block">
+            <div class="row">
+                <!--===================Codigo-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Código</label>
+                        <input type="text"
+                               name="txtCod_Empresa"
+                               ng-required="true"
+                               ng-model="Empresa.Cod_Empresa"
+                               class="form-control"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="3" />
+                    </div>
+                </div>
+                <!--====================Razao Social-->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Razao Social</label>
+                        <input type="text" name="txtRazao" class="form-control" ng-model="Empresa.Razao_Social" maxlength="50" ng-required="true" onfocus="this.selectionStart = this.selectionEnd = this.value.length;"/>
+                    </div>
+                </div>
+                <!--====================Sigla Jove-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Sigla Jove</label>
+                        <input type="text" name="txtSiglaJove" class="form-control" ng-model="Empresa.Cod_JOVE" maxlength="3" ng-required="true" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!--====================Endereco-->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Endereco</label>
+                        <input type="text" name="txtEndereco" class="form-control" ng-model="Empresa.Endereco" maxlength="40" ng-required="true" onfocus="this.selectionStart = this.selectionEnd = this.value.length;" />
+                        <!--onfocus="this.selectionStart = this.selectionEnd = this.value.length;"-->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Bairro-->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Bairro</label>
+                        <input type="text" name="txtBairro" class="form-control" ng-model="Empresa.Bairro" maxlength="30" ng-required="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================Cidade-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Cidade</label>
+                        <input type="text" name="txtCidade" class="form-control" ng-model="Empresa.Cidade" maxlength="30" ng-required="true" />
+                    </div>
+                </div>
+                <!--====================Cod_UF-->
+                   <div class="col-md-1  " ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="UF">
+                            <input id="txtCod_UF"
+                                   ng-model="Empresa.Cod_UF"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCod_Uf')"
+                                   primarybind="txtCod_UF">
+                        </div>
+                    </div>
+
+                    <!--====================CEP-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="fieldrequired field-x">CEP</label>
+                            <input type="text" name="txtCEP" class="form-control" ng-model="Empresa.CEP" maxlength="9" ng-required="true" />
+                        </div>
+                    </div>
+
+                    <!--====================Telefone-->
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label class="fieldrequired field-x">Telefone</label>
+                            <input type="text" name="txtTelefone" class="form-control" ng-model="Empresa.Telefone" maxlength="15" />
+                        </div>
+                    </div>
+                </div>
+
+            <div class="row">
+                <!--====================CGC-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">CNPJ</label>
+                        <input type="text" name="txtCGC" class="form-control" ng-model="Empresa.CGC" maxlength="18" ng-required="true" />
+                    </div>
+                </div>
+
+                <!--====================Inscricao Estadual-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Inscricao Estadual</label>
+                        <input type="text" name="txtEstadual" class="form-control" ng-model="Empresa.Inscricao_Estadual" maxlength="15" ng-required="true" />
+                    </div>
+                </div>
+                <!--====================Inscricao Municipal-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Inscricao Municipal</label>
+                        <input type="text" name="txtMunicipal" class="form-control" ng-model="Empresa.Inscricao_Municipal" maxlength="15" ng-required="true" />
+                    </div>
+                </div>
+            </div>
+
+            <!--============================Empresa Pertence-->
+            <div class="row">
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Usuario">
+                        <input id="txtCodEmpresaPertence"
+                               ng-model="Empresa.Empresa_Pertence" 
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodEmpresaPertence')"
+                               primarybind="txtCodEmpresaPertence"
+                               secondarybind="txtNomeEmpresaPertence">
+                    </div>
+                </div>
+                <!--============================Nome Empresa-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtNomeEmpresaPertence" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeEmpresaPertence" class="form-control" ng-model="Empresa_Usuario.Razao_Social">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!--===================Botoes-->
+                <div class="row margin-top-20">
+                    <div class="col-md-12">
+                        <button class="btn btn-success" ng-click="SalvarEmpresa(Empresa)"
+                                ng-disabled="frmEmpresaCadastro.$invalid">
+                            Salvar
+                        </button>
+                        <!-- <button class="btn btn-danger" ng-click="ExcluirTipoComercial(TipoComercial)" ng-show="PermissaoExcluir">Excluir</button>-->
+                        <!--<button class="btn btn-danger" ng-disabled="!PermissaoDestroy" ng-click="ExcluirMercado(Mercado) ">Excluir</button>-->
+                        <button class="btn btn-danger" ng-click="ExcluirEmpresa(Empresa) ">Excluir</button>
+                        <a href="#Empresa" class="btn btn-warning">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
+
+
+<!--onfocus="this.selectionStart = this.selectionEnd = this.value.length;"-->

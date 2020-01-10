@@ -233,6 +233,9 @@
     <Compile Include="CondPgto\CondPgtoController.cs" />
     <Compile Include="CondPgto\CondPgtoModel.cs" />
     <Compile Include="CondPgto\CondPgtoSql.cs" />
+    <Compile Include="Empresa\EmpresaController.cs" />
+    <Compile Include="Empresa\EmpresaModel.cs" />
+    <Compile Include="Empresa\EmpresaSql.cs" />
     <Compile Include="PacoteDesconto\PacoteDescontoController.cs" />
     <Compile Include="PacoteDesconto\PacoteDescontoModel.cs" />
     <Compile Include="PacoteDesconto\PacoteDecontoSql.cs" />

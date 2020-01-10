@@ -73,6 +73,22 @@
             RouteId: 'CondPgto@New'
         })
 
+        .when('/Empresa', {
+            templateUrl: 'view/Empresa.html',
+            authorize: true,
+            controller: 'EmpresaController',
+            routeName: 'Cadastro de Empresa',
+            RouteId: 'Empresa@Index'
+        })
+
+        .when('/EmpresaCadastro/:Action/:Id', {
+            templateUrl: 'view/EmpresaCadastro.html',
+            authorize: true,
+            controller: 'EmpresaCadastroController',
+            routeName: 'Inclusao de Empresa',
+            RouteId: 'Empresa@New'
+        })
+
         .when('/usuario', {
             templateUrl: 'view/Usuario.html',
             authorize: true,
