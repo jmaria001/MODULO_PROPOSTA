@@ -13,7 +13,7 @@
 <body ng-cloak ng-controller="MainController as Mc">
     <!-- APP WRAPPER -->
     <div class="app">
-        
+
         <!-- START APP HEADER -->
         <div class="app-header app-header-design-dark">
             <ul class="app-header-buttons visible-mobile">
@@ -22,18 +22,19 @@
             <a href="" class="app-header-logo app-header-logo-light app-header-logo-condensed" style="width:200px">Project</a>
             <div class="app-header-navigation app-header-navigation-hover app-navigation-style-blue">
                 <nav>
-                   
+
                     <ul ng-show="Islogged">
                         <li><a href="#portal"><span class="nav-icon-hexa">Pt</span>Portal</a></li>
                         <li><a href="#dashboard"><span class="nav-icon-hexa">Ds</span>Dashboard</a></li>
                         <li>
                             <a href="#cadastro"><span class="nav-icon-hexa">Cd</span>Cadastros</a>
                             <ul>
-                                <li><a href="#usuario"><span class="nav-icon-hexa">Us</span>Usuários</a></li>
-                                <li><a href="#veiculo"><span class="nav-icon-hexa">Ve</span>Veículos</a></li>
-                                <li><a href="#TipoComercial"><span class="nav-icon-hexa">Us</span>Tipo de Comercial</a></li>
+                                <li><a href="#CondPgto"><span class="nav-icon-hexa">Us</span>Condições de Pagamentos</a></li>
                                 <li><a href="#mercado"><span class="nav-icon-hexa">Me</span>Mercado</a></li>
                                 <li><a href="#Programa"><span class="nav-icon-hexa">Pr</span>Programa</a></li>
+                                <li><a href="#TipoComercial"><span class="nav-icon-hexa">Us</span>Tipo de Comercial</a></li>
+                                <li><a href="#veiculo"><span class="nav-icon-hexa">Ve</span>Veículos</a></li>
+                                <li><a href="#usuario"><span class="nav-icon-hexa">Us</span>Usuários</a></li>
                             </ul>
                         </li>
                         <li><a href="#Simulacao"><span class="nav-icon-hexa">Si</span>Modelo de Vendas</a></li>
@@ -41,10 +42,10 @@
                         <li><a href="#PendenciaAprovacao"><span class="nav-icon-hexa">Pr</span>Pendentes de Aprovação</a></li>
                         <li>
                             <a href="#"><span class="nav-icon-hexa">Pd</span>Política de Descontos</a>
-                               <ul>
-                                   <li><a href="#pacote"><span class="nav-icon-hexa">Us</span>Pacotes de Descontos</a></li>
-                                   <li><a href="#regraaprovacao"><span class="nav-icon-hexa">Fl</span>Regras de Aprovações</a></li>
-                               </ul>
+                            <ul>
+                                <li><a href="#pacote"><span class="nav-icon-hexa">Us</span>Pacotes de Descontos</a></li>
+                                <li><a href="#regraaprovacao"><span class="nav-icon-hexa">Fl</span>Regras de Aprovações</a></li>
+                            </ul>
                         </li>
                         <li ng-controller="loginController"><a href="" ng-click="app_Logout()"><span class="icon-exit"></span> Sair</a></li>
                     </ul>
@@ -156,6 +157,8 @@
     <script src="angular/Services/httpService.js?hash=V016"></script>
     <script src="angular/Controller/mainController.js?hash=V016"></script>
     <script src="angular/Controller/MensagemController.js?hash=V016"></script>
+    <script src="angular/Controller/CondPgtoController.js?hash=001"></script>
+    <script src="angular/Controller/CondPgtoCadastroController.js?hash=001"></script>
     <script src="angular/Controller/VeiculoController.js"></script>
     <script src="angular/Controller/MercadoController.js?hash=V016"></script>
     <script src="angular/Controller/MercadoCadastroController.js?hash=V016"></script>
@@ -187,7 +190,7 @@
     <script src="js/vendor/XTABLES/Buttons-1.5.1/js/vfs_fonts.js?hash=V016"></script>
     <script src="js/vendor/dropzone/dropzone.js?hash=V016"></script>
     <script src="js/vendor/charts/charts.bundle.js?hash=V016"></script>
-    
+
     <!--<script src="js/app_demo.js?hash=V016"></script>-->
     <!--<script src="js/vendor/bootstrap-datepicker/js/bootstrap-datepicker.min.js?hash=V016"></script>
     <link href="js/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css?hash=V016" rel="stylesheet" />-->

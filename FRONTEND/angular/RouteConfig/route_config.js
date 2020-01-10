@@ -56,6 +56,23 @@
             routeName: 'Dashboard',
             RouteId: 0
         })
+
+        .when('/CondPgto', {
+            templateUrl: 'view/CondPgto.html',
+            authorize: true,
+            controller: 'CondPgtoController',
+            routeName: 'Cadastro de Condições de Pagamentos',
+            RouteId: 'CondPgto@Index'
+        })
+
+        .when('/CondPgtoCadastro/:Action/:Id', {
+            templateUrl: 'view/CondPgtoCadastro.html',
+            authorize: true,
+            controller: 'CondPgtoCadastroController',
+            routeName: 'Inclusao de Condições de Pagamentos',
+            RouteId: 'CondPgto@New'
+        })
+
         .when('/usuario', {
             templateUrl: 'view/Usuario.html',
             authorize: true,

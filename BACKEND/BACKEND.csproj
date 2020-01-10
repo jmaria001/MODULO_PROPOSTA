@@ -230,6 +230,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CondPgto\CondPgtoController.cs" />
+    <Compile Include="CondPgto\CondPgtoModel.cs" />
+    <Compile Include="CondPgto\CondPgtoSql.cs" />
     <Compile Include="PacoteDesconto\PacoteDescontoController.cs" />
     <Compile Include="PacoteDesconto\PacoteDescontoModel.cs" />
     <Compile Include="PacoteDesconto\PacoteDecontoSql.cs" />
