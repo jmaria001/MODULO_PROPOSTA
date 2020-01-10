@@ -25,8 +25,7 @@
                 <tbody>
                     <tr ng-repeat="TipoComercial in TipoComerciais track by $index" on-finish-render="ngRepeatFinished()">
                         <td style="width:50px;text-align:center">
-                            <a href="#TipoComercialCadastro/Edit/{{TipoComercial.Cod_Cod_Tipo_Comercial}}" ng-show="PermissaoEdit">
-
+                            <a href="#TipoComercialCadastro/Edit/{{TipoComercial.Cod_Tipo_Comercial}}" ng-show="PermissaoEdit">
                                 <span class="fa fa-edit fa-2x"></span>
                             </a>
                         </td>

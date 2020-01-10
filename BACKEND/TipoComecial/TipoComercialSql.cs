@@ -94,10 +94,10 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Absorcao", pTipoComercial.Absorcao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_INDICA_ABSORCAO_MERCHA", pTipoComercial.INDICA_ABSORCAO_MERCHA);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Roteiro_Tecnico", pTipoComercial.Roteiro_Tecnico);
-                Adp.SelectCommand.Parameters.AddWithValue("@Merchandising", pTipoComercial.Merchandising);
-                Adp.SelectCommand.Parameters.AddWithValue("@Tipo_Valoracao", pTipoComercial.Tipo_Valoracao);
-                Adp.SelectCommand.Parameters.AddWithValue("@Indica_Midia_On_Line", pTipoComercial.Indica_Midia_On_Line);
-                Adp.SelectCommand.Parameters.AddWithValue("@Exibidora_DAD", pTipoComercial.Exibidora_DAD);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Merchandising", pTipoComercial.Merchandising);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo_Valoracao", pTipoComercial.Tipo_Valoracao);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Midia_On_Line", pTipoComercial.Indica_Midia_On_Line);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Exibidora_DAD", pTipoComercial.Exibidora_DAD);
 
 
                 Adp.Fill(dtb);
@@ -112,7 +112,32 @@ namespace PROPOSTA
             }
             return dtb;
         }
-
+                        
+        public DataTable excluirtipocomercial(TipoComercialModel pTipoComercial)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_TipoComercial_Excluir");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Tipo_Comercial", pTipoComercial.Cod_Tipo_Comercial);
+                Adp.Fill(dtb);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
 
     }
 }

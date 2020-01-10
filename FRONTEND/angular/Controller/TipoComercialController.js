@@ -12,14 +12,14 @@
     $scope.ShowGrid = false;
     $scope.gridheaders = [{ 'title': '', 'visible': true, 'searchable': false, 'sortable': false },
     { 'title': 'Codigo', 'visible': true, 'searchable': true, 'sortable': true },
-        { 'title': 'Descricao', 'visible': true, 'searchable': true, 'sortable': true },
-        { 'title': '.Absorcao', 'visible': true, 'searchable': true, 'sortable': true },
-        { 'title': 'INDICA_ABSORCAO_MERCHA', 'visible': true, 'searchable': true, 'sortable': true },
-        { 'title': 'Roteiro_Tecnico', 'visible': true, 'searchable': true, 'sortable': true },
-        { 'title': 'Merchandising', 'visible': true, 'searchable': true, 'sortable': true },
-        { 'title': 'Tipo_Valoracao', 'visible': true, 'searchable': true, 'sortable': true },
-        { 'title': 'Indica_Midia_On_Line', 'visible': true, 'searchable': true, 'sortable': true },
-        { 'title': 'Exibidora_DAD', 'visible': true, 'searchable': true, 'sortable': true },
+    { 'title': 'Descricao', 'visible': true, 'searchable': true, 'sortable': true },
+    { 'title': '.Absorcao', 'visible': true, 'searchable': true, 'sortable': true },
+    { 'title': 'INDICA_ABSORCAO_MERCHA', 'visible': true, 'searchable': true, 'sortable': true },
+    { 'title': 'Roteiro_Tecnico', 'visible': true, 'searchable': true, 'sortable': true },
+    { 'title': 'Merchandising', 'visible': true, 'searchable': true, 'sortable': true },
+    { 'title': 'Tipo_Valoracao', 'visible': true, 'searchable': true, 'sortable': true },
+    { 'title': 'Indica_Midia_On_Line', 'visible': true, 'searchable': true, 'sortable': true },
+    { 'title': 'Exibidora_DAD', 'visible': true, 'searchable': true, 'sortable': true },
     ];
 
     //====================Quando terminar carga do grid, torna view do grid visible
@@ -41,7 +41,7 @@
         httpService.Get('TipoComercialListar').then(function (response) {
             if (response) {
                 $scope.TipoComerciais = response.data;
-                if ($scope.TipoComerciais.length === 0) {
+                if ($scope.TipoComerciais.length == 0) {
                     $scope.RepeatFinished();
                 }
             }

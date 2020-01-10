@@ -30,7 +30,7 @@ namespace PROPOSTA
             public Int32 Id_tipo_comercial { get; set; }
             public Int32 Id_Assessor { get; set; }
             public Byte Indica_Edicao_Assessor { get; set; }
-            public string id_operacao { get; set; }
+            public String id_operacao { get; set; }
 
         }
 

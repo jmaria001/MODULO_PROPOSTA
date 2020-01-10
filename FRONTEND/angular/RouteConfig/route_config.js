@@ -112,20 +112,12 @@
             RouteId: 'TipoComercial@Index'
         })
 
-        .when('/TipoComercialCadastroNew/:Action/:Id', {
+        .when('/TipoComercialCadastro/:Action/:Id', {
             templateUrl: 'view/TipoComercialCadastro.html',
             authorize: true,
             controller: 'TipoComercialCadastroController',
             routeName: 'Inclusao de Tipo Comercial',
             RouteId: 'TipoComercial@New'
-        })
-
-        .when('/TipoComercialCadastroEdit/:Action/:Id', {
-            templateUrl: 'view/TipoComercialCadastro.html',
-            authorize: true,
-            controller: 'TipoComercialCadastroController',
-            routeName: 'Edição de Tipo Comercial',
-            RouteId: 'TipoComercial@Edit'
         })
         
         .when('/Simulacao', {

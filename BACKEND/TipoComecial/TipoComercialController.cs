@@ -53,26 +53,50 @@ namespace PROPOSTA
 
         //===========================Salvar Veiculo
 
-        //[Route("api/SalvarTipoComercial")]
-        //[HttpPost]
-        //[ActionName("SalvarTipoComercial")]
-        //[Authorize()]
+        [Route("api/SalvarTipoComercial")]
+        [HttpPost]
+        [ActionName("SalvarTipoComercial")]
+        [Authorize()]
 
-        //public IHttpActionResult SalvarVeiculo([FromBody] TipoComercial.TipoComercialModel pTipoComercial)
-        //{
-        //    SimLib clsLib = new SimLib();
-        //    TipoComercial.TipoComercialModel Cls = new TipoComercial(User.Identity.Name);
-        //    try
-        //    {
-        //        DataTable retorno = Cls.SalvarVeiculo(pTipoComercial);
-        //        return Ok(retorno);
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
-        //        throw new Exception(Ex.Message);
-        //    }
-        //}
+        public IHttpActionResult SalvarTipoComercial([FromBody] TipoComercial.TipoComercialModel pTipoComercial)
+        {
+            SimLib clsLib = new SimLib();
+            TipoComercial Cls = new TipoComercial(User.Identity.Name);
+            try
+            {
+                DataTable retorno = Cls.SalvarTipoComercial(pTipoComercial);
+                return Ok(retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+
+        //===========================Excluir Tipo Comercial
+
+        [Route("api/excluirtipocomercial")]
+        [HttpPost]
+        [ActionName("excluirtipocomercial")]
+        [Authorize()]
+
+        public IHttpActionResult excluirtipocomercial([FromBody] TipoComercial.TipoComercialModel pTipoComercial)
+        {
+            SimLib clsLib = new SimLib();
+            TipoComercial Cls = new TipoComercial(User.Identity.Name);
+            try
+            {
+                DataTable retorno = Cls.excluirtipocomercial(pTipoComercial);
+                return Ok(retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
 
     }
 
