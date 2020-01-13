@@ -152,6 +152,27 @@
             routeName: 'Inclusao de Tipo Comercial',
             RouteId: 'TipoComercial@New'
         })
+        .when('/CaracVeicul', {
+            templateUrl: 'view/CaracVeicul.html',
+            authorize: true,
+            controller: 'CaracVeiculController',
+            routeName: 'Cadastro de Características de Veiculação',
+            RouteId: 'CaracVeicul@Index'
+        })
+        .when('/CaracVeiculCadastroNew/:Action/:Id', {
+            templateUrl: 'view/CaracVeiculCadastro.html',
+            authorize: true,
+            controller: 'CaracVeiculCadastroController',
+            routeName: 'Inclusão de Característica de Veiculação',
+            RouteId: 'CaracVeicul@New'
+        })
+        .when('/CaracVeiculCadastroEdit/:Action/:Id', {
+            templateUrl: 'view/CaracVeiculCadastro.html',
+            authorize: true,
+            controller: 'CaracVeiculCadastroController',
+            routeName: 'Alteração de Característica de Veiculação',
+            RouteId: 'CaracVeicul@Edit'
+        })
         
         .when('/Simulacao', {
             templateUrl: 'view/simulacao_List.html',

@@ -230,6 +230,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CaracVeicul\CaracVeiculController.cs" />
+    <Compile Include="CaracVeicul\CaracVeiculModel.cs" />
+    <Compile Include="CaracVeicul\CaracVeiculSql.cs" />
     <Compile Include="CondPgto\CondPgtoController.cs" />
     <Compile Include="CondPgto\CondPgtoModel.cs" />
     <Compile Include="CondPgto\CondPgtoSql.cs" />

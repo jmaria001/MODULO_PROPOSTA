@@ -1,0 +1,83 @@
+﻿<div class="container">
+    <form name="frmCaracVeiculCadastro" autocomplete="off">
+        <div class="block">
+            <div class="row">
+                <!--===================Codigo-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="fieldrequired">Código</label>
+                        <input type="text"
+                               name="txtCodCaracteristica"
+                               ng-required="true"
+                               ng-model="CaracVeicul.Cod_Caracteristica"
+                               class="form-control"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="2"
+                               style="text-transform:uppercase" />
+                        
+     <!--onchange="this.value = this.value.toUpperCase()"
+     style="text-transform:uppercase" />-->
+
+                    </div>
+                </div>
+                <!--===================Descrição-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="fieldrequired">Descrição</label>
+                        <input type="text" name="txtDescricao" class="form-control" ng-model="CaracVeicul.Descricao" maxlength="30" ng-required="true" style="text-transform:uppercase" />
+                    </div>
+                </div>
+                <!--===================Letra do CE-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label>Letra do CE</label>
+                        <input type="text" name="txtLetraCe" class="form-control" ng-model="CaracVeicul.Imprime_Ce" maxlength="1" style="text-transform:uppercase" />
+                    </div>
+                </div>
+                <!--======================Considera para Calculo-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired">Considera para Cálculo</label>
+                        <select class="form-control"
+                                ng-model="CaracVeicul.Posicao_Calculo"
+                                name="optPosCalc"
+                                ng-options="CaracVeicul.id as CaracVeicul.nome for CaracVeicul in PosCalc"
+                                ng-required="true">
+                        </select>
+                    </div>
+                </div>
+                <!--====================Considera no Basket-->
+                <div class="col-md-2 margin-top-20 margin-left-30">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="CaracVeicul.Indica_Basket" />Considera no Basket<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--===================Botoes-->
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <button class="btn btn-success" ng-click="SalvarCaracVeicul(CaracVeicul)"
+                            ng-disabled="frmCaracVeiculCadastro.$invalid">
+                        Salvar
+                    </button>
+                    <button class="btn btn-danger" ng-click="ExcluirCaracVeicul(CaracVeicul)">Excluir</button>
+                    <a href="#CaracVeicul" class="btn btn-warning">Cancelar</a>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

@@ -1,0 +1,45 @@
+﻿
+<div class="container">
+    <div class="block table-responsive" ng-show="ShowGrid">
+        <!--===================================Botoes-->
+        <a id="btnNovaCaracVeicul" class="btn btn-primary"  ng-disabled="!PermissaoNew"  href="#CaracVeiculCadastroNew/New/0">Nova Característica</a>
+
+        <button id="ExportReporttoExcel" class="btn btn-warning" ng-disabled="CaracVeiculs.length==0">Exportar Excel</button>
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Código</th>
+                        <th>Descrição</th>
+                        <th>Letra do CE</th>
+                        <th>Considera para Cálculo</th>
+                        <th>Considera no Basket</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="CaracVeicul in CaracVeiculs track by $index" on-finish-render="ngRepeatFinished()">
+                        <td style="width:50px; text-align:center">
+                            <a href="#CaracVeiculCadastroEdit/Edit/{{CaracVeicul.Cod_Caracteristica}}" ng-show="PermissaoEdit">
+                                 <span class="fa fa-edit fa-2x"></span>    
+                            </a>
+                        </td>
+                        <td>{{::CaracVeicul.Cod_Caracteristica}}</td>
+                        <td>{{::CaracVeicul.Descricao}}</td>
+                        <td>{{::CaracVeicul.Imprime_Ce}}</td>
+                        <td>{{::CaracVeicul.Posicao_Calculo}}</td>
+                        <td>{{::CaracVeicul.Indica_Basket}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>
