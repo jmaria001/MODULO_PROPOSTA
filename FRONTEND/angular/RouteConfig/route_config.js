@@ -173,7 +173,29 @@
             routeName: 'Alteração de Característica de Veiculação',
             RouteId: 'CaracVeicul@Edit'
         })
-        
+
+        .when('/CategoriaCliente', {
+            templateUrl: 'view/CategoriaCliente.html',
+            authorize: true,
+            controller: 'CategoriaClienteController',
+            routeName: 'Cadastro de Categorias de Cliente',
+            RouteId: 'CategoriaCliente@Index'
+        })
+        .when('/CategoriaClienteCadastroNew/:Action/:Id', {
+            templateUrl: 'view/CategoriaClienteCadastro.html',
+            authorize: true,
+            controller: 'CategoriaClienteCadastroController',
+            routeName: 'Inclusão de Categoria de Cliente',
+            RouteId: 'CategoriaCliente@New'
+        })
+        .when('/CategoriaClienteCadastroEdit/:Action/:Id', {
+            templateUrl: 'view/CategoriaClienteCadastro.html',
+            authorize: true,
+            controller: 'CategoriaClienteCadastroController',
+            routeName: 'Alteração de Categoria de Cliente',
+            RouteId: 'CategoriaCliente@Edit'
+        })
+
         .when('/Simulacao', {
             templateUrl: 'view/simulacao_List.html',
             controller: 'Simulacao_List_Controller',

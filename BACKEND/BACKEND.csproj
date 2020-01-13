@@ -233,6 +233,9 @@
     <Compile Include="CaracVeicul\CaracVeiculController.cs" />
     <Compile Include="CaracVeicul\CaracVeiculModel.cs" />
     <Compile Include="CaracVeicul\CaracVeiculSql.cs" />
+    <Compile Include="CategoriaCliente\CategoriaClienteController.cs" />
+    <Compile Include="CategoriaCliente\CategoriaClienteModel.cs" />
+    <Compile Include="CategoriaCliente\CategoriaClienteSql.cs" />
     <Compile Include="CondPgto\CondPgtoController.cs" />
     <Compile Include="CondPgto\CondPgtoModel.cs" />
     <Compile Include="CondPgto\CondPgtoSql.cs" />

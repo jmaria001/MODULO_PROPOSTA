@@ -1,0 +1,40 @@
+﻿
+<div class="container">
+    <div class="block table-responsive" ng-show="ShowGrid">
+        <!--===================================Botoes-->
+        <a id="btnNovaCategoriaCliente" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#CategoriaClienteCadastroNew/New/0">Nova Categoria</a>
+
+        <button id="ExportReporttoExcel" class="btn btn-warning" ng-disabled="CategoriaClientes.length==0">Exportar Excel</button>
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Código</th>
+                        <th>Descrição</th>
+                        <th>Código Fiscal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="CategoriaCliente in CategoriaClientes track by $index" on-finish-render="ngRepeatFinished()">
+                        <td style="width:50px; text-align:center">
+                            <a href="#CategoriaClienteCadastroEdit/Edit/{{CategoriaCliente.Cod_Categoria}}" ng-show="PermissaoEdit">
+                                 <span class="fa fa-edit fa-2x"></span>    
+                            </a>
+                        </td>
+                        <td>{{::CategoriaCliente.Cod_Categoria}}</td>
+                        <td>{{::CategoriaCliente.Descricao_Categoria}}</td>
+                        <td>{{::CategoriaCliente.Cod_Fiscal}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

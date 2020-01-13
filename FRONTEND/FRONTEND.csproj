@@ -185,7 +185,15 @@
     <Content Include="template\PesquisaTabela.html" />
     <Content Include="template\MultiSelecaoVeiculo.html" />
     <Content Include="template\wait.html" />
+    <Content Include="view\CaracVeicul.html" />
+    <Content Include="view\CaracVeiculCadastro.html" />
+    <Content Include="view\CategoriaCliente.html" />
+    <Content Include="view\CategoriaClienteCadastro.html" />
+    <Content Include="view\CondPgto.html" />
+    <Content Include="view\condpgtocadastro.html" />
     <Content Include="view\dashboard.html" />
+    <Content Include="view\Empresa.html" />
+    <Content Include="view\EmpresaCadastro.html" />
     <Content Include="view\Mercado.html" />
     <Content Include="view\PendenciaAprovacao.html" />
     <Content Include="view\PropostaPendenteAprovacao.html" />

@@ -1,0 +1,57 @@
+﻿<div class="container">
+    <form name="frmCategoriaClienteCadastro" autocomplete="off">
+        <div class="block">
+            <div class="row">
+
+                <!--===================Codigo Categoria-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label>Código</label>
+                        <input type="text"
+                               name="txtCodCategoria"
+                               ng-model="CategoriaCliente.Cod_Categoria"
+                               class="form-control"
+                               ng-disabled="true"
+                               ng-model-options="{updateOn: 'blur'}" />
+                    </div>
+                </div>
+
+                <!--===================Descrição-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="fieldrequired">Descrição</label>
+                        <input type="text" name="txtDescricao" class="form-control" ng-model="CategoriaCliente.Descricao_Categoria" maxlength="50" ng-required="true" style="text-transform:uppercase" />
+                    </div>
+                </div>
+                <!--===================Cod.Fiscal-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="fieldrequired">Cod.Fiscal</label>
+                        <input type="text" name="txtCodFiscal" class="form-control" ng-model="CategoriaCliente.Cod_Fiscal" maxlength="10" ng-required="true" style="text-transform:uppercase" />
+                    </div>
+                </div>
+
+            </div>
+
+            <!--===================Botoes-->
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <button class="btn btn-success" ng-click="SalvarCategoriaCliente(CategoriaCliente)"
+                            ng-disabled="frmCategoriaClienteCadastro.$invalid">
+                        Salvar
+                    </button>
+                    <button class="btn btn-danger" ng-click="ExcluirCategoriaCliente(CategoriaCliente)">Excluir</button>
+                    <a href="#CategoriaCliente" class="btn btn-warning">Cancelar</a>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
