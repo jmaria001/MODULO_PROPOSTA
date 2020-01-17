@@ -1,0 +1,50 @@
+﻿<div class="container">
+    <form name="frmMotivoAlterNegocCadastro" autocomplete="off">
+        <div class="block">
+            <div class="row">
+                <!--===================Codigo-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="fieldrequired">Código</label>
+                        <input type="text"
+                               name="txtCodAlteracao"
+                               ng-required="true"
+                               ng-model="MotivoAlterNegoc.Cod_Alteracao"
+                               class="form-control"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="3"
+                               style="text-transform:uppercase" />
+                    </div>
+                </div>
+                <!--===================Descrição-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="fieldrequired">Descrição</label>
+                        <input type="text" name="txtDescricao" class="form-control" ng-model="MotivoAlterNegoc.Descricao" maxlength="30" ng-required="true" style="text-transform:uppercase" />
+                    </div>
+                </div>
+            </div>
+            <!--===================Botoes-->
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <button class="btn btn-success" ng-click="SalvarMotivoAlterNegoc(MotivoAlterNegoc)"
+                            ng-disabled="frmMotivoAlterNegocCadastro.$invalid">
+                        Salvar
+                    </button>
+                    <button class="btn btn-danger" ng-click="ExcluirMotivoAlterNegoc(MotivoAlterNegoc)">Excluir</button>
+                    <a href="#MotivoAlterNegoc" class="btn btn-warning">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
+
+

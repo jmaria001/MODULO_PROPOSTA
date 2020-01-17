@@ -242,6 +242,9 @@
     <Compile Include="Empresa\EmpresaController.cs" />
     <Compile Include="Empresa\EmpresaModel.cs" />
     <Compile Include="Empresa\EmpresaSql.cs" />
+    <Compile Include="MotivoAlterNegoc\MotivoAlterNegocController.cs" />
+    <Compile Include="MotivoAlterNegoc\MotivoAlterNegocModel.cs" />
+    <Compile Include="MotivoAlterNegoc\MotivoAlterNegocSql.cs" />
     <Compile Include="PacoteDesconto\PacoteDescontoController.cs" />
     <Compile Include="PacoteDesconto\PacoteDescontoModel.cs" />
     <Compile Include="PacoteDesconto\PacoteDecontoSql.cs" />

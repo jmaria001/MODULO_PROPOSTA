@@ -56,7 +56,6 @@
             routeName: 'Dashboard',
             RouteId: 0
         })
-
         .when('/CondPgto', {
             templateUrl: 'view/CondPgto.html',
             authorize: true,
@@ -64,7 +63,6 @@
             routeName: 'Cadastro de Condições de Pagamentos',
             RouteId: 'CondPgto@Index'
         })
-
         .when('/CondPgtoCadastro/:Action/:Id', {
             templateUrl: 'view/CondPgtoCadastro.html',
             authorize: true,
@@ -72,7 +70,6 @@
             routeName: 'Inclusao de Condições de Pagamentos',
             RouteId: 'CondPgto@New'
         })
-
         .when('/Empresa', {
             templateUrl: 'view/Empresa.html',
             authorize: true,
@@ -80,7 +77,6 @@
             routeName: 'Cadastro de Empresa',
             RouteId: 'Empresa@Index'
         })
-
         .when('/EmpresaCadastro/:Action/:Id', {
             templateUrl: 'view/EmpresaCadastro.html',
             authorize: true,
@@ -88,7 +84,6 @@
             routeName: 'Inclusao de Empresa',
             RouteId: 'Empresa@New'
         })
-
         .when('/usuario', {
             templateUrl: 'view/Usuario.html',
             authorize: true,
@@ -96,7 +91,6 @@
             routeName: 'Cadastro de Usuários',
             RouteId: 'Usuario@Index'
         })
-
         .when('/veiculo', {
             templateUrl: 'view/Veiculo.html',
             authorize: true,
@@ -104,7 +98,6 @@
             routeName: 'Cadastro de Veículos',
             RouteId: 'Veiculo@Index'
         })
-
         .when('/mercado', {
             templateUrl: 'view/Mercado.html',
             authorize: true,
@@ -119,7 +112,6 @@
             routeName: 'Inclusao de Veículos',
             RouteId: 'Veiculo@New'
         })
-
         .when('/MercadoCadastroEdit/:Action/:Id', {
             templateUrl: 'view/MercadoCadastro.html',
             authorize: true,
@@ -127,7 +119,6 @@
             routeName: 'Edição de Mercados',
             RouteId: 'Mercado@Edit'
         })
-
         .when('/MercadoCadastroNew/:Action/:Id', {
             templateUrl: 'view/MercadoCadastro.html',
             authorize: true,
@@ -135,8 +126,6 @@
             routeName: 'Inclusao de Mercados',
             RouteId: 'Mercado@New'
         })
-
-
         .when('/TipoComercial', {
             templateUrl: 'view/TipoComercial.html',
             authorize: true,
@@ -144,7 +133,6 @@
             routeName: 'Cadastro de Tipo Comercial',
             RouteId: 'TipoComercial@Index'
         })
-
         .when('/TipoComercialCadastro/:Action/:Id', {
             templateUrl: 'view/TipoComercialCadastro.html',
             authorize: true,
@@ -173,7 +161,6 @@
             routeName: 'Alteração de Característica de Veiculação',
             RouteId: 'CaracVeicul@Edit'
         })
-
         .when('/CategoriaCliente', {
             templateUrl: 'view/CategoriaCliente.html',
             authorize: true,
@@ -196,6 +183,23 @@
             RouteId: 'CategoriaCliente@Edit'
         })
 
+        .when('/MotivoAlterNegoc', {
+            templateUrl: 'view/MotivoAlterNegoc.html',
+            authorize: true,
+            controller: 'MotivoAlterNegocController',
+            routeName: 'Cadastro de Motivo de Alteração da Negociação',
+            RouteId: 'MotivoAlterNegoc@Index'
+        })
+        .when('/MotivoAlterNegocCadastro/:Action/:Id', {
+            templateUrl: 'view/MotivoAlterNegocCadastro.html',
+            authorize: true,
+            controller: 'MotivoAlterNegocCadastroController',
+            routeName: 'Inclusao de Motivo de Alteração da Negociação',
+            RouteId: 'MotivoAlterNegoc@New'
+        })
+
+
+        //----------------------------------------------------
         .when('/Simulacao', {
             templateUrl: 'view/simulacao_List.html',
             controller: 'Simulacao_List_Controller',
