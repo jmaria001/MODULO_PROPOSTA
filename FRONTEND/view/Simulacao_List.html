@@ -166,7 +166,6 @@
                 <tbody>
                     <tr ng-repeat="Simulacao in Simulacoes track by $index" on-finish-render="ngRepeatFinished">
                         <td width="50px">
-                            <!--<a href="#SimulacaoCadastro/:Edit/{{Simulacao.Id_Simulacao}}" class="btn btn-default btn-sm" ng-disabled="true"><span class="fa fa-edit  fa-crud"></span></a>-->
                             <button class="btn btn-default btn-sm"  ng-click="EditarSimulacao(Simulacao.Id_Simulacao)" ng-disabled="!PermissaoEditar">
                                 <span class="fa fa-edit fa-crud"></span>
                             </button>
