@@ -63,6 +63,7 @@ namespace PROPOSTA
             public Boolean Permite_Envio_Aprovacao { get; set; }
             public Boolean Permite_Gerar{ get; set; }
             public Boolean Permite_Editar{ get; set; }
+            public Boolean Permite_Confirmar_Venda{ get; set; }
             public String Observacao{ get; set; }
             public String Motivo_Recusa{ get; set; }
             public List<EsquemaModel> Esquemas { get; set; }

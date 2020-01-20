@@ -614,9 +614,14 @@
                 $("#modalInfo").modal(true);
             }
         });
-
-        
-
+    }
+    $scope.ConfirmarVenda = function (pId_Simulacao) {
+        var _data = { 'Id_Simulacao': pId_Simulacao };
+        httpService.Post('ConfirmarVenda',_data).then(function (response) {
+            if (response.data) {
+                $scope.CarregarSimulacao(pId_Simulacao, $scope.Parameters.Processo);
+            }
+        });
     }
     //===================================Seta Iniciar calculo false apos o load da pagina
     //$timeout(function () {

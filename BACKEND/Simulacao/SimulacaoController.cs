@@ -513,6 +513,26 @@ namespace PROPOSTA
             }
         }
 
+        [Route("api/ConfirmarVenda")]
+        [HttpPost]
+        [Authorize()]
+        public IHttpActionResult ConfirmarVenda([FromBody]  Simulacao.Param_Geracao_Model Param)
+        {
+            SimLib clsLib = new SimLib();
+            try
+            {
+                Simulacao Cls = new Simulacao(User.Identity.Name);
+                Cls.ConfirmarVenda(Param.Id_Simulacao);
+                return Ok(true);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+
         [Route("api/MostrarInconsistencias/{Id_Simulacao}")]
         [HttpGet]
         [Authorize()]

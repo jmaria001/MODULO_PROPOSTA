@@ -53,7 +53,6 @@ namespace PROPOSTA
             }
             return dtb;
         }
-
         public DataTable ListPendenteAprovacao()
         {
             clsConexao cnn = new clsConexao(this.Credential);
@@ -78,8 +77,6 @@ namespace PROPOSTA
             }
             return dtb;
         }
-
-
         public DataTable SimulacaoDestroy(SimulacaoModel Param)
         {
             clsConexao cnn = new clsConexao(this.Credential);
@@ -169,6 +166,7 @@ namespace PROPOSTA
                     Simulacao.Requer_Aprovacao = drwBase["Requer_Aprovacao"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Aprovacao = drwBase["Permite_Aprovacao"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Envio_Aprovacao = drwBase["Permite_Envio_Aprovacao"].ToString().ConvertToBoolean();
+                    Simulacao.Permite_Confirmar_Venda= drwBase["Permite_Confirmar_Venda"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Gerar = drwBase["Permite_Gerar"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Editar= drwBase["Permite_Editar"].ToString().ConvertToBoolean();
                     Simulacao.Indica_Inconsistencia= drwBase["Indica_Inconsistencia"].ToString().ConvertToBoolean();
@@ -868,6 +866,26 @@ namespace PROPOSTA
                 cnn.Close();
             }
             return Critica;
+        }
+        public void ConfirmarVenda(Int32 pId_Simulacao)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Confirmar_Venda");
+                cmd.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                cmd.Parameters.AddWithValue("@Par_Id_Simulacao", pId_Simulacao);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
         }
         public void MockAprovacao(Int32 pId_Simulacao)
         {
