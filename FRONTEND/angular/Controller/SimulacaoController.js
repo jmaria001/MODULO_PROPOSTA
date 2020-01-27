@@ -2,7 +2,7 @@
     //============ Inicializa Variaveis Scopes
     $scope.Parameters = $routeParams;
     $scope.currentShow = 'Base';
-    $scope.Abrangencias = [{ 'Id': 3, 'Descricao': '' }, { 'Id': 0, 'Descricao': 'Net' }, { 'Id': 1, 'Descricao': 'Rede' }, { 'Id': 2, 'Descricao': 'Local' }];
+    $scope.Abrangencias = [{ 'Id': 0, 'Descricao': 'Net' }, { 'Id': 1, 'Descricao': 'Rede' }, { 'Id': 2, 'Descricao': 'Local' }];
     $scope.Forma_Pgto = [{ 'Id': 1, 'Descricao': 'Espécie' }, { 'Id': 2, 'Descricao': 'Permuta' }];
     $scope.Tipo_Vencimento = [{ 'Id': 1, 'Descricao': 'À Vista' }, { 'Id': 2, 'Descricao': 'DFM' }, { 'Id': 3, 'Descricao': 'DDL' }];
     $scope.Simulacao = {};
@@ -21,17 +21,17 @@
         $scope.CompetenciaEsquemaKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
         if (pDataInicio) {
             $scope.CompetenciaEsquemaKeys.Year = StringToDate(pDataInicio, 'dd/mm/yyyy').getFullYear();
-            var _m = StringToDate(pDataInicio, 'dd/mm/yyyy').getMonth()+1;
+            var _m = StringToDate(pDataInicio, 'dd/mm/yyyy').getMonth() + 1;
             var _y = StringToDate(pDataInicio, 'dd/mm/yyyy').getFullYear();
             var _ym = parseInt(_y.toString() + LeftZero(_m, 2));
             $scope.CompetenciaEsquemaKeys.First = _ym;
         }
         if (pDataFim) {
             $scope.CompetenciaEsquemaKeys.Year = StringToDate(pDataFim, 'dd/mm/yyyy').getFullYear();
-            var _m = StringToDate(pDataFim, 'dd/mm/yyyy').getMonth()+1;
+            var _m = StringToDate(pDataFim, 'dd/mm/yyyy').getMonth() + 1;
             var _y = StringToDate(pDataFim, 'dd/mm/yyyy').getFullYear();
             var _ym = parseInt(_y.toString() + LeftZero(_m, 2));
-            $scope.CompetenciaEsquemaKeys.Last= _ym;
+            $scope.CompetenciaEsquemaKeys.Last = _ym;
         }
     }
     //=====================Check se processo é simulacao ou proposta
@@ -49,7 +49,7 @@
         $scope.GeracaoProposta = {};
 
         httpService.Get("GetSimulacao/" + pId_Simulacao + "/" + pProcesso).then(function (response) {
-        //httpService.Get(_url).then(function (response) {
+            //httpService.Get(_url).then(function (response) {
             if (response.data) {
                 $scope.Simulacao = response.data;
                 $timeout(function () {
@@ -84,7 +84,17 @@
         $scope.Simulacao.ContadorMidia++;
         var _mmyy = CompetenciaToInt(pEsquema.Competencia);
         httpService.Get("GetNewMidia/" + _mmyy).then(function (response) {
-            _tempMidia = response.data;
+            var _tempMidia = response.data;
+            var _year = pEsquema.Competencia.substr(3, 4);
+            var _month = pEsquema.Competencia.substr(0, 2);
+            var _ref_inicio = new Date(_year, _month - 1, _tempMidia.Dia_Inicio, 0, 0, 0, 0);
+            var _ref_fim = new Date(_year, _month - 1, _tempMidia.Dia_Fim, 0, 0, 0, 0);
+            if (_ref_inicio < StringToDate($scope.Simulacao.Validade_Inicio)) {
+                _tempMidia.Dia_Inicio = StringToDate($scope.Simulacao.Validade_Inicio).getDate();
+            };
+            if (_ref_fim > StringToDate($scope.Simulacao.Validade_Termino)) {
+                _tempMidia.Dia_Fim = StringToDate($scope.Simulacao.Validade_Termino).getDate();
+            };
             _tempMidia.Id_Midia = $scope.Simulacao.ContadorMidia;
             _tempMidia.Id_Esquema = pEsquema.Id_Esquema,
             _tempMidia.IsValid = false;
@@ -143,6 +153,7 @@
     //==============================Mudou algum dado da midia
     $scope.fnChangeMidia = function (pMidia, pField) {
         switch (pField) {
+            case 'Dia_Inicio':
             case 'Dia_Fim':
             case 'Qtd_Insercoes':
             case 'Programa':
@@ -167,6 +178,36 @@
         }
         $scope.ChangePendenteCalculo();
     };
+    //=====================Consiste dia Inicio e Dia Fim
+    $scope.FnConsisteDia = function (pMidia, pTipo) {
+        var _month = $scope.Simulacao.Esquemas[$scope.currentEsquema].Competencia.substr(0, 2);
+        var _year = $scope.Simulacao.Esquemas[$scope.currentEsquema].Competencia.substr(3, 4);
+        var _primeiro_dia = new Date(_year, _month - 1, 1, 0, 0, 0, 0);
+        var _ultimo_dia = LastDay(_year, _month - 1);
+        if (_primeiro_dia < StringToDate($scope.Simulacao.Validade_Inicio)) {
+            _primeiro_dia = StringToDate($scope.Simulacao.Validade_Inicio);
+        };
+        if (_ultimo_dia > StringToDate($scope.Simulacao.Validade_Termino)) {
+            _ultimo_dia = StringToDate($scope.Simulacao.Validade_Termino);
+        };
+        var _dia = 0;
+        if (pTipo == 'I') {
+            _dia = pMidia.Dia_Inicio;
+        }
+        else {
+            _dia = pMidia.Dia_Fim;
+        }
+        if (_dia > _ultimo_dia.getDate() || _dia < _primeiro_dia.getDate()) {
+            ShowAlert('Dia Inválido ou fora da validade do Modelo')
+            if (pTipo == 'I') {
+                pMidia.Dia_Inicio = "";
+            }
+            else {
+                pMidia.Dia_Fim = "";
+            }
+        }
+
+    }
     //=====================Clicou em selecionar veiculos
     $scope.SelecionarVeiculos = function () {
         var _url = 'GetVeiculos'
@@ -299,8 +340,10 @@
             'Distribuicao': pMidia.Distribuicao,
             'Dia_Inicio': pMidia.Dia_Inicio,
             'Dia_Fim': pMidia.Dia_Fim,
-            'Veiculos': pEsquema.Veiculos
-        }
+            'Veiculos': pEsquema.Veiculos,
+            'Validade_Inicio': $scope.Simulacao.Validade_Inicio,
+            'Validade_Termino': $scope.Simulacao.Validade_Termino,
+        };
         httpService.Post("DistribuirInsercoes", _data).then(function (response) {
             if (response) {
                 if (response.data[0].Status) {
@@ -328,8 +371,8 @@
     //===================================Clicou em Fixar Desconto ou Valor
     $scope.Fixar = function (pTipo) {
         if (pTipo == 'Valor') {
-            if($scope.Simulacao.Fixar_Valor){
-             
+            if ($scope.Simulacao.Fixar_Valor) {
+
                 $scope.Simulacao.Fixar_Desconto = false;
                 $scope.Simulacao.Desconto_Padrao = ""
             }
@@ -455,23 +498,22 @@
         });
     }
     //===================================Processa a Importação da Simulacao para Gerar a Proposta
-    $scope.ImportarSimulacao = function(pId_Simulacao)
-    {
+    $scope.ImportarSimulacao = function (pId_Simulacao) {
         var _data = {
             'Id_Simulacao': pId_Simulacao,
-            'Validade_Inicio' :($scope.Simulacao.Validade_Inicio) ? $scope.Simulacao.Validade_Inicio:null,
+            'Validade_Inicio': ($scope.Simulacao.Validade_Inicio) ? $scope.Simulacao.Validade_Inicio : null,
             'Validade_Termino': ($scope.Simulacao.Validade_Termino) ? $scope.Simulacao.Validade_Termino : null,
         }
 
 
         httpService.Post('ImportarSimulacao', _data).then(function (response) {
             if (response) {
-                $scope.CarregarSimulacao(response.data[0].Id_Simulacao,'P') 
+                $scope.CarregarSimulacao(response.data[0].Id_Simulacao, 'P')
             }
         });
     }
     //===================================Selecionar Simulacao Para Importacao e gerar nova proposta
-    $scope.SelecionarImportacao= function () {
+    $scope.SelecionarImportacao = function () {
         httpService.Get('ListarTabela/Simulacao').then(function (response) {
             if (response.data) {
                 $scope.PesquisaTabelas.Items = response.data;
@@ -506,11 +548,15 @@
             if (response.data) {
                 ShowAlert('Solicitação de aprovação enviada com sucesso.    ', 'success');
                 $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo);
-
-                //aqui chamar api da Genexos
-                var _urlMobile = $rootScope.mobileUrl + "anotificacaoenvia.aspx?" + $rootScope.UserData.Login + ',' + pId_Simulacao.toString();
-                httpService.MobileGet(_urlMobile).then(function (response) {
-
+                //===================================Get Aprovadores chamar api da Genexos
+                httpService.Get("MostrarAprovadores/" + pId_Simulacao).then(function (response) {
+                    if (response.data) {
+                        for (var i = 0; i < response.data.length; i++) {
+                            var _urlMobile = $rootScope.mobileUrl + "anotificacaoenvia.aspx?" + response.data[i].Login_Aprovador + ',' + pId_Simulacao.toString();
+                            httpService.MobileGet(_urlMobile).then(function (response) {
+                            });
+                        };
+                    };
                 });
             }
         });
@@ -582,7 +628,8 @@
                     win.focus();
                 }
                 else {
-                    ShowAlert("Proposta Gera e enviada com Sucesso!", "warning")
+                    ShowAlert("Proposta Gerada e enviada com Sucesso!", "warning")
+                    $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo);
                 }
             }
             else {
@@ -591,8 +638,7 @@
         });
     };
     //=========================Marcar/Desmarcar todos os veiculos
-    $scope.SelectAllVeiculo = function(pLista,pCheck)
-    {
+    $scope.SelectAllVeiculo = function (pLista, pCheck) {
         for (var i = 0; i < pLista.length; i++) {
             pLista[i].Selected = pCheck;
         }
@@ -603,8 +649,7 @@
         $("#ModalGeracaoProposta").modal(true);
     };
 
-    $scope.MostrarInconsistencias = function(pId_Simulacao)
-    {
+    $scope.MostrarInconsistencias = function (pId_Simulacao) {
         httpService.Get('MostrarInconsistencias/' + pId_Simulacao).then(function (response) {
             if (response.data) {
                 $scope.Info = {
@@ -617,12 +662,22 @@
     }
     $scope.ConfirmarVenda = function (pId_Simulacao) {
         var _data = { 'Id_Simulacao': pId_Simulacao };
-        httpService.Post('ConfirmarVenda',_data).then(function (response) {
+        httpService.Post('ConfirmarVenda', _data).then(function (response) {
             if (response.data) {
                 $scope.CarregarSimulacao(pId_Simulacao, $scope.Parameters.Processo);
             }
         });
     }
+    //===================================Consiste a Competencia do Esquema
+    $scope.ConsisteCompetencia = function (pCompetencia) {
+        var _referenciaInicio = $scope.Simulacao.Validade_Inicio.substr(6, 5) + $scope.Simulacao.Validade_Inicio.substr(3, 2);
+        var _referenciaFim = $scope.Simulacao.Validade_Termino.substr(6, 5) + $scope.Simulacao.Validade_Termino.substr(3, 2);
+        var _mesano = pCompetencia.substr(3, 4) + pCompetencia.substr(0, 2)
+        if (_mesano < _referenciaInicio || _mesano > _referenciaFim) {
+            ShowAlert('Competencia ' + pCompetencia + ' fora da validade do Modelo', 'warning')
+            $scope.Simulacao.Esquemas[$scope.currentEsquema].Competencia = "";
+        }
+    };
     //===================================Seta Iniciar calculo false apos o load da pagina
     //$timeout(function () {
     //    $scope.IniciarCalculo = true;

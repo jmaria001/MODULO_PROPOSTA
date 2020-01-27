@@ -411,3 +411,9 @@ function ValidaEmail(pfield, pRequired) {
     }
     return _ret;
 }
+
+function LastDay(Year,Month) {
+    var _ret = new Date(Year, Month+1, 1, 0, 0, 0, 0)
+    _ret.setDate(_ret.getDate()-1)
+    return _ret;
+}

@@ -176,6 +176,8 @@ namespace PROPOSTA
             public String Distribuicao { get; set; }
             public  Byte Dia_Inicio { get; set; }
             public Byte Dia_Fim { get; set; }
+            public String Validade_Inicio { get; set; }
+            public String Validade_Termino { get; set; }
             public List<VeiculoModel> Veiculos { get; set; }
         }
         public class Param_Aprovacao_Model

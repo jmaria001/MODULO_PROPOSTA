@@ -531,6 +531,7 @@
                                             <input id="txtEsquemaCompetencia"
                                                    ng-model="Simulacao.Esquemas[currentEsquema].Competencia"
                                                    ng-disabled="!Simulacao.Validade_Inicio || !Simulacao.Validade_Termino || Simulacao.Esquemas[currentEsquema].Midias.length>0 || !Simulacao.Permite_Editar"
+                                                   ng-change="ConsisteCompetencia(Simulacao.Esquemas[currentEsquema].Competencia)"
                                                    ui-MesAno ng-model-options="{updateOn: 'blur'}">
                                             <div class="dictionary-ui-competencia" ui-Competencia typmesano="Simulacao.Esquemas[currentEsquema].Competencia" params="CompetenciaEsquemaKeys"></div>
                                         </div>
@@ -580,7 +581,7 @@
                                         <button class="btn btn-default btn-sm margin-left-20"
                                                 id="btnSelecionarVeiculos"
                                                 ng-click="SelecionarVeiculos()"
-                                                ng-disabled="Simulacao.Esquemas[currentEsquema].Abrangencia==0 || !Simulacao.Esquemas[currentEsquema].Abrangencia || !Simulacao.Permite_Editar">
+                                                ng-disabled="Simulacao.Esquemas[currentEsquema].Abrangencia==0 || Simulacao.Esquemas[currentEsquema].Abrangencia==-1 || !Simulacao.Permite_Editar">
                                             Selecionar Veiculos
                                         </button>
                                         <div class="row margin-top-5 margin-left-20 margin-bottom-10" style="border:solid 1px #e5e5e5;width:95%;height:140px;overflow-y:scroll ;overflow-x:hidden">
@@ -590,8 +591,8 @@
                                                     <span>
                                                         {{Veiculo.Cod_Veiculo}}-{{Veiculo.Nome_Veiculo}}
                                                     </span>
-                                                    <span class="fa fa-times span-btn" style="font-size:13px" ng-click="RemoverVeiculo(Veiculo.Cod_Veiculo)" ng-show="Simulacao.Esquemas[currentEsquema].Midias.length==0"></span>
-                                                </label>
+                                                    <span class="fa fa-times span-btn" style="font-size:13px" ng-click="RemoverVeiculo(Veiculo.Cod_Veiculo)" ng-show="Simulacao.Esquemas[currentEsquema].Midias.length==0  && Simulacao.Esquemas[currentEsquema].Abrangencia!=0    "></span>
+                                                </label>    
                                             </div>
                                         </div>
                                     </div>
@@ -723,10 +724,10 @@
                                                 <label >Dur.</label>
                                             </th>
                                             <th style="min-width:80px">
-                                                <label >Início</label>
+                                                <label >Dia Início</label>
                                             </th>
                                             <td style="min-width:80px">
-                                                <label >Fim</label>
+                                                <label >Dia Fim</label>
                                             </td>
                                             <td>
                                                 <label >Qtd.</label>
@@ -805,20 +806,36 @@
                                             </td>
                                             <td>
                                                 <div class="input-group" style="min-width:40px">
-                                                    <select class="form-control inputEsquema"
+                                                    <!--<select class="form-control inputEsquema"
                                                             ng-model="midia.Dia_Inicio"
                                                             ng-disabled="!Simulacao.Permite_Editar"
                                                             ng-options="n for n in [] | rangeDiaInicio:Simulacao.Validade_Inicio:Simulacao.Validade_Termino:Simulacao.Esquemas[currentEsquema].Competencia"
-                                                            ng-change="fnChangeMidia(midia,'Dia_Inicio')"></select>
+                                                            ng-change="fnChangeMidia(midia,'Dia_Inicio')"></select>-->
+                                                    <input  type="text" 
+                                                           class="form-control"
+                                                           maxlength="2"
+                                                           onkeypress="return NumericOnly(event)"
+                                                            ng-model="midia.Dia_Inicio" 
+                                                           ng-model-options="{updateOn: 'blur'}"
+                                                            ng-disabled="!Simulacao.Permite_Editar"
+                                                            ng-change="fnChangeMidia(midia,'Dia_Inicio');FnConsisteDia(midia,'I')"/>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="input-group" style="min-width:40px">
-                                                    <select class="form-control inputEsquema"
+                                                    <!--<select class="form-control inputEsquema"
                                                             ng-model="midia.Dia_Fim"
                                                             ng-disabled="!Simulacao.Permite_Editar"
                                                             ng-change="fnChangeMidia(midia,'Dia_Fim')"
-                                                            ng-options="n for n in [] | rangeDiaFim:Simulacao.Validade_Inicio:Simulacao.Validade_Termino:Simulacao.Esquemas[currentEsquema].Competencia:midia.Dia_Inicio"></select>
+                                                            ng-options="n for n in [] | rangeDiaFim:Simulacao.Validade_Inicio:Simulacao.Validade_Termino:Simulacao.Esquemas[currentEsquema].Competencia:midia.Dia_Inicio"></select>-->
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           maxlength="2"
+                                                           onkeypress="return NumericOnly(event)"
+                                                           ng-model="midia.Dia_Fim"
+                                                           ng-model-options="{updateOn: 'blur'}"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
+                                                           ng-change="fnChangeMidia(midia,'Dia_Fim');FnConsisteDia(midia,'F')" />
                                                 </div>
                                             </td>
                                             <td>

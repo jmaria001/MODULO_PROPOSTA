@@ -466,6 +466,15 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Distribuicao", Param.Distribuicao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Dia_Inicio", Param.Dia_Inicio);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Dia_Fim", Param.Dia_Fim);
+                if (!String.IsNullOrEmpty(Param.Validade_Inicio))
+                {
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Inicio", Param.Validade_Inicio.ConvertToDatetime());
+                }
+                if (!String.IsNullOrEmpty(Param.Validade_Termino))
+                {
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Termino", Param.Validade_Termino.ConvertToDatetime());
+                }
+
                 Adp.Fill(dtb);
                 if (dtb.Rows[0]["Status"].ToString().ConvertToBoolean())
                 {
@@ -530,11 +539,11 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Simulacao", Param.Id_Simulacao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Identificacao", Param.Identificacao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo", Param.Tipo);
-                if (Param.Validade_Inicio != null)
+                if (!String.IsNullOrEmpty(Param.Validade_Inicio) )
                 {
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Inicio", Param.Validade_Inicio.ConvertToDatetime());
                 }
-                if (Param.Validade_Termino != null)
+                if (! String.IsNullOrEmpty( Param.Validade_Termino) )
                 {
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Termino", Param.Validade_Termino.ConvertToDatetime());
                 }
