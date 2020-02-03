@@ -78,7 +78,7 @@ namespace PROPOSTA
                 }
                 else
                 {
-                    Retorno = Cls.GetSimulacao(Id_Simulacao);
+                    Retorno = Cls.GetSimulacao(Id_Simulacao,false);
                 }
                 return Ok(Retorno);
             }
@@ -88,6 +88,31 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
+        [Route("api/GetSimulacaoCapa/{Id_Simulacao}/{Processo}")]
+        [HttpGet]
+        [ActionName("GetSimulacaoCapa")]
+        [Authorize()]
+
+        public IHttpActionResult GetSimulacaoCapa(Int32 Id_Simulacao, String Processo)
+        {
+            SimLib clsLib = new SimLib();
+            Simulacao Cls = new Simulacao(User.Identity.Name);
+            try
+            {
+                Simulacao.SimulacaoModel Retorno = new Simulacao.SimulacaoModel();
+
+                
+                    Retorno = Cls.GetSimulacao(Id_Simulacao,true);
+                
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
 
 
         [Route("api/ImportarSimulacao")]
@@ -263,7 +288,7 @@ namespace PROPOSTA
                 DataTable dtb = Cls.SalvarSimulacao(Param);
                 if (dtb.Rows[0]["Status"].ToString().ConvertToBoolean())
                 {
-                    Simulacao = Cls.GetSimulacao(dtb.Rows[0]["Id_Simulacao"].ToString().ConvertToInt32());
+                    Simulacao = Cls.GetSimulacao(dtb.Rows[0]["Id_Simulacao"].ToString().ConvertToInt32(),false);
                     Simulacao.Critica = null;
                 }
                 else
@@ -416,7 +441,7 @@ namespace PROPOSTA
                 Int32 Id_Simulacao = Cls.GetIdSimulacaoFromAprovacao(token);
                 if (Id_Simulacao>0)
                 {
-                    Retorno = Cls.GetSimulacao(Id_Simulacao);
+                    Retorno = Cls.GetSimulacao(Id_Simulacao,false);
                 }
                 return Ok(Retorno);
             }
@@ -437,7 +462,7 @@ namespace PROPOSTA
             {
                 Simulacao.SimulacaoModel Retorno = new Simulacao.SimulacaoModel();
                 Simulacao Cls = new Simulacao(User.Identity.Name);
-                Retorno = Cls.GetSimulacao(Id_Simulacao);
+                Retorno = Cls.GetSimulacao(Id_Simulacao,false);
 
                 return Ok(Retorno);
             }

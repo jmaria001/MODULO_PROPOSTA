@@ -24,21 +24,15 @@ namespace PROPOSTA
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Processo", Param.Processo);
-
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Simulacao", Param.Id_Simulacao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Status", Param.Id_Status);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Empresa_Venda", Param.Cod_Empresa_Venda);
-                if (Param.Validade_Inicio !=null)
-                {
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Inicio", Param.Validade_Inicio.ConvertToDatetime());
-                }
-                if (Param.Validade_Termino !=null)
-                {
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Termino", Param.Validade_Termino.ConvertToDatetime());
-                }
-                
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Agencia", Param.Cod_Agencia);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Cliente", Param.Cod_Cliente);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Contato", Param.Cod_Contato);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Inicio", clsLib.CompetenciaInt(Param.Validade_Inicio));
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Termino", clsLib.CompetenciaInt(Param.Validade_Termino));
+
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Agencia", Param.Agencia);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cliente", Param.Cliente);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Contato", Param.Contato);
 
 
                 Adp.Fill(dtb);
@@ -102,7 +96,7 @@ namespace PROPOSTA
             }
             return dtb;
         }
-        public SimulacaoModel GetSimulacao(Int32 pId_Simulacao)
+        public SimulacaoModel GetSimulacao(Int32 pId_Simulacao, Boolean pSomenteCapa)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
@@ -166,13 +160,17 @@ namespace PROPOSTA
                     Simulacao.Requer_Aprovacao = drwBase["Requer_Aprovacao"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Aprovacao = drwBase["Permite_Aprovacao"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Envio_Aprovacao = drwBase["Permite_Envio_Aprovacao"].ToString().ConvertToBoolean();
-                    Simulacao.Permite_Confirmar_Venda= drwBase["Permite_Confirmar_Venda"].ToString().ConvertToBoolean();
+                    Simulacao.Permite_Confirmar_Venda = drwBase["Permite_Confirmar_Venda"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Gerar = drwBase["Permite_Gerar"].ToString().ConvertToBoolean();
-                    Simulacao.Permite_Editar= drwBase["Permite_Editar"].ToString().ConvertToBoolean();
-                    Simulacao.Indica_Inconsistencia= drwBase["Indica_Inconsistencia"].ToString().ConvertToBoolean();
+                    Simulacao.Permite_Editar = drwBase["Permite_Editar"].ToString().ConvertToBoolean();
+                    Simulacao.Indica_Inconsistencia = drwBase["Indica_Inconsistencia"].ToString().ConvertToBoolean();
                 }
                 //===========================================Adicionas esquemas/Midias/Insercoes/Veiculos
-                Simulacao.Esquemas = AddListEsquema(pId_Simulacao);
+                if (!pSomenteCapa)
+                {
+                    Simulacao.Esquemas = AddListEsquema(pId_Simulacao);
+                }
+
                 Simulacao.ContadorEsquema = ContadorEsquema;
                 Simulacao.ContadorMidia = ContadorMidia;
             }
@@ -539,11 +537,11 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Simulacao", Param.Id_Simulacao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Identificacao", Param.Identificacao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo", Param.Tipo);
-                if (!String.IsNullOrEmpty(Param.Validade_Inicio) )
+                if (!String.IsNullOrEmpty(Param.Validade_Inicio))
                 {
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Inicio", Param.Validade_Inicio.ConvertToDatetime());
                 }
-                if (! String.IsNullOrEmpty( Param.Validade_Termino) )
+                if (!String.IsNullOrEmpty(Param.Validade_Termino))
                 {
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Termino", Param.Validade_Termino.ConvertToDatetime());
                 }
@@ -800,7 +798,7 @@ namespace PROPOSTA
                 SqlDataAdapter Adp = new SqlDataAdapter();
                 Adp.SelectCommand = cmd;
                 Adp.Fill(dtb);
-                if (dtb.Rows.Count>0)
+                if (dtb.Rows.Count > 0)
                 {
                     Retorno = dtb.Rows[0]["Assinatura"].ToString();
                 }
@@ -861,7 +859,7 @@ namespace PROPOSTA
                 SqlDataAdapter Adp = new SqlDataAdapter();
                 Adp.SelectCommand = cmd;
                 Adp.Fill(dtb);
-                foreach (DataRow drw  in dtb.Rows)
+                foreach (DataRow drw in dtb.Rows)
                 {
                     Critica.Add(drw["Critica"].ToString());
                 }

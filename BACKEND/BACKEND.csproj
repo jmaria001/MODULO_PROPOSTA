@@ -255,6 +255,9 @@
     <Compile Include="PDF\ImpressaoSimulacao.cs" />
     <Compile Include="PDF\ImpressaoMidia.cs" />
     <Compile Include="SIMLIB\PDFLIB.cs" />
+    <Compile Include="Negociacao\NegociacaoController.cs" />
+    <Compile Include="Negociacao\NegociacaoModel.cs" />
+    <Compile Include="Negociacao\NegociacaoSql.cs" />
     <Compile Include="TipoComecial\TipoComercialController.cs" />
     <Compile Include="TipoComecial\TipoComercialModel.cs" />
     <Compile Include="TipoComecial\TipoComercialSql.cs" />

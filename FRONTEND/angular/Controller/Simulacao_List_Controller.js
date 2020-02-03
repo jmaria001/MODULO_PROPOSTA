@@ -7,6 +7,9 @@
                             { 'title': 'Id', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Identificação', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Emp.Venda', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+                            { 'title': 'Agência', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+                            { 'title': 'Cliente', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+                            { 'title': 'Contato', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Período Inicio', 'visible': true, 'searchable': false, 'config': true, 'sortable': true },
                             { 'title': 'Valor Tabela', 'visible': true, 'searchable': false, 'config': true, 'sortable': true },
                             { 'title': 'Valor Negociado', 'visible': true, 'searchable': false, 'config': true, 'sortable': true },
@@ -15,6 +18,7 @@
                             { 'title': 'Status', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Delete', 'visible': true, 'searchable': false, 'config': false, 'sortable': false }
     ];
+    $scope.MesAnoKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
     //====================Check se é Simulacao ou Proposta
     if ($rootScope.routeId == 'Proposta@Index') {
         $scope.Processo = 'P'
@@ -34,17 +38,15 @@
             localStorage.removeItem('SimulacaoFilter');
         }
         return {
+            'Id_Simulacao': '',
             'Id_Status': '',
             'Validade_Inicio': '',
             'Validade_Termino': '',
             'Cod_Empresa_Venda': '',
             'Nome_Empresa_Venda': '',
-            'Cod_Agencia': '',
-            'Nome_Agencia': '',
-            'Cod_Cliente': '',
-            'Nome_Cliente': '',
-            'Cod_Contato': '',
-            'Nome_Contato': '',
+            'Agencia': '',
+            'Cliente': '',
+            'Contato': '',
         }
     }
 
@@ -98,14 +100,15 @@
         $scope.CurrentShow = '';
         $('#dataTable').dataTable().fnDestroy();
         var _url = 'ListSimulacao';
-        _url += '?Processo=' + $scope.Processo;
+        _url += '?Id_Simulacao=' + pFiltro.Id_Simulacao;
+        _url += '&Processo=' + $scope.Processo;
         _url += '&Id_Status=' + pFiltro.Id_Status;
         _url += '&Validade_Inicio=' + pFiltro.Validade_Inicio;
         _url += '&Validade_Termino=' + pFiltro.Validade_Termino;
         _url += '&Cod_Empresa_Venda=' + pFiltro.Cod_Empresa_Venda;
-        _url += '&Cod_Agencia=' + pFiltro.Cod_Agencia;
-        _url += '&Cod_Cliente=' + pFiltro.Cod_Cliente;
-        _url += '&Cod_Contato=' + pFiltro.Cod_Contato;
+        _url += '&Agencia=' + pFiltro.Agencia;
+        _url += '&Cliente=' + pFiltro.Cliente;
+        _url += '&Contato=' + pFiltro.Contato;
         _url += '&';
         httpService.Get(_url).then(function (response) {
             if (response) {

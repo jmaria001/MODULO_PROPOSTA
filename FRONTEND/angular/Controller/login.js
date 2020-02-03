@@ -7,6 +7,9 @@ angular.module('App').controller('loginController', ['$scope', '$rootScope', 'to
         $rootScope.Mensagens = [];
         $rootScope.UserData = {};
         $location.path("/login");
+        for (key in localStorage) {
+            delete localStorage[key];
+        }
     };
     
     $scope.setLogin = function (user) {
@@ -25,20 +28,6 @@ angular.module('App').controller('loginController', ['$scope', '$rootScope', 'to
                     ShowAlert($rootScope.App_Erro, 'warning', 2000, 'topRight')
                     _valido=false
                 } 
-
-                //var _valido = true;
-                //var _Error = "";
-                //if (!response) {
-                //    _valido = false;
-                //    ShowAlert('Login/Senha Invalidos', 'warning', 2000, 'topRight')
-                //    return;
-                //}
-                //else {
-                //    if (response.status != 200) {
-                //        _valido = false;
-                //        _error = response.data.error;
-                //    }
-                //}
                 if (_valido == true) {
                     tokenApi.setToken('oAuth_token', response.data['access_token']);
                     $rootScope.Islogged = true;

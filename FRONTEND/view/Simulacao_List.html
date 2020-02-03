@@ -16,6 +16,13 @@
             </div>
                 <div class="row">
                     <!--==================Status-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x" for="txtIdSimulacao">#ID</label>
+                            <input type="text" id="txtIdSimulacao" class="form-control" ng-model="Filtro.Id_Simulacao" maxlength="6" onkeypress="return NumericOnly(event)" ng-model-options="{updateOn: 'blur'}" />
+                        </div>
+                    </div>
+                    <!--==================Status-->
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="field-x" for="txtFiltroStatus">Status</label>
@@ -28,18 +35,19 @@
                     </div>
                     <!--==============================================Validade Inicio-->
                     <div class="col-md-3">
-                        <div class="dictionary" dictionary="Data" caption="Início Validade">
+                        <div class="dictionary" dictionary="Competencia" caption="Periodo Inicial">
                             <input ng-model="Filtro.Validade_Inicio"
-                                   ui-date ng-model-options="{updateOn: 'blur'}">
-                            <div class="dictionary-ui-calendar" ui-calendar typdate="Filtro.Validade_Inicio"></div>
+                                   ui-MesAno ng-model-options="{updateOn: 'blur'}" />
+                            <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Validade_Inicio" params="MesAnoKeys"></div>
                         </div>
                     </div>
+
                     <!--==============================================Validade Termino-->
                     <div class="col-md-3">
-                        <div class="dictionary" dictionary="Data" caption="Término Validade">
+                        <div class="dictionary" dictionary="Competencia" caption="Periodo Final">
                             <input ng-model="Filtro.Validade_Termino"
-                                   ui-date ng-model-options="{updateOn: 'blur'}">
-                            <div class="dictionary-ui-calendar" ui-calendar typdate="Filtro.Validade_Termino"></div>
+                                   ui-MesAno ng-model-options="{updateOn: 'blur'}" />
+                            <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Validade_Termino" params="MesAnoKeys"></div>
                         </div>
                     </div>
                 </div>
@@ -55,7 +63,7 @@
                                    secondarybind="txtNomeEmpresa">
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="txtNomeEmpresa" class="field-x" style="visibility:hidden">..</label>
                             <div class="input-group">
@@ -65,75 +73,40 @@
                     </div>
 
                     <!--==============================================Agencia-->
-                    <div class="col-md-2" ng-controller="dictionaryController">
-                        <div class="dictionary" dictionary="Agencia">
-                            <input id="txtCodAgencia"
-                                   ng-model="Filtro.Cod_Agencia"
-                                   ng-model-options="{updateOn: 'blur'}"
-                                   ng-change="DicionaryValidate('txtCodAgencia')"
-                                   primarybind="txtCodAgencia"
-                                   secondarybind="txtNomeAgencia">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5" ng-controller="dictionaryController">
                         <div class="form-group">
-                            <label for="txtNomeAgencia" class="field-x" style="visibility:hidden">..</label>
-                            <div class="input-group">
-                                <input type="text"
-                                       maxlength="50"
-                                       id="txtNomeAgencia"
-                                       class="form-control"
-                                       ng-disabled="true"
-                                       ng-model="Filtro.Nome_Agencia">
-                            </div>
+                            <label class="field-x" for=" txtAgencia">Agência</label>
+                            <input id="txtAgencia"
+                                   class="form-control"
+                                   ng-model="Filtro.Agencia"
+                                   placeholder="Digite parte do nome da agência"
+                                   ng-model-options="{updateOn: 'blur'}" />
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <!--==============================================Cliente-->
-                    <div class="col-md-2" ng-controller="dictionaryController">
-                        <div class="dictionary" dictionary="Cliente">
-                            <input id="txtCodCliente"
-                                   maxlength="50"
-                                   ng-model="Filtro.Cod_Cliente"
-                                   ng-model-options="{updateOn: 'blur'}"
-                                   ng-change="DicionaryValidate('txtCodCliente')"
-                                   primarybind="txtCodCliente"
-                                   secondarybind="txtNomeCliente">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5" ng-controller="dictionaryController">
                         <div class="form-group">
-                            <label for="txtNomeCliente" class="field-x" style="visibility:hidden">Razao Social</label>
-                            <div class="input-group">
-                                <input type="text"
-                                       ng-disabled="true"
-                                       id="txtNomeCliente"
-                                       class="form-control"
-                                       ng-model="Filtro.Nome_Cliente">
-                            </div>
+                            <label class="field-x" for="txtCliente">Cliente</label>
+                            <input id="txtCliente"
+                                   class="form-control"
+                                   ng-model="Filtro.Cliente"
+                                   placeholder="Digite parte do nome do Cliente"
+                                   ng-model-options="{updateOn: 'blur'}" />
                         </div>
                     </div>
                     <!--==============================================Contato-->
-                    <div class="col-md-2" ng-controller="dictionaryController">
-                        <div class="dictionary" dictionary="Contato">
-                            <input id="txtCodContato"
-                                   ng-model="Filtro.Cod_Contato"
-                                   ng-model-options="{updateOn: 'blur'}"
-                                   ng-change="DicionaryValidate('txtCodContato')"
-                                   primarybind="txtCodContato"
-                                   secondarybind="txtNomeContato">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5" ng-controller="dictionaryController">
                         <div class="form-group">
-                            <label for="txtNomeContato" class="field-x" style="visibility:hidden">..</label>
-                            <div class="input-group">
-                                <input type="text" disabled="disabled" id="txtNomeContato" class="form-control " ng-model="Filtro.Nome_Contato" ng-disabled="true">
-                            </div>
+                            <label class="field-x" for="txtContato">Contato</label>
+                            <input id="txtContato"
+                                   class="form-control"
+                                   ng-model="Filtro.Contato"
+                                   placeholder="Digite parte do nome do Contato"
+                                   ng-model-options="{updateOn: 'blur'}" />
                         </div>
                     </div>
-
                 </div>
                 <!--========================Botoes-->
                 <div class="row margin-top-20">
@@ -153,7 +126,10 @@
                         <th></th>
                         <th>Id</th>
                         <th>Identificação</th>
-                        <th>Em.Venda</th>
+                        <th>Emp.Venda</th>
+                        <th>Agencia</th>
+                        <th>Cliente</th>
+                        <th>Contato</th>
                         <th>Período</th>
                         <th>Valor Tabela</th>
                         <th>Valor Negociado</th>
@@ -173,6 +149,9 @@
                         <td style="text-align:center">{{::Simulacao.Id_Simulacao}}</td>
                         <td>{{::Simulacao.Identificacao}}</td>
                         <td style="text-align:center">{{::Simulacao.Cod_Empresa_Venda}}</td>
+                        <td style="text-align:left">{{::Simulacao.Nome_Agencia}}</td>
+                        <td style="text-align:left">{{::Simulacao.Nome_Cliente}}</td>
+                        <td style="text-align:left">{{::Simulacao.Nome_Contato}}</td>
                         <td style="text-align:center ">{{::Simulacao.Periodo}}</td>
                         <td style="text-align:right">{{::Simulacao.Valor_Total_Tabela | currency:"R$ ":2}}</td>
                         <td style="text-align:right">{{::Simulacao.Valor_Total_Negociado | currency:"R$ ":2}}</td>

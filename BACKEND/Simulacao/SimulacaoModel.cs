@@ -204,9 +204,9 @@ namespace PROPOSTA
             public String Cod_Empresa_Venda{ get; set; }
             public String Validade_Inicio { get; set; }
             public String Validade_Termino{ get; set; }
-            public String Cod_Agencia{ get; set; }
-            public String Cod_Cliente{ get; set; }
-            public String Cod_Contato{ get; set; }
+            public String Agencia{ get; set; }
+            public String Cliente{ get; set; }
+            public String Contato{ get; set; }
         }
     }
 }
