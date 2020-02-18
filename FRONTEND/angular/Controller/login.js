@@ -51,7 +51,9 @@ angular.module('App').controller('loginController', ['$scope', '$rootScope', 'to
                     //ShowAlert(_Error, 'warning', 2000,'topRight') 
                 }
             });
-
+            for (key in localStorage) {
+                delete localStorage[key];
+            }
         }
     }
     $scope.CheckCookie = function () {
