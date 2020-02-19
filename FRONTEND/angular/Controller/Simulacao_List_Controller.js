@@ -120,7 +120,7 @@
         });
     };
 
-    //==================== Editacao da Simulacao
+    //==================== Edicao da Simulacao
     $scope.EditarSimulacao = function (pIdSimulacao) {
         $location.path("/SimulacaoCadastro/Edit/" + pIdSimulacao + '/' + $scope.Processo)
     }

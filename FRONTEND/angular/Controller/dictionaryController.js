@@ -87,7 +87,6 @@
     };
 
     $scope.ItemSelectClickId = function (pCodigo, pDescricao, pExtra) {
-        console.log(pExtra);
         $("#modal-Table").modal('toggle');
         $scope.filtrotexto = "";
         $scope.dictionaryTable = undefined;

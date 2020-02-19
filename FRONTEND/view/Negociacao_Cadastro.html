@@ -1,0 +1,101 @@
+﻿<style>
+    .alert-icon span{
+        font-size:20px !important;
+    }
+    div .alert{
+        text-align:center !important;
+    }
+</style>
+
+<div class="container">
+    <form id="frmSimulacao" autocomplete="off">
+        <div class="app-container">
+            <!--================================Dados Base-->
+            <div class="block" id="divDadosBase">
+                <div class="alert alert-warning alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <span class="fa fa-check-circle"></span>
+                    </div>
+                    <strong >Dados Base</strong>
+                </div>
+            </div>
+            <!--================================Terceiros-->
+            <div class="block" id="divTerceiro">
+                <div class="alert alert-info pink alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <span class="fa fa-group"></span>
+                    </div>
+                    <strong >Terceiros</strong>
+                </div>
+            </div>
+            <!--================================Descontos-->
+            <div class="block" id="divDesconto">
+                <div class="alert alert-primary alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <span class="fa fa-calculator"></span>
+                    </div>
+                    <strong class="">Descontos</strong>
+                </div>
+            </div>
+            <!--================================Parcelas-->
+            <div class="block" id="divParcela">
+                <div class="alert alert-success alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <span class="fa fa-calendar"></span>
+                    </div>
+                    <strong >Parcelamento/Adiantamentos</strong>
+                </div>
+            </div>
+            <!--================================Consideracoes-->
+            <div class="block" id="divTexto">
+                <div class="alert alert-danger alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <span class="fa fa-edit"></span>
+                    </div>
+                    <strong >Considerações</strong>
+                </div>
+            </div>
+            <!--========================botoes de acoes-->
+            <div class="fixed-buttons-bottom">
+                <div class="col-md-8">
+                    <button class="btn btn-success btn-sm">Salvar</button>
+                    <button class="btn btn-warning btn-sm">Cancela</button>
+                </div>
+                <div class="col-md-1">
+
+                </div>
+                <div class="col-md-3 pull-right hidden-mobile hidden-sm">
+                    <button class="btn btn-warning btn-sm anchorscroll" target="divDadosBase"><span class="fa fa-check-circle"></span></button>
+                    <button class="btn btn-info btn-sm anchorscroll" target="divTerceiro"><span class="fa fa-group"></span></button>
+                    <button class="btn btn-primary btn-sm anchorscroll" target="divDesconto"><span class="fa fa-calculator"></span></button>
+                    <button class="btn btn-success btn-sm anchorscroll" target="divParcela"> <span class="fa fa-calendar"></span></button>
+                    <button class="btn btn-danger btn-sm anchorscroll" target="divTexto"><span class="fa fa-edit"></span></button>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('.anchorscroll').click(function (e) {
+            var _target = this.getAttribute("target")
+            $('html, body').animate({
+                scrollTop: $('#' + _target).offset().top - 50
+            }, 'slow');
+        });
+
+        $("span[control_group*='icon_group']").click(function (e) {
+            var _group = this.getAttribute("control_group");
+            _group = _group.replace('icon', 'input');
+            var el = document.querySelector('[control_group="' + _group + '"]');
+            if ($(el).is(':disabled')) {
+                event.stopPropagation();
+            };
+        });
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

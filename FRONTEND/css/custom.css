@@ -124,10 +124,6 @@
     font-size: 16px;
 }
 
-/*.btn-primary {
-    background-color: midnightblue !important;
-}*/
-
 .form-group label {
     color: gray;
 }
@@ -377,9 +373,3 @@ input:focus, textarea:focus {
     width:70px;
     line-height:15px !important;
 }
-.table-competencia button:hover
-{
-    /*background-color:black;
-    color:white;*/
-}
-

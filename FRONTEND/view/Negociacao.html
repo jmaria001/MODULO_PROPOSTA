@@ -1,0 +1,190 @@
+﻿<div class="container">
+    <div class="block">
+        <button id="btnNovaNegociacao" class="btn btn-primary" style="display:none" ng-click="NovaNegociacao()">Nova Negociação</button>
+        <button id="btnNovoFiltro" class="btn btn-primary" style="display:none" ng-click="CurrentShow='Filtro'">Novo Filtro</button>
+        <!--==============================================Filtros-->
+        <div class="box" ng-show="CurrentShow=='Filtro'">
+            <div class="alert alert-info alert-icon-block" role="alert">
+                <div class="alert-icon">
+                    <span class="fa fa-filter"></span>
+                </div>
+                <strong>Filtros</strong>
+            </div>
+            <div class="row">
+                <!--==================Negociacao-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x" for="txtNegociacao">Negociação</label>
+                        <input type="text" id="txtIdNegociacao" class="form-control" ng-model="Filtro.Id_Negociacao" maxlength="6" onkeypress="return NumericOnly(event)" ng-model-options="{updateOn: 'blur'}" />
+                    </div>
+                </div>
+                <!--==============================================Validade Inicio-->
+                <div class="col-md-3">
+                    <div class="dictionary" dictionary="Competencia" caption="Periodo Inicial">
+                        <input ng-model="Filtro.Validade_Inicio"
+                               ui-MesAno ng-model-options="{updateOn: 'blur'}" />
+                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Validade_Inicio" params="MesAnoKeys"></div>
+                    </div>
+                </div>
+
+                <!--==============================================Validade Termino-->
+                <div class="col-md-3">
+                    <div class="dictionary" dictionary="Competencia" caption="Periodo Final">
+                        <input ng-model="Filtro.Validade_Termino"
+                               ui-MesAno ng-model-options="{updateOn: 'blur'}" />
+                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Validade_Termino" params="MesAnoKeys"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--==============================================Empresa de Venda-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Venda">
+                        <input id="txtCodEmpresa"
+                               ng-model="Filtro.Cod_Empresa_Venda"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodEmpresa')"
+                               primarybind="txtCodEmpresa"
+                               secondarybind="">
+                    </div>
+                </div>
+                <!--==============================================Empresa de Faturamento-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Faturamento">
+                        <input id="txtCodEmpresaFaturamento"
+                               ng-model="Filtro.Cod_Empresa_Faturamento"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodEmpresa')"
+                               primarybind="txtCodEmpresaFaturamento"
+                               secondarybind="">
+                    </div>
+                </div>
+
+                <!--==============================================Agencia-->
+                <div class="col-md-4" ng-controller="dictionaryController">
+                    <div class="form-group">
+                        <label class="field-x" for=" txtAgencia">Agência</label>
+                        <input id="txtAgencia"
+                               class="form-control"
+                               ng-model="Filtro.Agencia"
+                               placeholder="Digite parte do nome da agência"
+                               ng-model-options="{updateOn: 'blur'}" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--==============================================Cliente-->
+                <div class="col-md-4" ng-controller="dictionaryController">
+                    <div class="form-group">
+                        <label class="field-x" for="txtCliente">Cliente</label>
+                        <input id="txtCliente"
+                               class="form-control"
+                               ng-model="Filtro.Cliente"
+                               placeholder="Digite parte do nome do Cliente"
+                               ng-model-options="{updateOn: 'blur'}" />
+                    </div>
+                </div>
+                <!--==============================================Contato-->
+                <div class="col-md-4" ng-controller="dictionaryController">
+                    <div class="form-group">
+                        <label class="field-x" for="txtContato">Contato</label>
+                        <input id="txtContato"
+                               class="form-control"
+                               ng-model="Filtro.Contato"
+                               placeholder="Digite parte do nome do Contato"
+                               ng-model-options="{updateOn: 'blur'}" />
+                    </div>
+                </div>
+            </div>
+            <!--========================Botoes-->
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <button class="btn btn-success" ng-click="CarregarNegociacao(Filtro)">Filtrar</button>
+                    <button class="btn btn-warning" ng-click="Filtro=NewFiltro()">Limpar Filtros</button>
+                    <button id="btnNovaNegociacao" class="btn btn-primary" ng-click="NovaNegociacao()">Nova Negociação</button>
+                </div>
+            </div>
+        </div>
+
+        <!--==============================================Grid -->
+        <div class="box table-responsive " style="min-height:600px" ng-show="CurrentShow=='Grid'">
+            <table id="dataTable" class="table table-striped table-bordered " cellspacing="0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Negociação</th>
+                        <th>Emp.Venda</th>
+                        <th>Emp.Fat</th>
+                        <th>Período</th>
+                        <th>Tipo de Mídia</th>
+                        <th>Tabela de Preços</th>
+                        <th>Verba Negociada</th>
+                        <th>Realizado Tabela</th>
+                        <th>Realizado Negociado</th>
+                        <th>Desc.Concedido</th>
+                        <th>Desc.Real</th>
+                        <th>Agências</th>
+                        <th>Cientes</th>
+                        <th>Contatos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Negociacao in Negociacoes track by $index" on-finish-render="ngRepeatFinished">
+                        <td style="width:50px;text-align:center">
+                            <a href="#NegociacaoCadastro/Edit/{{::Negociacao.Numero_Negociacao}}" ng-show="PermissaoEdit">
+                                <span class="fa fa-edit fa-2x"></span>
+                            </a>
+                        </td>
+                        <td style="text-align:center">
+                            <a href="#NegociacaoDelhalhe/{{::Negociacao.Numero_Negociacao}}" class="btn btn-default btn-sm">
+                                {{::Negociacao.Numero_Negociacao}}
+                            </a>
+                        </td>
+                        <td>
+                            <label class="label label-default text-left" style="display:grid" ng-repeat="empresa in Negociacao.Empresas_Venda">
+                                {{empresa.Cod_Empresa}} - {{empresa.Nome_Empresa}} 
+                            </label>
+                        </td>
+                        <td>
+                            <label class="label label-default text-left"  style="display:grid" ng-repeat="empresa in Negociacao.Empresas_Faturamento">
+                                {{empresa.Cod_Empresa}} - {{empresa.Nome_Empresa}}
+                            </label>
+                        </td>
+
+                        <td style="text-align:left;white-space:nowrap">{{Negociacao.Competencia_Inicial}} a {{Negociacao.Competencia_Final}}</td>
+                        <td style="text-align:left">{{::Negociacao.Cod_Tipo_Midia}}</td>
+                        <td style="text-align:left">{{::Negociacao.Tabela_Preco}}</td>
+                        <td style="text-align:right;white-space:nowrap">{{::Negociacao.Verba_Negociada| currency:"R$ ":2}}</td>
+                        <td style="text-align:right;white-space:nowrap">{{::Negociacao.Valor_Tabela|currency:"R$ ":2}}</td>
+                        <td style="text-align:right;white-space:nowrap">{{::Negociacao.Valor_Negociado|currency:"R$ ":2}}</td>
+                        <td style="text-align:left">{{Negociacao.Desconto_Concedido | percentage:4}}</td>
+                        <td style="text-align:left">{{Negociacao.Desconto_Real | percentage:4}}</td>
+                        <td>
+                            <label class="label label-default text-left" style="display:grid" ng-repeat="agencia in Negociacao.Agencias">
+                                {{agencia.Cod_Agencia}} - {{agencia.Nome_Agencia}}
+                            </label>
+                        </td>
+                        <td>
+                            <label class="label label-default text-left" style="display:grid" ng-repeat="Cliente in Negociacao.Clientes">
+                                {{Cliente.Cod_Cliente}} - {{Cliente.Nome_Cliente}}
+                            </label>
+                        </td>
+                        <td>
+                            <label class="label label-default text-left" style="display:grid" ng-repeat="Contato in Negociacao.Contatos">
+                                {{Contato.Cod_Contato}} - {{Contato.Nome_Contato}}
+                            </label>
+                        </td>
+                        
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

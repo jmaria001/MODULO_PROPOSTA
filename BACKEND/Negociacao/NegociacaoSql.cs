@@ -44,6 +44,7 @@ namespace PROPOSTA
                         Forma_Pgto = drw["Forma_Pgto"].ToString(),
                         Tabela_Preco = drw["Tabela_Preco"].ToString(),
                         Verba_Negociada = drw["Verba_Negociada"].ToString().ConvertToDouble(),
+                        Desconto_Concedido= drw["Desconto_Concedido"].ToString().ConvertToDouble(),
                         Valor_Tabela = drw["Valor_Tabela"].ToString().ConvertToDouble(),
                         Valor_Negociado = drw["Valor_Negociado"].ToString().ConvertToDouble(),
                         Empresas_Venda = AddEmpresaVenda(drw["Numero_Negociacao"].ToString().ConvertToInt32()),

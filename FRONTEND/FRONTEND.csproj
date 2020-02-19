@@ -104,6 +104,7 @@
     <Content Include="angular\Controller\CondPgtoController.js" />
     <Content Include="angular\Controller\EmpresaCadastroController.js" />
     <Content Include="angular\Controller\EmpresaController.js" />
+    <Content Include="angular\Controller\NegociacaoDetalheController.js" />
     <Content Include="angular\Controller\MotivoAlterNegocController.js" />
     <Content Include="angular\Controller\MotivoAlterNegocCadastroController.js" />
     <Content Include="angular\Controller\PacoteCadastroController.js" />
@@ -113,6 +114,7 @@
     <Content Include="angular\Controller\RegraAprovacao_Controller.js" />
     <Content Include="angular\Controller\RegraAprovacaoCadastro_Controller.js" />
     <Content Include="angular\Controller\PendenciaAprovacao_Controller.js" />
+    <Content Include="angular\Controller\NegociacaoController.js" />
     <Content Include="angular\Controller\Simulacao_List_Controller.js" />
     <Content Include="angular\Controller\dictionaryController.js" />
     <Content Include="angular\Controller\TipoComercialCadastroController.js" />
@@ -203,6 +205,9 @@
     <Content Include="view\Mercado.html" />
     <Content Include="view\MotivoAlterNegoc.html" />
     <Content Include="view\MotivoAlterNegocCadastro.html" />
+    <Content Include="view\NegociacaoDetalhe.html" />
+    <Content Include="view\Negociacao.html" />
+    <Content Include="view\Negociacao_Cadastro.html" />
     <Content Include="view\PendenciaAprovacao.html" />
     <Content Include="view\PropostaPendenteAprovacao.html" />
     <Content Include="view\RegraAprovacao_Cadastro.html" />

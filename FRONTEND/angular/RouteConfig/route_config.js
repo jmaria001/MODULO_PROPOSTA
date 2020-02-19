@@ -276,6 +276,27 @@
             routeName: 'Regra de Aprovação de Desconto',
             RouteId: 'Pacote@New'
         })
+        .when('/Negociacao', {
+            templateUrl: 'view/Negociacao.html',
+            controller: 'NegociacaoController',
+            authorize: true,
+            routeName: 'Negociacoes',
+            RouteId: 'Negociacao@Index'
+        })
+        .when('/NegociacaoCadastro/:Action/:Id', {
+            templateUrl: 'view/UnderConstrution.html',
+            //controller: 'PacoteCadastroController',
+            //authorize: true,
+            routeName: '',
+            RouteId: ''
+        })
+        .when('/NegociacaoDelhalhe/:Id', {
+            templateUrl: 'view/NegociacaoDetalhe.html',
+            controller: 'NegociacaoDetalheController',
+            //authorize: true,
+            routeName: 'Mapas Reservas da Negociação',
+            RouteId: ''
+        })
     .otherwise({ redirectTo: "/blank" })
 
 });
