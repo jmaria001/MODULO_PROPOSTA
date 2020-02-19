@@ -552,7 +552,7 @@
                 httpService.Get("MostrarAprovadores/" + pId_Simulacao).then(function (response) {
                     if (response.data) {
                         for (var i = 0; i < response.data.length; i++) {
-                            var _urlMobile = $rootScope.mobileUrl + "anotificacaoenvia.aspx?" + response.data[i].Login_Aprovador + ',' + pId_Simulacao.toString();
+                            var _urlMobile = $rootScope.mobileUrl + "anotificacaoenvia.aspx?" + response.data[i].Login_Aprovador + ',' + pId_Simulacao.toString()+',0';
                             httpService.MobileGet(_urlMobile).then(function (response) {
                             });
                         };
