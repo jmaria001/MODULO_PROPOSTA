@@ -262,5 +262,35 @@ namespace PROPOSTA
             }
             return dtb;
         }
+        public NegociacaoCountModel NegociacaoContar()
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            NegociacaoCountModel Retorno = new NegociacaoCountModel();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Negociacao_Contar");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.Fill(dtb);
+                if (dtb.Rows.Count>0)
+                {
+                    Retorno.Qtd_Negociacao = dtb.Rows[0]["Qtd_Negociacao"].ToString().ConvertToInt32();
+                    Retorno.Qtd_Proposta = dtb.Rows[0]["Qtd_Proposta"].ToString().ConvertToInt32();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Retorno;
+        }
     }
 }

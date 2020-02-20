@@ -79,5 +79,10 @@ namespace PROPOSTA
             public String Cliente { get; set; }
             public String Contato { get; set; }
         }
+        public class NegociacaoCountModel
+        {
+            public Int32 Qtd_Proposta{ get; set; }
+            public Int32 Qtd_Negociacao{ get; set; }
+        }
     }
 }

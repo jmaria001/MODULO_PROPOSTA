@@ -47,6 +47,26 @@ namespace PROPOSTA
             }
         }
 
+        [Route("api/Negociacao/Contar")]
+        [HttpGet]
+        [ActionName("NegociacaoContar")]
+        [Authorize()]
+        public IHttpActionResult NegociacaoContar()
+        {
+            SimLib clsLib = new SimLib();
+            Negociacao Cls = new Negociacao(User.Identity.Name);
+            try
+            {
+                 Negociacao.NegociacaoCountModel Retorno = Cls.NegociacaoContar();
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
     }
 }
 
