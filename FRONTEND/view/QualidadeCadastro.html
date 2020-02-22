@@ -1,0 +1,158 @@
+﻿<div class="container">
+    <form name="frmQualidadeCadastro" autocomplete="off">
+        <div class="block">
+            <div id="divDados" ng-show="currentTab=='Dados'">
+                <div class="row">
+                    <!--===================Codigo-->
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label class="field-x fieldrequired">Código</label>
+                            <input type="text"
+                                   style="text-transform:uppercase"
+                                   name="txtCod_Qualidade"
+                                   ng-required="true"
+                                   ng-model="Qualidade.Cod_Qualidade"
+                                   class="form-control"
+                                   ng-disabled="Parameters.Action=='Edit'"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   maxlength="3" />
+                        </div>
+                    </div>
+                    <!--===================Descricao-->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="field-x fieldrequired">Descricao</label>
+                            <input id="txtNome" type="text" size="50" name="txtDescricao" class="form-control" style="text-transform:uppercase" ng-model="Qualidade.Descricao" maxlength="30" ng-required="true" />
+                        </div>
+                    </div>
+                    <!--============================Codigo Motivo-->
+                    <div class="col-md-2  " ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Motivo_Falha">
+                            <input id="txtCod_Motivo_Falha"
+                                   ng-model="Qualidade.Cod_Motivo_Falha"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCod_Motivo_Falha')"
+                                   primarybind="txtCod_Motivo_Falha"
+                                   secondarybind="txtDescricao_Motivo">
+                        </div>
+                    </div>
+                    <!--===================Descricao Motivo-->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="txtDescricao_Motivo" class="field-x" style="visibility:hidden">..</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtDescricao_Motivo" class="form-control " ng-model="Qualidade.Descricao_Motivo">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--===================Horario-->
+                    <div class="col-md-3 margin-top-20">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Qualidade.Indica_Horario" />Horario<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--===================Calculo-->
+                    <div class="col-md-3 margin-top-20">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Qualidade.Indica_Calculo" />Calculo<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--===================CE-->
+                    <div class="col-md-3 margin-top-20">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Qualidade.Indica_Comprovante" />CE<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--===================Roteiro-->
+                    <div class="col-md-3 margin-top-20">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Qualidade.Indica_Roteiro" />Roteiro<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--===================Am-->
+                    <div class="col-md-3 margin-top-20">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Qualidade.Indica_Am" />Am<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--===================Am Futuro-->
+                    <div class="col-md-3 margin-top-20" >
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Qualidade.Indica_Am_Futuro" />Am Futuro<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--===================Demanda-->
+                    <div class="col-md-3 margin-top-20">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Qualidade.Indica_Demanda" />Demanda<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--===================CCW-->
+                    <div class="col-md-3 margin-top-20">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Qualidade.Indica_CCW" />CCW<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divBotoes">
+                <div class="row">
+                    <!--===================Botoes-->
+                    <div class="row margin-top-50">
+                        <div class="col-md-12">
+                            <button class="btn btn-success" ng-click="SalvarQualidade(Qualidade)"
+                                    ng-disabled="frmQualidadeCadastro.$invalid">
+                                Salvar
+                            </button>
+                            <button class="btn btn-danger" ng-click="ExcluirQualidade(Qualidade) ">Excluir</button>
+                            <a href="#Qualidade" class="btn btn-warning">Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

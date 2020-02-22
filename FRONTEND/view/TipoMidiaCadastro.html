@@ -1,0 +1,75 @@
+﻿<div class="container">
+    <form name="frmTipoMidiaCadastro" autocomplete="off">
+        <div class="block">
+            <div class="row">
+                <!--===================Codigo-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="fieldrequired">Código</label>
+                        <input type="text"
+                               name="txtCod_Tipo_Midia"
+                               ng-required="true"
+                               ng-model="TipoMidia.Cod_Tipo_Midia"
+                               class="form-control"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="6" />
+                    </div>
+                </div>
+                <!--===================Descricao-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired">Descricao</label>
+                        <input type="text" name="txtDescricao" class="form-control" ng-model="TipoMidia.Descricao" maxlength="30" ng-required="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================Fatura Antecipada-->
+                <div class="col-md-2 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="TipoMidia.Fatura_Antecipada" />Fatura Antecipada<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================Gera Receita-->
+                <div class="col-md-2 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="TipoMidia.Gera_Receita" />Gera Receita<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Botoes-->
+                <div class="row margin-top-20">
+                    <div class="col-md-12">
+                        <button class="btn btn-success" ng-click="SalvarTipoMidia(TipoMidia)"
+                                ng-disabled="frmTipoMidiaCadastro.$invalid">
+                            Salvar
+                        </button>
+                        <!-- <button class="btn btn-danger" ng-click="ExcluirTipoComercial(TipoComercial)" ng-show="PermissaoExcluir">Excluir</button>-->
+                        <!--<button class="btn btn-danger" ng-disabled="!PermissaoDestroy" ng-click="ExcluirMercado(Mercado) ">Excluir</button>-->
+                        <button class="btn btn-danger" ng-click="excluirtipomidia(TipoMidia) ">Excluir</button>
+                        <a href="#TipoMidia" class="btn btn-warning">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+        $(document).ready(function () {
+            GetDictionary();
+        });
+</script>

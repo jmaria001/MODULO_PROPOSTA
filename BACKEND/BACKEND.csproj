@@ -210,6 +210,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Logos\logo_padrao.png" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -239,12 +240,18 @@
     <Compile Include="CondPgto\CondPgtoController.cs" />
     <Compile Include="CondPgto\CondPgtoModel.cs" />
     <Compile Include="CondPgto\CondPgtoSql.cs" />
+    <Compile Include="Contato\ContatoController.cs" />
+    <Compile Include="Contato\ContatoModel.cs" />
+    <Compile Include="Contato\ContatoSql.cs" />
     <Compile Include="Empresa\EmpresaController.cs" />
     <Compile Include="Empresa\EmpresaModel.cs" />
     <Compile Include="Empresa\EmpresaSql.cs" />
     <Compile Include="MotivoAlterNegoc\MotivoAlterNegocController.cs" />
     <Compile Include="MotivoAlterNegoc\MotivoAlterNegocModel.cs" />
     <Compile Include="MotivoAlterNegoc\MotivoAlterNegocSql.cs" />
+    <Compile Include="MotivoFalha\MotivoFalhaController.cs" />
+    <Compile Include="MotivoFalha\MotivoFalhaModel.cs" />
+    <Compile Include="MotivoFalha\MotivoFalhaSql.cs" />
     <Compile Include="PacoteDesconto\PacoteDescontoController.cs" />
     <Compile Include="PacoteDesconto\PacoteDescontoModel.cs" />
     <Compile Include="PacoteDesconto\PacoteDecontoSql.cs" />
@@ -254,6 +261,9 @@
     <Compile Include="PDF\ImpressaoProposta.cs" />
     <Compile Include="PDF\ImpressaoSimulacao.cs" />
     <Compile Include="PDF\ImpressaoMidia.cs" />
+    <Compile Include="Qualidade\QualidadeController.cs" />
+    <Compile Include="Qualidade\QualidadeModel.cs" />
+    <Compile Include="Qualidade\QualidadeSql.cs" />
     <Compile Include="SIMLIB\PDFLIB.cs" />
     <Compile Include="Negociacao\NegociacaoController.cs" />
     <Compile Include="Negociacao\NegociacaoModel.cs" />
@@ -264,6 +274,9 @@
     <Compile Include="RegraAprovacao\RegraAprovacaoController.cs" />
     <Compile Include="RegraAprovacao\RegraAprovacaoModel.cs" />
     <Compile Include="RegraAprovacao\RegraAprovacaoSql.cs" />
+    <Compile Include="TipoMidia\TipoMidiaController.cs" />
+    <Compile Include="TipoMidia\TipoMidiaModel.cs" />
+    <Compile Include="TipoMidia\TipoMidiaSql.cs" />
     <Compile Include="Veiculo\VeiculoController.cs" />
     <Compile Include="Veiculo\VeiculoModel.cs" />
     <Compile Include="Veiculo\VeiculoSql.cs" />

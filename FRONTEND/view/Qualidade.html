@@ -1,0 +1,67 @@
+﻿<div class="container">
+    <div class="block table-responsive" ng-show="ShowGrid">
+        <!--===================================Botoes-->
+        <a id="btnNovaQualidade" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#QualidadeCadastro/New/0">Nova Qualidade</a>
+
+        <button id="ExportReporttoExcel" class="btn btn-warning" ng-show="Qualidade.length > 0">Exportar Excel</button>
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Codigo</th>
+                        <th>Descrição</th>
+                        <th>Descrição Motivo</th>
+                        <th>Horário</th>
+                        <th>Cálculo</th>
+                        <th>CE</th>
+                        <th>Roteiro</th>
+                        <th>Am</th>
+                        <th>Demanda</th>
+                        <th>CCW</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Qualidade in Qualidades track by $index" on-finish-render="ngRepeatFinished()">
+                        <td style="width:50px;text-align:center">
+                            <a href="#QualidadeCadastro/Edit/{{Qualidade.Cod_Qualidade.trim()}}" ng-show="PermissaoEdit">
+                                <span class="fa fa-edit fa-2x"></span>
+                            </a>
+                        </td>
+                        <td>{{::Qualidade.Cod_Qualidade}}</td>
+                        <td>{{::Qualidade.Descricao}}</td>
+                        <td>{{::Qualidade.Descricao_Motivo}}</td>
+                        <td>
+                            <input type="checkbox" ng-model="Qualidade.Indica_Horario" />
+                        </td>
+                        <td>
+                            <input type="checkbox" ng-model="Qualidade.Indica_Calculo" />
+                        </td>
+                        <td>
+                            <input type="checkbox" ng-model="Qualidade.Indica_Comprovante" />
+                        </td>
+                        <td>
+                            <input type="checkbox" ng-model="Qualidade.Indica_Roteiro" />
+                        </td>
+                        <td style="text-align:left">
+                            <input type="checkbox" ng-model="Qualidade.Indica_Am" />
+                        </td>
+                        <td>
+                            <input type="checkbox" ng-model="Qualidade.Indica_Demanda" />
+                        </td>
+                        <td>
+                            <input type="checkbox" ng-model="Qualidade.Indica_CCW" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

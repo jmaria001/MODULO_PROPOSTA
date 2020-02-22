@@ -102,8 +102,12 @@
     <Content Include="angular\Controller\CategoriaClienteController.js" />
     <Content Include="angular\Controller\CondPgtoCadastroController.js" />
     <Content Include="angular\Controller\CondPgtoController.js" />
+    <Content Include="angular\Controller\ContatoCadastroController.js" />
+    <Content Include="angular\Controller\ContatoController.js" />
     <Content Include="angular\Controller\EmpresaCadastroController.js" />
     <Content Include="angular\Controller\EmpresaController.js" />
+    <Content Include="angular\Controller\MotivoFalhaCadastroController.js" />
+    <Content Include="angular\Controller\MotivoFalhaController.js" />
     <Content Include="angular\Controller\NegociacaoDetalheController.js" />
     <Content Include="angular\Controller\MotivoAlterNegocController.js" />
     <Content Include="angular\Controller\MotivoAlterNegocCadastroController.js" />
@@ -111,6 +115,8 @@
     <Content Include="angular\Controller\MercadoCadastroController.js" />
     <Content Include="angular\Controller\PacoteDesconto_List_Controller.js" />
     <Content Include="angular\Controller\MercadoController.js" />
+    <Content Include="angular\Controller\QualidadeCadastroController.js" />
+    <Content Include="angular\Controller\QualidadeController.js" />
     <Content Include="angular\Controller\RegraAprovacao_Controller.js" />
     <Content Include="angular\Controller\RegraAprovacaoCadastro_Controller.js" />
     <Content Include="angular\Controller\PendenciaAprovacao_Controller.js" />
@@ -119,7 +125,10 @@
     <Content Include="angular\Controller\dictionaryController.js" />
     <Content Include="angular\Controller\TipoComercialCadastroController.js" />
     <Content Include="angular\Controller\TipoComercialController.js" />
+    <Content Include="angular\Controller\TipoMidiaCadastroController.js" />
+    <Content Include="angular\Controller\TipoMidiaController.js" />
     <Content Include="angular\Controller\UsuarioController.js" />
+    <Content Include="angular\Controller\MenuCadastroController.js" />
     <Content Include="angular\Controller\VeiculoController.js" />
     <Content Include="angular\Filter\AppFilter.js" />
     <Content Include="images\Background.jpg" />
@@ -202,9 +211,12 @@
     <Content Include="view\dashboard.html" />
     <Content Include="view\Empresa.html" />
     <Content Include="view\EmpresaCadastro.html" />
+    <Content Include="view\menuCadastro.html" />
     <Content Include="view\Mercado.html" />
     <Content Include="view\MotivoAlterNegoc.html" />
     <Content Include="view\MotivoAlterNegocCadastro.html" />
+    <Content Include="view\MotivoFalha.html" />
+    <Content Include="view\MotivoFalhaCadastro.html" />
     <Content Include="view\NegociacaoDetalhe.html" />
     <Content Include="view\Negociacao.html" />
     <Content Include="view\Negociacao_Cadastro.html" />

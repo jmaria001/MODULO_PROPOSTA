@@ -1,0 +1,55 @@
+﻿<div class="container">
+    <form name="frmMotivoFalhaCadastro" autocomplete="off">
+        <div class="block">
+
+            <!--=================================Campos-->
+            <div class="row">
+                <!--=======Codigo-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="fieldrequired">Código</label>
+                        <input type="text"
+                               name="txtCodMotivoFalha"
+                               ng-required="true"
+                               ng-model="MotivoFalha.Cod_Motivo_Falha"
+                               class="form-control"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="3"
+                               style="text-transform:uppercase" />
+                    </div>
+                </div>
+                <!--======Descrição-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="fieldrequired">Descrição</label>
+                        <input type="text" name="txtDescricao" class="form-control" ng-model="MotivoFalha.Descricao" maxlength="30" ng-required="true" style="text-transform:uppercase" />
+                    </div>
+                </div>
+            </div>
+
+
+            <!--========================================Botoes-->
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <button class="btn btn-success" ng-click="SalvarMotivoFalha(MotivoFalha)" ng-disabled="frmMotivoFalhaCadastro.$invalid">Salvar</button>
+                    <button class="btn btn-danger" ng-click="ExcluirMotivoFalha(MotivoFalha)" ng-disabled="frmMotivoFalhaCadastro.$invalid">Excluir</button>
+                    <button class="btn btn-info" ng-show="MotivoFalha.Indica_Desativado" ng-click="DesativarReativarMotivoFalha(MotivoFalha.Cod_Motivo_Falha,'R')" ng-disabled="frmMotivoFalhaCadastro.$invalid">Reativar</button>
+                    <button class="btn btn-info" ng-show="!MotivoFalha.Indica_Desativado" ng-click="DesativarReativarMotivoFalha(MotivoFalha.Cod_Motivo_Falha,'D')" ng-disabled="frmMotivoFalhaCadastro.$invalid">Desativar</button>
+                    <a href="#MotivoFalha" class="btn btn-warning">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
+
+
+

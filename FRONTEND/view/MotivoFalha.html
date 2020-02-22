@@ -1,0 +1,45 @@
+﻿<div class="container">
+    <div class="block table-responsive" ng-show="ShowGrid">
+        <!--===================================Botoes-->                    
+        <a id="btnNovoMotivoFalha" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#MotivoFalhaCadastro/New/0">Novo Motivo Falha</a>
+        <button id="ExportReporttoExcel" class="btn btn-warning" ng-disabled="MotivoFalhas.length==0">Exportar Excel</button>
+
+        <!--===================================Grid-->
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Código</th>
+                        <th>Descrição</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="MotivoFalha in MotivoFalhas track by $index" on-finish-render="ngRepeatFinished()">
+                        <td style="width:50px; text-align:center">
+                            <a href="#MotivoFalhaCadastro/Edit/{{MotivoFalha.Cod_Motivo_Falha}}" ng-show="PermissaoEdit">
+                                <span class="fa fa-edit fa-2x"></span>
+                            </a>
+                        </td>
+                        <td>{{::MotivoFalha.Cod_Motivo_Falha}}</td>
+                        <td>{{::MotivoFalha.Descricao}}</td>
+                        <td>
+                            <label ng-show="!MotivoFalha.Indica_Desativado" class="label label-success">Ativo</label>
+                            <label ng-show="MotivoFalha.Indica_Desativado" class="label label-danger">Inativo</label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>
+
+

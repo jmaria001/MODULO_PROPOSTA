@@ -56,6 +56,13 @@
             routeName: 'Dashboard',
             RouteId: 0
         })
+        .when('/cadastro', {
+            templateUrl: 'view/MenuCadastro.html',
+            controller: 'MenuCadastroController',
+            authorize: true,
+            routeName: 'Portal de Cadastros',
+            RouteId: 0
+        })
         .when('/CondPgto', {
             templateUrl: 'view/CondPgto.html',
             authorize: true,
@@ -198,6 +205,66 @@
             RouteId: 'MotivoAlterNegoc@New'
         })
 
+                .when('/MotivoFalha', {
+                    templateUrl: 'view/MotivoFalha.html',
+                    authorize: true,
+                    controller: 'MotivoFalhaController',
+                    routeName: 'Cadastro de Motivo de Falha',
+                    RouteId: 'MotivoFalha@Index'
+                })
+        .when('/MotivoFalhaCadastro/:Action/:Id', {
+            templateUrl: 'view/MotivoFalhaCadastro.html',
+            authorize: true,
+            controller: 'MotivoFalhaCadastroController',
+            routeName: 'Inclusão de Motivo de Falha',
+            RouteId: 'MotivoFalha@New'
+        })
+                .when('/TipoMidia', {
+                    templateUrl: 'view/TipoMidia.html',
+                    authorize: true,
+                    controller: 'TipoMidiaController',
+                    routeName: 'Cadastro de Tipo Midia',
+                    RouteId: 'TipoMidia@Index'
+                })
+
+        .when('/TipoMidiaCadastro/:Action/:Id', {
+            templateUrl: 'view/TipoMidiaCadastro.html',
+            authorize: true,
+            controller: 'TipoMidiaCadastroController',
+            routeName: 'Inclusao de Tipo Midia',
+            RouteId: 'TipoMidia@New'
+        })
+           .when('/Contato', {
+               templateUrl: 'view/Contato.html',
+               authorize: true,
+               controller: 'ContatoController',
+               routeName: 'Cadastro de Contato',
+               RouteId: 'Contato@Index'
+           })
+
+        .when('/ContatoCadastro/:Action/:Id', {
+            templateUrl: 'view/ContatoCadastro.html',
+            authorize: true,
+            controller: 'ContatoCadastroController',
+            routeName: 'Inclusao de Contato',
+            RouteId: 'ContatoCadastro@New'
+        })
+
+        .when('/Qualidade', {
+            templateUrl: 'view/Qualidade.html',
+            authorize: true,
+            controller: 'QualidadeController',
+            routeName: 'Cadastro de Qualidade',
+            RouteId: 'Qualidade@Index'
+        })
+
+        .when('/QualidadeCadastro/:Action/:Id', {
+            templateUrl: 'view/QualidadeCadastro.html',
+            authorize: true,
+            controller: 'QualidadeCadastroController',
+            routeName: 'Inclusao de Qualidade',
+            RouteId: 'QualidadeCadastro@New'
+        })
 
         //----------------------------------------------------
         .when('/Simulacao', {
