@@ -66,6 +66,25 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
+        [Route("api/ImprimirMapa/{Id_Contrato}")]
+        [HttpGet]
+        [ActionName("ImprimirMapa")]
+        [Authorize()]
+        public IHttpActionResult ImprimirMapa(Int32 Id_Contrato)
+        {
+            SimLib clsLib = new SimLib();
+            try
+            {
+                ImpressaoMapa Cls = new ImpressaoMapa(User.Identity.Name);
+
+                return Ok(Cls.ImprimirMapa(Id_Contrato));
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
 
     }
 }

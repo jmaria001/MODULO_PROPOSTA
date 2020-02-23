@@ -258,6 +258,7 @@
     <Compile Include="Mercado\MercadoController.cs" />
     <Compile Include="Mercado\MercadoModel.cs" />
     <Compile Include="Mercado\MercadoSql.cs" />
+    <Compile Include="PDF\ImpressaoMapa.cs" />
     <Compile Include="PDF\ImpressaoProposta.cs" />
     <Compile Include="PDF\ImpressaoSimulacao.cs" />
     <Compile Include="PDF\ImpressaoMidia.cs" />

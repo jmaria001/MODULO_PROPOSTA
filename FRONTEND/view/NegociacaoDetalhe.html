@@ -6,6 +6,7 @@
             <table id="dataTable" class="table table-striped table-bordered " cellspacing="0">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Contrato</th>
                         <th>Mês Campanha</th>
                         <th>Emp.Fat</th>
@@ -22,6 +23,11 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="contrato in Contratos track by $index" on-finish-render="ngRepeatFinished">
+                        <td style="width:50px; text-align:center">
+                            <button ng-click="ImprimirMapa(contrato.Id_Contrato)">
+                                <span class="fa fa-print fa-2x"></span>
+                            </button>
+                        </td>
                         <td>{{::contrato.Contrato}}</td>
                         <td>{{::contrato.Mes_Campanha}}</td>
                         <td>{{::contrato.Cod_Empresa_Faturamento}}</td>                        

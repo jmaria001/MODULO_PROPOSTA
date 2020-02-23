@@ -15,8 +15,6 @@
         { 'Link': 'TipoMidia', 'Title': 'Tipo de Mídia' },
         { 'Link': 'Qualidade', 'Title': 'Qualidades da Veiculaçao' },
     ];
-
-    
     //===========================fim do load da pagina
     $scope.$watch('$viewContentLoaded', function () {
         

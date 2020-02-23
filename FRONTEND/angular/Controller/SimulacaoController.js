@@ -583,7 +583,7 @@
                 win.focus();
             }
             else {
-                ShowAlert("Não existe mídia a sem impressa para essa " + $scope.Descricao_Processo, "warning")
+                ShowAlert("Não existe mídia a ser impressa para essa " + $scope.Descricao_Processo, "warning")
             }
         });
     };

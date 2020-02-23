@@ -3,7 +3,8 @@
     //====================Inicializa scopes
     $scope.Parameters = $routeParams;
     $scope.ListStatus = "";
-    $scope.gridheaders = [  { 'title': 'Contrato', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+    $scope.gridheaders = [  { 'title': 'Print', 'visible': true, 'searchable': false, 'config': false, 'sortable': false},
+                            { 'title': 'Contrato', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Mês Campanha', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Emp.Fat', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Agência', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
@@ -72,6 +73,19 @@
         else {
             buttons.enable();
         }
+    };
+    //===================================Impressao da Midia
+    $scope.ImprimirMapa= function (pId_Contrato) {
+        httpService.Get("ImprimirMapa/" + pId_Contrato).then(function (response) {
+            if (response.data) {
+                url = $rootScope.baseUrl + "PDFFILES/MIDIA/" + $rootScope.UserData.Login.trim() + "/" + response.data;
+                var win = window.open(url, '_blank');
+                win.focus();
+            }
+            else {
+                ShowAlert("Não existe mídia a ser", "warning")
+            }
+        });
     };
     //===========================Sair do Detalhe
     $scope.DetalheSair = function () {
