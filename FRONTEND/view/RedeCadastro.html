@@ -1,0 +1,51 @@
+﻿<div class="container">
+    <form name="frmRedeCadastro" autocomplete="off">
+        <div class="block">
+            <div class="row">
+                <!--===================Codigo-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="fieldrequired">Código</label>
+                        <input type="text"
+                               name="txtRedeID"
+                               ng-required="true"
+                               ng-model="Rede.RedeID"
+                               class="form-control"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="6" />
+                    </div>
+                </div>
+                <!--===================NomeRede-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired">NomeRede</label>
+                        <input type="text" name="txtNomeRede" class="form-control" ng-model="Rede.NomeRede" maxlength="50" ng-required="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Botoes-->
+                <div class="row margin-top-20">
+                    <div class="col-md-12">
+                        <button class="btn btn-success" ng-click="SalvarRede(Rede)"
+                                ng-disabled="frmRedeCadastro.$invalid">
+                            Salvar
+                        </button>
+                        <!-- <button class="btn btn-danger" ng-click="ExcluirTipoComercial(TipoComercial)" ng-show="PermissaoExcluir">Excluir</button>-->
+                        <!--<button class="btn btn-danger" ng-disabled="!PermissaoDestroy" ng-click="ExcluirMercado(Mercado) ">Excluir</button>-->
+                        <!--<button class="btn btn-danger" ng-click="excluirtipomidia(TipoMidia) ">Excluir</button>-->
+                        <a href="#Rede" class="btn btn-warning">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+        $(document).ready(function () {
+            GetDictionary();
+        });
+</script>

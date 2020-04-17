@@ -248,7 +248,6 @@ var app = {
         // end horizontal navigation handler 
     },
     navigationMobile: function(){
-        
         /* Mobile navigation handler */
         if($(".app-navigation-moblie-wrapper").length > 0){
             $("[data-navigation-mobile-toggle]").on("click",function(e){

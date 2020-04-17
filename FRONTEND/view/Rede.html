@@ -1,0 +1,37 @@
+﻿<div class="container">
+    <div class="block table-responsive" ng-show="ShowGrid">
+        <!--===================================Botoes-->
+        <a id="btnNovaRede" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#RedeCadastro/New/0">Nova Rede</a>
+
+        <button id="ExportReporttoExcel" class="btn btn-warning" ng-show="Redes.length > 0">Exportar Excel</button>
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Codigo</th>
+                        <th>Nome Rede</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Rede in Redes track by $index" on-finish-render="ngRepeatFinished()">
+                        <td style="width:50px;text-align:center">
+                            <a href="#RedeCadastro/Edit/{{Rede.RedeID}}" ng-show="PermissaoEdit">
+                                <span class="fa fa-edit fa-2x"></span>
+                            </a>
+                        </td>
+                        <td>{{::Rede.RedeID}}</td>
+                        <td>{{::Rede.NomeRede}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

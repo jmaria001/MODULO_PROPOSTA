@@ -249,6 +249,9 @@
     <Compile Include="MotivoAlterNegoc\MotivoAlterNegocController.cs" />
     <Compile Include="MotivoAlterNegoc\MotivoAlterNegocModel.cs" />
     <Compile Include="MotivoAlterNegoc\MotivoAlterNegocSql.cs" />
+    <Compile Include="MotivoCancelamento\MotivoCancelamentoController.cs" />
+    <Compile Include="MotivoCancelamento\MotivoCancelamentoModel.cs" />
+    <Compile Include="MotivoCancelamento\MotivoCancelamentoSql.cs" />
     <Compile Include="MotivoFalha\MotivoFalhaController.cs" />
     <Compile Include="MotivoFalha\MotivoFalhaModel.cs" />
     <Compile Include="MotivoFalha\MotivoFalhaSql.cs" />
@@ -265,6 +268,9 @@
     <Compile Include="Qualidade\QualidadeController.cs" />
     <Compile Include="Qualidade\QualidadeModel.cs" />
     <Compile Include="Qualidade\QualidadeSql.cs" />
+    <Compile Include="Rede\RedeController.cs" />
+    <Compile Include="Rede\RedeModel.cs" />
+    <Compile Include="Rede\RedeSql.cs" />
     <Compile Include="SIMLIB\PDFLIB.cs" />
     <Compile Include="Negociacao\NegociacaoController.cs" />
     <Compile Include="Negociacao\NegociacaoModel.cs" />

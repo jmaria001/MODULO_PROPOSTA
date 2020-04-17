@@ -106,6 +106,8 @@
     <Content Include="angular\Controller\ContatoController.js" />
     <Content Include="angular\Controller\EmpresaCadastroController.js" />
     <Content Include="angular\Controller\EmpresaController.js" />
+    <Content Include="angular\Controller\MotivoCancelamentoCadastroController.js" />
+    <Content Include="angular\Controller\MotivoCancelamentoController.js" />
     <Content Include="angular\Controller\MotivoFalhaCadastroController.js" />
     <Content Include="angular\Controller\MotivoFalhaController.js" />
     <Content Include="angular\Controller\NegociacaoDetalheController.js" />
@@ -117,6 +119,8 @@
     <Content Include="angular\Controller\MercadoController.js" />
     <Content Include="angular\Controller\QualidadeCadastroController.js" />
     <Content Include="angular\Controller\QualidadeController.js" />
+    <Content Include="angular\Controller\RedeCadastroController.js" />
+    <Content Include="angular\Controller\RedeController.js" />
     <Content Include="angular\Controller\RegraAprovacao_Controller.js" />
     <Content Include="angular\Controller\RegraAprovacaoCadastro_Controller.js" />
     <Content Include="angular\Controller\PendenciaAprovacao_Controller.js" />
@@ -208,6 +212,8 @@
     <Content Include="view\CategoriaClienteCadastro.html" />
     <Content Include="view\CondPgto.html" />
     <Content Include="view\condpgtocadastro.html" />
+    <Content Include="view\Contato.html" />
+    <Content Include="view\ContatoCadastro.html" />
     <Content Include="view\dashboard.html" />
     <Content Include="view\Empresa.html" />
     <Content Include="view\EmpresaCadastro.html" />
@@ -215,6 +221,8 @@
     <Content Include="view\Mercado.html" />
     <Content Include="view\MotivoAlterNegoc.html" />
     <Content Include="view\MotivoAlterNegocCadastro.html" />
+    <Content Include="view\MotivoCancelamento.html" />
+    <Content Include="view\MotivoCancelamentoCadastro.html" />
     <Content Include="view\MotivoFalha.html" />
     <Content Include="view\MotivoFalhaCadastro.html" />
     <Content Include="view\NegociacaoDetalhe.html" />
@@ -222,6 +230,10 @@
     <Content Include="view\Negociacao_Cadastro.html" />
     <Content Include="view\PendenciaAprovacao.html" />
     <Content Include="view\PropostaPendenteAprovacao.html" />
+    <Content Include="view\Qualidade.html" />
+    <Content Include="view\QualidadeCadastro.html" />
+    <Content Include="view\Rede.html" />
+    <Content Include="view\RedeCadastro.html" />
     <Content Include="view\RegraAprovacao_Cadastro.html" />
     <Content Include="view\PacoteCadastro.html" />
     <Content Include="view\MercadoCadastro.html" />
@@ -232,6 +244,8 @@
     <Content Include="view\simulacao_copy_2803.html" />
     <Content Include="view\TipoComercial.html" />
     <Content Include="view\TipoComercialCadastro.html" />
+    <Content Include="view\TipoMidia.html" />
+    <Content Include="view\TipoMidiaCadastro.html" />
     <Content Include="view\UnderConstrution.html" />
     <Content Include="view\Usuario.html" />
     <Content Include="view\Veiculo.Html" />

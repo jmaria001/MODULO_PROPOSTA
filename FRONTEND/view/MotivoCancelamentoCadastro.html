@@ -1,0 +1,51 @@
+﻿<div class="container">
+    <form name="frmMotivoCancelamentoCadastro" autocomplete="off">
+        <div class="block">
+            <div class="row">
+                <!--===================Codigo-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="fieldrequired">Código</label>
+                        <input type="text"
+                               name="txtCod_Cancelamento"
+                               ng-required="true"
+                               ng-model="MotivoCancelamento.Cod_Cancelamento"
+                               class="form-control"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="3" />
+                    </div>
+                </div>
+                <!--===================Descricao-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired">Descrição</label>
+                        <input type="text" name="txtDescricao" class="form-control" ng-model="MotivoCancelamento.Descricao" maxlength="30" ng-required="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Botoes-->
+                <div class="row margin-top-20">
+                    <div class="col-md-12">
+                        <button class="btn btn-success" ng-click="SalvarMotivoCancelamento(MotivoCancelamento)"
+                                ng-disabled="frmMotivoCancelamentoCadastro.$invalid">
+                            Salvar
+                        </button>
+                        <!-- <button class="btn btn-danger" ng-click="ExcluirTipoComercial(TipoComercial)" ng-show="PermissaoExcluir">Excluir</button>-->
+                        <!--<button class="btn btn-danger" ng-disabled="!PermissaoDestroy" ng-click="ExcluirMercado(Mercado) ">Excluir</button>-->
+                        <!--<button class="btn btn-danger" ng-click="excluirtipomidia(TipoMidia) ">Excluir</button>-->
+                        <a href="#MotivoCancelamento" class="btn btn-warning">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+        $(document).ready(function () {
+            GetDictionary();
+        });
+</script>

@@ -8,6 +8,7 @@ function GetDictionary() {
                         { 'Id': 'Money', 'label': '', 'icon': '', 'atributos': { 'maxlength': '15', 'type': 'text', 'keymode': '', 'placeholder': '/ano' } },
                         { 'Id': 'Empresa_Usuario', 'label': 'Empresa', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric'} },
                         { 'Id': 'Mercado', 'label': 'Mercado', 'icon': 'search', 'atributos': { 'maxlength': '5', 'type': 'text' } },
+                        { 'Id': 'Motivo_Falha', 'label': 'Motivo', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'text' } },
                         { 'Id': 'UF', 'label': 'UF', 'icon': 'search', 'atributos': { 'maxlength': '2', 'type': 'text', 'keymode': 'upper' } },
                         { 'Id': 'Pacote_Desconto', 'label': 'Pacote de Desconto', 'icon': 'search', 'atributos': { 'maxlength': '30', 'type': 'text', 'keymode': 'numeric' } },
                         { 'Id': 'Agencia', 'label': 'Agência', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric', 'filter': true } },

@@ -265,6 +265,50 @@
             routeName: 'Inclusao de Qualidade',
             RouteId: 'QualidadeCadastro@New'
         })
+        .when('/Rede', {
+            templateUrl: 'view/Rede.html',
+            authorize: true,
+            controller: 'RedeController',
+            routeName: 'Cadastro de Rede',
+            RouteId: 'Rede@Index'
+        })
+        .when('/RedeCadastro/:Action/:Id', {
+            templateUrl: 'view/RedeCadastro.html',
+            authorize: true,
+            controller: 'RedeCadastroController',
+            routeName: 'Inclusao de Rede',
+            RouteId: 'RedeCadastro@New'
+        })
+
+        .when('/MotivoCancelamento', {
+            templateUrl: 'view/MotivoCancelamento.html',
+            authorize: true,
+            controller: 'MotivoCancelamentoController',
+            routeName: 'Cadastro Motivo de Cancelamento',
+            RouteId: 'MotivoCancelamento@Index'
+        })
+
+        .when('/MotivoCancelamentoCadastro/:Action/:Id', {
+            templateUrl: 'view/MotivoCancelamentoCadastro.html',
+            authorize: true,
+            controller: 'MotivoCancelamentoCadastroController',
+            routeName: 'Inclusao de Motivo de Cancelamento',
+            RouteId: 'MotivoCancelamentoCadastro@New'
+        })
+                .when('/MotivoFalha', {
+                    templateUrl: 'view/MotivoFalha.html',
+                    authorize: true,
+                    controller: 'MotivoFalhaController',
+                    routeName: 'Cadastro de Motivo de Falha',
+                    RouteId: 'MotivoFalha@Index'
+                })
+        .when('/MotivoFalhaCadastro/:Action/:Id', {
+            templateUrl: 'view/MotivoFalhaCadastro.html',
+            authorize: true,
+            controller: 'MotivoFalhaCadastroController',
+            routeName: 'Inclusão de Motivo de Falha',
+            RouteId: 'MotivoFalha@New'
+        })
 
         //----------------------------------------------------
         .when('/Simulacao', {
