@@ -57,9 +57,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Contato", pContato.Cod_Contato);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome", pContato.Nome);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_CGC", pContato.CGC);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Cic_Cgc", pContato.Indica_Cic_Cgc);
-                //Adp.SelectCommand.Parameters.AddWithValue("@Par_Data_Desativacao", pContato.Data_Desativacao);
-                //Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Usuario_Desativacao", pContato.Cod_Usuario_Desativacao);
+                //Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Cic_Cgc", pContato.Indica_Cic_Cgc);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Email_Notificacao", pContato.Email_Notificacao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_CNPJ_Empresa", pContato.CNPJ_Empresa);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Razao_Empresa", pContato.Razao_Empresa);
@@ -123,7 +121,7 @@ namespace PROPOSTA
             return Contato;
         }
 
-        private List<ContatoEmpresaModel> GetContatoEmpresa(String pCod_Contato)
+        public List<ContatoEmpresaModel> GetContatoEmpresa(String pCod_Contato)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();

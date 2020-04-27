@@ -15,10 +15,6 @@
                                ng-model-options="{updateOn: 'blur'}"
                                maxlength="2"
                                style="text-transform:uppercase" />
-                        
-     <!--onchange="this.value = this.value.toUpperCase()"
-     style="text-transform:uppercase" />-->
-
                     </div>
                 </div>
                 <!--===================Descrição-->
@@ -66,7 +62,7 @@
                             ng-disabled="frmCaracVeiculCadastro.$invalid">
                         Salvar
                     </button>
-                    <button class="btn btn-danger" ng-click="ExcluirCaracVeicul(CaracVeicul)">Excluir</button>
+                    <button type="button" class="btn btn-danger" ng-click="ExcluirCaracVeicul(CaracVeicul)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
                     <a href="#CaracVeicul" class="btn btn-warning">Cancelar</a>
                 </div>
             </div>

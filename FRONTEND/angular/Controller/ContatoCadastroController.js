@@ -3,16 +3,8 @@
     //========================Variaveis
     $scope.currentTab = "Dados";
     //========================Verifica Permissoes
-    $scope.PermissaoNew = false;
-    $scope.PermissaoEdit = false;
     $scope.PermissaoDesativar = false;
     $scope.PermissaoExcluir = false;
-    httpService.Get("credential/Contato@New").then(function (response) {
-        $scope.PermissaoNew = response.data;
-    });
-    httpService.Get("credential/Contato@Edit").then(function (response) {
-        $scope.PermissaoEdit = response.data;
-    });
     httpService.Get("credential/Contato@Destroy").then(function (response) {
         $scope.PermissaoExcluir = response.data;
     });
@@ -23,8 +15,6 @@
     //========================Recebe Parametro
     $scope.Parameters = $routeParams;
     $scope.Contato = "";
-    console.log($scope.Parameters);
-
     //==========================Busca dados do Contato
     $scope.CarregaDados = function () {
         var _url = "GetContatoData/" + $scope.Parameters.Id;
@@ -48,12 +38,7 @@
 
                 if (response.data[0].Status) {
                     ShowAlert(response.data[0].Mensagem, 'success');
-                    if ($scope.Parameters.Action == 'New') {
-                        $scope.CarregaDados();
-                    }
-                    else {
-                        $location.path("/Contato")
-                    }
+                    $location.path("/Contato")
                 }
                 else {
                     ShowAlert(response.data[0].Mensagem, 'warning');

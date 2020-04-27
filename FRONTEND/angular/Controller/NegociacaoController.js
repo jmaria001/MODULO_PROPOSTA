@@ -8,6 +8,8 @@
                             { 'title': 'Emp.Venda', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Emp.Faturamento', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Período', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+                            { 'title': 'Agencias', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+                            { 'title': 'Clientes', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Tipo de Mídia', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Tabela de Preços', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Verba Negociada', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
@@ -15,8 +17,7 @@
                             { 'title': 'Realizado Negociado', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Desconto Concedido', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Desconto Real', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
-                            { 'title': 'Agencias', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
-                            { 'title': 'Clientes', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+
                             { 'title': 'Contatos', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
     ];
     $scope.MesAnoKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }

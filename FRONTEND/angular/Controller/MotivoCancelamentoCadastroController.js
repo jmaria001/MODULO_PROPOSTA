@@ -48,12 +48,7 @@
 
                 if (response.data[0].Status) {
                     ShowAlert(response.data[0].Mensagem, 'success');
-                    if ($scope.Parameters.Action == 'New') {
-                        $scope.CarregaDados();
-                    }
-                    else {
-                        $location.path("/MotivoCancelamento")
-                    }
+                    $location.path("/MotivoCancelamento")
                 }
                 else {
                     ShowAlert(response.data[0].Mensagem, 'warning');

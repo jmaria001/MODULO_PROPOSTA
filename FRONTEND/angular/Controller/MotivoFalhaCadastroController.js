@@ -12,10 +12,18 @@
     else {
         $rootScope.routeName = 'Alteração de Motivo de Falha'
     };
-
+    //========================Verifica Permissoes
+    $scope.PermissaoDelete= false;
+    $scope.PermissaoDesativar = false;
+    httpService.Get("credential/MotivoFalha@Destroy").then(function (response) {
+        $scope.PermissaoDelete = response.data;
+    });
+    httpService.Get("credential/MotivoFalha@Activate").then(function (response) {
+        $scope.PermissaoDesativar= response.data;
+    });
     //==========================Busca dados
     var _url = "GetMotivoFalhaData/" + $scope.Parameters.Id;
-    httpService.Get(_url).then(function (response) {
+    httpService.Get(_url.trim()).then(function (response) {
         if (response) {
             $scope.MotivoFalha = response.data;
         }
@@ -30,6 +38,7 @@
 
                 if (response.data[0].Status) {
                     ShowAlert(response.data[0].Mensagem, 'success');
+                    $location.path("/MotivoFalha");
                 }
                 else {
                     ShowAlert(response.data[0].Mensagem, 'warning');

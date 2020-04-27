@@ -1,6 +1,7 @@
 ﻿<div class="container">
     <form name="frmMercadoCadastro" autocomplete="off">
         <div class="block">
+            
             <div class="row">
                 <!--===================Codigo-->
                 <div class="col-md-1">
@@ -43,6 +44,7 @@
             </div>
             <!--=================== Seleção de Veículos-->
             <div style="margin-top:20px; max-height:300px;overflow-y:auto;overflow-x:hidden;border:solid 1px silver">
+                <p class="text-bolder margin-left-20">Composição</p>
                 <div class="col-md-4" ng-repeat="veiculo in Mercado.ListaVeiculo">
                     <div class="app-checkbox" style="width:auto;margin-top:5px">
                         <label><input type="checkbox" name="app-checkbox-1" ng-model="veiculo.Selected" />  {{veiculo.Cod_Veiculo}}-{{veiculo.Nome_Veiculo}} <span></span></label>
@@ -54,7 +56,7 @@
             <div class="row margin-top-20">
                 <div class="col-md-12">
                     <button class="btn btn-success" ng-click="SalvarMercado(Mercado)">Salvar</button>
-                    <button class="btn btn-danger" ng-disabled="!PermissaoDestroy" ng-click="ExcluirMercado(Mercado) ">Excluir</button>
+                    <button type="button"class="btn btn-danger" ng-disabled="!PermissaoDestroy" ng-show="Parameters.Action=='Edit'" ng-click="ExcluirMercado(Mercado) ">Excluir</button>
                     <!--<button class="btn btn-danger" data-toggle="tooltip" title="Excluir Mercado!" ng-click="ExcluirMercado(Mercado) ">Excluir</button>-->
                     <a href="#mercado" class="btn btn-warning">Cancelar</a>
                 </div>

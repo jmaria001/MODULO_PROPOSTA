@@ -1,0 +1,394 @@
+﻿
+<div class="container">
+    <form name="frmVeiculoCadastro" autocomplete="off">
+
+        <div class="block">
+            <div class="row">
+                <!--===================Codigo-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Código</label>
+                        <input type="text"
+                               name="txtCod_Empresa"
+                               ng-required="true"
+                               ng-model="Veiculo.Cod_Veiculo"
+                               class="form-control"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="3" />
+                    </div>
+                </div>
+                <!--====================Nome-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Nome</label>
+                        <input type="text" name="txtNome" class="form-control" ng-model="Veiculo.Nome_Veiculo" maxlength="50" ng-required="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================Sigla -->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Sigla</label>
+                        <input type="text" name="txtSiglaVeiculo" class="form-control" ng-model="Veiculo.Sigla_Veiculo" maxlength="5" ng-required="true" />
+                    </div>
+                </div>
+
+                <!--============================Empresa Pertence-->
+
+                <div class="col-md-1" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Pertence" required>
+                        <input id="txtCodEmpresaPertence"
+                               ng-model="Veiculo.Cod_Empresa"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodEmpresaPertence')"
+                               primarybind="txtCodEmpresaPertence"
+                               secondarybind="txtNomeEmpresaPertence">
+                    </div>
+                </div>
+                <!--============================Nome Empresa Pertence-->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtNomeEmpresaPertence" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeEmpresaPertence" class="form-control" ng-model="Veiculo.NomeEmpresaPertence">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================Sigla Jove-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x">Sigla Jove</label>
+                        <input type="text" name="txtSiglaJove" class="form-control" ng-model="Veiculo.Sigla_JOVE" maxlength="3" />
+                    </div>
+                </div>
+
+                <!--====================Cidade-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Cidade</label>
+                        <input type="text" name="txtCidade" class="form-control" ng-model="Veiculo.Cidade" maxlength="30" ng-required="true" />
+                    </div>
+                </div>
+                <!--====================Horario Inicio de Programacao-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x">Horário Inicio Prog.</label>
+                        <input type="text" name="txtHorarioInicio" class="form-control time" ng-model="Veiculo.Hora_Inicio_Programacao" maxlength="5" />
+                        <!--onfocus="this.selectionStart = this.selectionEnd = this.value.length;"-->
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================Descritivo-->
+                <div class="col-md-10">
+                    <div class="form-group">
+                        <label class="field-x">Descritivo</label>
+                        <textarea name="txtDescritivo" class="form-control" style="min-height:70px" ng-model="Veiculo.Descritivo" maxlength="500" />
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--==============================================Validade Inicio-->
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Data" caption="Início Validade" required>
+                        <input ng-model="Veiculo.Data_Inicio"
+                               ui-date ng-model-options="{updateOn: 'blur'}" ng-required="true">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="Veiculo.Data_Inicio"></div>
+                    </div>
+                </div>
+                <!--==============================================Validade Termino-->
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Data" caption="Término Validade">
+                        <input ng-model="Veiculo.Data_Final"
+                               ui-date ng-model-options="{updateOn: 'blur'}">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="Veiculo.Data_Final"></div>
+                    </div>
+                </div>
+
+                <!--====================Parceiro-->
+                <div class="col-md-2 margin-top-30">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Veiculo.Indica_Parceiro" /> Parceiro<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--============================Classe Potencia-->
+            <div class="row">
+                <div class="col-md-1 margin-top-10 " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Classe_Potencia">
+                        <input id="txtCodClassePotencia"
+                               ng-model="Veiculo.Id_Potencia"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodClassePotencia')"
+                               primarybind="txtCodClassePotencia"
+                               secondarybind="txtNomeClassePotencia">
+                    </div>
+                </div>
+                <!--============================Nome Classe Potencia-->
+                <div class="col-md-4 margin-top-10 ">
+                    <div class="form-group">
+                        <label for="txtNomeClassePotencia" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeClassePotencia" class="form-control" ng-model="Veiculo.ds_Classe">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--====================Itens checkbox-->  <!--====================Tipo-->
+            <div class="block margin-top-10">
+                <div class="row">
+                    <label>Tipo</label>
+                    <div class="row">
+                        <div class="col-md-1 margin-top-1">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="app-checkbox">
+                                        <label><input type="checkbox" name="app-checkbox-1" ng-model="Veiculo.Indica_Filiada" ng-disabled="Veiculo.Indica_Afiliada" /> Filiada<span></span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 margin-top-1">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="app-checkbox">
+                                        <label><input type="checkbox" name="app-checkbox-1" ng-model="Veiculo.Indica_Afiliada" ng-disabled="Veiculo.Indica_Filiada" /> Afiliada<span></span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--====================Itens checkbox Net -->
+            <div class="block margin-bottom-5">
+                <div class="row">
+                    <label>Net</label>
+                    <div class="row">
+                        <!--====================Tipo-->
+                        <div class="col-md-1 margin-top-1">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="app-checkbox">
+                                        <label><input type="checkbox" name="app-checkbox-1" ng-model="Veiculo.NetSim" ng-disabled="Veiculo.NetNao" /> Sim<span></span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 margin-top-1">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="app-checkbox">
+                                        <label><input type="checkbox" name="app-checkbox-1" ng-model="Veiculo.NetNao" ng-disabled="Veiculo.NetSim" /> Não<span></span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--============================Pertence Net -->
+                    <div class="row">
+                        <div class="col-md-1  " ng-controller="dictionaryController">
+                            <div class="dictionary" dictionary="Veiculo">
+                                <input id="txtCodVeiculo"
+                                       ng-model="Veiculo.Cod_Veiculo_Net"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       ng-change="DicionaryValidate('txtCodVeiculo')"
+                                       primarybind="txtCodVeiculo"
+                                       secondarybind="txtNomeVeiculo">
+                            </div>
+                        </div>
+                        <!--============================ Nome Veiculo Net  -->
+                        <div class="col-md-4 margin-top-10">
+                            <div class="form-group">
+                                <label>Pertence ao NET da Geradora (Informe o Veiculo NET)</label>
+                                <div class="input-group">
+                                    <input type="text" disabled="disabled" id="txtNomeVeiculo" maxlength="50" class="form-control" ng-model="Veiculo.Nome_Veiculo_Net">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--===================Código para Tabela de Preço do Net-->
+
+                        <div class="col-md-3 margin-top-10">
+                            <div class="form-group">
+                                <label>Código para Tabela de Preço do Net</label>
+                                <input type="text" name="txtTabelaPrecoNet" class="form-control" ng-model="Veiculo.Cod_Tabela_Net" maxlength="5" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block">
+                <div class="row">
+                    <!--===================Email Diretoria-->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Email Diretoria</label>
+                            <input type="text" name="txtEmailDiretoria" class="form-control" ng-model="Veiculo.Email_Diretoria" maxlength="30" />
+                        </div>
+                    </div>
+                    <!--</div>
+                    <div class="row">-->
+                    <!--===================Email Faturamento-->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Email Faturamento</label>
+                            <input type="text" name="txtEmailFaturamento" class="form-control" ng-model="Veiculo.Email_Faturamento" maxlength="30" />
+                        </div>
+                    </div>
+                    <!--</div>
+                    <div class="row">-->
+                    <!--===================Email Operacoes Comerciais-->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Email Operacoes Comerciais</label>
+                            <input type="text" name="txtEmailComerciais" class="form-control" ng-model="Veiculo.Email_Opec" maxlength="30" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--===================Percentual Contratual-->
+                    <div class="col-md-3 margin-top-10">
+                        <div class="form-group">
+                            <label>Percentual Contratual</label>
+                            <input type="text"
+                                   ng-model="Veiculo.Percentual_Contratual"
+                                   class="form-control"
+                                   onblur="this.value = PercentFormat(this.value)"
+                                   onfocus="this.value = DecimalUnformat(this.value)"
+                                   onkeypress="return DecimalOnly(event)"
+                                   maxlength="10" />
+                        </div>
+                    </div>
+
+                    <!--============================Terceiro -->
+
+                    <div class="col-md-2  " ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Terceiro">
+                            <input id="txtCodTerceiro"
+                                   ng-model="Veiculo.Cod_Terceiro"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCodVeiculo')"
+                                   primarybind="txtCodTerceiro"
+                                   secondarybind="txtNomeTerceiro">
+                        </div>
+                    </div>
+                    <!--============================ Nome Terceiro  -->
+                    <div class="col-md-4 margin-top-10">
+                        <div class="form-group">
+                            <label>Nome de Terceiro</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNomeTerceiro" maxlength="50" class="form-control" ng-model="Veiculo.Nome_Terceiro">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="block">
+                <div class="row">
+                    <label>Ordena Roteiro</label>
+                    <div class="row">
+                        <!--====================Ordena Roteiro-->
+
+                        <div class="col-md-1 margin-top-10">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="app-checkbox">
+                                        <label><input type="checkbox" name="app-checkbox-1" ng-model="Veiculo.Indica_RoteiroSim" ng-disabled="Veiculo.Indica_RoteiroNao" /> Sim<span></span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1 margin-top-10">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="app-checkbox">
+                                        <label><input type="checkbox" name="app-checkbox-1" ng-model="Veiculo.Indica_RoteiroNao" ng-disabled="Veiculo.Indica_RoteiroSim" /> Não<span></span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="block">
+                <div class="row">
+                    <!--====================MMA-->
+
+                    <div class="col-md-2 margin-top-10">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Veiculo.Ocultar_MMA" /> Ocultar MMA<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 margin-top-10">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Veiculo.Indica_Nao_Emite_Ce" /> Não emite Ce<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--============================ Codigo da Rede  -->
+            <div class="block">
+                <div class="row">
+                    <div class="col-md-1" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Rede">
+                            <input id="txtRedeId"
+                                   ng-model="Veiculo.RedeId"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtRedeId')"
+                                   primarybind="txtRedeId"
+                                   secondarybind="txtNomeRede">
+                        </div>
+                    </div>
+
+                    <!--============================ Nome Rede  -->
+                    <div class="col-md-4 margin-top-10">
+                        <div class="form-group">
+                            <label>Nome da Rede</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNomeRede" maxlength="100" class="form-control" ng-model="Veiculo.NomeRede">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--===================Botoes-->
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success" ng-click="SalvarVeiculo(Veiculo)" ng-disabled="frmVeiculoCadastro.$invalid">Salvar</button>
+                    <button type="button" class="btn btn-danger" ng-click="ExcluirVeiculo(Veiculo)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
+                    <a href="#veiculo" class="btn btn-warning">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

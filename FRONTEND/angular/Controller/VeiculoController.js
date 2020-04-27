@@ -1,12 +1,25 @@
 ﻿angular.module('App').controller('VeiculoController', ['$scope', '$rootScope', 'httpService', '$location', '$timeout', function ($scope, $rootScope, httpService, $location, $timeout) {
+
+
+    //========================Verifica Permissoes
+    $scope.PermissaoNew = false;
+    $scope.PermissaoEdit = false;
+    httpService.Get("credential/Veiculo@New").then(function (response) {
+        $scope.PermissaoNew = response.data;
+    });
+    httpService.Get("credential/Veiculo@Edit").then(function (response) {
+        $scope.PermissaoEdit = response.data;
+    });
+
     //===================Declarar scopes
-    $scope.Veiculos = "";
+    //$scope.Veiculos = "";
     $scope.showGrid = false;
-    $scope.gridheaders = [{ 'title': 'Código', 'visible': true, 'searchable': true, 'sortable': true },
-                            { 'title': 'Nome', 'visible': true, 'searchable': true, 'sortable': true },
-                            { 'title': 'Cidade', 'visible': true, 'searchable': true, 'sortable': true },
-                            { 'title': 'Sigla', 'visible': true, 'searchable': true, 'sortable': true },
-                            { 'title': 'Empresa', 'visible': true, 'searchable': true, 'sortable': true },
+    $scope.gridheaders = [{ 'title': '', 'visible': true, 'searchable': false, 'sortable': false },
+    { 'title': 'Código', 'visible': true, 'searchable': true, 'sortable': true },
+    { 'title': 'Nome', 'visible': true, 'searchable': true, 'sortable': true },
+    { 'title': 'Cidade', 'visible': true, 'searchable': true, 'sortable': true },
+    { 'title': 'Sigla', 'visible': true, 'searchable': true, 'sortable': true },
+    { 'title': 'Empresa', 'visible': true, 'searchable': true, 'sortable': true },
     ];
     //====================Quando terminar carga do grid, torna view do grid visible
     $scope.RepeatFinished = function () {
@@ -17,6 +30,8 @@
             $("#dataTable").dataTable().fnAdjustColumnSizing();
         }, 10)
     };
+
+
     //===================Carregar o grid
     $scope.CarregarVeiculo = function () {
         $rootScope.routeloading = true;
@@ -26,7 +41,6 @@
         httpService.Get("VeiculoListar").then(function (response) {
             if (response) {
                 $scope.Veiculos = response.data;
-                console.log($scope.Veiculos);
             }
             if ($scope.Veiculos.length == 0) {
                 $scope.RepeatFinished();
@@ -42,16 +56,16 @@
         param.paging = true;
 
         param.dom = "<'row'<'col-sm-3'l><'col-sm-4'f><'col-sm-5'B>>" + "<'row'<'col-sm-12'tr>>" + "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-        param.buttons = [
-            //{
-            //    text: 'Novo Usuário<span class="fa fa-file margin-left-10"></span>', className: 'btn btn-primary btnNew', action: function (e, dt, button, config) { $('#btnNovoUsuarioUsuario').click(); }
-            //},
-            {
-                text: 'Exportar<span class="fa fa-file-excel-o margin-left-10" style="color:white"></span>', type: 'excel', className: 'btn btn-warning HideButton', extend: 'excel', exportOptions: {
-                    columns: ':visible:not(:first-child)'
+            param.buttons = [
+                //{
+                //    text: 'Novo Usuário<span class="fa fa-file margin-left-10"></span>', className: 'btn btn-primary btnNew', action: function (e, dt, button, config) { $('#btnNovoUsuarioUsuario').click(); }
+                //},
+                {
+                    text: 'Exportar<span class="fa fa-file-excel-o margin-left-10" style="color:white"></span>', type: 'excel', className: 'btn btn-warning HideButton', extend: 'excel', exportOptions: {
+                        columns: ':visible:not(:first-child)'
+                    }
                 }
-            }
-        ];
+            ];
         param.order = [[0, 'asc']];
         param.autoWidth = false;
 

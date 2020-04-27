@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Http;
 using System.Data;
+using System.Collections.Generic;
 namespace PROPOSTA
 {
     public class ContatoController : ApiController
@@ -41,6 +42,11 @@ namespace PROPOSTA
                 {
                     Retorno = Cls.GetContatoData(Cod_Contato);
 
+                }
+                else
+                {
+                    //Retorno.Empresas = new List<Contato.ContatoEmpresaModel>();
+                     Retorno.Empresas = Cls.GetContatoEmpresa("");
                 }
                 return Ok(Retorno);
             }

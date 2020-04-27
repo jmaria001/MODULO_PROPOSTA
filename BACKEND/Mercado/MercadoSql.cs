@@ -105,7 +105,7 @@ namespace PROPOSTA
             DataTable dtbV = new DataTable("dtb");
             SimLib clsLib = new SimLib();
             MercadoModel Mercado = new MercadoModel();
-            List<VeiculoMercadoModel> ListaVeiculo = new List<VeiculoMercadoModel>();
+            
             try
             {
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_Proposta_Mercado_Get");
@@ -119,23 +119,24 @@ namespace PROPOSTA
                     Mercado.Nome = dtb.Rows[0]["Nome"].ToString();
                     Mercado.Cod_JOVE = dtb.Rows[0]["Cod_JOVE"].ToString();
                     Mercado.Indica_Net = dtb.Rows[0]["Indica_Net"].ToString().ConvertToBoolean();
+                    Mercado.ListaVeiculo = AddListaVeiculo(pCodMercado);
 
-                    SqlCommand cmdV = cnn.Procedure(cnn.Connection, "PR_Proposta_Mercado_Veiculo_Get");
-                    Adp.SelectCommand = cmdV;
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Mercado", pCodMercado);
-                    Adp.Fill(dtbV);
+                    //SqlCommand cmdV = cnn.Procedure(cnn.Connection, "PR_Proposta_Mercado_Veiculo_Get");
+                    //Adp.SelectCommand = cmdV;
+                    //Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                    //Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Mercado", pCodMercado);
+                    //Adp.Fill(dtbV);
 
-                    foreach (DataRow drw  in dtbV.Rows)
-                    {
-                        ListaVeiculo.Add(new VeiculoMercadoModel() {
-                            Cod_Veiculo = drw["Cod_Veiculo"].ToString(),
-                            Nome_Veiculo = drw["Nome_Veiculo"].ToString(),
-                            Selected = drw["Selected"].ToString().ConvertToBoolean()
-                        });
-                    }
+                    //foreach (DataRow drw  in dtbV.Rows)
+                    //{
+                    //    ListaVeiculo.Add(new VeiculoMercadoModel() {
+                    //        Cod_Veiculo = drw["Cod_Veiculo"].ToString(),
+                    //        Nome_Veiculo = drw["Nome_Veiculo"].ToString(),
+                    //        Selected = drw["Selected"].ToString().ConvertToBoolean()
+                    //    });
+                    //}
 
-                    Mercado.ListaVeiculo = ListaVeiculo;
+                    //Mercado.ListaVeiculo = ListaVeiculo;
                 }
             }
             catch (Exception)
@@ -148,5 +149,33 @@ namespace PROPOSTA
             }
             return Mercado;
         }
+        public List<VeiculoMercadoModel> AddListaVeiculo(String pCodMercado)
+        {
+            List<VeiculoMercadoModel> ListaVeiculo = new List<VeiculoMercadoModel>();
+
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtbV = new DataTable("dtb");
+            SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_Proposta_Mercado_Veiculo_Get");
+            Adp.SelectCommand = cmd;
+            
+            Adp.SelectCommand = cmd;
+            Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+            Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Mercado", pCodMercado);
+            Adp.Fill(dtbV);
+            
+            foreach (DataRow drw in dtbV.Rows)
+            {
+                ListaVeiculo.Add(new VeiculoMercadoModel()
+                {
+                    Cod_Veiculo = drw["Cod_Veiculo"].ToString(),
+                    Nome_Veiculo = drw["Nome_Veiculo"].ToString(),
+                    Selected = drw["Selected"].ToString().ConvertToBoolean()
+                });
+            }
+            return ListaVeiculo;
+        }
+        
     }
 }

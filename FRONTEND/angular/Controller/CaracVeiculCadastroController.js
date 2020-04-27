@@ -8,9 +8,11 @@
         { 'id': 1, 'nome': 'Considera Normal' },
         { 'id': 2, 'nome': 'Considera por Crédito'}
     ]
-
-
-
+    //========================Verifica Permissoes
+    $scope.PermissaoDelete= false;
+    httpService.Get("credential/CaracVeicul@Destroy").then(function (response) {
+        $scope.PermissaoDelete = response.data;
+    });
     //==========================Busca dados da caracteristica da veiculacao
     var _url = "GetCaracVeiculData/" + $scope.Parameters.Id;
     httpService.Get(_url).then(function (response) {
@@ -28,6 +30,7 @@
                 if (response.data[0].Status)
                 {
                     ShowAlert(response.data[0].Mensagem, 'success');
+                    $location.path("/CaracVeicul");
                 }
                 else {
                     ShowAlert(response.data[0].Mensagem, 'warning');

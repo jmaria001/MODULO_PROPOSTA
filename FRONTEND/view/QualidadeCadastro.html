@@ -39,7 +39,7 @@
                     <!--===================Descricao Motivo-->
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label for="txtDescricao_Motivo" class="field-x" style="visibility:hidden">..</label>
+                            <label for="txtDescricao_Motivo" class="field-x">Descrição Motivo</label>
                             <div class="input-group">
                                 <input type="text" disabled="disabled" id="txtDescricao_Motivo" class="form-control " ng-model="Qualidade.Descricao_Motivo">
                             </div>
@@ -120,15 +120,15 @@
                         </div>
                     </div>
                     <!--===================CCW-->
-                    <div class="col-md-3 margin-top-20">
+                    <!--<div class="col-md-3 margin-top-20">
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="app-checkbox">
-                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Qualidade.Indica_CCW" />CCW<span></span></label>
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Qualidade.Indica_CCW" />MMA<span></span></label>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <div id="divBotoes">
@@ -140,7 +140,7 @@
                                     ng-disabled="frmQualidadeCadastro.$invalid">
                                 Salvar
                             </button>
-                            <button class="btn btn-danger" ng-click="ExcluirQualidade(Qualidade) ">Excluir</button>
+                            <button type ="button"class="btn btn-danger" ng-click="ExcluirQualidade(Qualidade)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
                             <a href="#Qualidade" class="btn btn-warning">Cancelar</a>
                         </div>
                     </div>

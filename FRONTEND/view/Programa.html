@@ -1,0 +1,75 @@
+﻿<div class="container">
+    <div class="block table-responsive" ng-show="ShowGrid">
+        <!--===================================Botoes-->
+        <a id="btnNovoPrograma" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#ProgramaCadastro/New/0">Novo Programa</a>
+        <!--<a a href="#tipodocumentoNew/New/0" id="btnNovoTipoDocumento" display="none"></a>-->
+
+        <button id="ExportReporttoExcel" class="btn btn-warning" ng-disabled="Programas.length==1">Exportar Excel</button>
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Cod. Programa</th>
+                        <th>Título</th>
+                        <th>Gênero</th>
+                        <th>Eventos</th>
+                        <th>Rotativo</th>
+                        <th>Local</th>
+                        <th>Desat.</th>
+                        <th>Veic</th>
+                        <th>Quadro</th>
+                        <th>Boletim</th>
+                        <th>Rede</th>
+                        <th>H.Exibição</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Programa in Programas track by $index" on-finish-render="ngRepeatFinished()">
+                        <td style="width:50px;text-align:center">
+                            <a href="#ProgramaCadastro/Edit/{{Programa.Cod_Programa}}" ng-show="PermissaoEdit">
+                                <span class="fa fa-edit fa-2x"></span>
+                            </a>
+                        </td>
+                        <td>{{::Programa.Cod_Programa}}</td>
+                        <td>{{::Programa.Titulo}}</td>
+                        <td>{{::Programa.Descricao}}</td>
+                        <td>
+                            <label ng-show="Programa.indica_evento"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
+                        <td>
+                            <label ng-show="Programa.Indica_Rotativo"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
+                        <td>
+                            <label ng-show="Programa.Indica_Local"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
+                        <td>
+                            <label ng-show="Programa.Indica_Desativado"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
+                        <td>
+                         <button class="btn btn-sm btn-default" ng-show="Programa.Tem_Veiculo" ng-click="Mostra_Veiculo(Programa.Cod_Programa)" >  <span class="fa fa-search"></span> </button>
+                        </td>
+                        <td>
+                            <label ng-show="Programa.Indica_Programet"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
+                        <td>
+                            <label ng-show="Programa.Indica_Boletim"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
+                        <td>{{::Programa.NomeRede}}</td>
+                        <td>{{::Programa.Horario_Exibicao}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div ng-include="'template/modalInfo.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

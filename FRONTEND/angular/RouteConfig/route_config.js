@@ -54,12 +54,12 @@
             templateUrl: 'view/dashboard.html',
             authorize: true,
             routeName: 'Dashboard',
-            RouteId: 0
+            RouteId: 'Dashboard@Index'
         })
         .when('/cadastro', {
             templateUrl: 'view/MenuCadastro.html',
             controller: 'MenuCadastroController',
-            authorize: true,
+            authorize: false,
             routeName: 'Portal de Cadastros',
             RouteId: 0
         })
@@ -98,13 +98,6 @@
             routeName: 'Cadastro de Usuários',
             RouteId: 'Usuario@Index'
         })
-        .when('/veiculo', {
-            templateUrl: 'view/Veiculo.html',
-            authorize: true,
-            controller: 'VeiculoController',
-            routeName: 'Cadastro de Veículos',
-            RouteId: 'Veiculo@Index'
-        })
         .when('/mercado', {
             templateUrl: 'view/Mercado.html',
             authorize: true,
@@ -112,13 +105,7 @@
             routeName: 'Cadastro de Mercado',
             RouteId: 'Mercado@Index'
         })
-        .when('/VeiculoCadastro/:Action/:Id', {
-            templateUrl: 'view/VeiculoCadastro.html',
-            authorize: true,
-            controller: 'VeiculoCadastroController',
-            routeName: 'Inclusao de Veículos',
-            RouteId: 'Veiculo@New'
-        })
+
         .when('/MercadoCadastroEdit/:Action/:Id', {
             templateUrl: 'view/MercadoCadastro.html',
             authorize: true,
@@ -240,14 +227,14 @@
                controller: 'ContatoController',
                routeName: 'Cadastro de Contato',
                RouteId: 'Contato@Index'
-           })
+           })   
 
         .when('/ContatoCadastro/:Action/:Id', {
             templateUrl: 'view/ContatoCadastro.html',
             authorize: true,
             controller: 'ContatoCadastroController',
             routeName: 'Inclusao de Contato',
-            RouteId: 'ContatoCadastro@New'
+            RouteId: 'Contato@New'
         })
 
         .when('/Qualidade', {
@@ -263,7 +250,7 @@
             authorize: true,
             controller: 'QualidadeCadastroController',
             routeName: 'Inclusao de Qualidade',
-            RouteId: 'QualidadeCadastro@New'
+            RouteId: 'Qualidade@New'
         })
         .when('/Rede', {
             templateUrl: 'view/Rede.html',
@@ -293,7 +280,7 @@
             authorize: true,
             controller: 'MotivoCancelamentoCadastroController',
             routeName: 'Inclusao de Motivo de Cancelamento',
-            RouteId: 'MotivoCancelamentoCadastro@New'
+            RouteId: 'MotivoCancelamento@New'
         })
                 .when('/MotivoFalha', {
                     templateUrl: 'view/MotivoFalha.html',
@@ -309,6 +296,69 @@
             routeName: 'Inclusão de Motivo de Falha',
             RouteId: 'MotivoFalha@New'
         })
+                .when('/TabelaPrecos', {
+                    templateUrl: 'view/TabelaPrecos.html',
+                    authorize: true,
+                    controller: 'TabelaPrecosController',
+                    routeName: 'Cadastro de Tabela de Preços',
+                    RouteId: 'TabelaPrecos@Index'
+                })
+
+        .when('/TabelaPrecosCadastroNew/:Action/:Id', {
+            templateUrl: 'view/TabelaPrecosCadastro.html',
+            authorize: true,
+            controller: 'TabelaPrecosCadastroController',
+            routeName: 'Inclusao de Tabela de Preço',
+            RouteId: 'TabelaPrecos@New'
+        })
+
+
+        .when('/TabelaPrecosCadastroEdit/:Action/:Id', {
+            templateUrl: 'view/TabelaPrecosCadastro.html',
+            authorize: true,
+            controller: 'TabelaPrecosCadastroController',
+            routeName: 'Alteração de Tabela de Preço',
+            RouteId: 'TabelaPrecos@Edit'
+        })
+          .when('/Programa', {
+              templateUrl: 'view/Programa.html',
+              authorize: true,
+              controller: 'ProgramaController',
+              routeName: 'Cadastro de Programas',
+              RouteId: 'Programa@Index'
+          })
+
+        .when('/ProgramaCadastro/:Action/:Id', {
+            templateUrl: 'view/ProgramaCadastro.html',
+            authorize: true,
+            controller: 'ProgramaCadastroController',
+            routeName: 'Inclusao de Programa',
+            RouteId: 'Programa@New'
+        })
+                .when('/veiculo', {
+                    templateUrl: 'view/Veiculo.html',
+                    authorize: true,
+                    controller: 'VeiculoController',
+                    routeName: 'Cadastro de Veículos',
+                    RouteId: 'Veiculo@Index'
+                })
+
+        .when('/VeiculoCadastroNew/:Action/:Id', {
+            templateUrl: 'view/VeiculoCadastro.html',
+            authorize: true,
+            controller: 'VeiculoCadastroController',
+            routeName: 'Inclusao de Veiculo',
+            RouteId: 'Veiculo@New'
+        })
+
+        .when('/VeiculoCadastroEdit/:Action/:Id', {
+            templateUrl: 'view/VeiculoCadastro.html',
+            authorize: true,
+            controller: 'VeiculoCadastroController',
+            routeName: 'Alteração de Veiculo',
+            RouteId: 'Veiculo@Edit'
+        })
+
 
         //----------------------------------------------------
         .when('/Simulacao', {

@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <!--===================Nome-->
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <div class="form-group">
                         <label class="fieldrequired">Descricao</label>
                         <input type="text" name="txtDescricao" class="form-control" ng-model="TipoComercial.Descricao" maxlength="30" ng-required="true" />
@@ -25,8 +25,8 @@
                 </div>
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label class="fieldrequired">Exibidora_DAD</label>
-                        <input type="text" name="txtDescricao" class="form-control" ng-model="TipoComercial.Exibidora_DAD" maxlength="30" ng-required="true" />
+                        <label>Cod.Exibidora</label>
+                        <input type="text" name="txtDescricao" class="form-control" ng-model="TipoComercial.Exibidora_DAD" maxlength="1" />
                     </div>
                 </div>
             </div>
@@ -106,6 +106,7 @@
                                 ng-disabled="frmTipoComercialCadastro.$invalid">
                             Salvar
                         </button>
+                        <button type="button" class="btn btn-danger" ng-click="ExcluirTipoComercial(TipoComercial)" ng-disabled="!PermissaoExclusao"  ng-show="Parameters.Action=='Edit'">Excluir</button>
                         <a href="#TipoComercial" class="btn btn-warning">Cancelar</a>
                     </div>
                 </div>

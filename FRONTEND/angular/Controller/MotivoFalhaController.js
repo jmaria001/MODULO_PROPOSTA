@@ -2,7 +2,6 @@
     //========================Verifica Permissoes
     $scope.PermissaoNew = false;
     $scope.PermissaoEdit = false;
-    $scope.PermissaoDesativarMotivoFalha = false;
 
     httpService.Get("credential/MotivoFalha@New").then(function (response) {
         $scope.PermissaoNew = response.data;
@@ -10,9 +9,7 @@
     httpService.Get("credential/MotivoFalha@Edit").then(function (response) {
         $scope.PermissaoEdit = response.data;
     });
-    httpService.Get("credential/MotivoFalha@Activate").then(function (response) {
-        $scope.PermissaoDesativarMotivoFalha = response.data;
-    });
+    
 
 
     //====================Inicializa scopes

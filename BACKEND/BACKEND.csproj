@@ -265,6 +265,9 @@
     <Compile Include="PDF\ImpressaoProposta.cs" />
     <Compile Include="PDF\ImpressaoSimulacao.cs" />
     <Compile Include="PDF\ImpressaoMidia.cs" />
+    <Compile Include="Programa\ProgramaController.cs" />
+    <Compile Include="Programa\ProgramaModel.cs" />
+    <Compile Include="Programa\ProgramaSQL.cs" />
     <Compile Include="Qualidade\QualidadeController.cs" />
     <Compile Include="Qualidade\QualidadeModel.cs" />
     <Compile Include="Qualidade\QualidadeSql.cs" />
@@ -275,6 +278,9 @@
     <Compile Include="Negociacao\NegociacaoController.cs" />
     <Compile Include="Negociacao\NegociacaoModel.cs" />
     <Compile Include="Negociacao\NegociacaoSql.cs" />
+    <Compile Include="TabelaPreco\TabelaPrecosController.cs" />
+    <Compile Include="TabelaPreco\TabelaPrecosModel.cs" />
+    <Compile Include="TabelaPreco\TabelaPrecosSql.cs" />
     <Compile Include="TipoComecial\TipoComercialController.cs" />
     <Compile Include="TipoComecial\TipoComercialModel.cs" />
     <Compile Include="TipoComecial\TipoComercialSql.cs" />

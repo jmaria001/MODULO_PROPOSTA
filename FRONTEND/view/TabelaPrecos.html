@@ -1,0 +1,122 @@
+﻿
+<div class="container">
+    <!--div do filtro-->
+    <div id="divFiltro" ng-show="ShowFilter">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="dictionary" dictionary="Competencia" caption="Competência">
+                    <input ng-model="Filtro.Competencia"
+                           ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                           placeholder="Informe a Competência">
+                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia" params="CompetenciaKeys"></div>
+                </div>
+            </div>
+        </div>
+        <!--===================Veiculo Mercado-->
+        <div class="row">
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Veiculo_Mercado">
+                    <input id="txtCodVeiculo"
+                           ng-model="Filtro.Veiculo"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodVeiculo')"
+                           primarybind="txtCodVeiculo"
+                           secondarybind="txtNomeVeiculo">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="Filtro.Nome_Veiculo">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--===================Programa-->
+        <div class="row">
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Programa">
+                    <input id="txtCodPrograma"
+                           ng-model="Filtro.Programa"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodPrograma')"
+                           primarybind="txtCodPrograma"
+                           secondarybind="txtTituloPrograma">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtTituloPrograma" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtTituloPrograma" class="form-control " ng-model="Filtro.Titulo">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="divBotaoFiltro" class="row margin-top-20">
+            <div class="col-12">
+                <button class="btn btn-primary" ng-click="CarregarTabelaPrecos(Filtro)">Filtrar</button>
+                <button class="btn btn-warning" ng-click="NewFiltro()">Limpar Filtro</button>
+                <a id="btnNovaTabelaPrecos" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#TabelaPrecosCadastroNew/New/0,0,0">Nova Tabela de Precos</a>
+            </div>
+        </div>
+    </div>
+    <!--Div do grid-->
+    <div id="divGrid" class="block table-responsive" ng-show="ShowGrid">
+        <!--===================================Botoes-->
+        <a id="btnNovaTabelaPrecos" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#TabelaPrecosCadastroNew/New/0,0,0">Nova Tabela de Precos</a>
+        <button class="btn btn-info" ng-click="ShowGrid=false;ShowFilter=true;NewFiltro()">Novo Filtro</button>
+        <button id="ExportReporttoExcel" class="btn btn-warning" ng-disabled="TabelaPrecosS.length==0">Exportar Excel</button>
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Competência</th>
+                        <th>Sequencia</th>
+                        <th>Tipo Preço</th>
+                        <!--<th>Cod.Programa</th>-->
+                        <th>Titulo</th>
+                        <!--<th>Cod.Veiculo Mercado</th>-->
+                        <th>Nome Veiculo</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="TabelaPrecos in TabelaPrecosS track by $index" on-finish-render="ngRepeatFinished()">
+                        <td style="width:50px; text-align:center">
+                            <a href="#TabelaPrecosCadastroEdit/Edit/{{TabelaPrecos.Competencia.replace('/','')}},{{::TabelaPrecos.Cod_Programa}},{{::TabelaPrecos.Cod_Veiculo_Mercado.trim()}}" ng-show="PermissaoEdit">
+                                    <span class="fa fa-edit fa-2x"></span>
+                                </a>
+                        </td>
+                        <td>{{::TabelaPrecos.Competencia}}</td>
+                        <td>{{::TabelaPrecos.Sequencia}}</td>
+                        <td>{{::TabelaPrecos.Tipo_Preco}}</td>
+                        <!--<td>{{::TabelaPrecos.Cod_Programa}}</td>-->
+                        <td>{{::TabelaPrecos.Cod_Programa}}-{{::TabelaPrecos.Titulo}}</td>
+
+                        <!--<td>{{::TabelaPrecos.Titulo}}</td>-->
+                        <!--<td>{{::TabelaPrecos.Cod_Veiculo_Mercado}}</td>-->
+                        <td>{{::TabelaPrecos.Cod_Veiculo_Mercado}}-{{::TabelaPrecos.Nome_Veiculo}}</td>
+                        <!--<td>{{::TabelaPrecos.Nome_Veiculo}}</td>-->
+                        <td>{{::TabelaPrecos.Valor | currency:"R$ ":2}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

@@ -1,0 +1,113 @@
+﻿<div class="container">
+    <form name="frmTabelaPrecosCadastro" autocomplete="off">
+        <di class="block">
+
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="dictionary" dictionary="Competencia" caption="Competência">
+                        <input ng-model="TabelaPrecos.Competencia"
+                               ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               placeholder="Informe a Competência">
+                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="TabelaPrecos.Competencia" params="CompetenciaKeys"></div>
+                    </div>
+                </div>
+                <!--===================Versão -->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <label>Versão </label>
+                        <input type="text" name="txtVersao" class="form-control" ng-model="TabelaPrecos.Sequencia" maxlength="2" ng-disabled="Parameters.Action=='Edit'"/>
+                    </div>
+                </div>
+
+
+                <!--======================Tipo Preço -->
+                <div class="col-md-2 margin-top-10">
+                    <div class="form-group">
+                        <label>Tipo Preço </label>
+                        <select class="form-control"
+                                ng-model="TabelaPrecos.Tipo_Preco"
+                                ng-disabled="Parameters.Action=='Edit'"
+                                name="optPosCalc"
+                                ng-options="TabelaPrecos.id as TabelaPrecos.nome for TabelaPrecos in PosTipo"></select>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--===================Programa-->
+            <div class="row">
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Programa">
+                        <input id="txtCodPrograma"
+                               ng-model="TabelaPrecos.Cod_Programa"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodPrograma')"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               primarybind="txtCodPrograma"
+                               secondarybind="txtTituloPrograma">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtTituloPrograma" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtTituloPrograma" class="form-control " ng-model="TabelaPrecos.Titulo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--===================Veiculo Mercado-->
+            <div class="row">
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Veiculo_Mercado">
+                        <input id="txtCodVeiculo"
+                               ng-model="TabelaPrecos.Cod_Veiculo_Mercado"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodVeiculo')"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               primarybind="txtCodVeiculo"
+                               secondarybind="txtNomeVeiculo">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="TabelaPrecos.Nome_Veiculo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--============================Valor -->
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Valor</label>
+                        <div class="input-group">
+                            <input type="text" id="txtValor" maxlength="16" class="form-control money" ng-model="TabelaPrecos.Valor" > 
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--===================Botoes-->
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <button class="btn btn-success" ng-click="SalvarTabelaPrecos(TabelaPrecos)">
+                        Salvar
+                    </button>
+                    <button type="button" class="btn btn-danger" ng-click="ExcluirTabelaPrecos(TabelaPrecos)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete" >Excluir</button>
+                    <a href="#TabelaPrecos" class="btn btn-warning">Cancelar</a>
+                </div>
+            </div>
+    </form>
+</div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

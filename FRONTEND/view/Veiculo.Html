@@ -1,19 +1,16 @@
 ﻿<div class="container">
-
     <div class="block table-responsive">
-        
         <!--=======================Botoes-->
-        <div class="row">
-            <div class="col-md-12">
-                <button class="btn btn-primary">Novo Veículo</button>
-                <button id="ExportReporttoExcel"class="btn btn-warning">Exportar Excel</button>
-            </div>
-        </div>
+        <a id="btnNovaVeiculo" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#VeiculoCadastroNew/New/0">Novo Veículo</a>
+        <button id="ExportReporttoExcel" class="btn btn-warning" ng-disabled="Veiculo.length==0">Exportar Excel</button>
+
         <!--==========================Grid-->
-        <div class="table-responsive" ng-show="showGrid" style="margin-top:20PX">
-            <table id ="dataTable" class="table table-bordered table-striped">
+        <!-- <div class="table-responsive" ng-show="showGrid" style="margin-top:20PX">-->
+        <div class="box table-responsive "  style="min-height:20px">
+            <table id="dataTable" class="table table-striped table-bordered ">
                 <thead>
                     <tr>
+                        <th></th>
                         <th>Código</th>
                         <th>Nome</th>
                         <th>Cidade</th>
@@ -23,6 +20,13 @@
                 </thead>
                 <tbody>
                     <tr ng-repeat="veiculo in Veiculos track by $index" on-finish-render="ngRepeatFinished()">
+                        <td style="width:50px; text-align:center">
+                            <a href="#VeiculoCadastroEdit/Edit/{{veiculo.Cod_Veiculo}}" ng-show="PermissaoEdit">
+                                <span class="fa fa-edit fa-2x"></span>
+                            </a>
+                        </td>
+
+
                         <td>{{veiculo.Cod_Veiculo}}</td>
                         <td>{{veiculo.Nome_Veiculo}}</td>
                         <td>{{veiculo.Cidade}}</td>
@@ -33,7 +37,7 @@
             </table>
         </div>
     </div>
-    </div>
+ </div>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#ExportReporttoExcel').on('click', function () {

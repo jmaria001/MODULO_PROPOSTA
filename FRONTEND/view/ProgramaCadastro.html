@@ -1,0 +1,488 @@
+﻿
+<div class="container">
+    <form name="frmProgramaCadastro" autocomplete="off">
+        <div class="block">
+            <div class="row">
+                <!--===================Codigo-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Código</label>
+                        <input type="text"
+                               name="txtCod_Programa"
+                               ng-model="Programa.Cod_Programa"
+                               class="form-control"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="4" ng-required="true"/>
+                    </div>
+                </div>
+                <!--====================Rede-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Rede">
+                        <input id="txtRede"
+                               ng-model="Programa.RedeId"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtRede')"
+                               primarybind="txtRede"
+                               secondarybind="txtDescRede">
+                    </div>
+                </div>
+                <!--====================Descricao Rede-->
+                <div class="col-md-4 margin-top-10">
+                    <div class="form-group">
+                        <label>Descrição Rede</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtDescRede" class="form-control" ng-model="Programa.NomeRede">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================Titulo-->
+                <div class="col-md-4 margin-top-10">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Título</label>
+                        <input type="text" name="txtTitulo" class="form-control" ng-model="Programa.Titulo" maxlength="50" ng-required="true"/>
+                    </div>
+                </div>
+
+                <div class="col-md-4 margin-top-10">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Sub.Título</label>
+                        <input type="text" name="txtSubTitulo" class="form-control" ng-model="Programa.Sub_Titulo" maxlength="50" ng-required="true"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Genero-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Genero" required>
+                        <input id="txtGenero"
+                               ng-model="Programa.Cod_Genero"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtGenero')"
+                               primarybind="txtGenero"
+                               secondarybind="txtDescGenero" ng-required="true">
+                    </div>
+                </div>
+                <!--====================Descricao Genero-->
+                <div class="col-md-6 margin-top-10">
+                    <div class="form-group">
+                        <label>Descrição Genero</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtDescGenero" class="form-control" ng-model="Programa.Genero">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--====================Itens checkbox-->
+
+            <div class="row">
+                <!--====================Evento-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.Indica_Evento" /> Evento<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--====================Rotativo-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.Rotativo" /> Rotativo<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--====================Local-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.Indica_Local" /> Local<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--====================Quadro-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.Indica_Programet" /> Quadro<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--====================Boletim-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.Indica_Boletim" /> Boletim<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--====================Internet-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.Indica_Internet" /> Internet<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--====================Faixa-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.Indica_Faixa" /> Faixa<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--====================Codigo JOVE ALFANUMERICO E NUMERICO-->
+            <div class="row">
+                <div class="col-md-3 margin-top-10">
+                    <div class="form-group">
+                        <label>Código JOVE Alfanumérico</label>
+                        <input type="text" name="txtJOVEALFA" class="form-control" ng-model="Programa.Cod_A_JOVE" maxlength="4" onfocus="this.selectionStart = this.selectionEnd = this.value.length;" />
+                    </div>
+                </div>
+
+                <div class="col-md-3 margin-top-10">
+                    <div class="form-group">
+                        <label>Código JOVE Numérico</label>
+                        <input type="text" name="txtJOVENUM" class="form-control" ng-model="Programa.Cod_N_JOVE" maxlength="2" onfocus="this.selectionStart = this.selectionEnd = this.value.length;" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="table-responsive margin-top-10">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="background-color:#f5f5f5">Apresentadores</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                            <td style="border-right:none">
+                                <label ng-repeat="apresentador in Programa.Apresentadores track by $index"
+                                       class="label label-info"
+                                       style="margin-right:10px;display:inline-block">
+                                    {{apresentador.Nome_Apresentador}}
+                                    <span class="fa fa-times span-btn pull-right" ng-click="RemoverApresentador(apresentador.Id_Apresentador)"></span>
+                                </label>
+                            </td>
+                            <td style="width:90px;min-width:90px;border-left:none">
+
+                                <button type="button" class="btn btn-default btn-sm" ng-click="SelecionarApresentadores(apresentador)">
+                                    <span class="fa fa-search"></span>
+                                </button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--====================Patrocinio-->
+
+            <div class="row">
+                <div class="col-md-1 margin-top-20">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.Indica_Patrocinio" />Patrocinio<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--====================Quantidade de Cotas-->
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Qtde Cotas</label>
+                        <input type="text" name="txtQtdeCotas" class="form-control" ng-model="Programa.Qtd_Cotas" maxlength="10" ng-disabled="!Programa.Indica_Patrocinio" />
+                    </div>
+                </div>
+
+                <!--====================Horario-->
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Horário</label>
+                        <input type="text" name="txtHorario" class="form-control time" ng-model="Programa.Horario_Exibicao" maxlength="30" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================Dia da semana segunda-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.DiaSeg" /> Seg<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--====================Dia da semana Terça-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.DiaTer" /> Ter<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====================Dia da semana Quarta-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.DiaQua" /> Qua<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====================Dia da semana Quinta-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.DiaQui" /> Qui<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====================Dia da semana Sexta-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.DiaSex" /> Sex<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====================Dia da semana Sábado-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.DiaSab" /> Sab<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====================Dia da semana Domingo-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.DiaDom" /> Dom<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="background-color:#f5f5f5">Sinopse</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                            <td style="border-right:none">
+                                <textarea name="txtSinopse" class="form-control" style="min-height:70px" ng-model="Programa.Sinopse" onfocus="this.selectionStart = this.selectionEnd = this.value.length;" />
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive" ng-show="Programa.Indica_Local">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="background-color:#f5f5f5">Veículos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                            <td style="border-right:none">
+                                <label ng-repeat="veiculo in Programa.Veiculos track by $index"
+                                       class="label label-info"
+                                       style="margin-right:10px;display:inline-block">
+                                    {{veiculo.Cod_Veiculo}}-{{veiculo.Nome_Veiculo}}
+                                    <span class="fa fa-times span-btn pull-right" ng-click="RemoverVeiculos(veiculo.Cod_Veiculo)"></span>
+                                </label>
+                            </td>
+                            <td style="width:90px;min-width:90px;border-left:none">
+
+                                <button type="button" class="btn btn-default btn-sm" ng-click="SelecionarVeiculos(veiculo.Cod_Veiculo)" >
+
+                                    <span class="fa fa-search"></span>
+                                </button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--===================Botoes-->
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success" ng-click="SalvarPrograma(Programa)"  ng-disabled="frmProgramaCadastro.$invalid">Salvar</button>
+                    <button type="button" class="btn btn-danger" ng-click="ExcluirPrograma(Programa)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
+                    <a href="#Programa" class="btn btn-warning">Cancelar</a>
+                </div>
+            </div>
+
+            <!--</div>-->
+            <!--=================================Selecao de Apresentadores-->
+            <div class="modal fade" id="ModalSelecaoApresentador" tabindex="-1" role="dialog" aria-labelledby="modal-warning-header">
+                <div class="modal-dialog modal-primary" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modal-info-header">Seleção de Apresentadores</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-times" style="color:#fff"></span></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="app-header-buttons" ng-show="loading" style="margin-left:50%">
+                                <i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+                            </div>
+                            <div ng-show="!loading">
+                                <div class="row" ng-show="filteredSelect.length>0">
+                                    <div class="col-md-11" style="margin-bottom:10px;margin-left:10px">
+                                        <input class="form-control input-sm" type="text" ng-model="ListaApresentadores.FiltroTexto" placeholder="Pesquisar" />
+                                    </div>
+                                </div>
+                                <div class="table-responsive" style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px #f5f5f5">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Id</th>
+                                                <th>Nome de Apresentadores</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="datarow in filteredSelect = (ListaApresentadores.Items| filter:ListaApresentadores.FiltroTexto) track by $index">
+                                                <td style="width:50px">
+                                                    <div class="app-checkbox">
+                                                        <label><input type="checkbox" name="app-checkbox-1" ng-model="datarow.Selected" style="position:relative" /> <span></span></label>
+                                                    </div>
+                                                </td>
+                                                <td>{{datarow.Codigo}}</td>
+                                                <td>{{datarow.Descricao}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="SelecaoApresentadorOk()">Ok</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Cancela</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--=================================Selecao de Veiculo-->
+            <div class="modal fade" id="ModalSelecaoVeiculo" tabindex="-1" role="dialog" aria-labelledby="modal-warning-header">
+                <div class="modal-dialog modal-primary" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modal-info-header">Seleção de Veiculos</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-times" style="color:#fff"></span></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="app-header-buttons" ng-show="loading" style="margin-left:50%">
+                                <i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+                            </div>
+                            <div ng-show="!loading">
+                                <div class="row" ng-show="filteredSelect.length>0">
+                                    <div class="col-md-11" style="margin-bottom:10px;margin-left:10px">
+                                        <input class="form-control input-sm" type="text" ng-model="ListaVeiculos.FiltroTexto" placeholder="Pesquisar" />
+                                    </div>
+                                </div>
+                                <div class="table-responsive" style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px #f5f5f5">
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Código</th>
+                                                <th>Nome de Veículos</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="datarow in filteredSelect = (ListaVeiculos.Items| filter:ListaVeiculos.FiltroTexto) track by $index">
+                                                <td style="width:50px">
+                                                    <div class="app-checkbox">
+                                                        <label><input type="checkbox" name="app-checkbox-1" ng-model="datarow.Selected" style="position:relative" /> <span></span></label>
+                                                    </div>
+                                                </td>
+                                                <td>{{datarow.Codigo}}</td>
+                                                <td>{{datarow.Descricao}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="SelecaoVeiculosOk()">Ok</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal">Cancela</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
+
+
+

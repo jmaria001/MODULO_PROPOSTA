@@ -3,8 +3,21 @@
     //========================Recebe Parametro
     $scope.Parameters = $routeParams;
     $scope.Empresa = "";
-    console.log($scope.Parameters); //este linha permite vericar o que o parametro esta recebendo pelo browsers
+    //========================Verifica Permissoes
+    $scope.PermissaoDelete= false;
+    httpService.Get("credential/Empresa@Destroy").then(function (response) {
+        $scope.PermissaoDelete = response.data;
+    });
 
+    //========================Verifica Permissoes
+    $scope.PermissaoNew = false;
+    $scope.PermissaoEdit = false;
+    httpService.Get("credential/Empresa@New").then(function (response) {
+        $scope.PermissaoNew = response.data;
+    });
+    httpService.Get("credential/Empresa@Edit").then(function (response) {
+        $scope.PermissaoEdit = response.data;
+    });
     //==========================Busca dados das Empresa
     var _url = "GetEmpresaData/" + $scope.Parameters.Id;
     httpService.Get(_url).then(function (response) {
@@ -21,6 +34,7 @@
 
                 if (response.data[0].Status) {
                     ShowAlert(response.data[0].Mensagem, 'success');
+                    $location.path("/Empresa");
                 }
                 else {
                     ShowAlert(response.data[0].Mensagem, 'warning');

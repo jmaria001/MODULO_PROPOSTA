@@ -42,6 +42,10 @@ namespace PROPOSTA
                 {
                     Retorno = Cls.GetMercadoData(Cod_Mercado);
 
+                }   
+                else
+                {
+                    Retorno.ListaVeiculo = Cls.AddListaVeiculo("");
                 }
                 return Ok(Retorno);
             }

@@ -117,6 +117,8 @@
     <Content Include="angular\Controller\MercadoCadastroController.js" />
     <Content Include="angular\Controller\PacoteDesconto_List_Controller.js" />
     <Content Include="angular\Controller\MercadoController.js" />
+    <Content Include="angular\Controller\ProgramaCadastroController.js" />
+    <Content Include="angular\Controller\ProgramaController.js" />
     <Content Include="angular\Controller\QualidadeCadastroController.js" />
     <Content Include="angular\Controller\QualidadeController.js" />
     <Content Include="angular\Controller\RedeCadastroController.js" />
@@ -127,12 +129,15 @@
     <Content Include="angular\Controller\NegociacaoController.js" />
     <Content Include="angular\Controller\Simulacao_List_Controller.js" />
     <Content Include="angular\Controller\dictionaryController.js" />
+    <Content Include="angular\Controller\TabelaPrecosCadastroController.js" />
+    <Content Include="angular\Controller\TabelaPrecosController.js" />
     <Content Include="angular\Controller\TipoComercialCadastroController.js" />
     <Content Include="angular\Controller\TipoComercialController.js" />
     <Content Include="angular\Controller\TipoMidiaCadastroController.js" />
     <Content Include="angular\Controller\TipoMidiaController.js" />
     <Content Include="angular\Controller\UsuarioController.js" />
     <Content Include="angular\Controller\MenuCadastroController.js" />
+    <Content Include="angular\Controller\VeiculoCadastroController.js" />
     <Content Include="angular\Controller\VeiculoController.js" />
     <Content Include="angular\Filter\AppFilter.js" />
     <Content Include="images\Background.jpg" />
@@ -229,6 +234,8 @@
     <Content Include="view\Negociacao.html" />
     <Content Include="view\Negociacao_Cadastro.html" />
     <Content Include="view\PendenciaAprovacao.html" />
+    <Content Include="view\Programa.html" />
+    <Content Include="view\ProgramaCadastro.html" />
     <Content Include="view\PropostaPendenteAprovacao.html" />
     <Content Include="view\Qualidade.html" />
     <Content Include="view\QualidadeCadastro.html" />
@@ -242,6 +249,8 @@
     <Content Include="view\SimulacaoComAbas.html" />
     <Content Include="view\Simulacao_List.html" />
     <Content Include="view\simulacao_copy_2803.html" />
+    <Content Include="view\TabelaPrecos.html" />
+    <Content Include="view\TabelaPrecosCadastro.html" />
     <Content Include="view\TipoComercial.html" />
     <Content Include="view\TipoComercialCadastro.html" />
     <Content Include="view\TipoMidia.html" />
@@ -250,6 +259,7 @@
     <Content Include="view\Usuario.html" />
     <Content Include="view\Veiculo.Html" />
     <Content Include="img\web.config" />
+    <Content Include="view\VeiculoCadastro.html" />
     <Content Include="Z-demo\MaterialListController.js" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

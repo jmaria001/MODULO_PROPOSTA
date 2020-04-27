@@ -32,7 +32,7 @@
                             ng-disabled="frmMotivoAlterNegocCadastro.$invalid">
                         Salvar
                     </button>
-                    <button class="btn btn-danger" ng-click="ExcluirMotivoAlterNegoc(MotivoAlterNegoc)">Excluir</button>
+                    <button  type="button" class="btn btn-danger" ng-click="ExcluirMotivoAlterNegoc(MotivoAlterNegoc)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
                     <a href="#MotivoAlterNegoc" class="btn btn-warning">Cancelar</a>
                 </div>
             </div>

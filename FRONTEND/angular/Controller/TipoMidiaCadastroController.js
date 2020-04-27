@@ -3,12 +3,15 @@
     //========================Recebe Parametro
     $scope.Parameters = $routeParams;
     $scope.TipoMidia = "";
-    console.log($scope.Parameters);
-
+    //========================Verifica Permissoes
+    $scope.PermissaoDelete = false;
+    httpService.Get("credential/TipoMidia@Destroy").then(function (response) {
+        $scope.PermissaoDelete = response.data;
+    });
     //==========================Busca dados do Tipo Midia
-    $scope.CarregaDados = function() {
+    $scope.CarregaDados = function () {
         var _url = "GetTipoMidiaData/" + $scope.Parameters.Id;
-        httpService.Get(_url).then(function (response) {
+        httpService.Get(_url.trim()).then(function (response) {
             if (response) {
                 $scope.TipoMidia = response.data;
             }
@@ -28,12 +31,7 @@
 
                 if (response.data[0].Status) {
                     ShowAlert(response.data[0].Mensagem, 'success');
-                    if ($scope.Parameters.Action == 'New') {
-                        $scope.CarregaDados();
-                    }
-                    else {
-                        $location.path("/TipoMidia")
-                    }
+                    $location.path("/TipoMidia")
                 }
                 else {
                     ShowAlert(response.data[0].Mensagem, 'warning');

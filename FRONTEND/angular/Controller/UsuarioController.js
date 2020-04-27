@@ -113,10 +113,14 @@
     
     //=====================Marcou uma funcao do Perfil
     $scope.CheckPerfil = function (pPerfil) {
+        if (!pPerfil.Selected) {
+
+        
         for (var i = 0; i < $scope.Ctrl.Perfil.length; i++) {
             if ($scope.Ctrl.Perfil[i].Id_Funcao_Root == pPerfil.Id_Funcao) {
                 $scope.Ctrl.Perfil[i].Selected = pPerfil.Selected;
             }
+        }
         }
     }
     //=====================Marcar / Desmarcar todos os perfis

@@ -3,7 +3,11 @@
     //========================Recebe Parametro
     $scope.Parameters = $routeParams;
     $scope.Mercado = "";
-
+    //========================Verifica Permissoes
+    $scope.PermissaoDestroy = false;
+    httpService.Get("credential/Mercado@Destroy").then(function (response) {
+        $scope.PermissaoDestroy = response.data;
+    });
     //==========================Busca dados do Mercado
     var _url = "GetMercadoData/" + $scope.Parameters.Id.trim();
     httpService.Get(_url).then(function (response) {
@@ -14,10 +18,6 @@
 
     //==========================Salvar
     $scope.SalvarMercado = function (pMercado) {
-        //if ($scope.Parameters.Action == "New")
-        //{
-        //    $scope.Mercado.id_operacao = 'I';
-        //}
         $scope.Mercado.id_operacao = $scope.Parameters.Action == "New" ? 'I' : 'E';
         httpService.Post("SalvarMercado", pMercado).then(function (response) {
             if (response) {
@@ -31,7 +31,6 @@
                 }
             }
         })
-
     };
 
     //======================Excluir

@@ -358,6 +358,25 @@ function DecimalFormat(pValue) {
         return "";
     }
 }
+function TimeUnformat(pValue) {
+
+    if (pValue) {
+        return pValue.replace(':', '');
+    }
+    else {
+        return "";
+    }
+}
+function TimeFormat(pValue) {
+
+    if (pValue) {
+        var x = LeftZero(pValue, 4)
+        return x.substr(0,2)+':' + x.substr(2,2);
+    }
+    else {
+        return "";
+    }
+}
 
 function DoubleVal(pValue) {
     var _ret = 0;
@@ -370,7 +389,6 @@ function DoubleVal(pValue) {
         if (pValue.toString().indexOf(".") > -1 && pValue.toString().indexOf(",") > -1) {
             pValue = pValue.toString().replace(/[^0-9,-]+/g, "");
         }
-        
         _ret = parseFloat(pValue);
     }
     return _ret;

@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            
                 <!--====================Fatura Antecipada-->
                 <div class="col-md-2 margin-top-10">
                     <div class="form-group">
@@ -35,7 +35,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
             <div class="row">
                 <!--====================Gera Receita-->
                 <div class="col-md-2 margin-top-10">
@@ -56,9 +55,7 @@
                                 ng-disabled="frmTipoMidiaCadastro.$invalid">
                             Salvar
                         </button>
-                        <!-- <button class="btn btn-danger" ng-click="ExcluirTipoComercial(TipoComercial)" ng-show="PermissaoExcluir">Excluir</button>-->
-                        <!--<button class="btn btn-danger" ng-disabled="!PermissaoDestroy" ng-click="ExcluirMercado(Mercado) ">Excluir</button>-->
-                        <button class="btn btn-danger" ng-click="excluirtipomidia(TipoMidia) ">Excluir</button>
+                        <button type="button" class="btn btn-danger" ng-click="excluirtipomidia(TipoMidia)"ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete" >Excluir</button>
                         <a href="#TipoMidia" class="btn btn-warning">Cancelar</a>
                     </div>
                 </div>

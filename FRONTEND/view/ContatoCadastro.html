@@ -1,20 +1,21 @@
 ﻿<div class="container">
+
     <form name="frmContatoCadastro" autocomplete="off">
         <div class="block">
             <div id="divAbas">
                 <div class="row" style="margin-bottom:10px">
                     <div class="col-md-12">
-                        <button ng-class="currentTab=='Dados' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="currentTab='Dados'" >Dados Principais</button>
-                        <button ng-class="currentTab=='Empresa' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="currentTab='Empresa'" >Empresas</button>
+                        <button type="button" ng-class="currentTab=='Dados' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="currentTab='Dados'" >Dados Principais</button>
+                        <button type="button" ng-class="currentTab=='Empresa' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="currentTab='Empresa'" >Empresas</button>
                     </div>
                 </div>
             </div>
             <div id="divDados" ng-show="currentTab=='Dados'">
                 <div class="row">
                     <!--===================Codigo-->
-                    <div class="col-md-1">
+                    <div class="col-md-3">
                         <div class="form-group">
-                            <label class="fieldrequired">Código</label>
+                            <label class="fieldrequired field-x">Código</label>
                             <input type="text"
                                    style="text-transform:uppercase"
                                    name="txtCod_Contato"
@@ -27,28 +28,28 @@
                         </div>
                     </div>
                     <!--===================Nome-->
-                    <div class="col-md-3">
+                    <div class="col-md-5">
                         <div class="form-group">
-                            <label class="fieldrequired">Nome</label>
+                            <label class="fieldrequired field-x">Nome</label>
                             <input id="txtNome" type="text" size="50" name="txtNome" class="form-control" style="text-transform:uppercase" ng-model="Contato.Nome" maxlength="30" ng-required="true" />
                         </div>
                     </div>
                     <!--===================CGC-->
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="fieldrequired">CGC</label>
-                            <input type="text" size="20" name="txtCGC" class="form-control" ng-model="Contato.CGC" maxlength="20" ng-required="false" />
+                            <label class="fieldrequired  field-x">CNPJ/CPF</label>
+                            <input type="text" size="20" name="txtCGC" class="form-control cnpj" ng-model="Contato.CGC" maxlength="20" ng-required="false" />
                         </div>
                     </div>
                     <!--===================Indica_Cic_Cgc-->
-                    <div class="col-md-3">
+                    <!--<div class="col-md-3">
                         <div class="form-group">
                             <label class="fieldrequired">Indica_Cic_Cgc</label>
                             <input type="text" size="1" name="txtIndica_Cic_Cgc" class="form-control" ng-model="Contato.Indica_Cic_Cgc" maxlength="1" ng-required="true" />
                         </div>
-                    </div>
+                    </div>-->
                     <!--===================Data_Desativacao-->
-                    <div class="col-md-2">
+                    <!--<div class="col-md-2">
                         <div class="form-group">
                             <div class="dictionary" dictionary="Data" size="15" caption="Data Desativacao">
                                 <input ng-model="Contato.Data_Desativacao"
@@ -56,43 +57,58 @@
                                 <div class="dictionary-ui-calendar" ui-calendar typdate="Contato.Data_Desativacao"></div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="row">
                     <!--===================Email_Notificacao-->
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="fieldrequired">Email_Notificacao</label>
-                            <input type="text" size="200" name="txtEmail_Notificacao" class="form-control" style="text-transform:lowercase" ng-model="Contato.Email_Notificacao" maxlength="200" ng-required="false" />
+                            <label class="fieldrequired field-x">Email_Notificacao</label>
+                            <input type="email" size="200" name="txtEmail_Notificacao" class="form-control" style="text-transform:lowercase" ng-model="Contato.Email_Notificacao" maxlength="200" ng-required="false" />
                         </div>
                     </div>
                     <!--===================Login-->
-                    <div class="col-md-3">
+                    <div class="col-md-3">  
                         <div class="form-group">
-                            <label class="fieldrequired">Login</label>
+                            <label class="field-x">Login SCTV</label>
                             <input type="text" size="30" name="txtLogin" class="form-control" style="text-transform:uppercase" ng-model="Contato.Login" maxlength="30" ng-required="false" />
                         </div>
                     </div>
                     <!--===================Cod_Nucleo-->
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="fieldrequired">Cod_Nucleo</label>
-                            <input type="text" size="10" name="txtCod_Nucleo" class="form-control" style="text-transform:uppercase" ng-model="Contato.Cod_Nucleo" maxlength="7" ng-required="false" />
+                    <div class="col-md-2  " ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Nucleo">
+                            <input id="txtCod_Nucleo"
+                                   ng-model="Contato.Cod_Nucleo"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCod_Nucleo')"
+                                   primarybind="txtCod_Nucleo"
+                                   secondarybind="txtNome_Nucleo">
                         </div>
                     </div>
+
+                    <!--====================Nome Nucleo Rede-->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="fieldrequired field-x" style="visibility:hidden">Descrição Rede</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNome_Nucleo" class="form-control" ng-model="Contato.Nome_Nucleo">
+                            </div>
+                        </div>
+                    </div>
+                    
                 </div>
                 <div class="row">
                     <!--===================CNPJ_Empresa-->
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="fieldrequired">CNPJ_Empresa</label>
-                            <input type="text" size="30" name="txtCNPJ_Empresa" class="form-control" ng-model="Contato.CNPJ_Empresa" maxlength="20" ng-required="false" />
+                            <label class="fieldrequired field-x">CNPJ_Empresa</label>
+                            <input type="text" size="30" name="txtCNPJ_Empresa" class="form-control cnpj" ng-model="Contato.CNPJ_Empresa" maxlength="20" ng-required="false" />
                         </div>
                     </div>
                     <!--===================Razao_Empresa-->
-                    <div class="col-md-5">
+                    <div class="col-md-8">
                         <div class="form-group">
-                            <label class="fieldrequired">Razao_Empresa</label>
+                            <label class="fieldrequired field-x">Razao_Empresa</label>
                             <input type="text" size="50" name="txtRazao_Empresa" class="form-control" style="text-transform:uppercase" ng-model="Contato.Razao_Empresa" maxlength="50" ng-required="false" />
                         </div>
                     </div>
@@ -135,11 +151,9 @@
                                     ng-disabled="frmContatoCadastro.$invalid">
                                 Salvar
                             </button>
-                            <button class="btn btn-danger" ng-click="DesativarContato(Contato.Cod_Contato)" ng-show="PermissaoDesativar && Contato.Status=='1'">Desativar</button>
-                            <button class="btn btn-info" ng-click="ReativarContato(Contato.Cod_Contato)" ng-show="PermissaoDesativar && Contato.Status=='0'">Reativar</button>
-                            <button class="btn btn-danger" ng-click="ExcluirContato(Contato) ">Excluir</button>
-                            <!--<button class="btn btn-info" ng-click="EmpresaContato(Contato) ">Empresas</button>-->
-                            <!--<button class="btn btn-danger" ng-click="DesanexarContato(Contato) ">Desanexar</button>-->
+                            <button type="button" class="btn btn-danger" ng-click="DesativarContato(Contato.Cod_Contato)" ng-disabled="!PermissaoDesativar"  ng-show="Parameters.Action=='Edit' && Contato.Status=='1'">Desativar</button>
+                            <button  type="button" class="btn btn-info" ng-click="ReativarContato(Contato.Cod_Contato)" ng-disabled="!PermissaoDesativar"  ng-show="Parameters.Action=='Edit' && Contato.Status=='0'" >Reativar</button>
+                            <button  type="button" class="btn btn-danger" ng-click="ExcluirContato(Contato)"ng-disabled="!PermissaoExcluir" ng-show="Parameters.Action=='Edit'" >Excluir</button>
                             <a href="#Contato" class="btn btn-warning">Cancelar</a>
                         </div>
                     </div>

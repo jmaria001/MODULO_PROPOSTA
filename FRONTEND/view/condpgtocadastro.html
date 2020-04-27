@@ -49,9 +49,7 @@
                                 ng-disabled="frmCondPgtoCadastro.$invalid">
                             Salvar
                         </button>
-                        <!-- <button class="btn btn-danger" ng-click="ExcluirTipoComercial(TipoComercial)" ng-show="PermissaoExcluir">Excluir</button>-->
-                        <!--<button class="btn btn-danger" ng-disabled="!PermissaoDestroy" ng-click="ExcluirMercado(Mercado) ">Excluir</button>-->
-                        <button class="btn btn-danger" ng-click="ExcluirCondPgto(CondPgto) ">Excluir</button>
+                        <button type="button" class="btn btn-danger" ng-click="ExcluirCondPgto(CondPgto) " ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
                         <a href="#CondPgto" class="btn btn-warning">Cancelar</a>
                     </div>
                 </div>

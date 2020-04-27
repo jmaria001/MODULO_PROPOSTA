@@ -40,7 +40,7 @@
                             ng-disabled="frmCategoriaClienteCadastro.$invalid">
                         Salvar
                     </button>
-                    <button class="btn btn-danger" ng-click="ExcluirCategoriaCliente(CategoriaCliente)">Excluir</button>
+                    <button type ="button" class="btn btn-danger" ng-click="ExcluirCategoriaCliente(CategoriaCliente)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
                     <a href="#CategoriaCliente" class="btn btn-warning">Cancelar</a>
                 </div>
             </div>

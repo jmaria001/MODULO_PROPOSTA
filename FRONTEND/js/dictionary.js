@@ -11,9 +11,24 @@ function GetDictionary() {
                         { 'Id': 'Motivo_Falha', 'label': 'Motivo', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'text' } },
                         { 'Id': 'UF', 'label': 'UF', 'icon': 'search', 'atributos': { 'maxlength': '2', 'type': 'text', 'keymode': 'upper' } },
                         { 'Id': 'Pacote_Desconto', 'label': 'Pacote de Desconto', 'icon': 'search', 'atributos': { 'maxlength': '30', 'type': 'text', 'keymode': 'numeric' } },
-                        { 'Id': 'Agencia', 'label': 'Agência', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric', 'filter': true } },
-                        { 'Id': 'Cliente', 'label': 'Cliente', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric', 'filter': true } },
-                        { 'Id': 'Contato', 'label': 'Contato', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric'} },
+                        { 'Id': 'Agencia', 'label': 'Agência', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric', 'filter': true} },
+                        { 'Id': 'Cliente', 'label': 'Cliente', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric', 'filter': true} },
+                        { 'Id': 'Terceiro', 'label': 'Terceiro', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric', 'filter': true} },
+                        { 'Id': 'Contato', 'label': 'Contato', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Rede', 'label': 'Rede', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Genero', 'label': 'Genero', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Apresentador', 'label': 'Apresentador', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Empresa_Venda', 'label': 'Empresa', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Empresa_Faturamento', 'label': 'Empresa', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Empresa_Pertence', 'label': 'Empresa', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Centro_Custo', 'label': 'Centro_Custo', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Veiculo', 'label': 'Veiculo', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Veiculo_Mercado', 'label': 'Veiculo ou Mercado', 'icon': 'search', 'atributos': { 'maxlength': '5', 'type': 'text', 'keymode': 'text' } },
+                        { 'Id': 'Classe_Potencia', 'label': 'Classe_Potencia', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Terceiro_Funcao', 'label': 'Funcao', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Programa', 'label': 'Programa', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'text' } },
+                        { 'Id': 'Nucleo', 'label': 'Núcleo', 'icon': 'search', 'atributos': { 'maxlength': '7', 'type': 'text', 'keymode': 'text' } },
+
 
     ];
 
@@ -175,7 +190,7 @@ function GetDictionary() {
 
     $(".decimal, .money .percent").attr("onkeypress", "return DecimalOnly(event)")
 
-    $(".numeric,.cnpj calendar-date").attr("onkeypress", "return NumericOnly(event)")
+    $(".numeric,.cnpj ,.time").attr("onkeypress", "return NumericOnly(event)")
     $(".money").blur(function () {
         this.value = MoneyFormat(this.value);
     });
@@ -185,16 +200,24 @@ function GetDictionary() {
     $(".percent").blur(function () {
         this.value = PercentFormat(this.value);
     });
-
-    $(".money").focus(function () {
-        this.value = DecimalUnformat(this.value);
-    });
-    $(".cnpj").focus(function () {
-        this.value = cnpjUnformat(this.value);
+    $(".time").blur(function () {
+        this.value = TimeFormat(this.value);
     });
     $(".cnpj").blur(function () {
         this.value = cnpjFormat(this.value);
     });
+
+    $(".money").focus(function () {
+        this.value = DecimalUnformat(this.value);
+    });
+
+    $(".cnpj").focus(function () {
+        this.value = cnpjUnformat(this.value);
+    });
+    $(".time").focus(function () {
+        this.value = TimeUnformat(this.value);
+    });
+    
 }
 
 

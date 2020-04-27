@@ -116,6 +116,8 @@
                         <th>Emp.Venda</th>
                         <th>Emp.Fat</th>
                         <th>Período</th>
+                        <th>Agências</th>
+                        <th>Cientes</th>
                         <th>Tipo de Mídia</th>
                         <th>Tabela de Preços</th>
                         <th>Verba Negociada</th>
@@ -123,8 +125,6 @@
                         <th>Realizado Negociado</th>
                         <th>Desc.Concedido</th>
                         <th>Desc.Real</th>
-                        <th>Agências</th>
-                        <th>Cientes</th>
                         <th>Contatos</th>
                     </tr>
                 </thead>
@@ -150,15 +150,7 @@
                                 {{empresa.Cod_Empresa}} - {{empresa.Nome_Empresa}}
                             </label>
                         </td>
-
                         <td style="text-align:left;white-space:nowrap">{{Negociacao.Competencia_Inicial}} a {{Negociacao.Competencia_Final}}</td>
-                        <td style="text-align:left">{{::Negociacao.Cod_Tipo_Midia}}</td>
-                        <td style="text-align:left">{{::Negociacao.Tabela_Preco}}</td>
-                        <td style="text-align:right;white-space:nowrap">{{::Negociacao.Verba_Negociada| currency:"R$ ":2}}</td>
-                        <td style="text-align:right;white-space:nowrap">{{::Negociacao.Valor_Tabela|currency:"R$ ":2}}</td>
-                        <td style="text-align:right;white-space:nowrap">{{::Negociacao.Valor_Negociado|currency:"R$ ":2}}</td>
-                        <td style="text-align:left">{{Negociacao.Desconto_Concedido | percentage:4}}</td>
-                        <td style="text-align:left">{{Negociacao.Desconto_Real | percentage:4}}</td>
                         <td>
                             <label class="label label-default text-left" style="display:grid" ng-repeat="agencia in Negociacao.Agencias">
                                 {{agencia.Cod_Agencia}} - {{agencia.Nome_Agencia}}
@@ -169,6 +161,13 @@
                                 {{Cliente.Cod_Cliente}} - {{Cliente.Nome_Cliente}}
                             </label>
                         </td>
+                        <td style="text-align:left">{{::Negociacao.Cod_Tipo_Midia}}</td>
+                        <td style="text-align:left">{{::Negociacao.Tabela_Preco}}</td>
+                        <td style="text-align:right;white-space:nowrap">{{::Negociacao.Verba_Negociada| currency:"R$ ":2}}</td>
+                        <td style="text-align:right;white-space:nowrap">{{::Negociacao.Valor_Tabela|currency:"R$ ":2}}</td>
+                        <td style="text-align:right;white-space:nowrap">{{::Negociacao.Valor_Negociado|currency:"R$ ":2}}</td>
+                        <td style="text-align:left">{{Negociacao.Desconto_Concedido | percentage:4}}</td>
+                        <td style="text-align:left">{{Negociacao.Desconto_Real | percentage:4}}</td>
                         <td>
                             <label class="label label-default text-left" style="display:grid" ng-repeat="Contato in Negociacao.Contatos">
                                 {{Contato.Cod_Contato}} - {{Contato.Nome_Contato}}

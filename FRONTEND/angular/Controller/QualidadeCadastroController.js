@@ -3,28 +3,14 @@
     //========================Variaveis
     $scope.currentTab = "Dados";
     //========================Verifica Permissoes
-    $scope.PermissaoNew = false;
-    $scope.PermissaoEdit = false;
-    $scope.PermissaoDesativar = false;
-    $scope.PermissaoExcluir = false;
-    httpService.Get("credential/Qualidade@New").then(function (response) {
-        $scope.PermissaoNew = response.data;
-    });
-    httpService.Get("credential/Qualidade@Edit").then(function (response) {
-        $scope.PermissaoEdit = response.data;
-    });
+    $scope.PermissaoDelete= false;
     httpService.Get("credential/Qualidade@Destroy").then(function (response) {
-        $scope.PermissaoExcluir = response.data;
-    });
-    httpService.Get("credential/Qualidade@Activate").then(function (response) {
-        $scope.PermissaoDesativar = response.data;
+        $scope.PermissaoDelete= response.data;
     });
 
     //========================Recebe Parametro
     $scope.Parameters = $routeParams;
     $scope.Qualidade = "";
-    console.log($scope.Parameters);
-
     //==========================Busca dados da Qualidade
     $scope.CarregaDados = function () {
         var _url = "GetQualidadeData/" + $scope.Parameters.Id;
@@ -48,12 +34,7 @@
 
                 if (response.data[0].Status) {
                     ShowAlert(response.data[0].Mensagem, 'success');
-                    if ($scope.Parameters.Action == 'New') {
-                        $scope.CarregaDados();
-                    }
-                    else {
-                        $location.path("/Qualidade")
-                    }
+                    $location.path("/Qualidade")
                 }
                 else {
                     ShowAlert(response.data[0].Mensagem, 'warning');

@@ -28,7 +28,7 @@
                 <!--====================Sigla Jove-->
                 <div class="col-md-1">
                     <div class="form-group">
-                        <label class="fieldrequired field-x">Sigla Jove</label>
+                        <label class="field-x">Sigla Jove</label>
                         <input type="text" name="txtSiglaJove" class="form-control" ng-model="Empresa.Cod_JOVE" maxlength="3" ng-required="true" />
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                 </div>
                 <!--====================Cod_UF-->
                    <div class="col-md-1  " ng-controller="dictionaryController">
-                        <div class="dictionary" dictionary="UF">
+                        <div class="dictionary" dictionary="UF" required    >
                             <input id="txtCod_UF"
                                    ng-model="Empresa.Cod_UF"
                                    ng-model-options="{updateOn: 'blur'}"
@@ -84,7 +84,7 @@
                     <!--====================Telefone-->
                     <div class="col-md-1">
                         <div class="form-group">
-                            <label class="fieldrequired field-x">Telefone</label>
+                            <label class="field-x">Telefone</label>
                             <input type="text" name="txtTelefone" class="form-control" ng-model="Empresa.Telefone" maxlength="15" />
                         </div>
                     </div>
@@ -95,22 +95,22 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="fieldrequired field-x">CNPJ</label>
-                        <input type="text" name="txtCGC" class="form-control" ng-model="Empresa.CGC" maxlength="18" ng-required="true" />
+                        <input type="text" name="txtCGC" class="form-control cnpj" ng-model="Empresa.CGC" maxlength="18" ng-required="true" />
                     </div>
                 </div>
 
                 <!--====================Inscricao Estadual-->
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label class="fieldrequired field-x">Inscricao Estadual</label>
-                        <input type="text" name="txtEstadual" class="form-control" ng-model="Empresa.Inscricao_Estadual" maxlength="15" ng-required="true" />
+                        <label class="field-x">Inscricao Estadual</label>
+                        <input type="text" name="txtEstadual" class="form-control" ng-model="Empresa.Inscricao_Estadual" maxlength="15"/>
                     </div>
                 </div>
                 <!--====================Inscricao Municipal-->
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label class="fieldrequired field-x">Inscricao Municipal</label>
-                        <input type="text" name="txtMunicipal" class="form-control" ng-model="Empresa.Inscricao_Municipal" maxlength="15" ng-required="true" />
+                        <label class="field-x">Inscricao Municipal</label>
+                        <input type="text" name="txtMunicipal" class="form-control" ng-model="Empresa.Inscricao_Municipal" maxlength="15" />
                     </div>
                 </div>
             </div>
@@ -132,7 +132,7 @@
                     <div class="form-group">
                         <label for="txtNomeEmpresaPertence" class="field-x" style="visibility:hidden">..</label>
                         <div class="input-group">
-                            <input type="text" disabled="disabled" id="txtNomeEmpresaPertence" class="form-control" ng-model="Empresa_Usuario.Razao_Social">
+                            <input type="text" disabled="disabled" id="txtNomeEmpresaPertence" class="form-control" ng-model="Empresa.Razao_Social">
                         </div>
                     </div>
                 </div>
@@ -146,9 +146,7 @@
                                 ng-disabled="frmEmpresaCadastro.$invalid">
                             Salvar
                         </button>
-                        <!-- <button class="btn btn-danger" ng-click="ExcluirTipoComercial(TipoComercial)" ng-show="PermissaoExcluir">Excluir</button>-->
-                        <!--<button class="btn btn-danger" ng-disabled="!PermissaoDestroy" ng-click="ExcluirMercado(Mercado) ">Excluir</button>-->
-                        <button class="btn btn-danger" ng-click="ExcluirEmpresa(Empresa) ">Excluir</button>
+                        <button  type="button"  class="btn btn-danger" ng-click="ExcluirEmpresa(Empresa)"ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
                         <a href="#Empresa" class="btn btn-warning">Cancelar</a>
                     </div>
                 </div>

@@ -33,9 +33,9 @@
             <div class="row margin-top-20">
                 <div class="col-md-12">
                     <button class="btn btn-success" ng-click="SalvarMotivoFalha(MotivoFalha)" ng-disabled="frmMotivoFalhaCadastro.$invalid">Salvar</button>
-                    <button class="btn btn-danger" ng-click="ExcluirMotivoFalha(MotivoFalha)" ng-disabled="frmMotivoFalhaCadastro.$invalid">Excluir</button>
-                    <button class="btn btn-info" ng-show="MotivoFalha.Indica_Desativado" ng-click="DesativarReativarMotivoFalha(MotivoFalha.Cod_Motivo_Falha,'R')" ng-disabled="frmMotivoFalhaCadastro.$invalid">Reativar</button>
-                    <button class="btn btn-info" ng-show="!MotivoFalha.Indica_Desativado" ng-click="DesativarReativarMotivoFalha(MotivoFalha.Cod_Motivo_Falha,'D')" ng-disabled="frmMotivoFalhaCadastro.$invalid">Desativar</button>
+                    <button type="button" class="btn btn-danger" ng-click="ExcluirMotivoFalha(MotivoFalha)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
+                    <button type="button" class="btn btn-info" ng-show="MotivoFalha.Indica_Desativado && Parameters.Action=='Edit'" ng-disabled="!PermissaoDesativar" ng-click="DesativarReativarMotivoFalha(MotivoFalha.Cod_Motivo_Falha,'R')" >Reativar</button>
+                    <button type="button" class="btn btn-info" ng-show="!MotivoFalha.Indica_Desativado && Parameters.Action=='Edit'" ng-disabled="!PermissaoDesativar" ng-click="DesativarReativarMotivoFalha(MotivoFalha.Cod_Motivo_Falha,'D')">Desativar</button>
                     <a href="#MotivoFalha" class="btn btn-warning">Cancelar</a>
                 </div>
             </div>

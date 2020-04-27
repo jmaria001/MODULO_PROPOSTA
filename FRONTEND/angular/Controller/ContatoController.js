@@ -3,20 +3,13 @@
     //========================Verifica Permissoes
     $scope.PermissaoNew = false;
     $scope.PermissaoEdit = false;
-    $scope.PermissaoDesativar = false;
-    $scope.PermissaoExcluir = false;
     httpService.Get("credential/Contato@New").then(function (response) {
         $scope.PermissaoNew = response.data;
     });
     httpService.Get("credential/Contato@Edit").then(function (response) {
         $scope.PermissaoEdit = response.data;
     });
-    httpService.Get("credential/Contato@Destroy").then(function (response) {
-        $scope.PermissaoExcluir = response.data;
-    });
-    httpService.Get("credential/Contato@Activate").then(function (response) {
-        $scope.PermissaoDesativar = response.data;
-    });
+
     //====================Inicializa scopes
     $scope.ShowGrid = false;
     $scope.gridheaders = [{ 'title': '', 'visible': true, 'searchable': false, 'sortable': false },

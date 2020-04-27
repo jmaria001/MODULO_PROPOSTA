@@ -3,6 +3,11 @@
     //========================Recebe Parametro
     $scope.Parameters = $routeParams;
     $scope.CategoriaCliente = "";
+    //========================Verifica Permissoes
+    $scope.PermissaoDelete= false;
+    httpService.Get("credential/CategoriaCliente@Destroy").then(function (response) {
+        $scope.PermissaoDelete = response.data;
+    });
 
     //==========================Busca dados da Categoria do Cliente
     $scope.CarregaDados = function () {
@@ -24,9 +29,6 @@
                 {
                     ShowAlert(response.data[0].Mensagem, 'success');
                     if ($scope.Parameters.Action == 'New') {
-                        $scope.CarregaDados();
-                    }
-                    else {
                         $location.path("/CategoriaCliente");
                     }
                 }

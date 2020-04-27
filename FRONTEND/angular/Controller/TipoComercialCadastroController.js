@@ -3,11 +3,15 @@
     //========================Recebe Parametro
     $scope.Parameters = $routeParams;
     $scope.TipoComercial = "";
-    console.log($scope.Parameters);
 
+    //========================Verifica Permissoes
+    $scope.PermissaoExclusao= false;
+    httpService.Get("credential/TipoComercial@Destroy").then(function (response) {
+        $scope.PermissaoExclusao = response.data;
+    });
     //==========================Busca dados do Tipo Comercial
     var _url = "GetTipoComercialData/" + $scope.Parameters.Id;
-    httpService.Get(_url).then(function (response) {
+    httpService.Get(_url.trim()).then(function (response) {
         if (response) {
             $scope.TipoComercial = response.data;
         }
@@ -26,6 +30,7 @@
 
                 if (response.data[0].Status) {
                     ShowAlert(response.data[0].Mensagem, 'success');
+                    $location.path("/TipoComercial");
                 }
                 else {
                     ShowAlert(response.data[0].Mensagem, 'warning');
@@ -35,7 +40,7 @@
     };
 
     //======================Excluir
-    $scope.excluirtipocomercial = function (pTipoComercial) {
+    $scope.ExcluirTipoComercial = function (pTipoComercial) {
 
         swal({
             title: "Tem certeza que deseja Excluir este Tipo Comercial ?",
