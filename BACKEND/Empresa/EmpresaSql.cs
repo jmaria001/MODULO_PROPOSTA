@@ -52,19 +52,20 @@ namespace PROPOSTA
                 Adp.Fill(dtb);
                 if (dtb.Rows.Count > 0)
                 {
-                    Empresa.Cod_Empresa = dtb.Rows[0]["Cod_Empresa"].ToString();
-                    Empresa.Bairro = dtb.Rows[0]["Bairro"].ToString();
-                    Empresa.Cod_UF = dtb.Rows[0]["Cod_UF"].ToString();
-                    Empresa.CEP = dtb.Rows[0]["CEP"].ToString();
-                    Empresa.CGC = dtb.Rows[0]["CGC"].ToString();
-                    Empresa.Cidade = dtb.Rows[0]["Cidade"].ToString();
-                    Empresa.Empresa_Pertence = dtb.Rows[0]["Empresa_Pertence"].ToString();
-                    Empresa.Endereco = dtb.Rows[0]["Endereco"].ToString();
-                    Empresa.Inscricao_Estadual = dtb.Rows[0]["Inscricao_Estadual"].ToString();
-                    Empresa.Inscricao_Municipal = dtb.Rows[0]["Inscricao_Municipal"].ToString();
-                    Empresa.Razao_Social = dtb.Rows[0]["Razao_Social"].ToString();
-                    Empresa.Cod_JOVE = dtb.Rows[0]["Cod_JOVE"].ToString();
-                    Empresa.Telefone = dtb.Rows[0]["Telefone"].ToString();
+                    Empresa.Cod_Empresa = dtb.Rows[0]["Cod_Empresa"].ToString().Trim();
+                    Empresa.Bairro = dtb.Rows[0]["Bairro"].ToString().Trim();
+                    Empresa.Cod_UF = dtb.Rows[0]["Cod_UF"].ToString().Trim();
+                    Empresa.CEP = dtb.Rows[0]["CEP"].ToString().Trim();
+                    Empresa.CGC = dtb.Rows[0]["CGC"].ToString().Trim();
+                    Empresa.Cidade = dtb.Rows[0]["Cidade"].ToString().Trim();
+                    Empresa.Empresa_Pertence = dtb.Rows[0]["Empresa_Pertence"].ToString().Trim();
+                    Empresa.Endereco = dtb.Rows[0]["Endereco"].ToString().Trim();
+                    Empresa.Inscricao_Estadual = dtb.Rows[0]["Inscricao_Estadual"].ToString().Trim();
+                    Empresa.Inscricao_Municipal = dtb.Rows[0]["Inscricao_Municipal"].ToString().Trim();
+                    Empresa.Razao_Social = dtb.Rows[0]["Razao_Social"].ToString().Trim();
+                    Empresa.Cod_JOVE = dtb.Rows[0]["Cod_JOVE"].ToString().Trim();
+                    Empresa.Telefone = dtb.Rows[0]["Telefone"].ToString().Trim();
+                    Empresa.Nome_Empresa_Pertence = dtb.Rows[0]["Nome_Empresa_Pertence"].ToString().Trim();
                 }
             }
             catch (Exception)

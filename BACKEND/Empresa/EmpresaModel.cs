@@ -23,6 +23,7 @@ namespace PROPOSTA
             public String CGC { get; set; }
             public String Cidade { get; set; }
             public String Empresa_Pertence { get; set; }
+            public String Nome_Empresa_Pertence { get; set; }
             public String Endereco { get; set; }
             public String Inscricao_Estadual { get; set; }
             public String Inscricao_Municipal { get; set; }

@@ -13,7 +13,7 @@
         { 'Link': 'MotivoFalha', 'Title': 'Motivo da Falha'},
         { 'Link': 'MotivoAlterNegoc', 'Title': 'Motivo da Alteração da Negociação' },
         { 'Link': 'Contato', 'Title': 'Contatos' },
-        { 'Link': 'TipoMidia', 'Title': 'Tipo de Mídia*' },
+        { 'Link': 'TipoMidia', 'Title': 'Tipo de Mídia' },
         { 'Link': 'Qualidade', 'Title': 'Qualidades da Veiculaçao' },
         { 'Link': 'MotivoCancelamento', 'Title': 'Motivo de Cancelamento' },
         { 'Link': 'TabelaPrecos', 'Title': 'Tabela de Preços' },
