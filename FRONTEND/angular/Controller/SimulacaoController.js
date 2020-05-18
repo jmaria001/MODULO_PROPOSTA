@@ -229,7 +229,7 @@
                     $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos = [];
                     for (var x = 0; x < $scope.ListadeVeiculos.length; x++) {
                         $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos.push({
-                            'Cod_Veiculo': $scope.ListadeVeiculos[x].Cod_Veiculo, 'Nome_Veiculo': $scope.ListadeVeiculos[x].Descricao
+                            'Id_Esquema':  $scope.Simulacao.Esquemas[$scope.currentEsquema].Id_Esquema, 'Cod_Veiculo': $scope.ListadeVeiculos[x].Cod_Veiculo, 'Nome_Veiculo': $scope.ListadeVeiculos[x].Descricao
                         });
                     }
                 }
@@ -273,7 +273,7 @@
                 $scope.PesquisaTabelas.FiltroTexto = ""
                 $scope.PesquisaTabelas.Titulo = "Seleção de Programas da Grade"
                 $scope.PesquisaTabelas.MultiSelect = false;
-                $scope.PesquisaTabelas.ClickCallBack = function (value) { pMidia.Cod_Programa = value; $scope.fnChangeMidia(pMidia, 'Programa') }
+                $scope.PesquisaTabelas.ClickCallBack = function (value) { pMidia.Cod_Programa = value.Codigo; $scope.fnChangeMidia(pMidia, 'Programa') }
                 $("#modalTabela").modal(true);
             }
         });
@@ -286,7 +286,7 @@
                 $scope.PesquisaTabelas.FiltroTexto = ""
                 $scope.PesquisaTabelas.Titulo = "Seleção de Características"
                 $scope.PesquisaTabelas.MultiSelect = false;
-                $scope.PesquisaTabelas.ClickCallBack = function (value) { pMidia.Cod_Caracteristica = value; }
+                $scope.PesquisaTabelas.ClickCallBack = function (value) { pMidia.Cod_Caracteristica = value.Codigo; }
                 $("#modalTabela").modal(true);
             }
         });
@@ -299,7 +299,7 @@
                 $scope.PesquisaTabelas.FiltroTexto = ""
                 $scope.PesquisaTabelas.Titulo = "Seleção de Tipo de Comercial"
                 $scope.PesquisaTabelas.MultiSelect = false;
-                $scope.PesquisaTabelas.ClickCallBack = function (value) { pMidia.Cod_Tipo_Comercial = value; }
+                $scope.PesquisaTabelas.ClickCallBack = function (value) { pMidia.Cod_Tipo_Comercial = value.Codigo; }
                 $("#modalTabela").modal(true);
             }
         });
@@ -520,7 +520,7 @@
                 $scope.PesquisaTabelas.FiltroTexto = "";
                 $scope.PesquisaTabelas.Titulo = "Seleção Modelos"
                 $scope.PesquisaTabelas.MultiSelect = false;
-                $scope.PesquisaTabelas.ClickCallBack = function (value) { $scope.ImportarSimulacao(value, 'S', true) };
+                $scope.PesquisaTabelas.ClickCallBack = function (value) { $scope.ImportarSimulacao(value.Codigo, 'S', true) };
                 $("#modalTabela").modal(true);
             }
         });

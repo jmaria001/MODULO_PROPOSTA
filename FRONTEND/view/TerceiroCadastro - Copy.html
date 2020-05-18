@@ -1,0 +1,618 @@
+﻿<style>
+     input[type=text] {
+          text-transform: uppercase;
+     }
+</style> 
+<div class="container">
+    <form name="frmTerceiroCadastro" autocomplete="off">
+        <div class="block">
+            <div class="row" id="divDadosBase">
+                <div class="alert alert-primary alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <span class="icon icon-checkmark-circle" style="font-size:20px !important"></span>
+                    </div>
+                    <strong>Dados Principais</strong>
+                </div>
+            </div>            
+            <div class="row">
+                <!--===================Codigo-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x">Código</label>
+                        <input type="text" disabled="disabled"
+                               name="txtCod_Terceiro"
+                               ng-required="false"
+                               ng-model="Terceiro.Cod_Terceiro"
+                               class="form-control"
+                               text-tranform="uppercase"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="6" />
+                    </div>
+                </div>
+                <!--===================Razão Social-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="field-x">Razão Social</label>
+                        <input style="text-transform:uppercase" 
+                               type="text" name="txtRazaoSocial" 
+                               class="form-control" 
+                               ng-disabled="!Terceiro.Permite_Editar"
+                               ng-model="Terceiro.Razao_Social" maxlength="50" />
+                    </div>
+                </div>
+                <!--===================Porte-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x" for="txtPorte">Porte</label>
+                        <select class="form-control"
+                                ng-model="Terceiro.Indica_Porte"
+                                name="txtPorte"
+                                ng-disabled="!Terceiro.Permite_Editar"
+                                ng-options="Porte.Codigo as Porte.Descricao for Porte in Porte"></select>
+                    </div>
+                </div>
+                <!--===================ComboBox Pessoa-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x" for="txtIndica_Cic_Cgc">Pessoa</label>
+                        <select class="form-control"
+                                ng-model="Terceiro.Indica_Cic_Cgc"
+                                name="txtIndica_Cic_Cgc"
+                                ng-disabled="!Terceiro.Permite_Editar"
+                                ng-options="Pessoa.Codigo as Pessoa.Descricao for Pessoa in Pessoa"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================CNPJ-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x">
+                            Cnpj/Cpf/Outros
+                        </label>
+                        <input type="text" ng-disabled="!Terceiro.Permite_Editar" name="txtCGC" class="form-control cnpj" ng-model="Terceiro.CGC" maxlength="18" />
+                    </div>
+                </div>
+                <!--===================Inscrição Estadual-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x">Inscrição Estadual</label>
+                        <input style="text-transform:uppercase" type="text" ng-disabled="!Terceiro.Permite_Editar" name="txtInscricao_Estadual" class="form-control" ng-model="Terceiro.Inscricao_Estadual" maxlength="18" />
+                    </div>
+                </div>
+                <!--===================Inscrição Municipal-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x">Inscrição Municipal</label>
+                        <input style="text-transform:uppercase" type="text" name="txtInscricao_Municipal" class="form-control" ng-disabled="!Terceiro.Permite_Editar" ng-model="Terceiro.Inscricao_Municipal" maxlength="18" />
+                    </div>
+                </div>
+                <!--============================Empresa Princial-->
+                <div class="col-md-1  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Principal">
+                        <input id="txtCod_Empresa_Principal"
+                               ng-model="Terceiro.Cod_Empresa_Principal"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCod_Empresa_Principal')"
+                               primarybind="txtCod_Empresa_Principal"
+                               secondarybind="txtNomeEmpresaPrincipal"
+                               ng-disabled="!Terceiro.Permite_Editar" >
+                    </div>
+                </div>
+                <!--===================Nome Empresa Principal-->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtNomeEmpresaPrincipal" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeEmpresaPrincipal" class="form-control " ng-model="Terceiro.Nome_Empresa_Principal">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Nome Fantasia-->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="field-x">Nome Fantasia</label>
+                        <input style="text-transform:uppercase" type="text" name="txtNome_Fantasia" class="form-control" ng-disabled="!Terceiro.Permite_Editar" ng-model="Terceiro.Nome_Fantasia" maxlength="50" />
+                    </div>
+                </div>
+                <!--============================Codigo Funcao-->
+                <div class="col-md-1  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Terceiro_Funcao">
+                        <input id="txtFuncao"
+                               ng-model="Terceiro.Funcao"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-disabled="!Terceiro.Permite_Editar" 
+                               ng-change="DicionaryValidate('txtFuncao')"
+                               primarybind="txtFuncao"
+                               secondarybind="txtDescricao_Funcao_Terceiro">
+                    </div>
+                </div>
+                <!--===================Descricao Funcao Terceiro-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="txtDescricao_Funcao_Terceiro" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtDescricao_Funcao_Terceiro" class="form-control " ng-model="Terceiro.Descricao_Funcao_Terceiro">
+                        </div>
+                    </div>
+                </div>
+                <!--============================Ramo de Atividade-->
+                <div class="col-md-1  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Categoria_Cliente">
+                        <input id="txtCod_Categoria"
+                               ng-model="Terceiro.Cod_Categoria"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCod_Categoria')"
+                               ng-disabled="!Terceiro.Permite_Editar" 
+                               primarybind="txtCod_Categoria"
+                               secondarybind="txtDescricao_Categoria">
+                    </div>
+                </div>
+                <!--============================Descricao Categoria-->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtDescricao_Categoria" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtDescricao_Categoria" class="form-control " ng-model="Terceiro.Descricao_Categoria">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--============================Codigo Tipo Cobrança-->
+                <div class="col-md-1  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Tipo_Cobranca">
+                        <input id="txtTipo_Cobranca"
+                               ng-model="Terceiro.Tipo_Cobranca"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtTipo_Cobranca')"
+                               ng-disabled="!Terceiro.Permite_Editar" 
+                               primarybind="txtTipo_Cobranca"
+                               secondarybind="txtDescricao">
+                    </div>
+                </div>
+                <!--===================Tipo de Cobrança-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="txtDescricao" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtDescricao" class="form-control " ng-model="Terceiro.Descricao_Tipo_Cobranca">
+                        </div>
+                    </div>
+                </div>
+
+                <!--===================Limite de Credito-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x">Limite de Crédito</label>
+                        <input type="text" name="txtLimite_Credito" class="form-control money" ng-model="Terceiro.Limite_Credito" ng-disabled="!Terceiro.Permite_Editar" maxlength="50" />
+                    </div>
+                </div>
+                <!--============================Forma de Tributação-->
+                <div class="col-md-1  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Forma_Tributacao">
+                        <input id="txtForma_Tributacao"
+                               ng-model="Terceiro.Forma_Tributacao"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtDes_Forma_Tributacao')"
+                               ng-disabled="!Terceiro.Permite_Editar" 
+                               primarybind="txtForma_Tributacao"
+                               secondarybind="txDes_Forma_Tributacao">
+                    </div>
+                </div>
+                <!--===================Forma de Tributação-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txDes_Forma_Tributacao" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txDes_Forma_Tributacao" class="form-control " ng-model="Terceiro.Des_Forma_Tributacao">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================Indica Emissora de TV-->
+                <div class="col-md-2 margin-top-30">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Terceiro.Indica_Tv" /> Emissora<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====================Indica Afiliada-->
+                <div class="col-md-2 margin-top-30">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Terceiro.Indica_Afiliada" />Afiliada<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====================Indica Regional-->
+                <div class="col-md-2 margin-top-30">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Terceiro.Indica_Regional" />Regional<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====================Indica Estrangeiro-->
+                <div class="col-md-2 margin-top-30">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Terceiro.Indica_Estrangeiro" />Estrangeiro<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====================Indica Direto-->
+                <div class="col-md-2 margin-top-30">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Terceiro.Indica_Direto" />Direto<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-top-20" id="divEndereco">
+                <div class="alert alert-primary alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <!--<span class="icon icon-checkmark-circle" style="font-size:20px !important"></span>-->
+                        <span class="fa fa-envelope" style="font-size:20px !important"></span>
+                    </div>
+                    <strong>Dados do Endereço</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <label for="idEmpresas">Empresas</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="fa fa-arrow-left span-btn" ng-disabled="" ng-click="SetaEmpresaEndereco(-1)"></span>
+                            </div>
+                            <input class="form-control"
+                                   ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Cod_Empresa"
+                                   ng-disabled="true" />
+                            <div class="input-group-addon">
+                                <span class="fa fa-arrow-right span-btn" ng-click="SetaEmpresaEndereco(1)"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row">
+                    <!--===================Endereço Principal-->
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="field-x">Endereço Principal</label>
+                            <input style="text-transform:uppercase" type="text" name="txtEndereco1" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Endereco1" maxlength="50" />
+                        </div>
+                    </div>
+                    <!--===================Número-->
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label class="field-x">Nº.</label>
+                            <input type="text" name="txtNumero1" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Numero1" maxlength="5" />
+                        </div>
+                    </div>
+                    <!--===================Complemento-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x">Complemento</label>
+                            <input style="text-transform:uppercase" type="text" name="txtComplemento1" class="form-control" ng-model="TerceiroEnderecos[CurrentEmpresaEndereco].Complemento1" maxlength="50" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--============================UF-->
+                    <div class="col-md-1" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="UF">
+                            <input id="txtUf1"
+                                   ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Uf1"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtUf1')"
+                                   primarybind="txtUf1"
+                                   secondarybind="txtDescricao">
+                        </div>
+                    </div>
+                    <!--===================Municipio-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x">Municipio</label>
+                            <input style="text-transform:uppercase" type="text" name="txtMunicipio1" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Municipio1" maxlength="50" />
+                        </div>
+                    </div>
+                    <!--===================Bairro-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x">Bairro</label>
+                            <input style="text-transform:uppercase" type="text" name="txtBairro1" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Bairro1" maxlength="50" />
+                        </div>
+                    </div>
+
+                    <!--===================Código IBGE-->
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label class="field-x">Código IBGE</label>
+                            <input type="text" name="txtCod_Municipio" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Cod_Municipio" maxlength="50" />
+                        </div>
+                    </div>
+                    <!--===================CEP-->
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label class="field-x">CEP</label>
+                            <input type="text" name="txtCep1" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Cep1" maxlength="50" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="field-x">Endereço Complementar</label>
+                            <input style="text-transform:uppercase" type="text" name="txtEndereco1" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Endereco2" maxlength="50" />
+                        </div>
+                    </div>
+                    <!--===================Número-->
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label class="field-x">Nº.</label>
+                            <input type="text" name="txtNumero1" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Numero2" maxlength="5" />
+                        </div>
+                    </div>
+                    <!--===================Complemento-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x">Complemento</label>
+                            <input style="text-transform:uppercase" type="text" name="txtComplemento1" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Complemento2" maxlength="50" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--============================UF-->
+                    <div class="col-md-1" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="UF">
+                            <input id="txtUf2"
+                                   ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Uf2"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtUf2')"
+                                   primarybind="txtUf2"
+                                   secondarybind="txtDescricao">
+                        </div>
+                    </div>
+                    <!--===================Municipio-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x">Municipio</label>
+                            <input style="text-transform:uppercase" type="text" name="txtMunicipio1" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Municipio2" maxlength="50" />
+                        </div>
+                    </div>
+                    <!--===================Bairro-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x">Bairro</label>
+                            <input style="text-transform:uppercase" type="text" name="txtBairro1" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Bairro2" maxlength="50" />
+                        </div>
+                    </div>
+                    <!--===================Código IBGE-->
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label class="field-x">Código IBGE</label>
+                            <input type="text" name="txtCod_Municipio" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Cod_Municipio2" maxlength="50" />
+                        </div>
+                    </div>
+                    <!--===================CEP-->
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label class="field-x">CEP</label>
+                            <input type="text" name="txtCep1" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Cep2" maxlength="50" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--===================Telefone-->
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label class="field-x">Telefone</label>
+                            <input type="text" name="txtTelefone" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Telefone" maxlength="50" />
+                        </div>
+                    </div>
+                    <!--===================Fax-->
+                    <div class="col-md-1">
+                        <div class="form-group">
+                            <label class="field-x">Fax</label>
+                            <input type="text" name="txtFax" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Fax" maxlength="50" />
+                        </div>
+                    </div>
+                    <!--===================Email-->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="field-x">Email</label>
+                            <input style="text-transform:lowercase" type="text" name="txtEmail" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Email" maxlength="50" />
+                        </div>
+                    </div>
+                    <!--===================Praça de Pagamento-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x">Praça de Pagamento</label>
+                            <input style="text-transform:uppercase" type="text" name="txtPraca_Pgto" class="form-control" ng-model="Terceiro.Enderecos[CurrentEmpresaEndereco].Praca_Pgto" maxlength="50" />
+                        </div>
+                    </div>
+                    <!--===================Descrição Status-->
+                    <!--<div class="col-md-1">
+                        <div class="form-group">
+                            <label class="field-x">Descrição Status</label>
+                            <input type="text" name="txtFormaTributacao" class="form-control" ng-model="Terceiro.Descricao_Status" maxlength="50" />
+                        </div>
+                    </div>-->
+                </div>
+
+            </div>
+            <div class="row margin-top-20" id="divComplementar">
+                <div class="alert alert-primary alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <span class="fa fa-newspaper-o" style="font-size:20px !important"></span>
+                    </div>
+                    <strong>Dados Complementares</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <label for="idEmpresas">Empresas</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="fa fa-arrow-left span-btn" ng-disabled="" ng-click="SetaEmpresaComplementar(-1)"></span>
+                            </div>
+                            <input class="form-control"
+                                   ng-model="Terceiro.Complementar[CurrentEmpresaComplementar].Cod_Empresa"
+                                   ng-disabled="true" />
+                            <div class="input-group-addon">
+                                <span class="fa fa-arrow-right span-btn" ng-click="SetaEmpresaComplementar(1)"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                        <div class="form-group margin-top-30">
+                            <label ng-class="Terceiro.Complementar[CurrentEmpresaComplementar].Indica_Desativado==1 ? 'label label-danger' : 'label label-success'" style="width:10px ">{{Terceiro.Complementar[CurrentEmpresaComplementar].Status}}</label>
+                        </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Contato Principal-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="field-x">Contato Principal</label>
+                        <input style="text-transform:uppercase" type="text" name="txtEmail" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresaComplementar].Nome_Contato" maxlength="50" />
+                    </div>
+                </div>
+                <!--===================Telefone-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="field-x">Telefone 1</label>
+                        <input type="text" name="txtTelefone" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresaComplementar].Telefone_Contato_1" maxlength="50" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Email-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="field-x">Email</label>
+                        <input style="text-transform:lowercase" type="text" name="txtEmail" class="form-control" ng-model="TerceiroComplementar[CurrentEmpresa].Email_Contato" maxlength="50" />
+                    </div>
+                </div>
+                <!--===================Telefone-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="field-x">Telefone 2</label>
+                        <input type="text" name="txtTelefone" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresaComplementar].Telefone_Contato_2" maxlength="50" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <!--===================Contato Complementar-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="field-x">Contato Complementar</label>
+                        <input style="text-transform:uppercase" type="text" name="txtEmail" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresaComplementar].Nome_Contato_Compl" maxlength="50" />
+                    </div>
+                </div>
+                <!--===================Telefone-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="field-x">Telefone 1</label>
+                        <input type="text" name="txtTelefone" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresaComplementar].Telefone_Contato_Compl_1" maxlength="50" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Email-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="field-x">Email</label>
+                        <input style="text-transform:lowercase" type="text" name="txtEmail" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresaComplementar].Email_Contato_Compl" maxlength="50" />
+                    </div>
+                </div>
+                <!--===================Telefone-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="field-x">Telefone 2</label>
+                        <input type="text" name="txtTelefone" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresaComplementar].Telefone_Contato_Compl_2" maxlength="50" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--========================botoes de acoes-->
+                <div class="fixed-buttons-bottom">
+                    <div class="col-md-8">
+                        <button class="btn btn-success" ng-click="SalvarTerceiro(Terceiro)">
+                            Salvar
+                        </button>
+                        <button class="btn btn-danger" ng-click="ExcluirTerceiro(Terceiro)" ng-show="PermissaoExcluir">Excluir</button>
+                        <button class="btn btn-info" ng-click="ReativarTerceiro(Terceiro)" ng-show="PermissaoDesativar && Terceiro.Complementar[CurrentEmpresaComplementar].Indica_Desativado==1">Reativar</button>
+                        <button class="btn btn-danger" ng-click="DesativarTerceiro(Terceiro)" ng-show="PermissaoDesativar && Terceiro.Complementar[CurrentEmpresaComplementar].Indica_Desativado==0">Desativar</button>
+                        <button class="btn btn-info" ng-click="SelecionarEmpresas()">Validar para as Empresas</button>
+                        <a href="#Terceiro" class="btn btn-warning">Cancelar</a>
+                    </div>
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-3 pull-right hidden-mobile hidden-sm">
+                        <button class="btn btn-primary btn-sm anchorscroll" target="divDadosBase"><span class="fa fa-check-circle"></span></button>
+                        <button class="btn btn-primary btn-sm anchorscroll" target="divEndereco"><span class="fa fa-envelope"></span></button>
+                        <button class="btn btn-primary btn-sm anchorscroll" target="divComplementar"><span class="fa fa-newspaper-o"></span></button>
+                    </div>
+                </div>
+                <!--===================Botoes-->
+                <div class="row margin-top-20">
+                    <div class="col-md-12">
+                        <!--<button class="btn btn-success" ng-click="SalvarTerceiro(Terceiro)">
+                            Salvar
+                        </button>
+                        <button class="btn btn-danger" ng-click="ExcluirTerceiro(Terceiro)" ng-show="PermissaoExcluir">Excluir</button>
+                        <button class="btn btn-info" ng-click="ReativarTerceiro(Terceiro)" ng-show="PermissaoDesativar && Terceiro.Complementar[CurrentEmpresaComplementar].Indica_Desativado==1">Reativar</button>
+                        <button class="btn btn-danger" ng-click="DesativarTerceiro(Terceiro)" ng-show="PermissaoDesativar && Terceiro.Complementar[CurrentEmpresaComplementar].Indica_Desativado==0">Desativar</button>
+                        <button class="btn btn-info" ng-click="SelecionarEmpresas()">Validar para as Empresas</button>
+                        <a href="#Terceiro" class="btn btn-warning">Cancelar</a>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('.anchorscroll').click(function (e) {
+            var _target = this.getAttribute("target")
+            $('html, body').animate({
+                scrollTop: $('#' + _target).offset().top - 50
+            }, 'slow');
+        });
+        $("span[control_group*='icon_group']").click(function (e) {
+            var _group = this.getAttribute("control_group");
+            _group = _group.replace('icon', 'input');
+            var el = document.querySelector('[control_group="' + _group + '"]');
+            if ($(el).is(':disabled')) {
+                event.stopPropagation();
+            };
+        });
+    });
+</script>

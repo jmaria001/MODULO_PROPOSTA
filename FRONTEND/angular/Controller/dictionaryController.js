@@ -75,9 +75,12 @@
         }
         $scope.$digest();
     };
-    $scope.DicionaryLoadWithFilter = function ( pFilter) {
+    $scope.DicionaryLoadWithFilter = function (pFilter) {
         httpService.Get("ListarTabela/" + $scope.TableName + "/" + pFilter).then(function (response) {
-            $scope.dictionaryTable = response.data;
+            if (response.data) {
+                $scope.dictionaryTable = response.data;
+                $scope.filtrotexto = "";
+            }
         })
     };
     $scope.DicionaryLoadFromScope = function (pScopeFrom, pElement, pMultiSelect) {
@@ -154,5 +157,10 @@
         ctrl.$commitViewValue();
         }
     };
-
+    $scope.PesquisaTabelasMarcarTodos = function (pValue)
+    {
+        for (var i = 0; i < $scope.PesquisaTabelas.Items.length; i++) {
+            $scope.PesquisaTabelas.Items[i].Selected = pValue;
+        }
+    }
 }]);

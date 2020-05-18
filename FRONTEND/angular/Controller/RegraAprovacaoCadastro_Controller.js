@@ -264,9 +264,7 @@
         httpService.Post('SalvarRegraAprovacao', $scope.Regra).then(function (response) {
             ShowAlert(response.data[0].Mensagem, (response.data[0].Status == 1) ? 'success' : 'warning');
             if (response.data[0].Status == 1) {
-                console.log("entrando 1")
                 if ($scope.Parameters.Action == 'New') {
-                    console.log("entrando 2")
                     $scope.Parameters.Action = 'Edit';
                     $rootScope.routeName = 'Regras de Aprovação de Descontos - ' + $scope.Parameters.Action
                     $scope.Regra.Id_Regra = response.data[0].Id_Regra;

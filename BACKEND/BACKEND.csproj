@@ -281,6 +281,9 @@
     <Compile Include="TabelaPreco\TabelaPrecosController.cs" />
     <Compile Include="TabelaPreco\TabelaPrecosModel.cs" />
     <Compile Include="TabelaPreco\TabelaPrecosSql.cs" />
+    <Compile Include="Terceiro\TerceiroController.cs" />
+    <Compile Include="Terceiro\TerceiroModel.cs" />
+    <Compile Include="Terceiro\TerceiroSql.cs" />
     <Compile Include="TipoComecial\TipoComercialController.cs" />
     <Compile Include="TipoComecial\TipoComercialModel.cs" />
     <Compile Include="TipoComecial\TipoComercialSql.cs" />

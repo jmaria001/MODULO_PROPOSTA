@@ -23,7 +23,6 @@ namespace PROPOSTA
                 return writer.ToString();
             }
         }
-
         public  String GenereteSecretKey()
         {
             String key = "";

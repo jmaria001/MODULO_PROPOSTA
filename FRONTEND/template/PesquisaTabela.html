@@ -1,4 +1,4 @@
-﻿<div class="modal fade" id="modalTabela" tabindex="-1" role="dialog" aria-labelledby="modal-warning-header">
+﻿<div class="modal fade" id="modalTabela" tabindex="-1" role="dialog" aria-labelledby="modal-warning-header" ng-controller="dictionaryController">
     <div class="modal-dialog modal-primary" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -13,7 +13,6 @@
                             <input class="form-control input-sm" type="text" ng-model="PesquisaTabelas.FiltroTexto" placeholder="Pesquisar" />
                         </div>
                     </div>
-
                     <div style="margin-bottom:10px" ng-show="filteredSelect.length == 0 && !PesquisaTabelas.PreFilter">
                         <p style="text-align:center"> Nenhum registro disponível para essa Consulta</p>
                     </div>
@@ -23,32 +22,14 @@
                             <input style="margin-top:5px" class="form-control input-sm" type="text" ng-model="PesquisaTabelas.PreFiltroTexto" placeholder="Informe uma parte do campo e clique em pesquisar" />
                         </div>
                         <div class="col-md-2">
-                            <button class="btn btn-success btn-sm" ng-disabled="PesquisaTabelas.PreFiltroTexto.length<3" ng-click="PesquisaTabelas.LoadCallBack(PesquisaTabelas.PreFiltroTexto)" >Pesquisar</button>
+                            <button class="btn btn-success btn-sm" ng-disabled="PesquisaTabelas.PreFiltroTexto.length<3" ng-click="PesquisaTabelas.LoadCallBack(PesquisaTabelas.PreFiltroTexto)">Pesquisar</button>
                         </div>
                     </div>
-                    
-                    <!--<div style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px #f5f5f5">
-                        <div ng-repeat="datarow in filteredSelect = (PesquisaTabelas.Items| filter:PesquisaTabelas.FiltroTexto) track by $index">
-                               <div class="ROW">
-                                <div class="col-md-1" ng-show="PesquisaTabelas.MultiSelect">
-                                    <div class="app-checkbox" style="margin:0px 0px 0px 0px">
-                                        <label><input type="checkbox" name="app-checkbox-1" ng-model="datarow.Selected" style="position:relative" /> <span></span></label>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <label ng-show="!PesquisaTabelas.MultiSelect"  class="itemselect" ng-click="PesquisaTabelas.ClickCallBack(datarow.Codigo)" data-dismiss="modal"> {{datarow.Codigo}}</label>
-                                    <label ng-show="PesquisaTabelas.MultiSelect" class="itemselect" >{{datarow.Codigo}}</label>
-                                </div>
-                                <div class="col-md-9">
-                                    <label ng-show="!PesquisaTabelas.MultiSelect"  class="itemselect" ng-click="PesquisaTabelas.ClickCallBack(datarow.Codigo)" data-dismiss="modal"> {{datarow.Descricao}}</label>
-                                    <label ng-show="PesquisaTabelas.MultiSelect" class="itemselect"> {{datarow.Descricao}}</label>
-                                </div>
-                                   </div>
-                            </div>
-                    </div>-->
+
+
                     <div ng-show="PesquisaTabelas.Items.length>0" style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px #f5f5f5">
                         <div class="table-responsive">
-                            <table class="table table-bordered table-select">
+                            <table class="table table-noborder table-select">
                                 <tbody>
                                     <tr>
                                         <th ng-show="PesquisaTabelas.MultiSelect"></th>
@@ -57,19 +38,19 @@
                                     </tr>
                                 </tbody>
                                 <tr ng-repeat="datarow in filteredSelect = (PesquisaTabelas.Items|filter:PesquisaTabelas.FiltroTexto) track by $index">
-                                    <td ng-show="PesquisaTabelas.MultiSelect">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="chk_{{datarow.Codigo}}" ng-model="datarow.Selected">
-                                            <label class="custom-control-label" for="chk_{{datarow.Codigo}}"></label>
+                                    <td ng-show="PesquisaTabelas.MultiSelect" style="padding:5px 10px !important">
+                                        <div class="app-checkbox" style="margin-top:-25px">
+                                            <label>
+                                                <input type="checkbox"
+                                                       name="app-checkbox-1"
+                                                       ng-model="datarow.Selected"> <span></span>
+                                            </label>
                                         </div>
                                     </td>
-
-                                    <td ng-hide="PesquisaTabelas.MultiSelect"><span class="span-btn" ng-click="PesquisaTabelas.ClickCallBack(datarow.Codigo)" data-dismiss="modal">{{datarow.Codigo}}</span> </td>
-                                    <td ng-hide="PesquisaTabelas.MultiSelect"><span class="span-btn" ng-click="PesquisaTabelas.ClickCallBack(datarow.Codigo)" data-dismiss="modal">{{datarow.Descricao}}</span> </td>
-
-                                    <td ng-show="PesquisaTabelas.MultiSelect"><span>{{datarow.Codigo}}</span> </td>
-                                    <td ng-show="PesquisaTabelas.MultiSelect"><span>{{datarow.Descricao}}</span> </td>
-
+                                    <td style="padding:5px 10px !important" ng-hide="PesquisaTabelas.MultiSelect"><span class="span-btn" ng-click="PesquisaTabelas.ClickCallBack(datarow)" data-dismiss="modal">{{datarow.Codigo}}</span> </td>
+                                    <td ng-hide="PesquisaTabelas.MultiSelect"><span class="span-btn" ng-click="PesquisaTabelas.ClickCallBack(datarow)" data-dismiss="modal">{{datarow.Descricao}}</span> </td>
+                                    <td style="padding:5px 10px !important" ng-show="PesquisaTabelas.MultiSelect"><span>{{datarow.Codigo}}</span> </td>
+                                    <td style="padding:5px 10px !important" ng-show="PesquisaTabelas.MultiSelect"><span>{{datarow.Descricao}}</span> </td>
                                 </tr>
                             </table>
                         </div>
@@ -77,8 +58,21 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button ng-show="PesquisaTabelas.MultiSelect" type="button" class="btn btn-success" data-dismiss="modal" ng-click="PesquisaTabelas.ClickCallBack(PesquisaTabelas.Items)">Ok</button>
-                <button type="button" class="btn btn-warning" data-dismiss="modal">Cancela</button>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group" style="width:auto">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="PesquisaTabelas.MarcarTodos" ng-click="PesquisaTabelasMarcarTodos(PesquisaTabelas.MarcarTodos)" /> Marcar Todos<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <button  type="button" ng-show="PesquisaTabelas.MultiSelect" type="button" class="btn btn-success" data-dismiss="modal" ng-click="PesquisaTabelas.ClickCallBack(PesquisaTabelas.Items)">Ok</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancela</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

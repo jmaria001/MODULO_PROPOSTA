@@ -110,6 +110,7 @@
     <Content Include="angular\Controller\MotivoCancelamentoController.js" />
     <Content Include="angular\Controller\MotivoFalhaCadastroController.js" />
     <Content Include="angular\Controller\MotivoFalhaController.js" />
+    <Content Include="angular\Controller\NegociacaoCadastroController.js" />
     <Content Include="angular\Controller\NegociacaoDetalheController.js" />
     <Content Include="angular\Controller\MotivoAlterNegocController.js" />
     <Content Include="angular\Controller\MotivoAlterNegocCadastroController.js" />
@@ -131,6 +132,8 @@
     <Content Include="angular\Controller\dictionaryController.js" />
     <Content Include="angular\Controller\TabelaPrecosCadastroController.js" />
     <Content Include="angular\Controller\TabelaPrecosController.js" />
+    <Content Include="angular\Controller\TerceiroCadastroController.js" />
+    <Content Include="angular\Controller\TerceiroController.js" />
     <Content Include="angular\Controller\TipoComercialCadastroController.js" />
     <Content Include="angular\Controller\TipoComercialController.js" />
     <Content Include="angular\Controller\TipoMidiaCadastroController.js" />
@@ -251,6 +254,9 @@
     <Content Include="view\simulacao_copy_2803.html" />
     <Content Include="view\TabelaPrecos.html" />
     <Content Include="view\TabelaPrecosCadastro.html" />
+    <Content Include="view\Terceiro.html" />
+    <Content Include="view\TerceiroCadastro - Copy.html" />
+    <Content Include="view\TerceiroCadastro.html" />
     <Content Include="view\TipoComercial.html" />
     <Content Include="view\TipoComercialCadastro.html" />
     <Content Include="view\TipoMidia.html" />

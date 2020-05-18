@@ -17,8 +17,8 @@
                             { 'title': 'Realizado Negociado', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Desconto Concedido', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Desconto Real', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
-
                             { 'title': 'Contatos', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+                            { 'title': 'Status', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
     ];
     $scope.MesAnoKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
     
@@ -49,9 +49,13 @@
     }
 
     //====================Permissoes
+    $scope.PermissaoNew= 'false';
     $scope.PermissaoEditar = 'false';
     httpService.Get("credential/" +  "Negociacao@Edit").then(function (response) {
         $scope.PermissaoEdit = response.data;
+    });
+    httpService.Get("credential/" + "Negociacao@New").then(function (response) {
+        $scope.PermissaoNew= response.data;
     });
 
     //====================Quando terminar carga do grid, torna view do grid visible
@@ -90,9 +94,13 @@
         });
     };
 
+    //==================== Nova Negociacao
+    $scope.NovaNegociacao = function () {
+        $location.path("/NegociacaoCadastro/New/0")
+    }
     //==================== Edicao da Negociacao
-    $scope.EditarNegociacao = function (pIdNegociacao) {
-        $location.path("/NegociacaoCadastro/Edit/" + pIdNegociacao + '/' + $scope.Processo)
+    $scope.NovaNegociacao = function (pIdNegociacao) {
+        $location.path("/NegociacaoCadastro/Edit/" + pIdNegociacao)
     }
     //====================Configuracao do Grid
     $scope.ConfiguraGrid = function () {
@@ -128,8 +136,14 @@
         else {
             buttons.enable();
         }
+        var buttonsNew = table.buttons([0]);
+        if (!$scope.PermissaoNew) {
+            buttonsNew.disable();
+        }
+        else {
+            buttonsNew.enable();
+        }
     };
-
     //===========================fim do load da pagina
     $scope.$watch('$viewContentLoaded', function () {
         $rootScope.routeloading = false;

@@ -56,7 +56,7 @@
             cancelButtonText: "Cancelar",
             closeOnConfirm: true
         }, function () {
-            httpService.Post("excluirEmpresa", pCondPgto).then(function (response) {
+            httpService.Post("excluirEmpresa", pEmpresa).then(function (response) {
                 if (response) {
 
                     if (response.data[0].Status) {

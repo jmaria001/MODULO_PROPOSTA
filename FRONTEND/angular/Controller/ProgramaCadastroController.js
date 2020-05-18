@@ -87,8 +87,6 @@
                 if ($scope.Programa.Apresentadores == null && $scope.Programa.Apresentadores == undefined) {
                     $scope.Programa.Apresentadores = 0;
                     }
-
-               // console.log($scope.Programa.Apresentadores.length);
                 for (var i = 0; i < $scope.Programa.Apresentadores.length ; i++) {
                     for (var y = 0;y < $scope.ListadeApresentadores.length ; y++) {
                         if ($scope.Programa.Apresentadores[i].Id_Apresentador == $scope.ListadeApresentadores[y].Codigo) {
@@ -116,7 +114,6 @@
     //=====================Clicou no X da lista de apresentadores selecionados- remover apresentadores
     $scope.RemoverApresentador = function (pId_Apresentador) {
         for (var i = 0; i < $scope.Programa.Apresentadores.length; i++) {
-           // console.log($scope.Programa.Apresentadores.splice(i, 1));
             if ($scope.Programa.Apresentadores[i].Id_Apresentador == pId_Apresentador) {
                 $scope.Programa.Apresentadores.splice(i, 1);
                 break;
@@ -162,7 +159,6 @@
     //=====================Clicou no X da lista de Veiculos selecionados- remover Veiculos
     $scope.RemoverVeiculos = function (pCod_Veiculo) {
         for (var i = 0; i < $scope.Programa.Veiculos.length; i++) {
-            // console.log($scope.Programa.Apresentadores.splice(i, 1));
             if ($scope.Programa.Veiculos[i].Cod_Veiculo == pCod_Veiculo) {
                 $scope.Programa.Veiculos.splice(i, 1);
                 break;

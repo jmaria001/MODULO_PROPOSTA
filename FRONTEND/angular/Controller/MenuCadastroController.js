@@ -18,6 +18,7 @@
         { 'Link': 'MotivoCancelamento', 'Title': 'Motivo de Cancelamento' },
         { 'Link': 'TabelaPrecos', 'Title': 'Tabela de Preços' },
         { 'Link': 'Programa', 'Title': 'Programas' },
+        { 'Link': 'Terceiro', 'Title': 'Terceiros' },
     ];
     //===========================fim do load da pagina
     $scope.$watch('$viewContentLoaded', function () {

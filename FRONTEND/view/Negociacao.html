@@ -101,7 +101,7 @@
                 <div class="col-md-12">
                     <button class="btn btn-success" ng-click="CarregarNegociacao(Filtro)">Filtrar</button>
                     <button class="btn btn-warning" ng-click="Filtro=NewFiltro()">Limpar Filtros</button>
-                    <button id="btnNovaNegociacao" class="btn btn-primary" ng-click="NovaNegociacao()">Nova Negociação</button>
+                    <button id="btnNovaNegociacao" class="btn btn-primary" ng-click="NovaNegociacao()" ng-disabled="!PermissaoNew" >Nova Negociação</button>
                 </div>
             </div>
         </div>
@@ -126,12 +126,13 @@
                         <th>Desc.Concedido</th>
                         <th>Desc.Real</th>
                         <th>Contatos</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="Negociacao in Negociacoes track by $index" on-finish-render="ngRepeatFinished">
                         <td style="width:50px;text-align:center">
-                            <a href="#NegociacaoCadastro/Edit/{{::Negociacao.Numero_Negociacao}}" ng-show="PermissaoEdit">
+                            <a href="#NegociacaoCadastro/Edit/{{::Negociacao.Numero_Negociacao}}" ng-show="PermissaoEdit && !Negociacao.Data_Desativacao">
                                 <span class="fa fa-edit fa-2x"></span>
                             </a>
                         </td>
@@ -173,7 +174,10 @@
                                 {{Contato.Cod_Contato}} - {{Contato.Nome_Contato}}
                             </label>
                         </td>
-                        
+                        <td > 
+                            <label ng-show="!Negociacao.Data_Desativacao" class="label label-success">Ativa</label>
+                            <label ng-show="Negociacao.Data_Desativacao" class="label label-danger">Desativada</label>
+                        </td>
                         
                     </tr>
                 </tbody>

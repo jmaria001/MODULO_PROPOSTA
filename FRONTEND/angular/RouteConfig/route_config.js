@@ -227,7 +227,7 @@
                controller: 'ContatoController',
                routeName: 'Cadastro de Contato',
                RouteId: 'Contato@Index'
-           })   
+           })
 
         .when('/ContatoCadastro/:Action/:Id', {
             templateUrl: 'view/ContatoCadastro.html',
@@ -358,6 +358,21 @@
             routeName: 'Alteração de Veiculo',
             RouteId: 'Veiculo@Edit'
         })
+                .when('/Terceiro', {
+                    templateUrl: 'view/Terceiro.html',
+                    authorize: true,
+                    controller: 'TerceiroController',
+                    routeName: 'Cadastro de Terceiro',
+                    RouteId: 'Terceiro@Index'
+                })
+
+        .when('/TerceiroCadastro/:Action/:Id', {
+            templateUrl: 'view/TerceiroCadastro.html',
+            authorize: true,
+            controller: 'TerceiroCadastroController',
+            routeName: 'Inclusao de Terceiro',
+            RouteId: 'Terceiro@New'
+        })
 
 
         //----------------------------------------------------
@@ -445,11 +460,11 @@
             RouteId: 'Negociacao@Index'
         })
         .when('/NegociacaoCadastro/:Action/:Id', {
-            templateUrl: 'view/UnderConstrution.html',
-            //controller: 'PacoteCadastroController',
-            //authorize: true,
-            routeName: '',
-            RouteId: ''
+            templateUrl: 'view/Negociacao_Cadastro.html',
+            controller: 'NegociacaoCadastroController',
+            authorize: true,
+            routeName: 'Manutenção de Negociações',
+            RouteId: 'Negociacao@New'
         })
         .when('/NegociacaoDelhalhe/:Id', {
             templateUrl: 'view/NegociacaoDetalhe.html',

@@ -581,7 +581,7 @@
                                         <button class="btn btn-default btn-sm margin-left-20"
                                                 id="btnSelecionarVeiculos"
                                                 ng-click="SelecionarVeiculos()"
-                                                ng-disabled="Simulacao.Esquemas[currentEsquema].Abrangencia==0 || Simulacao.Esquemas[currentEsquema].Abrangencia==-1 || !Simulacao.Permite_Editar">
+                                                ng-disabled="Simulacao.Esquemas[currentEsquema].Abrangencia==0 || Simulacao.Esquemas[currentEsquema].Abrangencia==-1 || !Simulacao.Permite_Editar || Simulacao.Esquemas[currentEsquema].Cod_Mercado" >
                                             Selecionar Veiculos
                                         </button>
                                         <div class="row margin-top-5 margin-left-20 margin-bottom-10" style="border:solid 1px #e5e5e5;width:95%;height:140px;overflow-y:scroll ;overflow-x:hidden">

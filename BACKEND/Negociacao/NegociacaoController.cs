@@ -46,7 +46,6 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
-
         [Route("api/Negociacao/Contar")]
         [HttpGet]
         [ActionName("NegociacaoContar")]
@@ -78,6 +77,37 @@ namespace PROPOSTA
                 ImpressaoMapa Cls = new ImpressaoMapa(User.Identity.Name);
 
                 return Ok(Cls.ImprimirMapa(Id_Contrato));
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/Negociacao/Get")]
+        [HttpGet]
+        [ActionName("NegociacaoGet")]
+        [Authorize()]
+        public IHttpActionResult NegociacaoGet([FromUri]Negociacao.NegociacaoModel Param)
+        {
+            SimLib clsLib = new SimLib();
+            Negociacao Cls = new Negociacao(User.Identity.Name);
+            try
+            {
+                Negociacao.NegociacaoModel Retorno = new Negociacao.NegociacaoModel();
+                if (Param.Numero_Negociacao==0)
+                {
+                    Retorno.Empresas_Venda = new List<Negociacao.NegociacaoEmpresaVendaModel>();
+                    Retorno.Empresas_Faturamento = new List<Negociacao.NegociacaoEmpresaFaturamentoModel>();
+                    Retorno.Intermediarios = new List<Negociacao.NegociacaoIntermediarioModel>();
+                }
+                else
+                {
+                    Retorno = Cls.NegociacaoGet(Param);
+                }
+                
+                return Ok(Retorno);
             }
             catch (Exception Ex)
             {

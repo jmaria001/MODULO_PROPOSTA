@@ -11,12 +11,12 @@ function GetDictionary() {
                         { 'Id': 'Motivo_Falha', 'label': 'Motivo', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'text' } },
                         { 'Id': 'UF', 'label': 'UF', 'icon': 'search', 'atributos': { 'maxlength': '2', 'type': 'text', 'keymode': 'upper' } },
                         { 'Id': 'Pacote_Desconto', 'label': 'Pacote de Desconto', 'icon': 'search', 'atributos': { 'maxlength': '30', 'type': 'text', 'keymode': 'numeric' } },
-                        { 'Id': 'Agencia', 'label': 'Agência', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric', 'filter': true} },
-                        { 'Id': 'Cliente', 'label': 'Cliente', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric', 'filter': true} },
-                        { 'Id': 'Terceiro', 'label': 'Terceiro', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric', 'filter': true} },
-                        { 'Id': 'Contato', 'label': 'Contato', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Agencia', 'label': 'Agência', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'text', 'filter': true} },
+                        { 'Id': 'Cliente', 'label': 'Cliente', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'text', 'filter': true} },
+                        { 'Id': 'Terceiro', 'label': 'Terceiro', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'text', 'filter': true} },
+                        { 'Id': 'Contato', 'label': 'Contato', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'text' } },
                         { 'Id': 'Rede', 'label': 'Rede', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric' } },
-                        { 'Id': 'Genero', 'label': 'Genero', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Genero', 'label': 'Genero', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'text' } },
                         { 'Id': 'Apresentador', 'label': 'Apresentador', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'numeric' } },
                         { 'Id': 'Empresa_Venda', 'label': 'Empresa', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric' } },
                         { 'Id': 'Empresa_Faturamento', 'label': 'Empresa', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric' } },
@@ -27,9 +27,14 @@ function GetDictionary() {
                         { 'Id': 'Classe_Potencia', 'label': 'Classe_Potencia', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric' } },
                         { 'Id': 'Terceiro_Funcao', 'label': 'Funcao', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric' } },
                         { 'Id': 'Programa', 'label': 'Programa', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'text' } },
+                        { 'Id': 'Programa_Evento', 'label': 'Evento', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'text' } },
                         { 'Id': 'Nucleo', 'label': 'Núcleo', 'icon': 'search', 'atributos': { 'maxlength': '7', 'type': 'text', 'keymode': 'text' } },
-
-
+                        { 'Id': 'TipoMidias', 'label': 'Tipo de Mídia', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'text' } },
+                        { 'Id': 'Terceiro_Funcao', 'label': 'Funcao', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Categoria_Cliente', 'label': 'Ramo Atividade', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Tipo_Cobranca', 'label': 'Tipo Cobranca', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'text' } },
+                        { 'Id': 'Forma_Tributacao', 'label': 'Forma Tributação', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Ibge', 'label': 'Cod.Ibge', 'icon': 'search', 'atributos': { 'maxlength': '10', 'type': 'text', 'keymode': 'text', 'filter': true } },
     ];
 
     //==============Config html
@@ -188,7 +193,7 @@ function GetDictionary() {
         return _dicionario[_ix];
     }
 
-    $(".decimal, .money .percent").attr("onkeypress", "return DecimalOnly(event)")
+    $(".decimal,.money,.percent").attr("onkeypress", "return DecimalOnly(event)")
 
     $(".numeric,.cnpj ,.time").attr("onkeypress", "return NumericOnly(event)")
     $(".money").blur(function () {
