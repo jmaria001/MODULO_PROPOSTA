@@ -19,6 +19,7 @@
         { 'Link': 'TabelaPrecos', 'Title': 'Tabela de Preços' },
         { 'Link': 'Programa', 'Title': 'Programas' },
         { 'Link': 'Terceiro', 'Title': 'Terceiros' },
+        { 'Link': 'Produto', 'Title': 'Produtos' },
     ];
     //===========================fim do load da pagina
     $scope.$watch('$viewContentLoaded', function () {

@@ -42,10 +42,12 @@
         httpService.Get(_url).then(function (response) {
             if (response) {
                 $scope.Terceiro = response.data;
-                //$scope.CurrentEmpresa = 0;
             }
             if ($scope.Parameters.Action=='New') {
                 $scope.Terceiro.Funcao = "";
+            }
+            if ($scope.Parameters.Action == 'Dados') {
+                $scope.Terceiro.Permite_Editar = false;
             }
         });
     }
@@ -100,7 +102,7 @@
     $scope.ExcluirTerceiro = function (pTerceiro) {
 
         swal({
-            title: "Tem certeza que deseja Excluir esta Terceiro ?",
+            title: "Tem certeza que deseja Excluir esse  Terceiro ?",
             //text: "Essa opcação desabilita o acesso ao sistema para esse usuário",
             type: "warning",
             showCancelButton: true,

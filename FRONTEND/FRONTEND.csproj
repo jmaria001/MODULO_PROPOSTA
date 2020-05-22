@@ -104,12 +104,15 @@
     <Content Include="angular\Controller\CondPgtoController.js" />
     <Content Include="angular\Controller\ContatoCadastroController.js" />
     <Content Include="angular\Controller\ContatoController.js" />
+    <Content Include="angular\Controller\ControllerTeste.js" />
     <Content Include="angular\Controller\EmpresaCadastroController.js" />
     <Content Include="angular\Controller\EmpresaController.js" />
     <Content Include="angular\Controller\MotivoCancelamentoCadastroController.js" />
     <Content Include="angular\Controller\MotivoCancelamentoController.js" />
     <Content Include="angular\Controller\MotivoFalhaCadastroController.js" />
     <Content Include="angular\Controller\MotivoFalhaController.js" />
+    <Content Include="angular\Controller\ProdutoCadastroController - Copy.js" />
+    <Content Include="angular\Controller\ProdutoCadastroController.js" />
     <Content Include="angular\Controller\NegociacaoCadastroController.js" />
     <Content Include="angular\Controller\NegociacaoDetalheController.js" />
     <Content Include="angular\Controller\MotivoAlterNegocController.js" />
@@ -133,6 +136,7 @@
     <Content Include="angular\Controller\TabelaPrecosCadastroController.js" />
     <Content Include="angular\Controller\TabelaPrecosController.js" />
     <Content Include="angular\Controller\TerceiroCadastroController.js" />
+    <Content Include="angular\Controller\ProdutoController.js" />
     <Content Include="angular\Controller\TerceiroController.js" />
     <Content Include="angular\Controller\TipoComercialCadastroController.js" />
     <Content Include="angular\Controller\TipoComercialController.js" />
@@ -205,6 +209,9 @@
     <Content Include="js\vendor\XTABLES\Buttons-1.5.1\css\common.scss" />
     <Content Include="js\vendor\XTABLES\Buttons-1.5.1\css\mixins.scss" />
     <Content Include="js\vendor\XTABLES\language\Pt_BR.json" />
+    <Content Include="view\DashboardTeste.html" />
+    <Content Include="view\ProdutoCadastro - Copy.html" />
+    <Content Include="view\ProdutoCadastro.html" />
     <Content Include="Proposta_Aprovacao.html" />
     <Content Include="TASKS.TXT" />
     <Content Include="template\GeracaoProposta.html" />
@@ -254,6 +261,7 @@
     <Content Include="view\simulacao_copy_2803.html" />
     <Content Include="view\TabelaPrecos.html" />
     <Content Include="view\TabelaPrecosCadastro.html" />
+    <Content Include="view\Produto.html" />
     <Content Include="view\Terceiro.html" />
     <Content Include="view\TerceiroCadastro - Copy.html" />
     <Content Include="view\TerceiroCadastro.html" />

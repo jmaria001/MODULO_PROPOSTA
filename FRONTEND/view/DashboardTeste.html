@@ -1,0 +1,50 @@
+﻿<div class="container" ng-controller="ControllerTeste">
+    <div class="block" id="divFiltro">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="dictionary" dictionary="Competencia" caption="Competência Início">
+                    <input ng-model="Filtro.CompetenciaInicio"
+                           ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                           ng-change="SetaCompetenciaFinalKey()"
+                           placeholder="Informe a Competência">
+                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.CompetenciaInicio" params="CompetenciaInicioKeys"></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="dictionary" dictionary="Competencia" caption="Competência Fim">
+                    <input ng-model="Filtro.CompetenciaFim"
+                           ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                           placeholder="Informe a Competência">
+                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.CompetenciaFim" params="CompetenciaFimKeys"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-success" ng-click="CarregarBarra(Filtro)" style="margin-top:35px">Modelo Barras</button>
+                <button class="btn btn-success" ng-click="CarregarLinha(Filtro)" style="margin-top:35px">Modelo Linhas</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="block" id="divGraph">
+        <div class="row" ng-show="Show=='Barra'">
+            <div class="col-md-12">
+                <canvas id="chart_Barra" height="1434" width="4304"></canvas>
+            </div>
+        </div>
+        <div class="row" ng-show="Show=='Line'">
+        </div>-->
+        <div class="col-md-12">
+            <canvas id="chart_Line" height="1434" width="4304"></canvas>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

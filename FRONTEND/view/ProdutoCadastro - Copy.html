@@ -1,0 +1,117 @@
+﻿<style>
+    input {
+        text-transform: uppercase;
+    }
+</style>
+<div class="container">
+    <form name="frmProdutoCadastro" autocomplete="off">
+        <div class="block">
+            {{Produto}}
+            <!--==========================================Operacao-->
+            <div class="row">
+                <div class="col-md-2" ng-repeat="operacao in Operacoes track by $index" ng-show="Parameters.Action==operacao.Action">
+                    <div class="form-group" ng-show="Parameters.Action==operacao.Action">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label>
+                                    <input type="checkbox"
+                                           name="app-checkbox-1"
+                                           ng-model="operacao.value"
+                                           ng-click="SetaOperacao(operacao)" />
+                                    {{operacao.Descricao}}
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--==========================================Tabela de Edicao-->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td><label>Segmento</label></td>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                       ng-model="Produto.Segmento"
+                                                       maxlength="40"
+                                                       ng-disabled="!EditSegmento"
+                                                       ng-model-options="{updateOn: 'blur'}" />
+                                                <div class="input-group-addon" ng-show="SelectSegmento">
+                                                    <span class="fa fa-search span-btn" ng-click="PesquisaSegmento()"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+
+                                    <td><label>Setor</label></td>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                       ng-model="Produto.Setor"
+                                                       maxlength="40"
+                                                       ng-disabled="!EditSetor"
+                                                       ng-model-options="{updateOn: 'blur'}" />
+                                                <div class="input-group-addon" ng-show="SelectSetor">
+                                                    <span class="fa fa-search span-btn" ng-click="PesquisaSetor()"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label>Produto</label></td>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control"
+                                                       ng-model="Produto.Produto"
+                                                       ng-disabled="!EditProduto"
+                                                       maxlength="40"
+                                                       ng-model-options="{updateOn: 'blur'}" />
+                                                    </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><label>Horário de Restrição</label></td>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control time "
+                                                       ng-model="Produto.Horario_Restricao"
+                                                       maxlength="5"
+                                                       ng-disabled="!EditProduto"
+                                                       ng-model-options="{updateOn: 'blur'}" />
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-success" ng-click="SalvarProduto(Produto)">Salvar</button>
+                    <a href="#Produto" class="btn btn-warning">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

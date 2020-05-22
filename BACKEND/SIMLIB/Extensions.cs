@@ -108,6 +108,12 @@ namespace PROPOSTA
                 return String.Empty;
             }
         }
+        private static String ConvertToRGB(System.Drawing.Color c)
+        {
+            String rtn = String.Empty;
+            rtn = "RGB(" + c.R.ToString() + "," + c.G.ToString() + "," + c.B.ToString() + ")";
+            return rtn;
+        }
     }
 
 }

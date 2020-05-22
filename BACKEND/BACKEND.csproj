@@ -243,6 +243,7 @@
     <Compile Include="Contato\ContatoController.cs" />
     <Compile Include="Contato\ContatoModel.cs" />
     <Compile Include="Contato\ContatoSql.cs" />
+    <Compile Include="DashBoard\DashBoardConfig.cs" />
     <Compile Include="Empresa\EmpresaController.cs" />
     <Compile Include="Empresa\EmpresaModel.cs" />
     <Compile Include="Empresa\EmpresaSql.cs" />
@@ -265,6 +266,9 @@
     <Compile Include="PDF\ImpressaoProposta.cs" />
     <Compile Include="PDF\ImpressaoSimulacao.cs" />
     <Compile Include="PDF\ImpressaoMidia.cs" />
+    <Compile Include="Produto\ProdutoController.cs" />
+    <Compile Include="Produto\ProdutoModel.cs" />
+    <Compile Include="Produto\ProdutoSql.cs" />
     <Compile Include="Programa\ProgramaController.cs" />
     <Compile Include="Programa\ProgramaModel.cs" />
     <Compile Include="Programa\ProgramaSQL.cs" />
@@ -281,6 +285,9 @@
     <Compile Include="TabelaPreco\TabelaPrecosController.cs" />
     <Compile Include="TabelaPreco\TabelaPrecosModel.cs" />
     <Compile Include="TabelaPreco\TabelaPrecosSql.cs" />
+    <Compile Include="DashBoard\DashBoardController.cs" />
+    <Compile Include="DashBoard\DashBoardModel.cs" />
+    <Compile Include="DashBoard\DashBoardSql.cs" />
     <Compile Include="Terceiro\TerceiroController.cs" />
     <Compile Include="Terceiro\TerceiroModel.cs" />
     <Compile Include="Terceiro\TerceiroSql.cs" />

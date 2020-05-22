@@ -84,8 +84,8 @@ namespace PROPOSTA
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Operacao", pTerceiro.id_operacao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Terceiro", pTerceiro.Cod_Terceiro);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Razao_Social", pTerceiro.Razao_Social);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Terceiro", pTerceiro.Cod_Terceiro.ToUpper());
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Razao_Social", pTerceiro.Razao_Social.ToUpper());
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Porte", pTerceiro.Indica_Porte);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Funcao", pTerceiro.Funcao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_CGC", pTerceiro.CGC);
@@ -93,7 +93,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Inscricao_Municipal", pTerceiro.Inscricao_Municipal);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Cic_Cgc", pTerceiro.Indica_Cic_Cgc);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Empresa_Principal", pTerceiro.Cod_Empresa_Principal);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome_Fantasia", pTerceiro.Nome_Fantasia);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome_Fantasia", pTerceiro.Nome_Fantasia.ToUpper().ToUpper());
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Categoria", pTerceiro.Cod_Categoria);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo_Cobranca", pTerceiro.Tipo_Cobranca);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Forma_Tributacao", pTerceiro.Forma_Tributacao);
@@ -106,36 +106,36 @@ namespace PROPOSTA
                 if (IBaseEndereco > -1)
                 {
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Endereco1", pTerceiro.Enderecos[IBaseEndereco].Endereco1);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Numero1", pTerceiro.Enderecos[IBaseEndereco].Numero1);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Complemento1", pTerceiro.Enderecos[IBaseEndereco].Complemento1);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Bairro1", pTerceiro.Enderecos[IBaseEndereco].Bairro1);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Municipio1", pTerceiro.Enderecos[IBaseEndereco].Municipio1);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Uf1", pTerceiro.Enderecos[IBaseEndereco].Uf1);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Cep1", pTerceiro.Enderecos[IBaseEndereco].Cep1);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Endereco2", pTerceiro.Enderecos[IBaseEndereco].Endereco2);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Numero2", pTerceiro.Enderecos[IBaseEndereco].Numero2);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Complemento2", pTerceiro.Enderecos[IBaseEndereco].Complemento2);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Bairro2", pTerceiro.Enderecos[IBaseEndereco].Bairro2);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Municipio2", pTerceiro.Enderecos[IBaseEndereco].Municipio2);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Uf2", pTerceiro.Enderecos[IBaseEndereco].Uf2);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Cep2", pTerceiro.Enderecos[IBaseEndereco].Cep2);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Telefone", pTerceiro.Enderecos[IBaseEndereco].Telefone);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Fax", pTerceiro.Enderecos[IBaseEndereco].Fax);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Email", pTerceiro.Enderecos[IBaseEndereco].Email);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Praca_Pgto", pTerceiro.Enderecos[IBaseEndereco].Praca_Pgto);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Municipio", pTerceiro.Enderecos[IBaseEndereco].Cod_Municipio);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Municipio1", pTerceiro.Enderecos[IBaseEndereco].Cod_Municipio1);
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Numero1", pTerceiro.Enderecos[IBaseEndereco].Numero1.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Complemento1", pTerceiro.Enderecos[IBaseEndereco].Complemento1.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Bairro1", pTerceiro.Enderecos[IBaseEndereco].Bairro1.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Municipio1", pTerceiro.Enderecos[IBaseEndereco].Municipio1.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Uf1", pTerceiro.Enderecos[IBaseEndereco].Uf1.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Cep1", pTerceiro.Enderecos[IBaseEndereco].Cep1.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Endereco2", pTerceiro.Enderecos[IBaseEndereco].Endereco2.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Numero2", pTerceiro.Enderecos[IBaseEndereco].Numero2.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Complemento2", pTerceiro.Enderecos[IBaseEndereco].Complemento2.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Bairro2", pTerceiro.Enderecos[IBaseEndereco].Bairro2.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Municipio2", pTerceiro.Enderecos[IBaseEndereco].Municipio2.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Uf2", pTerceiro.Enderecos[IBaseEndereco].Uf2.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Cep2", pTerceiro.Enderecos[IBaseEndereco].Cep2.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Telefone", pTerceiro.Enderecos[IBaseEndereco].Telefone.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Fax", pTerceiro.Enderecos[IBaseEndereco].Fax.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Email", pTerceiro.Enderecos[IBaseEndereco].Email.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Praca_Pgto", pTerceiro.Enderecos[IBaseEndereco].Praca_Pgto.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Municipio", pTerceiro.Enderecos[IBaseEndereco].Cod_Municipio.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Municipio1", pTerceiro.Enderecos[IBaseEndereco].Cod_Municipio1.ToUpper());
                 }
                 if (IBaseComplementar > -1)
                 {
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome_Contato", pTerceiro.Complementar[IBaseComplementar].Nome_Contato);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Telefone_Contato_1", pTerceiro.Complementar[IBaseComplementar].Telefone_Contato_1);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Telefone_Contato_2", pTerceiro.Complementar[IBaseComplementar].Telefone_Contato_2);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Email_Contato", pTerceiro.Complementar[IBaseComplementar].Email_Contato);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome_Contato_Compl", pTerceiro.Complementar[IBaseComplementar].Nome_Contato_Compl);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Telefone_Contato_Compl_1", pTerceiro.Complementar[IBaseComplementar].Telefone_Contato_Compl_1);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Telefone_Contato_Compl_2", pTerceiro.Complementar[IBaseComplementar].Telefone_Contato_Compl_2);
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Email_Contato_Compl", pTerceiro.Complementar[IBaseComplementar].Email_Contato_Compl);
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome_Contato", pTerceiro.Complementar[IBaseComplementar].Nome_Contato.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Telefone_Contato_1", pTerceiro.Complementar[IBaseComplementar].Telefone_Contato_1.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Telefone_Contato_2", pTerceiro.Complementar[IBaseComplementar].Telefone_Contato_2.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Email_Contato", pTerceiro.Complementar[IBaseComplementar].Email_Contato.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome_Contato_Compl", pTerceiro.Complementar[IBaseComplementar].Nome_Contato_Compl.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Telefone_Contato_Compl_1", pTerceiro.Complementar[IBaseComplementar].Telefone_Contato_Compl_1.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Telefone_Contato_Compl_2", pTerceiro.Complementar[IBaseComplementar].Telefone_Contato_Compl_2.ToUpper());
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Email_Contato_Compl", pTerceiro.Complementar[IBaseComplementar].Email_Contato_Compl.ToUpper());
                 }
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Empresas", xmlEmpresas);
                 Adp.Fill(dtb);
