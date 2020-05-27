@@ -1,4 +1,5 @@
-﻿<div class="modal fade" id="modalTabela" tabindex="-1" role="dialog" aria-labelledby="modal-warning-header" ng-controller="dictionaryController">
+﻿
+<div class="modal fade" id="modalTabela" tabindex="-1" role="dialog" aria-labelledby="modal-warning-header" ng-controller="dictionaryController">
     <div class="modal-dialog modal-primary" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -29,7 +30,7 @@
 
                     <div ng-show="PesquisaTabelas.Items.length>0" style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px #f5f5f5">
                         <div class="table-responsive">
-                            <table class="table table-noborder table-select">
+                            <table class="table table-bordered table-select">
                                 <tbody>
                                     <tr>
                                         <th ng-show="PesquisaTabelas.MultiSelect"></th>
@@ -59,7 +60,7 @@
             </div>
             <div class="modal-footer">
                 <div class="row">
-                    <div class="col-md-4" ng-show="PesquisaTabelas.MultiSelect">
+                    <div class="col-md-4" ng-show="PesquisaTabelas.MultiSelect && PesquisaTabelas.Items.length >0">
                         <div class="form-group" style="width:auto">
                             <div class="input-group">
                                 <div class="app-checkbox">
@@ -68,8 +69,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8">
-                        <button  type="button" ng-show="PesquisaTabelas.MultiSelect" type="button" class="btn btn-success" data-dismiss="modal" ng-click="PesquisaTabelas.ClickCallBack(PesquisaTabelas.Items)">Ok</button>
+                    <div class="col-md-8 pull-right">
+                        <button  type="button" ng-show="PesquisaTabelas.MultiSelect" class="btn btn-success" data-dismiss="modal" ng-click="PesquisaTabelas.ClickCallBack(PesquisaTabelas.Items)">Ok</button>
                         <button type="button" class="btn btn-warning" data-dismiss="modal">Cancela</button>
                     </div>
                 </div>

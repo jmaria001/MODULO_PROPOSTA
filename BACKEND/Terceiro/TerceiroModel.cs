@@ -65,7 +65,7 @@ namespace PROPOSTA
         public class TerceiroEnderecoModel
         {
             public String Cod_Terceiro { get; set; }
-            public String Cod_Empresa { get; set; }
+            public String Cod_Empresa { get; set; } 
             public String Nome_Empresa { get; set; }
             public String Endereco1 { get; set; }
             public String Numero1 { get; set; }

@@ -1,0 +1,225 @@
+﻿<div class="container">
+    <form name="frmParametroCadastro" autocomplete="off">
+        <!--{{Parametro.Indica_Valor_Individual}}-->
+        <div class="block">
+            <div class="row">
+                <div class="alert alert-primary alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <span class="icon icon-checkmark-circle" style="font-size:20px !important"></span>
+                    </div>
+                    <strong>Parâmetros do Sistema</strong>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Codigo-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="fieldrequired">Código Param</label>
+                        <input type="text"
+                               name="txtCod_Parametro"
+                               ng-required="false"
+                               ng-model="Parametro.Cod_Parametro"
+                               class="form-control"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="6" />
+                    </div>
+                </div>
+                <!--===================Descricao-->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Descricao</label> <!--class="fieldrequired"-->
+                        <input style="text-transform:uppercase" type="text" name="txtDescricao" class="form-control" ng-model="Parametro.Descricao" maxlength="30" ng-required="true" />
+                    </div>
+                </div>
+                <!--===================Chave-->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Chave</label> <!--class="fieldrequired"-->
+                        <input style="text-transform:uppercase" type="text" name="txtDescricao" class="form-control" ng-model="Parametro.Cod_Chave" maxlength="200" ng-required="true" />
+                    </div>
+                </div>
+                <!--===================Individual-->
+                <div class="col-md-2">
+                    <div class="form-group margin-top-20">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Parametro.Indica_Valor_Individual" /> Individual<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="divValores" ng-show="Parametro.Indica_Valor_Individual==1" class="margin-top-20">
+                <!--========================================-->
+                <!--Aqui - Valores dos Parâmetros do Sistema-->
+                <!--========================================-->
+                <div class="row">
+                    <div class="alert alert-primary alert-icon-block" role="alert">
+                        <div class="alert-icon">
+                            <span class="icon icon-checkmark-circle" style="font-size:20px !important"></span>
+                        </div>
+                        <strong>Valores dos Parâmetros do Sistema</strong>
+                        <button type="button" class="btn btn-default btn-icon-fixed btn-sm margin-left-20"
+                                ng-click="EditarValor('New','')">
+                            <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="divGrid" ng-show="!ShowEditar">
+                        <div class="table-responsive" style="height:400px;max-width:900px">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Código</th>
+                                        <th>Emp.Fat</th>
+                                        <th>Emp.Venda</th>
+                                        <th>Veículo</th>
+                                        <th>Chave</th>
+                                        <td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="linhaValor in Parametro.Valores track by $index" ng-show="linhaValor.Sequenciador>0">
+                                        <td style="width:50px;text-align:center">
+                                            <span class="fa fa-edit fa-2x span-btn" ng-click="EditarValor('Edit',linhaValor)"></span>
+                                        </td>
+                                        <td>{{linhaValor.Cod_Parametro}}</td>
+                                        <td>{{linhaValor.Cod_Empresa_Faturamento}}</td>
+                                        <td>{{linhaValor.Cod_Empresa_Venda}}</td>
+                                        <td>{{linhaValor.Cod_Veiculo}}</td>
+                                        <td>{{linhaValor.Cod_Chave}}</td>
+                                        <td style="width:50px;text-align:center">
+                                            <span class="fa fa-trash-o fa-2x span-btn" ng-click="RemoverValor(linhaValor)"></span>
+                                        </td>
+                                            
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="divInput" ng-show="ShowEditar">
+                    <!--===================Codigo-->
+                    <!--<div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="field-x">Código Valor</label>
+                                <input type="text" name="txtCod_ParaValor" class="form-control" ng-model="Valor.Cod_Parametro" maxlength="20" />
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="row">
+                        <!--============================Empresa de Faturamento-->
+                        <div class="col-md-2" ng-controller="dictionaryController">
+                            <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Faturamento">
+                                <input id="txtCod_Empresa_Faturamento"
+                                       ng-model="Valor.Cod_Empresa_Faturamento"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       ng-change="DicionaryValidate('txtCod_Empresa_Faturamento')"
+                                       primarybind="txtCod_Empresa_Faturamento"
+                                       secondarybind="txtDes_Empresa_Faturamento">
+                            </div>
+                        </div>
+                        <!--===================Descricao Empresa de Faturamento-->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="txtDes_Empresa_Faturamento" class="field-x" style="visibility:hidden">..</label>
+                                <div class="input-group">
+                                    <input type="text" disabled="disabled" id="txtDes_Empresa_Faturamento" class="form-control " ng-model="Valor.Nome_Empresa_Faturamento">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--============================Empresa de Venda-->
+                        <div class="col-md-2" ng-controller="dictionaryController">
+                            <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Venda">
+                                <input id="txtCod_Empresa_Venda"
+                                       ng-model="Valor.Cod_Empresa_Venda"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       ng-change="DicionaryValidate('txtCod_Empresa_Venda')"
+                                       primarybind="txtCod_Empresa_Venda"
+                                       secondarybind="txtDes_Empresa_Venda">
+                            </div>
+                        </div>
+                        <!--===================Descricao Empresa de Venda-->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="txtDes_Empresa_Venda" class="field-x" style="visibility:hidden">..</label>
+                                <div class="input-group">
+                                    <input type="text" disabled="disabled" id="txtDes_Empresa_Venda" class="form-control " ng-model="Valor.Nome_Empresa_Venda">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <!--============================Veiculo-->
+                        <div class="col-md-2" ng-controller="dictionaryController">
+                            <div class="dictionary" dictionary="Veiculo">
+                                <input id="txtCod_Veiculo"
+                                       ng-model="Valor.Cod_Veiculo"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       ng-change="DicionaryValidate('txtCod_Veiculo')"
+                                       primarybind="txtCod_Veiculo"
+                                       secondarybind="txtDes_Veiculo">
+                            </div>
+                        </div>
+                        <!--===================Descricao Veiculo-->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="txtDes_Veiculo" class="field-x" style="visibility:hidden">..</label>
+                                <div class="input-group">
+                                    <input type="text" disabled="disabled" id="txtDes_Veiculo" class="form-control " ng-model="Valor.Nome_Veiculo">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <!--===================Chave de Validacao-->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="field-x">Chave de Validação</label>
+                                <input style="text-transform:uppercase" type="text" name="txtDes_Chave_Validacao" class="form-control" ng-model="Valor.Cod_Chave" maxlength="200" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-top-20">
+                        <button type="button" class="btn btn-success" ng-click="SalvarValor(Valor)">Salvar Valor</button>
+                        <button type="button" class="btn btn-warning" ng-click="ShowEditar=false">Cancelar</button>
+                    </div>
+                </div>
+
+            </div>
+            <div class="fixed-buttons-bottom">
+                <div class="row">
+                    <!--===================Botoes-->
+                    <div ng-show="!ShowEditar">
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-success" ng-click="SalvarParametro(Parametro,'P')">
+                                Salvar
+                            </button>
+
+
+                            <a href="#Parametro" class="btn btn-warning">Cancelar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

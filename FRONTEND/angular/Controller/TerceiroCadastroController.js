@@ -4,7 +4,7 @@
     $scope.currentTab = "Dados";
     $scope.PesquisaTabelas = { "Items": [], 'FiltroTexto': '', ClickCallBack: '', 'Titulo': '', 'MultiSelect': false };
     $scope.Pessoa = [{ 'Codigo': 0, 'Descricao': 'Jurídico' }, { 'Codigo': 1, 'Descricao': 'Física' }, { 'Codigo': 2, 'Descricao': 'Outros' }, ]
-    $scope.Porte= [{ 'Codigo': 1, 'Descricao': 'Grande' }, { 'Codigo': 2, 'Descricao': 'Médio' }, { 'Codigo': 3, 'Descricao': 'Pequeno' },]
+    $scope.Porte = [{ 'Codigo': 1, 'Descricao': 'Grande' }, { 'Codigo': 2, 'Descricao': 'Médio' }, { 'Codigo': 3, 'Descricao': 'Pequeno' }, ]
     $scope.ListadeEmpresas = [];
     $scope.CurrentEmpresa = 0;
     //========================Verifica Permissoes
@@ -28,7 +28,7 @@
     //========================Recebe Parametro
     $scope.Parameters = $routeParams;
     $scope.Terceiro = "";
-    
+
     if ($scope.Parameters.Action == 'Edit') {
         $rootScope.routeName = 'Edição de Terceiros'
     }
@@ -43,7 +43,7 @@
             if (response) {
                 $scope.Terceiro = response.data;
             }
-            if ($scope.Parameters.Action=='New') {
+            if ($scope.Parameters.Action == 'New') {
                 $scope.Terceiro.Funcao = "";
             }
             if ($scope.Parameters.Action == 'Dados') {
@@ -56,7 +56,6 @@
     //==========================Salvar
     $scope.SalvarTerceiro = function (pTerceiro) {
         $scope.Terceiro.id_operacao = $scope.Parameters.Action == "New" ? 'I' : 'E';
-
         for (var i = 0; i < $scope.Terceiro.Enderecos.length; i++) {
             $scope.Terceiro.Enderecos[i].Base_Edicao = false;
             if ($scope.Terceiro.Enderecos[i].Cod_Empresa == $scope.Terceiro.Enderecos[$scope.CurrentEmpresa].Cod_Empresa) {
@@ -74,22 +73,17 @@
             if (response) {
                 if (response.data[0].Status) {
                     ShowAlert(response.data[0].Mensagem, 'success');
-                    if ($scope.Parameters.Action == 'New') {
-                        $scope.CarregaDados();
-                    }
-                    else {
-                        $location.path("/Terceiro")
-                    }
+                    $location.path("/Terceiro")
                 }
-                else {
-                    ShowAlert(response.data[0].Mensagem, 'warning');
+            else {
+                ShowAlert(response.data[0].Mensagem, 'warning');
                 }
             }
         })
     };
     //======================Seta Empresa 
     $scope.SetaEmpresa = function (pIndex) {
-        
+
         if (pIndex == 1 && $scope.CurrentEmpresa >= $scope.Terceiro.Enderecos.length - 1) {
             return
         }
@@ -98,7 +92,7 @@
         }
         $scope.CurrentEmpresa += pIndex
     };
-        //======================Excluir
+    //======================Excluir
     $scope.ExcluirTerceiro = function (pTerceiro) {
 
         swal({
@@ -113,7 +107,7 @@
         }, function () {
             httpService.Post("ExcluirTerceiro", pTerceiro).then(function (response) {
                 if (response) {
-                    if (response.data[0].Indica_Erro==0) {
+                    if (response.data[0].Indica_Erro == 0) {
                         ShowAlert('Terceiro Excluido com Sucesso', 'success');
                         $location.path("/Terceiro");
                     }
@@ -159,7 +153,7 @@
         };
         swal({
             title: "Tem certeza que deseja desativar esta Terceiro ?",
-            text:"Motivo do Cancelamento",
+            text: "Motivo do Cancelamento",
             type: "input",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
@@ -174,7 +168,7 @@
                 if (response.data) {
                     $scope.CarregaDados();
                 }
-                
+
             });
         });
     };
@@ -193,24 +187,25 @@
         $scope.PesquisaTabelas.FiltroTexto = "";
         $scope.PesquisaTabelas.Titulo = "Seleção de Empresas";
         $scope.PesquisaTabelas.MultiSelect = true;
+        $scope.PesquisaTabelas.MarcarTodos= false;
         $scope.PesquisaTabelas.ClickCallBack = function () {
             $scope.Terceiro.Empresas = [];
             for (var i = 0; i < $scope.ListadeEmpresas.length; i++) {
-                    $scope.Terceiro.Empresas.push({ 'Cod_Empresa': $scope.ListadeEmpresas[i].Codigo, 'Nome_Empresa': $scope.ListadeEmpresas[i].Descricao, 'Selected': $scope.ListadeEmpresas[i].Selected });
+                $scope.Terceiro.Empresas.push({ 'Cod_Empresa': $scope.ListadeEmpresas[i].Codigo, 'Nome_Empresa': $scope.ListadeEmpresas[i].Descricao, 'Selected': $scope.ListadeEmpresas[i].Selected });
             };
         };
         $("#modalTabela").modal(true);
     }
     //=====================Validacao de Codigo IBGE
-    $scope.ValidaIbge = function (pCodigo,pEndereco){
+    $scope.ValidaIbge = function (pCodigo, pEndereco) {
         var _url = 'GetCodigoIbge/' + pCodigo.trim();
         httpService.Get(_url).then(function (response) {
-            if (response.data.length==0) {
-                ShowAlert("Código de Município Inválido",'warning');
+            if (response.data.length == 0) {
+                ShowAlert("Código de Município Inválido", 'warning');
                 return;
             }
             else {
-                if (pEndereco=='Principal') {
+                if (pEndereco == 'Principal') {
                     $scope.Terceiro.Enderecos[$scope.CurrentEmpresa].Municipio1 = response.data[0].Nome_Municipio.trim();
                     $scope.Terceiro.Enderecos[$scope.CurrentEmpresa].Uf1 = response.data[0].Sigla_Uf.trim();
                 }

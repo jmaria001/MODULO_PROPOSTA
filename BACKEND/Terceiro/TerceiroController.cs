@@ -52,8 +52,8 @@ namespace PROPOSTA
                     Retorno.Permite_Editar = true;
                     //Retorno.Empresas = new List<Terceiro.TerceiroEmpresasModel>();
                     Retorno.Empresas = Cls.AddEmpresas("");
-                    Retorno.Enderecos= new List<Terceiro.TerceiroEnderecoModel>();
-                    Retorno.Complementar= new List<Terceiro.TerceiroComplementarModel>();
+                    Retorno.Enderecos= new List<Terceiro.TerceiroEnderecoModel>() { new Terceiro.TerceiroEnderecoModel()};
+                    Retorno.Complementar= new List<Terceiro.TerceiroComplementarModel>() { new Terceiro.TerceiroComplementarModel()} ;
                 }
                 return Ok(Retorno);
             }

@@ -45,6 +45,11 @@ namespace PROPOSTA
             SqlDataAdapter Adp = new SqlDataAdapter();
             DataTable dtb = new DataTable("dtb");
             SimLib clsLib = new SimLib();
+            String  xmlCliente = null;
+            if (pProduto.Clientes.Count > 0)
+            {
+                xmlCliente = clsLib.SerializeToString(pProduto.Clientes);
+            }
 
             try
             {
@@ -59,6 +64,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Produto", pProduto.Cod_Produto);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Produto", pProduto.Produto);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Horario_Restricao", pProduto.Horario_Restricao);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Clientes", xmlCliente);
                 Adp.Fill(dtb);
             }
             catch (Exception)
@@ -96,6 +102,7 @@ namespace PROPOSTA
                     Produto.Cod_Produto = dtb.Rows[0]["Cod_Produto"].ToString().ConvertToInt32();
                     Produto.Produto = dtb.Rows[0]["Produto"].ToString().TrimEnd();
                     Produto.Horario_Restricao = dtb.Rows[0]["Horario_Restricao"].ToString();
+                    Produto.Clientes = AddProdutoCliente(pProduto);
                 }
             }
             catch (Exception)
@@ -107,6 +114,39 @@ namespace PROPOSTA
                 cnn.Close();
             }
             return Produto;
+        }
+        public List<ProdutoClienteModel> AddProdutoCliente(Int32 pCodProduto)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            List<ProdutoClienteModel> Clientes = new List<ProdutoClienteModel>();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_Produto_Cliente_List");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Red_produto", pCodProduto);
+                Adp.Fill(dtb);
+                foreach (DataRow drw in dtb.Rows)
+                {
+                    Clientes.Add(new ProdutoClienteModel() {
+                        Cod_Cliente = drw["Cod_Cliente"].ToString(),
+                        Nome_Cliente = drw["Nome_Cliente"].ToString(),
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Clientes;
         }
         public DataTable SetorListar(Int32 pCodSegmento)
         {

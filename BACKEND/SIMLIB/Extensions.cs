@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Globalization;
 
 namespace PROPOSTA
@@ -19,8 +20,6 @@ namespace PROPOSTA
         {
             return value.Substring(0, length);
         }
-
-
 
         public static Int32 ConvertToInt32(this string value)
         {
@@ -88,7 +87,7 @@ namespace PROPOSTA
             if (double.TryParse(value, out dtOut))
             {
                 return dtOut.ToString("C", CultureInfo.CurrentCulture);
-                
+
             }
             else
             {
@@ -113,6 +112,13 @@ namespace PROPOSTA
             String rtn = String.Empty;
             rtn = "RGB(" + c.R.ToString() + "," + c.G.ToString() + "," + c.B.ToString() + ")";
             return rtn;
+        }
+        public static SqlParameter AddWithNull(this SqlParameterCollection collection,string parameterName,object value)
+        {
+            if (value == null)
+                return collection.AddWithValue(parameterName, DBNull.Value);
+            else
+                return collection.AddWithValue(parameterName, value);
         }
     }
 

@@ -1,0 +1,49 @@
+﻿<div class="container">
+    <form name="frmGeneroCadastro" autocomplete="off">
+        <div class="block">
+            <div class="row">
+                <!--===================Codigo-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="fieldrequired">Código</label>
+                        <input type="text"
+                               name="txtCod_Genero"
+                               ng-required="true"
+                               ng-model="Genero.Cod_Genero"
+                               class="form-control"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="6" />
+                    </div>
+                </div>
+                <!--===================Descricao-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired">Descricao</label>
+                        <input type="text" name="txtDescricao" class="form-control" ng-model="Genero.Descricao" maxlength="30" ng-required="true" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Botoes-->
+                <div class="row margin-top-20">
+                    <div class="col-md-12">
+                        <button class="btn btn-success" ng-click="SalvarGenero(Genero)"
+                                ng-disabled="frmGeneroCadastro.$invalid">
+                            Salvar
+                        </button>
+                        <button class="btn btn-danger" ng-disabled="!PermissaoDelete" ng-show="Parameters.Action=='Edit'" ng-click="ExcluirGenero(Genero) ">Excluir</button>
+                        <a href="#Genero" class="btn btn-warning">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+        $(document).ready(function () {
+            GetDictionary();
+        });
+</script>

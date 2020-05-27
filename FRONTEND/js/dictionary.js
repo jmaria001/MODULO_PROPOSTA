@@ -6,14 +6,14 @@ function GetDictionary() {
                         { 'Id': 'Data', 'label': 'Data', 'icon': 'calendarDay', 'atributos': { 'maxlength': '10', 'type': 'text', 'keymode': 'numeric', 'placeholder': 'ddmmyyyy' } },
                         { 'Id': 'Competencia', 'label': 'Competência', 'icon': 'calendarMonth', 'atributos': { 'maxlength': '7', 'type': 'text', 'keymode': 'numeric', 'placeholder': 'mes/ano' } },
                         { 'Id': 'Money', 'label': '', 'icon': '', 'atributos': { 'maxlength': '15', 'type': 'text', 'keymode': '', 'placeholder': '/ano' } },
-                        { 'Id': 'Empresa_Usuario', 'label': 'Empresa', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric'} },
+                        { 'Id': 'Empresa_Usuario', 'label': 'Empresa', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric' } },
                         { 'Id': 'Mercado', 'label': 'Mercado', 'icon': 'search', 'atributos': { 'maxlength': '5', 'type': 'text' } },
                         { 'Id': 'Motivo_Falha', 'label': 'Motivo', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'text' } },
                         { 'Id': 'UF', 'label': 'UF', 'icon': 'search', 'atributos': { 'maxlength': '2', 'type': 'text', 'keymode': 'upper' } },
                         { 'Id': 'Pacote_Desconto', 'label': 'Pacote de Desconto', 'icon': 'search', 'atributos': { 'maxlength': '30', 'type': 'text', 'keymode': 'numeric' } },
-                        { 'Id': 'Agencia', 'label': 'Agência', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'text', 'filter': true} },
-                        { 'Id': 'Cliente', 'label': 'Cliente', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'text', 'filter': true} },
-                        { 'Id': 'Terceiro', 'label': 'Terceiro', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'text', 'filter': true} },
+                        { 'Id': 'Agencia', 'label': 'Agência', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'text', 'filter': true } },
+                        { 'Id': 'Cliente', 'label': 'Cliente', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'text', 'filter': true } },
+                        { 'Id': 'Terceiro', 'label': 'Terceiro', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'text', 'filter': true } },
                         { 'Id': 'Contato', 'label': 'Contato', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'text' } },
                         { 'Id': 'Rede', 'label': 'Rede', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'numeric' } },
                         { 'Id': 'Genero', 'label': 'Genero', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'text' } },
@@ -40,7 +40,7 @@ function GetDictionary() {
     //==============Config html
     var elements = document.getElementsByClassName("dictionary");
     for (var i = 0, len = elements.length; i < len; i++) {
-        
+
         //======================Obtem o dicionario
         var _dictionaryName = elements[i].attributes.dictionary;
         var _def = GetDicionarioDef(_dictionaryName.value);
@@ -49,11 +49,11 @@ function GetDictionary() {
         var _required = elements[i].attributes.required;
         var _control_group = 'group_' + +i.toString();
         var _icon = true
-        
-        if (elements[i].attributes.icon ) {
-            _icon =  elements[i].attributes.icon.value==true;
-        } 
-        
+
+        if (elements[i].attributes.icon) {
+            _icon = elements[i].attributes.icon.value == true;
+        }
+
         var _inputAttributes = elements[i].getElementsByTagName('input')[0];
         //=======================form-group
         var _formgroup = document.createElement("div");
@@ -62,17 +62,16 @@ function GetDictionary() {
 
         //==================Label  dentro do form-group
         var _label = document.createElement("label");
-        _label.setAttribute("style","white-space:nowrap")
+        _label.setAttribute("style", "white-space:nowrap")
         _label.setAttribute("for", _text_name);
 
         if (_required) {
             _label.setAttribute("class", 'fieldrequired field-x');
         }
-        else
-        {
+        else {
             _label.setAttribute("class", 'field-x');
         }
-        
+
         if (_caption) {
             _label.innerHTML = _caption.value;
         }
@@ -86,8 +85,8 @@ function GetDictionary() {
         //_inputgroup.setAttribute("class", "input-group input-group-sm");
         _inputgroup.setAttribute("class", "input-group");
         _formgroup.appendChild(_inputgroup);
-        if (_def.icon && _icon ) {
-            
+        if (_def.icon && _icon) {
+
             //==================Input-group add on dentro do inputgroup
             var _inputgroupaddon = document.createElement("div");
             _inputgroupaddon.setAttribute("class", "input-group-addon");
@@ -99,7 +98,7 @@ function GetDictionary() {
                 case 'calendarDay':
                     _span.setAttribute("class", "fa fa-calendar dropdown-toggle");
                     _span.setAttribute("data-toggle", "dropdown");
-                    _span.setAttribute("control_group", 'icon_' +_control_group);
+                    _span.setAttribute("control_group", 'icon_' + _control_group);
                     break;
                 case 'calendarMonth':
                     _span.setAttribute("class", "fa fa-calendar dropdown-toggle");
@@ -107,13 +106,13 @@ function GetDictionary() {
                     _span.setAttribute("control_group", 'icon_' + _control_group);
                     break;
                 case 'search':
-                        _span.setAttribute("class", "fa fa-search dropdown-toggle");
-                        _span.setAttribute("onclick", "ShowSelectItem('" + _text_name + "'," + 'false' + ")");
-                        _span.setAttribute("control_group", 'icon_' + _control_group);
+                    _span.setAttribute("class", "fa fa-search dropdown-toggle");
+                    _span.setAttribute("onclick", "ShowSelectItem('" + _text_name + "'," + 'false' + ")");
+                    _span.setAttribute("control_group", 'icon_' + _control_group);
                     break;
                 default:
             }
-            
+
             _span.setAttribute("style", "cursor: pointer");
             _inputgroupaddon.appendChild(_span);
 
@@ -126,7 +125,7 @@ function GetDictionary() {
             var _calendar = elements[i].getElementsByClassName('dictionary-ui-calendar')[0];
             if (_calendar) {
                 _inputgroupaddon.appendChild(_calendar);
-            }''
+            } ''
         }
         //==================Input text  dentro do inputgroup
         var _input = elements[i].getElementsByTagName('input')[0];
@@ -170,18 +169,18 @@ function GetDictionary() {
     //        _format = _integer.substr(i, 1) + _format
     //    }
     //    this.value = _format+ ',' + _dec;
-        
+
     //});
     //$("input[Format='Decimal']").on("focus", function () {
     //    this.value = this.value.replace('.', ',');
-        
+
     //});
     $("input[Format='Decimal']").attr("onkeypress", "return DecimalOnly(event)")
     $("input[Format='Numeric']").attr("onkeypress", "return NumericOnly(event)")
-    
+
     function GetDicionarioDef(pName) {
         for (var i = 0; i < _dicionario.length; i++) {
-            if (_dicionario[i].Id==pName) {
+            if (_dicionario[i].Id == pName) {
                 return (_dicionario[i])
             }
         }
@@ -222,7 +221,7 @@ function GetDictionary() {
     $(".time").focus(function () {
         this.value = TimeUnformat(this.value);
     });
-    
+
 }
 
 
@@ -231,7 +230,7 @@ function DicionarioKeyPress(elm, e) {
     if (e.charCode == 8 || e.charCode == 9 || e.charCode == 0) {
         return true;
     }
-    switch (elm.getAttribute("keymode")) {  
+    switch (elm.getAttribute("keymode")) {
         case 'numeric':
             return (e.charCode >= 48 && e.charCode <= 57);
             break;
@@ -253,10 +252,10 @@ function DicionarioKeyPress(elm, e) {
     }
 }
 function DicionarioKeyUp(elm) {
-    
+
     switch (elm.getAttribute("keymode")) {
         case 'numeric':
-            break;Ffo
+            break; Ffo
         case 'upper':
             elm.value = elm.value.toUpperCase();
             break;
@@ -279,11 +278,11 @@ function ShowSelectItem(elm, pMultiSelect) {
     }
     var _filter = false;
     if (_element[0].attributes.filter) {
-        _filter =_element[0].attributes.filter.value;
+        _filter = _element[0].attributes.filter.value;
     }
     var _table = _element[0].attributes.dictionary.value;
     var _elemendId = _element[0].attributes.id.value;
     $("#modal-Table").modal();
-    angular.element(document.getElementById('modal-Table')).scope().DicionaryLoadTable(_table, _elemendId, pMultiSelect,_filter);
+    angular.element(document.getElementById('modal-Table')).scope().DicionaryLoadTable(_table, _elemendId, pMultiSelect, _filter);
 }
 

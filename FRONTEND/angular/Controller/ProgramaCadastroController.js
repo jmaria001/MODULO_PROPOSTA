@@ -75,7 +75,8 @@
     };
 // Aqui foi definindo funções para apresentadores
     $scope.SelecionarApresentadores = function () {
-        var _url = 'ListarTabela/Apresentador'
+        console.log("passou");
+        //var _url = 'ListarTabela/Apresentador'
         //_url += '?Abrangencia=' + $scope.Simulacao.Esquemas[$scope.currentEsquema].Abrangencia;
         //_url += '&Mercado=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Mercado);
         //_url += '&Empresa=' + NullToString($scope.Simulacao.Cod_Empresa_Venda);

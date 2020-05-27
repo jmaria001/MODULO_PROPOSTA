@@ -107,10 +107,14 @@
     <Content Include="angular\Controller\ControllerTeste.js" />
     <Content Include="angular\Controller\EmpresaCadastroController.js" />
     <Content Include="angular\Controller\EmpresaController.js" />
+    <Content Include="angular\Controller\GeneroCadastroController.js" />
+    <Content Include="angular\Controller\GeneroController.js" />
     <Content Include="angular\Controller\MotivoCancelamentoCadastroController.js" />
     <Content Include="angular\Controller\MotivoCancelamentoController.js" />
     <Content Include="angular\Controller\MotivoFalhaCadastroController.js" />
     <Content Include="angular\Controller\MotivoFalhaController.js" />
+    <Content Include="angular\Controller\ParametroCadastroController.js" />
+    <Content Include="angular\Controller\ParametroController.js" />
     <Content Include="angular\Controller\ProdutoCadastroController - Copy.js" />
     <Content Include="angular\Controller\ProdutoCadastroController.js" />
     <Content Include="angular\Controller\NegociacaoCadastroController.js" />
@@ -210,6 +214,10 @@
     <Content Include="js\vendor\XTABLES\Buttons-1.5.1\css\mixins.scss" />
     <Content Include="js\vendor\XTABLES\language\Pt_BR.json" />
     <Content Include="view\DashboardTeste.html" />
+    <Content Include="view\Genero.html" />
+    <Content Include="view\GeneroCadastro.html" />
+    <Content Include="view\Parametro.html" />
+    <Content Include="view\ParametroCadastro.html" />
     <Content Include="view\ProdutoCadastro - Copy.html" />
     <Content Include="view\ProdutoCadastro.html" />
     <Content Include="Proposta_Aprovacao.html" />
@@ -274,7 +282,6 @@
     <Content Include="view\Veiculo.Html" />
     <Content Include="img\web.config" />
     <Content Include="view\VeiculoCadastro.html" />
-    <Content Include="Z-demo\MaterialListController.js" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -474,6 +481,7 @@
   <ItemGroup>
     <Folder Include="js\vendor\bootstrap-datetimepicker\" />
     <Folder Include="js\vendor\bootstrap-tagsinput\" />
+    <Folder Include="Z-demo\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

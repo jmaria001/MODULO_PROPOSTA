@@ -50,8 +50,8 @@
         RouteId: 0
     })
     .when('/dashboard', {
-        //templateUrl: 'view/UnderConstrution.html',
-        templateUrl: 'view/dashboardteste.html',
+        templateUrl: 'view/UnderConstrution.html',
+        templateUrl: 'view/dashboard.html',
         authorize: true,
         routeName: 'Dashboard',
         RouteId: 'Dashboard@Index'
@@ -394,6 +394,38 @@
         routeName: 'Manutenção de Produtos',
         RouteId: 'Produto@New'
     })
+         .when('/Genero', {
+             templateUrl: 'view/Genero.html',
+             authorize: true,
+             controller: 'GeneroController',
+             routeName: 'Tabela de Genero',
+             RouteId: 'Genero@Index'
+         })
+
+        .when('/GeneroCadastro/:Action/:Id', {
+            templateUrl: 'view/GeneroCadastro.html',
+            authorize: true,
+            controller: 'GeneroCadastroController',
+            routeName: 'Inclusao de Genero',
+            RouteId: 'Genero@New'
+        })
+
+        .when('/Parametro', {
+            templateUrl: 'view/Parametro.html',
+            authorize: true,
+            controller: 'ParametroController',
+            routeName: 'Parametros do Sistema',
+            RouteId: 'Parametro@Index'
+        })
+
+        .when('/ParametroCadastro/:Action/:Id', {
+            templateUrl: 'view/ParametroCadastro.html',
+            authorize: true,
+            controller: 'ParametroCadastroController',
+            routeName: 'Inclusao de Parametro',
+            RouteId: 'Parametro@New'
+        })
+
     //----------------------------------------------------
     .when('/Simulacao', {
         templateUrl: 'view/simulacao_List.html',
@@ -479,7 +511,8 @@
         RouteId: 'Negociacao@Index'
     })
     .when('/NegociacaoCadastro/:Action/:Id', {
-        templateUrl: 'view/Negociacao_Cadastro.html',
+        //templateUrl: 'view/Negociacao_Cadastro.html',
+        templateUrl: 'view/UnderConstrution.html',
         controller: 'NegociacaoCadastroController',
         authorize: true,
         routeName: 'Manutenção de Negociações',

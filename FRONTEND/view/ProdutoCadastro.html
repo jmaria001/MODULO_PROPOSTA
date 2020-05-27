@@ -74,6 +74,19 @@
                                         </div>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td style="vertical-align:top;white-space:nowrap">
+                                        <label>Clientes Associados</label>
+                                        <button class="btn btn-default btn-sm" ng-show="Parameters.Action=='EditProduto' && Produto.Clientes.length>1" ng-click="Produto.Clientes=[]">Excluir Todos</button>
+                                    
+                                    </td>
+                                    <td>
+                                        <label ng-repeat="cliente in Produto.Clientes track by $index" class="label label-info" style="margin-right:10px;display:inline-block">
+                                            {{cliente.Cod_Cliente}}-{{cliente.Nome_Cliente}}
+                                            <span class="fa fa-times span-btn pull-right" ng-click="RemoverCliente(cliente.Cod_Cliente)" ng-show="EditProduto" ></span>
+                                        </label>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -85,6 +98,7 @@
                     <button class="btn btn-danger" ng-click="ExcluirProduto('Segmento',Produto)" ng-show="Parameters.Action=='EditSegmento'" ng-disabled="!PermissaoDelete" >Excluir Segmento</button>
                     <button class="btn btn-danger" ng-click="ExcluirProduto('Setor',Produto)" ng-show="Parameters.Action=='EditSetor'" ng-disabled="!PermissaoDelete">Excluir Setor</button>
                     <button class="btn btn-danger" ng-click="ExcluirProduto('Produto',Produto)" ng-show="Parameters.Action=='EditProduto'" ng-disabled="!PermissaoDelete">Excluir Produto</button>
+                    <button class="btn btn-info" ng-click="SelecionarCLiente(Produto.Clientes)" ng-show="Parameters.Action=='EditProduto' ||   Parameters.Action=='New'">Associar Clientes</button>
                     <a href="#Produto" class="btn btn-warning">Cancelar</a>
                 </div>
             </div>

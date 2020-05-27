@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web.Http;
 using System.Data;
+using System.Collections.Generic;
+
 namespace PROPOSTA
 {
     public class ProdutoController : ApiController
@@ -42,7 +44,10 @@ namespace PROPOSTA
                 if (Cod_Red_Produto != 0)
                 {
                     Retorno = Cls.GetProdutoData(Cod_Red_Produto);
-
+                }
+                else
+                {
+                    Retorno.Clientes = new List<Produto.ProdutoClienteModel>();
                 }
                 return Ok(Retorno);
             }

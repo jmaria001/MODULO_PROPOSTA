@@ -247,6 +247,9 @@
     <Compile Include="Empresa\EmpresaController.cs" />
     <Compile Include="Empresa\EmpresaModel.cs" />
     <Compile Include="Empresa\EmpresaSql.cs" />
+    <Compile Include="Genero\GeneroController.cs" />
+    <Compile Include="Genero\GeneroModel.cs" />
+    <Compile Include="Genero\GeneroSql.cs" />
     <Compile Include="MotivoAlterNegoc\MotivoAlterNegocController.cs" />
     <Compile Include="MotivoAlterNegoc\MotivoAlterNegocModel.cs" />
     <Compile Include="MotivoAlterNegoc\MotivoAlterNegocSql.cs" />
@@ -262,6 +265,9 @@
     <Compile Include="Mercado\MercadoController.cs" />
     <Compile Include="Mercado\MercadoModel.cs" />
     <Compile Include="Mercado\MercadoSql.cs" />
+    <Compile Include="ParametrosGerais\ParametroController.cs" />
+    <Compile Include="ParametrosGerais\ParametroModel.cs" />
+    <Compile Include="ParametrosGerais\ParametroSql.cs" />
     <Compile Include="PDF\ImpressaoMapa.cs" />
     <Compile Include="PDF\ImpressaoProposta.cs" />
     <Compile Include="PDF\ImpressaoSimulacao.cs" />

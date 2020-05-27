@@ -20,6 +20,8 @@
         { 'Link': 'Programa', 'Title': 'Programas' },
         { 'Link': 'Terceiro', 'Title': 'Terceiros' },
         { 'Link': 'Produto', 'Title': 'Produtos' },
+        { 'Link': 'Genero', 'Title': 'Generos' },
+        { 'Link': 'Parametro', 'Title': 'Parâmetros Gerais' },
     ];
     //===========================fim do load da pagina
     $scope.$watch('$viewContentLoaded', function () {
