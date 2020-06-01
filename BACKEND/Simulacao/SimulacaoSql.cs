@@ -165,6 +165,8 @@ namespace PROPOSTA
                     Simulacao.Permite_Editar = drwBase["Permite_Editar"].ToString().ConvertToBoolean();
                     Simulacao.Indica_Inconsistencia = drwBase["Indica_Inconsistencia"].ToString().ConvertToBoolean();
                     Simulacao.Indica_Sem_Midia = drwBase["Indica_Sem_Midia"].ToString().ConvertToBoolean();
+                    Simulacao.Termometro_Venda = drwBase["Termometro_Venda"].ToString().ConvertToInt32();
+                    Simulacao.Totalizadores= AddTotalizadores(pId_Simulacao);
                 }
                 //===========================================Adicionas esquemas/Midias/Insercoes/Veiculos
                 if (!pSomenteCapa)
@@ -184,6 +186,43 @@ namespace PROPOSTA
                 cnn.Close();
             }
             return Simulacao;
+        }
+        private List<TotalizadorModel> AddTotalizadores(Int32 pId_Simulacao)
+        {
+            List<TotalizadorModel> ListTotalizadores = new List<TotalizadorModel>();
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            try
+            {
+                SimLib clsLib = new SimLib();
+                DataTable dtb = new DataTable();
+                SqlDataAdapter Adp = new SqlDataAdapter();
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Totalizador_Get");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Simulacao", pId_Simulacao);
+                Adp.Fill(dtb);
+                foreach (DataRow drw in dtb.Rows)
+                {
+                    ListTotalizadores.Add(new TotalizadorModel()
+                    {
+                        RedeId = drw["RedeId"].ToString().ConvertToInt32(),
+                        Nome_Rede = drw["Nome_Rede"].ToString(),
+                        Valor_Total_Negociado = drw["Valor_Total_Negociado"].ToString().ConvertToDouble(),
+                        Valor_Total_Tabela = drw["Valor_Total_Tabela"].ToString().ConvertToDouble(),
+                        Desconto_Real= drw["Desconto_Real"].ToString().ConvertToDouble(),
+                        
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return ListTotalizadores;
         }
         private List<EsquemaModel> AddListEsquema(Int32 pId_Simulacao)
         {
@@ -208,6 +247,8 @@ namespace PROPOSTA
                     {
                         Id_Esquema = drw["Id_Esquema"].ToString().ConvertToInt32(),
                         //Id_Esquema = ContadorEsquema,
+                        RedeId = drw["RedeId"].ToString().ConvertToInt32(),
+                        Nome_Rede= drw["Nome_Rede"].ToString(),
                         Id_Simulacao = drw["Id_Simulacao"].ToString().ConvertToInt32(),
                         Competencia = clsLib.CompetenciaString(drw["Competencia"].ToString().ConvertToInt32()),
                         Abrangencia = drw["Abrangencia"].ToString().ConvertToByte(),
@@ -375,7 +416,7 @@ namespace PROPOSTA
             }
             return ListInsercoes;
         }
-        public DataTable GetVeiculos(Int32 pAbrangencia, String pCod_Mercado, String pCod_Empresa, String pCod_Empresa_Faturamento)
+        public DataTable GetVeiculos(GetVeiculoParam Param)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
@@ -387,10 +428,11 @@ namespace PROPOSTA
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_Lista_Veiculos");
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@pLogin ", this.CurrentUser);
-                Adp.SelectCommand.Parameters.AddWithValue("@pAbrangencia", pAbrangencia);
-                Adp.SelectCommand.Parameters.AddWithValue("@pCodMercado", pCod_Mercado);
-                Adp.SelectCommand.Parameters.AddWithValue("@pCodEmpresa", pCod_Empresa);
-                Adp.SelectCommand.Parameters.AddWithValue("@pCodEmpresa_Faturamento", pCod_Empresa_Faturamento);
+                Adp.SelectCommand.Parameters.AddWithValue("@pAbrangencia", Param.Abrangencia);
+                Adp.SelectCommand.Parameters.AddWithValue("@pCodMercado", Param.Cod_Mercado);
+                Adp.SelectCommand.Parameters.AddWithValue("@pCodEmpresa", Param.Cod_Empresa);
+                Adp.SelectCommand.Parameters.AddWithValue("@pCodEmpresa_Faturamento", Param.Cod_Empresa_Faturamento);
+                Adp.SelectCommand.Parameters.AddWithValue("@pRedeId", Param.RedeId);
                 Adp.Fill(dtb);
             }
             catch (Exception)
@@ -571,6 +613,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Sem_Midia", Param.Indica_Sem_Midia);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Esquemas", xmlEsquemas);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Observacao", Param.Observacao);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Termometro_Venda", Param.Termometro_Venda);
                 Adp.Fill(dtb);
 
             }

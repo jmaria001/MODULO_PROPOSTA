@@ -14,7 +14,7 @@
     $scope.Distribuicao = [{ 'Tipo': 'D', 'Descricao': 'Por Dia' }, { 'Tipo': 'M', 'Descricao': 'No Periodo' }]
     $scope.Info = { 'Title': '', 'Text': '' };
     $scope.GeracaoProposta = {};
-    $scope.TotalizadorIndex = 0;
+
     $scope.TabelaPrecoKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
     $scope.CompetenciaEsquemaKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
 
@@ -54,12 +54,10 @@
             if (response.data) {
                 $scope.Simulacao = response.data;
                 $scope.Indica_Sem_Midia = $scope.Simulacao.Indica_Sem_Midia;
-                $scope.TotalizadorIndex = $scope.Simulacao.Totalizadores.length-1;
                 $timeout(function () {
                     $scope.IniciarCalculo = true;
                 }, 1000);
                 $scope.SetaCompetenciaEsquema($scope.Simulacao.Validade_Inicio, $scope.Simulacao.Validade_Termino);
-                InitTermometro($scope.Simulacao.Termometro_Venda);
             }
         });
     };
@@ -80,7 +78,6 @@
             _tempEsquema = response.data;
             _tempEsquema.Id_Esquema = $scope.Simulacao.ContadorEsquema;
             _tempEsquema.Abrangencia = -1;
-            _tempEsquema.RedeId = "";
             $scope.Simulacao.Esquemas.push(angular.copy(_tempEsquema));
         });
     }
@@ -154,11 +151,7 @@
                 }
             });
         }
-    }  //==========================Mudou a Rede no Esquema
-    $scope.RedeChange = function () {
-        $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos = [];
-        $scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Mercado = "";
-    };
+    }
     //==============================Mudou algum dado da midia
     $scope.fnChangeMidia = function (pMidia, pField) {
         switch (pField) {
@@ -221,11 +214,9 @@
     $scope.SelecionarVeiculos = function () {
         var _url = 'GetVeiculos'
         _url += '?Abrangencia=' + $scope.Simulacao.Esquemas[$scope.currentEsquema].Abrangencia;
-        _url += '&Cod_Mercado=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Mercado);
-        _url += '&Cod_Empresa=' + NullToString($scope.Simulacao.Cod_Empresa_Venda);
-        _url += '&Cod_Empresa_Faturamento=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Empresa_Faturamento);
-        _url += '&RedeId=' + $scope.Simulacao.Esquemas[$scope.currentEsquema].RedeId;
-        _url += '&'
+        _url += '&Mercado=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Mercado);
+        _url += '&Empresa=' + NullToString($scope.Simulacao.Cod_Empresa_Venda);
+        _url += '&Empresa_Faturamento=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Empresa_Faturamento);
         httpService.Get(_url).then(function (response) {
             if (response.data) {
                 $scope.ListadeVeiculos = response.data;
@@ -719,8 +710,5 @@
         else {
             $scope.Simulacao.Indica_Sem_Midia = pValue
         }
-    };
-    $scope.SetTotalizadorIndex = function (pIndex) {
-        $scope.TotalizadorIndex = pIndex;
     };
 }]);

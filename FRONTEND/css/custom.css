@@ -301,6 +301,7 @@ input:focus, textarea:focus {
     -webkit-border-radius: 0px 15px 0px 0px;
     -moz-border-radius: 05px 15px 0px 0px;
     border-radius: 0px 15px 0px 0px;
+    border:none;
 }
 
     .btntab:hover {
@@ -312,6 +313,7 @@ input:focus, textarea:focus {
     -webkit-border-radius: 0px 15px 0px 0px;
     -moz-border-radius: 05px 15px 0px 0px;
     border-radius: 0px 15px 0px 0px;
+    border:none;
 }
 
 .app-confirm-header {

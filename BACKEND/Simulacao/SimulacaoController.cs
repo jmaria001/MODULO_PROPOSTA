@@ -220,7 +220,7 @@ namespace PROPOSTA
 
             try
             {
-                DataTable dtbRetorno = Cls.GetVeiculos(query.Abrangencia, query.Mercado, query.Empresa, query.EmpresaFaturamento);
+                DataTable dtbRetorno = Cls.GetVeiculos(query);
                 return Ok(dtbRetorno);
             }
             catch (Exception Ex)
@@ -288,7 +288,7 @@ namespace PROPOSTA
                 DataTable dtb = Cls.SalvarSimulacao(Param);
                 if (dtb.Rows[0]["Status"].ToString().ConvertToBoolean())
                 {
-                    Simulacao = Cls.GetSimulacao(dtb.Rows[0]["Id_Simulacao"].ToString().ConvertToInt32(),false);
+                    Simulacao = Cls.GetSimulacao(dtb.Rows[0]["Id_Simulacao"].ToString().ConvertToInt32(), false);
                     Simulacao.Critica = null;
                 }
                 else

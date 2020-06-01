@@ -70,13 +70,25 @@ namespace PROPOSTA
             public String Critica { get; set; }
             public Boolean Indica_Inconsistencia{ get; set; }
             public Boolean Indica_Sem_Midia{ get; set; }
-
+            public Int32 Termometro_Venda { get; set; }
+            public List<TotalizadorModel> Totalizadores { get; set; }
+        }
+        public class TotalizadorModel
+        {
+            public Int32 RedeId { get; set; }
+            public String Nome_Rede { get; set; }
+            public Double Valor_Total_Tabela { get; set; }
+            public Double Valor_Total_Negociado { get; set; }
+            public Double Desconto_Real { get; set; }
+            
         }
         public class EsquemaModel
         {
             public Int32 Id_Esquema { get; set; }
             public Int32 Id_Simulacao { get; set; }
             public String Competencia { get; set; }
+            public Int32 RedeId { get; set; }
+            public String Nome_Rede{ get; set; }
             public Byte Abrangencia { get; set; }
             public String Cod_Mercado { get; set; }
             public String Valor_Total_Negociado { get; set; }
@@ -157,9 +169,10 @@ namespace PROPOSTA
         public class GetVeiculoParam
         {
             public Int32 Abrangencia { get; set; }
-            public String Mercado { get; set; }
-            public String Empresa { get; set; }
-            public String EmpresaFaturamento { get; set; }
+            public String Cod_Mercado { get; set; }
+            public String Cod_Empresa { get; set; }
+            public String Cod_Empresa_Faturamento { get; set; }
+            public Int32 RedeId{ get; set; }
         }
         public class GetProgramasGradeParam
         {

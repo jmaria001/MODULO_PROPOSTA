@@ -137,6 +137,8 @@
     <Content Include="angular\Controller\RegraAprovacaoCadastro_Controller.js" />
     <Content Include="angular\Controller\PendenciaAprovacao_Controller.js" />
     <Content Include="angular\Controller\NegociacaoController.js" />
+    <Content Include="angular\Controller\SimulacaoController - Copy.js" />
+    <Content Include="angular\Controller\Simulacao_List_Controller - Copy.js" />
     <Content Include="angular\Controller\Simulacao_List_Controller.js" />
     <Content Include="angular\Controller\dictionaryController.js" />
     <Content Include="angular\Controller\TabelaPrecosCadastroController.js" />
@@ -163,6 +165,7 @@
     <Content Include="img\no-image.png" />
     <Content Include="img\SIMLOGO.png" />
     <Content Include="img\user_1.png" />
+    <Content Include="js\vendor\ionrangeslider\ion.rangeSlider.min.js" />
     <Content Include="js\vendor\mask\jquery.mask.js" />
     <Content Include="js\vendor\mask\jquery.mask.min.js" />
     <Content Include="js\vendor\moment\moment_locale_pt_br.js" />
@@ -221,7 +224,6 @@
     <Content Include="view\MapaReserva.html" />
     <Content Include="view\Parametro.html" />
     <Content Include="view\ParametroCadastro.html" />
-    <Content Include="view\ProdutoCadastro - Copy.html" />
     <Content Include="view\ProdutoCadastro.html" />
     <Content Include="Proposta_Aprovacao.html" />
     <Content Include="TASKS.TXT" />
@@ -267,9 +269,9 @@
     <Content Include="view\MercadoCadastro.html" />
     <Content Include="view\PacoteDesconto_List.html" />
     <Content Include="view\RegraAprovacao.html" />
-    <Content Include="view\SimulacaoComAbas.html" />
+    <Content Include="view\Simulacao - Copy.html" />
+    <Content Include="view\Simulacao_List - Copy.html" />
     <Content Include="view\Simulacao_List.html" />
-    <Content Include="view\simulacao_copy_2803.html" />
     <Content Include="view\TabelaPrecos.html" />
     <Content Include="view\TabelaPrecosCadastro.html" />
     <Content Include="view\Produto.html" />

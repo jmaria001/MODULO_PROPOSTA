@@ -21,8 +21,8 @@
 
             </div>
             <div class="modal-footer">
-                <div class="app-checkbox" style="width:auto;margin-top:5px">
-                    <label><input type="checkbox" name="app-checkbox-1" ng-model="checkVeiculo" ng-click="SelectAllVeiculo(ListadeVeiculos,checkVeiculo)">Selecionar Todos<span></span></label>
+                <div class="app-checkbox" style="width:auto;margin-top:5px" ng-show="ListadeVeiculos.length>0">
+                    <label><input type="checkbox" name="app-checkbox-1" ng-model="checkVeiculo"  ng-click="SelectAllVeiculo(ListadeVeiculos,checkVeiculo)">Selecionar Todos<span></span></label>
                 </div>
                 <button class="btn btn-success" data-dismiss="modal" ng-click="SelecaoVeiculoOk()">Ok</button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Cancela</button>
