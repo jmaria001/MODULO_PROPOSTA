@@ -109,10 +109,12 @@
     <Content Include="angular\Controller\EmpresaController.js" />
     <Content Include="angular\Controller\GeneroCadastroController.js" />
     <Content Include="angular\Controller\GeneroController.js" />
+    <Content Include="angular\Controller\MapaReservaDetalheController.js" />
     <Content Include="angular\Controller\MotivoCancelamentoCadastroController.js" />
     <Content Include="angular\Controller\MotivoCancelamentoController.js" />
     <Content Include="angular\Controller\MotivoFalhaCadastroController.js" />
     <Content Include="angular\Controller\MotivoFalhaController.js" />
+    <Content Include="angular\Controller\MapaReservaController.js" />
     <Content Include="angular\Controller\ParametroCadastroController.js" />
     <Content Include="angular\Controller\ParametroController.js" />
     <Content Include="angular\Controller\ProdutoCadastroController - Copy.js" />
@@ -216,6 +218,7 @@
     <Content Include="view\DashboardTeste.html" />
     <Content Include="view\Genero.html" />
     <Content Include="view\GeneroCadastro.html" />
+    <Content Include="view\MapaReserva.html" />
     <Content Include="view\Parametro.html" />
     <Content Include="view\ParametroCadastro.html" />
     <Content Include="view\ProdutoCadastro - Copy.html" />
@@ -271,7 +274,7 @@
     <Content Include="view\TabelaPrecosCadastro.html" />
     <Content Include="view\Produto.html" />
     <Content Include="view\Terceiro.html" />
-    <Content Include="view\TerceiroCadastro - Copy.html" />
+    <Content Include="view\MapaReservaDetalhe.html" />
     <Content Include="view\TerceiroCadastro.html" />
     <Content Include="view\TipoComercial.html" />
     <Content Include="view\TipoComercialCadastro.html" />

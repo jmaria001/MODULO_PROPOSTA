@@ -525,6 +525,27 @@
         routeName: 'Mapas Reservas da Negociação',
         RouteId: ''
     })
+        .when('/MapaReserva', {
+            templateUrl: 'view/MapaReserva.html',
+            controller: 'MapaReservaController',
+            authorize: true,
+            routeName: 'Mapas Reserva',
+            RouteId: 'MapaReserva@Index'
+        })
+        .when('/MapaReservaDetalhe/:Id', {
+            templateUrl: 'view/MapaReservaDetalhe.html',
+            controller: 'MapaReservaDetalheController',
+            authorize: true,
+            routeName: 'Mapas Reserva',
+            RouteId: 'MapaReserva@Index'
+        })
+    .when('/MapaReservaCadastro/:Action/:Id', {
+        templateUrl: 'view/UnderConstrution.html',
+        //controller: 'NegociacaoDetalheController',
+        //authorize: true,
+        routeName: 'Mapas Reservas da Negociação',
+        RouteId: ''
+    })
     .otherwise({ redirectTo: "/blank" })
 
 });

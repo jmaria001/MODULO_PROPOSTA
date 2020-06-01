@@ -431,7 +431,12 @@ function ValidaEmail(pfield, pRequired) {
 }
 
 function LastDay(Year,Month) {
-    var _ret = new Date(Year, Month+1, 1, 0, 0, 0, 0)
+    var _ret = new Date(Year, Month, 1, 0, 0, 0, 0)
     _ret.setDate(_ret.getDate()-1)
     return _ret;
+}
+
+function MesExtenso(MesAno)
+{
+    return ['', 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'][parseInt(MesAno.toString().substr(4,2))] + '/' + MesAno.toString().substr(0, 4);
 }

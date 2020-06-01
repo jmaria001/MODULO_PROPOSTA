@@ -167,7 +167,7 @@
                                     <div class="form-group">
                                         <label class="field-x" for="txtValorInformado">Valor Informado</label>
                                         <div class="input-group">
-                                            <div class="input-group-addon">
+                                            <div class="input-group-addon" ng-show="!Simulacao.Indica_Sem_Midia">
                                                 <div class="app-checkbox" style="width:auto;margin-top:5px">
                                                     <label>
                                                         <input type="checkbox"
@@ -182,7 +182,7 @@
                                             <input id="txtValorInformado"
                                                    type="text" class="form-control money"
                                                    maxlength="15"
-                                                   ng-disabled="!Simulacao.Fixar_Valor || Simulacao.Fixar_Desconto || !Simulacao.Permite_Editar"
+                                                   ng-disabled="(!Simulacao.Fixar_Valor || Simulacao.Fixar_Desconto || !Simulacao.Permite_Editar) && !Simulacao.Indica_Sem_Midia"
                                                    style="text-align:right"
                                                    ng-model="Simulacao.Valor_Informado"
                                                    ng-change="ChangePendenteCalculo()"
@@ -195,7 +195,7 @@
                                     <div class="form-group">
                                         <label class="field-x" for="txtValorTabela">Desconto Padrão</label>
                                         <div class="input-group">
-                                            <div class="input-group-addon">
+                                            <div class="input-group-addon" ng-show="!Simulacao.Indica_Sem_Midia">
                                                 <div class="app-checkbox" style="width:auto;margin-top:5px">
                                                     <label>
                                                         <input type="checkbox"
@@ -208,13 +208,12 @@
                                                 </div>
                                             </div>
                                             <input type="text" class="form-control percent"
-                                                   ng-disabled="Simulacao.Fixar_Valor || !Simulacao.Fixar_Desconto || !Simulacao.Permite_Editar"
+                                                   ng-disabled="(Simulacao.Fixar_Valor || !Simulacao.Fixar_Desconto || !Simulacao.Permite_Editar) && !Simulacao.Indica_Sem_Midia"
                                                    ng-model="Simulacao.Desconto_Padrao"
                                                    maxlength="10"
                                                    style="text-align:right"
                                                    ng-change="ChangePendenteCalculo()"
                                                    ng-model-options="{updateOn: 'blur'}" />
-                                            <!--<span class="input-group-addon">%</span>-->
                                         </div>
                                     </div>
                                 </div>
@@ -235,6 +234,23 @@
                                         <label for="txtDescricao_Pacote" class="field-x" style="visibility:hidden">..</label>
                                         <div class="input-group">
                                             <input type="text" disabled="disabled" id="txtDescricao_Pacote" class="form-control " ng-model="Simulacao.Descricao_Pacote">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row  padding-right-10 padding-left-10 margin-bottom-20">
+                                <!--==========================Sem Midia-->
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <div class="app-checkbox">
+                                                <label><input type="checkbox" 
+                                                              name="app-checkbox-1" 
+                                                              ng-change="Indica_Sem_Midia_Change(Indica_Sem_Midia)"
+                                                              ng-model="Indica_Sem_Midia" />
+                                                {{Descricao_Processo}}&nbsp; Sem Midia
+                                                <span></span></label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -486,9 +502,8 @@
                 </div>
 
             </div>
-
             <!--================================Esquema Comercial -->
-            <div class="block" id="divEsquema" ng-show="currentShow=='Base'">
+            <div class="block" id="divEsquema" ng-show="currentShow=='Base' && !Simulacao.Indica_Sem_Midia">
                 <div class="alert alert-success alert-icon-block" role="alert">
                     <div class="alert-icon">
                         <span class="fa fa-book"></span>
@@ -979,8 +994,8 @@
                 <button class="btn btn-default btn-sm" ng-click="EnviarAprovacao(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Envio_Aprovacao && Simulacao.Requer_Aprovacao">Enviar para Aprovação</button>
                 <!--Botao aprovar nao fica mais na lista, e sim nas aprovacoes pendentes--> 
                 <!--<button class="btn btn-default btn-sm" ng-click="AprovarProposta(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Aprovacao">Aprovar</button>-->
-                <button class="btn btn-default btn-sm" ng-click="ImprimirMidia(Simulacao.Id_Simulacao)">Imprimir Midias</button>
-                <button class="btn btn-default btn-sm" ng-click="ImprimirSimulacao(Simulacao.Id_Simulacao)">Analisar {{Descricao_Processo}}</button>
+                <button class="btn btn-default btn-sm" ng-click="ImprimirMidia(Simulacao.Id_Simulacao)" ng-show="!Simulacao.Indica_Sem_Midia">Imprimir Midias</button>
+                <button class="btn btn-default btn-sm" ng-click="ImprimirSimulacao(Simulacao.Id_Simulacao)" ng-show="!Simulacao.Indica_Sem_Midia">Analisar {{Descricao_Processo}}</button>
                 <button class="btn btn-default btn-sm" ng-click="PreencherProposta(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Gerar">Enviar Proposta</button>
                 <button class="btn btn-default btn-sm" ng-click="ConfirmarVenda(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Confirmar_Venda">Confirmar Venda</button>
                 <button class="btn btn-success btn-sm" ng-click="SalvarSimulacao(Simulacao,true)" ng-show="Simulacao.Permite_Editar" >Salvar</button>
@@ -993,8 +1008,8 @@
             <div class="col-md-3 pull-right hidden-mobile hidden-sm">
                 <button class="btn btn-warning btn-sm anchorscroll" target="divDadosBase"><span class="icon-checkmark-circle"></span></button>
                 <button class="btn btn-primary btn-sm anchorscroll" target="divComplementar"><span class="icon-briefcase"></span></button>
-                <button class="btn btn-success btn-sm anchorscroll" target="divEsquema"><span class="fa fa-book"></span></button>
-                <button class="btn btn-info btn-sm anchorscroll" target="divMidia"> <span class="fa fa-camera"></span></button>
+                <button class="btn btn-success btn-sm anchorscroll" target="divEsquema" ng-show="!Simulacao.Indica_Sem_Midia"><span class="fa fa-book"></span></button>
+                <button class="btn btn-info btn-sm anchorscroll" target="divMidia" ng-show="!Simulacao.Indica_Sem_Midia"> <span class="fa fa-camera"></span></button>
             </div>
         </div>
         <!--========================Totalizador no topo-->

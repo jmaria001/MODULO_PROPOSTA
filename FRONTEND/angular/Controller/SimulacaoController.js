@@ -3,8 +3,9 @@
     $scope.Parameters = $routeParams;
     $scope.currentShow = 'Base';
     $scope.Abrangencias = [{ 'Id': 0, 'Descricao': 'Net' }, { 'Id': 1, 'Descricao': 'Rede' }, { 'Id': 2, 'Descricao': 'Local' }];
-    $scope.Forma_Pgto = [{ 'Id': 1, 'Descricao': 'Espécie' }, { 'Id': 2, 'Descricao': 'Permuta' }];
+    $scope.Forma_Pgto = [{ 'Id': 0, 'Descricao': 'Espécie' }, { 'Id': 1, 'Descricao': 'Permuta' }];
     $scope.Tipo_Vencimento = [{ 'Id': 1, 'Descricao': 'À Vista' }, { 'Id': 2, 'Descricao': 'DFM' }, { 'Id': 3, 'Descricao': 'DDL' }];
+    $scope.Indica_Sem_Midia = false;
     $scope.Simulacao = {};
     $scope.currentEsquema = 0;
     $scope.PesquisaTabelas = { "Items": [], 'FiltroTexto': '', ClickCallBack: '', 'Titulo': '', 'MultiSelect': false };
@@ -52,6 +53,7 @@
             //httpService.Get(_url).then(function (response) {
             if (response.data) {
                 $scope.Simulacao = response.data;
+                $scope.Indica_Sem_Midia = $scope.Simulacao.Indica_Sem_Midia;
                 $timeout(function () {
                     $scope.IniciarCalculo = true;
                 }, 1000);
@@ -183,7 +185,7 @@
         var _month = $scope.Simulacao.Esquemas[$scope.currentEsquema].Competencia.substr(0, 2);
         var _year = $scope.Simulacao.Esquemas[$scope.currentEsquema].Competencia.substr(3, 4);
         var _primeiro_dia = new Date(_year, _month - 1, 1, 0, 0, 0, 0);
-        var _ultimo_dia = LastDay(_year, _month - 1);
+        var _ultimo_dia = LastDay(_year, _month );
         if (_primeiro_dia < StringToDate($scope.Simulacao.Validade_Inicio)) {
             _primeiro_dia = StringToDate($scope.Simulacao.Validade_Inicio);
         };
@@ -682,6 +684,31 @@
     //$timeout(function () {
     //    $scope.IniciarCalculo = true;
     //},30000);
-
-
+    $scope.Indica_Sem_Midia_Change = function (pValue) {
+        if (!$scope.Simulacao.Indica_Sem_Midia && $scope.Simulacao.Esquemas.length>0 && pValue) {
+            swal({
+                title: "Ao Mudar para Sem Midia Todos os Esquemas Comerciais serão Apagados. Confirma a Alteração ?",
+                //text: "Ao mudar para Sem Midia todos os Esquemas Comerciais serão apadagos",
+                //type: "warning",
+                showCancelButton: true,
+                confirmButtonClass: "btn-danger",
+                confirmButtonText: "Sim",
+                cancelButtonText: "Não, Cancelar",
+                closeOnConfirm: true
+            }, function (pReturn) {
+                if (pReturn) {
+                    $scope.Simulacao.Indica_Sem_Midia = true;
+                    $scope.ChangePendenteCalculo()
+                    $scope.$digest();
+                }
+                else {
+                    $scope.Indica_Sem_Midia = false;
+                    $scope.$digest();
+                };
+            });
+        }
+        else {
+            $scope.Simulacao.Indica_Sem_Midia = pValue
+        }
+    };
 }]);

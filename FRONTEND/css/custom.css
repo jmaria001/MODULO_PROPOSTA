@@ -2,7 +2,33 @@
     display: none;
 }
 
-
+    #divItem {
+        border: solid 1px black;
+        height: 70px;
+        width: 250px;
+        background-color:cornflowerblue;
+        font-weight: bolder;
+        display:inline-grid;
+        margin: 10px 10px 10px 10px;
+        align-content:center;
+        text-align:center;
+        text-decoration:none;
+        border-radius: 20px 20px 20px 20px;
+        color:white;
+        border:none;
+    }
+        #divItem a {
+            color: white !important;
+            text-decoration:none;
+        }
+    #divItem:hover
+    {
+        /*background-color: #F5F5F5;*/
+        background-color: #e79500;
+        color:white;
+        cursor:pointer;
+        
+    }
 
 .table-select td {
     padding-top: 5px;

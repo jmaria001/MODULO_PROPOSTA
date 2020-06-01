@@ -69,6 +69,7 @@ namespace PROPOSTA
             public List<EsquemaModel> Esquemas { get; set; }
             public String Critica { get; set; }
             public Boolean Indica_Inconsistencia{ get; set; }
+            public Boolean Indica_Sem_Midia{ get; set; }
 
         }
         public class EsquemaModel

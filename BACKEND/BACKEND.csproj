@@ -259,6 +259,9 @@
     <Compile Include="MotivoFalha\MotivoFalhaController.cs" />
     <Compile Include="MotivoFalha\MotivoFalhaModel.cs" />
     <Compile Include="MotivoFalha\MotivoFalhaSql.cs" />
+    <Compile Include="MapaReserva\MapaReservaController.cs" />
+    <Compile Include="MapaReserva\MapaReservaModel.cs" />
+    <Compile Include="MapaReserva\MapaReservaSql.cs" />
     <Compile Include="PacoteDesconto\PacoteDescontoController.cs" />
     <Compile Include="PacoteDesconto\PacoteDescontoModel.cs" />
     <Compile Include="PacoteDesconto\PacoteDecontoSql.cs" />

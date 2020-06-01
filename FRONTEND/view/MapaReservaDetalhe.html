@@ -1,0 +1,522 @@
+﻿<style>
+    .td-insercoes {
+        width: 30px !important;
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+        text-align: center !important;
+    }
+
+    #tbMidia td, #tbMidia th {
+        padding: 2px 2px 2px 2px !important;
+        text-align: center !important;
+        vertical-align: middle !important;
+        font-size: 11px !important;
+        white-space: nowrap;
+        height: 30px !important;
+    }
+
+    #tbVeiculacao th {
+        font-size: 10px !important;
+    }
+
+    #tbVeiculacao td {
+        font-size: 11px !important;
+    }
+
+    #tbMidia th {
+        font-size: 10px !important;
+    }
+
+    #tbMidia td {
+        font-size: 11px !important;
+    }
+</style>
+<div class="container">
+    <div class="block">
+        <!--=====================Dados do Contrato-->
+        <div class="row" id="divContrato">
+            <div class="alert alert-primary alert-icon-block" role="alert">
+                <strong>1-Dados do Contrato</strong>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Negociação</label>
+                    <label class="form-control">{{Contrato.Numero_Negociacao}}</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Contrato</label>
+                    <label class="form-control">{{Contrato.Cod_Empresa}}-{{Contrato.Numero_Mr}}-{{Contrato.Sequencia_Mr}}  </label>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="field-x">Emp.Venda</label>
+                    <label class="form-control">{{Contrato.Cod_Empresa}}</label>
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="field-x">Emp.Fat</label>
+                    <label class="form-control">{{Contrato.Cod_Empresa_Faturamento}}</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Numero P.I.</label>
+                    <label class="form-control">{{Contrato.Numero_Pi}}</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Data Autorização</label>
+                    <label class="form-control">{{Contrato.Data_Autorizacao | date:'dd/MM/yyyy'}}</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Tipo de Mídia</label>
+                    <label class="form-control">{{Contrato.Cod_Tipo_Midia}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="field-x">Cliente</label>
+                    <label class="form-control">{{Contrato.Cod_Cliente}}-{{Contrato.Nome_Cliente}}</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="field-x">Agência</label>
+                    <label class="form-control">{{Contrato.Cod_Agencia}}-{{Contrato.Nome_Agencia}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="field-x">Núcleo de Vendas</label>
+                    <label class="form-control">{{Contrato.Cod_Nucleo}}-{{Contrato.Nome_Nucleo}}</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="field-x">Contato</label>
+                    <label class="form-control">{{Contrato.Cod_Contato}}-{{Contrato.Nome_Contato}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="field-x">Programa Patrocinado</label>
+                    <label class="form-control">{{Contrato.Cod_Programa_Patrocinado}}-{{Contrato.Nome_Programa_Patrocinado}}</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Tipo Patrocínio</label>
+                    <label class="form-control">{{Contrato.Tipo_Patrocinio}}</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Carac. Contrato</label>
+                    <label class="form-control">{{Contrato.Caracteristica_Contrato}}</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Projeto</label>
+                    <label class="form-control">{{Contrato.Projeto}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Início Campanha</label>
+                    <label class="form-control">{{Contrato.Periodo_Campanha_Inicio | date :'dd/MM/yyyy'}}</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Término Campanha</label>
+                    <label class="form-control">{{Contrato.Periodo_Campanha_Termino| date :'dd/MM/yyyy'}}</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Abrangência</label>
+                    <label class="form-control">{{Contrato.Indica_Grade}}-{{Contrato.Abrangencia}}</label>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Mercado</label>
+                    <label class="form-control">{{Contrato.Cod_Mercado}}-{{Contrato.Nome_Mercado}}</label>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="field-x">Valor Informado</label>
+                    <label class="form-control">{{Contrato.Valor_Informado | currency}} <span style='font-size:10px' ng-show="Contrato.Valor_Informado"> (  Informado por {{Contrato.Cod_Usuario_Vlr}} em {{Contrato.Data_Info_Vlr | date :'dd/MM/yyyy'}})</span></label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="field-x">Campanha</label>
+                    <label class="form-control"> {{Contrato.Campanha}}   </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="field-x">Observações para Roteiro</label>
+                    <textarea class="form-control" disabled style="min-height:100px"></textarea>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="field-x">Observações para Contrato </label>
+                    <textarea class="form-control" disabled style="min-height:100px"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="field-x">Cadastramento </label>
+                    <label class="form-control"> {{Contrato.Data_Inclusao | date:'dd/MM/yyyy'}} por {{Contrato.Cod_Usuario_Inclusao}}</label>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="field-x">Cancelamento</label>
+                    <label class="form-control">{{Contrato.Data_Cancelamento | date:'dd/MM/yyyy'}} <span ng-show="Contrato.Data_Cancelamento">( Motivo:{{Contrato.Motivo_Cancelamento}})</span> </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="app-checkbox">
+                            <label><input type="checkbox" name="app-checkbox-1" ng-model="Contrato.Indica_Por_Credito" disabled />Por Conta de Crédito<span></span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="app-checkbox">
+                            <label><input type="checkbox" name="app-checkbox-1" ng-model="Contrato.Indica_Apoio" disabled />Mídia de Apoio<span></span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="app-checkbox">
+                            <label><input type="checkbox" name="app-checkbox-1" ng-model="Contrato.Indica_Valor_Net" disabled />Valorar como NET<span></span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--======================Dados dos comerciais-->
+    <div class="block">
+        <div class="row" id="divComercial">
+            <div class="alert alert-primary alert-icon-block" role="alert">
+                <strong>2-Comerciais</strong>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Titulo</th>
+                        <th>Duração</th>
+                        <th>Tipo do Comercial</th>
+                        <th>Produto</th>
+                        <th>A Determinar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="comercial in Comerciais track by $index">
+                        <td>{{comercial.Cod_Comercial}}</td>
+                        <td>{{comercial.Titulo_Comercial}}</td>
+                        <td>{{comercial.Duracao}}</td>
+                        <td>{{comercial.Cod_Tipo_Comercial}}-{{comercial.Nome_Tipo_Comercial}}</td>
+                        <td>{{comercial.Cod_Red_Produto}}-{{comercial.Nome_Produto}}</td>
+                        <td>
+                            <label ng-show="comercial.Indica_Titulo_Determinar"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="block">
+        <!--=============================Filtrod de Midia -->
+        <div class="row" id="divMidia">
+            <div class="alert alert-primary alert-icon-block" role="alert">
+                <strong>3-{{Display[FiltroMidia.Display-1].Nome}}</strong>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-2" ng-show="FiltroMidia.Display==1 || FiltroMidia.Display==2">
+                <div class="form-group">
+                    <label class="field-x" for="txtCompetencia">Competencia</label>
+                    <select class="form-control"
+                            ng-model="FiltroMidia.Competencia"
+                            ng-change="CarregaMidia()"
+                            name="txtCompetencia"
+                            ng-options="Competencia.Competencia_Int as Competencia.Competencia for Competencia in Competencias"></select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x" for="txtCompetencia">Veículo</label>
+                    <select class="form-control"
+                            ng-model="FiltroMidia.Cod_Veiculo"
+                            ng-change="CarregaMidia()"
+                            name="txtCompetencia"
+                            ng-options="Veiculo.Cod_Veiculo as Veiculo.Nome_Veiculo for Veiculo in Veiculos"></select>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x" for="txtDisplay">Mostrar</label>
+                    <select class="form-control"
+                            ng-model="FiltroMidia.Display"
+                            ng-change="CarregaMidia()"
+                            name="txtDisplay"
+                            ng-options="Display.Id as Display.Nome  for Display in Display"></select>
+                </div>
+            </div>
+        </div>
+        <!--=============================Midia Demandada ou Exibivel-->
+        <div class="row" id="divGridMidia" ng-show="FiltroMidia.Display==1 || FiltroMidia.Display==2">
+            <div class="col-md-12 margin-top-20">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="tbMidia">
+                        <thead>
+                            <tr class="bg-warning">
+                                <th colspan="3">
+                                    {{Competencia_Text}}
+                                </th>
+                                <th class="td-insercoes" ng-repeat="dia in Midias[0].Insercoes track by $index">
+                                    <span style="text-transform:initial;font-size:9px" ng-style="{'color':(dia.Dia_Semana=='Dom') ?'Red':'Black'}">
+                                        {{dia.Dia_Semana}}
+                                    </span>
+                                </th>
+                                <th colspan="4"></th>
+                            <tr class="bg-warning">
+                                <td>Programa</td>
+                                <th>Carac.</th>
+                                <th>Com.</th>
+                                <th class="td-insercoes" ng-repeat="dia in Midias[0].Insercoes track by $index">
+                                    <span style="text-transform:initial;font-size:9px" ng-style="{'color':(dia.Dia_Semana=='Dom') ?'Red':'Black'}">
+                                        {{dia.Dia}}
+                                    </span>
+                                <td>Qtd Total</td>
+                                <td>Valor Tabela</td>
+                                <td>Desconto</td>
+                                <td>Valor Negociado</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="midia in Midias track by $index" ng-style="{ 'font-weight' : (midia.Tipo_Linha==1) ? 'normal' : 'bold'}">
+                                <td ng-show="midia.Tipo_Linha==1">{{::midia.Cod_Programa}}</td>
+                                <td ng-show="midia.Tipo_Linha==1">{{::midia.Cod_Caracteristica}}</td>
+                                <td ng-show="midia.Tipo_Linha==1">{{::midia.Cod_Comercial}}</td>
+                                <td ng-show="midia.Tipo_Linha==2 && midia.Indica_Exibido" colspan="3">TOTAL EXIBIDO</td>
+                                <td ng-show="midia.Tipo_Linha==2 && !midia.Indica_Exibido" colspan="3">TOTAL FALHAS</td>
+                                <td class="td-insercoes" ng-repeat="dia in midia.Insercoes track by $index">
+                                    <span ng-show="!midia.Indica_Exibido && dia.Qtd > 0" style="border:solid 1px red ;padding:2px 2px 2px;border-radius:40px">{{::dia.Qtd}}</span>
+                                    <span ng-show="midia.Indica_Exibido && dia.Qtd > 0">{{::dia.Qtd}}</span>
+                                </td>
+
+                                <td>
+                                    <span ng-show="!midia.Indica_Exibido && midia.Qtd_Total > 0" style="border:solid 1px red ;padding:2px 2px 2px;border-radius:40px">{{::midia.Qtd_Total}}</span>
+                                    <span ng-show="midia.Indica_Exibido && midia.Qtd_Total > 0">{{::midia.Qtd_Total}}</span>
+                                </td>
+                                <td>{{::midia.Valor_Tabela | currency}}</td>
+                                <td>{{::midia.Desconto | number:4}}%</td>
+                                <td>{{::midia.Valor_Negociado|currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--=============================Lista de Veiculacao-->
+        <div class="row" id="divListaMidia" ng-show="FiltroMidia.Display==3">
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped" id="tbVeiculacao">
+                            <thead>
+                                <tr>
+                                    <th>Origem</th>
+                                    <th>Dt.Exibição</th>
+                                    <th>Programa</th>
+                                    <th>Ch.Acesso</th>
+                                    <th>Car.</th>
+                                    <th>Cod.Com</th>
+                                    <th>Aut.</th>
+                                    <th>Qual.</th>
+                                    <th>Hor.Exibicao</th>
+                                    <th>AM</th>
+                                    <th>Vlr Negociado</th>
+                                    <th>Vlr Tabela</th>
+                                    <th>Vlr Informado</th>
+                                    <th>Numero Ce</th>
+                                    <th>Dt Emissao Ce</th>
+                                    <th>TQP</th>
+                                    <th>Cadastramento</th>
+                                    <th>Tabela Neg.</th>
+                                    <th>Tabela Vig.</th>
+                                    <th>Break Previsto</th>
+                                    <th>Horario Previsto</th>
+                                    <th>Posicao</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="veic in Veiculacoes track by $index">
+                                    <td>{{::veic.Origem}}</td>
+                                    <td>{{::veic.Data_Exibicao | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{::veic.Cod_Programa}}</td>
+                                    <td>{{::veic.Chave_Acesso}}</td>
+                                    <td>{{::veic.Cod_Caracteristica}}</td>
+                                    <td>{{::veic.Cod_Comercial}}</td>
+                                    <td>
+                                        <span class="fa fa-check bg-success" ng-show="veic.Indica_Valoracao"></span>
+                                    </td>
+                                    <td>{{::veic.Cod_Qualidade}}</td>
+                                    <td>{{::veic.Horario_Exibicao | date:'hh:mm'}}</td>
+                                    <td>{{::veic.Documento_Para}}</td>
+                                    <td>{{::veic.Valor | currency}}</td>
+                                    <td>{{::veic.Vlr_Tabela | currency}}</td>
+                                    <td>{{::veic.Indica_Vlr_Informado}}</td>
+                                    <td>{{::veic.Numero_Ce}}</td>
+                                    <td>{{::veic.Data_Emissao_Ce | date: 'dd/MM/yyyy'}}</td>
+                                    <td>{{::veic.Indica_Estouro}}</td>
+                                    <!--<td>{{::veic.Data_Cadastramento | date:'dd/MM/yyyy'}} por {{::veic.Cod_Usuario}}</td>-->
+                                    <td>{{::veic.Data_Cadastramento | date:'dd/MM/yyyy'}}</td>
+                                    <td>{{::veic.Tabela_Negociada}}-{{::veic.Sequencia_Negociada}}</td>
+                                    <td>{{::veic.Tabela_Vigente}}-{{::veic.Sequencia_Tabela_Vigente}}</td>
+                                    <td>{{::veic.Pre_Roteiro_Break}}</td>
+                                    <td>{{::veic.Pre_Roteiro_Horario}}</td>
+                                    <td>{{::veic.Pre_Roteiro_Posicao}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--===========================Resumo-->
+    <div class="block">
+        <div class="row" id="divResumo">
+            <div class="alert alert-primary alert-icon-block" role="alert">
+                <strong>4-Resumo</strong>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-md-10 col-md-offset-1">
+                <label ng-show="Contrato.Status_Valoracao==1" class="label label-success">Contrato Valorado com Sucesso</label>
+                <label ng-show="Contrato.Status_Valoracao==2" class="label label-danger">Contrato com Crítica de Valoração</label>
+            </div>
+        </div>
+        <div class="row margin-top-20">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="tbResumo">
+                        <thead>
+                            <tr>
+                                <th>Veiculo</th>
+                                <th>Programa</th>
+                                <th>Vlr Tabela - Exibido</th>
+                                <th>Vlr Negociado- Exibido</th>
+                                <th>Vlr Tabela - Financeiro</th>
+                                <th>Vlr Negociado- Financeiro</th>
+                                <th>Desconto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="resumo in Resumos track by $index" ng-style="{'font-weight' : (resumo.Tipo_Linha==1) ? 'normal' : 'bold'}">
+                                <td ng-show="resumo.Tipo_Linha==1">{{resumo.Nome_Veiculo}}</td>
+                                <td ng-show="resumo.Tipo_Linha==1">{{resumo.Nome_Programa}}</td>
+                                <td ng-show="resumo.Tipo_Linha==2" colspan="2">TOTAL</td>
+
+                                <td>{{resumo.Valor_Tabela_Exibido | currency}}</td>
+                                <td>{{resumo.Valor_Exibido | currency}}</td>
+                                <td>{{resumo.Valor_Tabela_Financeiro| currency}}</td>
+                                <td>{{resumo.Valor_Financeiro| currency}}</td>
+                                <td>{{resumo.Desconto_Financeiro| number:4}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!--========================botoes de acoes-->
+        <div class="fixed-buttons-bottom">
+            <div class="col-md-10">
+                <a href="#MapaReserva" class="btn btn-warning">Cancelar</a>
+            </div>
+
+            <div class="col-md-2 pull-right hidden-mobile hidden-sm">
+                <button class="btn btn-primary btn-sm anchorscroll" target="divContrato">1</button>
+                <button class="btn btn-primary btn-sm anchorscroll" target="divComercial">2</button>
+                <button class="btn btn-primary btn-sm anchorscroll" target="divMidia">3</button>
+                <button class="btn btn-primary btn-sm anchorscroll" target="divResumo">4</button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('.anchorscroll').click(function (e) {
+            var _target = this.getAttribute("target")
+            $('html, body').animate({
+                scrollTop: $('#' + _target).offset().top - 50
+            }, 'slow');
+        });
+        $("span[control_group*='icon_group']").click(function (e) {
+            var _group = this.getAttribute("control_group");
+            _group = _group.replace('icon', 'input');
+            var el = document.querySelector('[control_group="' + _group + '"]');
+            if ($(el).is(':disabled')) {
+                event.stopPropagation();
+            };
+        });
+    });
+</script>

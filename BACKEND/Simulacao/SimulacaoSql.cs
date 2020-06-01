@@ -164,6 +164,7 @@ namespace PROPOSTA
                     Simulacao.Permite_Gerar = drwBase["Permite_Gerar"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Editar = drwBase["Permite_Editar"].ToString().ConvertToBoolean();
                     Simulacao.Indica_Inconsistencia = drwBase["Indica_Inconsistencia"].ToString().ConvertToBoolean();
+                    Simulacao.Indica_Sem_Midia = drwBase["Indica_Sem_Midia"].ToString().ConvertToBoolean();
                 }
                 //===========================================Adicionas esquemas/Midias/Insercoes/Veiculos
                 if (!pSomenteCapa)
@@ -567,6 +568,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Fixar_Desconto", Param.Fixar_Desconto);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Fixar_Valor", Param.Fixar_Valor);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Status", Param.Id_Status);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Sem_Midia", Param.Indica_Sem_Midia);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Esquemas", xmlEsquemas);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Observacao", Param.Observacao);
                 Adp.Fill(dtb);

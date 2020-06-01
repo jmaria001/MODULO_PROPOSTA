@@ -1,0 +1,191 @@
+﻿<div class="container">
+    <div class="block">
+        <form id="frmMapaReserva" autocomplete="off">
+            <button type="button" id="btnNovoMapaReserva" class="btn btn-primary" style="display:none" ng-click="NovaMapaReserva()">Novo Filtro</button>
+            <button type="button" id="btnNovoFiltro" class="btn btn-primary" style="display:none" ng-click="CurrentShow='Filtro'">Novo Filtro</button>
+            <!--==============================================Filtros-->
+            <div class="box" ng-show="CurrentShow=='Filtro'">
+                <div class="alert alert-info alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <span class="fa fa-filter"></span>
+                    </div>
+                    <strong>Filtros</strong>
+                </div>
+                <div class="row">
+                    <!--==================Negociacao-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x" for="txtNegociacao">N. Negociacao</label>
+                            <input type="text" id="txtIdNegociacao" class="form-control" ng-model="Filtro.Numero_Negociacao" maxlength="10" onkeypress="return NumericOnly(event)" ng-model-options="{updateOn: 'blur'}" />
+                        </div>
+                    </div>
+                    <!--==================Numero Contrato-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x" for="txtNumeroContrato">N. Contrato</label>
+                            <input type="text" id="txtNumeroContrato" class="form-control" ng-model="Filtro.Numero_Mr" maxlength="10" onkeypress="return NumericOnly(event)" ng-model-options="{updateOn: 'blur'}" />
+                        </div>
+                    </div>
+                    <!--==================Numero Pi-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x" for="txtNumeroPi">Número PI</label>
+                            <input type="text" id="txtNumeroPi" class="form-control" ng-model="Filtro.Numero_Pi" maxlength="10" onkeypress="return NumericOnly(event)" ng-model-options="{updateOn: 'blur'}" />
+                        </div>
+                    </div>
+                    <!--==============================================Competencia Inicio-->
+                    <div class="col-md-3">
+                        <div class="dictionary" dictionary="Competencia" caption="Comp. Inicial">
+                            <input ng-model="Filtro.Competencia_Inicio"
+                                   ui-MesAno ng-model-options="{updateOn: 'blur'}" />
+                            <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia_Inicio" params="MesAnoKeys"></div>
+                        </div>
+                    </div>
+
+                    <!--==============================================Validade Termino-->
+                    <div class="col-md-3">
+                        <div class="dictionary" dictionary="Competencia" caption="Comp. Final">
+                            <input ng-model="Filtro.Competencia_Fim"
+                                   ui-MesAno ng-model-options="{updateOn: 'blur'}" />
+                            <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia_Fim" params="MesAnoKeys"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--==============================================Empresa de Venda-->
+                    <div class="col-md-2" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Venda">
+                            <input id="txtCodEmpresa"
+                                   ng-model="Filtro.Cod_Empresa_Venda"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCodEmpresa')"
+                                   primarybind="txtCodEmpresa"
+                                   secondarybind="">
+                        </div>
+                    </div>
+                    <!--==============================================Empresa de Faturamento-->
+                    <div class="col-md-2" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Faturamento">
+                            <input id="txtCodEmpresaFaturamento"
+                                   ng-model="Filtro.Cod_Empresa_Faturamento"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCodEmpresa')"
+                                   primarybind="txtCodEmpresaFaturamento"
+                                   secondarybind="">
+                        </div>
+                    </div>
+
+                    <!--==============================================Agencia-->
+                    <div class="col-md-8" ng-controller="dictionaryController">
+                        <div class="form-group">
+                            <label class="field-x" for=" txtAgencia">Agência</label>
+                            <input id="txtAgencia"
+                                   class="form-control"
+                                   ng-model="Filtro.Agencia"
+                                   placeholder="Digite parte do nome da agência"
+                                   ng-model-options="{updateOn: 'blur'}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--==============================================Cliente-->
+                    <div class="col-md-6" ng-controller="dictionaryController">
+                        <div class="form-group">
+                            <label class="field-x" for="txtCliente">Cliente</label>
+                            <input id="txtCliente"
+                                   class="form-control"
+                                   ng-model="Filtro.Cliente"
+                                   placeholder="Digite parte do nome do Cliente"
+                                   ng-model-options="{updateOn: 'blur'}" />
+                        </div>
+                    </div>
+                    <!--==============================================Contato-->
+                    <div class="col-md-6" ng-controller="dictionaryController">
+                        <div class="form-group">
+                            <label class="field-x" for="txtContato">Contato</label>
+                            <input id="txtContato"
+                                   class="form-control"
+                                   ng-model="Filtro.Contato"
+                                   placeholder="Digite parte do nome do Contato"
+                                   ng-model-options="{updateOn: 'blur'}" />
+                        </div>
+                    </div>
+                </div>
+                <!--========================Botoes-->
+                <div class="row margin-top-20">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-success" ng-click="CarregarMapaReserva(Filtro)">Filtrar</button>
+                        <button type="button" class="btn btn-warning" ng-click="Filtro=NewFiltro()">Limpar Filtros</button>
+                        <button type="button" id="btnNovaNegociacao" class="btn btn-primary" ng-click="NovaMapaReserva()" ng-disabled="!PermissaoNew">Nova Mapa Reserva</button>
+                    </div>
+                </div>
+            </div>
+
+            <!--==============================================Grid -->
+            <div class="box table-responsive " style="min-height:600px" ng-show="CurrentShow=='Grid'">
+                <table id="dataTable" class="table table-striped table-bordered " cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Contrato</th>
+                            <th>Negociação</th>
+                            <th>Período Campanha</th>
+                            <th>Agência</th>
+                            <th>Cliente</th>
+                            <th>Contato</th>
+                            <th>Tipo de Mídia</th>
+                            <th>Número PI</th>
+                            <th>Campanha</th>
+                            <th>Valor Tabela</th>
+                            <th>Desconto</th>
+                            <th>Valor Negociado</th>
+                            <th>Status</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="contrato in Contratos track by $index" on-finish-render="ngRepeatFinished">
+                            <td style="width:50px;text-align:center">
+                                <a href="#MapaReservaCadastro/Edit/{{::contrato.Id_Contrato}}" ng-show="PermissaoEdit && !contrato.Data_Cancelamento">
+                                    <span class="fa fa-edit fa-2x"></span>
+                                </a>
+                            </td>
+                            <td style="text-align:center">
+                                <a href="#MapaReservaDetalhe/{{::contrato.Id_Contrato}}" class="btn btn-default btn-sm">
+                                    {{::contrato.Cod_Empresa}}-{{::contrato.Numero_Mr}}-{{::contrato.Sequencia_Mr}}
+                                </a>
+                            </td>
+                            <td>{{::contrato.Numero_Negociacao}}</td>
+                            <td>{{::contrato.Periodo_Campanha}} </td>
+                            <td>{{::contrato.Nome_Agencia}}</td>
+                            <td>{{::contrato.Nome_Cliente}}</td>
+                            <td>{{::contrato.Nome_Contato}}</td>
+                            <td>{{::contrato.Cod_Tipo_Midia}}</td>
+                            <td>{{::contrato.Numero_Pi}}</td>
+                            <td>{{::contrato.Campanha}}</td>
+                            <td>
+                                <span ng-show="contrato.Valor_Tabela>0">{{::contrato.Valor_Tabela | currency}}</span>
+                            </td>
+                            <td>
+                                <span ng-show="contrato.Desconto>0">{{::contrato.Desconto| percentage}}</span>
+                            </td>
+                            <td>
+                                <span ng-show="contrato.Valor_Negociado>0">{{::contrato.Valor_Negociado| currency}}</span>
+                            </td>
+                            <td>
+                                {{::contrato.Status}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
