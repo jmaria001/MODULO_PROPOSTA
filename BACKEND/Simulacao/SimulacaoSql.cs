@@ -406,9 +406,9 @@ namespace PROPOSTA
                     });
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw new Exception(ex.Message);
             }
             finally
             {

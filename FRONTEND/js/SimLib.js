@@ -440,3 +440,56 @@ function MesExtenso(MesAno)
 {
     return ['', 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'][parseInt(MesAno.toString().substr(4,2))] + '/' + MesAno.toString().substr(0, 4);
 }
+
+function FormatChart(pGraph,ptype)
+{
+    if (ptype.toUpperCase() == "MONEY") {
+        pGraph.options.scales.yAxes[0].ticks = {
+            callback: function (value, index, values) {
+                return value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+            }
+        };
+        pGraph.options.tooltips = {
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    let label = data.labels[tooltipItem.index];
+                    let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                    return ' ' + label + ': ' + value.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+                }
+            }
+        }
+    }
+    if (ptype.toUpperCase() == "NUMBER") {
+        pGraph.options.scales.yAxes[0].ticks = {
+            callback: function (value, index, values) {
+                return value;
+            }
+        };
+        pGraph.options.tooltips = {
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    let label = data.labels[tooltipItem.index];
+                    let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                    return ' ' + label + ': ' + value;
+                }
+            }
+        }
+    };
+    if (ptype.toUpperCase() == "PERCENT") {
+        pGraph.options.scales.yAxes[0].ticks = {
+            callback: function (value, index, values) {
+                return value.toString() + " %";
+            }
+        };
+        pGraph.options.tooltips = {
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    let label = data.labels[tooltipItem.index];
+                    let value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                    return ' ' + label + ': ' + value.toString() + "%";
+                }
+            }
+        }
+    }
+    
+}

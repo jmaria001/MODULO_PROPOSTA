@@ -316,13 +316,13 @@
                                                 </tr>
                                                 <tr ng-show="Simulacao.Tipo=='P' && Simulacao.Requer_Aprovacao">
                                                     <td>
-                                                        <label ng-show="" class="label label-danger btn-block">Requer Aprovação</label>
+                                                        <label class="label label-danger btn-block">Requer Aprovação</label>
                                                     </td>
                                                     <td>
                                                         <button ng-show="Simulacao.Requer_Aprovacao" class="btn btn-default btn-block" ng-click="MostrarAprovadores(Simulacao.Id_Simulacao)">Ver Aprovadores</button>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                <tr ng-show="Simulacao.Tipo=='P'">
                                                     <td colspan="2" style="text-align:center;background-color:whitesmoke">
                                                             <div class="form-group">
                                                                 <p>Temperatura de Venda</p>
@@ -1119,13 +1119,15 @@
         });
         
     });
-    function InitTermometro(pValue) {
+    function InitTermometro(pValue, pDisable) {
+        console.log(pDisable);
         $("#txtTermometro").ionRangeSlider({
             grid: true,
             min: 0,
             max: 100,
             from: pValue,
-            prefix: "%"
+            postfix: "%",
+            disable: pDisable,
 
         });
     };

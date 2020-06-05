@@ -13,7 +13,7 @@
         RouteId: 0
     })
     .when('/blank', {
-        templateUrl: 'view/blank.html',
+        templateUrl: 'view/UnderConstrution.html',
         authorize: false,
         routeName: 'SIM - Módulo Propostas',
         RouteId: 0
@@ -49,13 +49,27 @@
         routeName: 'Acesso não autorizado',
         RouteId: 0
     })
-    .when('/dashboard', {
-        templateUrl: 'view/UnderConstrution.html',
-        templateUrl: 'view/dashboard.html',
-        authorize: true,
-        routeName: 'Dashboard',
-        RouteId: 'Dashboard@Index'
-    })
+    //.when('/dashboard', {
+    //    templateUrl: 'view/UnderConstrution.html',
+    //    templateUrl: 'view/dashboard.html',
+    //    authorize: true,
+    //    routeName: 'Dashboard',
+    //    RouteId: 'Dashboard@Index'
+    //})
+                .when('/MenuDashboard', {
+                    templateUrl: 'view/MenuDashboard.html',
+                    controller: 'MenuDashboardController',
+                    authorize: false,
+                    routeName: 'Menu Dashboard',
+                    RouteId: 0
+                })
+           .when('/FunilVendas', {
+               templateUrl: 'view/DashFunilVendas.html',
+               authorize: true,
+               controller:'DashFunilVendasController',
+               routeName: 'Dashboard Funil Vendas',
+               RouteId: 'FunilVendas@Index'
+           })
     .when('/cadastro', {
         templateUrl: 'view/MenuCadastro.html',
         controller: 'MenuCadastroController',
@@ -424,6 +438,27 @@
             controller: 'ParametroCadastroController',
             routeName: 'Inclusao de Parametro',
             RouteId: 'Parametro@New'
+        })
+                .when('/ParametroValoracao', {
+                    templateUrl: 'view/ParametroValoracao.html',
+                    authorize: true,
+                    controller: 'ParametroValoracaoController',
+                    routeName: 'Cadastro de Parametro de Valoração',
+                    RouteId: 'ParametroValoracao@Index'
+                })
+        .when('/ParametroValoracaoCadastroNew/:Action/:Id', {
+            templateUrl: 'view/ParametroValoracaoCadastro.html',
+            authorize: true,
+            controller: 'ParametroValoracaoCadastroController',
+            routeName: 'Inclusão de Parametro de Valoração ',
+            RouteId: 'ParametroValoracao@New'
+        })
+        .when('/ParametroValoracaoCadastroEdit/:Action/:Id', {
+            templateUrl: 'view/ParametroValoracaoCadastro.html',
+            authorize: true,
+            controller: 'ParametroValoracaoCadastroController',
+            routeName: 'Alteração de Parametro de Valoração',
+            RouteId: 'ParametroValoracao@Edit'
         })
 
     //----------------------------------------------------

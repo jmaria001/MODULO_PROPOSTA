@@ -271,6 +271,9 @@
     <Compile Include="ParametrosGerais\ParametroController.cs" />
     <Compile Include="ParametrosGerais\ParametroModel.cs" />
     <Compile Include="ParametrosGerais\ParametroSql.cs" />
+    <Compile Include="ParametroValoracao\ParametroValoracaoController.cs" />
+    <Compile Include="ParametroValoracao\ParametroValoracaoModel.cs" />
+    <Compile Include="ParametroValoracao\ParametroValoracaoSql.cs" />
     <Compile Include="PDF\ImpressaoMapa.cs" />
     <Compile Include="PDF\ImpressaoProposta.cs" />
     <Compile Include="PDF\ImpressaoSimulacao.cs" />

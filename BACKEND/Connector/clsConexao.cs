@@ -132,7 +132,7 @@ namespace CLASSDB
             catch
             {
                 //throw new Exception("Não foi possivel autenticar conexão com o Servidor de dados");
-                throw new Exception("Não foi possivel autenticar conexão com o Servidor de dados - Verifique a Configuração do Arquivo Web.Config");
+                throw new Exception("Não foi possivel autenticar conexão com o Servidor de dados.");
                 
             }
 

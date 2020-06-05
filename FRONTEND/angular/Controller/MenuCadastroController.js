@@ -22,6 +22,7 @@
         { 'Link': 'Produto', 'Title': 'Produtos' },
         { 'Link': 'Genero', 'Title': 'Generos' },
         { 'Link': 'Parametro', 'Title': 'Parâmetros Gerais' },
+        { 'Link': 'ParametroValoracao', 'Title': 'Parâmetros de Valoração' },
     ];
     //===========================fim do load da pagina
     $scope.$watch('$viewContentLoaded', function () {

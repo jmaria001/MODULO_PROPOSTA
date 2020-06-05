@@ -1,0 +1,234 @@
+﻿<div class="container">
+    <!--div do filtro-->
+    <div id="divFiltro" ng-show="ShowFilter">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="dictionary" dictionary="Competencia" caption="Competência">
+                    <input ng-model="Filtro.Competencia"
+                           ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                           placeholder="Informe a Competência">
+                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia" params="CompetenciaKeys"></div>
+                </div>
+            </div>
+        
+        <!--===================Programa-->
+        
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Programa">
+                    <input id="txtCodPrograma"
+                           ng-model="Filtro.Programa"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodPrograma')"
+                           primarybind="txtCodPrograma"
+                           secondarybind="txtTituloPrograma">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtTituloPrograma" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtTituloPrograma" class="form-control " ng-model="Filtro.Titulo">
+                    </div>
+                </div>
+            </div>
+        
+        <!--======================Tipo Valoracao -->
+            <div class="col-md-2 margin-top-10">
+                <div class="form-group">
+                    <label>Tipo de Valoração </label>
+                    <select class="form-control"
+                            ng-model="Filtro.TipoParametroValoracao"
+                            ng-disabled="Parameters.Action=='Edit'"
+                            name="optPosCalc"
+                            ng-options="Filtro.id as Filtro.nome for Filtro in PosTipo"></select>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="divBotaoFiltro" class="row margin-top-20">
+            <div class="col-12">
+                <button class="btn btn-primary" ng-click="CarregarParametroValoracao(Filtro)">Filtrar</button>
+                <button class="btn btn-warning" ng-click="NewFiltro()">Limpar Filtro</button>
+                <!--<a id="btnNovaParametroValoracao" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#ParametroValoracaoCadastroNew/New/0,0,0">Nova Parametro de Valores</a>-->
+            </div>
+        </div>
+    </div>
+    <!--Div do grid-->
+    <div id="divGrid" class="block table-responsive" ng-show="ShowGrid">
+
+        <div class="row">
+            <div class="col-md-8">
+
+
+                <div class="alert alert-primary alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <!--<span class="fa fa-check-circle"></span>-->
+                    </div>
+                    <strong class="pull-right">Tipos de Comerciais</strong>
+                    <!--<strong>Parametros</strong>-->
+                    <button class="btn btn-default btn-icon-fixed btn-sm pull-left margin-right-20" style="margin-top:0;margin-bottom:0"
+                            ng-click="Operacao='IT'"
+                            ng-show="PermissaoNew">
+                        <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
+                    </button>
+                    <button class="btn btn-warning btn-sm" ng-click="ShowGrid=false;ShowFilter=true" style="margin-top:0;margin-bottom:0">
+                        Novo Filtro
+                    </button>
+                </div>
+
+                <table class="table table-bordered table-striped" style="border-left:solid 1px silver;border-right:solid 1px silver">
+
+                    <thead>
+                        <tr>
+                            <th>Tipo Com.</th>
+                            <th>Descricao</th>
+                            <th>%30</th>
+                            <th>Tipo Valoração</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!--====================================Linhas de input-->
+                        <tr ng-show="Operacao=='IT'">
+                            <td>
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control"
+                                               ng-model="TipoComercial_Temp.Cod_Tipo_Comercial"
+                                               maxlength="2"
+                                               ng-change="ValidarTipoComercial(TipoComercial_Temp.Cod_Tipo_Comercial)"
+                                               ng-model-options="{updateOn: 'blur'}" />
+                                        <div class="input-group-addon">
+                                            <span class="fa fa-search span-btn" ng-click="PesquisaTipoComercial()"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" ng-model="TipoComercial_Temp.Descricao" ng-disabled="true" />
+                            </td>
+                            <td>
+                                <input type="text" class="form-control percent" ng-model="TipoComercial_Temp.Vlr_Parametro" />
+                            </td>
+                            <td>
+                                <select class="form-control"
+                                        ng-model="TipoComercial_Temp.Tipo_Valoracao"
+                                        ng-options="TipoValoracao.Codigo as TipoValoracao.Nome for TipoValoracao in TipoValoracao"></select>
+                            </td>
+                            <td></td>
+                            <td style="text-align:center;width:100px;white-space:nowrap">
+                                <button class="btn btn-success btn-sm" ng-show="Operacao=='IT'"
+                                        style="margin:0px 0px !important"
+                                        ng-click="SalvarParametro(TipoComercial_Temp)">
+                                    Ok
+                                </button>
+                                <button class="btn btn-warning btn-sm" style="margin:0px 0px !important" ng-click="CancelaEdicao()">Cancela</button>
+                            </td>
+                        </tr>
+                        <!--====================================Linhas de Display-->
+
+                        <tr ng-repeat="parametro in ParametroValoracao.Tipo_Comercial track by $index">
+                            <td>{{parametro.Cod_Tipo_Comercial}}</td>
+                            <td>{{parametro.Descricao}}</td>
+                            <td>{{parametro.Vlr_Parametro}}</td>
+                            <td>{{parametro.Tipo_Valoracao}}</td>
+                            <td>
+                                <label class="label label-success" ng-show="!parametro.Indica_Desativo">Ativo</label>
+                                <label class="label label-danger" ng-show="parametro.Indica_Desativo">Inativo</label>
+                            </td>
+                            <td>
+                                <button class="btn btn-default btn-sm" style="margin:0px 0px !important" ng-click="ParametroExcluirTipoComercial(parametro)" ng-disabled="!PermissaoExcluir">
+                                    <span class="fa fa-trash fa-crud"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+
+            <!------------------------- Define Duração --------------------->
+            <div class="col-md-4">
+                <div id="divGrid" class="block table-responsive" ng-show="ShowGrid">
+
+                    <div class="alert alert-primary alert-icon-block" role="alert">
+                        <div class="alert-icon">
+                            <!--<span class="fa fa-check-circle"></span>-->
+                        </div>
+                        <strong class="pull-right">Duração</strong>
+                        <button class="btn btn-default btn-icon-fixed btn-sm pull-left margin-right-20" style="margin-top:0;margin-bottom:0"
+                                ng-click="Operacao='ID'"
+                                ng-show="PermissaoNew">
+                            <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
+                        </button>
+                        <!--<button class="btn btn-warning btn-sm" ng-click="ShowGrid=false;ShowFilter=true" style="margin-top:0;margin-bottom:0">
+                            Novo Filtro
+                        </button>-->
+                    </div>
+                    <table class="table table-bordered table-striped" style="border-left:solid 1px silver;border-right:solid 1px silver">
+
+                        <thead>
+                            <tr>
+                                <th>Duração</th>
+                                <th>%30</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!--====================================Linhas de input-->
+                            <tr ng-show="Operacao=='ID'">
+                                <td>
+                                    <input type="text" class="form-control numeric" ng-blur="ValidarDuracao(Duracao_Temp.Duracao)"
+                                           ng-model="Duracao_Temp.Duracao" />
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control percent" ng-model="Duracao_Temp.Vlr_Parametro" />
+                                </td>
+                                <td></td>
+                                <td style="text-align:center;width:100px;white-space:nowrap">
+                                    <button class="btn btn-success btn-sm" ng-show="Operacao=='ID'"
+                                            style="margin:0px 0px !important"
+                                            ng-click="SalvarParametroDuracao(Duracao_Temp)">
+                                        Ok
+                                    </button>
+                                    <button class="btn btn-warning btn-sm" style="margin:0px 0px !important" ng-click="CancelaEdicao()">Cancela</button>
+                                </td>
+                            </tr>
+                            <!--====================================Linhas de Display-->
+
+                            <tr ng-repeat="parametro in ParametroValoracao.Duracao track by $index">
+                                <td>{{parametro.Duracao}}</td>
+                                <td>{{parametro.Vlr_Parametro}}</td>
+                                <td>
+                                    <label class="label label-success" ng-show="!parametro.Indica_Desativado">Ativo</label>
+                                    <label class="label label-danger" ng-show="parametro.Indica_Desativado">Inativo</label>
+                                </td>
+                                <td>
+                                    <button class="btn btn-default btn-sm" style="margin:0px 0px !important" ng-click="ParametroExcluirDuracao(parametro)" ng-disabled="!PermissaoExcluir">
+                                        <span class="fa fa-trash fa-crud"></span>
+                                    </button>
+                                </td>
+
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

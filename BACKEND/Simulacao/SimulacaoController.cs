@@ -73,6 +73,7 @@ namespace PROPOSTA
                 if (Id_Simulacao == 0)
                 {
                     Retorno.Esquemas = new List<Simulacao.EsquemaModel>();
+                    Retorno.Totalizadores = new List<Simulacao.TotalizadorModel>();
                     Retorno.Permite_Editar = true;
                     Retorno.Tipo = Processo;
                 }

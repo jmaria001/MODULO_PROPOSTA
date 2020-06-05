@@ -59,7 +59,7 @@
                     $scope.IniciarCalculo = true;
                 }, 1000);
                 $scope.SetaCompetenciaEsquema($scope.Simulacao.Validade_Inicio, $scope.Simulacao.Validade_Termino);
-                InitTermometro($scope.Simulacao.Termometro_Venda);
+                InitTermometro($scope.Simulacao.Termometro_Venda, !$scope.Simulacao.Permite_Editar);
             }
         });
     };

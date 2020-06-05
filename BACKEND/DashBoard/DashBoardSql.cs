@@ -8,6 +8,63 @@ namespace PROPOSTA
 
     public partial class DashBoard
     {
+
+        public GraphModel FunilVendas(FiltroFunilVendasModel pFiltro)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+
+            GraphModel Graph = new GraphModel();
+            GraphConfigModel Config = new GraphConfigModel();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_DashBoard_Funil_Vendas");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Inicio", clsLib.CompetenciaInt(pFiltro.Competencia_Inicio));
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Fim", clsLib.CompetenciaInt(pFiltro.Competencia_Fim));
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Grupo", pFiltro.Postipo);
+                //Adp.SelectCommand.Parameters.AddWithValue("@Par_Indicador", pFiltro.Indicador);
+                Adp.Fill(dtb);
+
+                Graph.type = "bar";
+                //Graph.options.tooltips = new GraphOptionToolTipModel() { enabled = false };
+                Config.Title ="Funil de Vendas";
+                //Config.TitleX = "Título abaixo do grafico";
+                Config.TitleX = "Período de:" + pFiltro.Competencia_Inicio + " a " + pFiltro.Competencia_Fim;
+
+                if (pFiltro.Indicador=="1")
+                {
+                    Config.TitleY = "Quantidade de Propostas";
+                    Config.LabelY = "Qtd";
+                }
+                else
+                {
+                    Config.TitleY = "Valores Em Reais ";
+                    Config.LabelY = "Valor";
+                }
+                
+                Config.LabelX_Id = "Label_Codigo";
+                Config.LabelX_Text = "Label_Descricao";
+                
+                Config.Target_Id = "Id_Status";
+                Config.Target_Text = "Nome_Status";
+                ConfigGraph(dtb, Graph, Config);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Graph;
+        }
         public GraphModel ModeloBarra(FiltroModel pFiltro)
         {
             clsConexao cnn = new clsConexao(this.Credential);
@@ -61,7 +118,151 @@ namespace PROPOSTA
             GraphConfigModel Config = new GraphConfigModel();
             try
             {
-                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_DashBoard_Line");
+                //SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_DashBoard_Line");
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_DashBoard_Barra");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Inicio", clsLib.CompetenciaInt(pFiltro.Competencia_Inicio));
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Fim", clsLib.CompetenciaInt(pFiltro.Competencia_Fim));
+                Adp.Fill(dtb);
+
+                //Graph.type = "line";
+                //Graph.type = "bar";
+                //Config.Title = "Evolução de Vendas";
+                //Config.TitleX = "Título abaixo do grafico";
+                //Config.TitleY = "Valores em Reais";
+                //Config.LabelX_Id = "Competencia";
+                //Config.LabelX_Text = "Competencia_Text";
+                //Config.LabelY = "Valor";
+                //Config.Target_Id = "Cod_Contato";
+                //Config.Target_Text = "Nome_Contato";
+                //ConfigGraph(dtb, Graph, Config);
+
+                Graph.type = "line";
+                Config.Title = "Funil de Vendas";
+                Config.TitleX = "Título abaixo do grafico";
+                Config.TitleY = "Valores em Reais";
+                Config.LabelX_Id = "Cod_Contato";
+                Config.LabelX_Text = "Nome_Contato";
+                Config.LabelY = "Valor";
+                Config.Target_Id = "Id_Status";
+                Config.Target_Text = "Nome_Status";
+                ConfigGraph(dtb, Graph, Config);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Graph;
+        }
+
+
+        public GraphPieModel ModeloPie(FiltroModel pFiltro)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+
+            GraphPieModel Graph = new GraphPieModel();
+            GraphConfigPieModel Config = new GraphConfigPieModel();
+            try
+            {
+                //SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_DashBoard_Line");
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_DashBoard_Pie");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Inicio", clsLib.CompetenciaInt(pFiltro.Competencia_Inicio));
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Fim", clsLib.CompetenciaInt(pFiltro.Competencia_Fim));
+                Adp.Fill(dtb);
+
+
+                Graph.type = "pie";
+                Config.Title = "Funil de Vendas";
+                //Config.TitleX = "Título abaixo do grafico";
+                //Config.TitleY = "Valores em Reais";
+                //Config.LabelX_Id = "Cod_Contato";
+                //Config.LabelX_Text = "Nome_Contato";
+                //Config.LabelY = "Valor";
+                //Config.Target_Id = "Id_Status";
+                //Config.Target_Text = "Nome_Status";
+                Config.Field_Label = "Nome_Contato";
+                Config.Field_Value= "Valor";
+                ConfigGraphPie(dtb, Graph, Config);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Graph;
+        }
+
+        // Evolucao de Vendas
+        public GraphModel ModeloBarraEvolucaoVendas(FiltroModel pFiltro)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+
+            GraphModel Graph = new GraphModel();
+            GraphConfigModel Config = new GraphConfigModel();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_DashBoard_Barra_EvolucaoVendas");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Inicio", clsLib.CompetenciaInt(pFiltro.Competencia_Inicio));
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Fim", clsLib.CompetenciaInt(pFiltro.Competencia_Fim));
+                Adp.Fill(dtb);
+
+                Graph.type = "bar";
+                Config.Title = "Evolução de Vendas";
+                Config.TitleX = "Título abaixo do grafico";
+                Config.TitleY = "Valores em Reais";
+                Config.LabelX_Id = "Competencia";
+                Config.LabelX_Text = "Competencia_Text";
+                Config.LabelY = "Valor";
+                Config.Target_Id = "Cod_Contato";
+                Config.Target_Text = "Nome_Contato";
+                ConfigGraph(dtb, Graph, Config);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Graph;
+        }
+        public GraphModel ModeloLinhaEvolucaoVendas(FiltroModel pFiltro)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+
+            GraphModel Graph = new GraphModel();
+            GraphConfigModel Config = new GraphConfigModel();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_DashBoard_Line_EvolucaoVendas");
+                //SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_DashBoard_Barra_EvolucaoVendas");
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Inicio", clsLib.CompetenciaInt(pFiltro.Competencia_Inicio));
@@ -90,6 +291,9 @@ namespace PROPOSTA
             }
             return Graph;
         }
+
+
+
 
 
         //private  void ConfigGraph(DataTable dtb, GraphModel Graph, GraphConfigModel Cfg)

@@ -1,0 +1,9 @@
+﻿
+<div class="container container-fluid">
+
+    <div class="block">
+        <div id="divDashboard">
+            <a id="divItem" href="#{{MenuDashboard.Link}}" ng-repeat="MenuDashboard in MenuDashboards | orderBy: 'Title'">{{MenuDashboard.Title}} </a>
+        </div>
+    </div>
+</div>
