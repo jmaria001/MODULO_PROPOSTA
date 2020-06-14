@@ -25,7 +25,18 @@
         { 'title': 'NomeRede', 'visible': true, 'searchable': true, 'sortable': true },
         { 'title': 'Horario_Exibicao', 'visible': true, 'searchable': true, 'sortable': true },
     ];
+    //======================Verifica se tem filtro anterior
+    $scope.Filtro = { 'Codigo_Rede': 0 }
+    var _Filter = JSON.parse(localStorage.getItem('ProgramaFilter'));
+    if (_Filter) {
+        $scope.Filtro = _Filter;
+    }
+    //====================Carrega Combo de Redes
+    $scope.Redes = "";
 
+    httpService.Get("ListarTabela/Rede").then(function (response) {
+        $scope.Redes = response.data;
+    });
 
      //====================Quando terminar carga do grid, torna view do grid visible
     $scope.RepeatFinished = function () {
@@ -43,24 +54,18 @@
         $scope.Programas = [];
         $scope.ShowGrid = false;
         $('#dataTable').dataTable().fnDestroy();
-        httpService.Get('ProgramaListar').then(function (response) {
+        var _url = 'ProgramaListar/';
+        if ($scope.Filtro.Codigo_Rede) {
+            _url += $scope.Filtro.Codigo_Rede
+        }
+        else {
+            _url += "0";
+        }
+
+        httpService.Get(_url).then(function (response) {
             if (response) {
-                //Programação feito pelo Rogerio aguardando ajuda técnico do João Maria
-                //console.log(response.data[0].Cod_Veiculo)
-
-                //var c = 0;
-                //var g=0
-                //for (var i = 0; i < response.data.length; i++) {
-                //    var c = i + 1;
-                //    if (response.data[i].Cod_Programa != response.data[c].Cod_Programa)
-                //    {
-                //        $scope.Programas[g] = response.data[i];
-                //        var g = g + 1;
-                //    }
-                //}
-
                 $scope.Programas = response.data;
-              
+                localStorage.setItem('ProgramaFilter', JSON.stringify($scope.Filtro));
                 if ($scope.Programas.length == 0) {
                     $scope.RepeatFinished();
                 }
@@ -72,7 +77,7 @@
         param = {};
         param.language = fnDataTableLanguage();
         param.lengthMenu = [[7, 10, 25, 50, -1], [7, 10, 25, 50, "Todos"]];
-        param.pageLength = 10;
+        param.pageLength = 7;
         param.scrollCollapse = true;
         param.paging = true;
 

@@ -7,7 +7,30 @@ namespace PROPOSTA
 {
     public class DashBoardController : ApiController
     {
-        //=================================Mode grafico de barra
+        //=================================Grafico de Vendas 
+        [Route("api/DashBoard/GraficoVendas")]
+        [HttpPost]
+        [ActionName("GraficoVendas")]
+        [Authorize()]
+
+        //public IHttpActionResult ModeloBarra([FromBody] DashBoard.FiltroModel param)
+        public IHttpActionResult GraficoVendas(DashBoard.FiltroGraficoVendasModel param)
+        {
+            SimLib clsLib = new SimLib();
+            DashBoard Cls = new DashBoard(User.Identity.Name);
+            try
+            {
+                DashBoard.GraphModel dtb = Cls.GraficoVendas(param);
+                return Ok(dtb);
+
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+        //=================================Funil de Vendas 
         [Route("api/DashBoard/FunilVendas")]
         [HttpPost]
         [ActionName("FunilVendas")]

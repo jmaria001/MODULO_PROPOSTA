@@ -151,8 +151,8 @@ namespace PROPOSTA
             public String Competencia_Fim { get; set; }
             public String DescVisao { get; set; }
         }
-        //===============================Models para parametro do Funil de Vendas
-        public class FiltroFunilVendasModel
+        //===============================Models para parametro do Grafico de Vendas
+        public class FiltroGraficoVendasModel
         {
             public String Competencia_Inicio { get; set; }
             public String Competencia_Fim { get; set; }
@@ -160,7 +160,13 @@ namespace PROPOSTA
             public String Indicador { get; set; }
 
         }
-        
+        public class FiltroFunilVendasModel
+        {
+            public String Competencia_Inicio { get; set; }
+            public String Competencia_Fim { get; set; }
+
+        }
+
     }
 }
 

@@ -9,17 +9,17 @@ namespace PROPOSTA
     public class ProgramaController : ApiController
     {
         //=================================Lista de Programas
-        [Route("api/ProgramaListar")]
+        [Route("api/ProgramaListar/{Id_Rede}")]
         [HttpGet]
         [ActionName("ProgramaListar")]
         [Authorize()]
-        public IHttpActionResult ProgramaListar()
+        public IHttpActionResult ProgramaListar(Int32 Id_Rede)
         {
             SimLib clsLib = new SimLib();
             Programa Cls = new Programa(User.Identity.Name);
             try
             {
-                DataTable dtb = Cls.ProgramaListar(0);
+                DataTable dtb = Cls.ProgramaListar(Id_Rede);
                 return Ok(dtb);
             }
             catch (Exception Ex)

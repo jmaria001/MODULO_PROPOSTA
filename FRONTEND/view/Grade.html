@@ -1,0 +1,93 @@
+﻿
+<div class="container">
+    <form name="frmGrade" autocomplete="off">
+        <div class="block">
+            <!--===================================Filtro-->
+            <div id="divFiltro" ng-show="ShowFilter">
+                <div class="row">
+                    <div class="col-md-2" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Veiculo" required>
+                            <input id="txtCodVeiculo"
+                                   ng-model="Filtro.Cod_Veiculo"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCodVeiculo')"
+                                   ng-required="true"
+                                   primarybind="txtCodVeiculo"
+                                   secondarybind="">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="dictionary" dictionary="Competencia" caption="Competência" required>
+                            <input ng-model="Filtro.Competencia"
+                                   ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                                   ng-required="true"
+                                   placeholder="Informe a Competência">
+                            <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia" params="CompetenciaKeys"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-success" ng-disabled="frmGrade.$invalid" ng-click="CarregarGrade(Filtro)">Filtrar</button>
+                        <button type="button" class="btn btn-warning" ng-click="NewFilter()">Limpar Filtros</button>
+                        <a href="#GradeCadastro" class="btn btn-primary">Criar Grade</a>
+                    </div>
+                </div>
+            </div>
+
+            <div id="divGrid" ng-show="ShowGrid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-info" ng-click="NewFilter()">Novo Filtro</button>
+                        <a href="#GradeCadastro" class="btn btn-primary">Criar Grade</a>
+                    </div>
+                </div>
+                <div class="box table-responsive">
+                    <table id="GridGrade" class="table table-bordered">
+                        <tr style="background-color:bisque">
+                            <td ng-repeat="dia in Grades.Dias track by $index" style="vertical-align:top;text-align:center;padding:5px 5px 5px 5px">
+                                <span>{{dia.Data_Exibicao |date:"dd/MM/yyyy"}}</span>
+                                <br />
+                                <span> {{dia.Dia_Semana}}</span>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <td ng-repeat="dia in Grades.Dias track by $index" style="vertical-align:top;text-align:center;padding:5px 5px 5px 5px">
+                                <table class="table table-bordered table-striped">
+                                    <tr ng-repeat="programa in dia.Programas track by $index" style="font-size:11px">
+                                        <td style="min-width:200px">
+                                            {{programa.Hora_Inicio}} as {{programa.Hora_Termino}}
+                                            <br />
+                                            <span>{{programa.Nome_Programa}}</span>
+                                            <br />
+                                            <span>{{programa.Nome_Genero}}</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                        </tr>
+                        <tr style="background-color:bisque">
+                            <td ng-repeat="dia in Grades.Dias track by $index" style="vertical-align:top;text-align:center;padding:5px 5px 5px 5px">
+                                <span>{{dia.Data_Exibicao |date:"dd/MM/yyyy"}}</span>
+                                <br />
+                                <span> {{dia.Dia_Semana}}</span>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

@@ -2,20 +2,20 @@
 function redirect(url) {
     window.location = url;
 }
-function fnDatepickerIcon() {
-    var a = {
-        time: "icon-clock",
-        date: "icon-calendar-full",
-        up: "icon-chevron-up",
-        down: "icon-chevron-down",
-        previous: 'icon-chevron-left',
-        next: 'icon-chevron-right',
-        today: 'icon-calendar-insert',
-        clear: 'icon-trash',
-        close: 'icon-cross'
-    }
-    return a;
-}
+//function fnDatepickerIcon() {
+//    var a = {
+//        time: "icon-clock",
+//        date: "icon-calendar-full",
+//        up: "icon-chevron-up",
+//        down: "icon-chevron-down",
+//        previous: 'icon-chevron-left',
+//        next: 'icon-chevron-right',
+//        today: 'icon-calendar-insert',
+//        clear: 'icon-trash',
+//        close: 'icon-cross'
+//    }
+//    return a;
+//}
 function fnDataTableLanguage() {
     return {
         "sEmptyTable": "Nenhum registro encontrado",
@@ -370,6 +370,7 @@ function TimeUnformat(pValue) {
 function TimeFormat(pValue) {
 
     if (pValue) {
+        pValue = pValue.trim();
         var x = LeftZero(pValue, 4)
         return x.substr(0,2)+':' + x.substr(2,2);
     }

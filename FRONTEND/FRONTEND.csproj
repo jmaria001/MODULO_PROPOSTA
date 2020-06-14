@@ -106,6 +106,7 @@
     <Content Include="angular\Controller\ContatoController.js" />
     <Content Include="angular\Controller\ControllerTeste.js" />
     <Content Include="angular\Controller\DashFunilVendasController.js" />
+    <Content Include="angular\Controller\DashGraficoVendasController.js" />
     <Content Include="angular\Controller\EmpresaCadastroController.js" />
     <Content Include="angular\Controller\EmpresaController.js" />
     <Content Include="angular\Controller\GeneroCadastroController.js" />
@@ -157,6 +158,7 @@
     <Content Include="angular\Controller\UsuarioController.js" />
     <Content Include="angular\Controller\MenuCadastroController.js" />
     <Content Include="angular\Controller\VeiculoCadastroController.js" />
+    <Content Include="angular\Controller\GradeController.js" />
     <Content Include="angular\Controller\VeiculoController.js" />
     <Content Include="angular\Filter\AppFilter.js" />
     <Content Include="images\Background.jpg" />
@@ -224,6 +226,7 @@
     <Content Include="js\vendor\XTABLES\language\Pt_BR.json" />
     <Content Include="view\DashboardTeste.html" />
     <Content Include="view\DashFunilVendas.html" />
+    <Content Include="view\DashGraficoVendas.html" />
     <Content Include="view\Genero.html" />
     <Content Include="view\GeneroCadastro.html" />
     <Content Include="view\MapaReserva.html" />
@@ -265,6 +268,7 @@
     <Content Include="view\Negociacao.html" />
     <Content Include="view\Negociacao_Cadastro.html" />
     <Content Include="view\PendenciaAprovacao.html" />
+    <Content Include="view\Grade.html" />
     <Content Include="view\Programa.html" />
     <Content Include="view\ProgramaCadastro.html" />
     <Content Include="view\PropostaPendenteAprovacao.html" />

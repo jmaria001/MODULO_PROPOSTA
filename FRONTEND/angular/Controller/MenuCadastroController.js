@@ -23,6 +23,7 @@
         { 'Link': 'Genero', 'Title': 'Generos' },
         { 'Link': 'Parametro', 'Title': 'Parâmetros Gerais' },
         { 'Link': 'ParametroValoracao', 'Title': 'Parâmetros de Valoração' },
+        { 'Link': 'Grade', 'Title': 'Grade da Programação' },
     ];
     //===========================fim do load da pagina
     $scope.$watch('$viewContentLoaded', function () {

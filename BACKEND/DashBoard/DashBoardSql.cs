@@ -9,7 +9,7 @@ namespace PROPOSTA
     public partial class DashBoard
     {
 
-        public GraphModel FunilVendas(FiltroFunilVendasModel pFiltro)
+        public GraphModel GraficoVendas(FiltroGraficoVendasModel pFiltro)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
@@ -21,7 +21,7 @@ namespace PROPOSTA
             GraphConfigModel Config = new GraphConfigModel();
             try
             {
-                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_DashBoard_Funil_Vendas");
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_DashBoard_Grafico_Vendas");
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Inicio", clsLib.CompetenciaInt(pFiltro.Competencia_Inicio));
@@ -32,7 +32,7 @@ namespace PROPOSTA
 
                 Graph.type = "bar";
                 //Graph.options.tooltips = new GraphOptionToolTipModel() { enabled = false };
-                Config.Title ="Funil de Vendas";
+                Config.Title ="Gráfico de Vendas";
                 //Config.TitleX = "Título abaixo do grafico";
                 Config.TitleX = "Período de:" + pFiltro.Competencia_Inicio + " a " + pFiltro.Competencia_Fim;
 
@@ -52,6 +52,47 @@ namespace PROPOSTA
                 
                 Config.Target_Id = "Id_Status";
                 Config.Target_Text = "Nome_Status";
+                ConfigGraph(dtb, Graph, Config);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Graph;
+        }
+        public GraphModel FunilVendas(FiltroFunilVendasModel pFiltro)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+
+            GraphModel Graph = new GraphModel();
+            GraphConfigModel Config = new GraphConfigModel();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_DashBoard_Funil_Vendas_H");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Inicio", clsLib.CompetenciaInt(pFiltro.Competencia_Inicio));
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Fim", clsLib.CompetenciaInt(pFiltro.Competencia_Fim));
+                Adp.Fill(dtb);
+
+                Graph.type = "horizontalBar";
+                Config.Title = "Funil de Vendas";
+                Config.TitleX = "Período de:" + pFiltro.Competencia_Inicio + " a " + pFiltro.Competencia_Fim;
+                Config.TitleY = "Quantidade de Propostas";
+                Config.LabelY = "Qtd";
+                Config.LabelX_Id = "Label_Id";
+                Config.LabelX_Text = "Label_Text";
+                Config.Target_Id = "Target_Id";
+                Config.Target_Text = "Target_Descricao";
                 ConfigGraph(dtb, Graph, Config);
 
             }
@@ -85,7 +126,7 @@ namespace PROPOSTA
                 Adp.Fill(dtb);
 
                 Graph.type = "bar";
-                Config.Title = "Funil de Vendas";
+                Config.Title = "Grafico de Vendas";
                 Config.TitleX = "Título abaixo do grafico";
                 Config.TitleY = "Valores em Reais";
                 Config.LabelX_Id = "Cod_Contato";
@@ -139,7 +180,7 @@ namespace PROPOSTA
                 //ConfigGraph(dtb, Graph, Config);
 
                 Graph.type = "line";
-                Config.Title = "Funil de Vendas";
+                Config.Title = "Grafico de Vendas";
                 Config.TitleX = "Título abaixo do grafico";
                 Config.TitleY = "Valores em Reais";
                 Config.LabelX_Id = "Cod_Contato";
@@ -184,7 +225,7 @@ namespace PROPOSTA
 
 
                 Graph.type = "pie";
-                Config.Title = "Funil de Vendas";
+                Config.Title = "Grafico de Vendas";
                 //Config.TitleX = "Título abaixo do grafico";
                 //Config.TitleY = "Valores em Reais";
                 //Config.LabelX_Id = "Cod_Contato";

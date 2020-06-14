@@ -13,7 +13,7 @@ namespace PROPOSTA
         public static string Cod_Programa { get; private set; }
         
 
-        public DataTable ProgramaListar(Int32 pIdPrograma)
+        public DataTable ProgramaListar(Int32 pId_Rede)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
@@ -25,6 +25,7 @@ namespace PROPOSTA
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_Programa_Listar");
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Rede", pId_Rede);
                 Adp.Fill(dtb);
             }
             catch (Exception)

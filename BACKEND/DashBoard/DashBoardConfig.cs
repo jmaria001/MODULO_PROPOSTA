@@ -131,6 +131,7 @@ namespace PROPOSTA
                 Labels.Add(drw[Cfg.LabelX_Id].ToString().TrimEnd());
             }
             //==================Distinct Targets
+
             DataView viewTarget = new DataView(dtb);
             DataTable dtbTarget = viewTarget.ToTable(true, Cfg.Target_Id, Cfg.Target_Text);
             foreach (DataRow drw in dtbTarget.Rows)
@@ -265,7 +266,7 @@ namespace PROPOSTA
             colors.Add(System.Drawing.Color.Navy);
 
             System.Drawing.Color color = colors[pIndex % colors.Count];
-            return String.Format("RGB({0},{1},{2})", color.R, color.G, color.B).ToLower();
+            return String.Format("RGB({0},{1},{2},{3})", color.R, color.G, color.B,"0.5").ToLower();
 
         }
 

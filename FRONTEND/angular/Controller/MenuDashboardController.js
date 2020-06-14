@@ -3,6 +3,7 @@
     //===================Inicializa Scopes
     $scope.MenuDashboards = [
         { 'Link': 'FunilVendas', 'Title': 'Funil de Vendas' },
+        { 'Link': 'GraficoVendas', 'Title': 'Gráfico de Vendas' },
         { 'Link': 'VendasPeriodo', 'Title': 'Vendas no Período' },
         { 'Link': 'EvolucaoVendas', 'Title': 'Evolução de Vendas' },
     ];

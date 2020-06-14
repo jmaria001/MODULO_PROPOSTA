@@ -113,9 +113,10 @@
             $scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Mercado = "" // se for net limpa o mercado
             var _url = 'GetVeiculos'
             _url += '?Abrangencia=' + $scope.Simulacao.Esquemas[$scope.currentEsquema].Abrangencia;
-            _url += '&Mercado=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Mercado);
-            _url += '&Empresa=' + NullToString($scope.Simulacao.Cod_Empresa_Venda);
-            _url += '&Empresa_Faturamento=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Empresa_Faturamento);
+            _url += '&Cod_Mercado=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Mercado);
+            _url += '&Cod_Empresa=' + NullToString($scope.Simulacao.Cod_Empresa_Venda);
+            _url += '&Cod_Empresa_Faturamento=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Empresa_Faturamento);
+            _url +="&"
             httpService.Get(_url).then(function (response) {
                 if (response.data) {
                     for (var i = 0; i < response.data.length; i++) {
@@ -135,9 +136,10 @@
         if (pCodMercado) {
             var _url = 'GetVeiculos'
             _url += '?Abrangencia=' + $scope.Simulacao.Esquemas[$scope.currentEsquema].Abrangencia;
-            _url += '&Mercado=' + pCodMercado
-            _url += '&Empresa=' + NullToString($scope.Simulacao.Cod_Empresa_Venda);
-            _url += '&Empresa_Faturamento=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Empresa_Faturamento);
+            _url += '&Cod_Mercado=' + pCodMercado
+            _url += '&Cod_Empresa=' + NullToString($scope.Simulacao.Cod_Empresa_Venda);
+            _url += '&Cpd_Empresa_Faturamento=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Empresa_Faturamento);
+            _url += "&"
             httpService.Get(_url).then(function (response) {
                 if (response.data.length > 0) {
                     for (var i = 0; i < response.data.length; i++) {

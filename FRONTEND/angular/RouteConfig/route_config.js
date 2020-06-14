@@ -56,20 +56,27 @@
     //    routeName: 'Dashboard',
     //    RouteId: 'Dashboard@Index'
     //})
-                .when('/MenuDashboard', {
-                    templateUrl: 'view/MenuDashboard.html',
-                    controller: 'MenuDashboardController',
-                    authorize: false,
-                    routeName: 'Menu Dashboard',
-                    RouteId: 0
-                })
-           .when('/FunilVendas', {
-               templateUrl: 'view/DashFunilVendas.html',
-               authorize: true,
-               controller:'DashFunilVendasController',
-               routeName: 'Dashboard Funil Vendas',
-               RouteId: 'FunilVendas@Index'
-           })
+    .when('/MenuDashboard', {
+        templateUrl: 'view/MenuDashboard.html',
+        controller: 'MenuDashboardController',
+        authorize: false,
+        routeName: 'Menu Dashboard',
+        RouteId: 0
+    })
+    .when('/GraficoVendas', {
+        templateUrl: 'view/DashGraficoVendas.html',
+        authorize: true,
+        controller: 'DashGraficoVendasController',
+        routeName: 'Gráfico de Vendas',
+        RouteId: 'GraficoVendas@index'
+    })
+    .when('/FunilVendas', {
+        templateUrl: 'view/DashFunilVendas.html',
+        authorize: true,
+        controller: 'DashFunilVendasController',
+        routeName: 'Funil de Vendas',
+        RouteId: 'FunilVendas@index'
+    })
     .when('/cadastro', {
         templateUrl: 'view/MenuCadastro.html',
         controller: 'MenuCadastroController',
@@ -395,12 +402,12 @@
         RouteId: 'Terceiro@New'
     })
 .when('/Produto', {
-        templateUrl: 'view/Produto.html',
-        authorize: true,
-        controller: 'ProdutoController',
-        routeName: 'Cadastro de Produtos',
-        RouteId: 'Produto@Index'
-    })
+    templateUrl: 'view/Produto.html',
+    authorize: true,
+    controller: 'ProdutoController',
+    routeName: 'Cadastro de Produtos',
+    RouteId: 'Produto@Index'
+})
     .when('/ProdutoCadastro/:Action/:Id', {
         templateUrl: 'view/ProdutoCadastro.html',
         authorize: true,
@@ -460,7 +467,13 @@
             routeName: 'Alteração de Parametro de Valoração',
             RouteId: 'ParametroValoracao@Edit'
         })
-
+            .when('/Grade', {
+                templateUrl: 'view/Grade.html',
+                controller: 'GradeController',
+                authorize: true,
+                routeName: 'Grade da Programação',
+                RouteId: 'Grade@Index'
+            })
     //----------------------------------------------------
     .when('/Simulacao', {
         templateUrl: 'view/simulacao_List.html',
