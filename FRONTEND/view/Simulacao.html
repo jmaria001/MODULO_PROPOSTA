@@ -861,13 +861,8 @@
                                             </td>
                                             <td>
                                                 <div class="input-group" style="min-width:40px">
-                                                    <!--<select class="form-control inputEsquema"
-                                                            ng-model="midia.Dia_Inicio"
-                                                            ng-disabled="!Simulacao.Permite_Editar"
-                                                            ng-options="n for n in [] | rangeDiaInicio:Simulacao.Validade_Inicio:Simulacao.Validade_Termino:Simulacao.Esquemas[currentEsquema].Competencia"
-                                                            ng-change="fnChangeMidia(midia,'Dia_Inicio')"></select>-->
                                                     <input type="text"
-                                                           class="form-control"
+                                                           class="form-control inputEsquema"
                                                            maxlength="2"
                                                            onkeypress="return NumericOnly(event)"
                                                            ng-model="midia.Dia_Inicio"
@@ -878,13 +873,8 @@
                                             </td>
                                             <td>
                                                 <div class="input-group" style="min-width:40px">
-                                                    <!--<select class="form-control inputEsquema"
-                                                            ng-model="midia.Dia_Fim"
-                                                            ng-disabled="!Simulacao.Permite_Editar"
-                                                            ng-change="fnChangeMidia(midia,'Dia_Fim')"
-                                                            ng-options="n for n in [] | rangeDiaFim:Simulacao.Validade_Inicio:Simulacao.Validade_Termino:Simulacao.Esquemas[currentEsquema].Competencia:midia.Dia_Inicio"></select>-->
                                                     <input type="text"
-                                                           class="form-control"
+                                                           class="form-control  inputEsquema"
                                                            maxlength="2"
                                                            onkeypress="return NumericOnly(event)"
                                                            ng-model="midia.Dia_Fim"

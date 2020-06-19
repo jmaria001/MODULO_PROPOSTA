@@ -192,6 +192,8 @@ namespace PROPOSTA
             public Byte Dia_Fim { get; set; }
             public String Validade_Inicio { get; set; }
             public String Validade_Termino { get; set; }
+            public String Cod_Empresa_Faturamento { get; set; }
+            public Int32 Duracao { get; set; }
             public List<VeiculoModel> Veiculos { get; set; }
         }
         public class Param_Aprovacao_Model

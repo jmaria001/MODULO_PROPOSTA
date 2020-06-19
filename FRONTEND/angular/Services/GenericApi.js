@@ -6,7 +6,6 @@ angular.module("App").service("GenericApi", function ($http, config, $q, $cookie
    
     var _CarregarUsuarioAlerta = function (pAtividadeId) {
         var deferred = $q.defer();
-        console.log(config.baseUrl);
         $http({
             method: 'GET',
             url: config.baseUrl + "API/Atividade/GetUsuarioSimilar/"

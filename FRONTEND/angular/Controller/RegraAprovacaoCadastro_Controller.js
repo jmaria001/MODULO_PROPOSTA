@@ -73,7 +73,6 @@
     $scope.AdicionarFaixa = function () {
         $scope.Regra.Max_Id_Range++;
         $scope.Regra.Range.push({ 'Id_Range': $scope.Regra.Max_Id_Range });
-        console.log($scope.Regra.Range);
     }
     //=======================Excluir Range
     $scope.ExcluirRange = function (pId_Range) {
@@ -269,10 +268,6 @@
                     $rootScope.routeName = 'Regras de Aprovação de Descontos - ' + $scope.Parameters.Action
                     $scope.Regra.Id_Regra = response.data[0].Id_Regra;
                 }
-                //else {
-                //    console.log('voltando');
-                //    $location.path('/regraaprovacao');
-                //}
             }
         });
     }

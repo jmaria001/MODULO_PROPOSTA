@@ -3,7 +3,6 @@
     $scope.Parameters = $routeParams;
     $scope.CompetenciaKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
     $scope.ParametroValoracao = "";
-    console.log($scope.Parameters);
     //========================Verifica Permissoes
     $scope.PermissaoDelete = false;
     httpService.Get("credential/ParametroValoracao@Destroy").then(function (response) {
@@ -43,7 +42,6 @@
     $scope.AdicionarFaixa = function () {
         $scope.ParametroValoracao.Max_Id_Parametro++;
         $scope.ParametroValoracao.Parametro.push({ 'Id_Parametro': $scope.ParametroValoracao.Max_Id_Parametro });
-        console.log($scope.ParametroValoracao.Parametro);
     }
     //=======================Excluir Parametro de Valoração
     $scope.ExcluirParametro = function (pId_Parametro) {
@@ -59,9 +57,7 @@
         httpService.Post('SalvarParametroValoracao', $scope.ParametroValoracao).then(function (response) {
             ShowAlert(response.data[0].Mensagem, (response.data[0].Status == 1) ? 'success' : 'warning');
             if (response.data[0].Status == 1) {
-                console.log("entrando 1")
                 if ($scope.Parameters.Action == 'New') {
-                    console.log("entrando 2")
                     $scope.Parameters.Action = 'Edit';
                     $rootScope.routeName = 'Parametro de Valoração - ' + $scope.Parameters.Action
                     $scope.ParametroValoracao.Id_Parametro = response.data[0].Id_Parametro;

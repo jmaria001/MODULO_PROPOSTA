@@ -22,17 +22,9 @@
         if (_dictionary && _key && pValidate) {
             var _url = "ValidarTabela/" + _dictionary.trim() + "/" + _key.trim()
             httpService.Get(_url).then(function (response) {
-
                 if (response.data[0].Status == 0) {
-
                     $scope.DicionarySetValue($document[0].getElementById(_bind), "");
                     $scope.DicionarySetValue($document[0].getElementById(_extrabind), "");
-                    //if (_bind) {
-                    //    $scope.DicionarySetValue($document[0].getElementById(_bind), "");
-                    //}
-                    //if (_extrabind) {
-                    //    $scope.DicionarySetValue($document[0].getElementById(_extrabind), "");
-                    //}
                     ShowAlert(response.data[0].Mensagem, 'warning', 2000);
                     $scope.DicionarySetValue(_element, "");
                     _element.focus();
@@ -40,23 +32,12 @@
                 else {
                     $scope.DicionarySetValue($document[0].getElementById(_bind), response.data[0].Descricao);
                     $scope.DicionarySetValue($document[0].getElementById(_extrabind), response.data[0].Extra);
-                    //if (_bind) {
-                    //    $scope.DicionarySetValue($document[0].getElementById(_bind), response.data[0].Descricao);
-                    //}
-                    //if (_extrabind) {
-                    //    $scope.DicionarySetValue($document[0].getElementById(_extrabind), response.data[0].Extra);
-                    //}
                 }
             })
         }
         else {
             $scope.DicionarySetValue($document[0].getElementById(_bind), "");
             $scope.DicionarySetValue($document[0].getElementById(_extrabind), "");
-            //if (_bind) {
-            //    $scope.DicionarySetValue($document[0].getElementById(_bind), "");
-            //} if (_extrabind) {
-            //    $scope.DicionarySetValue($document[0].getElementById(_extrabind), "");
-            //}
         }
     };
     $scope.DicionaryLoadTable = function (pTable, pElement, pMultiSelect, pShowFilter) {
@@ -102,8 +83,7 @@
             _secondarybind = _element.attributes['secondarybind'].value;
         };
         if (_element.attributes['extrabind']) {
-            console.log("tem extra");
-            _extrabind = _element.attributes['extrabind'].value;
+                _extrabind = _element.attributes['extrabind'].value;
         };
 
         if (_primarybind) {
@@ -115,7 +95,6 @@
             $scope.DicionarySetValue(_elm, pDescricao)
         }
         if (_extrabind) {
-            console.log("extra");
             var _elm = $document[0].getElementById(_extrabind);
             $scope.DicionarySetValue(_elm, pExtra)
         }

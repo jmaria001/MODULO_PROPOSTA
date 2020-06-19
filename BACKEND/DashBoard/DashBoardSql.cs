@@ -335,7 +335,60 @@ namespace PROPOSTA
 
 
 
+        // Evolucao de Vendas
+        public GraphModel EvolucaoVendas(FiltroEvolucaoVendasModel pFiltro)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
 
+            GraphModel Graph = new GraphModel();
+            GraphConfigModel Config = new GraphConfigModel();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_DashBoard_Evolucao_Vendas");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Inicio", clsLib.CompetenciaInt(pFiltro.Competencia_Inicio));
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Fim", clsLib.CompetenciaInt(pFiltro.Competencia_Fim));
+                //Adp.SelectCommand.Parameters.AddWithValue("@Par_Grupo", pFiltro.Postipo);
+                //Adp.SelectCommand.Parameters.AddWithValue("@Par_Indicador", pFiltro.Indicador);
+                Adp.Fill(dtb);
+
+                Graph.type = "line";
+                Config.Title = "Evolucao de Vendas";
+                Config.TitleX = "Período de:" + pFiltro.Competencia_Inicio + " a " + pFiltro.Competencia_Fim;
+
+                if (pFiltro.Indicador == "1")
+                {
+                    Config.TitleY = "Quantidade de Propostas";
+                    Config.LabelY = "Qtd";
+                }
+                else
+                {
+                    Config.TitleY = "Valores Em Reais ";
+                    Config.LabelY = "Valor";
+                }
+
+                Config.LabelX_Id = "Cod_Mes";
+                Config.LabelX_Text = "Descricao_Mes";
+                Config.Target_Id = "Id_Status";
+                Config.Target_Text = "Nome_Status";
+                ConfigGraph(dtb, Graph, Config);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Graph;
+        }
 
         //private  void ConfigGraph(DataTable dtb, GraphModel Graph, GraphConfigModel Cfg)
         //{

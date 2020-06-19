@@ -1,4 +1,24 @@
-﻿
+﻿<style>
+    .cellGradeEnabled {
+        min-width: 200px;
+    }
+
+        .cellGradeEnabled:hover {
+            cursor: pointer;
+            background-color: orange;
+        }
+
+    .cellGradeEnabled {
+        min-width: 200px;
+    }
+
+    .cellGradeDisabled {
+        min-width: 200px;
+    }
+
+    .cellGradeEnabled:hover {
+    }
+</style>
 <div class="container">
     <form name="frmGrade" autocomplete="off">
         <div class="block">
@@ -13,10 +33,18 @@
                                    ng-change="DicionaryValidate('txtCodVeiculo')"
                                    ng-required="true"
                                    primarybind="txtCodVeiculo"
-                                   secondarybind="">
+                                   secondarybind="txtNomeVeiculo">
                         </div>
                     </div>
                     <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="Filtro.Nome_Veiculo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
                         <div class="dictionary" dictionary="Competencia" caption="Competência" required>
                             <input ng-model="Filtro.Competencia"
                                    ui-MesAno ng-model-options="{updateOn: 'blur'}"
@@ -25,21 +53,61 @@
                             <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia" params="CompetenciaKeys"></div>
                         </div>
                     </div>
+                    <div class="col-md-2" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Programa">
+                            <input id="txtCodPrograma"
+                                   ng-model="Filtro.Cod_Programa"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCodPrograma')"
+                                   placeholder="Opcional"
+                                   primarybind="txtCodPrograma"
+                                   secondarybind="txtNomePrograma">
+                        </div>
+                        
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="txtNomePrograma" class="field-x" style="visibility:hidden">..</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNomePrograma" class="form-control " ng-model="Filtro.Nome_Programa">
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="row margin-top-20">
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-success" ng-disabled="frmGrade.$invalid" ng-click="CarregarGrade(Filtro)">Filtrar</button>
-                        <button type="button" class="btn btn-warning" ng-click="NewFilter()">Limpar Filtros</button>
-                        <a href="#GradeCadastro" class="btn btn-primary">Criar Grade</a>
+                        <button type="button" class="btn btn-warning" ng-click="NewFilter(true)">Limpar Filtros</button>
+                        <button type="button" class="btn btn-primary" ng-disabled="!PermissaoNew" ng-click="GradeCadastro('New','0','0','0')">Criar Grade</button>
+                        <!--<button type="button" class="btn btn-primary" ng-click="" ng-show="PermissaoReplicar">Replicar Grade</button>-->
                     </div>
                 </div>
+                
+                <div class="alert alert-info alert-icon-block alert-dismissible margin-top-20" role="alert" ng-show="ShowAviso">
+                    <div class="alert-icon">
+                        <span class="icon-checkmark-circle"></span>
+                    </div>
+                    <strong>Atenção!</strong> Não existe Grade de Programação com esse Filtro !
+                    <button type="button" class="close" data-dismiss="alert" ng-click="ShowAviso=false" aria-label="Close"><span class="fa fa-times"></span></button>
+                </div>
+                
             </div>
 
             <div id="divGrid" ng-show="ShowGrid">
                 <div class="row">
                     <div class="col-md-12">
-                        <button type="button" class="btn btn-info" ng-click="NewFilter()">Novo Filtro</button>
-                        <a href="#GradeCadastro" class="btn btn-primary">Criar Grade</a>
+                        <button type="button" class="btn btn-info" ng-click="ShowFilter=true;ShowGrid=false">Novo Filtro</button>
+                        <button type="button" class="btn btn-primary" ng-disabled="!PermissaoNew" ng-click="GradeCadastro('New','0','0','0')">Criar Grade</button>
+                        <!--<button type="button" class="btn btn-primary" ng-click="" ng-show="PermissaoReplicar">Replicar Grade</button>-->
+                    </div>
+                </div>
+                <div class="row margin-top-20">
+                    <div class="alert alert-primary alert-icon-block" role="alert">
+                        <div class="alert-icon">
+                            <span class="icon icon-checkmark-circle" style="font-size:20px !important"></span>
+                        </div>
+                        <strong>Veiculo:{{Filtro.Cod_Veiculo}} - {{Filtro.Nome_Veiculo}}</strong>
                     </div>
                 </div>
                 <div class="box table-responsive">
@@ -54,14 +122,19 @@
                         <tr>
 
                             <td ng-repeat="dia in Grades.Dias track by $index" style="vertical-align:top;text-align:center;padding:5px 5px 5px 5px">
-                                <table class="table table-bordered table-striped">
+                                <table class="table table-bordered">
                                     <tr ng-repeat="programa in dia.Programas track by $index" style="font-size:11px">
-                                        <td style="min-width:200px">
+                                        <td ng-class="(PermissaoEdit || PermissaoDelete || PermissaoActivate) ? 'cellGradeEnabled':'cellGradeDisabled'"
+                                            ng-click="(PermissaoEdit || PermissaoDelete || PermissaoActivate) ? GradeCadastro('Edit',Filtro.Cod_Veiculo,dia.Data_Exibicao,programa.Cod_Programa) :''">
                                             {{programa.Hora_Inicio}} as {{programa.Hora_Termino}}
+                                            <br />
+                                            <span>{{programa.Cod_Programa}}</span>
                                             <br />
                                             <span>{{programa.Nome_Programa}}</span>
                                             <br />
                                             <span>{{programa.Nome_Genero}}</span>
+                                            <br />
+                                            <span ng-show="programa.Indica_Desativado"><label class="label label-danger" >Desativado</label></span>
                                         </td>
                                     </tr>
                                 </table>

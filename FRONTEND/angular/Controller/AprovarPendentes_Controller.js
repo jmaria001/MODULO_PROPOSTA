@@ -37,7 +37,6 @@
     $scope.RecusarProposta = function (pId_Simulacao, pMotivo) {
         
         var _data = { 'Id_Simulacao': pId_Simulacao, 'Action': 'Recusar', 'Motivo': pMotivo };
-        console.log(_data);
         httpService.Post("AprovarProposta", _data).then(function (response) {
             if (response) {
                 $scope.Aviso = response.data[0];

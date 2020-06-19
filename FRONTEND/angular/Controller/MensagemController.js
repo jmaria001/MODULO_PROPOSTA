@@ -41,7 +41,6 @@
         $scope.SelectCount = $scope.UsuarioAlerta.filter(function (el) {
             return (el.Selecionado === true);
         }).length;
-        console.log($scope.SelectCount)
     }
     $scope.CancelarMensagem = function () {
                 $location.path("/blank");

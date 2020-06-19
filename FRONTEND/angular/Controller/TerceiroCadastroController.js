@@ -138,7 +138,8 @@
             var _data = { 'Cod_Terceiro': pTerceiro.Cod_Terceiro, 'Complementar': [$scope.Terceiro.Complementar[$scope.CurrentEmpresa]], 'Empresas': $scope.Terceiro.Empresas }
             httpService.Post("ReativarTerceiro", _data).then(function (response) {
                 if (response.data) {
-                    $scope.CarregaDados();
+                    ShowAlert(response.data[0].Mensagem,'success');
+                    $location.path("/Terceiro")
                 }
             });
         });
@@ -166,9 +167,9 @@
             var _data = { 'Cod_Terceiro': pTerceiro.Cod_Terceiro, 'Complementar': [$scope.Terceiro.Complementar[$scope.CurrentEmpresa]], 'Empresas': $scope.Terceiro.Empresas }
             httpService.Post("DesativarTerceiro", _data).then(function (response) {
                 if (response.data) {
-                    $scope.CarregaDados();
+                    ShowAlert(response.data[0].Mensagem, 'success');
+                    $location.path("/Terceiro")
                 }
-
             });
         });
     };

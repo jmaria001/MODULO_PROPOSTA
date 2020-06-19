@@ -54,6 +54,29 @@ namespace PROPOSTA
             }
         }
         //=================================Mode grafico de barra
+        [Route("api/DashBoard/EvolucaoVendas")]
+        [HttpPost]
+        [ActionName("EvolucaoVendas")]
+        [Authorize()]
+
+
+        public IHttpActionResult EvolucaoVendas(DashBoard.FiltroEvolucaoVendasModel param)
+        {
+            SimLib clsLib = new SimLib();
+            DashBoard Cls = new DashBoard(User.Identity.Name);
+            try
+            {
+                DashBoard.GraphModel dtb = Cls.EvolucaoVendas(param);
+                return Ok(dtb);
+
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+        //=================================Mode grafico de barra
         [Route("api/DashBoard/ModeloBarra")]
         [HttpPost]
         [ActionName("ModeloBarra")]

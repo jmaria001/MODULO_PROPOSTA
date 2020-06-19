@@ -24,6 +24,7 @@
         { 'Link': 'Parametro', 'Title': 'Parâmetros Gerais' },
         { 'Link': 'ParametroValoracao', 'Title': 'Parâmetros de Valoração' },
         { 'Link': 'Grade', 'Title': 'Grade da Programação' },
+        { 'Link': 'Rede', 'Title': 'Redes' },
     ];
     //===========================fim do load da pagina
     $scope.$watch('$viewContentLoaded', function () {

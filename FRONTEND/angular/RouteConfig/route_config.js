@@ -77,6 +77,13 @@
         routeName: 'Funil de Vendas',
         RouteId: 'FunilVendas@index'
     })
+         .when('/EvolucaoVendas', {
+             templateUrl: 'view/DashEvolucaoVendas.html',
+             authorize: true,
+             controller: 'DashEvolucaoVendasController',
+             routeName: 'Dashboard Evolução Vendas',
+             RouteId: 'EvolucaoVendas@Index'
+         })
     .when('/cadastro', {
         templateUrl: 'view/MenuCadastro.html',
         controller: 'MenuCadastroController',
@@ -285,7 +292,7 @@
         authorize: true,
         controller: 'RedeCadastroController',
         routeName: 'Inclusao de Rede',
-        RouteId: 'RedeCadastro@New'
+        RouteId: 'Rede@New'
     })
 
     .when('/MotivoCancelamento', {
@@ -467,13 +474,20 @@
             routeName: 'Alteração de Parametro de Valoração',
             RouteId: 'ParametroValoracao@Edit'
         })
-            .when('/Grade', {
-                templateUrl: 'view/Grade.html',
-                controller: 'GradeController',
-                authorize: true,
-                routeName: 'Grade da Programação',
-                RouteId: 'Grade@Index'
-            })
+    .when('/Grade', {
+        templateUrl: 'view/Grade.html',
+        controller: 'GradeController',
+        authorize: true,
+        routeName: 'Grade da Programação',
+        RouteId: 'Grade@Index'
+    })
+    .when('/GradeCadastro/:Action/:Veiculo/:Data/:Programa', {
+        templateUrl: 'view/GradeCadastro.html',
+        controller: 'GradeCadastroController',
+        authorize: true,
+        routeName: 'Edição da Grade de Programação',
+        RouteId: 'Grade@New'
+    })
     //----------------------------------------------------
     .when('/Simulacao', {
         templateUrl: 'view/simulacao_List.html',
@@ -594,6 +608,13 @@
         routeName: 'Mapas Reservas da Negociação',
         RouteId: ''
     })
+        .when('/MapaReservaImport', {
+            templateUrl: 'view/MapaReservaImport.html',
+            controller: 'MapaReservaImportController',
+            authorize: true,
+            routeName: 'Importação de Propostas para Mapa Reserva',
+            RouteId: 'MapaReserva@Import'
+        })
     .otherwise({ redirectTo: "/blank" })
 
 });

@@ -356,6 +356,8 @@
             'Veiculos': pEsquema.Veiculos,
             'Validade_Inicio': $scope.Simulacao.Validade_Inicio,
             'Validade_Termino': $scope.Simulacao.Validade_Termino,
+            'Cod_Empresa_Faturamento': pEsquema.Cod_Empresa_Faturamento,
+            'Duracao':pMidia.Duracao
         };
         httpService.Post("DistribuirInsercoes", _data).then(function (response) {
             if (response) {

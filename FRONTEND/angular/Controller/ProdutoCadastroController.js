@@ -165,11 +165,8 @@
         $scope.PesquisaTabelas.MultiSelect = true;
         $scope.PesquisaTabelas.MarcarTodos = false;
         $scope.PesquisaTabelas.ClickCallBack = function (value) {
-            console.log('blabla0');
             for (var i = 0; i < $scope.PesquisaTabelas.Items.length; i++) {
-                console.log('blabla1.5');
                 for (var x = 0; x < $scope.Produto.Clientes.length; x++) {
-                    console.log('blabla1');
                     if ($scope.PesquisaTabelas.Items[i].Codigo.trim() == $scope.Produto.Clientes[x].Cod_Cliente.trim()) {
                         $scope.PesquisaTabelas.Items[i].Selected=false
                     };

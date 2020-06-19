@@ -43,7 +43,7 @@ function fnDataTableLanguage() {
 };
 
 function ShowAlert(pMensagem, pType, pTimeout, pLayoyt) {
-
+    
     setTimeout(function () {
         swal('', pMensagem, pType);
     }, 100)
@@ -461,11 +461,11 @@ function FormatChart(pGraph,ptype)
         }
     }
     if (ptype.toUpperCase() == "NUMBER") {
-        pGraph.options.scales.yAxes[0].ticks = {
-            callback: function (value, index, values) {
-                return value;
-            }
-        };
+        //pGraph.options.scales.yAxes[0].ticks = {
+        //    callback: function (value, index, values) {
+        //        return value.toFixed(0);
+        //    }
+        //};
         pGraph.options.tooltips = {
             callbacks: {
                 label: function (tooltipItem, data) {

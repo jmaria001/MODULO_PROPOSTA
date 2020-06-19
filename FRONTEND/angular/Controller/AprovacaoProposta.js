@@ -14,7 +14,6 @@
     $scope.ShowButton = false;
     $scope.optRecusar = false;   
     $scope.token = getUrlParameter('token');
-    console.log($scope.token);
     httpService.Get('GetAprovacaoData/' + $scope.token).then(function (response) {
         if (response) {
             $scope.Simulacao= response.data;
@@ -45,7 +44,6 @@
     $scope.RecusarProposta = function (pId_Simulacao, pMotivo,pToken) {
 
         var _data = { 'Id_Simulacao': pId_Simulacao, 'Action': 'Recusar', 'Motivo': pMotivo,'Token':pToken };
-        console.log(_data);
         httpService.Post("AprovarProposta", _data).then(function (response) {
             if (response) {
                 $scope.Aviso = response.data[0];

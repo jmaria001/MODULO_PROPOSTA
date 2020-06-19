@@ -95,30 +95,30 @@ namespace PROPOSTA
             return Rede;
         }
 
-        //public DataTable ExcluirRede(RedeModel pRede)
-        //{
-        //    clsConexao cnn = new clsConexao(this.Credential);
-        //    cnn.Open();
-        //    SqlDataAdapter Adp = new SqlDataAdapter();
-        //    DataTable dtb = new DataTable("dtb");
-        //    SimLib clsLib = new SimLib();
-        //    try
-        //    {
-        //        SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_Tipo_Midia_Excluir");
-        //        Adp.SelectCommand = cmd;
-        //        Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
-        //        Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Tipo_Midia", pTipoMidia.Cod_Tipo_Midia);
-        //        Adp.Fill(dtb);
-        //    }
-        //    catch (Exception)
-        //    {
-        //        throw;
-        //    }
-        //    finally
-        //    {
-        //        cnn.Close();
-        //    }
-        //    return dtb;
-        //}
+        public DataTable ExcluirRede(RedeModel pRede)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_Rede_Excluir");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_RedeId", pRede.RedeID);
+                Adp.Fill(dtb);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
     }
 }

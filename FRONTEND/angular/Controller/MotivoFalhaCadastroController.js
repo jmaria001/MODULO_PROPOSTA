@@ -3,7 +3,6 @@
     //========================Recebe Parametro
     $scope.Parameters = $routeParams;
     $scope.MotivoFalha = "";
-    //console.log($scope.Parameters); //este linha permite vericar o que o parametro esta recebendo pelo browsers
 
     //==========================Seta o nome da rota
     if ($scope.Parameters.Action== 'New') {

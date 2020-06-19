@@ -515,6 +515,8 @@ namespace PROPOSTA
                 {
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Termino", Param.Validade_Termino.ConvertToDatetime());
                 }
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Empresa_Faturamento", Param.Cod_Empresa_Faturamento);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Duracao", Param.Duracao);
 
                 Adp.Fill(dtb);
                 if (dtb.Rows[0]["Status"].ToString().ConvertToBoolean())

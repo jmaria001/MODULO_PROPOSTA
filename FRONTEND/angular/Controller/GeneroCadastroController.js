@@ -3,7 +3,6 @@
     //========================Recebe Parametro
     $scope.Parameters = $routeParams;
     $scope.Genero = "";
-    console.log($scope.Parameters);
     //========================Verifica Permissoes
     $scope.PermissaoDelete = false;
     httpService.Get("credential/Genero@Destroy").then(function (response) {

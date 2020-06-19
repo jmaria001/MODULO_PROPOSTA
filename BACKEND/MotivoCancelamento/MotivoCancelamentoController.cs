@@ -74,28 +74,28 @@ namespace PROPOSTA
             }
         }
 
-        //===========================Excluir Tipo Midia
+        //===========================Excluir Motivo Cancelamento
 
-        //[Route("api/ExcluirRede")]
-        //[HttpPost]
-        //[ActionName("ExcluirRede")]
-        //[Authorize()]
+        [Route("api/ExcluirMotivoCancelamento")]
+        [HttpPost]
+        [ActionName("ExcluirMotivoCancelamento")]
+        [Authorize()]
 
-        //public IHttpActionResult ExcluirRede([FromBody] Rede.RedeModel pRede)
-        //{
-        //    SimLib clsLib = new SimLib();
-        //    Rede Cls = new Rede(User.Identity.Name);
-        //    try
-        //    {
-        //        DataTable retorno = Cls.ExcluirRede(pRede);
-        //        return Ok(retorno);
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
-        //        throw new Exception(Ex.Message);
-        //    }
-        //}
+        public IHttpActionResult ExcluirMotivoCancelamento([FromBody] MotivoCancelamento.MotivoCancelamentoModel param)
+        {
+            SimLib clsLib = new SimLib();
+            MotivoCancelamento Cls = new MotivoCancelamento(User.Identity.Name);
+            try
+            {
+                DataTable retorno = Cls.ExcluirMotivoCancelamento(param);
+                return Ok(retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
 
     }
 

@@ -1,0 +1,92 @@
+﻿
+<div class="container">
+    <div class="block" id="divFiltro">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="dictionary" dictionary="Competencia" caption="Competência Início">
+                    <input ng-model="Filtro.Competencia_Inicio"
+                           ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                           ng-change="SetaCompetenciaFinalKey()"
+                           placeholder="Informe a Competência">
+                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia_Inicio" params="CompetenciaInicioKeys"></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="dictionary" dictionary="Competencia" caption="Competência Fim">
+                    <input ng-model="Filtro.Competencia_Fim"
+                           ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                           placeholder="Informe a Competência">
+                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia_Fim" params="CompetenciaFimKeys"></div>
+                </div>
+            </div>
+            <!--======================Grupo -->
+            <!--<div class="col-md-2 margin-top-10">
+                <div class="form-group">
+                    <label>Visão </label>
+                    <select class="form-control"
+                            ng-model="Filtro.Postipo"
+                            ng-disabled="Parameters.Action=='Edit'"
+                            ng-change="GrupoChange(Filtro)"
+                            name="optPosVisao"
+                            ng-options="Filtro.id as Filtro.descricao for Filtro in PosTipo"></select>
+                </div>
+            </div>-->
+
+            <!--======================Indicadores -->
+            <div class="col-md-2 margin-top-10">
+                <div class="form-group">
+                    <label>Indicador </label>
+                    <select class="form-control"
+                            ng-model="Filtro.Indicador"
+                            ng-disabled="Parameters.Action=='Edit'"
+                            ng-change="GrupoChange(Filtro)"
+                            name="optIndicador"
+                            ng-options="Filtro.id as Filtro.descricao for Filtro in Indicador"></select>
+                </div>
+            </div>
+
+        </div>
+        <!--<div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-success" ng-click="CarregarBarra(Filtro)" style="margin-top:35px">Modelo Barras</button>
+                <button class="btn btn-success" ng-click="CarregarLinha(Filtro)" style="margin-top:35px">Modelo Linhas</button>
+                <button class="btn btn-success" ng-click="CarregarPie(Filtro)" style="margin-top:35px">Modelo Pie</button>
+            </div>
+        </div>-->
+    </div>
+    <!--{{ShowBarra}}-->
+    <div class="block" id="divGraph" ng-show="ShowBarra">
+
+        <div class="row">
+            <div class="col-md-12">
+                <canvas id="chart_Evolucao" height="1034" width="4304"></canvas>
+            </div>
+        </div>
+        <!--div class="row" ng-show="Show=='Line'">
+            <div class="col-md-12">
+                <canvas id="chart_Line" height="1434" width="4304"></canvas>
+            </div>
+        </div>
+        <div class="row" ng-show="Show=='Pie'">
+            <div class="col-md-12">
+                <canvas id="chart_Pie" height="1434" width="4304"></canvas>
+            </div>
+        </div>-->
+    </div>
+
+
+    <div class="block" id="divAviso" ng-show="!ShowBarra">
+        <div class="alert alert-warning alert-icon-block alert-dismissible" role="alert">
+            <div class="alert-icon">
+                <span class="icon-checkmark-circle"></span>
+            </div>
+            <strong>Atenção!</strong> Não existe dados para esse Filtro !
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span class="fa fa-times"></span></button>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

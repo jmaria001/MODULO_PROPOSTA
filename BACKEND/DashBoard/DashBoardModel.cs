@@ -166,6 +166,15 @@ namespace PROPOSTA
             public String Competencia_Fim { get; set; }
 
         }
+        //===============================Models para parametro do Evolucao de Vendas
+        public class FiltroEvolucaoVendasModel
+        {
+            public String Competencia_Inicio { get; set; }
+            public String Competencia_Fim { get; set; }
+            public String Postipo { get; set; }
+            public String Indicador { get; set; }
+
+        }
 
     }
 }
