@@ -5,11 +5,100 @@ using System.Xml;
 using System.Security;
 using System.Xml.Serialization;
 using System.IO;
+using System.Data.SqlClient;
 
 namespace PROPOSTA
 {
     public partial class SimLib
     {
+        public void NewParameter(SqlDataAdapter adp,String Parameter,String value)
+        {
+            
+            if (!String.IsNullOrEmpty(value))
+            {
+                adp.SelectCommand.Parameters.AddWithValue(Parameter, value.TrimEnd());
+            }
+            else
+            {
+                adp.SelectCommand.Parameters.AddWithValue(Parameter, DBNull.Value);
+            }
+        }
+        public void NewParameter(SqlDataAdapter adp, String Parameter, Int32 value)
+        {
+            
+            adp.SelectCommand.Parameters.AddWithValue(Parameter, value);
+            
+        }
+        public void NewParameter(SqlDataAdapter adp, String Parameter, Int32 value,Boolean ConvertZeroToNull)
+        {
+            if (value==0 )
+            {
+                if (ConvertZeroToNull)
+                {
+                    adp.SelectCommand.Parameters.AddWithValue(Parameter, DBNull.Value);
+                }
+                else
+                {
+                    adp.SelectCommand.Parameters.AddWithValue(Parameter, value);
+                }
+            }
+            else
+            {
+                adp.SelectCommand.Parameters.AddWithValue(Parameter, value);
+            }
+        }
+        public void NewParameter(SqlDataAdapter adp, String Parameter, Boolean value,Boolean ConvertBooleanToTinyint)
+        {
+            if (ConvertBooleanToTinyint)
+            {
+                adp.SelectCommand.Parameters.AddWithValue(Parameter, (value ? 1 : 0));
+            }
+            else
+            {
+                adp.SelectCommand.Parameters.AddWithValue(Parameter, value);
+            }
+
+        }
+        public void NewParameter(SqlDataAdapter adp, String Parameter, Boolean value )
+        {
+
+            adp.SelectCommand.Parameters.AddWithValue(Parameter, value);
+
+        }
+        public void NewParameter(SqlDataAdapter adp, String Parameter, Byte value)
+        {
+            adp.SelectCommand.Parameters.AddWithValue(Parameter, value);
+        }
+        public void NewParameter(SqlDataAdapter adp, String Parameter, Byte value, Boolean ConvertZeroToNull)
+        {
+            if (value == 0)
+            {
+                if (ConvertZeroToNull)
+                {
+                    adp.SelectCommand.Parameters.AddWithValue(Parameter, DBNull.Value);
+                }
+                else
+                {
+                    adp.SelectCommand.Parameters.AddWithValue(Parameter, value);
+                }
+            }
+            else
+            {
+                adp.SelectCommand.Parameters.AddWithValue(Parameter, value);
+            }
+        }
+        public void NewParameter(SqlDataAdapter adp, String Parameter, DateTime value)
+        {
+            if (value == DateTime.MinValue)
+            {
+                adp.SelectCommand.Parameters.AddWithValue(Parameter, DBNull.Value);
+            }
+            else
+            {
+                adp.SelectCommand.Parameters.AddWithValue(Parameter, value);
+            }
+            
+        }
         public  String SerializeToString(object obj)
         {
             XmlSerializer serializer = new XmlSerializer(obj.GetType());
@@ -48,7 +137,6 @@ namespace PROPOSTA
             }
             return key.Substring(0, 5) + "-" + key.Substring(5, 5) + "-" + key.Substring(10, 5) + "-" + key.Substring(15,5);
         }
-
         public String Criptografa(String Par_Campo)
         {
             
@@ -75,8 +163,6 @@ namespace PROPOSTA
                 }
                 return _byte5;
             }
-        
-
         public  String Decriptografa(string Par_Campo)
         {
             String Var_Senha = "";

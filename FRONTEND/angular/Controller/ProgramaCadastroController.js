@@ -75,6 +75,7 @@
     };
 // Aqui foi definindo funções para apresentadores
     $scope.SelecionarApresentadores = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabelas();
         //var _url = 'ListarTabela/Apresentador'
         //_url += '?Abrangencia=' + $scope.Simulacao.Esquemas[$scope.currentEsquema].Abrangencia;
         //_url += '&Mercado=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Mercado);
@@ -123,6 +124,7 @@
 
     // Aqui foi definindo funções para veículos
     $scope.SelecionarVeiculos = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         var _url = 'ListarTabela/Veiculo'
         httpService.Get(_url).then(function (response) {
             if (response.data) {

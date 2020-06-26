@@ -85,6 +85,9 @@
     background-color: white;
     z-index: 99; /* Higher than anything else in the document */
 }
+.no-visible{
+    visibility:hidden;
+}
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;

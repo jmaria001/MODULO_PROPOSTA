@@ -1,4 +1,4 @@
-﻿angular.module('App').controller('dictionaryController', ['$scope', 'httpService', '$document', function ($scope, httpService, $document) {
+﻿    angular.module('App').controller('dictionaryController', ['$scope', 'httpService', '$document', function ($scope, httpService, $document) {
     $scope.elementToBind = undefined;
     $scope.dictionaryTable = undefined;
     $scope.MultiSelect = false;

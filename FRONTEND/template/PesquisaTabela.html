@@ -33,7 +33,7 @@
                             <table class="table table-bordered table-select">
                                 <tbody>
                                     <tr>
-                                        <th ng-show="PesquisaTabelas.MultiSelect"></th>
+                                        <th ng-show="PesquisaTabelas.MultiSelect"></th> 
                                         <th>Código</th>
                                         <th>Descrição</th>
                                     </tr>
@@ -59,8 +59,12 @@
                 </div>
             </div>
             <div class="modal-footer">
+                
                 <div class="row">
-                    <div class="col-md-4" ng-show="PesquisaTabelas.MultiSelect && PesquisaTabelas.Items.length >0">
+                    <div class="col-md-5" ng-show="PesquisaTabelas.ButtonText">
+                        <button class="btn btn-default" ng-click="PesquisaTabelas.ButtonCallBack()">{{PesquisaTabelas.ButtonText}}</button>
+                    </div>
+                    <div class="col-md-3" ng-show="PesquisaTabelas.MultiSelect && PesquisaTabelas.Items.length >0">
                         <div class="form-group" style="width:auto">
                             <div class="input-group">
                                 <div class="app-checkbox">
@@ -69,7 +73,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-8 pull-right">
+                    <div class="col-md-4 pull-right margin-right-20">
                         <button  type="button" ng-show="PesquisaTabelas.MultiSelect" class="btn btn-success" data-dismiss="modal" ng-click="PesquisaTabelas.ClickCallBack(PesquisaTabelas.Items)">Ok</button>
                         <button type="button" class="btn btn-warning" data-dismiss="modal">Cancela</button>
                     </div>

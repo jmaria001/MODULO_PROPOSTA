@@ -57,6 +57,7 @@
     };
     //===========================Pesquisa Segmento
     $scope.PesquisaSegmento = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         var _url = 'ListarTabela/Segmento';
         httpService.Get(_url).then(function (response) {
             $scope.PesquisaTabelas = {}
@@ -76,6 +77,7 @@
     };
     //===========================Pesquisa Setor
     $scope.PesquisaSetor = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         var _url = 'SetorListar/' + $scope.Produto.Cod_Segmento;
         httpService.Get(_url).then(function (response) {
             $scope.PesquisaTabelas = {}

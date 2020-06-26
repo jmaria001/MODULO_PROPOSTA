@@ -61,9 +61,9 @@
 
     //===========================Pesquisa Segmento
     $scope.PesquisaSegmento = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         var _url = 'ListarTabela/Segmento';
         httpService.Get(_url).then(function (response) {
-            $scope.PesquisaTabelas = {}
             if (response.data) {
                 $scope.ListaProdutos = response.data;
                 $scope.PesquisaTabelas.Items = $scope.ListaProdutos;
@@ -84,9 +84,9 @@
     };
     //===========================Pesquisa Setor
     $scope.PesquisaSetor = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         var _url = 'SetorListar/' + $scope.Produto.Cod_Segmento;
         httpService.Get(_url).then(function (response) {
-            $scope.PesquisaTabelas = {}
             if (response.data) {
                 $scope.ListaProdutos = response.data;
                 $scope.PesquisaTabelas.Items = $scope.ListaProdutos;
@@ -157,6 +157,7 @@
     };
     //========================Selecionar CLiente 
     $scope.SelecionarCLiente = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         $scope.PesquisaTabelas.Items = "";
         $scope.PesquisaTabelas.FiltroTexto = ""
         $scope.PesquisaTabelas.PreFiltroTexto = "";

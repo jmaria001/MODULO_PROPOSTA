@@ -100,7 +100,12 @@ namespace PROPOSTA
                 {
                     Retorno.Empresas_Venda = new List<Negociacao.NegociacaoEmpresaVendaModel>();
                     Retorno.Empresas_Faturamento = new List<Negociacao.NegociacaoEmpresaFaturamentoModel>();
+                    Retorno.Agencias= new List<Negociacao.NegociacaoAgenciaModel>();
+                    Retorno.Clientes= new List<Negociacao.NegociacaoClienteModel>();
+                    Retorno.Contatos = new List<Negociacao.NegociacaoContatoModel>();
+                    Retorno.Nucleos= new List<Negociacao.NegociacaoNucleoModel>();
                     Retorno.Intermediarios = new List<Negociacao.NegociacaoIntermediarioModel>();
+                    Retorno.Apresentadores= new List<Negociacao.NegociacaoApresentadorModel>();
                 }
                 else
                 {

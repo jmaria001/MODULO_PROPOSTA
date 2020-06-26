@@ -297,7 +297,7 @@
                             ng-model="FiltroMidia.Cod_Veiculo"
                             ng-change="CarregaMidia()"
                             name="txtCompetencia"
-                            ng-options="Veiculo.Cod_Veiculo as Veiculo.Nome_Veiculo for Veiculo in Veiculos"></select>
+                            ng-options="Veiculo.Cod_Veiculo as Veiculo.Cod_Veiculo + '-' + Veiculo.Nome_Veiculo for Veiculo in Veiculos"></select>
                 </div>
             </div>
             <div class="col-md-2">

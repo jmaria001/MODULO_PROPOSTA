@@ -62,6 +62,7 @@
     $scope.CarregaGrade();
     //======================================Pesquisa Programas da Rede
     $scope.PesquisaPrograma = function (pRedeId) {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         httpService.Get('Grade/GetProgramas?RedeId=' + pRedeId + '&').then(function (response) {
             if (response.data) {
                 $scope.PesquisaTabelas.Items = response.data

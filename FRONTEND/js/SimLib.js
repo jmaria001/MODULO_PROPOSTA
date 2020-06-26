@@ -43,7 +43,10 @@ function fnDataTableLanguage() {
 };
 
 function ShowAlert(pMensagem, pType, pTimeout, pLayoyt) {
-    
+    console.log(pType);
+    if (!pType) {
+        pType="warning"
+    }
     setTimeout(function () {
         swal('', pMensagem, pType);
     }, 100)
@@ -60,28 +63,28 @@ function CompetenciaToInt(pCompetencia) {
     }
 }
 
-function MesExtenso(pParam, pFormat) {
-    var _dt = new Date(pParam);
-    var _mes = _dt.getMonth();
-    var _ano = _dt.getFullYear();
-    var _aMes = ['Janeiro', 'Fevereiro', 'Marco', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-    var _ext = _aMes[_mes];
-    switch (pFormat) {
-        case 'short-yyyy':
-            var _ret = _ext.substring(0, 3); + '/' + _ano;
-            break;
-        case 'long-yyyy':
-            var _ret = _ext + '/' + _ano;
-            break;
-        case 'short':
-            var _ret = _ext.substring(0, 3);
-            break;
-        case 'long':
-            var _ret = _ext;
-            break;
-    }
-    return _ret;
-}
+//function MesExtenso(pParam, pFormat) {
+//    var _dt = new Date(pParam);
+//    var _mes = _dt.getMonth();
+//    var _ano = _dt.getFullYear();
+//    var _aMes = ['Janeiro', 'Fevereiro', 'Marco', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+//    var _ext = _aMes[_mes];
+//    switch (pFormat) {
+//        case 'short-yyyy':
+//            var _ret = _ext.substring(0, 3); + '/' + _ano;
+//            break;
+//        case 'long-yyyy':
+//            var _ret = _ext + '/' + _ano;
+//            break;
+//        case 'short':
+//            var _ret = _ext.substring(0, 3);
+//            break;
+//        case 'long':
+//            var _ret = _ext;
+//            break;
+//    }
+//    return _ret;
+//}
 
 function CurrentMMYYYY(pIncrement) {
 
@@ -494,3 +497,31 @@ function FormatChart(pGraph,ptype)
     }
     
 }
+
+function NewPesquisaTabela()
+{
+    return {
+        "Items": [],
+        'FiltroTexto': '',
+        'ClickCallBack': '',
+        'Titulo': '',
+        'MultiSelect': false,
+        'PreFiltroTexto': "",
+        'PreFilter' : false,
+        'ButtonText': '',
+        'LoadCallBack': '',
+        'ButtonCallBack':'',
+    };
+}
+
+
+
+
+
+
+
+
+
+
+
+

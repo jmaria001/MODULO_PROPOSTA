@@ -40,6 +40,7 @@
     });
     //===============================Selecao de Empresas de Venda
     $scope.SelecionarEmpresaVenda = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         var _url = 'ListarTabela/Empresa_Usuario'
         httpService.Get(_url).then(function (response) {
             $scope.PesquisaTabelas = {}
@@ -79,6 +80,7 @@
     }
     //===============================Selecao de Empresas de Faturamento
     $scope.SelecionarEmpresaFaturamento = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         var _url = 'ListarTabela/Empresa_Usuario'
         httpService.Get(_url).then(function (response) {
             $scope.PesquisaTabelas = {}
@@ -153,6 +155,7 @@
     };
     //===============Clicou na lupa da inclusao de intermediario
     $scope.PesquisaIntermediario = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         $scope.PesquisaTabelas.Items = "";
         $scope.PesquisaTabelas.FiltroTexto = ""
         $scope.PesquisaTabelas.PreFilter = true;
@@ -190,6 +193,7 @@
     };
     //===============================Selecao de Apresentadores
     $scope.SelecionarApresentadores = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         var _url = 'ListarTabela/Apresentador_Codigo'
         httpService.Get(_url).then(function (response) {
             $scope.PesquisaTabelas = {}

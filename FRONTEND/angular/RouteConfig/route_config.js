@@ -602,19 +602,19 @@
             RouteId: 'MapaReserva@Index'
         })
     .when('/MapaReservaCadastro/:Action/:Id', {
-        templateUrl: 'view/UnderConstrution.html',
-        //controller: 'NegociacaoDetalheController',
-        //authorize: true,
-        routeName: 'Mapas Reservas da Negociação',
-        RouteId: ''
+        templateUrl: 'view/MapaReservaCadastro.html',
+        controller: 'MapaReservaCadastroController',
+        authorize: true,
+        routeName: 'Manutencão de Mapa Reserva',
+        RouteId: 'MapaReserva@New'
     })
-        .when('/MapaReservaImport', {
-            templateUrl: 'view/MapaReservaImport.html',
-            controller: 'MapaReservaImportController',
-            authorize: true,
-            routeName: 'Importação de Propostas para Mapa Reserva',
-            RouteId: 'MapaReserva@Import'
-        })
+    .when('/MapaReservaImport', {
+        templateUrl: 'view/MapaReservaImport.html',
+        controller: 'MapaReservaImportController',
+        authorize: true,
+        routeName: 'Importação de Propostas para Mapa Reserva',
+        RouteId: 'MapaReserva@Import'
+    })
     .otherwise({ redirectTo: "/blank" })
 
 });

@@ -124,6 +124,7 @@
     };
     //=======================Selecao de Tipo de Comercial
     $scope.PesquisaTipoComercial = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         $scope.listaTipoComercial = ""
         var _url = 'ListarTabela/Tipo_Comercial'
         httpService.Get(_url).then(function (response) {

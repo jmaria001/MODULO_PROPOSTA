@@ -160,6 +160,185 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
+        [Route("api/MapaReserva/Import")]
+        [HttpGet]
+        [ActionName("MapaReservaImport")]
+        [Authorize()]
+        public IHttpActionResult MapaReservaImport()
+        {
+            SimLib clsLib = new SimLib();
+            MapaReserva Cls = new MapaReserva(User.Identity.Name);
+            try
+            {
+                DataTable Retorno = Cls.MapaReservaImport();
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+        [Route("api/MapaReserva/CarregarEsquema/{Id_Esquema}")]
+        [HttpGet]
+        [ActionName("MapaReservaCarregarEsquema")]
+        [Authorize()]
+        public IHttpActionResult MapaReservaCarregarEsquema(Int32 Id_Esquema)
+        {
+            SimLib clsLib = new SimLib();
+            MapaReserva Cls = new MapaReserva(User.Identity.Name);
+            try
+            {
+                MapaReserva.ContratoModel Retorno = Cls.MapaReservaCarregarEsquema(Id_Esquema);
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/MapaReserva/ValidarNegociacao")]
+        [HttpPost]
+        [ActionName("MapaReservaValidarNegociacao")]
+        [Authorize()]
+        public IHttpActionResult MapaReservaValidadarNegociacao([FromBody] MapaReserva.ContratoModel param)
+        {
+            SimLib clsLib = new SimLib();
+            MapaReserva Cls = new MapaReserva(User.Identity.Name);
+            try
+            {
+                DataTable Retorno = Cls.MapaReservaValidarNegociacao(param);
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+        [Route("api/MapaReserva/LocalizarNegociacao")]
+        [HttpPost]
+        [ActionName("MapaReservaLocalizarNegociacao")]
+        [Authorize()]
+        public IHttpActionResult MapaReservaLocalizarNegociacao([FromBody] MapaReserva.ContratoModel param)
+        {
+            SimLib clsLib = new SimLib();
+            MapaReserva Cls = new MapaReserva(User.Identity.Name);
+            try
+            {
+                DataTable Retorno = Cls.MapaReservaLocalizarNegociacao(param);
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/MapaReserva/ListarProdutoCliente/{Cod_Terceiro}")]
+        [HttpGet]
+        [ActionName("MapaReservaListarProdutoCliente")]
+        [Authorize()]
+        public IHttpActionResult MapaReservaListarProdutoCliente(String Cod_Terceiro)
+        {
+            SimLib clsLib = new SimLib();
+            MapaReserva Cls = new MapaReserva(User.Identity.Name);
+            try
+            {
+                DataTable Retorno = Cls.MapaReservaListarProdutoCliente(Cod_Terceiro);
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/MapaReserva/GetContrato/{Id_Contrato}")]
+        [HttpGet]
+        [ActionName("MapaReservaGetContrato")]
+        [Authorize()]
+        public IHttpActionResult MapaReservaGetContrato(Int32 Id_Contrato)
+        {
+            SimLib clsLib = new SimLib();
+            MapaReserva Cls = new MapaReserva(User.Identity.Name);
+            try
+            {
+                MapaReserva.ContratoModel Retorno = new MapaReserva.ContratoModel();
+                if (Id_Contrato>0)
+                {
+                    Retorno = Cls.MapaReservaGetContrato(Id_Contrato);
+                    
+                }
+                else
+                {
+                    Retorno.Comerciais = new List<MapaReserva.ComercialModel>();
+                    Retorno.Editar_Negociacao = true;
+                    Retorno.Editar_Cliente = true;
+                    Retorno.Editar_Agencia = true;
+                    Retorno.Editar_Contato = true;
+                    Retorno.Editar_Nucleo = true;
+                    Retorno.Editar_Empresa_Venda = true;
+                    Retorno.Editar_Empresa_Faturamento = true;
+                    Retorno.Editar_Tipo_Midia = true;
+                    Retorno.Editar_Mercado = true;
+                    Retorno.Editar_Abrangencia = true;
+                    Retorno.Editar_Periodo_Campanha = true;
+                    Retorno.Editar_Valor_Informado = true;
+                    Retorno.Editar_Abrangencia = true;
+                }
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/MapaReserva/GetTerceirosNegociacao")]
+        [HttpGet]
+        [ActionName("GetTerceirosNegociacao")]
+        [Authorize()]
+        public IHttpActionResult GetTerceirosNegociacao([FromUri] MapaReserva.GetTerceirosNegociacaoModel param)
+        {
+            SimLib clsLib = new SimLib();
+            MapaReserva Cls = new MapaReserva(User.Identity.Name);
+            try
+            {
+                DataTable Retorno = Cls.GetTerceirosNegociacao(param);
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/MapaReserva/Salvar")]
+        [HttpPost]
+        [ActionName("MapaReservaSalvar")]
+        [Authorize()]
+        public IHttpActionResult MapaReservaSalvar([FromBody] MapaReserva.ContratoModel param)
+        {
+            SimLib clsLib = new SimLib();
+            MapaReserva Cls = new MapaReserva(User.Identity.Name);
+            try
+            {
+                DataTable Retorno = Cls.MapaReservaSalvar(param);
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
 
     }
 }

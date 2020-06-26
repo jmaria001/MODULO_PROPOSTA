@@ -46,12 +46,12 @@ namespace PROPOSTA
             public String Tabela_Reaplicacao { get; set; }
             public Byte Sequencia_Tabela_Reaplicacao { get; set; }
             public String Desconto_Reaplicacao { get; set; } 
-
             public List<NegociacaoEmpresaVendaModel> Empresas_Venda { get; set; }
             public List<NegociacaoEmpresaFaturamentoModel> Empresas_Faturamento { get; set; }
             public List<NegociacaoAgenciaModel> Agencias { get; set; }
             public List<NegociacaoClienteModel> Clientes { get; set; }
             public List<NegociacaoContatoModel> Contatos { get; set; }
+            public List<NegociacaoNucleoModel> Nucleos { get; set; }
             public List<NegociacaoIntermediarioModel> Intermediarios{ get; set; }
             public List<NegociacaoApresentadorModel> Apresentadores{ get; set; }
 
@@ -80,6 +80,11 @@ namespace PROPOSTA
         {
             public String Cod_Contato{ get; set; }
             public String Nome_Contato{ get; set; }
+        }
+        public class NegociacaoNucleoModel
+        {
+            public String Cod_Nucleo{ get; set; }
+            public String Nome_Nucleo{ get; set; }
         }
 
         public class NegociacaoIntermediarioModel

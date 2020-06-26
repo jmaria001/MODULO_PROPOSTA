@@ -111,6 +111,7 @@ namespace PROPOSTA
                     Negociacao.Empresas_Faturamento = AddEmpresaFaturamento(drw["Numero_Negociacao"].ToString().ConvertToInt32());
                     Negociacao.Agencias = AddAgencias(drw["Numero_Negociacao"].ToString().ConvertToInt32());
                     Negociacao.Clientes = AddClientes(drw["Numero_Negociacao"].ToString().ConvertToInt32());
+                    Negociacao.Nucleos= AddNucleos(drw["Numero_Negociacao"].ToString().ConvertToInt32());
                     Negociacao.Contatos = AddContatos(drw["Numero_Negociacao"].ToString().ConvertToInt32());
                     Negociacao.Intermediarios = AddIntermediarios(drw["Numero_Negociacao"].ToString().ConvertToInt32());
                     Negociacao.Apresentadores= AddApresentadores(drw["Numero_Negociacao"].ToString().ConvertToInt32());
@@ -297,6 +298,40 @@ namespace PROPOSTA
                 cnn.Close();
             }
             return Contatos;
+        }
+        private List<NegociacaoNucleoModel> AddNucleos(Int32 pNegociacao)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            List<NegociacaoNucleoModel> Nucleos = new List<NegociacaoNucleoModel>();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Negociacao_Nucleo_List");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Numero_Negociacao", pNegociacao);
+                Adp.Fill(dtb);
+                foreach (DataRow drw in dtb.Rows)
+                {
+                    Nucleos.Add(new NegociacaoNucleoModel
+                    {
+                        Cod_Nucleo = drw["Cod_Nucleo"].ToString(),
+                        Nome_Nucleo = drw["Nome_Nucleo"].ToString(),
+                    });
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Nucleos;
         }
         private List<NegociacaoIntermediarioModel> AddIntermediarios(Int32 pNegociacao)
         {

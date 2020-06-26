@@ -7,7 +7,7 @@
         var deferred = $q.defer();
         $http({
             method: 'GET',
-            url: config.baseUrl + "API/" + pUrl,
+            url:config.baseUrl + "API/" + pUrl.trim(),
         }
         ).then(function (response) {
             deferred.resolve(response);

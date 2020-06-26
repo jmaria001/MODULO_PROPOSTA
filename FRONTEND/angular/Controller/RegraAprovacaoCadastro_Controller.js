@@ -85,6 +85,7 @@
     }
     //====================Selecionar Empresas 
     $scope.SelecionarEmpresas = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         httpService.Get('ListarTabela/Empresa_Usuario').then(function (response) {
             $scope.PesquisaTabelas = {}
             if (response.data) {
@@ -122,6 +123,7 @@
     }
     //====================Selecionar Veiculos 
     $scope.SelecionarVeiculos = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         httpService.Get('ListarTabela/Veiculo_Usuario').then(function (response) {
             $scope.PesquisaTabelas = {}
             if (response.data) {
@@ -159,6 +161,7 @@
     }
     //====================Selecionar Agencias 
     $scope.SelecionarAgencias = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         $scope.PesquisaTabelas = {
             'Items': [],
             'FiltroTexto': '',
@@ -210,6 +213,7 @@
     }
     //====================Selecionar Clientes
     $scope.SelecionarClientes = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         $scope.PesquisaTabelas = {
             'Items': [],
             'FiltroTexto': '',

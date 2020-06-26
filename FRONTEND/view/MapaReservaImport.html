@@ -1,0 +1,56 @@
+﻿<div class="container">
+
+    <div class="block">
+        <!--==============================================Grid -->
+        <div class="box table-responsive " style="min-height:600px" ng-show="CurrentShow=='Grid'">
+            <table id="dataTable" class="table table-striped table-bordered " cellspacing="0">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Id</th>
+                        <th>Identificação</th>
+                        <th>Competência</th>
+                        <th>Rede</th>
+                        <th>Emp.Venda</th>
+                        <th>Emp.Fat</th>
+                        <th>Agência</th>
+                        <th>Cliente</th>
+                       <th>Valor Tabela</th>
+                        <th>Valor Negociado</th>
+                        <th>Desconto Real</th>
+                        <th>Autor</th>
+                        <th>Status</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Simulacao in Simulacoes track by $index" on-finish-render="ngRepeatFinished">
+                        <td>
+                            <a href="#MapaReservaCadastro/Import/{{::Simulacao.Id_Esquema}}" class="btn btn-success btn-sm">
+                                Complementar
+                            </a>
+                        </td>
+                        <td style="text-align:center">{{::Simulacao.Id_Simulacao}}</td>
+                        <td>{{::Simulacao.Identificacao}}</td>
+                        <td style="text-align:center ">{{::Simulacao.Competencia_Text}}</td>
+                        <td>{{::Simulacao.Nome_Rede}}</td>
+                        <td style="text-align:center">{{::Simulacao.Cod_Empresa_Venda}}</td>
+                        <td style="text-align:center">{{::Simulacao.Cod_Empresa_Faturamento}}</td>
+                        <td style="text-align:left">{{Simulacao.Nome_Agencia}}</td>
+                        <td style="text-align:left">{{Simulacao.Nome_Cliente}}</td>
+                        <td style="text-align:right">{{::Simulacao.Valor_Total_Tabela | currency:"R$ ":2}}</td>
+                        <td style="text-align:right">{{::Simulacao.Valor_Total_Negociado | currency:"R$ ":2}}</td>
+                        <td style="text-align:right">{{::Simulacao.Desconto_Padrao | percentage:4}}</td>
+                        <td>{{::Simulacao.Nome_Usuario}}</td>
+                        <td style="text-align:center"><label class="label" ng-style="{'background-color':Simulacao.Backcolor,'color':Simulacao.Forecolor}">{{::Simulacao.Descricao_Status}}</label></td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+    });
+</script>

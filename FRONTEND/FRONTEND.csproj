@@ -113,6 +113,7 @@
     <Content Include="angular\Controller\GeneroCadastroController.js" />
     <Content Include="angular\Controller\GeneroController.js" />
     <Content Include="angular\Controller\GradeCadastroController.js" />
+    <Content Include="angular\Controller\MapaReservaCadastroController.js" />
     <Content Include="angular\Controller\MapaReservaDetalheController.js" />
     <Content Include="angular\Controller\MenuDashboardController.js" />
     <Content Include="angular\Controller\MotivoCancelamentoCadastroController.js" />
@@ -124,6 +125,7 @@
     <Content Include="angular\Controller\ParametroController.js" />
     <Content Include="angular\Controller\ParametroValoracaoCadastroController.js" />
     <Content Include="angular\Controller\ParametroValoracaoController.js" />
+    <Content Include="angular\Controller\MapaReservaImportController.js" />
     <Content Include="angular\Controller\ProdutoCadastroController - Copy.js" />
     <Content Include="angular\Controller\ProdutoCadastroController.js" />
     <Content Include="angular\Controller\NegociacaoCadastroController.js" />
@@ -235,11 +237,13 @@
     <Content Include="view\GradeCadastro - Copy.html" />
     <Content Include="view\GradeCadastro.html" />
     <Content Include="view\MapaReserva.html" />
+    <Content Include="view\MapaReservaCadastro.html" />
     <Content Include="view\MenuDashboard.html" />
     <Content Include="view\Parametro.html" />
     <Content Include="view\ParametroCadastro.html" />
     <Content Include="view\ParametroValoracao.html" />
     <Content Include="view\ParametroValoracaoCadastro.html" />
+    <Content Include="view\MapaReservaImport.html" />
     <Content Include="view\ProdutoCadastro.html" />
     <Content Include="Proposta_Aprovacao.html" />
     <Content Include="TASKS.TXT" />
