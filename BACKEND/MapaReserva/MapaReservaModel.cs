@@ -38,9 +38,9 @@ namespace PROPOSTA
             public String Numero_PI { get; set; }
             public String Obs_Roteiro { get; set; }
             public String Periodo_Campanha_Inicio { get; set; }
-            public String Periodo_Campanha_Termino { get; set; }
+            public String Periodo_Campanha_Termino { get; set; }  
             public Int32 Competencia { get; set; }
-            public Byte Indica_Grade { get; set; }
+            public Int32 Indica_Grade { get; set; }
             public String Cod_Cliente { get; set; }
             public String Nome_Cliente { get; set; }
             public String Cod_Agencia { get; set; }
@@ -55,21 +55,27 @@ namespace PROPOSTA
             public String Codigo_Projeto { get; set; }
             public Int32 Versao_Projeto { get; set; }
             public Boolean Criar_Negociacao { get; set; }
-            public Boolean Editar_Negociacao { get; set; }
-            public Boolean Editar_Cliente { get; set; }
-            public Boolean Editar_Agencia { get; set; }
-            public Boolean Editar_Contato { get; set; }
-            public Boolean Editar_Nucleo { get; set; }
-            public Boolean Editar_Empresa_Venda { get; set; }
-            public Boolean Editar_Empresa_Faturamento { get; set; }
-            public Boolean Editar_Tipo_Midia { get; set; }
-            public Boolean Editar_Mercado { get; set; }
-            public Boolean Editar_Abrangencia { get; set; }
-            public Boolean Editar_Periodo_Campanha { get; set; }
-            public Boolean Editar_Valor_Informado { get; set; }
+            public Boolean Editar_Negociacao { get; set; } = true;
+            public Boolean Editar_Cliente { get; set; } = true;
+            public Boolean Editar_Agencia { get; set; } = true;
+            public Boolean Editar_Contato { get; set; } = true;
+            public Boolean Editar_Nucleo { get; set; } = true;
+            public Boolean Editar_Empresa_Venda { get; set; } = true;
+            public Boolean Editar_Empresa_Faturamento { get; set; } = true;
+            public Boolean Editar_Tipo_Midia { get; set; } = true;
+            public Boolean Editar_Mercado { get; set; } = true;
+            public Boolean Editar_Abrangencia { get; set; } = true;
+            public Boolean Editar_Periodo_Campanha { get; set; } = true;
+            public Boolean Editar_Valor_Informado { get; set; } = true;
+            public Boolean Editar_Midia_Apoio{ get; set; } = true;
+            public Boolean Editar_Conta_Credito{ get; set; } = true;
+            public Boolean Editar_Caracteristica_Contrato{ get; set; } = true;
             public Int32 Id_Simulacao { get; set; }
             public Int32 Id_Esquema{ get; set; }
-            public Boolean Indica_Tqp { get; set; } 
+            public Boolean Indica_Tqp { get; set; }
+            public Int32 Sequenciador_Veiculacao { get; set; } = 0;
+            public Boolean Tem_Fatura { get; set; }
+            public Boolean Comprovado { get; set; }
             public List<ComercialModel> Comerciais { get; set; }
             public List<VeiculacacaoModel> Veiculacoes{ get; set; }
             public List<VeiculoModel> Veiculos{ get; set; }
@@ -87,6 +93,7 @@ namespace PROPOSTA
             public String Nome_Produto { get; set; }
             public String Numero_Fita { get; set; }
             public String Titulo_Comercial { get; set; }
+            public Boolean Tem_Veiculacao { get; set; }
         }
         public class VeiculacacaoModel
         {
@@ -104,8 +111,9 @@ namespace PROPOSTA
             public DateTime Data_Exibicao { get; set; }
             public byte Dia { get; set; }
             public String Dia_Semana  { get; set; }
-            public Int32 Qtd { get; set; }
+            public Int32? Qtd { get; set; }
             public Boolean Tem_Grade { get; set; }
+            public Boolean Valido{ get; set; }
         }
         public class VeiculoModel
         {
@@ -161,6 +169,14 @@ namespace PROPOSTA
             public Int32 Numero_Negociacao { get; set; }
             public String Tabela { get; set; }
             public String Codigo { get; set; }
+        }
+        public  class ParamNewMidiaModel
+        {
+
+            public String Inicio_Campanha{ get; set; }
+            public String Fim_Campanha{ get; set; }
+            public String    Cod_Programa { get; set; }
+            public List<VeiculoModel> Veiculos;
         }
     }
 }

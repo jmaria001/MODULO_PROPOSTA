@@ -3,7 +3,7 @@
     <!--div do filtro-->
     <div id="divFiltro" ng-show="ShowFilter">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="dictionary" dictionary="Competencia" caption="Competência">
                     <input ng-model="Filtro.Competencia"
                            ui-MesAno ng-model-options="{updateOn: 'blur'}"
@@ -11,9 +11,7 @@
                     <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia" params="CompetenciaKeys"></div>
                 </div>
             </div>
-        </div>
-        <!--===================Veiculo Mercado-->
-        <div class="row">
+            <!--===================Veiculo Mercado-->
             <div class="col-md-2  " ng-controller="dictionaryController">
                 <div class="dictionary" dictionary="Veiculo_Mercado">
                     <input id="txtCodVeiculo"
@@ -32,10 +30,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!--===================Programa-->
-        <div class="row">
+            <!--===================Programa-->
             <div class="col-md-2  " ng-controller="dictionaryController">
                 <div class="dictionary" dictionary="Programa">
                     <input id="txtCodPrograma"
@@ -51,6 +46,17 @@
                     <label for="txtTituloPrograma" class="field-x" style="visibility:hidden">..</label>
                     <div class="input-group">
                         <input type="text" disabled="disabled" id="txtTituloPrograma" class="form-control " ng-model="Filtro.Titulo">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-32 margin-top-30">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="app-checkbox">
+                            <label><input type="checkbox" name="app-checkbox-1" ng-model="Filtro.Indica_Vigente" /> Mostrar Tabela Vigente<span></span></label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -75,13 +81,11 @@
                 <thead>
                     <tr>
                         <th></th>
+                        <th>Titulo</th>
+                        <th>Nome Veiculo</th>
                         <th>Competência</th>
                         <th>Sequencia</th>
                         <th>Tipo Preço</th>
-                        <!--<th>Cod.Programa</th>-->
-                        <th>Titulo</th>
-                        <!--<th>Cod.Veiculo Mercado</th>-->
-                        <th>Nome Veiculo</th>
                         <th>Valor</th>
                     </tr>
                 </thead>
@@ -89,19 +93,14 @@
                     <tr ng-repeat="TabelaPrecos in TabelaPrecosS track by $index" on-finish-render="ngRepeatFinished()">
                         <td style="width:50px; text-align:center">
                             <a href="#TabelaPrecosCadastroEdit/Edit/{{TabelaPrecos.Competencia.replace('/','')}},{{::TabelaPrecos.Cod_Programa}},{{::TabelaPrecos.Cod_Veiculo_Mercado.trim()}}" ng-show="PermissaoEdit">
-                                    <span class="fa fa-edit fa-2x"></span>
-                                </a>
+                                <span class="fa fa-edit fa-2x"></span>
+                            </a>
                         </td>
+                        <td>{{::TabelaPrecos.Cod_Programa}}-{{::TabelaPrecos.Titulo}}</td>
+                        <td>{{::TabelaPrecos.Cod_Veiculo_Mercado}}-{{::TabelaPrecos.Nome_Veiculo}}</td>
                         <td>{{::TabelaPrecos.Competencia}}</td>
                         <td>{{::TabelaPrecos.Sequencia}}</td>
                         <td>{{::TabelaPrecos.Tipo_Preco}}</td>
-                        <!--<td>{{::TabelaPrecos.Cod_Programa}}</td>-->
-                        <td>{{::TabelaPrecos.Cod_Programa}}-{{::TabelaPrecos.Titulo}}</td>
-
-                        <!--<td>{{::TabelaPrecos.Titulo}}</td>-->
-                        <!--<td>{{::TabelaPrecos.Cod_Veiculo_Mercado}}</td>-->
-                        <td>{{::TabelaPrecos.Cod_Veiculo_Mercado}}-{{::TabelaPrecos.Nome_Veiculo}}</td>
-                        <!--<td>{{::TabelaPrecos.Nome_Veiculo}}</td>-->
                         <td>{{::TabelaPrecos.Valor | currency:"R$ ":2}}</td>
 
                     </tr>

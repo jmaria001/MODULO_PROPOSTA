@@ -53,8 +53,7 @@
                     }
                     _newdata = _dia + '/' + _mes + '/' + _ano
                     if (!IsDate(_newdata)) {
-                        //swal('', '[' + _newdata + ']' + 'Data Inválida', 'warning');
-                        ShowAlert('Data Inválida', 'error', 2000);
+                        ShowAlert('Data Inválida');
                         _newdata = '';
                         ctrl.$setViewValue(_newdata);
                         ctrl.$render();
@@ -112,15 +111,14 @@ angular.module("App").directive("uiMesano", function ($filter) {
                             break
                         default:
                             //swal('', 'Competência Inválida', 'warning');
-                            ShowAlert('Competência Inválida', 'error', 2000);
+                            ShowAlert('Competência Inválida');
                             return
                             break;
                     }
                     _newdata = _mes + '/' + _ano
                     if (parseInt(_mes) < 1 || parseInt(_mes) > 12) 
                     {
-                        ShowAlert('Competência Inválida', 'error', 2000);
-                        //swal('', '[' + _newdata + ']' + 'Competência Inválida', 'warning');
+                        ShowAlert('Competência Inválida');
                         ctrl.$setViewValue('');
                         ctrl.$render();
                     }
@@ -134,7 +132,6 @@ angular.module("App").directive("uiMesano", function ($filter) {
         }
     };
 });
-
 
 function IsDate(pData) //Valida e formata uma pData
 {

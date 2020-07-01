@@ -7,11 +7,11 @@ angular.module("App").directive("uiCalendar", function () {
         restrict: "AE",
         scope: {
             typdate: "=",
+            reference: "@"
         },
         transclude: true,
         link: function (scope, element, attrs, ctrls) {
             scope.aMonth = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-
             var d = new Date();
             scope.year = d.getFullYear();
             scope.month = d.getMonth();
@@ -33,8 +33,15 @@ angular.module("App").directive("uiCalendar", function () {
                 var dia = _ret.substring(_ret.length - 2, _ret.length);
                 var _ret = '000' + (scope.month+1)
                 var mes = _ret.substring(_ret.length - 2, _ret.length);
-                scope.typdate = dia + '/' + mes    + '/' + scope.year;
+                scope.typdate = dia + '/' + mes + '/' + scope.year;
 
+                //para disparar ng-change
+                if (scope.reference) {
+                    var ctrl = angular.element(document.getElementById(scope.reference)).data('$ngModelController');
+                    document.getElementById(scope.reference).value = scope.typdate;
+                    ctrl.$setViewValue(scope.typdate);
+                    ctrl.$commitViewValue();
+                };
             }
             $('.calendarcontent').on({
                 "click": function (e) {

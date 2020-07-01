@@ -37,6 +37,7 @@
         <div class="row" id="divContrato">
             <div class="alert alert-primary alert-icon-block" role="alert">
                 <strong>1-Dados do Contrato</strong>
+                <label class="label label-success pull-right" ng-show="Contrato.Tem_Fatura">Contrato Faturado</label>
             </div>
         </div>
 
@@ -306,6 +307,7 @@
                     <select class="form-control"
                             ng-model="FiltroMidia.Display"
                             ng-change="CarregaMidia()"
+                            ng-disabled="!FiltroMidia.Competencia || !FiltroMidia.Cod_Veiculo"
                             name="txtDisplay"
                             ng-options="Display.Id as Display.Nome  for Display in Display"></select>
                 </div>
@@ -445,6 +447,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <label ng-show="Contrato.Status_Valoracao==1" class="label label-success">Contrato Valorado com Sucesso</label>
                 <label ng-show="Contrato.Status_Valoracao==2" class="label label-danger">Contrato com Crítica de Valoração</label>
+                <label ng-show="Contrato.Status_Valoracao==2" class="label label-warning">Pendente de Valoração</label>
             </div>
         </div>
         <div class="row margin-top-20">

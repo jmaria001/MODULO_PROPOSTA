@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 namespace PROPOSTA
 {
     public partial class MapaReserva
-    
+
     {
         Int32 Sequenciador_Veiculacao = 0;
         public DataTable MapaReservaList(MapaReservaFiltroModel Param)
@@ -100,7 +100,7 @@ namespace PROPOSTA
             SqlDataAdapter Adp = new SqlDataAdapter();
             DataTable dtb = new DataTable("dtb");
             SimLib clsLib = new SimLib();
-            
+
             try
             {
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_MapaReserva_Get_Competencia");
@@ -164,10 +164,10 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Veiculo", Param.Cod_Veiculo);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Display", Param.Display);
                 Adp.Fill(dtb);
-                
+
 
                 DataView viewMidia = new DataView(dtb);
-                DataTable dtbMidia = viewMidia.ToTable(true, "Cod_Veiculo","Tipo_Linha","Cod_Programa","Cod_Caracteristica","Cod_Comercial","Indica_Exibido");
+                DataTable dtbMidia = viewMidia.ToTable(true, "Cod_Veiculo", "Tipo_Linha", "Cod_Programa", "Cod_Caracteristica", "Cod_Comercial", "Indica_Exibido");
                 Int32 Qtd_Total = 0;
                 Double Valor_Negociado = 0;
                 Double Valor_Tabela = 0;
@@ -177,12 +177,12 @@ namespace PROPOSTA
                     Valor_Negociado = 0;
                     Valor_Tabela = 0;
                     MapaReservaMidiaModel MidiaTemp = new MapaReservaMidiaModel();
-                    MidiaTemp.Tipo_Linha= drw["Tipo_Linha"].ToString().ConvertToInt32();
+                    MidiaTemp.Tipo_Linha = drw["Tipo_Linha"].ToString().ConvertToInt32();
                     MidiaTemp.Cod_Veiculo = drw["Cod_Veiculo"].ToString();
                     MidiaTemp.Cod_Programa = drw["Cod_Programa"].ToString();
                     MidiaTemp.Cod_Caracteristica = drw["Cod_Caracteristica"].ToString();
                     MidiaTemp.Cod_Comercial = drw["Cod_Comercial"].ToString();
-                    MidiaTemp.Indica_Exibido =drw["Indica_Exibido"].ToString().ConvertToBoolean();
+                    MidiaTemp.Indica_Exibido = drw["Indica_Exibido"].ToString().ConvertToBoolean();
                     MidiaTemp.Insercoes = new List<MapaReservaInsercoesModel>();
                     String strSql = "Cod_Veiculo = '" + drw["Cod_Veiculo"].ToString() + "'";
                     strSql += " And Tipo_Linha= '" + drw["Tipo_Linha"].ToString() + "'";
@@ -191,7 +191,7 @@ namespace PROPOSTA
                     strSql += " And Cod_Comercial= '" + drw["Cod_Comercial"].ToString() + "'";
                     strSql += " And Indica_Exibido= " + drw["Indica_Exibido"].ToString();
 
-                    DataRow[] rows = dtb.Select(strSql,"Data_Exibicao");
+                    DataRow[] rows = dtb.Select(strSql, "Data_Exibicao");
                     for (int i = 0; i < rows.Length; i++)
                     {
                         Valor_Tabela += rows[i]["Valor_Tabela"].ToString().ConvertToDouble();
@@ -209,7 +209,7 @@ namespace PROPOSTA
                     }
                     MidiaTemp.Valor_Negociado = Valor_Negociado;
                     MidiaTemp.Valor_Tabela = Valor_Tabela;
-                    if (Valor_Tabela>0)
+                    if (Valor_Tabela > 0)
                     {
                         MidiaTemp.Desconto = (1 - (Valor_Negociado / Valor_Tabela)) * 100;
                     }
@@ -223,9 +223,9 @@ namespace PROPOSTA
                     Midias.Add(MidiaTemp);
                 }
             }
-            catch (Exception )
+            catch (Exception)
             {
-                throw ;
+                throw;
             }
             finally
             {
@@ -324,10 +324,10 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Esquema", pId_Esquema);
                 Adp.Fill(dtb);
-                if (dtb.Rows.Count>0)
+                if (dtb.Rows.Count > 0)
                 {
                     Contrato.Numero_Negociacao = dtb.Rows[0]["Numero_Negociacao"].ToString().ConvertToInt32();
-                    Contrato.Cod_Tipo_Midia= dtb.Rows[0]["Cod_Tipo_Midia"].ToString();
+                    Contrato.Cod_Tipo_Midia = dtb.Rows[0]["Cod_Tipo_Midia"].ToString();
                     Contrato.Cod_Empresa_Venda = dtb.Rows[0]["Cod_Empresa_Venda"].ToString().Trim();
                     Contrato.Nome_Empresa_Venda = dtb.Rows[0]["Nome_Empresa_Venda"].ToString().Trim();
                     Contrato.Cod_Empresa_Faturamento = dtb.Rows[0]["Cod_Empresa_Faturamento"].ToString().Trim();
@@ -337,39 +337,41 @@ namespace PROPOSTA
                     Contrato.Periodo_Campanha_Inicio = dtb.Rows[0]["Periodo_Campanha_Inicio"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
                     Contrato.Periodo_Campanha_Termino = dtb.Rows[0]["Periodo_Campanha_Termino"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
                     Contrato.Competencia = dtb.Rows[0]["Competencia"].ToString().ConvertToInt32();
-                    Contrato.Indica_Grade = dtb.Rows[0]["Indica_Grade"].ToString().ConvertToByte();
+                    Contrato.Indica_Grade = dtb.Rows[0]["Indica_Grade"].ToString().ConvertToInt32();
                     Contrato.Cod_Cliente = dtb.Rows[0]["Cod_Cliente"].ToString().Trim();
                     Contrato.Nome_Cliente = dtb.Rows[0]["Nome_Cliente"].ToString().Trim();
                     Contrato.Cod_Agencia = dtb.Rows[0]["Cod_Agencia"].ToString().Trim();
                     Contrato.Nome_Agencia = dtb.Rows[0]["Nome_Agencia"].ToString().Trim();
                     Contrato.Vlr_Informado = dtb.Rows[0]["Vlr_Informado"].ToString().ConvertToMoney();
-                    Contrato.Id_Simulacao= dtb.Rows[0]["Id_Simulacao"].ToString().ConvertToInt32();
-                    Contrato.Id_Esquema= dtb.Rows[0]["Id_Esquema"].ToString().ConvertToInt32();
+                    Contrato.Id_Simulacao = dtb.Rows[0]["Id_Simulacao"].ToString().ConvertToInt32();
+                    Contrato.Id_Esquema = dtb.Rows[0]["Id_Esquema"].ToString().ConvertToInt32();
                     Contrato.Cod_Mercado = dtb.Rows[0]["Cod_Mercado"].ToString().Trim();
-                    Contrato.Editar_Negociacao= true;
+                    Contrato.Editar_Negociacao = true;
                     Contrato.Editar_Empresa_Venda = false;
-                    Contrato.Editar_Empresa_Faturamento= false;
-                    Contrato.Editar_Tipo_Midia= true;
-                    Contrato.Editar_Mercado= false;
-                    Contrato.Editar_Abrangencia= false;
+                    Contrato.Editar_Empresa_Faturamento = false;
+                    Contrato.Editar_Tipo_Midia = true;
+                    Contrato.Editar_Mercado = false;
+                    Contrato.Editar_Abrangencia = false;
                     Contrato.Editar_Periodo_Campanha = false;
-                    Contrato.Editar_Valor_Informado= false;
+                    Contrato.Editar_Valor_Informado = false;
                     Contrato.Editar_Nucleo = true;
+                    
                     if (String.IsNullOrEmpty(Contrato.Cod_Cliente))
                     {
                         Contrato.Editar_Cliente = true;
                     }
                     if (String.IsNullOrEmpty(Contrato.Cod_Agencia))
                     {
-                        Contrato.Editar_Agencia= true;
+                        Contrato.Editar_Agencia = true;
                     }
                     if (String.IsNullOrEmpty(Contrato.Cod_Contato))
                     {
-                        Contrato.Editar_Contato= true;
+                        Contrato.Editar_Contato = true;
                     }
                     Contrato.Comerciais = AddComerciaisEsquema(pId_Esquema);
                     Contrato.Veiculacoes = AddVeiculacoesEsquema(pId_Esquema);
-                    Contrato.Veiculos= AddVeiculosEsquema(pId_Esquema);
+                    Contrato.Veiculos = AddVeiculosEsquema(pId_Esquema);
+                    Contrato.Sequenciador_Veiculacao = Sequenciador_Veiculacao;
 
                 };
             }
@@ -398,7 +400,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Esquema", pId_Esquema);
                 Adp.Fill(dtb);
-                foreach (DataRow drw  in dtb.Rows)
+                foreach (DataRow drw in dtb.Rows)
                 {
                     Comerciais.Add(new ComercialModel()
                     {
@@ -410,6 +412,7 @@ namespace PROPOSTA
                         Cod_Red_Produto = drw["Cod_Red_Produto"].ToString().ConvertToInt32(),
                         Nome_Produto = drw["Nome_Produto"].ToString(),
                         Indica_Titulo_Determinar = drw["Indica_Titulo_Determinar"].ToString().ConvertToBoolean(),
+                        Tem_Veiculacao = true
                     });
                 }
             }
@@ -448,9 +451,9 @@ namespace PROPOSTA
                         Cod_Caracteristica = drw["Cod_Caracteristica"].ToString(),
                         Cod_Comercial = drw["Cod_Comercial"].ToString(),
                         Permite_Editar = false,
-                    Qtd_Total = drw["Qtd_Total_Insercoes"].ToString().ConvertToInt32(),
-                    Insercoes = AddInsercoesEsquema(drw["Id_Midia"].ToString().ConvertToInt32())
-                });
+                        Qtd_Total = drw["Qtd_Total_Insercoes"].ToString().ConvertToInt32(),
+                        Insercoes = AddInsercoesEsquema(drw["Id_Midia"].ToString().ConvertToInt32())
+                    });
                 }
             }
             catch (Exception)
@@ -579,20 +582,23 @@ namespace PROPOSTA
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Operacao", param.Operacao);
-                if (!String.IsNullOrEmpty(param.Periodo_Campanha_Inicio)) 
+                if (!String.IsNullOrEmpty(param.Periodo_Campanha_Inicio))
                 {
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Inicio_Campanha", param.Periodo_Campanha_Inicio.ConvertToDatetime());
                 }
-                if (!String.IsNullOrEmpty(param.Periodo_Campanha_Termino)) 
+                if (!String.IsNullOrEmpty(param.Periodo_Campanha_Termino))
                 {
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Termino_Campanha", param.Periodo_Campanha_Termino.ConvertToDatetime());
                 }
+                if (param.Operacao=="Import")
+                {
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Empresa_Venda", param.Cod_Empresa_Venda);
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Empresa_Faturamento", param.Cod_Empresa_Faturamento);
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Cliente", param.Cod_Cliente);
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Agencia", param.Cod_Agencia);
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Contato", param.Cod_Contato);
+                }
                 
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Empresa_Venda", param.Cod_Empresa_Venda);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Empresa_Faturamento", param.Cod_Empresa_Faturamento);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Cliente", param.Cod_Cliente);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Agencia", param.Cod_Agencia);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Contato", param.Cod_Contato);
                 Adp.Fill(dtb);
             }
             catch (Exception)
@@ -618,7 +624,7 @@ namespace PROPOSTA
             dtbProduto.Columns.Add("Descricao", typeof(string));
 
             try
-            {   
+            {
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "[PR_PROPOSTA_Produto_Cliente_List]");
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
@@ -650,7 +656,7 @@ namespace PROPOSTA
             SqlDataAdapter Adp = new SqlDataAdapter();
             DataTable dtb = new DataTable();
             SimLib clsLib = new SimLib();
-            ContratoModel Contrato = new ContratoModel();            
+            ContratoModel Contrato = new ContratoModel();
             try
             {
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "[Pr_Proposta_MapaReserva_Get_Contrato]");
@@ -658,43 +664,45 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Contrato", pIdContrato);
                 Adp.Fill(dtb);
-                if (dtb.Rows.Count>0)
+                if (dtb.Rows.Count > 0)
                 {
-                   
-                    Contrato.Cod_Empresa_Venda  =dtb.Rows[0]["Cod_Empresa"].ToString();
-                    Contrato.Nome_Empresa_Venda =dtb.Rows[0]["Nome_Empresa_Venda"].ToString();
-                    Contrato.Numero_Mr =dtb.Rows[0]["Numero_Mr"].ToString().ConvertToInt32();
-                    Contrato.Numero_Negociacao =dtb.Rows[0]["Numero_Negociacao"].ToString().ConvertToInt32();
-                    Contrato.Sequencia_Mr =dtb.Rows[0]["Sequencia_Mr"].ToString().ConvertToInt32();
-                    Contrato.Cod_Programa =dtb.Rows[0]["Cod_Programa"].ToString();
-                    Contrato.Cod_Empresa_Faturamento =dtb.Rows[0]["Cod_Empresa_Faturamento"].ToString();
-                    Contrato.Nome_Empresa_Faturamento =dtb.Rows[0]["Nome_Empresa_Faturamento"].ToString();
-                    Contrato.Caracteristica_Contrato =dtb.Rows[0]["Caracteristica_Contrato"].ToString();
-                    Contrato.Cod_Contato =dtb.Rows[0]["Cod_Contato"].ToString();
-                    Contrato.Nome_Contato =dtb.Rows[0]["Nome_Contato"].ToString();
-                    Contrato.Cod_Nucleo =dtb.Rows[0]["Cod_Nucleo"].ToString();
-                    Contrato.Nome_Nucleo =dtb.Rows[0]["Nome_Nucleo"].ToString();
-                    Contrato.Cod_Tipo_Midia =dtb.Rows[0]["Cod_Tipo_Midia"].ToString();
-                    Contrato.Data_Recepcao_Reserva = dtb.Rows[0]["Data_Recepcao_Reserva"].ToString();
-                    Contrato.Numero_PI =dtb.Rows[0]["Numero_PI"].ToString();
-                    Contrato.Obs_Roteiro =dtb.Rows[0]["Obs_Roteiro"].ToString();
-                    Contrato.Periodo_Campanha_Inicio =dtb.Rows[0]["Periodo_Campanha_Inicio"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
-                    Contrato.Periodo_Campanha_Termino =dtb.Rows[0]["Periodo_Campanha_Termino"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
-                    Contrato.Competencia= dtb.Rows[0]["Competencia"].ToString().ConvertToInt32();
-                    Contrato.Indica_Grade =dtb.Rows[0]["Indica_Grade"].ToString().ConvertToByte();
-                    Contrato.Cod_Cliente =dtb.Rows[0]["Cod_Cliente"].ToString();
-                    Contrato.Nome_Cliente =dtb.Rows[0]["Nome_Cliente"].ToString();
-                    Contrato.Cod_Agencia =dtb.Rows[0]["Cod_Agencia"].ToString();
-                    Contrato.Nome_Agencia =dtb.Rows[0]["Nome_Agencia"].ToString();
-                    Contrato.Indica_Por_Credito =dtb.Rows[0]["Indica_Por_Credito"].ToString().ConvertToBoolean();;
-                    Contrato.Vlr_Informado =dtb.Rows[0]["Vlr_Informado"].ToString().ConvertToMoney();
-                    Contrato.Indica_Apoio =dtb.Rows[0]["Indica_Apoio"].ToString().ConvertToBoolean();
-                    Contrato.Cod_Mercado =dtb.Rows[0]["Cod_Mercado"].ToString();
-                    Contrato.Id_Contrato =dtb.Rows[0]["Id_Contrato"].ToString().ConvertToInt32();
-                    Contrato.Obs_Contrato =dtb.Rows[0]["Obs_Contrato"].ToString();
-                    Contrato.Campanha =dtb.Rows[0]["Campanha"].ToString();
-                    Contrato.Codigo_Projeto =dtb.Rows[0]["Codigo_Projeto"].ToString();
+
+                    Contrato.Cod_Empresa_Venda = dtb.Rows[0]["Cod_Empresa"].ToString();
+                    Contrato.Nome_Empresa_Venda = dtb.Rows[0]["Nome_Empresa_Venda"].ToString();
+                    Contrato.Numero_Mr = dtb.Rows[0]["Numero_Mr"].ToString().ConvertToInt32();
+                    Contrato.Numero_Negociacao = dtb.Rows[0]["Numero_Negociacao"].ToString().ConvertToInt32();
+                    Contrato.Sequencia_Mr = dtb.Rows[0]["Sequencia_Mr"].ToString().ConvertToInt32();
+                    Contrato.Cod_Programa = dtb.Rows[0]["Cod_Programa"].ToString();
+                    Contrato.Cod_Empresa_Faturamento = dtb.Rows[0]["Cod_Empresa_Faturamento"].ToString();
+                    Contrato.Nome_Empresa_Faturamento = dtb.Rows[0]["Nome_Empresa_Faturamento"].ToString();
+                    Contrato.Caracteristica_Contrato = dtb.Rows[0]["Caracteristica_Contrato"].ToString();
+                    Contrato.Cod_Contato = dtb.Rows[0]["Cod_Contato"].ToString();
+                    Contrato.Nome_Contato = dtb.Rows[0]["Nome_Contato"].ToString();
+                    Contrato.Cod_Nucleo = dtb.Rows[0]["Cod_Nucleo"].ToString();
+                    Contrato.Nome_Nucleo = dtb.Rows[0]["Nome_Nucleo"].ToString();
+                    Contrato.Cod_Tipo_Midia = dtb.Rows[0]["Cod_Tipo_Midia"].ToString();
+                    Contrato.Data_Recepcao_Reserva = dtb.Rows[0]["Data_Recepcao_Reserva"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
+                    Contrato.Numero_PI = dtb.Rows[0]["Numero_PI"].ToString();
+                    Contrato.Obs_Roteiro = dtb.Rows[0]["Obs_Roteiro"].ToString();
+                    Contrato.Periodo_Campanha_Inicio = dtb.Rows[0]["Periodo_Campanha_Inicio"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
+                    Contrato.Periodo_Campanha_Termino = dtb.Rows[0]["Periodo_Campanha_Termino"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
+                    Contrato.Competencia = dtb.Rows[0]["Competencia"].ToString().ConvertToInt32();
+                    Contrato.Indica_Grade = dtb.Rows[0]["Indica_Grade"].ToString().ConvertToInt32();
+                    Contrato.Cod_Cliente = dtb.Rows[0]["Cod_Cliente"].ToString();
+                    Contrato.Nome_Cliente = dtb.Rows[0]["Nome_Cliente"].ToString();
+                    Contrato.Cod_Agencia = dtb.Rows[0]["Cod_Agencia"].ToString();
+                    Contrato.Nome_Agencia = dtb.Rows[0]["Nome_Agencia"].ToString();
+                    Contrato.Indica_Por_Credito = dtb.Rows[0]["Indica_Por_Credito"].ToString().ConvertToBoolean(); ;
+                    Contrato.Vlr_Informado = dtb.Rows[0]["Vlr_Informado"].ToString().ConvertToMoney();
+                    Contrato.Indica_Apoio = dtb.Rows[0]["Indica_Apoio"].ToString().ConvertToBoolean();
+                    Contrato.Cod_Mercado = dtb.Rows[0]["Cod_Mercado"].ToString();
+                    Contrato.Id_Contrato = dtb.Rows[0]["Id_Contrato"].ToString().ConvertToInt32();
+                    Contrato.Obs_Contrato = dtb.Rows[0]["Obs_Contrato"].ToString();
+                    Contrato.Campanha = dtb.Rows[0]["Campanha"].ToString();
+                    Contrato.Codigo_Projeto = dtb.Rows[0]["Codigo_Projeto"].ToString();
                     Contrato.Versao_Projeto = dtb.Rows[0]["Versao_Projeto"].ToString().ConvertToInt32();
+                    Contrato.Tem_Fatura = dtb.Rows[0]["Tem_Fatura"].ToString().ConvertToBoolean();
+                    Contrato.Comprovado= dtb.Rows[0]["Comprovado"].ToString().ConvertToBoolean();
                     Contrato.Editar_Negociacao = true;
                     Contrato.Editar_Cliente = true;
                     Contrato.Editar_Agencia = true;
@@ -708,8 +716,9 @@ namespace PROPOSTA
                     Contrato.Editar_Periodo_Campanha = true;
                     Contrato.Editar_Valor_Informado = true;
                     Contrato.Comerciais = AddComerciais(pIdContrato);
-                    Contrato.Veiculacoes = AddVeiculacoes(pIdContrato);
-                    Contrato.Veiculos = AddVeiculos(pIdContrato);
+                    //Contrato.Veiculacoes = AddVeiculacoes(pIdContrato); // nao trazer veiculacoes para edicao/ somente é permitido adicionar novas veiculacoes
+                    Contrato.Veiculos = AddVeiculos(pIdContrato); 
+                    Contrato.Sequenciador_Veiculacao = Sequenciador_Veiculacao;
                 };
 
             }
@@ -751,6 +760,7 @@ namespace PROPOSTA
                         Nome_Produto = drw["Nome_Produto"].ToString(),
                         Numero_Fita = drw["Numero_Fita"].ToString(),
                         Indica_Titulo_Determinar = drw["Indica_Titulo_Determinar"].ToString().ConvertToBoolean(),
+                        Tem_Veiculacao = drw["Tem_Veiculacao"].ToString().ConvertToBoolean(),
                     });
                 }
             }
@@ -781,14 +791,17 @@ namespace PROPOSTA
                 Adp.Fill(dtb);
                 foreach (DataRow drw in dtb.Rows)
                 {
+                    Sequenciador_Veiculacao++;
                     Veiculacoes.Add(new VeiculacacaoModel()
                     {
                         Cod_Programa = drw["Cod_Programa"].ToString(),
                         Cod_Caracteristica = drw["Cod_Caracteristica"].ToString(),
                         Cod_Comercial = drw["Cod_Comercial"].ToString(),
                         Qtd_Total = drw["Qtd_Total"].ToString().ConvertToInt32(),
+                        Id_Veiculacao = Sequenciador_Veiculacao,
                         Insercoes = AddInsercoes(pIdContrato, drw),
                         Permite_Editar = false,
+                        
                     });
                 }
             }
@@ -802,7 +815,7 @@ namespace PROPOSTA
             }
             return Veiculacoes;
         }
-        private List<InsercoesModel> AddInsercoes(Int32 pIdContrato,DataRow pRow)
+        private List<InsercoesModel> AddInsercoes(Int32 pIdContrato, DataRow pRow)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
@@ -825,11 +838,13 @@ namespace PROPOSTA
                 {
                     Insercoes.Add(new InsercoesModel()
                     {
+                        Id_Veiculacao = Sequenciador_Veiculacao,
                         Data_Exibicao = drw["Data_Exibicao"].ToString().ConvertToDatetime(),
                         Dia = drw["Dia"].ToString().ConvertToByte(),
                         Dia_Semana = drw["Dia_Semana"].ToString(),
                         Qtd = drw["Qtd"].ToString().ConvertToInt32(),
-                        Tem_Grade = drw["Tem_Grade"].ToString().ConvertToBoolean()
+                        Tem_Grade = drw["Tem_Grade"].ToString().ConvertToBoolean(),
+                        Valido = drw["Tem_Grade"].ToString().ConvertToBoolean(),
                     });
                 };
             }
@@ -913,8 +928,8 @@ namespace PROPOSTA
             SimLib clsLib = new SimLib();
 
             String xmlVeiculos = null;
-            String xmlComerciais= null;
-            String xmlVeiculacoes= null;
+            String xmlComerciais = null;
+            String xmlVeiculacoes = null;
             if (pContrato.Veiculos.Count > 0)
             {
                 xmlVeiculos = clsLib.SerializeToString(pContrato.Veiculos);
@@ -935,40 +950,40 @@ namespace PROPOSTA
                 //Adp.SelectCommand.Parameters.AddWithValue("@Par_Operacao", pContrato.Operacao);
                 clsLib.NewParameter(Adp, "@Par_Login", this.CurrentUser);
                 clsLib.NewParameter(Adp, "@Par_Operacao", pContrato.Operacao);
-                clsLib.NewParameter(Adp,"@Par_Cod_Empresa_Venda", pContrato.Cod_Empresa_Venda);
-                clsLib.NewParameter(Adp,"@Par_Numero_Mr", pContrato.Numero_Mr,true);
-                clsLib.NewParameter(Adp,"@Par_Numero_Negociacao", pContrato.Numero_Negociacao,true);
-                clsLib.NewParameter(Adp,"@Par_Sequencia_Mr", pContrato.Sequencia_Mr,true);
-                clsLib.NewParameter(Adp,"@Par_Cod_Programa", pContrato.Cod_Programa);
-                clsLib.NewParameter(Adp,"@Par_Cod_Empresa_Faturamento", pContrato.Cod_Empresa_Faturamento);
-                clsLib.NewParameter(Adp,"@Par_Caracteristica_Contrato", pContrato.Caracteristica_Contrato);
-                clsLib.NewParameter(Adp,"@Par_Cod_Contato", pContrato.Cod_Contato);
-                clsLib.NewParameter(Adp,"@Par_Cod_Nucleo", pContrato.Cod_Nucleo);
-                clsLib.NewParameter(Adp,"@Par_Cod_Tipo_Midia", pContrato.Cod_Tipo_Midia);
-                clsLib.NewParameter(Adp,"@Par_Data_Recepcao_Reserva", pContrato.Data_Recepcao_Reserva.ConvertToDatetime());
-                clsLib.NewParameter(Adp,"@Par_Numero_PI", pContrato.Numero_PI);
-                clsLib.NewParameter(Adp,"@Par_Obs_Roteiro", pContrato.Obs_Roteiro);
-                clsLib.NewParameter(Adp,"@Par_Periodo_Campanha_Inicio", pContrato.Periodo_Campanha_Inicio.ConvertToDatetime());
-                clsLib.NewParameter(Adp,"@Par_Periodo_Campanha_Termino", pContrato.Periodo_Campanha_Termino.ConvertToDatetime());
-                clsLib.NewParameter(Adp,"@Par_Indica_Grade", pContrato.Indica_Grade);
-                clsLib.NewParameter(Adp,"@Par_Cod_Cliente", pContrato.Cod_Cliente);
-                clsLib.NewParameter(Adp,"@Par_Cod_Agencia", pContrato.Cod_Agencia);
-                clsLib.NewParameter(Adp,"@Par_Indica_Por_Credito", pContrato.Indica_Por_Credito,true);
-                clsLib.NewParameter(Adp,"@Par_Vlr_Informado", pContrato.Vlr_Informado);
-                clsLib.NewParameter(Adp,"@Par_Indica_Apoio", pContrato.Indica_Apoio,true);
-                clsLib.NewParameter(Adp,"@Par_Cod_Mercado", pContrato.Cod_Mercado);
-                clsLib.NewParameter(Adp,"@Par_Id_Contrato", pContrato.Id_Contrato,true);
-                clsLib.NewParameter(Adp,"@Par_Obs_Contrato", pContrato.Obs_Contrato);
-                clsLib.NewParameter(Adp,"@Par_Campanha", pContrato.Campanha);
-                clsLib.NewParameter(Adp,"@Par_Codigo_Projeto", pContrato.Codigo_Projeto);
-                clsLib.NewParameter(Adp,"@Par_Versao_Projeto", pContrato.Versao_Projeto,true);
-                clsLib.NewParameter(Adp,"@Par_Criar_Negociacao", pContrato.Criar_Negociacao);
+                clsLib.NewParameter(Adp, "@Par_Cod_Empresa_Venda", pContrato.Cod_Empresa_Venda);
+                clsLib.NewParameter(Adp, "@Par_Numero_Mr", pContrato.Numero_Mr, true);
+                clsLib.NewParameter(Adp, "@Par_Numero_Negociacao", pContrato.Numero_Negociacao, true);
+                clsLib.NewParameter(Adp, "@Par_Sequencia_Mr", pContrato.Sequencia_Mr, true);
+                clsLib.NewParameter(Adp, "@Par_Cod_Programa", pContrato.Cod_Programa);
+                clsLib.NewParameter(Adp, "@Par_Cod_Empresa_Faturamento", pContrato.Cod_Empresa_Faturamento);
+                clsLib.NewParameter(Adp, "@Par_Caracteristica_Contrato", pContrato.Caracteristica_Contrato);
+                clsLib.NewParameter(Adp, "@Par_Cod_Contato", pContrato.Cod_Contato);
+                clsLib.NewParameter(Adp, "@Par_Cod_Nucleo", pContrato.Cod_Nucleo);
+                clsLib.NewParameter(Adp, "@Par_Cod_Tipo_Midia", pContrato.Cod_Tipo_Midia);
+                clsLib.NewParameter(Adp, "@Par_Data_Recepcao_Reserva", pContrato.Data_Recepcao_Reserva.ConvertToDatetime());
+                clsLib.NewParameter(Adp, "@Par_Numero_PI", pContrato.Numero_PI);
+                clsLib.NewParameter(Adp, "@Par_Obs_Roteiro", pContrato.Obs_Roteiro);
+                clsLib.NewParameter(Adp, "@Par_Periodo_Campanha_Inicio", pContrato.Periodo_Campanha_Inicio.ConvertToDatetime());
+                clsLib.NewParameter(Adp, "@Par_Periodo_Campanha_Termino", pContrato.Periodo_Campanha_Termino.ConvertToDatetime());
+                clsLib.NewParameter(Adp, "@Par_Indica_Grade", pContrato.Indica_Grade);
+                clsLib.NewParameter(Adp, "@Par_Cod_Cliente", pContrato.Cod_Cliente);
+                clsLib.NewParameter(Adp, "@Par_Cod_Agencia", pContrato.Cod_Agencia);
+                clsLib.NewParameter(Adp, "@Par_Indica_Por_Credito", pContrato.Indica_Por_Credito, true);
+                clsLib.NewParameter(Adp, "@Par_Vlr_Informado", pContrato.Vlr_Informado);
+                clsLib.NewParameter(Adp, "@Par_Indica_Apoio", pContrato.Indica_Apoio, true);
+                clsLib.NewParameter(Adp, "@Par_Cod_Mercado", pContrato.Cod_Mercado);
+                clsLib.NewParameter(Adp, "@Par_Id_Contrato", pContrato.Id_Contrato, true);
+                clsLib.NewParameter(Adp, "@Par_Obs_Contrato", pContrato.Obs_Contrato);
+                clsLib.NewParameter(Adp, "@Par_Campanha", pContrato.Campanha);
+                clsLib.NewParameter(Adp, "@Par_Codigo_Projeto", pContrato.Codigo_Projeto);
+                clsLib.NewParameter(Adp, "@Par_Versao_Projeto", pContrato.Versao_Projeto, true);
+                clsLib.NewParameter(Adp, "@Par_Criar_Negociacao", pContrato.Criar_Negociacao);
                 clsLib.NewParameter(Adp, "@Par_Id_Simulacao", pContrato.Id_Simulacao);
                 clsLib.NewParameter(Adp, "@Par_Id_Esquema", pContrato.Id_Esquema);
                 clsLib.NewParameter(Adp, "@Par_Indica_Tqp", pContrato.Indica_Tqp);
-                clsLib.NewParameter(Adp,"@Par_Comerciais", xmlComerciais);
-                clsLib.NewParameter(Adp,"@Par_Veiculacoes", xmlVeiculacoes);
-                clsLib.NewParameter(Adp,"@Par_Veiculos", xmlVeiculos);
+                clsLib.NewParameter(Adp, "@Par_Comerciais", xmlComerciais);
+                clsLib.NewParameter(Adp, "@Par_Veiculacoes", xmlVeiculacoes);
+                clsLib.NewParameter(Adp, "@Par_Veiculos", xmlVeiculos);
                 Adp.Fill(dtb);
             }
             catch (Exception)
@@ -980,6 +995,85 @@ namespace PROPOSTA
                 cnn.Close();
             }
             return dtb;
+        }
+        public List<InsercoesModel> MapaReservaNewMidia(ParamNewMidiaModel param)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            List<InsercoesModel> Insercoes = new List<InsercoesModel>();
+            String xmlVeiculos = null;
+            if (param.Veiculos.Count > 0)
+            {
+                xmlVeiculos = clsLib.SerializeToString(param.Veiculos);
+            }
+
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "[Pr_Proposta_Mapa_Reserva_NewMidia]");
+                Adp.SelectCommand = cmd;
+                clsLib.NewParameter(Adp, "@Par_Login", this.CurrentUser);
+                clsLib.NewParameter(Adp, "@Par_Inicio_Campanha", param.Inicio_Campanha.ConvertToDatetime());
+                clsLib.NewParameter(Adp, "@Par_Fim_Campanha", param.Fim_Campanha.ConvertToDatetime());
+                clsLib.NewParameter(Adp, "@Par_Cod_Programa", param.Cod_Programa);
+                clsLib.NewParameter(Adp, "@Par_Veiculos", xmlVeiculos);
+                Adp.Fill(dtb);
+                foreach (DataRow drw  in dtb.Rows)
+                {
+                    Insercoes.Add(new InsercoesModel()
+                    {
+                        Data_Exibicao = drw["Data_Exibicao"].ToString().ConvertToDatetime(),
+                        Dia = drw["Dia"].ToString().ConvertToByte(),
+                        Dia_Semana = drw["Dia_Semana"].ToString(),
+                        Tem_Grade = drw["Tem_Grade"].ToString().ConvertToBoolean(),
+                        Valido= drw["Valido"].ToString().ConvertToBoolean(),
+
+                    });
+
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Insercoes;
+        }
+        public String MapaReservaValidarPeriodo(ContratoModel param)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            String Retorno = "";
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "[Pr_Proposta_Mapa_Reserva_Consiste_Periodo_Campanha]");
+                Adp.SelectCommand = cmd;
+                clsLib.NewParameter(Adp, "@Par_Login", this.CurrentUser);
+                clsLib.NewParameter(Adp, "@Par_Numero_Negociacao", param.Numero_Negociacao);
+                clsLib.NewParameter(Adp, "@Par_Periodo_Campanha_Inicio", param.Periodo_Campanha_Inicio.ConvertToDatetime());
+                clsLib.NewParameter(Adp, "@Par_Periodo_Campanha_Termino", param.Periodo_Campanha_Termino.ConvertToDatetime());
+                clsLib.NewParameter(Adp, "@Par_Id_Contrato", param.Id_Contrato,true);
+                Adp.Fill(dtb);
+                Retorno = dtb.Rows[0]["Mensagem"].ToString();
+                
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Retorno;
         }
     }
 }

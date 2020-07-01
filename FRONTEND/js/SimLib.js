@@ -43,9 +43,12 @@ function fnDataTableLanguage() {
 };
 
 function ShowAlert(pMensagem, pType, pTimeout, pLayoyt) {
-    console.log(pType);
     if (!pType) {
         pType="warning"
+    }
+    //nao mostrar mais icones de warning/erros
+    if (pType=='warning' || pType=='error') {
+        pType   = ""
     }
     setTimeout(function () {
         swal('', pMensagem, pType);
@@ -385,6 +388,7 @@ function TimeFormat(pValue) {
 function DoubleVal(pValue) {
     var _ret = 0;
     if (pValue) {
+        pValue = pValue.toString().replace(".", "");
         pValue = pValue.toString().replace(",", ".");
         pValue = pValue.toString().replace(" ","");
         if (pValue.toString().indexOf("$") > -1) {
@@ -442,7 +446,13 @@ function LastDay(Year,Month) {
 
 function MesExtenso(MesAno)
 {
-    return ['', 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'][parseInt(MesAno.toString().substr(4,2))] + '/' + MesAno.toString().substr(0, 4);
+    if (MesAno>0) {
+        return ['', 'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'][parseInt(MesAno.toString().substr(4, 2))] + '/' + MesAno.toString().substr(0, 4);
+    }
+    else {
+        return "";
+    }
+    
 }
 
 function FormatChart(pGraph,ptype)

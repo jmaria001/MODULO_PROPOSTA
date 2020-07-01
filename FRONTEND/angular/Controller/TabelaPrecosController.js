@@ -14,7 +14,7 @@
     //====================Inicializa scopes
     $scope.Filtro = {};
     $scope.NewFiltro = function () {
-        $scope.Filtro = { 'Competencia': '', 'Veiculo': '', 'Programa': '', 'Titulo': '', 'Nome_Veiculo': '' };
+        $scope.Filtro = { 'Competencia': '', 'Veiculo': '', 'Programa': '', 'Titulo': '', 'Nome_Veiculo': '','Indica_Vigente':false };
         localStorage.removeItem('TabelaPrecoFilter');
     }
     //======================Verifica se tem filtro anterior
@@ -27,15 +27,12 @@
     //========================Parametros do Grid
     $scope.ShowFilter= true;
     $scope.gridheaders = [{ 'title': '', 'visible': true, 'searchable': false, 'sortable': false },
+        { 'title': 'Titulo', 'visible': true, 'searchable': true, 'sortable': true },
+        { 'title': 'Nome_Veiculo', 'visible': true, 'searchable': true, 'sortable': true },
         { 'title': 'Competencia', 'visible': true, 'searchable': true, 'sortable': true },
         { 'title': 'Sequencia', 'visible': true, 'searchable': true, 'sortable': true },
         { 'title': 'Tipo_Preco', 'visible': true, 'searchable': true, 'sortable': true },
-        //{ 'title': 'Cod_Programa', 'visible': true, 'searchable': true, 'sortable': true },
-        { 'title': 'Titulo', 'visible': true, 'searchable': true, 'sortable': true },
-        //{ 'title': 'Cod_Veiculo_Mercado', 'visible': true, 'searchable': true, 'sortable': true },
-        { 'title': 'Nome_Veiculo', 'visible': true, 'searchable': true, 'sortable': true },
         { 'title': 'Valor', 'visible': true, 'searchable': true, 'sortable': true },
-
     ];
     
     
@@ -51,16 +48,14 @@
 
     //====================Carrega o Grid
     $scope.CarregarTabelaPrecos = function (pFiltro) {
-        if (!pFiltro.Competencia) {
-            ShowAlert("Filtro Competência é obrigatório");
+        if (!pFiltro.Competencia && !pFiltro.Indica_Vigente) {
+            ShowAlert("Filtro Competência ou Vigente é obrigatório");
             return;
         }
         if (!pFiltro.Veiculo && !pFiltro.Programa) {
             ShowAlert("Filtro Veículo ou Programa é obrigatório");
             return;
-
         }
-
 
         $rootScope.routeloading = true;
         $scope.TabelaPrecosS = [];
@@ -70,6 +65,7 @@
         _url += '?Competencia=' + pFiltro.Competencia;
         _url += '&Veiculo=' + pFiltro.Veiculo;
         _url += '&Programa=' + pFiltro.Programa;
+        _url += '&Indica_Vigente=' + pFiltro.Indica_Vigente;
         _url += '&';
         $scope.ShowFilter = false;
         httpService.Get(_url).then(function (response) {

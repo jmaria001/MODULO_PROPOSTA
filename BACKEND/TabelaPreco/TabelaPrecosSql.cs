@@ -25,6 +25,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia", clsLib.CompetenciaInt(pFiltro.Competencia));
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Veiculo", pFiltro.Veiculo);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Programa", pFiltro.Programa);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Vigente", pFiltro.Indica_Vigente);
                 Adp.Fill(dtb);
             }
             catch (Exception)
@@ -55,10 +56,10 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia", pTabelaPrecos.Competencia);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Sequencia", pTabelaPrecos.Sequencia);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo_Preco", pTabelaPrecos.Tipo_Preco);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Programa", pTabelaPrecos.Cod_Programa);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo_Preco", pTabelaPrecos.Tipo_Preco.ToUpper());
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Programa", pTabelaPrecos.Cod_Programa.ToUpper());
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Valor", pTabelaPrecos.Valor);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Veiculo_Mercado", pTabelaPrecos.Cod_Veiculo_Mercado);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Veiculo_Mercado", pTabelaPrecos.Cod_Veiculo_Mercado.ToUpper());
                 Adp.Fill(dtb);
             }
             catch (Exception)

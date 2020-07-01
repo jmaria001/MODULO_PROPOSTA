@@ -116,7 +116,7 @@
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-success" ng-click="CarregarMapaReserva(Filtro)">Filtrar</button>
                         <button type="button" class="btn btn-warning" ng-click="Filtro=NewFiltro()">Limpar Filtros</button>
-                        <button type="button" id="btnNovaNegociacao" class="btn btn-primary" ng-click="NovaMapaReserva()" ng-disabled="!PermissaoNew">Nova Mapa Reserva</button>
+                        <button type="button" id="btnNovaNegociacao" class="btn btn-primary" ng-click="NovaMapaReserva()" ng-disabled="!PermissaoNew">Novo Mapa Reserva</button>
                     </div>
                 </div>
             </div>
@@ -164,18 +164,10 @@
                             <td>{{::contrato.Cod_Tipo_Midia}}</td>
                             <td>{{::contrato.Numero_Pi}}</td>
                             <td>{{::contrato.Campanha}}</td>
-                            <td>
-                                <span ng-show="contrato.Valor_Tabela>0">{{::contrato.Valor_Tabela | currency}}</span>
-                            </td>
-                            <td>
-                                <span ng-show="contrato.Desconto>0">{{::contrato.Desconto| percentage}}</span>
-                            </td>
-                            <td>
-                                <span ng-show="contrato.Valor_Negociado>0">{{::contrato.Valor_Negociado| currency}}</span>
-                            </td>
-                            <td>
-                                {{::contrato.Status}}
-                            </td>
+                            <td>{{::contrato.Valor_Tabela | currency}}</td>
+                            <td>{{::contrato.Desconto| percentage}}</td>
+                            <td>{{::contrato.Valor_Negociado| currency}}</td>
+                            <td>{{::contrato.Status}}</td>
                         </tr>
                     </tbody>
                 </table>

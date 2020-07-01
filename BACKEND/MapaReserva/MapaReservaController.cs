@@ -272,11 +272,30 @@ namespace PROPOSTA
                 if (Id_Contrato>0)
                 {
                     Retorno = Cls.MapaReservaGetContrato(Id_Contrato);
-                    
+                    Retorno.Veiculacoes = new List<MapaReserva.VeiculacacaoModel>();
+                    Retorno.Editar_Negociacao = false;
+                    Retorno.Editar_Empresa_Venda = false;
+                    Retorno.Editar_Tipo_Midia = false;
+                    Retorno.Editar_Abrangencia = false;
+                    if (Retorno.Tem_Fatura)
+                    {
+                        Retorno.Editar_Cliente = false;
+                        Retorno.Editar_Agencia= false;
+                        Retorno.Editar_Empresa_Faturamento = false;
+                        Retorno.Editar_Midia_Apoio = false;
+                        Retorno.Editar_Conta_Credito= false;
+                        Retorno.Editar_Valor_Informado = false;
+                    }
+                    if (Retorno.Caracteristica_Contrato == "MER")
+                    {
+                        Retorno.Editar_Caracteristica_Contrato = false;
+                    }
                 }
                 else
                 {
                     Retorno.Comerciais = new List<MapaReserva.ComercialModel>();
+                    Retorno.Veiculacoes = new List<MapaReserva.VeiculacacaoModel>();
+                    Retorno.Veiculos = new List<MapaReserva.VeiculoModel>();
                     Retorno.Editar_Negociacao = true;
                     Retorno.Editar_Cliente = true;
                     Retorno.Editar_Agencia = true;
@@ -290,6 +309,7 @@ namespace PROPOSTA
                     Retorno.Editar_Periodo_Campanha = true;
                     Retorno.Editar_Valor_Informado = true;
                     Retorno.Editar_Abrangencia = true;
+                    Retorno.Indica_Grade = -1;
                 }
                 return Ok(Retorno);
             }
@@ -339,7 +359,47 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
+        [Route("api/MapaReserva/NewMida")]
+        [HttpPost]
+        [ActionName("MapaReservaNewMida")]
+        [Authorize()]
+        public IHttpActionResult MapaReservaNewMidia([FromBody] MapaReserva.ParamNewMidiaModel param)
+        {
+            SimLib clsLib = new SimLib();
+            MapaReserva Cls = new MapaReserva(User.Identity.Name);
+            try
+            {
+                MapaReserva.VeiculacacaoModel Veiculacao =  new MapaReserva.VeiculacacaoModel();
+                Veiculacao.Permite_Editar = true;
+                Veiculacao.Insercoes= Cls.MapaReservaNewMidia(param);
+                return Ok(Veiculacao);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
 
+        [Route("api/MapaReserva/ValidarPeriodo")]
+        [HttpPost]
+        [ActionName("MapaReservaValidarPeriodo")]
+        [Authorize()]
+        public IHttpActionResult MapaReservaValidarPeriodo([FromBody] MapaReserva.ContratoModel param)
+        {
+            SimLib clsLib = new SimLib();
+            MapaReserva Cls = new MapaReserva(User.Identity.Name);
+            try
+            {
+                String Retorno = Cls.MapaReservaValidarPeriodo(param);
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
     }
 }
 

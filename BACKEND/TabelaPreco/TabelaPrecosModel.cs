@@ -33,6 +33,7 @@ namespace PROPOSTA
             public String Competencia { get; set; }
             public String Veiculo{ get; set; }
             public String Programa{ get; set; }
+            public Boolean Indica_Vigente { get; set; }
         }
 
     }

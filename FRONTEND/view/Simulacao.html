@@ -951,7 +951,7 @@
                             <table class="table table-bordered" id="tbMidia">
                                 <thead>
                                     <tr class="bg-warning">
-                                        <th colspan="5">
+                                        <th colspan="4">
                                             {{Simulacao.Esquemas[currentEsquema].Competencia | MesExtenso}}
                                         </th>
                                         <th class="td-insercoes" ng-repeat="item in Simulacao.Esquemas[currentEsquema].Midias[0].Insercoes track by $index">
@@ -959,7 +959,7 @@
                                                 {{item.Dia_Semana}}
                                             </span>
                                         </th>
-                                        <th colspan="7"></th>
+                                        <th colspan="5"></th>
                                     </tr>
 
                                     <tr class="bg-warning">
@@ -1017,7 +1017,7 @@
         <!--========================botoes de acoes-->
         <div class="fixed-buttons-bottom">
             <div class="col-md-8">
-                <button class="btn btn-default btn-sm" ng-show="Simulacao.Indica_Valoracao" ng-click="RecalcularSimulacao(Simulacao)">
+                <button class="btn btn-default btn-sm" ng-show="Simulacao.Indica_Valoracao && Simulacao.Permite_Editar" ng-click="RecalcularSimulacao(Simulacao)">
                     Recalcular
                     <span class="app-spinner scaleout " style="background-color:red" ng-show="Simulacao.PendenteCalculo"></span>
                 </button>
@@ -1107,7 +1107,16 @@
             $('.totalizadores-negociacao').css("display", 'block');
             $('#btnFixarTopo').css("display", 'none');
         });
-        
+
+        $(".percent").blur(function () {
+            if (DoubleVal(this.value)> 100) {
+                ShowAlert("Valor nao pode ser superior a 100%")
+                var ctrl = angular.element(this).data('$ngModelController');
+                this.value = "";
+                ctrl.$setViewValue();
+                ctrl.$commitViewValue();
+            }
+        });
     });
     function InitTermometro(pValue, pDisable) {
         $("#txtTermometro").ionRangeSlider({
