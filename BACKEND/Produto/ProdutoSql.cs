@@ -66,6 +66,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Horario_Restricao", pProduto.Horario_Restricao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Clientes", xmlCliente);
                 Adp.Fill(dtb);
+                
             }
             catch (Exception)
             {

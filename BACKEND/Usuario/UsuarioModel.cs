@@ -27,6 +27,8 @@ namespace PROPOSTA
             public List<PerfilModel> Perfil { get; set; }
             public List<EmpresaModel> Empresas { get; set; }
             public Int32 Id_Nivel_Acesso { get; set; }
+            public List<HierarquiaModel> Nivel_Superior { get; set; }
+            public List<HierarquiaModel> Nivel_Inferior { get; set; }
         }
         public class PerfilModel
         {
@@ -42,6 +44,11 @@ namespace PROPOSTA
             public String Cod_Empresa { get; set; }
             public String Nome_Empresa { get; set; }
             public Boolean Selected { get; set; }
+        }
+        public class HierarquiaModel
+        {
+            public String Login { get; set; }
+            public String Nome { get; set; }
         }
 
     }

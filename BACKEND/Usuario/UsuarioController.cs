@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web.Http;
 using System.Data;
+using System.Collections.Generic;
+
 namespace PROPOSTA
 {
     public class UsuarioController : ApiController
@@ -38,7 +40,8 @@ namespace PROPOSTA
                 Usuario.UsuarioModel Usuario = new Usuario.UsuarioModel();
                 if (pIdUsuario==0)
                 {
-                    Usuario = Cls.GetUsuario(-1);
+                    Usuario.Nivel_Superior= new List<Usuario.HierarquiaModel>();
+                    Usuario.Nivel_Inferior = new List<Usuario.HierarquiaModel>();
                 }
                 else
                 {

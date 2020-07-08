@@ -941,16 +941,22 @@ namespace PROPOSTA
                 cnn.Close();
             }
         }
-        public void MockAprovacao(Int32 pId_Simulacao)
+        public DataTable SelecionarPacotes(ParamSelecionarPacote param)
         {
+            DataTable dtb = new DataTable();
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            SimLib clsLib = new SimLib();
             try
             {
-                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Mock_Aprovacao");
-                cmd.Parameters.AddWithValue("@Par_Id_Simulacao", pId_Simulacao);
-                cmd.ExecuteNonQuery();
-
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Selecionar_Pacote");
+                Adp.SelectCommand = cmd;
+                clsLib.NewParameter(Adp, "@Par_Login", this.CurrentUser);
+                clsLib.NewParameter(Adp, "@Par_Id_Pacote", param.Id_Pacote, true);
+                clsLib.NewParameter(Adp, "@Par_Validade_Inicio", param.Validade_Inicio.ConvertToDatetime());
+                clsLib.NewParameter(Adp, "@Par_Validade_Termino", param.Validade_Termino.ConvertToDatetime());
+                Adp.Fill(dtb);
             }
             catch (Exception)
             {
@@ -960,6 +966,7 @@ namespace PROPOSTA
             {
                 cnn.Close();
             }
+            return dtb;
         }
 
     }

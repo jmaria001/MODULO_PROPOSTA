@@ -58,6 +58,7 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
+
         [Route("api/GetSimulacao/{Id_Simulacao}/{Processo}")]
         [HttpGet]
         [ActionName("GetSimulacao")]
@@ -89,11 +90,11 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
+
         [Route("api/GetSimulacaoCapa/{Id_Simulacao}/{Processo}")]
         [HttpGet]
         [ActionName("GetSimulacaoCapa")]
         [Authorize()]
-
         public IHttpActionResult GetSimulacaoCapa(Int32 Id_Simulacao, String Processo)
         {
             SimLib clsLib = new SimLib();
@@ -113,8 +114,6 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
-
-
 
         [Route("api/ImportarSimulacao")]
         [HttpPost]
@@ -272,9 +271,7 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
-
-
-
+        
         [Route("api/SalvarSimulacao")]
         [HttpPost]
         [ActionName("SalvarSimulacao")]
@@ -577,17 +574,16 @@ namespace PROPOSTA
             }
         }
 
-        [Route("api/MockAprovacao/{Id_Simulacao}")]
+        [Route("api/SelecionarPacotes")]
         [HttpGet]
-        //[Authorize()]
-        public IHttpActionResult MockAprovacao(Int32 Id_Simulacao)
+        [Authorize()]
+        public IHttpActionResult SelecionarPacotes([FromUri] Simulacao.ParamSelecionarPacote param)
         {
             SimLib clsLib = new SimLib();
             Simulacao Cls = new Simulacao(User.Identity.Name);
             try
             {
-                Cls.MockAprovacao(Id_Simulacao);
-                return Ok("Ok. Concluido");
+                return Ok(Cls.SelecionarPacotes(param));
             }
             catch (Exception Ex)
             {

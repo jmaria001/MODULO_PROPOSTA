@@ -97,17 +97,33 @@ namespace PROPOSTA
 
             //========================Config Email
             objEmail.From = new System.Net.Mail.MailAddress(emailRemetente);
-            objEmail.To.Add(emailDestinatario);
+
+            string[] ListaDestinarios =  emailDestinatario.Replace(";", ",").Split(',');
+            foreach (string strTo in ListaDestinarios)
+            {
+                objEmail.To.Add(strTo);
+            };
+
             if (!String.IsNullOrEmpty(emailComCopia))
             {
-                objEmail.CC.Add(emailComCopia);
+                string[] ListaCopias = emailComCopia.Replace(";", ",").Split(',');
+                foreach (string strCopia in ListaCopias)
+                {
+                    objEmail.CC.Add(strCopia);
+                };
             }
+            
             if (!String.IsNullOrEmpty(emailComCopiaOculta))
             {
-                objEmail.Bcc.Add(emailComCopiaOculta);
+                string[] ListaCopiasOcultas = emailComCopiaOculta.Replace(";", ",").Split(',');
+                foreach (string strCOpiaOculta in ListaCopiasOcultas)
+                {
+                    objEmail.CC.Add(strCOpiaOculta);
+                };
             }
+            
 
-            objEmail.Priority = System.Net.Mail.MailPriority.Normal;
+            objEmail.Priority = System.Net.Mail.MailPriority.High;
             objEmail.IsBodyHtml = true;
             objEmail.Subject = assuntoMensagem;
             objEmail.Body = conteudoMensagem;

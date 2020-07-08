@@ -6,6 +6,7 @@ using System.Security;
 using System.Xml.Serialization;
 using System.IO;
 using System.Data.SqlClient;
+using System.Collections.Generic;
 
 namespace PROPOSTA
 {
@@ -254,5 +255,4 @@ namespace PROPOSTA
             return strMes+'/' + pCompetencia.ToString().Substring(0, 4);
         }
     }
-    
 }

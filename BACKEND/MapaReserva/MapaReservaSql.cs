@@ -490,7 +490,8 @@ namespace PROPOSTA
                         Dia = drw["Dia"].ToString().ConvertToByte(),
                         Dia_Semana = drw["Dia_Semana"].ToString(),
                         Qtd = drw["Qtd"].ToString().ConvertToInt32(),
-                        Tem_Grade = drw["Tem_Grade"].ToString().ConvertToBoolean()
+                        Tem_Grade = drw["Tem_Grade"].ToString().ConvertToBoolean(),
+                        Valido = true,
                     });
                 };
             }

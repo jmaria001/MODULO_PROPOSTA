@@ -84,7 +84,7 @@
                                    maxlength="10"
                                    ng-disabled="!Contrato.Editar_Negociacao || Contrato.Comprovado"
                                    ng-change="NegociacaoChange(Contrato.Numero_Negociacao)" />
-                            <div class="input-group-addon" ng-show="Contrato.Editar_Negociacao">
+                            <div class="input-group-addon" ng-hide="Parameters.Action=='Edit'">
                                 <div class="app-checkbox" style="width:auto;margin-top:5px">
                                     <label>
                                         <input type="checkbox"

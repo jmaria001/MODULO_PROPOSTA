@@ -4,7 +4,6 @@
         padding-top: 8px !important;
     }
 </style>
-{{Ctrl.NivelAcesso}}
 <!--==============================================Grid -->
 <div class="container" >
     <div class="block table-responsive" ng-show="CurrentShow=='Grid'">
@@ -53,12 +52,16 @@
 <!--==============================================Cadastro -->
 <div class="container" ng-show="CurrentShow=='Dados'">
     <div class="block">
-        {{Ctrl.NivelAcesso}}
         <div class="row">
             <div class="col-md-2">
                 <div class="form-group">
                     <label for="txtLogin">Login</label>
-                    <input id="txtLogin" class="form-control" maxlength="20" style="text-transform:uppercase" ng-model="Ctrl.Login" />
+                    <input id="txtLogin" 
+                           class="form-control" 
+                           maxlength="20" 
+                           style="text-transform:uppercase" 
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-model="Ctrl.Login" />
                 </div>
             </div>
             <div class="col-md-2">
@@ -100,6 +103,7 @@
             <div class="col-md-12">
                 <button ng-class="CurrentTab=='Perfil' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="CurrentTab='Perfil'">Perfil de Acesso</button>
                 <button ng-class="CurrentTab=='Empresa' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="CurrentTab='Empresa'">Empresas Validas</button>
+                <button ng-class="CurrentTab=='Hierarquia' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="CurrentTab='Hierarquia'" ng-disabled="!Ctrl.Login">Hierarquia</button>
             </div>
         </div>
 
@@ -135,6 +139,35 @@
                 </div>
             </div>
         </div>
+        <div class="block" ng-show="CurrentTab=='Hierarquia'">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td style="width:30px">Nivel Superior</td>
+                            <td style="width:30px"> <button class="btn btn-primary btn-sm" ng-click="SelecionarNivelSuperior()">Selecionar</button></td>
+                            <td>
+                                <label class="label label-info" style="display:inline-flex; margin-right:5px;" ng-repeat="usuario in Ctrl.Nivel_Superior track by $index">
+                                    <span>{{usuario.Login}}</span>
+                                    <span class="fa fa-times span-btn" style="font-size:13px;margin-left:10px" ng-click="RemoverHierarquia(Ctrl.Nivel_Superior,usuario.Login)"></span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width:30px">Nivel Inferior</td>
+                            <td style="width:30px"> <button class="btn btn-primary btn-sm" ng-click="SelecionarNivelInferior()">Selecionar</button></td>
+                            <td>
+                                <label class="label label-info" style="display:inline-flex; margin-right:5px;" ng-repeat="usuario in Ctrl.Nivel_Inferior track by $index">
+                                    <span>{{usuario.Login}}</span>
+                                    <span class="fa fa-times span-btn" style="font-size:13px;margin-left:10px" ng-click="RemoverHierarquia(Ctrl.Nivel_Inferior,usuario.Login)"></span>
+                                </label>
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <!--=============================Botoes-->
         <div class="fixed-buttons-bottom">
             <div class="row" >
@@ -149,6 +182,7 @@
         </div>
     </div>
 </div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#ExportReporttoExcel').on('click', function () {

@@ -11,6 +11,9 @@
         padding-top:5px;
         padding-bottom:5px
     }
+    input{
+        text-transform:uppercase;
+    }
 </style>
 
 <div class="container">
@@ -313,7 +316,7 @@
                                         <td style="width:120px">{{intermediario.Tipo_Intermediario.Nome_Tipo_Intermediario}}</td>
                                         <td style="width:120px">{{intermediario.Tipo_Comissao.Nome_Tipo_Comissao}}</td>
                                         <td style="text-align:center;width:100px">
-                                            <span class="fa fa-trash fa-2x" ng-click="RemoverIntermediario(intermediario.Cod_Intermediario)"></span>
+                                            <span class="fa fa-trash fa-2x span-btn" ng-click="RemoverIntermediario(intermediario.Cod_Intermediario)"></span>
                                         </td>
                                     </tr>
                                     <tr ng-show="ShowNewIntermediario">
@@ -412,6 +415,270 @@
                     </div>
                     <strong>Terceiros</strong>
                 </div>
+                
+                
+                <div class="row">
+                    <!--=========================================Agencias-->
+                    <div class="col-md-6">
+                        <div class="table-responsive margin-top-10">
+                            <table id="tbagencia" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="6" style="background-color:#f5f5f5">
+                                            Agências
+                                            <button class="btn btn-default btn-icon-fixed btn-sm pull-right"
+                                                    ng-click="AdicionarAgencias()">
+                                                <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nome</th>
+                                        <th style="width:100px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="agencia in Negociacao.Agencias track by $index">
+                                        <!--display-->
+                                        <td>{{agencia.Cod_Agencia}}</td>
+                                        <td>{{agencia.Nome_Agencia}}</td>
+                                        <td style="text-align:center;width:100px">
+                                            <span class="fa fa-trash fa-2x span-btn" ng-click="RemoverAgencia(agencia.Cod_Agencia)"></span>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="ShowNewAgencia">
+                                        <!--input-->
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                           ng-model="Agencia_Temp.Cod_Agencia"
+                                                           maxlength="6"
+                                                           ng-change="ValidarAgencia(Agencia_Temp.Cod_Agencia)"
+                                                           ng-model-options="{updateOn: 'blur'}" />
+                                                    <div class="input-group-addon">
+                                                        <span class="fa fa-search span-btn" ng-click="PesquisaAgencia()"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-disabled="true" ng-model="Agencia_Temp.Nome_Agencia" />
+                                        </td>
+                                        <td style="text-align:center;width:100px;white-space:nowrap">
+                                            <button class="btn btn-success btn-sm"
+                                                    style="margin:0px 0px !important"
+                                                    ng-click="SalvarAgencia(Agencia_Temp)"
+                                                    ng-disabled="!Agencia_Temp.Cod_Agencia">
+                                                Ok
+                                            </button>
+                                            <button class="btn btn-warning btn-sm" style="margin:0px 0px !important" ng-click="CancelarAgencia()">Cancela</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--=======================Clientes-->
+                    <div class="col-md-6">
+                        <div class="table-responsive margin-top-10">
+                            <table id="tbcliente" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="6" style="background-color:#f5f5f5">
+                                            Clientes
+                                            <button class="btn btn-default btn-icon-fixed btn-sm pull-right"
+                                                    ng-click="AdicionarClientes()">
+                                                <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nome</th>
+                                        <th style="width:100px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="cliente in Negociacao.Clientes track by $index">
+                                        <!--display-->
+                                        <td>{{cliente.Cod_Cliente}}</td>
+                                        <td>{{cliente.Nome_Cliente}}</td>
+                                        <td style="text-align:center;width:100px">
+                                            <span class="fa fa-trash fa-2x span-btn" ng-click="RemoverCliente(cliente.Cod_Cliente)"></span>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="ShowNewCliente">
+                                        <!--input-->
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                           ng-model="Cliente_Temp.Cod_Cliente"
+                                                           maxlength="6"
+                                                           ng-change="ValidarCliente(Cliente_Temp.Cod_Cliente)"
+                                                           ng-model-options="{updateOn: 'blur'}" />
+                                                    <div class="input-group-addon">
+                                                        <span class="fa fa-search span-btn" ng-click="PesquisaCliente()"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-disabled="true" ng-model="Cliente_Temp.Nome_Cliente" />
+                                        </td>
+                                        <td style="text-align:center;width:100px;white-space:nowrap">
+                                            <button class="btn btn-success btn-sm"
+                                                    style="margin:0px 0px !important"
+                                                    ng-click="SalvarCliente(Cliente_Temp)"
+                                                    ng-disabled="!Cliente_Temp.Cod_Cliente">
+                                                Ok
+                                            </button>
+                                            <button class="btn btn-warning btn-sm" style="margin:0px 0px !important" ng-click="CancelarCliente()">Cancela</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--=========================================Nucleos-->
+                    <div class="col-md-6">
+                        <div class="table-responsive margin-top-10">
+                            <table id="tbnucleo" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="6" style="background-color:#f5f5f5">
+                                            Nucleos
+                                            <button class="btn btn-default btn-icon-fixed btn-sm pull-right"
+                                                    ng-click="AdicionarNucleos()">
+                                                <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nome</th>
+                                        <th style="width:100px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="nucleo in Negociacao.Nucleos track by $index">
+                                        <!--display-->
+                                        <td>{{nucleo.Cod_Nucleo}}</td>
+                                        <td>{{nucleo.Nome_Nucleo}}</td>
+                                        <td style="text-align:center;width:100px">
+                                            <span class="fa fa-trash fa-2x span-btn" ng-click="RemoverNucleo(nucleo.Cod_Nucleo)"></span>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="ShowNewNucleo">
+                                        <!--input-->
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                           ng-model="Nucleo_Temp.Cod_Nucleo"
+                                                           maxlength="6"
+                                                           ng-change="ValidarNucleo(Nucleo_Temp.Cod_Nucleo)"
+                                                           ng-model-options="{updateOn: 'blur'}" />
+                                                    <div class="input-group-addon">
+                                                        <span class="fa fa-search span-btn" ng-click="PesquisaNucleo()"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-disabled="true" ng-model="Nucleo_Temp.Nome_Nucleo" />
+                                        </td>
+                                        <td style="text-align:center;width:100px;white-space:nowrap">
+                                            <button class="btn btn-success btn-sm"
+                                                    style="margin:0px 0px !important"
+                                                    ng-click="SalvarNucleo(Nucleo_Temp)"
+                                                    ng-disabled="!Nucleo_Temp.Cod_Nucleo">
+                                                Ok
+                                            </button>
+                                            <button class="btn btn-warning btn-sm" style="margin:0px 0px !important" ng-click="CancelarNucleo()">Cancela</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!--=======================Contatos-->
+                    <div class="col-md-6">
+                        <div class="table-responsive margin-top-10">
+                            <table id="tbcontato" class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="6" style="background-color:#f5f5f5">
+                                            Contatos
+                                            <button class="btn btn-default btn-icon-fixed btn-sm pull-right"
+                                                    ng-click="AdicionarContatos()">
+                                                <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Nome</th>
+                                        <th>Comissão</th>
+                                        <th style="width:100px"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="contato in Negociacao.Contatos track by $index">
+                                        <!--display-->
+                                        <td>{{contato.Cod_Contato}}</td>
+                                        <td>{{contato.Nome_Contato}}</td>
+                                        <td>{{contato.Comissao | currency :"":4}}</td>
+                                        <td style="text-align:center;width:100px">
+                                            <span class="fa fa-trash fa-2x span-btn" ng-click="RemoverContato(contato.Cod_Contato)"></span>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="ShowNewContato">
+                                        <!--input-->
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"
+                                                           ng-model="Contato_Temp.Cod_Contato"
+                                                           maxlength="6"
+                                                           ng-change="ValidarContato(Contato_Temp.Cod_Contato)"
+                                                           ng-model-options="{updateOn: 'blur'}" />
+                                                    <div class="input-group-addon">
+                                                        <span class="fa fa-search span-btn" ng-click="PesquisaContato()"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-disabled="true" ng-model="Contato_Temp.Nome_Contato" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control percent"
+                                                   id="txtComissaoIntermediario"
+                                                   ng-model="Contato_Temp.Comissao"
+                                                   maxlength="10"
+                                                   ng-change=""
+                                                   ng-model-options="{updateOn: 'blur'}" />
+                                        </td>
+                                        <td style="text-align:center;width:100px;white-space:nowrap">
+                                            <button class="btn btn-success btn-sm"
+                                                    style="margin:0px 0px !important"
+                                                    ng-click="SalvarContato(Contato_Temp)"
+                                                    ng-disabled="!Contato_Temp.Cod_Contato">
+                                                Ok
+                                            </button>
+                                            <button class="btn btn-warning btn-sm" style="margin:0px 0px !important" ng-click="CancelarContato()">Cancela</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!--================================Descontos-->
             <div class="block" id="divDesconto">
@@ -420,6 +687,36 @@
                         <span class="fa fa-calculator"></span>
                     </div>
                     <strong class="">Descontos</strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Tipo do Desconto</th>
+                                        <th>Conteudo</th>
+                                        <th>Descrição</th>
+                                        <th>Desconto %</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <select class="form-control"
+                                                    ng-model="Negociacao.Tipo_Desconto"
+                                                    name="txtFormaPagamento"
+                                                    ng-options="TipoDesconto.Codigo as TipoDesconto.Descricao for TipoDesconto in TipoDesconto"></select>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!--================================Parcelas-->

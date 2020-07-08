@@ -61,7 +61,9 @@ namespace PROPOSTA
                     Usuario.Descricao_Status = dtb.Rows[0]["Descricao_Status"].ToString();
                     Usuario.Telefone = dtb.Rows[0]["Telefone"].ToString();
                     Usuario.Cargo = dtb.Rows[0]["Cargo"].ToString();
-                    Usuario.Id_Nivel_Acesso= dtb.Rows[0]["Id_Nivel_Acesso"].ToString().ConvertToInt32();
+                    Usuario.Id_Nivel_Acesso = dtb.Rows[0]["Id_Nivel_Acesso"].ToString().ConvertToInt32();
+                    Usuario.Nivel_Superior = AddNivel(pIdUsuario, 1);
+                    Usuario.Nivel_Inferior= AddNivel(pIdUsuario, 2);
                 }
 
                 //=======================Perfil de Acesso
@@ -96,8 +98,8 @@ namespace PROPOSTA
                 {
                     Empresas.Add(new EmpresaModel()
                     {
-                        Cod_Empresa= drw["Cod_Empresa"].ToString(),
-                        Nome_Empresa= drw["Nome_Empresa"].ToString(),
+                        Cod_Empresa = drw["Cod_Empresa"].ToString(),
+                        Nome_Empresa = drw["Nome_Empresa"].ToString(),
                         Selected = drw["Selected"].ToString().ConvertToBoolean(),
                     }
                     );
@@ -114,6 +116,42 @@ namespace PROPOSTA
             }
             return Usuario;
         }
+        private List<HierarquiaModel> AddNivel(Int32 pIdUsuario, Byte pNivel)
+        {
+
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            List<HierarquiaModel> Hierarquia = new List<HierarquiaModel>();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_Usuario_Hierarquia_Get");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Usuario", pIdUsuario);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Nivel", pNivel);
+                Adp.Fill(dtb);
+                foreach (DataRow drw in dtb.Rows)
+                {
+                    Hierarquia.Add(new HierarquiaModel()
+                    {
+                        Login = drw["Login"].ToString(),
+                        Nome = drw["Nome"].ToString()
+                    });
+                };
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Hierarquia;
+        }
         public DataTable SalvarUsuario(UsuarioModel Usuario)
         {
             clsConexao cnn = new clsConexao(this.Credential);
@@ -121,7 +159,7 @@ namespace PROPOSTA
             SqlDataAdapter Adp = new SqlDataAdapter();
             DataTable dtb = new DataTable("dtb");
             SimLib clsLib = new SimLib();
-            String xmlPerfil= null;
+            String xmlPerfil = null;
             if (Usuario.Perfil.Count > 0)
             {
                 xmlPerfil = clsLib.SerializeToString(Usuario.Perfil);
@@ -130,6 +168,16 @@ namespace PROPOSTA
             if (Usuario.Empresas.Count > 0)
             {
                 xmlEmpresas = clsLib.SerializeToString(Usuario.Empresas);
+            }
+            String xmlNivelSuperior= null;
+            if (Usuario.Nivel_Superior.Count > 0)
+            {
+                xmlNivelSuperior = clsLib.SerializeToString(Usuario.Nivel_Superior);
+            }
+            String xmlNivelInferior = null;
+            if (Usuario.Nivel_Inferior.Count > 0)
+            {
+                xmlNivelInferior = clsLib.SerializeToString(Usuario.Nivel_Inferior);
             }
             try
             {
@@ -144,6 +192,8 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Nivel_Acesso", Usuario.Id_Nivel_Acesso);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Perfil", xmlPerfil);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Empresa", xmlEmpresas);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Hierarquia_Pai", xmlNivelSuperior);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Hierarquia_Filho", xmlNivelInferior);
                 Adp.Fill(dtb);
             }
             catch (Exception)
@@ -156,7 +206,6 @@ namespace PROPOSTA
             }
             return dtb;
         }
-
         public void DesativarReativar(UsuarioModel Usuario)
         {
             clsConexao cnn = new clsConexao(this.Credential);
@@ -177,7 +226,7 @@ namespace PROPOSTA
             {
                 cnn.Close();
             }
-         
+
         }
         public void ExcluirUsuario(UsuarioModel Usuario)
         {

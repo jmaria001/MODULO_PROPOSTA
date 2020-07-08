@@ -1,4 +1,4 @@
-﻿angular.module('App').controller('AprovarPendentes_Controller', ['$scope', '$rootScope', 'httpService', '$routeParams', function ($scope, $rootScope, httpService, $routeParams) {
+﻿angular.module('App').controller('AprovarPendentes_Controller', ['$scope', '$rootScope', 'httpService', '$routeParams','$location', function ($scope, $rootScope, httpService, $routeParams,$location) {
 
 
     //========================Recebe Parametro
@@ -29,6 +29,7 @@
                 ShowAlert(response.data[0].Mensagem, response.data[0].Status ? 'success' : 'warning');
                 if (response.data[0].Status==1) {
                     $scope.Simulacao.Aprovado = true;
+                    $location.path("/PendenciaAprovacao");
                 }
             }
         });
@@ -43,6 +44,7 @@
                 ShowAlert(response.data[0].Mensagem, response.data[0].Status ? 'success' : 'warning');
                 if (response.data[0].Status == 1) {
                     $scope.Simulacao.Aprovado = true;
+                    $location.path("/PendenciaAprovacao");
                 }
             }
         });

@@ -60,10 +60,6 @@ namespace PROPOSTA
             public String label { get; set; }
         }
 
-
-
-
-
         public class GraphOptionModel
         {
             public Boolean responsive { get; set; } = true;
@@ -108,11 +104,17 @@ namespace PROPOSTA
         {
             public Boolean display { get; set; }
             public GraphScaleLabelModel scaleLabel { get; set; }
+            public tickModel ticks { get; set; }
         }
         public class GraphYaxesrModel
         {
             public Boolean display { get; set; } = true;
             public GraphScaleLabelModel scaleLabel { get; set; }
+            public tickModel ticks { get; set; }
+        }
+        public class tickModel
+        {
+            public Boolean beginAtZero { get; set; } = true;
         }
         public class GraphScaleLabelModel {
             public Boolean display { get; set; } = true;

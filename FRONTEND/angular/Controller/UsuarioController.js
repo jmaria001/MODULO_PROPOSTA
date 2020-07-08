@@ -5,8 +5,12 @@
     $scope.CurrentTab = "Perfil";
     $scope.checkBoxEmpresa = false;
     $scope.checkBoxPerfil = false;
-    $scope.Ctrl = {};
+    
     $scope.NivelAcesso = [{ 'Id': 1, 'Descricao': 'Padrão' }, { 'Id': 2, 'Descricao': 'Administrador' }]
+    $scope.NewUsuario = function () {
+        $scope.Ctrl = { 'Login': '', 'Nome': '', 'Email': '', 'Telefone': '', 'Cargo': '', 'Id_Nivel_Acesso':'','Nivel_Superior':[],'Nivel_Inferior':[]};
+    }
+    $scope.Ctrl = $scope.NewUsuario();
     $scope.gridheaders = [{ 'title': '#ID', 'visible': true, 'searchable': false, 'sortable': true },
                             { 'title': 'Login', 'visible': true, 'searchable': true, 'sortable': true },
                             { 'title': 'Nome', 'visible': true, 'searchable': true, 'sortable': true },
@@ -34,7 +38,6 @@
     httpService.Get("credential/Usuario@Activate").then(function (response) {
         $scope.PermissaoDesativar = response.data;
     });
-    
     //====================Quando terminar carga do grid, torna view do grid visible
     $scope.RepeatFinished = function () {
         $rootScope.routeloading = false;
@@ -46,7 +49,6 @@
 
 
     };
-
     //====================Carrega o Grid
     $scope.CarregarUsuario = function () {
         $rootScope.routeloading = true;
@@ -109,8 +111,6 @@
             });
         });
     };
-
-    
     //=====================Marcou uma funcao do Perfil
     $scope.CheckPerfil = function (pPerfil) {
         if (!pPerfil.Selected) {
@@ -139,7 +139,7 @@
     $scope.CancelaEdicao = function () {
         $scope.CurrentShow = 'Grid';
         $scope.CurrentTab = 'Perfil';
-        $scope.Ctrl = {};
+        $scope.Ctrl = $scope.NewUsuario();
         $scope.checkBoxEmpresa = false;
         $scope.checkBoxPerfil = false;
     }
@@ -156,6 +156,78 @@
             }
         });
     }
+    //============================================Selecionar Usuario Nivel Superior
+    $scope.SelecionarNivelSuperior = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
+        httpService.Get('ListarTabela/Login').then(function (response) {
+            if (response.data) {
+                $scope.PesquisaTabelas.Items = response.data
+                $scope.PesquisaTabelas.FiltroTexto = ""
+                $scope.PesquisaTabelas.Titulo = "Seleção de Usuários"
+                $scope.PesquisaTabelas.MultiSelect = true;
+                for (var i = 0; i < $scope.PesquisaTabelas.Items.length; i++) {
+                    console.log($scope.PesquisaTabelas.Items[i].Codigo.trim());
+                    console.log($scope.Ctrl.Login.trim());
+                    if ($scope.PesquisaTabelas.Items[i].Codigo.trim()==$scope.Ctrl.Login.trim()) {
+                        $scope.PesquisaTabelas.Items.splice(i,1);
+                        break;
+                    }
+                }
+                for (var x = 0; x < $scope.PesquisaTabelas.Items.length; x++) {
+                    for (var y = 0; y < $scope.Ctrl.Nivel_Superior.length; y++) {
+                        if ($scope.Ctrl.Nivel_Superior[y].Login.trim() == $scope.PesquisaTabelas.Items[x].Codigo.trim()) {
+                            $scope.PesquisaTabelas.Items[x].Selected = true;
+                        }
+                    };
+                };
+                $scope.PesquisaTabelas.ClickCallBack = function (value) {
+                    $scope.Ctrl.Nivel_Superior = [];
+                    for (var i = 0; i < $scope.PesquisaTabelas.Items.length; i++) {
+                        if ($scope.PesquisaTabelas.Items[i].Selected) {
+                            $scope.Ctrl.Nivel_Superior.push({ 'Login': $scope.PesquisaTabelas.Items[i].Codigo, 'Nome': $scope.PesquisaTabelas.Items[i].Descricao })
+                        };
+                    };
+                };
+                $("#modalTabela").modal(true);
+            }
+        });
+    };
+    //============================================Selecionar Usuario Nivel Inferior
+    $scope.SelecionarNivelInferior = function () {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
+        httpService.Get('ListarTabela/Login').then(function (response) {
+            if (response.data) {
+                $scope.PesquisaTabelas.Items = response.data
+                $scope.PesquisaTabelas.FiltroTexto = ""
+                $scope.PesquisaTabelas.Titulo = "Seleção de Programas"
+                $scope.PesquisaTabelas.MultiSelect = true;
+                for (var x = 0; x < $scope.PesquisaTabelas.Items.length; x++) {
+                    for (var y = 0; y < $scope.Ctrl.Nivel_Inferior.length; y++) {
+                        if ($scope.Ctrl.Nivel_Inferior[y].Login.trim() == $scope.PesquisaTabelas.Items[x].Codigo.trim()) {
+                            $scope.PesquisaTabelas.Items[x].Selected = true;
+                        }
+                    };
+                };
+                $scope.PesquisaTabelas.ClickCallBack = function (value) {
+                    $scope.Ctrl.Nivel_Inferior = [];
+                    for (var i = 0; i < $scope.PesquisaTabelas.Items.length; i++) {
+                        if ($scope.PesquisaTabelas.Items[i].Selected) {
+                            $scope.Ctrl.Nivel_Inferior.push({ 'Login': $scope.PesquisaTabelas.Items[i].Codigo, 'Nome': $scope.PesquisaTabelas.Items[i].Descricao })
+                        };
+                    };
+                };
+                $("#modalTabela").modal(true);
+            }
+        });
+    };
+    //====================Remover Usuario 
+    $scope.RemoverHierarquia = function (pNivel,pLogin) {
+        for (var i = 0; i < pNivel.length; i++) {
+            if (pNivel[i].Login.trim() == pLogin.trim()) {
+                pNivel.splice(i, 1);
+            };
+        };
+    };
     //====================Funcao para configurar o Grid
     $scope.ConfiguraGrid = function () {
         param = {};

@@ -104,6 +104,7 @@
                             $scope.Negociacao = responseNegociacao.data;
                             $scope.Contrato.Cod_Tipo_Midia = $scope.Negociacao.Cod_Tipo_Midia;
                             $scope.Contrato.Editar_Tipo_Midia = false;
+
                             if ($scope.Negociacao.Nucleos.length == 1) {
                                 $scope.Contrato.Cod_Nucleo = $scope.Negociacao.Nucleos[0].Cod_Nucleo;
                                 $scope.Contrato.Nome_Nucleo = $scope.Negociacao.Nucleos[0].Nome_Nucleo;
@@ -111,6 +112,8 @@
                                     $scope.Contrato.Editar_Nucleo = false;
                                 }
                             };
+
+
                             $scope.Contrato.Competencia_Inicio_Negociacao = response.data[0].Competencia_Inicial;
                             $scope.Contrato.Competencia_Termino_Negociacao = response.data[0].Competencia_Final;
                             if ($scope.Parameters.Action != 'Import') {

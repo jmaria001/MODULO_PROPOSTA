@@ -115,6 +115,7 @@ namespace PROPOSTA
                     Negociacao.Contatos = AddContatos(drw["Numero_Negociacao"].ToString().ConvertToInt32());
                     Negociacao.Intermediarios = AddIntermediarios(drw["Numero_Negociacao"].ToString().ConvertToInt32());
                     Negociacao.Apresentadores= AddApresentadores(drw["Numero_Negociacao"].ToString().ConvertToInt32());
+                    Negociacao.Descontos = AddDescontos(drw["Numero_Negociacao"].ToString().ConvertToInt32());
                 }
             }
             catch (Exception)
@@ -127,7 +128,6 @@ namespace PROPOSTA
             }
             return Negociacao;
         }
-
         private List<NegociacaoEmpresaVendaModel> AddEmpresaVenda(Int32 pNegociacao)
         {
             clsConexao cnn = new clsConexao(this.Credential);
@@ -285,6 +285,8 @@ namespace PROPOSTA
                     {
                         Cod_Contato = drw["Cod_Contato"].ToString(),
                         Nome_Contato = drw["Nome_Contato"].ToString(),
+                        Comissao = drw["Comissao"].ToString().ConvertToDouble(),
+
                     });
                 }
             }
@@ -407,6 +409,80 @@ namespace PROPOSTA
             }
             return Apresentadores;
         }
+        private List<NegociacaoDescontoModel> AddDescontos(Int32 pNegociacao)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            List<NegociacaoDescontoModel> Descontos = new List<NegociacaoDescontoModel>();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Negociacao_Desconto_List");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Numero_Negociacao", pNegociacao);
+                Adp.Fill(dtb);
+                foreach (DataRow drw in dtb.Rows)
+                {
+                    Descontos.Add(new NegociacaoDescontoModel
+                    {
+                        Id_Desconto = drw["Sequencia_Negociacao"].ToString().ConvertToInt32(),
+                        Desconto = drw["Desconto"].ToString().ConvertToInt32(),
+                        Items = addDescontoItem(pNegociacao,drw["Sequencia_Desconto"].ToString().ConvertToInt32()),
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Descontos;
+        }
+        private List<NegociacaoItemDescontoModel> addDescontoItem(Int32 pNegociacao,Int32 pIdDesconto)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            List<NegociacaoItemDescontoModel> Items = new List<NegociacaoItemDescontoModel>();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Negociacao_Desconto_Item_List");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Numero_Negociacao", pNegociacao);
+                Adp.Fill(dtb);
+                foreach (DataRow drw in dtb.Rows)
+                {
+                    Items.Add(new NegociacaoItemDescontoModel
+                    {
+                        Id_Desconto = drw["Sequencia_Negociacao"].ToString().ConvertToInt32(),
+                        Cod_Tipo_Desconto = drw["Sequencia_Negociacao"].ToString(),
+                        Nome_Tipo_Desconto = drw["Sequencia_Negociacao"].ToString(),
+                        Cod_Chave = drw["Sequencia_Negociacao"].ToString(),
+                        Nome_Chave = drw["Sequencia_Negociacao"].ToString(),
+                        Data_Inicio = drw["Sequencia_Negociacao"].ToString(),
+                        Data_Termino = drw["Sequencia_Negociacao"].ToString(),
+
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Items;
+        }
+
         public DataTable NegociacaoDetalhe(Int32 pNegociacao)
         {
             clsConexao cnn = new clsConexao(this.Credential);

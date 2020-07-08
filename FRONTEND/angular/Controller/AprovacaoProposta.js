@@ -42,7 +42,6 @@
 
     //===================================Recusar Aprovacao
     $scope.RecusarProposta = function (pId_Simulacao, pMotivo,pToken) {
-
         var _data = { 'Id_Simulacao': pId_Simulacao, 'Action': 'Recusar', 'Motivo': pMotivo,'Token':pToken };
         httpService.Post("AprovarProposta", _data).then(function (response) {
             if (response) {

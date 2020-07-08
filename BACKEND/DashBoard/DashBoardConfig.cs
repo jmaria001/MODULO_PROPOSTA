@@ -27,13 +27,15 @@ namespace PROPOSTA
             xAxe.Add(new GraphXaxesrModel()
             {
                 display = true,
-                scaleLabel = new GraphScaleLabelModel() { display = (string.IsNullOrEmpty(Cfg.TitleX)) ? false : true, labelString = Cfg.TitleX }
+                scaleLabel = new GraphScaleLabelModel() { display = (string.IsNullOrEmpty(Cfg.TitleX)) ? false : true, labelString = Cfg.TitleX },
+                ticks = new tickModel() { beginAtZero = true }
             });
 
             YAxe.Add(new GraphYaxesrModel()
             {
                 display = true,
                 scaleLabel = new GraphScaleLabelModel() { display = (string.IsNullOrEmpty(Cfg.TitleY)) ? false : true, labelString = Cfg.TitleY },
+                ticks = new tickModel() { beginAtZero = true }
             });
 
 

@@ -45,6 +45,7 @@
     }
     //==========================Monta o Grafico ---essa precisa para montar o grafico
     $scope.SetGrap = function (pData, pGraph) {
+
         var ctx = document.getElementById(pGraph).getContext('2d');
         if (chart != null) {
             chart.destroy();
@@ -59,7 +60,6 @@
                 if (response.data.data.datasets.length > 0) {
                     $scope.ShowBarra = true;
                 }
-                
                 $scope.DashboardData = response.data;
                 $scope.DashboardData.data.datasets[0].backgroundColor = ['rgb(239, 64, 67,0.8)', 'rgb(118 ,171, 60,0.8)', 'rgb(79, 181, 255,0.8)', 'rgb(153, 102, 255,0.8)'];
                 $scope.DashboardData.options.legend= { display: false } ;
@@ -73,12 +73,3 @@
         $scope.CarregarGrafico($scope.Filtro); ///quando entra ja cxarrega o grafico 
     });
 }]);
-
-//red: 'rgb(239, 64, 67)',
-//    orange: 'rgb(246, 159, 0)',
-//yellow: 'rgb(242, 255, 37)',
-//green: 'rgb(118, 171, 60)',
-//blue: 'rgb(79, 181, 221)',
-//purple: 'rgb(153, 102, 255)',
-//grey: 'rgb(231,233,237)'
-7

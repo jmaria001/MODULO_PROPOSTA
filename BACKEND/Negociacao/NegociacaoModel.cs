@@ -46,6 +46,7 @@ namespace PROPOSTA
             public String Tabela_Reaplicacao { get; set; }
             public Byte Sequencia_Tabela_Reaplicacao { get; set; }
             public String Desconto_Reaplicacao { get; set; } 
+            public List<NegociacaoDescontoModel> Descontos { get; set; }
             public List<NegociacaoEmpresaVendaModel> Empresas_Venda { get; set; }
             public List<NegociacaoEmpresaFaturamentoModel> Empresas_Faturamento { get; set; }
             public List<NegociacaoAgenciaModel> Agencias { get; set; }
@@ -80,13 +81,13 @@ namespace PROPOSTA
         {
             public String Cod_Contato{ get; set; }
             public String Nome_Contato{ get; set; }
+            public Double Comissao { get; set; }
         }
         public class NegociacaoNucleoModel
         {
             public String Cod_Nucleo{ get; set; }
             public String Nome_Nucleo{ get; set; }
         }
-
         public class NegociacaoIntermediarioModel
         {
             public String Cod_Intermediario { get; set; }
@@ -99,6 +100,23 @@ namespace PROPOSTA
             //public String Tipo_Comissao { get; set; }
             //public String Nome_Tipo_Comissao { get; set; }
             public Tipo_ComissaoModel Tipo_Comissao { get; set; }
+        }
+        public class NegociacaoDescontoModel
+        {
+            public Int32 Id_Desconto { get; set; }
+            public Double Desconto { get; set; }
+            public List<NegociacaoItemDescontoModel> Items { get; set; }
+        }
+        public class NegociacaoItemDescontoModel
+        {
+            public Int32 Id_Desconto { get; set; }
+            public String Cod_Tipo_Desconto{ get; set; }
+            public String Nome_Tipo_Desconto { get; set; }
+            public String Cod_Chave{ get; set; }
+            public String Nome_Chave { get; set; }
+            public String Data_Inicio { get; set; }
+            public String Data_Termino { get; set; }
+
         }
 
         public class NegociacaoFiltroParam

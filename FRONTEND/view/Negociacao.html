@@ -167,8 +167,8 @@
                         <td style="text-align:right;white-space:nowrap">{{::Negociacao.Verba_Negociada| currency:"R$ ":2}}</td>
                         <td style="text-align:right;white-space:nowrap">{{::Negociacao.Valor_Tabela|currency:"R$ ":2}}</td>
                         <td style="text-align:right;white-space:nowrap">{{::Negociacao.Valor_Negociado|currency:"R$ ":2}}</td>
-                        <td style="text-align:left">{{Negociacao.Desconto_Concedido | percentage:4}}</td>
-                        <td style="text-align:left">{{Negociacao.Desconto_Real | percentage:4}}</td>
+                        <td style="text-align:left">{{Negociacao.Desconto_Concedido | currency:"":4}}%</td>
+                        <td style="text-align:left">{{Negociacao.Desconto_Real | currency:"":4}}%</td>
                         <td>
                             <label class="label label-default text-left" style="display:grid" ng-repeat="Contato in Negociacao.Contatos">
                                 {{Contato.Cod_Contato}} - {{Contato.Nome_Contato}}

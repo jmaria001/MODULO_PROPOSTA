@@ -220,7 +220,7 @@
                                     </div>
                                 </div>
                                 <!--=============================Pacote de Descontos-->
-                                <div class="col-md-2" ng-controller="dictionaryController">
+                                <!--<div class="col-md-2" ng-controller="dictionaryController">
                                     <div class="dictionary" dictionary="Pacote_Desconto">
                                         <input id="txtId_Pacote"
                                                ng-disabled="Simulacao.Fixar_Valor || !Simulacao.Permite_Editar"
@@ -230,7 +230,23 @@
                                                primarybind="txtId_Pacote"
                                                secondarybind="txtDescricao_Pacote">
                                     </div>
+                                </div>-->
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="txtId_Pacote" class="field-x" style="white-space:nowrap">Pacote de Descontos</label>
+                                        <div class="input-group">
+                                            <input id="txtId_Pacote" class="form-control"
+                                                   ng-disabled="Simulacao.Fixar_Valor || !Simulacao.Permite_Editar"
+                                                   ng-model="Simulacao.Id_Pacote"
+                                                   ng-model-options="{updateOn: 'blur'}"
+                                                   ng-change="ValidarPacote(Simulacao.Id_Pacote);ChangePendenteCalculo()" />
+                                            <div class="input-group-addon" ng-hide="Simulacao.Fixar_Valor || !Simulacao.Permite_Editar">
+                                                <span class="fa fa-search span-btn" ng-click="SelecionarPacote(Simulacao.Validade_Inicio,Simulacao.Validade_Termino)"></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="txtDescricao_Pacote" class="field-x" style="visibility:hidden">..</label>
@@ -271,10 +287,12 @@
                                             <thead>
                                                 <tr>
                                                     <th colspan="2">
-                                                        <button class="btn btn-sm btn-primary margin-right-10 btntab"  
-                                                                ng-repeat="total in Simulacao.Totalizadores track by $index" 
+                                                        <button class="btn btn-sm btn-primary margin-right-10 btntab"
+                                                                ng-repeat="total in Simulacao.Totalizadores track by $index"
                                                                 ng-click="SetTotalizadorIndex($index)"
-                                                                ng-style="{'background-color':($index==TotalizadorIndex) ?'orange':'black'}">{{total.Nome_Rede}}</button>
+                                                                ng-style="{'background-color':($index==TotalizadorIndex) ?'orange':'black'}">
+                                                            {{total.Nome_Rede}}
+                                                        </button>
                                                     </th>
                                                 </tr>
                                                 <tr>
@@ -324,11 +342,11 @@
                                                 </tr>
                                                 <tr ng-show="Simulacao.Tipo=='P'">
                                                     <td colspan="2" style="text-align:center;background-color:whitesmoke">
-                                                            <div class="form-group">
-                                                                <p>Temperatura de Venda</p>
-                                                                <input type="text" id="txtTermometro" name="txtTermometro" value="" ng-model="Simulacao.Termometro_Venda">
-                                                            </div>
-                                                        
+                                                        <div class="form-group">
+                                                            <p>Temperatura de Venda</p>
+                                                            <input type="text" id="txtTermometro" name="txtTermometro" value="" ng-model="Simulacao.Termometro_Venda">
+                                                        </div>
+
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -578,7 +596,7 @@
                                                 <input id="txtIdRede"
                                                        ng-model="Simulacao.Esquemas[currentEsquema].RedeId"
                                                        ng-model-options="{updateOn: 'blur'}"
-                                                        ng-change="DicionaryValidate('txtIdRede');RedeChange()"
+                                                       ng-change="DicionaryValidate('txtIdRede');RedeChange()"
                                                        ng-disabled="Simulacao.Esquemas[currentEsquema].Midias.length>0 || !Simulacao.Permite_Editar"
                                                        primarybind="txtIdRede"
                                                        secondarybind="txtNomeRede" />
@@ -1000,6 +1018,7 @@
                                         <td><span ng-show="Linha.IsValid">{{Linha.Qtd_Total_Insercoes}}</span></td>
                                         <td><span ng-show="Linha.IsValid">{{Linha.Valor_Tabela_Unitario}}</span></td>
                                         <!--<td><span ng-show="Linha.IsValid">{{Linha.Desconto_Informado}}</span></td>-->
+                                        <td><span
                                         <td><span class="span-btn" style="text-decoration:underline" data-toggle="tooltip" title="Detalhar Descontos" ng-show="Linha.IsValid" ng-click="DetalharDesconto(Linha)">{{Linha.Desconto_Real}}  </span></td>
                                         <td><span ng-show="Linha.IsValid">{{Linha.Valor_Negociado_Total}} </span></td>
                                         <td>
@@ -1058,7 +1077,7 @@
                 </div>
                 <div class="col-md-2">
                     <label>Desconto Real:</label>
-                    {{Simulacao.Desconto_Real | percentage:4}}
+                    {{Simulacao.Desconto_Real | currency:"":4}}%
                 </div>
                 <div class="col-md-3">
                     <span id="btnCloseTotal" class="fa fa-times fa-2x span-btn pull-right" style="color:#e0e0e0"></span>
@@ -1109,7 +1128,7 @@
         });
 
         $(".percent").blur(function () {
-            if (DoubleVal(this.value)> 100) {
+            if (DoubleVal(this.value) > 100) {
                 ShowAlert("Valor nao pode ser superior a 100%")
                 var ctrl = angular.element(this).data('$ngModelController');
                 this.value = "";

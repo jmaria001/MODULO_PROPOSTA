@@ -54,7 +54,7 @@
             if (response.data) {
                 $scope.Simulacao = response.data;
                 $scope.Indica_Sem_Midia = $scope.Simulacao.Indica_Sem_Midia;
-                $scope.TotalizadorIndex = $scope.Simulacao.Totalizadores.length-1;
+                $scope.TotalizadorIndex = $scope.Simulacao.Totalizadores.length - 1;
                 $timeout(function () {
                     $scope.IniciarCalculo = true;
                 }, 1000);
@@ -116,7 +116,7 @@
             _url += '&Cod_Mercado=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Mercado);
             _url += '&Cod_Empresa=' + NullToString($scope.Simulacao.Cod_Empresa_Venda);
             _url += '&Cod_Empresa_Faturamento=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Empresa_Faturamento);
-            _url +="&"
+            _url += "&"
             httpService.Get(_url).then(function (response) {
                 if (response.data) {
                     for (var i = 0; i < response.data.length; i++) {
@@ -194,7 +194,7 @@
         var _month = $scope.Simulacao.Esquemas[$scope.currentEsquema].Competencia.substr(0, 2);
         var _year = $scope.Simulacao.Esquemas[$scope.currentEsquema].Competencia.substr(3, 4);
         var _primeiro_dia = new Date(_year, _month - 1, 1, 0, 0, 0, 0);
-        var _ultimo_dia = LastDay(_year, _month );
+        var _ultimo_dia = LastDay(_year, _month);
         if (_primeiro_dia < StringToDate($scope.Simulacao.Validade_Inicio)) {
             _primeiro_dia = StringToDate($scope.Simulacao.Validade_Inicio);
         };
@@ -242,7 +242,7 @@
                     $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos = [];
                     for (var x = 0; x < $scope.ListadeVeiculos.length; x++) {
                         $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos.push({
-                            'Id_Esquema':  $scope.Simulacao.Esquemas[$scope.currentEsquema].Id_Esquema, 'Cod_Veiculo': $scope.ListadeVeiculos[x].Cod_Veiculo, 'Nome_Veiculo': $scope.ListadeVeiculos[x].Descricao
+                            'Id_Esquema': $scope.Simulacao.Esquemas[$scope.currentEsquema].Id_Esquema, 'Cod_Veiculo': $scope.ListadeVeiculos[x].Cod_Veiculo, 'Nome_Veiculo': $scope.ListadeVeiculos[x].Descricao
                         });
                     }
                 }
@@ -357,7 +357,7 @@
             'Validade_Inicio': $scope.Simulacao.Validade_Inicio,
             'Validade_Termino': $scope.Simulacao.Validade_Termino,
             'Cod_Empresa_Faturamento': pEsquema.Cod_Empresa_Faturamento,
-            'Duracao':pMidia.Duracao
+            'Duracao': pMidia.Duracao
         };
         httpService.Post("DistribuirInsercoes", _data).then(function (response) {
             if (response) {
@@ -397,8 +397,8 @@
         }
         if (pTipo = 'Desconto') {
             if ($scope.Simulacao.Fixar_Desconto) {
-                $scope.Simulacao.Id_Pacote = ""
-                $scope.Simulacao.Descricao_Pacote = ""
+                //$scope.Simulacao.Id_Pacote = ""
+                //$scope.Simulacao.Descricao_Pacote = ""
                 $scope.Simulacao.Fixar_Valor = false;
                 $scope.Simulacao.Valor_Informado = "";
             }
@@ -567,7 +567,7 @@
                 httpService.Get("MostrarAprovadores/" + pId_Simulacao).then(function (response) {
                     if (response.data) {
                         for (var i = 0; i < response.data.length; i++) {
-                            var _urlMobile = $rootScope.mobileUrl + "anotificacaoenvia.aspx?" + response.data[i].Login_Aprovador + ',' + pId_Simulacao.toString()+',0';
+                            var _urlMobile = $rootScope.mobileUrl + "anotificacaoenvia.aspx?" + response.data[i].Login_Aprovador + ',' + pId_Simulacao.toString() + ',0';
                             httpService.MobileGet(_urlMobile).then(function (response) {
                             });
                         };
@@ -698,7 +698,7 @@
     //    $scope.IniciarCalculo = true;
     //},30000);
     $scope.Indica_Sem_Midia_Change = function (pValue) {
-        if (!$scope.Simulacao.Indica_Sem_Midia && $scope.Simulacao.Esquemas.length>0 && pValue) {
+        if (!$scope.Simulacao.Indica_Sem_Midia && $scope.Simulacao.Esquemas.length > 0 && pValue) {
             swal({
                 title: "Ao Mudar para Sem Midia Todos os Esquemas Comerciais serão Apagados. Confirma a Alteração ?",
                 //text: "Ao mudar para Sem Midia todos os Esquemas Comerciais serão apadagos",
@@ -726,5 +726,48 @@
     };
     $scope.SetTotalizadorIndex = function (pIndex) {
         $scope.TotalizadorIndex = pIndex;
+    };
+    //===========================Selecionar Pacote de Descontos
+    $scope.SelecionarPacote = function (pValidadeInicio, pValidadeTermino) {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
+        var _url = "SelecionarPacotes";
+        _url += "?Id_pacote=0"
+        _url += "&Validade_Inicio=" + pValidadeInicio;
+        _url += "&Validade_Termino=" + pValidadeTermino;
+        _url += "&";
+        httpService.Get(_url).then(function (response) {
+            if (response.data) {
+                $scope.PesquisaTabelas.Items = response.data
+                $scope.PesquisaTabelas.FiltroTexto = ""
+                $scope.PesquisaTabelas.Titulo = "Selecionar Pacote"
+                $scope.PesquisaTabelas.MultiSelect = false;
+                $scope.PesquisaTabelas.ClickCallBack = function (value) {
+                    $scope.Simulacao.Id_Pacote = value.Codigo;
+                    $scope.Simulacao.Descricao_Pacote = value.Descricao;
+                };
+                $("#modalTabela").modal(true);
+            }
+        });
+    };
+    $scope.ValidarPacote = function (pIdPacote) {
+        if (!pIdPacote) {
+            return;
+        }
+        var _url = "SelecionarPacotes";
+        _url += "?Id_Pacote=" + pIdPacote.toString().trim();
+        _url += "&Validade_Inicio=" + $scope.Simulacao.Validade_Inicio;
+        _url += "&Validade_Termino=" + $scope.Simulacao.Validade_Termino;
+        _url += "&";
+        httpService.Get(_url).then(function (response) {
+
+            if (response.data.length==0) {
+                ShowAlert("Pacote Inválido ou fora da Validade");
+                $scope.Simulacao.Id_Pacote = "";
+                $scope.Simulacao.Descricao_Pacote = "";
+            }
+            else {
+                $scope.Simulacao.Descricao_Pacote = response.data[0].Descricao;
+            }
+        });
     };
 }]);

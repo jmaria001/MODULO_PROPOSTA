@@ -224,5 +224,11 @@ namespace PROPOSTA
             public String Cliente{ get; set; }
             public String Contato{ get; set; }
         }
+        public class ParamSelecionarPacote
+        {
+            public Int32 Id_Pacote { get; set; }
+            public String Validade_Inicio{ get; set; }
+            public String Validade_Termino{ get; set; }
+        }
     }
 }

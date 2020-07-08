@@ -573,8 +573,8 @@
         RouteId: 'Negociacao@Index'
     })
     .when('/NegociacaoCadastro/:Action/:Id', {
-        //templateUrl: 'view/Negociacao_Cadastro.html',
-        templateUrl: 'view/UnderConstrution.html',
+        templateUrl: 'view/Negociacao_Cadastro.html',
+        //templateUrl: 'view/UnderConstrution.html',
         controller: 'NegociacaoCadastroController',
         authorize: true,
         routeName: 'Manutenção de Negociações',

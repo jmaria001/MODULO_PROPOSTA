@@ -5,7 +5,7 @@
                 <!--===================ID-->
                 <div class="col-md-1">
                     <div class="form-group">
-                        <label>#ID</label>
+                        <label class="field-x">#ID</label>
                         <input type="text"
                                name="txtIdPacote"
                                ng-model="Pacote.Id_Pacote"
@@ -16,7 +16,7 @@
                 <!--===================Descricao-->
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label class="fieldrequired">Descrição do Pacote</label>
+                        <label class="fieldrequired field-x">Descrição do Pacote</label>
                         <input type="text"
                                name="txtNomePacote"
                                class="form-control"
@@ -27,6 +27,7 @@
                 <div class="col-md-3">
                     <div class="dictionary" dictionary="Data" caption="Início Validade">
                         <input ng-model="Pacote.Validade_Inicio"
+                               ng-disabled="Parameters.Action=='Show'"
                                ui-date ng-model-options="{updateOn: 'blur'}">
                         <div class="dictionary-ui-calendar" ui-calendar typdate="Pacote.Validade_Inicio"></div>
                     </div>
@@ -35,6 +36,7 @@
                 <div class="col-md-3">
                     <div class="dictionary" dictionary="Data" caption="Término Validade">
                         <input ng-model="Pacote.Validade_Termino"
+                               ng-disabled="Parameters.Action=='Show'"
                                ui-date ng-model-options="{updateOn: 'blur'}">
                         <div class="dictionary-ui-calendar" ui-calendar typdate="Pacote.Validade_Termino"></div>
                     </div>
