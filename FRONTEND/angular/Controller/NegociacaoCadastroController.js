@@ -1,4 +1,4 @@
-﻿angular.module('App').controller('NegociacaoCadastroController', ['$scope', '$rootScope', '$location', 'httpService', '$location', '$routeParams', function ($scope, $rootScope, $location, httpService, $location, $routeParams) {
+﻿angular.module('App').controller('NegociacaoCadastroController', ['$scope', '$rootScope', '$location', 'httpService', '$location', '$routeParams', '$filter', function ($scope, $rootScope, $location, httpService, $location, $routeParams, $filter) {
 
     //====================Inicializa scopes
     $scope.Forma_Pgto = [{ 'Id': 0, 'Descricao': 'Espécie' }, { 'Id': 1, 'Descricao': 'Permuta' }]
@@ -10,32 +10,74 @@
     $scope.PesquisaTabelas = { "Items": [], 'FiltroTexto': '', ClickCallBack: '', 'Titulo': '', 'MultiSelect': false };
     $scope.Tipo_Intermediario = [{ 'Tipo_Intermediario': 'C', 'Nome_Tipo_Intermediario': 'Corretor' }, { 'Tipo_Intermediario': 'E', 'Nome_Tipo_Intermediario': 'Terceiro' }, { 'Tipo_Intermediario': 'F', 'Nome_Tipo_Intermediario': 'Afiliada' }, { 'Tipo_Intermediario': 'P', 'Nome_Tipo_Intermediario': 'Parceiro' }]
     $scope.Tipo_Comissao = [{ 'Tipo_Comissao': 'B', 'Nome_Tipo_Comissao': 'Bruto' }, { 'Tipo_Comissao': 'L', 'Nome_Tipo_Comissao': 'Liquido' }]
+    $rootScope.routeName = "Manutenção de Negociações (" + $scope.Parameters.Action + ")"
     $scope.ShowNewIntermediario = false;
+    $scope.Info = { 'Title': '', 'Text': '' };
     $scope.NewIntermediario = function () {
-        return { 'Cod_Intermediario': '', 'Nome_Intermediario': '', 'Comissao': '', 'Tipo_Intermediario': {'Tipo_Intermediario':'','Nome_Tipo_Intermediario':''},  'Sequencia': '', 'Tipo_Comissao': {'Tipo_Comissao':'','Nome_Tipo_Comissao':''}}
-    }
-    $scope.NewAgencia= function () {
-        return { 'Cod_Agencia': '', 'Nome_Agencia': ''} 
-    }
-    $scope.NewCliente= function () {
+        return { 'Cod_Intermediario': '', 'Nome_Intermediario': '', 'Comissao': '', 'Tipo_Intermediario': { 'Tipo_Intermediario': '', 'Nome_Tipo_Intermediario': '' }, 'Sequencia': '', 'Tipo_Comissao': { 'Tipo_Comissao': '', 'Nome_Tipo_Comissao': '' } }
+    };
+    $scope.NewAgencia = function () {
+        return { 'Cod_Agencia': '', 'Nome_Agencia': '' }
+    };
+    $scope.NewCliente = function () {
         return { 'Cod_Agencia': '', 'Nome_Agencia': '' }
     }
     $scope.NewContato = function () {
         return { 'Cod_Agencia': '', 'Nome_Agencia': '' }
-    }
+    };
     $scope.NewNucleo = function () {
         return { 'Cod_Agencia': '', 'Nome_Agencia': '' }
-    }
+    };
+    $scope.newDigitacaoDesconto = function () {
+        return { "Id_Desconto": "", "Tipo_Desconto": { "Codigo": "", "Descricao": "" }, "Conteudo": "", "Cod_Chave": "", "Nome_Chave": "", "Data_Inicio": "", "Data_Termino": "", "Desconto": "" ,'Grupo':'Novo Grupo'};
+    };
 
+    $scope.Grupos = ['Novo Grupo'];
     $scope.Intermediario_Temp = $scope.NewIntermediario();
     $scope.Agencia_Temp = $scope.NewAgencia();
     $scope.Cliente_Temp = $scope.NewCliente();
-    $scope.Contato_Temp= $scope.NewContato();
+    $scope.Contato_Temp = $scope.NewContato();
     $scope.Nucleo_Temp = $scope.NewNucleo();
+    $scope.DigitacaoDesconto = $scope.newDigitacaoDesconto();
+    $scope.Condicao_Pagamento = [];
     //==========================Carrega Tabela de Tipos de Desconto
-    $scope.TipoDesconto = []
+    $scope.TipoDesconto = [];
     httpService.Get('ListarTabela/Tipo_Desconto').then(function (response) {
         $scope.TipoDesconto = response.data;
+    });
+    //==========================Carrega Tabela de Condicao de Pagamento 
+    $scope.TipoDesconto = [];
+    httpService.Get('ListarTabela/Condica_Pagamento').then(function (response) {
+        $scope.Condicao_Pagamento = response.data;
+    });
+    //==========================Carrega Tabela de Motivo da Alteracao
+    $scope.MotivoAlteracao = [];
+    if ($scope.Parameters.Action == 'Edit') {
+        httpService.Get('ListarTabela/Motivo_Alteracao').then(function (response) {
+            $scope.MotivoAlteracao = response.data;
+        });
+    };
+
+    $scope.RepeatFinished = function () {
+        //MergeCommonRows($('#tbDesconto'), [1, 4]);
+    };
+
+    //==========================Adicionar Grupos no Combo de Grupos de desconto
+    $scope.AdicionarGrupos = function () {
+        $scope.Grupos = ['Novo Grupo']
+        for (var i = 1; i <= $scope.Negociacao.MaxGrupo; i++) {
+            for (var x = 0; x < $scope.Negociacao.Descontos.length; x++) {
+                if ($scope.Negociacao.Descontos[x].Grupo == i) {
+                    $scope.Grupos.push(i);
+                    break;
+                };
+            }
+        }
+    };
+    //==========================Verifica Permissao para Desativar/Reativar
+    $scope.PermissaoDesativar= false;
+    httpService.Get("credential/" + "Negociacao@Activate").then(function (response) {
+        $scope.PermissaoDesativar = response.data;
     });
 
     //==========================Busca dados da Negociacao
@@ -48,9 +90,149 @@
             if ($scope.Parameters.Action == 'New') {
                 $scope.Negociacao.Sequencia_Tabela = "";
                 $scope.Negociacao.Sequencia_Tabela_Reaplicacao = "";
-            }
-        }
+            };
+            if ($scope.Parameters.Action == 'Show') {
+                $scope.Negociacao.Permite_Editar = false;
+                
+            };
+
+            $scope.AdicionarGrupos();
+            $scope.TotalizaParcelas();
+        };
     });
+
+    //============================Carregar opcoes de desconto
+    $scope.CarregarOpcoesDesconto = function (pTipo) {
+        $scope.TipoDescontoFilter = "";
+        if (pTipo.Codigo != 1) {
+            httpService.Get("GetOpcoesDesconto/" + pTipo.Codigo).then(function (response) {
+                if (response.data) {
+                    $scope.OpcoesDesconto = response.data;
+                };
+            });
+        };
+    };
+    //==========================Adicionar Itens no Grid de Descontos
+    $scope.AdicionarDesconto = function (pDesconto) {
+        var _Grupo = 0;
+        if (!pDesconto.Tipo_Desconto.Codigo) {
+            ShowAlert("Favor Informar o Tipo de Desconto")
+            return;
+        };
+        if (!pDesconto.Desconto || pDesconto.Desconto == 0) {
+            ShowAlert("Favor Informar o Desconto")
+            return;
+        };
+        if (DoubleVal(pDesconto.Desconto) > 100) {
+            ShowAlert("Desconto não pode ser maior que 100%")
+            return;
+        }
+        if (pDesconto.Tipo_Desconto.Codigo == 1) {
+            if (!pDesconto.Data_Inicio || !pDesconto.Data_Termino) {
+                ShowAlert("Favor Informar os data de Início e Término para o Desconto")
+                return
+            }
+
+            var dd1 = parseInt(pDesconto.Data_Inicio.substr(0, 2));
+            var mm1 = parseInt(pDesconto.Data_Inicio.substr(3, 2))-1;
+            var yy1 = parseInt(pDesconto.Data_Inicio.substr(6, 4));
+            var dd2 = parseInt(pDesconto.Data_Termino.substr(0, 2));
+            var mm2 = parseInt(pDesconto.Data_Termino.substr(3, 2))-1;
+            var yy2 = parseInt(pDesconto.Data_Termino.substr(6, 4));
+            if (new Date(dd1, mm1, yy1) > new Date(dd2, mm2, yy2)) {
+                ShowAlert("Data Término deve ser maior ou igual a data Início");
+                return;
+            };
+            if (pDesconto.Grupo =='Novo Grupo') {
+                $scope.Negociacao.MaxGrupo++;
+                _Grupo = $scope.Negociacao.MaxGrupo;
+            }
+            else {
+                _Grupo = pDesconto.Grupo;
+            }
+            $scope.Negociacao.Sequenciador_Desconto++;
+            $scope.Negociacao.Descontos.push({
+                "Id_Desconto": $scope.Negociacao.Sequenciador_Desconto,
+                'Grupo':_Grupo,
+                "Cod_Tipo_Desconto": pDesconto.Tipo_Desconto.Codigo,
+                "Nome_Tipo_Desconto": pDesconto.Tipo_Desconto.Descricao,
+                "Data_Inicio": StringToDate(pDesconto.Data_Inicio, "dd/mm/yyyy"),
+                "Data_Termino": StringToDate(pDesconto.Data_Termino, "dd/mm/yyyy"),
+                "Cod_Chave": "",
+                "Nome_Chave": pDesconto.Data_Inicio + ' a ' + pDesconto.Data_Termino,
+                "Desconto": DoubleVal(pDesconto.Desconto)
+            });
+            //MergeCommonRows($('#tbDesconto'), [1, 4]);
+            $scope.DigitacaoDesconto = $scope.newDigitacaoDesconto();
+            $scope.TipoDescontoFilter = "";
+            $scope.AdicionarGrupos();
+        }
+        else {
+            var _qtd_Selecionado = 0;
+            for (var i = 0; i < $scope.OpcoesDesconto.length; i++) {
+                if ($scope.OpcoesDesconto[i].Selecionado) {
+                    _qtd_Selecionado++
+                };
+            };
+            if (_qtd_Selecionado == 0) {
+                ShowAlert('Nenhum Item foi selecionado');
+                return
+            };
+
+            if (pDesconto.Grupo == 'Novo Grupo') {
+                $scope.Negociacao.MaxGrupo++;
+                _Grupo = $scope.Negociacao.MaxGrupo;
+            }
+            else {
+                _Grupo = pDesconto.Grupo;
+            }
+            $scope.Negociacao.Sequenciador_Desconto++;
+            for (var i = 0; i < $scope.OpcoesDesconto.length; i++) {
+                if ($scope.OpcoesDesconto[i].Selecionado) {
+                    _qtd_Selecionado++
+                    $scope.Negociacao.Descontos.push({
+                        "Id_Desconto": $scope.Negociacao.Sequenciador_Desconto,
+                        'Grupo': _Grupo,
+                        "Cod_Tipo_Desconto": pDesconto.Tipo_Desconto.Codigo,
+                        "Nome_Tipo_Desconto": pDesconto.Tipo_Desconto.Descricao,
+                        "Data_Inicio": "",
+                        "Data_Termino": "",
+                        "Cod_Chave": $scope.OpcoesDesconto[i].Codigo,
+                        "Nome_Chave": $scope.OpcoesDesconto[i].Descricao + (pDesconto.Tipo_Desconto.Codigo == 9 ? ' Segundo(s)' : ''),
+                        "Desconto": DoubleVal(pDesconto.Desconto)
+                    });
+                };
+            };
+            //MergeCommonRows($('#tbDesconto'), [1, 4]);
+            $scope.DigitacaoDesconto = $scope.newDigitacaoDesconto();
+            $scope.TipoDescontoFilter = "";
+            $scope.AdicionarGrupos();
+        }
+    };
+    //==========================Remover Itens no Grid de Descontos
+    $scope.RemoverDesconto = function (pDesconto) {
+        swal({
+            title: "Tem certeza que deseja Excluir esse Desconto ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Sim, Excluir",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: true
+        }, function () {
+            for (var i = 0; i < $scope.Negociacao.Descontos.length; i++) {
+                if ($scope.Negociacao.Descontos[i].Id_Desconto == pDesconto.Id_Desconto) {
+                    $scope.Negociacao.Descontos.splice(i, 1);
+                    break;
+                };
+            };
+            $scope.AdicionarGrupos();
+            $scope.$digest();
+            
+            //MergeCommonRows($('#tbDesconto'), [1, 4]);
+            });
+    };
+
     //==========================Evento - Mudou a Competencia Inicio da Negociacao
     $scope.$watch('Negociacao.Competencia_Inicial', function (newValue, oldValue) {
         if (newValue != oldValue && newValue) {
@@ -70,8 +252,10 @@
                 $scope.ListaEmpresaVenda = response.data;
                 for (var i = 0; i < $scope.Negociacao.Empresas_Venda.length ; i++) {
                     for (var y = 0; y < $scope.ListaEmpresaVenda.length ; y++) {
+                        $scope.ListaEmpresaVenda[y].Permite_Editar = true;
                         if ($scope.Negociacao.Empresas_Venda[i].Cod_Empresa == $scope.ListaEmpresaVenda[y].Codigo) {
                             $scope.ListaEmpresaVenda[y].Selected = true;
+                            $scope.ListaEmpresaVenda[y].Permite_Editar = $scope.Negociacao.Empresas_Venda[i].Permite_Editar;
                         }
                     };
                 };
@@ -83,7 +267,7 @@
                     $scope.Negociacao.Empresas_Venda = [];
                     for (var i = 0; i < $scope.ListaEmpresaVenda.length; i++) {
                         if ($scope.ListaEmpresaVenda[i].Selected) {
-                            $scope.Negociacao.Empresas_Venda.push({ 'Cod_Empresa': $scope.ListaEmpresaVenda[i].Codigo, 'Nome_Empresa': $scope.ListaEmpresaVenda[i].Descricao });
+                            $scope.Negociacao.Empresas_Venda.push({ 'Cod_Empresa': $scope.ListaEmpresaVenda[i].Codigo, 'Nome_Empresa': $scope.ListaEmpresaVenda[i].Descricao, 'Permite_Editar': $scope.ListaEmpresaVenda[i].Permite_Editar });
                         }
                     };
                 };
@@ -110,8 +294,10 @@
                 $scope.ListaEmpresaFaturamento = response.data;
                 for (var i = 0; i < $scope.Negociacao.Empresas_Faturamento.length ; i++) {
                     for (var y = 0; y < $scope.ListaEmpresaFaturamento.length ; y++) {
+                        $scope.ListaEmpresaFaturamento[y].Permite_Editar = true;
                         if ($scope.Negociacao.Empresas_Faturamento[i].Cod_Empresa == $scope.ListaEmpresaFaturamento[y].Codigo) {
                             $scope.ListaEmpresaFaturamento[y].Selected = true;
+                            $scope.ListaEmpresaFaturamento[y].Permite_Editar = $scope.Negociacao.Empresas_Faturamento[i].Permite_Editar;
                         }
                     };
                 };
@@ -123,7 +309,7 @@
                     $scope.Negociacao.Empresas_Faturamento = [];
                     for (var i = 0; i < $scope.ListaEmpresaFaturamento.length; i++) {
                         if ($scope.ListaEmpresaFaturamento[i].Selected) {
-                            $scope.Negociacao.Empresas_Faturamento.push({ 'Cod_Empresa': $scope.ListaEmpresaFaturamento[i].Codigo, 'Nome_Empresa': $scope.ListaEmpresaFaturamento[i].Descricao });
+                            $scope.Negociacao.Empresas_Faturamento.push({ 'Cod_Empresa': $scope.ListaEmpresaFaturamento[i].Codigo, 'Nome_Empresa': $scope.ListaEmpresaFaturamento[i].Descricao, 'Permite_Editar': $scope.ListaEmpresaFaturamento[i].Permite_Editar });
                         }
                     };
                 };
@@ -224,7 +410,7 @@
                 $scope.ListaApresentadores = response.data;
                 for (var i = 0; i < $scope.Negociacao.Apresentadores.length ; i++) {
                     for (var y = 0; y < $scope.ListaApresentadores.length ; y++) {
-                        if ($scope.Negociacao.Apresentadores[i].Cod_Apresentador.trim()== $scope.ListaApresentadores[y].Codigo.trim()) {
+                        if ($scope.Negociacao.Apresentadores[i].Cod_Apresentador.trim() == $scope.ListaApresentadores[y].Codigo.trim()) {
                             $scope.ListaApresentadores[y].Selected = true;
                         }
                     };
@@ -286,7 +472,7 @@
     };
     //=========================Salvar Inclusao de Agencia
     $scope.SalvarAgencia = function () {
-        $scope.Agencia_Temp.Cod_Agencia= $scope.Agencia_Temp.Cod_Agencia.toUpperCase()
+        $scope.Agencia_Temp.Cod_Agencia = $scope.Agencia_Temp.Cod_Agencia.toUpperCase()
         $scope.Negociacao.Agencias.push($scope.Agencia_Temp);
         $scope.Agencia_Temp = $scope.NewAgencia();
         $scope.ShowNewAgencia = false;
@@ -450,11 +636,11 @@
         $scope.PesquisaTabelas.ClickCallBack = function (value) {
             $scope.Contato_Temp.Cod_Contato = value.Codigo, $scope.Contato_Temp.Nome_Contato = value.Descricao
         },
-        
+
         httpService.Get('ListarTabela/Contato').then(function (response) {
             $scope.PesquisaTabelas.Items = response.data
         });
-        
+
         $("#modalTabela").modal(true);
     };
     //===============Remover Contato
@@ -524,11 +710,11 @@
         $scope.PesquisaTabelas.ClickCallBack = function (value) {
             $scope.Nucleo_Temp.Cod_Nucleo = value.Codigo, $scope.Nucleo_Temp.Nome_Nucleo = value.Descricao
         },
-        
+
         httpService.Get('ListarTabela/Nucleo').then(function (response) {
             $scope.PesquisaTabelas.Items = response.data
         });
-        
+
         $("#modalTabela").modal(true);
     };
     //===============Remover Nucleo
@@ -551,5 +737,155 @@
             };
         });
     };
+    $scope.GrupoChange = function (pDesconto) {
+        for (var i = 0; i < $scope.Negociacao.Descontos.length; i++) {
+            if ($scope.Negociacao.Descontos[i].Grupo==pDesconto.Grupo) {
+                pDesconto.Desconto = $filter('number')($scope.Negociacao.Descontos[i].Desconto, 4);
+                break;
+            }
+        }
+    }
+    //===========================Adicionar Parcela
+    $scope.AdicionarParcela = function (pParcela) {
+        $scope.Negociacao.Sequenciador_Parcela++;
+        $scope.Negociacao.MaxParcela++;
+        pParcela.push({
+        'Id_Parcela': $scope.Negociacao.Sequenciador_Parcela,
+        'Numero_Parcela': $scope.Negociacao.MaxParcela ,
+        'Data_Parcela': '', 
+        'Percentual': '', 
+        'Percentual_Text': '', 
+        'Valor_Fatura': '', 
+        'Valor_Fatura_Text': '', 
+        'Data_Cancelamento': '', 
+        'Data_Complemento': '', 
+        'Situacao': 'Pendente', 
+        });
+    };
+    //=====================================Totalizar Parcelas
+    $scope.TotalizaParcelas = function () {
+        var _totalpct = 0;
+        var _totalValor = 0
+        for (var i = 0; i < $scope.Negociacao.Parcelas.length; i++) {
+            _totalpct += DoubleVal($scope.Negociacao.Parcelas[i].Percentual_Text);
+            _totalValor += DoubleVal($scope.Negociacao.Parcelas[i].Valor_Fatura_Text);
+        }
+        $scope.Negociacao.TotalParcelasPct = _totalpct;
+        $scope.Negociacao.TotalParcelasValor = _totalValor;
+    };
+    //===============Renumera parcelas
+    $scope.RenumeraParcelas = function()
+    {
+        var _cont = 0
+        for (var i = 0; i < $scope.Negociacao.Parcelas.length; i++) {
+            _cont++;
+            $scope.Negociacao.Parcelas[i].Numero_Parcela = _cont;
+        };
+        $scope.Negociacao.MaxParcela = _cont;
+    }
+    //===============Remover Parcela
+    $scope.RemoverParcela = function (pParcela) {
+        swal({
+            title: "Tem certeza que deseja Excluir essa Parcela ?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Sim, Excluir?",
+            cancelButtonText: "Não,Cancelar",
+            closeOnConfirm: true
+        }, function () {
+            for (var i = 0; i < $scope.Negociacao.Parcelas.length; i++) {
+                if ($scope.Negociacao.Parcelas[i].Id_Parcela==pParcela.Id_Parcela) {
+                    $scope.Negociacao.Parcelas.splice(i, 1);
+                    $scope.TotalizaParcelas()
+                    $scope.RenumeraParcelas()
+                    $scope.$digest();
+                    break;
+                }
+            };
+        });
+    };
+    
+    //============================Salvar Negociacao
+    $scope.ProcessaGravacao= function (pNegociacao) {
+        httpService.Post("Negociacao/Salvar", pNegociacao).then(function (response) {
+            if (response) {
+                if (response.data[0].Cod_Erro==0) {
+                    ShowAlert(response.data[0].Mensagem);
+                    $location.path("/Negociacao");
+                }
+                else {
+                    var _text = [];
+                    for (var i = 0; i < response.data.length; i++) {
+                        _text.push(response.data[i].Mensagem);
+                    }
+                    $scope.Info = {
+                        'Title': 'Crítica da Negociação',
+                        'Text': _text
+                    };
+                    $("#modalInfo").modal(true);
+                }
+            };
+        });
+    };
+    $scope.SalvarNegociacao = function (pNegociacao) {
+        if ($scope.Parameters.Action=='New') {
+            $scope.ProcessaGravacao(pNegociacao)
+        }
+        else {
+            $("#modalMotivoAlteracao").modal(true);
+        }
+    };
+    //========================Desativar Negociacao
+    $scope.DesativarNegociacao = function (pNegociacao) {
+        swal({
+            title: "Tem certeza que deseja desativar essa Negociação ?",
+            text: "Motivo da Desativação",
+            type: "input",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Sim, Desativar",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: true
+        }, function (inputValue) {
+            if (inputValue === false) return false;
+            var _data = { 'Numero_Negociacao': pNegociacao, 'Operacao': 'D', 'Motivo_Desativacao': inputValue }
+            httpService.Post("Negociacao/Desativar",_data).then(function (response) {
+                if (response.data[0].Status==1) {
+                    ShowAlert(response.data[0].Mensagem, 'success');
+                    $location.path("/Negociacao")
+                }
+                else {
+                    ShowAlert(response.data[0].Mensagem, 'warning');
+                }
+            });
+        });
+    };
+    //========================Reativar Negociacao
+    $scope.ReativarNegociacao = function (pNegociacao) {
+        swal({
+            title: "Tem certeza que deseja reativar essa Negociação ?",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Sim, Reativar",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: true
+        }, function (inputValue) {
+            var _data = { 'Numero_Negociacao': pNegociacao, 'Operacao': 'R', 'Motivo_Desativacao': ''}
+            httpService.Post("Negociacao/Desativar", _data).then(function (response) {
+                if (response.data[0].Status == 1) {
+                    ShowAlert(response.data[0].Mensagem, 'success');
+                    $location.path("/Negociacao")
+                }
+                else {
+                    ShowAlert(response.data[0].Mensagem, 'warning');
+                }
+            });
+        });
+    };
+    //===========================Evento chamado ao fim do ngrepeat ao carregar grid 
+    $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
+        $scope.RepeatFinished();
+    });
 
 }]);

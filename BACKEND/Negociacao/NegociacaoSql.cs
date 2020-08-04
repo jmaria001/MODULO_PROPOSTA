@@ -9,6 +9,10 @@ namespace PROPOSTA
     public partial class Negociacao
 
     {
+        Int32 Sequenciador_Id_Desconto = 0;
+        Int32 Sequenciador_Id_Parcela= 0;
+        Int32 MaxGrupo = 0;
+        Int32 Maxparcela= 0;
         public List<NegociacaoModel> NegociacaoList(NegociacaoFiltroParam Param)
         {
             clsConexao cnn = new clsConexao(this.Credential);
@@ -101,14 +105,20 @@ namespace PROPOSTA
                     Negociacao.Cod_Tipo_Midia = drw["Cod_Tipo_Midia"].ToString();
                     Negociacao.Nome_Tipo_Midia = drw["Cod_Tipo_Midia"].ToString();
                     Negociacao.Data_Desativacao = drw["Data_Desativacao"].ToString();
+                    Negociacao.Indica_Desativado = !String.IsNullOrEmpty(drw["Data_Desativacao"].ToString());
                     Negociacao.Percentual_Reaplicacao = drw["Percentual_Reaplicacao"].ToString().ConvertToPercent();
                     Negociacao.Valor_Reaplicacao = drw["Valor_Reaplicacao"].ToString().ConvertToMoney();
                     Negociacao.Tabela_Reaplicacao = clsLib.CompetenciaString(drw["Tabela_Reaplicacao"].ToString().ConvertToInt32());
                     Negociacao.Sequencia_Tabela_Reaplicacao = drw["Sequencia_Reaplicacao"].ToString().ConvertToByte();
                     Negociacao.Desconto_Reaplicacao = drw["Desconto_Reaplicacao"].ToString().ConvertToPercent();
-
+                    Negociacao.Indica_Antecipado = drw["Indica_Antecipado"].ToString().ConvertToBoolean();
+                    Negociacao.Texto= drw["Texto"].ToString();
+                    Negociacao.Condicao_Pagamento = drw["Condicao_Pagamento"].ToString();
                     Negociacao.Empresas_Venda = AddEmpresaVenda(drw["Numero_Negociacao"].ToString().ConvertToInt32());
                     Negociacao.Empresas_Faturamento = AddEmpresaFaturamento(drw["Numero_Negociacao"].ToString().ConvertToInt32());
+                    Negociacao.Permite_Editar = String.IsNullOrEmpty(drw["Data_Desativacao"].ToString());
+                    Negociacao.Tem_Contrato= drw["Tem_Contrato"].ToString().ConvertToBoolean();
+                    Negociacao.Tem_Complemento= drw["Tem_Complemento"].ToString().ConvertToBoolean();
                     Negociacao.Agencias = AddAgencias(drw["Numero_Negociacao"].ToString().ConvertToInt32());
                     Negociacao.Clientes = AddClientes(drw["Numero_Negociacao"].ToString().ConvertToInt32());
                     Negociacao.Nucleos= AddNucleos(drw["Numero_Negociacao"].ToString().ConvertToInt32());
@@ -116,6 +126,13 @@ namespace PROPOSTA
                     Negociacao.Intermediarios = AddIntermediarios(drw["Numero_Negociacao"].ToString().ConvertToInt32());
                     Negociacao.Apresentadores= AddApresentadores(drw["Numero_Negociacao"].ToString().ConvertToInt32());
                     Negociacao.Descontos = AddDescontos(drw["Numero_Negociacao"].ToString().ConvertToInt32());
+                    Negociacao.Descontos = AddDescontos(drw["Numero_Negociacao"].ToString().ConvertToInt32());
+                    Negociacao.Parcelas = AddParcelas(drw["Numero_Negociacao"].ToString().ConvertToInt32());
+                    Negociacao.MaxGrupo = MaxGrupo;
+                    Negociacao.MaxParcela = Maxparcela;
+                    Negociacao.Sequenciador_Desconto = Sequenciador_Id_Desconto;
+                    Negociacao.Sequenciador_Parcela = Sequenciador_Id_Parcela;
+                    
                 }
             }
             catch (Exception)
@@ -148,6 +165,7 @@ namespace PROPOSTA
                     {
                         Cod_Empresa = drw["Cod_Empresa"].ToString(),
                         Nome_Empresa = drw["Nome_Empresa"].ToString(),
+                        Permite_Editar= drw["Permite_Editar"].ToString().ConvertToBoolean(),
                     });
                 }
             }
@@ -182,6 +200,7 @@ namespace PROPOSTA
                     {
                         Cod_Empresa = drw["Cod_Empresa"].ToString(),
                         Nome_Empresa = drw["Nome_Empresa"].ToString(),
+                        Permite_Editar = drw["Permite_Editar"].ToString().ConvertToBoolean(),
                     });
                 }
             }
@@ -425,12 +444,21 @@ namespace PROPOSTA
                 Adp.Fill(dtb);
                 foreach (DataRow drw in dtb.Rows)
                 {
+                    Sequenciador_Id_Desconto  ++;
+                    MaxGrupo = drw["Grupo"].ToString().ConvertToInt32();
                     Descontos.Add(new NegociacaoDescontoModel
                     {
-                        Id_Desconto = drw["Sequencia_Negociacao"].ToString().ConvertToInt32(),
-                        Desconto = drw["Desconto"].ToString().ConvertToInt32(),
-                        Items = addDescontoItem(pNegociacao,drw["Sequencia_Desconto"].ToString().ConvertToInt32()),
+                        Id_Desconto = Sequenciador_Id_Desconto,
+                        Grupo = drw["Grupo"].ToString().ConvertToInt32(),
+                        Cod_Tipo_Desconto = drw["Cod_Tipo_Desconto"].ToString().ConvertToInt32(),
+                        Nome_Tipo_Desconto = drw["Nome_Tipo_Desconto"].ToString(),
+                        Cod_Chave = drw["Cod_Chave"].ToString(),
+                        Nome_Chave = drw["Nome_Chave"].ToString(),
+                        Data_Inicio = drw["Data_Inicio"].ToString(),
+                        Data_Termino = drw["Data_Termino"].ToString(),
+                        Desconto = drw["Desconto"].ToString().ConvertToDouble(),
                     });
+                    
                 }
             }
             catch (Exception)
@@ -443,46 +471,51 @@ namespace PROPOSTA
             }
             return Descontos;
         }
-        private List<NegociacaoItemDescontoModel> addDescontoItem(Int32 pNegociacao,Int32 pIdDesconto)
+        private List<NegociacaoParcelaModel> AddParcelas(Int32 pNegociacao)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
             SqlDataAdapter Adp = new SqlDataAdapter();
             DataTable dtb = new DataTable("dtb");
             SimLib clsLib = new SimLib();
-            List<NegociacaoItemDescontoModel> Items = new List<NegociacaoItemDescontoModel>();
+            List<NegociacaoParcelaModel> Parcelas = new List<NegociacaoParcelaModel>();
             try
             {
-                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Negociacao_Desconto_Item_List");
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Negociacao_Parcela_List");
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Numero_Negociacao", pNegociacao);
                 Adp.Fill(dtb);
                 foreach (DataRow drw in dtb.Rows)
                 {
-                    Items.Add(new NegociacaoItemDescontoModel
+                    Sequenciador_Id_Parcela++;
+                    Maxparcela++;   
+                    Parcelas.Add(new NegociacaoParcelaModel
                     {
-                        Id_Desconto = drw["Sequencia_Negociacao"].ToString().ConvertToInt32(),
-                        Cod_Tipo_Desconto = drw["Sequencia_Negociacao"].ToString(),
-                        Nome_Tipo_Desconto = drw["Sequencia_Negociacao"].ToString(),
-                        Cod_Chave = drw["Sequencia_Negociacao"].ToString(),
-                        Nome_Chave = drw["Sequencia_Negociacao"].ToString(),
-                        Data_Inicio = drw["Sequencia_Negociacao"].ToString(),
-                        Data_Termino = drw["Sequencia_Negociacao"].ToString(),
-
+                        Id_Parcela = Sequenciador_Id_Parcela,
+                        Numero_Parcela = drw["Numero_Parcela"].ToString().ConvertToInt32(),
+                        Data_Parcela =drw["Data_Parcela"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy"),
+                        Percentual =drw["Percentual"].ToString().ConvertToDouble(),
+                        Percentual_Text = drw["Percentual"].ToString(),
+                        Valor_Fatura =drw["Valor_Fatura"].ToString().ConvertToDouble(),
+                        Valor_Fatura_Text = drw["Valor_Fatura"].ToString().ConvertToMoney(),
+                        Data_Cancelamento =drw["Data_Cancelamento"].ToString().ConvertToDatetime(),
+                        Data_Complemento =drw["Data_Complemento"].ToString().ConvertToDatetime(),
+                        Situacao= drw["Situacao"].ToString(),
+                        Numero_Fatura= drw["Numero_Fatura"].ToString().ConvertToInt32(),
+                        Permite_Editar= drw["Permite_Editar"].ToString().ConvertToBoolean(),
                     });
                 }
             }
             catch (Exception)
             {
-                throw;
+                throw;  
             }
             finally
             {
                 cnn.Close();
             }
-            return Items;
+            return Parcelas;
         }
-
         public DataTable NegociacaoDetalhe(Int32 pNegociacao)
         {
             clsConexao cnn = new clsConexao(this.Credential);
@@ -537,6 +570,285 @@ namespace PROPOSTA
                 cnn.Close();
             }
             return Retorno;
+        }
+        public List<NegociacaoCriticaModel> SalvarNegociacao(NegociacaoModel Param)
+        {
+            String strToken = this.GetToken();
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            List<NegociacaoCriticaModel> Critica = new List<NegociacaoCriticaModel>();
+            SimLib clsLib = new SimLib();
+            Int32 New_Numero_Negociacao = 0;
+            try
+            {
+                this.GravarNegociacaoManutencao(Param, strToken);
+                DataTable dtbCritica = this.ConsistirNegociacao(strToken);
+                if (dtbCritica.Rows.Count==0)
+                {
+                    New_Numero_Negociacao = this.ConfirmarGravacao(Param,strToken);
+                    Critica.Add(new NegociacaoCriticaModel()
+                    {
+                        Numero_Negociacao = Param.Numero_Negociacao,
+                        Cod_Erro = 0,
+                        Mensagem = "Negociação Gravada com Sucesso - Numero:" + New_Numero_Negociacao.ToString()
+                    });
+                }
+                else
+                {
+                    foreach (DataRow drw in dtbCritica.Rows)
+                    {
+                        Critica.Add(new NegociacaoCriticaModel()
+                        {
+                            Numero_Negociacao = Param.Numero_Negociacao,
+                            Cod_Erro = drw["Codigo_Erro"].ToString().ConvertToInt32(),
+                            Mensagem = drw["Mensagem_Erro"].ToString(),
+                        });
+                    }
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Critica;
+        }
+        
+        private DataTable ConsistirNegociacao(String pToken)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            DataTable Critica = new DataTable();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_SF_Consistencia");
+                Adp.SelectCommand = cmd;
+                clsLib.NewParameter(Adp, "@Par_Token", pToken);
+                Adp.Fill(Critica);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Critica;
+        }
+        private  void GravarNegociacaoManutencao(NegociacaoModel Param, String pToken )
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+
+            String Descontos_Xml = null;
+            String Empresas_Venda_Xml = null;
+            String Empresas_Faturamento_Xml = null;
+            String Agencias_Xml = null;
+            String Clientes_Xml = null;
+            String Contatos_Xml = null;
+            String Nucleos_Xml = null;
+            String Intermediarios_Xml = null;
+            String Apresentadores_Xml = null;
+            String Parcelas_Xml = null;
+            if (Param.Descontos.Count>0)
+            {
+                Descontos_Xml = clsLib.SerializeToString(Param.Descontos);
+            }
+            if (Param.Empresas_Venda.Count > 0)
+            {
+                Empresas_Venda_Xml = clsLib.SerializeToString(Param.Empresas_Venda);
+            }
+            if (Param.Empresas_Faturamento.Count > 0)
+            {
+                Empresas_Faturamento_Xml = clsLib.SerializeToString(Param.Empresas_Faturamento);
+            }
+            if (Param.Agencias.Count > 0)
+            {
+                Agencias_Xml = clsLib.SerializeToString(Param.Agencias);
+            }
+            if (Param.Clientes.Count > 0)
+            {
+                Clientes_Xml= clsLib.SerializeToString(Param.Clientes);
+            }
+            if (Param.Contatos.Count > 0)
+            {
+                Contatos_Xml = clsLib.SerializeToString(Param.Contatos);
+            }
+            if (Param.Nucleos.Count > 0)
+            {
+                Nucleos_Xml = clsLib.SerializeToString(Param.Nucleos);
+            }
+            if (Param.Intermediarios.Count > 0)
+            {
+                Intermediarios_Xml = clsLib.SerializeToString(Param.Intermediarios);
+            }
+            if (Param.Apresentadores.Count > 0)
+            {
+                Apresentadores_Xml = clsLib.SerializeToString(Param.Apresentadores);
+            }
+            if (Param.Parcelas.Count > 0)
+            {
+                Parcelas_Xml = clsLib.SerializeToString(Param.Parcelas);
+            }
+            try
+            {
+
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Negociacao_Manutencao_Insert");
+                SqlDataAdapter Adp = new SqlDataAdapter();
+                Adp.SelectCommand = cmd;
+                clsLib.NewParameter(Adp, "@Par_Login", this.CurrentUser);
+                clsLib.NewParameter(Adp, "@Par_Token", pToken);
+                clsLib.NewParameter(Adp, "@Par_Numero_Negociacao", Param.Numero_Negociacao);
+                clsLib.NewParameter(Adp, "@Par_Cod_Tipo_Midia", Param.Cod_Tipo_Midia);
+                clsLib.NewParameter(Adp, "@Par_Comissao_Agencia", Param.Comissao_Agencia_String);
+                clsLib.NewParameter(Adp, "@Par_Competencia_Inicial", clsLib.CompetenciaInt(Param.Competencia_Inicial));
+                clsLib.NewParameter(Adp, "@Par_Competencia_Final", clsLib.CompetenciaInt(Param.Competencia_Final));
+                clsLib.NewParameter(Adp, "@Par_Desconto_Concedido", Param.Desconto_Concedido_String);
+                clsLib.NewParameter(Adp, "@Par_Cod_Forma_Pgto", Param.Cod_Forma_Pgto);
+                clsLib.NewParameter(Adp, "@Par_Condicao_Pagamento", Param.Condicao_Pagamento);
+                if (String.IsNullOrEmpty(Param.Tabela_Preco))
+                {
+                    clsLib.NewParameter(Adp, "@Par_Tabela_Preco", null);
+                }
+                else
+                {
+                    if (Param.Tabela_Preco.TrimEnd().ToUpper()=="VIGENTE")
+                    {
+                        clsLib.NewParameter(Adp, "@Par_Tabela_Preco", null);
+                    }
+                    else
+                    {
+                        clsLib.NewParameter(Adp, "@Par_Tabela_Preco", clsLib.CompetenciaInt(Param.Tabela_Preco));
+                    }
+                }
+                clsLib.NewParameter(Adp, "@Par_Sequencia_Tabela", Param.Sequencia_Tabela);
+                clsLib.NewParameter(Adp, "@Par_Verba_Negociada", Param.Verba_Negociada_String);
+                clsLib.NewParameter(Adp, "@Par_Patrocinio_Evento", Param.Patrocinio_Evento);
+                clsLib.NewParameter(Adp, "@Par_Percentual_Reaplicacao", Param.Percentual_Reaplicacao);
+                clsLib.NewParameter(Adp, "@Par_Valor_Reaplicacao", Param.Valor_Reaplicacao);
+                clsLib.NewParameter(Adp, "@Par_Tabela_Reaplicacao", clsLib.CompetenciaInt( Param.Tabela_Reaplicacao));
+                clsLib.NewParameter(Adp, "@Par_Sequencia_Tabela_Reaplicacao", Param.Sequencia_Tabela_Reaplicacao);
+                clsLib.NewParameter(Adp, "@Par_Desconto_Reaplicacao", Param.Desconto_Reaplicacao);
+                clsLib.NewParameter(Adp, "@Par_Texto", Param.Texto);
+                clsLib.NewParameter(Adp, "@Par_Descontos", Descontos_Xml);
+                clsLib.NewParameter(Adp, "@Par_Empresas_Venda", Empresas_Venda_Xml);
+                clsLib.NewParameter(Adp, "@Par_Empresas_Faturamento", Empresas_Faturamento_Xml);
+                clsLib.NewParameter(Adp, "@Par_Agencias", Agencias_Xml);
+                clsLib.NewParameter(Adp, "@Par_Clientes", Clientes_Xml);
+                clsLib.NewParameter(Adp, "@Par_Contatos", Contatos_Xml);
+                clsLib.NewParameter(Adp, "@Par_Nucleos", Nucleos_Xml);
+                clsLib.NewParameter(Adp, "@Par_Intermediarios", Intermediarios_Xml);
+                clsLib.NewParameter(Adp, "@Par_Apresentadores", Apresentadores_Xml);
+                clsLib.NewParameter(Adp, "@Par_Parcelas", Parcelas_Xml);
+                Adp.SelectCommand = cmd;
+                Adp.Fill(dtb);
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+        }
+        private Int32 ConfirmarGravacao(NegociacaoModel Param, String pToken)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            Int32 Numero_Negociacao = 0;
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Sp_Negociacao_Manutencao");
+                Adp.SelectCommand = cmd;
+                clsLib.NewParameter(Adp, "@Par_Numero_Negociacao", Param.Numero_Negociacao);
+                clsLib.NewParameter(Adp, "@Par_Cod_Motivo_Alteracao", Param.Cod_Motivo_Alteracao);
+                clsLib.NewParameter(Adp, "@Par_Cod_Usuario", "SIM/" + this.CurrentUser);
+                clsLib.NewParameter(Adp, "@Par_Indica_SF", 0);
+                clsLib.NewParameter(Adp, "@Par_Token", pToken);
+                clsLib.NewParameter(Adp, "@PAR_INDICA_MSA", 0);
+                clsLib.NewParameter(Adp, "@Par_Indica_Retorno", 1);
+                Adp.Fill(dtb);
+                Numero_Negociacao = dtb.Rows[0]["Numero_Negociacao"].ToString().ConvertToInt32();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Numero_Negociacao;
+        }
+        private String GetToken ()
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            String strToken = "";
+            DataTable dtb = new DataTable();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_SF_GetId");
+                SqlDataAdapter Adp = new SqlDataAdapter();
+                Adp.SelectCommand = cmd;
+                Adp.Fill(dtb);
+                strToken = dtb.Rows[0]["Token"].ToString();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return strToken;
+        }
+        public DataTable NegociacaoDesativar(NegociacaoDesativarModel Param)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            DataTable Critica = new DataTable();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "[Pr_Proposta_Negociacao_Desativar]");
+                Adp.SelectCommand = cmd;
+                clsLib.NewParameter(Adp, "@Par_Login", this.CurrentUser);
+                clsLib.NewParameter(Adp, "@Par_Negociacao",Param.Numero_Negociacao);
+                clsLib.NewParameter(Adp, "@Par_Motivo_Desativacao", Param.Motivo_Desativacao);
+                clsLib.NewParameter(Adp, "@Par_Operacao", Param.Operacao);
+                Adp.Fill(Critica);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Critica;
         }
     }
 }

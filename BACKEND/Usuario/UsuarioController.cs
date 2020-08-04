@@ -42,6 +42,8 @@ namespace PROPOSTA
                 {
                     Usuario.Nivel_Superior= new List<Usuario.HierarquiaModel>();
                     Usuario.Nivel_Inferior = new List<Usuario.HierarquiaModel>();
+                    Usuario.Perfil = Cls.addPerfil(0);
+                    Usuario.Empresas = Cls.addEmpresas(0);
                 }
                 else
                 {

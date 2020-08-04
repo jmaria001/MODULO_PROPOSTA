@@ -32,6 +32,7 @@ namespace PROPOSTA
             public Double Desconto_Real { get; set; }
             public Byte Cod_Forma_Pgto { get; set; }
             public String Forma_Pgto { get; set; }
+            public String Condicao_Pagamento{ get; set; }
             public String Tabela_Preco { get; set; }
             public Byte Sequencia_Tabela { get; set; }
             public Double Verba_Negociada { get; set; }
@@ -45,7 +46,18 @@ namespace PROPOSTA
             public String Valor_Reaplicacao { get; set; }
             public String Tabela_Reaplicacao { get; set; }
             public Byte Sequencia_Tabela_Reaplicacao { get; set; }
-            public String Desconto_Reaplicacao { get; set; } 
+            public String Desconto_Reaplicacao { get; set; }
+            public String Texto{ get; set; }
+            public Int32 Sequenciador_Desconto { get; set; }
+            public Int32 Sequenciador_Parcela { get; set; }
+            public Int32 MaxGrupo { get; set; }
+            public Int32 MaxParcela { get; set; }
+            public Boolean Indica_Antecipado { get; set; }
+            public Boolean Indica_Desativado{ get; set; }
+            public Boolean Permite_Editar{ get; set; }
+            public Boolean Tem_Contrato { get; set; }
+            public Boolean Tem_Complemento { get; set; }
+            public String Cod_Motivo_Alteracao{ get; set; }
             public List<NegociacaoDescontoModel> Descontos { get; set; }
             public List<NegociacaoEmpresaVendaModel> Empresas_Venda { get; set; }
             public List<NegociacaoEmpresaFaturamentoModel> Empresas_Faturamento { get; set; }
@@ -55,17 +67,19 @@ namespace PROPOSTA
             public List<NegociacaoNucleoModel> Nucleos { get; set; }
             public List<NegociacaoIntermediarioModel> Intermediarios{ get; set; }
             public List<NegociacaoApresentadorModel> Apresentadores{ get; set; }
-
+            public List<NegociacaoParcelaModel> Parcelas    { get; set; }
         }
         public class NegociacaoEmpresaVendaModel
         {
             public String Cod_Empresa { get; set; }
             public String Nome_Empresa { get; set; }
+            public Boolean Permite_Editar{ get; set; }
         }
         public class NegociacaoEmpresaFaturamentoModel
         {
             public String Cod_Empresa { get; set; }
             public String Nome_Empresa { get; set; }
+            public Boolean Permite_Editar { get; set; }
         }
         public class NegociacaoAgenciaModel
         {
@@ -103,22 +117,16 @@ namespace PROPOSTA
         }
         public class NegociacaoDescontoModel
         {
+            public Int32 Grupo { get; set; }
             public Int32 Id_Desconto { get; set; }
-            public Double Desconto { get; set; }
-            public List<NegociacaoItemDescontoModel> Items { get; set; }
-        }
-        public class NegociacaoItemDescontoModel
-        {
-            public Int32 Id_Desconto { get; set; }
-            public String Cod_Tipo_Desconto{ get; set; }
+            public Int32  Cod_Tipo_Desconto { get; set; }
             public String Nome_Tipo_Desconto { get; set; }
-            public String Cod_Chave{ get; set; }
+            public String Cod_Chave { get; set; }
             public String Nome_Chave { get; set; }
             public String Data_Inicio { get; set; }
             public String Data_Termino { get; set; }
-
+            public Double Desconto { get; set; }
         }
-
         public class NegociacaoFiltroParam
         {
             public Int32 Numero_Negociacao { get; set; }
@@ -151,5 +159,33 @@ namespace PROPOSTA
             public String Cod_Apresentador { get; set; }
             public String Nome_Apresentador{ get; set; }
         }
+        public class NegociacaoParcelaModel
+        {
+            public Int32 Id_Parcela{ get; set; }
+            public Int32 Numero_Parcela { get; set; }
+            public String Data_Parcela { get; set; }
+            public Double Percentual { get; set; }
+            public String Percentual_Text { get; set; }
+            public Double Valor_Fatura { get; set; }
+            public String Valor_Fatura_Text { get; set; }
+            public DateTime Data_Cancelamento { get; set; }
+            public DateTime Data_Complemento { get; set; }
+            public Int32 Numero_Fatura{ get; set; }
+            public String Situacao{ get; set; }
+            public Boolean Permite_Editar { get; set; }
+        }
+        public class NegociacaoCriticaModel
+        {
+            public Int32 Numero_Negociacao{ get; set; }
+            public Int32 Cod_Erro { get; set; }
+            public String Mensagem { get; set; }
+        }
+        public class NegociacaoDesativarModel
+        {
+            public Int32 Numero_Negociacao { get; set; }
+            public String Operacao { get; set; }
+            public String Motivo_Desativacao { get; set; }
+        }
+
     }
 }

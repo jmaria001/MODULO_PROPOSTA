@@ -132,12 +132,12 @@
                 <tbody>
                     <tr ng-repeat="Negociacao in Negociacoes track by $index" on-finish-render="ngRepeatFinished">
                         <td style="width:50px;text-align:center">
-                            <a href="#NegociacaoCadastro/Edit/{{::Negociacao.Numero_Negociacao}}" ng-show="PermissaoEdit && !Negociacao.Data_Desativacao">
+                            <a href="#NegociacaoCadastro/Edit/{{::Negociacao.Numero_Negociacao}}" ng-show="PermissaoEdit">
                                 <span class="fa fa-edit fa-2x"></span>
                             </a>
                         </td>
                         <td style="text-align:center">
-                            <a href="#NegociacaoDelhalhe/{{::Negociacao.Numero_Negociacao}}" class="btn btn-default btn-sm">
+                            <a href="#NegociacaoCadastro/Show/{{::Negociacao.Numero_Negociacao}}" class="btn btn-default btn-sm">
                                 {{::Negociacao.Numero_Negociacao}}
                             </a>
                         </td>

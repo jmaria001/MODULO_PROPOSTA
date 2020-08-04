@@ -345,23 +345,23 @@
                         </thead>
                         <tbody>
                             <tr ng-repeat="midia in Midias track by $index" ng-style="{ 'font-weight' : (midia.Tipo_Linha==1) ? 'normal' : 'bold'}">
-                                <td ng-show="midia.Tipo_Linha==1">{{::midia.Cod_Programa}}</td>
-                                <td ng-show="midia.Tipo_Linha==1">{{::midia.Cod_Caracteristica}}</td>
-                                <td ng-show="midia.Tipo_Linha==1">{{::midia.Cod_Comercial}}</td>
+                                <td ng-show="midia.Tipo_Linha==1">{{midia.Cod_Programa}}</td>
+                                <td ng-show="midia.Tipo_Linha==1">{{midia.Cod_Caracteristica}}</td>
+                                <td ng-show="midia.Tipo_Linha==1">{{midia.Cod_Comercial}}</td>
                                 <td ng-show="midia.Tipo_Linha==2 && midia.Indica_Exibido" colspan="3">TOTAL EXIBIDO</td>
                                 <td ng-show="midia.Tipo_Linha==2 && !midia.Indica_Exibido" colspan="3">TOTAL FALHAS</td>
                                 <td class="td-insercoes" ng-repeat="dia in midia.Insercoes track by $index">
-                                    <span ng-show="!midia.Indica_Exibido && dia.Qtd > 0" style="border:solid 1px red ;padding:2px 2px 2px;border-radius:40px">{{::dia.Qtd}}</span>
-                                    <span ng-show="midia.Indica_Exibido && dia.Qtd > 0">{{::dia.Qtd}}</span>
+                                    <span ng-show="!midia.Indica_Exibido && dia.Qtd > 0" style="border:solid 1px red ;padding:2px 2px 2px;border-radius:40px">{{dia.Qtd}}</span>
+                                    <span ng-show="midia.Indica_Exibido && dia.Qtd > 0">{{dia.Qtd}}</span>
                                 </td>
 
                                 <td>
-                                    <span ng-show="!midia.Indica_Exibido && midia.Qtd_Total > 0" style="border:solid 1px red ;padding:2px 2px 2px;border-radius:40px">{{::midia.Qtd_Total}}</span>
-                                    <span ng-show="midia.Indica_Exibido && midia.Qtd_Total > 0">{{::midia.Qtd_Total}}</span>
+                                    <span ng-show="!midia.Indica_Exibido && midia.Qtd_Total > 0" style="border:solid 1px red ;padding:2px 2px 2px;border-radius:40px">{{midia.Qtd_Total}}</span>
+                                    <span ng-show="midia.Indica_Exibido && midia.Qtd_Total > 0">{{midia.Qtd_Total}}</span>
                                 </td>
-                                <td>{{::midia.Valor_Tabela | currency}}</td>
-                                <td>{{::midia.Desconto | number:4}}%</td>
-                                <td>{{::midia.Valor_Negociado|currency}}</td>
+                                <td>{{midia.Valor_Tabela | currency}}</td>
+                                <td>{{midia.Desconto | number:4}}%</td>
+                                <td>{{midia.Valor_Negociado|currency}}</td>
                             </tr>
                         </tbody>
                     </table>

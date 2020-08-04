@@ -399,6 +399,128 @@ namespace PROPOSTA
             }
             return dtb;
         }
-    }
 
+
+
+
+        //--mmm INICIO
+
+        //--Carrega Lista de Veiculos
+        public List<ListarVeiculoModel> CarregaVeiculo()
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            List<ListarVeiculoModel> ListadeVeiculos = new List<ListarVeiculoModel>();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Grade_Propagacao_Lista_Vei");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.Fill(dtb);
+                foreach (DataRow drw in dtb.Rows)
+                {
+                    ListadeVeiculos.Add(new ListarVeiculoModel()
+                    {
+                        Cod_Veiculo = drw["Cod_Veiculo"].ToString(),
+                        Nome_Veiculo = drw["Nome_Veiculo"].ToString()
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return ListadeVeiculos;
+        }
+        //--Carrega Lista de Programas
+        public List<ListarProgramaModel> CarregaPrograma()
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            List<ListarProgramaModel> ListadeProgramas = new List<ListarProgramaModel>();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Grade_Propagacao_Lista_Prog");
+                Adp.SelectCommand = cmd;
+                Adp.Fill(dtb);
+                foreach (DataRow drw in dtb.Rows)
+                {
+                    ListadeProgramas.Add(new ListarProgramaModel()
+                    {
+                        Cod_Programa = drw["Cod_Programa"].ToString(),
+                        Titulo = drw["Titulo"].ToString()
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return ListadeProgramas;
+        }
+        //--Salva a Propagação
+        public DataTable SalvarPropagacaoGrade(PropagacaoGradeModel Grade)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            String strVeiculos = "";
+            for (var i = 0; i < Grade.Veiculos.Count; i++)
+            {
+                if (Grade.Veiculos[i].Selected)
+                {
+                    strVeiculos += Grade.Veiculos[i].Cod_Veiculo;
+                }
+            }
+            String strProgramas = "";
+            for (var i = 0; i < Grade.Programas.Count; i++)
+            {
+                if (Grade.Programas[i].Selected)
+                {
+                    strProgramas += Grade.Programas[i].Cod_Programa;
+                }
+            }
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Exporta_Grade");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Base", clsLib.CompetenciaInt(Grade.Competencia_Base));
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Data_Inicio", clsLib.FirstDay(Int32.Parse(Grade.Data_Inicio.Substring(0, 2)), Int32.Parse(Grade.Data_Inicio.Substring(3, 4))));
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Data_Fim", clsLib.LastDay(Int32.Parse(Grade.Data_Fim.Substring(0, 2)), Int32.Parse(Grade.Data_Fim.Substring(3, 4))));
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Veiculo", strVeiculos);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Programa", strProgramas);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Veiculo_Origem", Grade.Cod_Veiculo_Origem);
+                Adp.Fill(dtb);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
+
+        //--mmm FIM
+
+    }
 }

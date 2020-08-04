@@ -185,6 +185,59 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
+
+
+        //--mmm INICIO
+
+        //--Carrega as Listas nos parametros da propagação
+        [Route("api/Grade/CarregaParametrosPropagacao")]
+        [HttpGet]
+        [ActionName("CarregaParametrosPropagacao")]
+        [Authorize()]
+        public IHttpActionResult CarregaParametrosPropagacao()
+        {
+            SimLib clsLib = new SimLib();
+            Grade Cls = new Grade(User.Identity.Name);
+            try
+            {
+                Grade.PropagacaoGradeModel GradePropagacao = new Grade.PropagacaoGradeModel();    //instancia o pai de todos
+                // aqui agora vou chamar o sql do Veiculo e do programa e ja preencher a lista la
+                // entao primeiro declaro uma variavel do tipo lista e vai ser preenchida com o retorno do que volta la do CarregaVeiculo
+                // entao o cls.carregarVeiculo tem que voltar uma lista de veiculos
+                List<Grade.ListarVeiculoModel> Veiculos = Cls.CarregaVeiculo();
+                List<Grade.ListarProgramaModel> Programas = Cls.CarregaPrograma();
+                GradePropagacao.Veiculos = Veiculos;
+                GradePropagacao.Programas = Programas;
+                return Ok(GradePropagacao);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+        //--Faz a propagação da Grade
+        [Route("api/Grade/SalvarPropagacaoGrade")]
+        [HttpPost]
+        [ActionName("SalvarPropagacaoGrade")]
+        [Authorize()]
+        public IHttpActionResult SalvarPropagacaoGrade([FromBody] Grade.PropagacaoGradeModel Grade)
+        {
+            SimLib clsLib = new SimLib();
+            Grade Cls = new Grade(User.Identity.Name);
+            try
+            {
+                DataTable retorno = Cls.SalvarPropagacaoGrade(Grade);
+                return Ok(retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        //--mmm FIM 
     }
 }
 

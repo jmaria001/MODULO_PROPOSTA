@@ -80,7 +80,7 @@
                         <button type="submit" class="btn btn-success" ng-disabled="frmGrade.$invalid" ng-click="CarregarGrade(Filtro)">Filtrar</button>
                         <button type="button" class="btn btn-warning" ng-click="NewFilter(true)">Limpar Filtros</button>
                         <button type="button" class="btn btn-primary" ng-disabled="!PermissaoNew" ng-click="GradeCadastro('New','0','0','0')">Criar Grade</button>
-                        <!--<button type="button" class="btn btn-primary" ng-click="" ng-show="PermissaoReplicar">Replicar Grade</button>-->
+                        <a id="btnPropagaGrade" class="btn btn-primary" ng-disabled="!PermissaoReplicar" href="#PropagacaoGrade">Replicar Grade</a>  
                     </div>
                 </div>
                 

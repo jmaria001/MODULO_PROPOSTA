@@ -127,7 +127,7 @@
             };
         };
         swal({
-            title: "Tem certeza que deseja reativar esta Terceiro ?",
+            title: "Tem certeza que deseja reativar esse Terceiro ?",
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
@@ -153,8 +153,8 @@
             };
         };
         swal({
-            title: "Tem certeza que deseja desativar esta Terceiro ?",
-            text: "Motivo do Cancelamento",
+            title: "Tem certeza que deseja desativar esse Terceiro ?",
+            text: "Motivo da Desativação",
             type: "input",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",

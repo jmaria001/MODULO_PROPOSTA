@@ -138,6 +138,7 @@
     <Content Include="angular\Controller\MercadoController.js" />
     <Content Include="angular\Controller\ProgramaCadastroController.js" />
     <Content Include="angular\Controller\ProgramaController.js" />
+    <Content Include="angular\Controller\PropagacaoGradeController.js" />
     <Content Include="angular\Controller\QualidadeCadastroController.js" />
     <Content Include="angular\Controller\QualidadeController.js" />
     <Content Include="angular\Controller\RedeCadastroController.js" />
@@ -280,6 +281,7 @@
     <Content Include="view\Grade.html" />
     <Content Include="view\Programa.html" />
     <Content Include="view\ProgramaCadastro.html" />
+    <Content Include="view\PropagacaoGrade.html" />
     <Content Include="view\PropostaPendenteAprovacao.html" />
     <Content Include="view\Qualidade.html" />
     <Content Include="view\QualidadeCadastro.html" />

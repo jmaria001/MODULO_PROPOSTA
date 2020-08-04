@@ -86,5 +86,32 @@ namespace PROPOSTA
             public Boolean Selected { get; set; }
         }
 
+        //--mmm INICIO 
+
+        public class ListarVeiculoModel
+        {
+            public String Cod_Veiculo { get; set; }
+            public String Nome_Veiculo { get; set; }
+            public Boolean Selected { get; set; }
+        }
+        public class ListarProgramaModel
+        {
+            public String Cod_Programa { get; set; }
+            public String Titulo { get; set; }
+            public Boolean Selected { get; set; }
+        }
+        public class PropagacaoGradeModel
+        {
+            public String Competencia_Base { get; set; }
+            public String Data_Inicio { get; set; }
+            public String Data_Fim { get; set; }
+            public String Cod_Veiculo_Origem { get; set; }
+            public String Nome_Veiculo_Origem { get; set; }
+            public List<ListarVeiculoModel> Veiculos { get; set; }
+            public List<ListarProgramaModel> Programas { get; set; }
+        }
+
+        //--mmm FIM
+
     }
 }

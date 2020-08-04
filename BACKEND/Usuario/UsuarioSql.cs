@@ -62,49 +62,12 @@ namespace PROPOSTA
                     Usuario.Telefone = dtb.Rows[0]["Telefone"].ToString();
                     Usuario.Cargo = dtb.Rows[0]["Cargo"].ToString();
                     Usuario.Id_Nivel_Acesso = dtb.Rows[0]["Id_Nivel_Acesso"].ToString().ConvertToInt32();
-                    Usuario.Nivel_Superior = AddNivel(pIdUsuario, 1);
-                    Usuario.Nivel_Inferior= AddNivel(pIdUsuario, 2);
-                }
+                    Usuario.Nivel_Superior = this.AddNivel(pIdUsuario, 1);
+                    Usuario.Nivel_Inferior = this.AddNivel(pIdUsuario, 2);
+                    Usuario.Perfil = this.addPerfil(pIdUsuario);
+                    Usuario.Empresas = this.addEmpresas(pIdUsuario);
 
-                //=======================Perfil de Acesso
-                Adp = new SqlDataAdapter();
-                dtb = new DataTable("dtb");
-                cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Usuario_Perfil_List");
-                Adp.SelectCommand = cmd;
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Usuario", pIdUsuario);
-                Adp.Fill(dtb);
-                foreach (DataRow drw in dtb.Rows)
-                {
-                    Perfil.Add(new PerfilModel()
-                    {
-                        Id_Funcao = drw["Id_Funcao"].ToString().ConvertToInt32(),
-                        Id_Funcao_Root = drw["Id_Funcao_Root"].ToString().ConvertToInt32(),
-                        Descricao_Funcao = drw["Descricao_Funcao"].ToString(),
-                        Path = drw["Path"].ToString(),
-                        Selected = drw["Selected"].ToString().ConvertToBoolean(),
-                        Nivel = drw["Nivel"].ToString().ConvertToInt32()
-                    }
-                    );
                 }
-                Usuario.Perfil = Perfil;
-                //=======================Perfil Empresas
-                Adp = new SqlDataAdapter();
-                dtb = new DataTable("dtb");
-                cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Usuario_Empresa_List");
-                Adp.SelectCommand = cmd;
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Usuario", pIdUsuario);
-                Adp.Fill(dtb);
-                foreach (DataRow drw in dtb.Rows)
-                {
-                    Empresas.Add(new EmpresaModel()
-                    {
-                        Cod_Empresa = drw["Cod_Empresa"].ToString(),
-                        Nome_Empresa = drw["Nome_Empresa"].ToString(),
-                        Selected = drw["Selected"].ToString().ConvertToBoolean(),
-                    }
-                    );
-                }
-                Usuario.Empresas = Empresas;
             }
             catch (Exception)
             {
@@ -152,6 +115,81 @@ namespace PROPOSTA
             }
             return Hierarquia;
         }
+        public List<PerfilModel> addPerfil(Int32 pIdUsuario)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            List<PerfilModel> Perfil = new List<PerfilModel>();
+            try
+            {
+                SqlDataAdapter Adp = new SqlDataAdapter();
+                DataTable dtb = new DataTable("dtb");
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Usuario_Perfil_List");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Usuario", pIdUsuario);
+                Adp.Fill(dtb);
+                foreach (DataRow drw in dtb.Rows)
+                {
+                    Perfil.Add(new PerfilModel()
+                    {
+                        Id_Funcao = drw["Id_Funcao"].ToString().ConvertToInt32(),
+                        Id_Funcao_Root = drw["Id_Funcao_Root"].ToString().ConvertToInt32(),
+                        Descricao_Funcao = drw["Descricao_Funcao"].ToString(),
+                        Path = drw["Path"].ToString(),
+                        Selected = drw["Selected"].ToString().ConvertToBoolean(),
+                        Nivel = drw["Nivel"].ToString().ConvertToInt32()
+                    }
+                    );
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+
+            return Perfil;
+        }
+        public List<EmpresaModel> addEmpresas(Int32 pIdUsuario)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            List<EmpresaModel> Empresas = new List<EmpresaModel>();
+            try
+            {
+                SqlDataAdapter Adp = new SqlDataAdapter();
+                DataTable dtb = new DataTable("dtb");
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Usuario_Empresa_List");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Usuario", pIdUsuario);
+                Adp.Fill(dtb);
+                foreach (DataRow drw in dtb.Rows)
+                {
+                    Empresas.Add(new EmpresaModel()
+                    {
+                        Cod_Empresa = drw["Cod_Empresa"].ToString(),
+                        Nome_Empresa = drw["Nome_Empresa"].ToString(),
+                        Selected = drw["Selected"].ToString().ConvertToBoolean(),
+                    }
+                    );
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+
+            return Empresas;
+        }
         public DataTable SalvarUsuario(UsuarioModel Usuario)
         {
             clsConexao cnn = new clsConexao(this.Credential);
@@ -169,7 +207,7 @@ namespace PROPOSTA
             {
                 xmlEmpresas = clsLib.SerializeToString(Usuario.Empresas);
             }
-            String xmlNivelSuperior= null;
+            String xmlNivelSuperior = null;
             if (Usuario.Nivel_Superior.Count > 0)
             {
                 xmlNivelSuperior = clsLib.SerializeToString(Usuario.Nivel_Superior);

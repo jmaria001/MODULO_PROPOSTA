@@ -488,6 +488,14 @@
         routeName: 'Edição da Grade de Programação',
         RouteId: 'Grade@New'
     })
+    .when('/PropagacaoGrade', {
+        templateUrl: 'view/PropagacaoGrade.html',
+        authorize: true,
+        controller: 'PropagacaoGradeController',
+        routeName: 'Propagação da Grade',
+        RouteId: 'Grade@Replicar'
+    })
+
     //----------------------------------------------------
     .when('/Simulacao', {
         templateUrl: 'view/simulacao_List.html',

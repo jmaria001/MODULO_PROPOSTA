@@ -7,6 +7,7 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Data.SqlClient;
 using System.Collections.Generic;
+using CLASSDB;
 
 namespace PROPOSTA
 {

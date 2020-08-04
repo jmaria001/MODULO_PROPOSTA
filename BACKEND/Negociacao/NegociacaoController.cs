@@ -106,6 +106,9 @@ namespace PROPOSTA
                     Retorno.Nucleos= new List<Negociacao.NegociacaoNucleoModel>();
                     Retorno.Intermediarios = new List<Negociacao.NegociacaoIntermediarioModel>();
                     Retorno.Apresentadores= new List<Negociacao.NegociacaoApresentadorModel>();
+                    Retorno.Parcelas = new List<Negociacao.NegociacaoParcelaModel>();
+                    Retorno.Descontos = new List<Negociacao.NegociacaoDescontoModel>();
+                    Retorno.Permite_Editar =true;
                 }
                 else
                 {
@@ -113,6 +116,46 @@ namespace PROPOSTA
                 }
                 
                 return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/Negociacao/Salvar")]
+        [HttpPost]
+        [ActionName("NegociacaoSalvar")]
+        [Authorize()]
+        public IHttpActionResult NegociacaoSalvar([FromBody]Negociacao.NegociacaoModel Param)
+        {
+            SimLib clsLib = new SimLib();
+            Negociacao Cls = new Negociacao(User.Identity.Name);
+            try
+            {
+                List <Negociacao.NegociacaoCriticaModel> retorno = Cls.SalvarNegociacao(Param);
+                return Ok(retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/Negociacao/Desativar")]
+        [HttpPost]
+        [ActionName("NegociacaoDesativar")]
+        [Authorize()]
+        public IHttpActionResult NegociacaoDesativar([FromBody]Negociacao.NegociacaoDesativarModel Param)
+        {
+            SimLib clsLib = new SimLib();
+            Negociacao Cls = new Negociacao(User.Identity.Name);
+            try
+            {
+                DataTable retorno = Cls.NegociacaoDesativar(Param);
+                return Ok(retorno);
             }
             catch (Exception Ex)
             {

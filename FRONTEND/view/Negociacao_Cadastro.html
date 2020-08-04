@@ -6,13 +6,15 @@
     div .alert {
         text-align: center !important;
     }
-    #tbIntermediario td{
-        padding-left:5px;
-        padding-top:5px;
-        padding-bottom:5px
+
+    #tbIntermediario td {
+        padding-left: 5px;
+        padding-top: 5px;
+        padding-bottom: 5px;
     }
-    input{
-        text-transform:uppercase;
+
+    input {
+        text-transform: uppercase;
     }
 </style>
 
@@ -26,6 +28,7 @@
                         <span class="fa fa-check-circle"></span>
                     </div>
                     <strong>Dados Base</strong>
+                    <label class="label label-danger pull-right" ng-show="Negociacao.Indica_Desativado">Negociação Desativada</label>
                 </div>
 
                 <div class="row">
@@ -46,6 +49,7 @@
                         <div class="dictionary" dictionary="Competencia" caption="Competência Inicial">
                             <input ng-model="Negociacao.Competencia_Inicial"
                                    ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                                   ng-disabled="!Negociacao.Permite_Editar"
                                    ng-change="CompetenciaInicioChange(Negociacao.Competencia_Inicial)">
                             <div class="dictionary-ui-competencia" ui-Competencia typmesano="Negociacao.Competencia_Inicial" params="PeriodoInicioKeys"></div>
                         </div>
@@ -54,6 +58,7 @@
                     <div class="col-md-2">
                         <div class="dictionary" dictionary="Competencia" caption="Competência Final">
                             <input ng-model="Negociacao.Competencia_Final"
+                                   ng-disabled="!Negociacao.Permite_Editar"
                                    ui-MesAno ng-model-options="{updateOn: 'blur'}">
                             <div class="dictionary-ui-competencia" ui-Competencia typmesano="Negociacao.Competencia_Final" params="PeriodoFimKeys"></div>
                         </div>
@@ -63,6 +68,7 @@
                         <div class="dictionary" dictionary="Programa_Evento" caption="Patrocínio Evento">
                             <input id="txtPatrocinioEvento"
                                    ng-model="Negociacao.Patrocinio_Evento"
+                                   ng-disabled="!Negociacao.Permite_Editar"
                                    ng-model-options="{updateOn: 'blur'}"
                                    ng-change="DicionaryValidate('txtPatrocinioEvento')"
                                    primarybind="txtPatrocinioEvento"
@@ -74,7 +80,11 @@
                         <div class="form-group">
                             <label>Descrição Evento</label>
                             <div class="input-group">
-                                <input type="text" disabled="disabled" id="txtNomeEvento" class="form-control" ng-model="Negociacao.Nome_Evento">
+                                <input type="text" 
+                                       ng-disabled="true"
+                                       id="txtNomeEvento" 
+                                       class="form-control" 
+                                       ng-model="Negociacao.Nome_Evento">
                             </div>
                         </div>
                     </div>
@@ -86,6 +96,7 @@
                         <div class="form-group">
                             <input id="txtNumeroNegociacao"
                                    class="form-control money"
+                                   ng-disabled="!Negociacao.Permite_Editar"
                                    ng-model="Negociacao.Verba_Negociada_String"
                                    ng-model-options="{updateOn: 'blur'}" />
                         </div>
@@ -95,6 +106,7 @@
                         <label class="field-x" for="txtNumeroNegociacao">Desconto Concedido</label>
                         <div class="form-group">
                             <input id="txtNumeroNegociacao"
+                                   ng-disabled="!Negociacao.Permite_Editar"
                                    class="form-control percent"
                                    ng-model="Negociacao.Desconto_Concedido_String"
                                    maxlength="10"
@@ -105,6 +117,7 @@
                     <div class="col-md-2">
                         <div class="dictionary" dictionary="Competencia" caption="Tabela de Preços">
                             <input ng-model="Negociacao.Tabela_Preco"
+                                   ng-disabled="!Negociacao.Permite_Editar"
                                    ui-MesAno ng-model-options="{updateOn: 'blur'}"
                                    placeholder="Vigente">
                             <div class="dictionary-ui-competencia" ui-Competencia typmesano="Negociacao.Tabela_Preco" params="TabelaPrecoKeys"></div>
@@ -115,6 +128,7 @@
                         <label class="field-x" for="txtNumeroNegociacao">Seq. Tabela</label>
                         <div class="form-group">
                             <input id="txtNumeroNegociacao"
+                                   ng-disabled="!Negociacao.Permite_Editar"
                                    class="form-control numeric"
                                    ng-model="Negociacao.Sequencia_Tabela"
                                    maxlength="2"
@@ -126,6 +140,7 @@
                         <label class="field-x" for="txtNumeroNegociacao">Comissão Agência</label>
                         <div class="form-group">
                             <input id="txtNumeroNegociacao"
+                                   ng-disabled="!Negociacao.Permite_Editar || Negociacao.Tem_Complemento"
                                    class="form-control percent"
                                    ng-model="Negociacao.Comissao_Agencia_String"
                                    maxlength="10"
@@ -137,17 +152,20 @@
                         <div class="form-group">
                             <label class="field-x" for="txtFormaPagamento">Forma Pgto</label>
                             <select class="form-control"
+                                    ng-disabled="!Negociacao.Permite_Editar || Negociacao.Tem_Complemento"
                                     ng-model="Negociacao.Cod_Forma_Pgto"
                                     name="txtFormaPagamento"
                                     ng-options="Forma_Pgto.Id as Forma_Pgto.Descricao for Forma_Pgto in Forma_Pgto"></select>
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <!--==================Tipo de Midia-->
                     <div class="col-md-2" ng-controller="dictionaryController">
                         <div class="dictionary" dictionary="TipoMidias">
                             <input id="txtCodTipoMidia"
+                                   ng-disabled="!Negociacao.Permite_Editar || Negociacao.Tem_Contrato || Negociacao.Tem_Complemento"
                                    ng-model="Negociacao.Cod_Tipo_Midia"
                                    ng-model-options="{updateOn: 'blur'}"
                                    ng-change="DicionaryValidate('txtCodTipoMidia')"
@@ -164,6 +182,17 @@
                             </div>
                         </div>
                     </div>
+                    <!--===========================Condicao de Pagamento-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="field-x" for="txtCondicaoPagamento">Condição de Pagamento</label>
+                            <select class="form-control"
+                                    ng-disabled="!Negociacao.Permite_Editar || Negociacao.Tem_Complemento"
+                                    ng-model="Negociacao.Condicao_Pagamento"
+                                    name="txtCondicaoPagamento"
+                                    ng-options="Condicao_Pagamento.Codigo as Condicao_Pagamento.Descricao for Condicao_Pagamento in Condicao_Pagamento"></select>
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <!--=============Percentual Midia de Apoio-->
@@ -171,6 +200,7 @@
                         <label class="field-x" for="txtNumeroNegociacao">% Mídia de Apoio</label>
                         <div class="form-group">
                             <input id="txtNumeroNegociacao"
+                                   ng-disabled="!Negociacao.Permite_Editar"
                                    class="form-control percent"
                                    ng-model="Negociacao.Percentual_Reaplicacao"
                                    maxlength="10"
@@ -182,6 +212,7 @@
                         <label class="field-x" for="txtNumeroNegociacao">Valor Mídia de Apoio</label>
                         <div class="form-group">
                             <input id="txtNumeroNegociacao"
+                                   ng-disabled="!Negociacao.Permite_Editar"
                                    class="form-control money"
                                    ng-model="Negociacao.Valor_Reaplicacao"
                                    maxlength="10"
@@ -192,6 +223,7 @@
                     <div class="col-md-2">
                         <div class="dictionary" dictionary="Competencia" caption="Tabela de Preços (M.A)">
                             <input ng-model="Negociacao.Tabela_Reaplicacao"
+                                   ng-disabled="!Negociacao.Permite_Editar"
                                    ui-MesAno ng-model-options="{updateOn: 'blur'}"
                                    placeholder="Vigente">
                             <div class="dictionary-ui-competencia" ui-Competencia typmesano="Negociacao.Tabela_Reaplicacao" params="TabelaPrecoKeys"></div>
@@ -202,6 +234,7 @@
                         <label class="field-x" for="txtNumeroNegociacao">Seq. Tabela</label>
                         <div class="form-group">
                             <input id="txtNumeroNegociacao"
+                                   ng-disabled="!Negociacao.Permite_Editar"
                                    class="form-control numeric"
                                    ng-model="Negociacao.Sequencia_Tabela_Reaplicacao"
                                    maxlength="2"
@@ -213,6 +246,7 @@
                         <label class="field-x" for="txtNumeroNegociacao">Desconto Mídia de Apoio</label>
                         <div class="form-group">
                             <input id="txtNumeroNegociacao"
+                                   ng-disabled="!Negociacao.Permite_Editar"
                                    class="form-control percent"
                                    ng-model="Negociacao.Desconto_Reaplicacao"
                                    maxlength="10"
@@ -227,7 +261,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th colspan="2" style="background-color:#f5f5f5">Regionais de Venda</th>
+                                        <th colspan="2" style="background-color:#aea133">Regionais de Venda</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -237,12 +271,11 @@
                                                    class="label label-info"
                                                    style="margin-right:10px;display:inline-block">
                                                 {{empresaVenda.Cod_Empresa}}-{{empresaVenda.Nome_Empresa}}
-                                                <span class="fa fa-times span-btn pull-right" ng-click="RemoverEmpresaVenda(empresaVenda.Cod_Empresa)"></span>
+                                                <span class="fa fa-times span-btn pull-right" ng-show="Negociacao.Permite_Editar && empresaVenda.Permite_Editar" ng-click="RemoverEmpresaVenda(empresaVenda.Cod_Empresa)"></span>
                                             </label>
                                         </td>
                                         <td style="width:90px;min-width:90px;border-left:none">
-
-                                            <button type="button" class="btn btn-default btn-sm" ng-click="SelecionarEmpresaVenda()">
+                                            <button type="button" class="btn btn-default btn-sm" ng-show="Negociacao.Permite_Editar" ng-click="SelecionarEmpresaVenda()">
                                                 <span class="fa fa-search"></span>
                                             </button>
                                         </td>
@@ -257,7 +290,7 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th colspan="2" style="background-color:#f5f5f5">Empresas de Faturamento</th>
+                                        <th colspan="2" style="background-color:#2bbb0d">Empresas de Faturamento</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -267,12 +300,12 @@
                                                    class="label label-info"
                                                    style="margin-right:10px;display:inline-block">
                                                 {{empresaFaturamento.Cod_Empresa}}-{{empresaFaturamento.Nome_Empresa}}
-                                                <span class="fa fa-times span-btn pull-right" ng-click="RemoverEmpresaFaturamento(empresaFaturamento.Cod_Empresa)"></span>
+                                                <span class="fa fa-times span-btn pull-right"  ng-show="Negociacao.Permite_Editar && empresaFaturamento.Permite_Editar" ng-click="RemoverEmpresaFaturamento(empresaFaturamento.Cod_Empresa)"></span>
                                             </label>
                                         </td>
                                         <td style="width:90px;min-width:90px;border-left:none">
 
-                                            <button type="button" class="btn btn-default btn-sm" ng-click="SelecionarEmpresaFaturamento()">
+                                            <button type="button" class="btn btn-default btn-sm"  ng-show="Negociacao.Permite_Editar" ng-click="SelecionarEmpresaFaturamento()">
                                                 <span class="fa fa-search"></span>
                                             </button>
                                         </td>
@@ -287,12 +320,13 @@
                     <div class="col-md-12">
                         <div class="table-responsive margin-top-10">
                             <table id="tbIntermediario" class="table table-bordered">
-                                
+
                                 <thead>
                                     <tr>
                                         <th colspan="6" style="background-color:#f5f5f5">
                                             Intermediários
                                             <button class="btn btn-default btn-icon-fixed btn-sm pull-right"
+                                                     ng-show="Negociacao.Permite_Editar" 
                                                     ng-click="AdicionarIntermediarios()">
                                                 <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
                                             </button>
@@ -316,7 +350,7 @@
                                         <td style="width:120px">{{intermediario.Tipo_Intermediario.Nome_Tipo_Intermediario}}</td>
                                         <td style="width:120px">{{intermediario.Tipo_Comissao.Nome_Tipo_Comissao}}</td>
                                         <td style="text-align:center;width:100px">
-                                            <span class="fa fa-trash fa-2x span-btn" ng-click="RemoverIntermediario(intermediario.Cod_Intermediario)"></span>
+                                            <span class="fa fa-trash fa-2x span-btn"  ng-show="Negociacao.Permite_Editar" ng-click="RemoverIntermediario(intermediario.Cod_Intermediario)"></span>
                                         </td>
                                     </tr>
                                     <tr ng-show="ShowNewIntermediario">
@@ -392,11 +426,11 @@
                                                    class="label label-info"
                                                    style="margin-right:10px;display:inline-block">
                                                 {{apresentador.Nome_Apresentador}}
-                                                <span class="fa fa-times span-btn pull-right" ng-click="RemoverApresentador(apresentador.Cod_Apresentador)"></span>
+                                                <span class="fa fa-times span-btn pull-right"  ng-show="Negociacao.Permite_Editar" ng-click="RemoverApresentador(apresentador.Cod_Apresentador)"></span>
                                             </label>
                                         </td>
                                         <td style="width:90px;min-width:90px;border-left:none">
-                                            <button type="button" class="btn btn-default btn-sm" ng-click="SelecionarApresentadores()">
+                                            <button type="button" class="btn btn-default btn-sm"  ng-show="Negociacao.Permite_Editar" ng-click="SelecionarApresentadores()">
                                                 <span class="fa fa-search"></span>
                                             </button>
                                         </td>
@@ -415,8 +449,8 @@
                     </div>
                     <strong>Terceiros</strong>
                 </div>
-                
-                
+
+
                 <div class="row">
                     <!--=========================================Agencias-->
                     <div class="col-md-6">
@@ -424,9 +458,10 @@
                             <table id="tbagencia" class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th colspan="6" style="background-color:#f5f5f5">
+                                        <th colspan="6" style="background-color:#aea133;">
                                             Agências
-                                            <button class="btn btn-default btn-icon-fixed btn-sm pull-right"
+                                            <button class="btn btn-default btn-icon-fixed btn-sm pull-right margin-0"
+                                                     ng-show="Negociacao.Permite_Editar" 
                                                     ng-click="AdicionarAgencias()">
                                                 <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
                                             </button>
@@ -444,7 +479,7 @@
                                         <td>{{agencia.Cod_Agencia}}</td>
                                         <td>{{agencia.Nome_Agencia}}</td>
                                         <td style="text-align:center;width:100px">
-                                            <span class="fa fa-trash fa-2x span-btn" ng-click="RemoverAgencia(agencia.Cod_Agencia)"></span>
+                                            <span class="fa fa-trash fa-2x span-btn"  ng-show="Negociacao.Permite_Editar" ng-click="RemoverAgencia(agencia.Cod_Agencia)"></span>
                                         </td>
                                     </tr>
                                     <tr ng-show="ShowNewAgencia">
@@ -486,9 +521,10 @@
                             <table id="tbcliente" class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th colspan="6" style="background-color:#f5f5f5">
+                                        <th colspan="6" style="background-color:#2bbb0d">
                                             Clientes
-                                            <button class="btn btn-default btn-icon-fixed btn-sm pull-right"
+                                            <button class="btn btn-default btn-icon-fixed btn-sm pull-right margin-0"
+                                                    ng-show="Negociacao.Permite_Editar"
                                                     ng-click="AdicionarClientes()">
                                                 <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
                                             </button>
@@ -506,7 +542,7 @@
                                         <td>{{cliente.Cod_Cliente}}</td>
                                         <td>{{cliente.Nome_Cliente}}</td>
                                         <td style="text-align:center;width:100px">
-                                            <span class="fa fa-trash fa-2x span-btn" ng-click="RemoverCliente(cliente.Cod_Cliente)"></span>
+                                            <span class="fa fa-trash fa-2x span-btn"  ng-show="Negociacao.Permite_Editar" ng-click="RemoverCliente(cliente.Cod_Cliente)"></span>
                                         </td>
                                     </tr>
                                     <tr ng-show="ShowNewCliente">
@@ -550,9 +586,10 @@
                             <table id="tbnucleo" class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th colspan="6" style="background-color:#f5f5f5">
+                                        <th colspan="6" style="background-color:#b51458;color:white">
                                             Nucleos
-                                            <button class="btn btn-default btn-icon-fixed btn-sm pull-right"
+                                            <button class="btn btn-default btn-icon-fixed btn-sm pull-right margin-0"
+                                                    ng-show="Negociacao.Permite_Editar"
                                                     ng-click="AdicionarNucleos()">
                                                 <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
                                             </button>
@@ -570,7 +607,7 @@
                                         <td>{{nucleo.Cod_Nucleo}}</td>
                                         <td>{{nucleo.Nome_Nucleo}}</td>
                                         <td style="text-align:center;width:100px">
-                                            <span class="fa fa-trash fa-2x span-btn" ng-click="RemoverNucleo(nucleo.Cod_Nucleo)"></span>
+                                            <span class="fa fa-trash fa-2x span-btn"  ng-show="Negociacao.Permite_Editar" ng-click="RemoverNucleo(nucleo.Cod_Nucleo)"></span>
                                         </td>
                                     </tr>
                                     <tr ng-show="ShowNewNucleo">
@@ -612,9 +649,10 @@
                             <table id="tbcontato" class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th colspan="6" style="background-color:#f5f5f5">
+                                        <th colspan="6" style="background-color:#9e75d9">
                                             Contatos
-                                            <button class="btn btn-default btn-icon-fixed btn-sm pull-right"
+                                            <button class="btn btn-default btn-icon-fixed btn-sm pull-right margin-0"
+                                                    ng-show="Negociacao.Permite_Editar"
                                                     ng-click="AdicionarContatos()">
                                                 <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
                                             </button>
@@ -634,7 +672,7 @@
                                         <td>{{contato.Nome_Contato}}</td>
                                         <td>{{contato.Comissao | currency :"":4}}</td>
                                         <td style="text-align:center;width:100px">
-                                            <span class="fa fa-trash fa-2x span-btn" ng-click="RemoverContato(contato.Cod_Contato)"></span>
+                                            <span class="fa fa-trash fa-2x span-btn"  ng-show="Negociacao.Permite_Editar" ng-click="RemoverContato(contato.Cod_Contato)"></span>
                                         </td>
                                     </tr>
                                     <tr ng-show="ShowNewContato">
@@ -689,43 +727,210 @@
                     <strong class="">Descontos</strong>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Tipo do Desconto</th>
-                                        <th>Conteudo</th>
-                                        <th>Descrição</th>
-                                        <th>Desconto %</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <select class="form-control"
-                                                    ng-model="Negociacao.Tipo_Desconto"
-                                                    name="txtFormaPagamento"
-                                                    ng-options="TipoDesconto.Codigo as TipoDesconto.Descricao for TipoDesconto in TipoDesconto"></select>
-                                        </td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                    <!--===========================Escolha dos Descontos-->
+                    <div class="col-md-6"  ng-show="Negociacao.Permite_Editar">
+                        <div class="block block-condensed" style="height:500px">
+                            <div class="alert alert-default alert-icon-block" role="alert">
+                                <strong>Informação dos Descontos</strong>
+                            </div>
+                            <!--=================Tipo do Desconto-->
+                            <div class="row">
+                                <div class="col-md-3 margin-left-10">
+                                    <div class="form-group">
+                                        <label>Tipo</label>
+                                        <select class="form-control"
+                                                ng-model="DigitacaoDesconto.Tipo_Desconto"
+                                                name="optTipoDesconto"
+                                                ng-change="CarregarOpcoesDesconto(DigitacaoDesconto.Tipo_Desconto)"
+                                                ng-options="TipoDesconto as TipoDesconto.Descricao for TipoDesconto in TipoDesconto"></select>
+                                    </div>
+                                </div>
+                                <!--=================Grupo-->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Grupo</label>
+                                        <select class="form-control"
+                                                ng-model="DigitacaoDesconto.Grupo"
+                                                ng-change="GrupoChange(DigitacaoDesconto)"
+                                                name="optGrupo"
+                                                ng-options="o as o for o in Grupos"></select>
+                                    </div>
+                                </div>
+                                <!--=================Percentual do Desconto do Desconto-->
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label for="txtDesconto">Desconto</label>
+                                        <div class="input-group">
+                                            <input type="text"
+                                                   class="form-control percent"
+                                                   ng-disabled="DigitacaoDesconto.Grupo!='Novo Grupo'"
+                                                   maxlength="5"
+                                                   ng-model="DigitacaoDesconto.Desconto" />
+                                            <!--<span class="input-group-addon">%</span>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!----=================Botao Adicionar-->
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-default" style="margin-top:25px" ng-click="AdicionarDesconto(DigitacaoDesconto)">Adicionar</button>
+                                </div>
+                            </div>
+                            <!--===========================Desconto por Data-->
+                            <div class="row" ng-show="DigitacaoDesconto.Tipo_Desconto.Codigo==1">
+                                <div class="col-md-5 margin-left-10">
+                                    <div class="dictionary" dictionary="Data" caption="Data Início">
+                                        <input ng-model="DigitacaoDesconto.Data_Inicio"
+                                               ui-date
+                                               ng-model-options="{updateOn: 'blur'}">
+                                        <div class="dictionary-ui-calendar" ui-calendar typdate="DigitacaoDesconto.Data_Inicio"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="dictionary" dictionary="Data" caption="Data Término">
+                                        <input ng-model="DigitacaoDesconto.Data_Termino"
+                                               ui-date ng-model-options="{updateOn: 'blur'}">
+                                        <div class="dictionary-ui-calendar" ui-calendar typdate="DigitacaoDesconto.Data_Termino"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--===========================Desconto por selecao de itens-->
+                            <div class="row margin-top-10" ng-show="DigitacaoDesconto.Tipo_Desconto.Codigo>1">
+                                <div class="col-md-12">
+                                    <input ng-model="TipoDescontoFilter" class="form-control" type="text" placeholder="Procurar" />
+                                </div>
+                                <div class="col-md-12 margin-top-10">
+                                    <div style="height:300px;overflow-y:auto;  border:solid 1px silver">
+                                        <div ng-repeat="f in filteredOpcoes= ( OpcoesDesconto| filter:TipoDescontoFilter) track by $index">
+                                            <div class="col-md-6">
+                                                <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="f.Selecionado"> {{f.Descricao}}<span></span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                                    </tr>
-                                </tbody>
-                            </table>
+                        </div>
+                    </div>
+                    <!--===========================Grid dos Descontos-->
+                    <div   ng-class="(Negociacao.Permite_Editar?'col-md-6':'col-md-12')">
+                        <div class="block block-condensed" style="height:500px;overflow-y:auto">
+                            <div class="alert alert-default alert-icon-block" role="alert">
+                                <strong>Descontos Informados</strong>
+                            </div>
+                            <div class="table table-responsive" style="padding:10px">
+                                <table class="table table-striped table-bordered" id="tbDesconto">
+                                    <thead>
+                                        <tr>
+                                            <th>Grupo</th>
+                                            <th>Tipo de Desconto</th>
+                                            <th>Conteudo</th>
+                                            <th>Desconto</th>
+                                            <th></th>
+                                        </tr>
+                                        <tr ng-repeat="row in Negociacao.Descontos  | orderBy: '[Grupo,Id_Desconto]'" on-finish-render="ngRepeatFinished">
+                                            <td>{{row.Grupo}}</td>
+                                            <td>{{row.Nome_Tipo_Desconto}}</td>
+                                            <td>{{row.Cod_Chave}}<span ng-show="row.Cod_Tipo_Desconto!=1">-</span>{{row.Nome_Chave}}</td>
+                                            <td style="text-align:right">{{row.Desconto | currency :"":4 }} </td>
+                                            <td>
+                                                <button class="btn btn-primary btn-sm" style="margin:0px 0px !important"  ng-show="Negociacao.Permite_Editar" ng-click="RemoverDesconto(row)"><span class="fa fa-trash"></span></button>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <!--================================Parcelas-->
-            <div class="block" id="divParcela">
+            <div class="block" id="divParcela" ng-show="Negociacao.Indica_Antecipado">
                 <div class="alert alert-primary alert-icon-block" role="alert">
                     <div class="alert-icon">
                         <span class="fa fa-calendar"></span>
                     </div>
                     <strong>Parcelamento/Adiantamentos</strong>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-default btn-icon-fixed btn-sm"
+                                ng-click="AdicionarParcela(Negociacao.Parcelas)">
+                            <span class="fa fa-plus" ng-disabled="true"></span> Adicionar Parcela
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:center">N.Parcela</th>
+                                        <th>Data para Emissao</th>
+                                        <th>Percentual</th>
+                                        <th>Valor da Parcela</th>
+                                        <th style="text-align:center">Situação</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="parcela in Negociacao.Parcelas track by $index">
+                                        <td style="text-align:center">
+                                            {{parcela.Numero_Parcela}}
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="input-group">
+                                                    <input  class="form-control" 
+                                                            ng-disabled="!parcela.Permite_Editar || !Negociacao.Permite_Editar"
+                                                            ng-model="parcela.Data_Parcela" ui-date="" />
+                                                    <div class="input-group-addon" ng-show="parcela.Permite_Editar && Negociacao.Permite_Editar">
+                                                        <span class="fa fa-calendar dropdown-toggle" data-toggle="dropdown" style="cursor: pointer"></span>
+                                                        <div ui-calendar typdate="parcela.Data_Parcela"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <input class="form-control" 
+                                                   ng-model="parcela.Percentual_Text" 
+                                                   ng-disabled="!parcela.Permite_Editar || !Negociacao.Permite_Editar"
+                                                   ng-change="TotalizaParcelas()"
+                                                   ng-model-options="{updateOn: 'blur'}"
+                                                    onblur="this.value = PercentFormat(this.value)"
+                                                           onfocus="this.value = DecimalUnformat(this.value)"
+                                                           onkeypress="return DecimalOnly(event)"/>
+                                        </td>
+                                        <td>
+                                            <input class="form-control money" ng-model="parcela.Valor_Fatura_Text" 
+                                                    ng-disabled="!parcela.Permite_Editar || !Negociacao.Permite_Editar"
+                                                    ng-change="TotalizaParcelas()"
+                                                   ng-model-options="{updateOn: 'blur'}"
+                                                   onblur="this.value = MoneyFormat(this.value)"
+                                                   onfocus="this.value = DecimalUnformat(this.value)"
+                                                   onkeypress="return DecimalOnly(event)"/>
+                                        </td>
+                                        <td style="text-align:center">
+                                            <label class="label label-danger" ng-show="parcela.Situacao=='Pendente'">Pendente</label>
+                                            <label class="label label-info" ng-show="parcela.Situacao=='Complementada'">Complementada</label>
+                                            <label class="label label-success" ng-show="parcela.Situacao=='Faturada'">Faturada (NF:{{parcela.Numero_Fatura}})</label>
+                                        </td>
+                                        <td style="text-align:center;width:100px">
+                                            <span class="fa fa-trash fa-2x span-btn" ng-show="parcela.Permite_Editar &&  Negociacao.Permite_Editar"  ng-click="RemoverParcela(parcela)"></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2" style="text-align:center;font-weight:bold"><strong>Total</strong></td>
+                                        <td style="text-align:center;font-weight:bold">{{Negociacao.TotalParcelasPct | number:4}}</td>
+                                        <td style="text-align:center;font-weight:bold">{{Negociacao.TotalParcelasValor | currency :"R$ ":2}}</td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!--================================Consideracoes-->
@@ -736,11 +941,19 @@
                     </div>
                     <strong>Considerações</strong>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <textarea ng-model="Negociacao.Texto" ng-disabled="!Negociacao.Permite_Editar"  style="min-height:100px" class="form-control"></textarea>
+                    </div>
+                </div>
             </div>
+
             <!--========================botoes de acoes-->
             <div class="fixed-buttons-bottom">
                 <div class="col-md-8">
-                    <button class="btn btn-success btn-sm">Salvar</button>
+                    <button class="btn btn-success btn-sm" ng-show="Negociacao.Permite_Editar" ng-click="SalvarNegociacao(Negociacao)">Salvar Negociação</button>
+                    <button class="btn btn-danger btn-sm" ng-show="!Negociacao.Indica_Desativado && Parameters.Action=='Edit' && PermissaoDesativar" ng-click="DesativarNegociacao(Negociacao.Numero_Negociacao)">Desativar</button>
+                    <button class="btn btn-danger btn-sm" ng-show="Negociacao.Indica_Desativado && Parameters.Action=='Edit' && PermissaoDesativar" ng-click="ReativarNegociacao(Negociacao.Numero_Negociacao)">Reativar</button>
                     <a href="#Negociacao" class="btn btn-warning btn-sm">Cancela</a>
                 </div>
                 <div class="col-md-1">
@@ -749,15 +962,40 @@
                     <button class="btn btn-primary btn-sm anchorscroll" target="divDadosBase"><span class="fa fa-check-circle"></span></button>
                     <button class="btn btn-primary btn-sm anchorscroll" target="divTerceiro"><span class="fa fa-group"></span></button>
                     <button class="btn btn-primary btn-sm anchorscroll" target="divDesconto"><span class="fa fa-calculator"></span></button>
-                    <button class="btn btn-primary btn-sm anchorscroll" target="divParcela"> <span class="fa fa-calendar"></span></button>
+                    <button class="btn btn-primary btn-sm anchorscroll" target="divParcela" ng-show="Negociacao.Indica_Antecipado"> <span class="fa fa-calendar"></span></button>
                     <button class="btn btn-primary btn-sm anchorscroll" target="divTexto"><span class="fa fa-edit"></span></button>
                 </div>
             </div>
         </div>
+        <!--=======================================Motivo da Alteracao-->
+        <div class="modal fade" id="modalMotivoAlteracao" tabindex="-1" role="dialog" aria-labelledby="modalInfo"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h5 class="modal-title" id="">Informe o Motivo da Alteração</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-times" style="color:#fff"></span></button>
+                    </div>
+                    <div class="modal-body">
+                        <select class="form-control"
+                                ng-model="Negociacao.Cod_Motivo_Alteracao"
+                                name="txtFormaPagamento"
+                                ng-options="MotivoAlteracao.Codigo as MotivoAlteracao.Descricao for MotivoAlteracao in MotivoAlteracao">
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" ng-click="ProcessaGravacao(Negociacao)" data-dismiss="modal">Ok</button>
+                        <button type="button" class="btn btn-warning"  data-dismiss="modal">Cancela</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </form>
 </div>
 <div ng-include="'template/SelectItem.html'"></div>
 <div ng-include="'template/PesquisaTabela.html'"></div>
+<div ng-include="'template/modalInfo.html'"></div>
 <script type="text/javascript">
     $(document).ready(function () {
         GetDictionary();
@@ -767,7 +1005,7 @@
                 scrollTop: $('#' + _target).offset().top - 50
             }, 'slow');
         });
-        
+
         $("span[control_group*='icon_group']").click(function (e) {
             var _group = this.getAttribute("control_group");
             _group = _group.replace('icon', 'input');
@@ -777,5 +1015,8 @@
             };
         });
         $('[data-toggle="tooltip"]').tooltip();
+
     });
+
+
 </script>
