@@ -7,6 +7,7 @@
                             { 'title': 'Id', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Identificação', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Emp.Venda', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+                            { 'title': 'Tipo de Mídia', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Agência', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Cliente', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Contato', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },

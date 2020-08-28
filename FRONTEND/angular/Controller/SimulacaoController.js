@@ -44,7 +44,16 @@
         $scope.Descricao_Processo = 'Modelo de Vendas'
         $rootScope.routeName = 'Modelo de Vendas - ' + $scope.Parameters.Action
     }
-
+    //==========================Carrega Tabela de Condicao de Pagamento 
+    $scope.TipoDesconto = [];
+    httpService.Get('ListarTabela/Condica_Pagamento').then(function (response) {
+        $scope.Condicao_Pagamento = response.data;
+    });
+    //==========================Carrega Tabela de Caracteristica do Contrato
+    $scope.CaracteristicaContrato= [];
+    httpService.Get('ListarTabela/Caracteristica_Contrato').then(function (response) {
+        $scope.Caracteristica_Contrato = response.data;
+    });
     //=====================Carrega a Simulacao 
     $scope.CarregarSimulacao = function (pId_Simulacao, pProcesso) {
         $scope.GeracaoProposta = {};
@@ -116,6 +125,7 @@
             _url += '&Cod_Mercado=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Mercado);
             _url += '&Cod_Empresa=' + NullToString($scope.Simulacao.Cod_Empresa_Venda);
             _url += '&Cod_Empresa_Faturamento=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Empresa_Faturamento);
+            _url += '&RedeId=' + $scope.Simulacao.Esquemas[$scope.currentEsquema].RedeId;
             _url += "&"
             httpService.Get(_url).then(function (response) {
                 if (response.data) {
@@ -138,7 +148,8 @@
             _url += '?Abrangencia=' + $scope.Simulacao.Esquemas[$scope.currentEsquema].Abrangencia;
             _url += '&Cod_Mercado=' + pCodMercado
             _url += '&Cod_Empresa=' + NullToString($scope.Simulacao.Cod_Empresa_Venda);
-            _url += '&Cpd_Empresa_Faturamento=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Empresa_Faturamento);
+            _url += '&Cod_Empresa_Faturamento=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Empresa_Faturamento);
+            _url += '&RedeId=' + $scope.Simulacao.Esquemas[$scope.currentEsquema].RedeId;
             _url += "&"
             httpService.Get(_url).then(function (response) {
                 if (response.data.length > 0) {
@@ -189,7 +200,7 @@
         }
         $scope.ChangePendenteCalculo();
     };
-    //=====================Consiste dia Inicio e Dia Fim
+    //=====================Consiste dia Inicio e Dia Fim    
     $scope.FnConsisteDia = function (pMidia, pTipo) {
         var _month = $scope.Simulacao.Esquemas[$scope.currentEsquema].Competencia.substr(0, 2);
         var _year = $scope.Simulacao.Esquemas[$scope.currentEsquema].Competencia.substr(3, 4);
@@ -279,13 +290,11 @@
             return
         }
         var _param = { 'Veiculos': $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos, 'Competencia': $scope.Simulacao.Esquemas[$scope.currentEsquema].Competencia };
-
+        $scope.PesquisaTabelas = NewPesquisaTabela();
         httpService.Post('GetProgramasGrade', _param).then(function (response) {
             if (response.data) {
                 $scope.PesquisaTabelas.Items = response.data
-                $scope.PesquisaTabelas.FiltroTexto = ""
                 $scope.PesquisaTabelas.Titulo = "Seleção de Programas da Grade"
-                $scope.PesquisaTabelas.MultiSelect = false;
                 $scope.PesquisaTabelas.ClickCallBack = function (value) { pMidia.Cod_Programa = value.Codigo; $scope.fnChangeMidia(pMidia, 'Programa') }
                 $("#modalTabela").modal(true);
             }

@@ -519,22 +519,22 @@ function NewPesquisaTabela()
 }
 function MergeCommonRows(table, cols) {
     return;
-    var firstColumnBrakes = [];
-    for (var i = 0; i < cols.length; i++) {
-        var previous = null, cellToExtend = null, rowspan = 1;
-        table.find("td:nth-child(" + cols[i] + ")").each(function (index, e) {
-            var jthis = $(this), content = jthis.text();
-            if (previous == content && content !== "" && $.inArray(index, firstColumnBrakes) === -1) {
-                jthis.addClass('hidden');
-                cellToExtend.attr("rowspan", (rowspan = rowspan + 1));
-            } else {
-                if (cols[i] === 1) firstColumnBrakes.push(index);
-                rowspan = 1;
-                previous = content;
-                cellToExtend = jthis;
-            }
-        });
-    }
+    //var firstColumnBrakes = [];
+    //for (var i = 0; i < cols.length; i++) {
+    //    var previous = null, cellToExtend = null, rowspan = 1;
+    //    table.find("td:nth-child(" + cols[i] + ")").each(function (index, e) {
+    //        var jthis = $(this), content = jthis.text();
+    //        if (previous == content && content !== "" && $.inArray(index, firstColumnBrakes) === -1) {
+    //            jthis.addClass('hidden');
+    //            cellToExtend.attr("rowspan", (rowspan = rowspan + 1));
+    //        } else {
+    //            if (cols[i] === 1) firstColumnBrakes.push(index);
+    //            rowspan = 1;
+    //            previous = content;
+    //            cellToExtend = jthis;
+    //        }
+    //    });
+    //}
 }
 
 

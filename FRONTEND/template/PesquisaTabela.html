@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div ng-show="!loading">
-                    <div class="row" ng-show="filteredSelect.length>0 && !PesquisaTabelas.PreFilter">
+                    <div class="row" ng-show="!PesquisaTabelas.PreFilter">
                         <div class="col-md-11" style="margin-bottom:10px;margin-left:10px">
                             <input class="form-control input-sm" type="text" ng-model="PesquisaTabelas.FiltroTexto" placeholder="Pesquisar" />
                         </div>

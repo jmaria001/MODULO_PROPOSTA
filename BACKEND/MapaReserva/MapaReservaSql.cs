@@ -327,13 +327,15 @@ namespace PROPOSTA
                 if (dtb.Rows.Count > 0)
                 {
                     Contrato.Numero_Negociacao = dtb.Rows[0]["Numero_Negociacao"].ToString().ConvertToInt32();
-                    Contrato.Cod_Tipo_Midia = dtb.Rows[0]["Cod_Tipo_Midia"].ToString();
                     Contrato.Cod_Empresa_Venda = dtb.Rows[0]["Cod_Empresa_Venda"].ToString().Trim();
                     Contrato.Nome_Empresa_Venda = dtb.Rows[0]["Nome_Empresa_Venda"].ToString().Trim();
                     Contrato.Cod_Empresa_Faturamento = dtb.Rows[0]["Cod_Empresa_Faturamento"].ToString().Trim();
+                    Contrato.Cod_Tipo_Midia = dtb.Rows[0]["Cod_Tipo_Midia"].ToString().Trim();
                     Contrato.Nome_Empresa_Faturamento = dtb.Rows[0]["Nome_Empresa_Faturamento"].ToString().Trim();
                     Contrato.Cod_Contato = dtb.Rows[0]["Cod_Contato"].ToString().Trim();
                     Contrato.Nome_Contato = dtb.Rows[0]["Nome_Contato"].ToString().Trim();
+                    Contrato.Cod_Nucleo = dtb.Rows[0]["Cod_Nucleo"].ToString().Trim();
+                    Contrato.Nome_Nucleo= dtb.Rows[0]["Nome_Nucleo"].ToString().Trim();
                     Contrato.Periodo_Campanha_Inicio = dtb.Rows[0]["Periodo_Campanha_Inicio"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
                     Contrato.Periodo_Campanha_Termino = dtb.Rows[0]["Periodo_Campanha_Termino"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
                     Contrato.Competencia = dtb.Rows[0]["Competencia"].ToString().ConvertToInt32();
@@ -346,6 +348,8 @@ namespace PROPOSTA
                     Contrato.Id_Simulacao = dtb.Rows[0]["Id_Simulacao"].ToString().ConvertToInt32();
                     Contrato.Id_Esquema = dtb.Rows[0]["Id_Esquema"].ToString().ConvertToInt32();
                     Contrato.Cod_Mercado = dtb.Rows[0]["Cod_Mercado"].ToString().Trim();
+                    Contrato.Caracteristica_Contrato =dtb.Rows[0]["Caracteristica_Contrato"].ToString().Trim();
+                    Contrato.Cod_Programa= dtb.Rows[0]["Cod_Programa_Patrocinado"].ToString().Trim();
                     Contrato.Editar_Negociacao = true;
                     Contrato.Editar_Empresa_Venda = false;
                     Contrato.Editar_Empresa_Faturamento = false;

@@ -456,7 +456,7 @@ namespace PROPOSTA
                         Nome_Chave = drw["Nome_Chave"].ToString(),
                         Data_Inicio = drw["Data_Inicio"].ToString(),
                         Data_Termino = drw["Data_Termino"].ToString(),
-                        Desconto = drw["Desconto"].ToString().ConvertToDouble(),
+                        Desconto = drw["Desconto"].ToString(),
                     });
                     
                 }

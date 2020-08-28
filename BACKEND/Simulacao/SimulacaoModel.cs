@@ -26,6 +26,8 @@ namespace PROPOSTA
             public String Validade_Termino{ get; set; }
             public String Cod_Empresa_Venda { get; set; }
             public String Nome_Empresa_Venda { get; set; }
+            public String Cod_Tipo_Midia { get; set; }
+            public String Nome_Tipo_Midia { get; set; }
             public String Cod_Agencia { get; set; }
             public String Nome_Agencia { get; set; }
             public String Cnpj_Agencia { get; set; }
@@ -34,9 +36,10 @@ namespace PROPOSTA
             public String Cnpj_Cliente{ get; set; }
             public String Cod_Contato { get; set; }
             public String Nome_Contato { get; set; }
+            public String Cod_Nucleo { get; set; }
+            public String Nome_Nucleo { get; set; }
             public Int32? Forma_Pgto{ get; set; }
-            public Int32? Condicao_Pagamento { get; set; }
-            public Int32? Tipo_Vencimento { get; set; }
+            public String  Condicao_Pagamento { get; set; }
             public String Tabela_Preco { get; set; }
             public String Desconto_Padrao { get; set; }
             public String Comissao_Agencia { get; set; }
@@ -71,6 +74,7 @@ namespace PROPOSTA
             public Boolean Indica_Inconsistencia{ get; set; }
             public Boolean Indica_Sem_Midia{ get; set; }
             public Int32 Termometro_Venda { get; set; }
+            public String Cod_Programa_Patrocinado{ get; set; }
             public List<TotalizadorModel> Totalizadores { get; set; }
         }
         public class TotalizadorModel
@@ -97,6 +101,8 @@ namespace PROPOSTA
             public Boolean Fixar_Desconto { get; set; }
             public Boolean Fixar_Valor { get; set; }
             public String Cod_Empresa_Faturamento { get; set; }
+            public String Caracteristica_Contrato { get; set; }
+            public String Cod_Programa_Patrocinado { get; set; }
             public List<MidiaModel> Midias { get; set; }
             public List<VeiculoModel> Veiculos { get; set; }
         }

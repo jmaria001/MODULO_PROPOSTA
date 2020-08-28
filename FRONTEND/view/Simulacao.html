@@ -164,7 +164,7 @@
                                 </div>
                             </div>
                             <!--=============================Valor Informado-->
-                            <div class="row  padding-right-10 padding-left-10 margin-bottom-20">
+                            <div class="row  padding-right-10 padding-left-10">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="field-x" for="txtValorInformado">Valor Informado</label>
@@ -219,18 +219,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--=============================Pacote de Descontos-->
-                                <!--<div class="col-md-2" ng-controller="dictionaryController">
-                                    <div class="dictionary" dictionary="Pacote_Desconto">
-                                        <input id="txtId_Pacote"
-                                               ng-disabled="Simulacao.Fixar_Valor || !Simulacao.Permite_Editar"
-                                               ng-model="Simulacao.Id_Pacote"
-                                               ng-model-options="{updateOn: 'blur'}"
-                                               ng-change="DicionaryValidate('txtId_Pacote');ChangePendenteCalculo()"
-                                               primarybind="txtId_Pacote"
-                                               secondarybind="txtDescricao_Pacote">
-                                    </div>
-                                </div>-->
                                 <div class="col-md-2">
                                     <div class="form-group">
                                         <label for="txtId_Pacote" class="field-x" style="white-space:nowrap">Pacote de Descontos</label>
@@ -257,9 +245,30 @@
                                 </div>
                             </div>
                             <div class="row  padding-right-10 padding-left-10 margin-bottom-20">
+                                <!--==============================Tipo de Mídia--> 
+                                <div class="col-md-3" ng-controller="dictionaryController">
+                                    <div class="dictionary" dictionary="TipoMidias">
+                                        <input id="txtCodTipoMidia"
+                                               style="text-transform:uppercase"
+                                               ng-disabled="!Simulacao.Permite_Editar"
+                                               ng-model="Simulacao.Cod_Tipo_Midia"
+                                               ng-model-options="{updateOn: 'blur'}"
+                                               ng-change="DicionaryValidate('txtCodTipoMidia');ChangePendenteCalculo()"
+                                               primarybind="txtCodTipoMidia"
+                                               secondarybind="txtNomeTipoMidia">
+                                    </div>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="form-group">
+                                        <label for="txtNomeTipoMidia" class="field-x" style="visibility:hidden">..</label>
+                                        <div class="input-group">
+                                            <input type="text" disabled="disabled" id="txtNomeTipoMidia" class="form-control " ng-model="Simulacao.Nome_Tipo_Midia">
+                                        </div>
+                                    </div>
+                                </div>
                                 <!--==========================Sem Midia-->
                                 <div class="col-md-3">
-                                    <div class="form-group">
+                                    <div class="form-group margin-top-30">
                                         <div class="input-group">
                                             <div class="app-checkbox">
                                                 <label>
@@ -394,7 +403,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label for="txtCnpjAgencia" class="field-x">CNPJ</label>
                             <div class="input-group">
@@ -449,7 +458,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="txtCnpjCliente" class="field-x">CNPJ</label>
                             <div class="input-group">
@@ -476,7 +485,7 @@
                                    secondarybind="txtNomeContato">
                         </div>
                     </div>
-                    <div class="col-md-5">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="txtNomeContato" class="field-x" style="visibility:hidden">..</label>
                             <div class="input-group">
@@ -484,8 +493,30 @@
                             </div>
                         </div>
                     </div>
+                    <!--==============================================Nucleo-->
+                    <div class="col-md-2" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Nucleo">
+                            <input id="txtCodNucleo"
+                                   ng-model="Simulacao.Cod_Nucleo"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-disabled="!Simulacao.Permite_Editar"
+                                   ng-change="DicionaryValidate('txtCodNucleo')"
+                                   primarybind="txtCodNucleo"
+                                   secondarybind="txtNomeNucleo">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="txtNomeNucleo" class="field-x" style="visibility:hidden">..</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNomeNucleo" class="form-control " ng-model="Simulacao.Nome_Nucleo" ng-disabled="true">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <!--==============================================Forma de Pagamento-->
-                    <div class="col-md-1">
+                    <div class="col-md-5">
                         <div class="form-group">
                             <label class="field-x" for="txtFormaPagamento">Forma Pgto</label>
                             <select class="form-control"
@@ -495,33 +526,17 @@
                                     ng-options="Forma_Pgto.Id as Forma_Pgto.Descricao for Forma_Pgto in Forma_Pgto"></select>
                         </div>
                     </div>
-                    <!--==============================================Tipo Vencimento-->
-                    <div class="col-md-1">
+                    <!--===========================Condicao de Pagamento-->
+                    <div class="col-md-6">
                         <div class="form-group">
-                            <label class="field-x" for="txtTipoVencimento">Tipo Vcto</label>
+                            <label class="field-x" for="txtCondicaoPagamento">Condição de Pagamento</label>
                             <select class="form-control"
-                                    ng-model="Simulacao.Tipo_Vencimento"
                                     ng-disabled="!Simulacao.Permite_Editar"
-                                    name="txtFormaPagamento"
-                                    ng-options="Tipo_Vencimento.Id as Tipo_Vencimento.Descricao for Tipo_Vencimento in Tipo_Vencimento"></select>
+                                    ng-model="Simulacao.Condicao_Pagamento"
+                                    name="txtCondicaoPagamento"
+                                    ng-options="Condicao_Pagamento.Codigo as Condicao_Pagamento.Descricao for Condicao_Pagamento in Condicao_Pagamento"></select>
                         </div>
                     </div>
-                    <!--==============================================Condicao PagtoVencimento-->
-                    <div class="col-md-1">
-                        <div class="form-group">
-                            <label class="field-x" for="txtCondicaoPagamento">Condição</label>
-                            <div class="input-group">
-                                <input id="txtCondicaoPagamento"
-                                       type="text" class="form-control numeric"
-                                       ng-disabled="!Simulacao.Permite_Editar"
-                                       maxlength="3"
-                                       style="text-align:right"
-                                       ng-model="Simulacao.Condicao_Pagamento"
-                                       ng-model-options="{updateOn: 'blur'}" />
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
                 <div class="row">
                     <!--==============================================Obsercacao-->
@@ -764,7 +779,29 @@
                                     </div>
                                 </div>
                                 <div class="row margin-left-10 margin-bottom-10">
-
+                                    <!--==============================================Caracteristica do Contrato-->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="field-x" for="txtCaracteristicaContrato">Característica do Contrato</label>
+                                            <select class="form-control"
+                                                    ng-model="Simulacao.Esquemas[currentEsquema].Caracteristica_Contrato"
+                                                    ng-disabled="!Simulacao.Permite_Editar"
+                                                    name="txtCaracteristicaContrato"
+                                                    ng-options="Caracteristica_Contrato.Codigo as Caracteristica_Contrato.Descricao for Caracteristica_Contrato in Caracteristica_Contrato"></select>
+                                        </div>
+                                    </div>
+                                    <!--==============================================Programa Patrocinado-->
+                                    <div class="col-md-5" ng-controller="dictionaryController" ng-show="Simulacao.Esquemas[currentEsquema].Caracteristica_Contrato=='PAT'">
+                                        <div class="dictionary" dictionary="Programa" caption="Programa Patrocinado">
+                                            <input id="txtCodProgramaPatrocinado"
+                                                   maxlength="4"
+                                                   ng-model="Simulacao.Esquemas[currentEsquema].Cod_Programa_Patrocinado"
+                                                   ng-disabled="!Simulacao.Permite_Editar"
+                                                   ng-change="DicionaryValidate('txtCodProgramaPatrocinado')"
+                                                   ng-model-options="{updateOn: 'blur'}"
+                                                   primarybind="txtCodProgramaPatrocinado">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div> <!--//fim do lado direito do esquema-->

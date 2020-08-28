@@ -168,7 +168,7 @@
                                    ng-disabled="!Negociacao.Permite_Editar || Negociacao.Tem_Contrato || Negociacao.Tem_Complemento"
                                    ng-model="Negociacao.Cod_Tipo_Midia"
                                    ng-model-options="{updateOn: 'blur'}"
-                                   ng-change="DicionaryValidate('txtCodTipoMidia')"
+                                   ng-change="TipoMidiaChange(Negociacao.Cod_Tipo_Midia)"
                                    primarybind="txtCodTipoMidia"
                                    secondarybind="txtNomeTipoMidia">
                         </div>
@@ -833,7 +833,7 @@
                                             <td>{{row.Grupo}}</td>
                                             <td>{{row.Nome_Tipo_Desconto}}</td>
                                             <td>{{row.Cod_Chave}}<span ng-show="row.Cod_Tipo_Desconto!=1">-</span>{{row.Nome_Chave}}</td>
-                                            <td style="text-align:right">{{row.Desconto | currency :"":4 }} </td>
+                                            <td style="text-align:right">{{row.Desconto}} </td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm" style="margin:0px 0px !important"  ng-show="Negociacao.Permite_Editar" ng-click="RemoverDesconto(row)"><span class="fa fa-trash"></span></button>
                                             </td>
@@ -899,6 +899,7 @@
                                                    ng-disabled="!parcela.Permite_Editar || !Negociacao.Permite_Editar"
                                                    ng-change="TotalizaParcelas()"
                                                    ng-model-options="{updateOn: 'blur'}"
+                                                   maxlength="8"
                                                     onblur="this.value = PercentFormat(this.value)"
                                                            onfocus="this.value = DecimalUnformat(this.value)"
                                                            onkeypress="return DecimalOnly(event)"/>
@@ -910,6 +911,7 @@
                                                    ng-model-options="{updateOn: 'blur'}"
                                                    onblur="this.value = MoneyFormat(this.value)"
                                                    onfocus="this.value = DecimalUnformat(this.value)"
+                                                   maxlength="15"
                                                    onkeypress="return DecimalOnly(event)"/>
                                         </td>
                                         <td style="text-align:center">

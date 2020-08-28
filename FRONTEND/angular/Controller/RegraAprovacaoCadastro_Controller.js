@@ -124,7 +124,7 @@
     //====================Selecionar Veiculos 
     $scope.SelecionarVeiculos = function () {
         $scope.PesquisaTabelas = NewPesquisaTabela();
-        httpService.Get('ListarTabela/Veiculo_Usuario').then(function (response) {
+        httpService.Get('ListarTabela/Veiculo').then(function (response) {
             $scope.PesquisaTabelas = {}
             if (response.data) {
                 $scope.PesquisaTabelas.Items = response.data

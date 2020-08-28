@@ -125,7 +125,7 @@ namespace PROPOSTA
             public String Nome_Chave { get; set; }
             public String Data_Inicio { get; set; }
             public String Data_Termino { get; set; }
-            public Double Desconto { get; set; }
+            public String Desconto { get; set; }
         }
         public class NegociacaoFiltroParam
         {

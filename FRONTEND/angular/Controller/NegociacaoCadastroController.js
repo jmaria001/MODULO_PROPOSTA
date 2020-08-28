@@ -101,6 +101,21 @@
         };
     });
 
+    //============================Mudou o Tipo de Midia
+    $scope.TipoMidiaChange = function (pTipoMidia) {
+        httpService.Get("ValidarTabela/TipoMidias/"+pTipoMidia.trim()).then(function (response) {
+            if (response.data[0].Status==0) {
+                ShowAlert(response.data[0].Mensagem, "warning");
+                $scope.Negociacao.Cod_Tipo_Midia = "";
+                $scope.Negociacao.Nome_Tipo_Midia = "";
+                $scope.Negociacao.Indica_Antecipado= false;
+            }
+            else {
+                $scope.Negociacao.Nome_Tipo_Midia = response.data[0].Descricao;
+                $scope.Negociacao.Indica_Antecipado= response.data[0].Extra=='1';
+            }
+        });
+    };
     //============================Carregar opcoes de desconto
     $scope.CarregarOpcoesDesconto = function (pTipo) {
         $scope.TipoDescontoFilter = "";
@@ -758,7 +773,8 @@
         'Valor_Fatura': '', 
         'Valor_Fatura_Text': '', 
         'Data_Cancelamento': '', 
-        'Data_Complemento': '', 
+        'Data_Complemento': '',
+        'Permite_Editar':true,
         'Situacao': 'Pendente', 
         });
     };

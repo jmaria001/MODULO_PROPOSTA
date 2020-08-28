@@ -121,6 +121,8 @@ namespace PROPOSTA
                     Simulacao.Validade_Termino = drwBase["Validade_Termino"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
                     Simulacao.Cod_Empresa_Venda = drwBase["Cod_Empresa_Venda"].ToString();
                     Simulacao.Nome_Empresa_Venda = drwBase["Nome_Empresa_Venda"].ToString();
+                    Simulacao.Cod_Tipo_Midia = drwBase["Cod_Tipo_Midia"].ToString();
+                    Simulacao.Nome_Tipo_Midia = drwBase["Nome_Tipo_Midia"].ToString();
                     Simulacao.PendenteCalculo = false;
                     Simulacao.Tabela_Preco = clsLib.CompetenciaString(drwBase["Tabela_Preco"].ToString().ConvertToInt32());
                     Simulacao.Desconto_Padrao = drwBase["Desconto_Padrao"].ToString().ConvertToPercent();
@@ -133,9 +135,10 @@ namespace PROPOSTA
                     Simulacao.Cnpj_Cliente = drwBase["Cnpj_Cliente"].ToString().Trim();
                     Simulacao.Cod_Contato = drwBase["Cod_Contato"].ToString().Trim();
                     Simulacao.Nome_Contato = drwBase["Nome_Contato"].ToString().Trim();
+                    Simulacao.Cod_Nucleo= drwBase["Cod_Nucleo"].ToString().Trim();
+                    Simulacao.Nome_Nucleo= drwBase["Nome_Nucleo"].ToString().Trim();
                     Simulacao.Forma_Pgto = drwBase["Forma_Pgto"].ToString().ConvertToInt32();
-                    Simulacao.Tipo_Vencimento = drwBase["Tipo_Vencimento"].ToString().ConvertToInt32();
-                    Simulacao.Condicao_Pagamento = drwBase["Condicao_Pagamento"].ToString().ConvertToInt32();
+                    Simulacao.Condicao_Pagamento = drwBase["Condicao_Pagamento"].ToString();
                     Simulacao.Comissao_Agencia = drwBase["Comissao_Agencia"].ToString().ConvertToPercent();
                     Simulacao.Motivo_Recusa = drwBase["Motivo_Recusa"].ToString();
                     Simulacao.Observacao = drwBase["Observacao"].ToString().Trim();
@@ -258,9 +261,12 @@ namespace PROPOSTA
                         Desconto_Padrao = drw["Desconto_Padrao"].ToString().ConvertToPercent(),
                         Fixar_Desconto = drw["Fixar_Desconto"].ToString().ConvertToBoolean(),
                         Fixar_Valor = drw["Fixar_Valor"].ToString().ConvertToBoolean(),
+                        Caracteristica_Contrato= drw["Caracteristica_Contrato"].ToString().Trim(),
+                        Cod_Programa_Patrocinado= drw["Cod_Programa_Patrocinado"].ToString().Trim(),
                         Cod_Empresa_Faturamento = drw["Cod_Empresa_Faturamento"].ToString(),
                         Midias = AddListMidia(drw["Id_Esquema"].ToString().ConvertToInt32()),
                         Veiculos = AddListVeiculos(drw["Id_Esquema"].ToString().ConvertToInt32()),
+                        
                     });
                 }
             }
@@ -434,7 +440,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@pCodEmpresa_Faturamento", Param.Cod_Empresa_Faturamento);
                 Adp.SelectCommand.Parameters.AddWithValue("@pRedeId", Param.RedeId);
                 Adp.Fill(dtb);
-            }
+            }   
             catch (Exception)
             {
                 throw;
@@ -591,6 +597,7 @@ namespace PROPOSTA
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Termino", Param.Validade_Termino.ConvertToDatetime());
                 }
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Empresa_Venda", Param.Cod_Empresa_Venda);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Tipo_Midia", Param.Cod_Tipo_Midia.TrimEnd().ToUpper());
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Agencia", Param.Cod_Agencia);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome_Agencia", Param.Nome_Agencia);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cnpj_Agencia", Param.Cnpj_Agencia);
@@ -598,8 +605,8 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome_Cliente", Param.Nome_Cliente);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cnpj_Cliente", Param.Cnpj_Cliente);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Contato", Param.Cod_Contato);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Nucleo", Param.Cod_Nucleo);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Forma_Pgto", Param.Forma_Pgto);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo_Vencimento", Param.Tipo_Vencimento);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Condicao_Pagamento", Param.Condicao_Pagamento);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Comissao_Agencia", Param.Comissao_Agencia);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Tabela_Preco", iTabelaPreco);
