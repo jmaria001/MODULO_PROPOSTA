@@ -35,7 +35,8 @@ function GetDictionary() {
                         { 'Id': 'Tipo_Cobranca', 'label': 'Tipo Cobranca', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'text' } },
                         { 'Id': 'Forma_Tributacao', 'label': 'Forma Tributação', 'icon': 'search', 'atributos': { 'maxlength': '6', 'type': 'text', 'keymode': 'numeric' } },
                         { 'Id': 'Ibge', 'label': 'Cod.Ibge', 'icon': 'search', 'atributos': { 'maxlength': '10', 'type': 'text', 'keymode': 'text', 'filter': true } },
-                        { 'Id': 'Projeto', 'label': 'Projeto', 'icon': 'search', 'atributos': { 'maxlength': '10', 'type': 'text', 'keymode': 'text', 'filter': false} },
+                        { 'Id': 'Projeto', 'label': 'Projeto', 'icon': 'search', 'atributos': { 'maxlength': '10', 'type': 'text', 'keymode': 'text', 'filter': false } },
+                        { 'Id': 'Produto', 'label': 'Produto', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'numeric' } },
     ];
 
     //==============Config html

@@ -102,6 +102,7 @@
     <Content Include="angular\Controller\CategoriaClienteController.js" />
     <Content Include="angular\Controller\CondPgtoCadastroController.js" />
     <Content Include="angular\Controller\CondPgtoController.js" />
+    <Content Include="angular\Controller\Am_ConsultaController.js" />
     <Content Include="angular\Controller\ContatoCadastroController.js" />
     <Content Include="angular\Controller\ContatoController.js" />
     <Content Include="angular\Controller\ControllerTeste.js" />
@@ -114,6 +115,7 @@
     <Content Include="angular\Controller\GeneroController.js" />
     <Content Include="angular\Controller\GradeCadastroController.js" />
     <Content Include="angular\Controller\MapaReservaCadastroController.js" />
+    <Content Include="angular\Controller\Am_CompensacaoController.js" />
     <Content Include="angular\Controller\MapaReservaDetalheController.js" />
     <Content Include="angular\Controller\MenuDashboardController.js" />
     <Content Include="angular\Controller\MotivoCancelamentoCadastroController.js" />
@@ -229,6 +231,8 @@
     <Content Include="js\vendor\XTABLES\Buttons-1.5.1\css\common.scss" />
     <Content Include="js\vendor\XTABLES\Buttons-1.5.1\css\mixins.scss" />
     <Content Include="js\vendor\XTABLES\language\Pt_BR.json" />
+    <Content Include="template\PesquisaGradeCompensacao.html" />
+    <Content Include="view\Am_Consulta.html" />
     <Content Include="view\DashboardTeste.html" />
     <Content Include="view\DashEvolucaoVendas.html" />
     <Content Include="view\DashFunilVendas.html" />
@@ -239,6 +243,7 @@
     <Content Include="view\GradeCadastro.html" />
     <Content Include="view\MapaReserva.html" />
     <Content Include="view\MapaReservaCadastro.html" />
+    <Content Include="view\Am_Compensacao.html" />
     <Content Include="view\MenuDashboard.html" />
     <Content Include="view\Parametro.html" />
     <Content Include="view\ParametroCadastro.html" />

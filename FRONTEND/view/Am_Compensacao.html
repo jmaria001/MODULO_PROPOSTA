@@ -1,0 +1,281 @@
+﻿<div class="container">
+    <!--<div class="block">-->
+    <form id="frmMapaReservaCompensacaoFalhas" autocomplete="off">
+
+        <!--Div do grid-->
+        <div id="divGrid" class="table-responsive" ng-show="ShowGrid">
+            <div id="divGrid" class="block">
+                <div class="row">
+
+                    <div class="col-md-12">
+
+                        <div class="alert alert-primary alert-icon-block" role="alert">
+                            <div class="alert-icon">
+                                <span class="fa fa-check-circle"></span>
+                            </div>
+                            <strong>
+                                Falhas
+                                <span class="pull-right"> Contrato:{{Parameters.Cod_Empresa}}-{{Parameters.Numero_Mr}}-{{Parameters.Sequencia_Mr}} &nbsp;&nbsp;&nbsp;Documento Para: {{Parameters.Numero_Docto}}  &nbsp;&nbsp;&nbsp;Veiculo: {{Parameters.Cod_Veiculo}}</span>
+                            </strong>
+                        </div>
+
+                        <div class="box table-responsive " style="max-height:200px">
+                            <table class="table table-bordered table-striped" style="border-left:solid 1px silver;border-right:solid 1px silver">
+
+                                <thead>
+                                    <tr>
+                                        <th>Data</th>
+                                        <th>Programa</th>
+                                        <th>Comercial</th>
+                                        <th>Duração</th>
+                                        <th>Qtde</th>
+                                        <th>Qualidade</th>
+                                        <th>Veiculo</th>
+                                        <th>Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!--====================================Linhas de Display-->
+                                    <tr ng-repeat="falhas in FalhasCompensacao.Falhas track by $index" on-finish-render="ngRepeatFinished()">
+                                        <td>{{falhas.Data_Exibicao}}</td>
+                                        <td>{{falhas.Cod_Programa}}</td>
+                                        <td>{{falhas.Cod_Comercial}}-{{falhas.Titulo_Comercial}}</td>
+                                        <td>{{falhas.Duracao}}</td>
+                                        <td>{{falhas.Qtd_Falhas}}</td>
+                                        <td>{{falhas.Cod_Qualidade}}</td>
+                                        <td>{{falhas.Cod_Veiculo}}</td>
+                                        <td style="text-align:right">{{falhas.Valor | currency:"R$ ":2}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!------------------------- Define Compensação --------------------->
+            <div id="divGrid" class="block table-responsive" ng-show="ShowGrid">
+                <div class="row">
+                    <div class="col-md-12">
+
+
+                        <div class="alert alert-primary alert-icon-block" role="alert">
+                            <div class="alert-icon">
+                                <span class="fa fa-check-circle"></span>
+                            </div>
+                            <strong >Compensações</strong>
+                            <button class="btn btn-default btn-icon-fixed btn-sm pull-right" style="margin-top:0;margin-bottom:0"
+                                    ng-click="ShowInput=true">
+                                <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
+                            </button>
+                        </div>
+
+                        <div class="block" ng-show="ShowInput">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="dictionary" dictionary="Competencia">
+                                        <input ng-model="Compensacao_Temp.Competencia"
+                                               style="width:100px"
+                                               ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                                               placeholder="Informe a Competência">
+                                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="Compensacao_Temp.Competencia" params="CompetenciaKeys"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+
+                                    <div class="form-group">
+
+                                        <label class="field-x">Programa</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control"
+                                                   ng-model="Compensacao_Temp.Cod_Programa"
+                                                   maxlength="4"
+                                                   style="text-transform:uppercase"
+                                                   ng-change="ValidarPrograma(Compensacao_Temp)"
+                                                   ng-model-options="{updateOn: 'blur'}" />
+                                            <div class="input-group-addon">
+                                                <span class="fa fa-search span-btn" ng-click="PesquisaPrograma(Compensacao_Temp)"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-md-2">
+                                    <div class="dictionary" dictionary="Data">
+                                        <input ng-model="Compensacao_Temp.Data_Exibicao"
+                                               ui-date ng-model-options="{updateOn: 'blur'}">
+                                        <div class="dictionary-ui-calendar" ui-calendar typdate="Compensacao_Temp.Data_Exibicao"></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="field-x">Comercial</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control"
+                                                   ng-model="Compensacao_Temp.Cod_Comercial"
+                                                   ng-change="ValidarTipoComercial(Compensacao_Temp)"
+                                                   style="text-transform:uppercase"
+                                                   maxlength="2"
+                                                   ng-model-options="{updateOn: 'blur'}" />
+                                            <div class="input-group-addon">
+                                                <span class="fa fa-search span-btn" ng-click="PesquisaComerciais()"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="field-x">Dur.</label>
+                                        <input type="text" class="form-control" ng-disabled="true" ng-model="Compensacao_Temp.Duracao" />
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label class="field-x">Qtde.</label>
+                                        <input type="text" class="form-control" onkeypress="return NumericOnly(event)" maxlength="3" ng-model="Compensacao_Temp.Quantidade" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row margin-top-20">
+                                <div class="col-md-12">
+                                    <button class="btn btn-success btn-sm"
+                                            style="margin:0px 0px !important"
+                                            ng-click="SalvarCompensacao(Compensacao_Temp)">
+                                        Ok
+                                    </button>
+                                    <button class="btn btn-warning btn-sm" style="margin:0px 0px !important" ng-click="CancelaEdicao()">Cancela</button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <table class="table table-bordered table-striped">
+
+                            <thead>
+                                <tr>
+                                    <th>Programa</th>
+                                    <th>Data</th>
+                                    <th>Comercial</th>
+                                    <th>Dur.</th>
+                                    <th>Qtde</th>
+                                    <th>Valor</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="compensar in  FalhasCompensacao.Compensacoes track by $index">
+                                    <td>{{::compensar.Cod_Programa}}</td>
+                                    <td>{{::compensar.Data_Exibicao}}</td>
+                                    <td>{{::compensar.Cod_Comercial}}-{{::compensar.Titulo_Comercial}}</td>
+                                    <td>{{::compensar.Duracao}}</td>
+                                    <td>{{::compensar.Qtd_Compensacao}}</td>
+                                    <td style="text-align:right">{{::compensar.Valor | currency:"R$ ":2}}</td>
+                                    <td style="width:70px">
+                                        <button class="btn btn-default btn-sm" style="margin:0px 0px !important" ng-click="ExcluirCompensacao(compensar)" ng-disabled="!PermissaoExcluir">
+                                            <span class="fa fa-trash fa-crud"></span>
+                                        </button>
+                                    </td>
+
+                                </tr>
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!--=============================Botoes-->
+            <div class="fixed-buttons-bottom">
+                <div class="row">
+                    <div class="col-md-6">
+                        <btn class="btn btn-success btn-sm" ng-click="EncerrarAm(FalhasCompensacao)">Encerrar AM</btn>
+                        <a href="#ConsultaAM" class="btn btn-warning  btn-sm">Voltar</a>
+                    </div>
+                    <div class="col-md-6 margin-top-10">
+                        <label style="color:white">Totais</label>
+                        <label style="color:white">Falhas:&nbsp{{FalhasCompensacao.Qtd_Total_Falha}}&nbsp;-&nbsp; {{FalhasCompensacao.Valor_Total_Falha|currency:'R$ ':2}}</label>
+                        <label style="color:white;margin-left:10px">Compensações:&nbsp{{FalhasCompensacao.Qtd_Total_Compensacao}}&nbsp;-&nbsp; {{FalhasCompensacao.Valor_Total_Compensacao|currency:'R$ ':2}}</label>
+                        <label style="color:white;margin-left:10px">Diferença:&nbsp{{FalhasCompensacao.Valor_Total_Falha - FalhasCompensacao.Valor_Total_Compensacao|currency:'R$ ':2}}</label>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <!--============================Modal Encerramento da Am-->
+        <div class="modal fade" id="ModalEncerramentoAm" tabindex="-1" role="dialog" aria-labelledby="modal-warning-header">
+            <div class="modal-dialog modal-primary" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal-info-header">Encerramento da Am</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-times" style="color:#fff"></span></button>
+                    </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered table-striped">
+                                <tbody>
+                                    <tr>
+                                        <td>Contrato</td>
+                                        <td colspan="2">{{FalhasCompensacao.Cod_Empresa}}-{{FalhasCompensacao.Numero_Mr}}-{{FalhasCompensacao.Sequencia_Mr}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Veiculo</td>
+                                        <td colspan="2">{{Parameters.Cod_Veiculo}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AM</td>
+                                        <td colspan="2">{{FalhasCompensacao.Documento_Para}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Falhas</td>
+                                        <td>{{FalhasCompensacao.Qtd_Total_Falha}}</td>
+                                        <td style="text-align:right">{{FalhasCompensacao.Valor_Total_Falha | currency:"R$ ":2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Compensações</td>
+                                        <td>{{FalhasCompensacao.Qtd_Total_Compensacao}}</td>
+                                        <td style="text-align:right">{{FalhasCompensacao.Valor_Total_Compensacao | currency:"R$ ":2}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Diferença</td>
+                                        <td colspan="2" style="text-align:right">{{FalhasCompensacao.Valor_Total_Falha - FalhasCompensacao.Valor_Total_Compensacao | currency:"R$ ":2}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="cboSolucao"></label>
+                                        <select class="form-control"
+                                                ng-model="FalhasCompensacao.Solucao"
+                                                name="cboSolucao"
+                                                ng-options="Solucao.Descricao for Solucao in Solucao"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="GravarSolucao(FalhasCompensacao)" ng-disabled="!FalhasCompensacao.Solucao">Ok</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancela</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<div ng-include="'template/PesquisaGradeCompensacao.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

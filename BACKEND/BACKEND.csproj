@@ -250,6 +250,9 @@
     <Compile Include="Genero\GeneroController.cs" />
     <Compile Include="Genero\GeneroModel.cs" />
     <Compile Include="Genero\GeneroSql.cs" />
+    <Compile Include="AM\AMController.cs" />
+    <Compile Include="AM\AMModel.cs" />
+    <Compile Include="AM\AMSql.cs" />
     <Compile Include="MotivoAlterNegoc\MotivoAlterNegocController.cs" />
     <Compile Include="MotivoAlterNegoc\MotivoAlterNegocModel.cs" />
     <Compile Include="MotivoAlterNegoc\MotivoAlterNegocSql.cs" />
