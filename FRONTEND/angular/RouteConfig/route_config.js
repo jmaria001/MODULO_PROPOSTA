@@ -623,20 +623,27 @@
         routeName: 'Importação de Propostas para Mapa Reserva',
         RouteId: 'MapaReserva@Import'
     })
-        .when('/ConsultaAM', {
-            templateUrl: 'view/Am_Consulta.html',
-            controller: 'Am_ConsultaController',
-            authorize: true,
-            routeName: "Consulta de AM's",
-            RouteId: 'AM@Index'
-        })
-        .when('/Am_Compensacao/:Cod_Empresa/:Numero_Mr/:Sequencia_Mr/:Numero_Docto/:Cod_Veiculo', {
-            templateUrl: 'view/Am_Compensacao.html',
-            controller: 'Am_CompensacaoController',
-            authorize: true,
-            routeName: 'Compensação de Falhas',
-            RouteId: 'Am@Compensacao'
-        })
+    .when('/ConsultaAM', {
+        templateUrl: 'view/Am_Consulta.html',
+        controller: 'Am_ConsultaController',
+        authorize: true,
+        routeName: "Consulta de AM's",
+        RouteId: 'AM@Index'
+    })
+    .when('/Am_Compensacao/:Cod_Empresa/:Numero_Mr/:Sequencia_Mr/:Numero_Docto/:Cod_Veiculo', {
+        templateUrl: 'view/Am_Compensacao.html',
+        controller: 'Am_CompensacaoController',
+        authorize: true,
+        routeName: 'Compensação de Falhas',
+        RouteId: 'Am@Compensacao'
+    })
+    .when('/Roteiro', {
+        templateUrl: 'view/Roteiro.html',
+        controller: 'RoteiroController',
+        authorize: true,
+        routeName: 'Roteiro Comercial',
+        RouteId: 'Roteiro@Index'
+    })
     .otherwise({ redirectTo: "/blank" })
 
 });

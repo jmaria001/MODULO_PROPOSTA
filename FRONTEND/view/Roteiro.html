@@ -1,0 +1,440 @@
+﻿<style>
+     .testexx{
+03         width: 100vw;
+04         height: 100vh;
+05         background: #6C7A89;
+06         display: flex;
+07         flex-direction: row;
+08         justify-content: center;
+09         align-items: center
+10     }
+    #TbPastas th
+    {
+        border:solid 0px  !important;
+    }
+    table td, table th {
+        border: solid 1px silver !important;
+    }
+
+    .LinhaCheck{
+        color:green;
+        font-size:20px;
+        float:left;
+    }
+    .LinhaTimes{
+        color:Red;
+        font-size:20px;
+        float:left;
+    }
+    .LinhaPrograma {
+        background-color: #D7C9A0 ;
+        /*#F69F00;*/
+        text-align: center;
+    }
+
+    .LinhaBreak {
+        padding-top: 2px !important;
+        padding-bottom: 2px !important;
+        background-color: #ededed !important;
+        background-color: silver;
+        text-align: center;
+    }
+
+    .FitaArtistica {
+        background-color: seagreen;
+        display: inline-block;
+        width: 100px;
+    }
+
+    .FitaLocal {
+        background-color: dodgerblue;
+        display: inline-block;
+        width: 100px;
+    }
+
+    .FitaAvulso {
+        background-color: dodgerblue;
+        display: inline-block;
+        width: 100px;
+    }
+
+    .FitaPE {
+        background-color: purple;
+        display: inline-block;
+        width: 100px;
+    }
+
+    .FitaNet {
+        background-color: deeppink;
+        display: inline-block;
+        width: 100px;
+    }
+
+    .LinhaArtistico {
+        color: seagreen;
+    }
+
+    .LinhaIntervaloLocal {
+        padding-top: 2px !important;
+        padding-bottom: 2px !important;
+        text-align: center;
+        color: dodgerblue;
+        font-weight: bold;
+    }
+
+    .LinhaIntervaloNet {
+        padding-top: 2px !important;
+        padding-bottom: 2px !important;
+        text-align: center;
+        color: deeppink;
+        font-weight: bold;
+    }
+
+    .LinhaIntervaloArtistico {
+        padding-top: 2px !important;
+        padding-bottom: 2px !important;
+        text-align: center;
+        color: seagreen;
+        font-weight: bold;
+    }
+
+    .LinhaIntervaloPE {
+        padding-top: 2px !important;
+        padding-bottom: 2px !important;
+        text-align: center;
+        color: purple;
+        font-weight: bold;
+    }
+
+    #divComerciais {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 0;
+        overflow-y: scroll;
+    }
+</style>
+<div class="container" id="divContainer" style="overflow:scroll">
+    <form id="frmRoteiro" autocomplete="off">
+        <!--=======================Filtro-->
+        <div class="block" id="divFiltro" ng-show="ShowFiltro">
+
+            <div class="row">
+                <!--=======================Veiculo-->
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Veiculo">
+                        <input id="txtCodVeiculo" class="form-control"
+                               ng-model="Filtro.Cod_Veiculo"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodVeiculo')"
+                               primarybind="txtCodVeiculo"
+                               secondarybind="txtNomeVeiculo">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="Filtro.Nome_Veiculo">
+                        </div>
+                    </div>
+                </div>
+                <!--==============================================Data Exibicao-->
+                <div class="col-md-3">
+                    <div class="dictionary" dictionary="Data" caption="Data Exibicao">
+                        <input ng-model="Filtro.Data_Exibicao"
+                               ui-date ng-model-options="{updateOn: 'blur'}">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="Filtro.Data_Exibicao"></div>
+                    </div>
+                </div>
+                <div class="col-md-4" style="margin-top:33px">
+                    <button class="btn btn-success" ng-click="CarregarGuiaProgramas(Filtro)">Ok</button>
+                </div>
+            </div>
+            <!--==============================================Escolha dos Programas-->
+            <div class="block margin-top-20" ng-show="ShowGuiaProgramas">
+                <label>Selecione os Programas</label>
+                <div class="row">
+                    <div class="col-md-3" ng-repeat="prog in Filtro.Programas track by $index">
+                        <div class="app-checkbox" style="width:auto;margin-top:5px">
+                            <label><input type="checkbox" name="app-checkbox-1" ng-model="prog.Selected"> {{prog.Cod_Programa}}-{{prog.Titulo}}<span></span></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="app-checkbox" style="width:auto;margin-top:5px">
+                            <label><input type="checkbox" name="app-checkbox-1" ng-model="checkMarcar" ng-change="MarcarProgramas(checkMarcar)"> Selecionar Todos<span></span></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-primary" ng-click="CarregarRoteiro(Filtro)">Carregar Roteiro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--=======================Ordenacao-->
+        <div class="row" ng-show="Roteiro.length>0 && Critica.length==0">
+            <div class="col-md-6" id="divOrdenacao">
+                <div class="block">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>N.Fita</th>
+                                    <th>Titulo Comercial</th>
+                                    <th>Duracao</th>
+                                    <th colspan="4">Origem</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                
+                                <tr ng-repeat="item in Roteiro | orderBy:['Id_Item'] track by $index">
+                                    <!--------Linha do programa-->
+                                    <td colspan="6"
+                                        class="LinhaPrograma"
+                                        ng-show="item.Indica_Titulo_Programa">
+                                        {{item.Cod_Programa}}-{{item.Titulo_Programa}}{{item.Hora_Inicio_Programa |date:'HH:mm'}} as {{item.Hora_Fim_Programa|date:'HH:mm'}}
+                                    </td>
+                                    <td class="LinhaPrograma"
+                                        ng-show="item.Indica_Titulo_Programa">
+                                        <span ng-class="item.Show?'fa fa-minus span-btn pull-right':'fa fa-plus -btn pull-right'"
+                                              ng-click="fnShowHide(item.Id_Programa)">
+                                        </span>
+                                    </td>
+                                    <!--------Linha do Break-->
+                                    <td colspan="7" class="LinhaBreak"
+                                        ng-show="item.Indica_Titulo_Break && item.Show">
+                                        <span class="fa fa-check LinhaCheck" ng-show="item.Duracao==item.Encaixe"></span>
+                                        <span class="fa fa-times LinhaTimes" ng-show="item.Encaixe>item.Duracao"></span>
+                                        Break {{item.Break}} - {{item.Titulo_Break}} - {{item.Hora_Inicio_Break}}
+                                        <span class="pull-right">{{item.Encaixe}}/{{item.Duracao}}</span>
+                                    </td>
+                                    <!--------Linha do Intervalo Local e Net-->
+                                    <td colspan="7" id="Target_Intervalo_{{item.Id_Item}}"
+                                        ondrop="drop(event)" ondragover="allowDrop(event)"
+                                        ng-show="item.Indica_Titulo_Intervalo && item.Tipo_Break !=2 && item.Show"
+                                        ng-class="{'LinhaIntervaloLocal': item.Tipo_Break==0, 'LinhaIntervaloNet': item.Tipo_Break==1,'LinhaIntervaloArtistico': item.Tipo_Break==2,'LinhaIntervaloPE': item.Tipo_Break==3}">
+                                        <span class="fa fa-check LinhaCheck" ng-show="item.Duracao==item.Encaixe"></span>
+                                        <span class="fa fa-times LinhaTimes" ng-show="item.Encaixe>item.Duracao"></span>
+                                        Intervalo &nbsp;{{item.Nome_Tipo_Break}}
+                                        <span class="pull-right">{{item.Encaixe}}/{{item.Duracao}}</span>
+                                    </td>
+                                    <!--------Linha do Intervalo Artistico / Nao tem drag   drop-->
+                                    <td colspan="7" id="Target_Intervalo_{{item.Id_Item}}"
+                                        ng-show="item.Indica_Titulo_Intervalo && item.Tipo_Break ==2 && item.Show"
+                                        ng-class="{'LinhaIntervaloLocal': item.Tipo_Break==0, 'LinhaIntervaloNet': item.Tipo_Break==1,'LinhaIntervaloArtistico': item.Tipo_Break==2,'LinhaIntervaloPE': item.Tipo_Break==3}">
+                                        <span class="fa fa-check LinhaCheck" ng-show="item.Duracao==item.Encaixe"></span>
+                                        <span class="fa fa-times LinhaTimes" ng-show="item.Encaixe>item.Duracao"></span>
+                                        {{item.Nome_Tipo_Break}}
+                                        <span class="pull-right">{{item.Encaixe}}/{{item.Duracao}}</span>
+                                    </td>
+                                    <!--------Linha do Comercial-->
+                                    <td id="Target_Comercial_Fita_{{item.Id_Item}}"
+                                        ng-show="item.Indica_Comercial && item.Show"
+                                        ondrop="drop(event)" ondragover="allowDrop(event)">
+                                        <label id="Target_Fitax_{{item.Id_Item}}"
+                                               ng-show="item.Numero_Fita"
+                                               ng-class="{'label FitaLocal':item.Tipo_Break==0, 'label FitaNet':item.Tipo_Break==1,'label FitaPE':item.Tipo_Break==3}">
+                                            {{item.Numero_Fita}}
+
+                                        </label>
+                                        <label id="Target_Fitay_{{item.Id_Item}}"
+                                               ng-show="!item.Numero_Fita"
+                                               ng-class="{'label FitaLocal':item.Tipo_Break==0, 'label FitaNet':item.Tipo_Break==1,'label FitaPE':item.Tipo_Break==3}">
+                                            Sem Número
+                                        </label>
+
+                                    </td>
+                                    <td id="Target_Comercial_Titulo_{{item.Id_Item}}"
+                                        ondrop="drop(event)" ondragover="allowDrop(event)"
+                                        ng-show="item.Indica_Comercial && item.Show">
+                                        <span id="Target_Comercial_Produto_{{item.Id_Item}}" ng-show="item.Nome_Produto">{{item.Nome_Produto}} / </span> {{item.Titulo_Comercial}}
+                                    </td>
+                                    <td id="Target_Comercial_Dur_{{item.Id_Item}}"
+                                        ondrop="drop(event)" ondragover="allowDrop(event)"
+                                        ng-show="item.Indica_Comercial && item.Show"
+                                        style="text-align:right">
+                                        {{item.Duracao}}
+                                    </td>
+                                    <td id="Target_Comercial_Origem_{{item.Id_Item}}"
+                                        ondrop="drop(event)" ondragover="allowDrop(event)"
+                                        ng-show="item.Indica_Comercial && item.Show"
+                                        style="text-align:right">
+                                        <span id="Target_Comercial_Origemx_{{item.Id_Item}}" ng-hide="item.Origem=='Midia'">{{item.Origem}}</span>
+                                        <span id="Target_Comercial_Origemy_{{item.Id_Item}}" ng-show="item.Origem=='Midia'">MR:{{item.Cod_Empresa}}-{{item.Numero_Mr}}-{{item.Sequencia_Mr}}</span>
+                                    </td>
+                                    <td ng-show="item.Indica_Comercial && item.Show" style="width:20px;white-space:nowrap;text-align:center;padding:0px">
+                                        <span class="fa fa-arrow-up span-btn" style="font-size:15px" data-toggle="tooltip" data-placement="top" title="Mover para cima" ng-click="MoverComercial(Roteiro,item.Id_Item,-1)"></span>
+                                    </td>
+                                    <td ng-show="item.Indica_Comercial && item.Show" style="width:20px;white-space:nowrap;text-align:center;padding:0px">
+                                        <span class="fa fa-arrow-down span-btn arrow-move" style="font-size:15px" data-toggle="tooltip" data-placement="top" title="Mover para baixo" ng-click="MoverComercial(Roteiro,item.Id_Item,1)"></span>
+                                    </td>
+                                    <td ng-show="item.Indica_Comercial && item.Show" style="width:20px;white-space:nowrap;text-align:center;padding:0px">
+                                        <span class="fa fa-arrow-right span-btn" style="font-size:15px" data-toggle="tooltip" data-placement="top" title="Desordenar" ng-click="Desordenar(item)"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--=======================Comerciais-->
+            <div class="col-md-6" id="divComerciais">
+                <div class="block">
+                    <table class="table margin-bottom-0" id="TbPastas">    
+                        <thead>
+                            <tr>
+                                <th><button ng-class="CurrentTab=='Midia' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="CurrentTab='Midia'">Comerciais </button></th>
+                                <th><button ng-class="CurrentTab=='Rotativo' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="CurrentTab='Rotativo'">Rotativos </button></th>
+                                <th><button ng-class="CurrentTab=='Avulso' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="CurrentTab='Avulso'">Avulsos </button></th>
+                                <th><button ng-class="CurrentTab=='Artistico' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="CurrentTab='Artistico'">Artisticos</button></th>
+                                <th><button ng-class="CurrentTab=='Outros' ? 'btn btntab-Selected' : 'btn btntab'" ng-click="CurrentTab='Outros'">Outros</button></th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>N.Fita</th>
+                                <th>Titulo Comercial</th>
+                                <th>Duracao</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="comercial in Comerciais |filter:{Pasta:CurrentTab,Indica_Ordenado:false}">
+                                <!-------------------------Linha Titulo do Programa-->
+                                <td colspan="4" class="LinhaPrograma"
+                                    ng-show="comercial.Indica_Titulo_Programa">
+                                    {{comercial.Cod_Programa}}-{{comercial.Titulo_Programa}} {{comercial.Hora_Inicio_Programa|date:'HH:mm'}} as {{comercial.Hora_Fim_Programa|date:'HH:mm'}}
+                                </td>
+                                <!---------------------------Numero da Fita-->
+                                <td ng-hide="comercial.Indica_Titulo_Programa">
+                                    <label id="Fita_Source_{{comercial.Id_Item}}"
+                                           ng-class="{'label FitaNet': comercial.Origem=='Midia' && comercial.Indica_Grade==0,'label FitaLocal': comercial.Origem=='Midia' && comercial.Indica_Grade!=0,'label FitaAvulso': comercial.Origem=='Avulso','label FitaArtistica': comercial.Origem=='Artistico'}"
+                                           draggable="true"
+                                           ondragstart="drag(event)">
+                                        <span ng-show="comercial.Numero_Fita">{{comercial.Numero_Fita}}</span>
+                                        <span ng-show="!comercial.Numero_Fita">Sem Número</span>
+                                    </label>
+
+                                </td>
+                                <!-----------------------------Titulo do Comercial-->
+                                <td Id="Comercial_Source_{{comercial.Id_Item}}" ng-hide="comercial.Indica_Titulo_Programa">
+                                    <span ng-show="comercial.Nome_Produto">{{comercial.Nome_Produto}}/</span>{{comercial.Titulo_Comercial}}
+                                </td>
+                                <!-----------------------------Duracao-->
+                                <td Id="Comercial_Source_{{comercial.Id_Item}}"
+                                    ng-hide="comercial.Indica_Titulo_Programa">
+                                    {{comercial.Duracao}}
+                                </td>
+                                <td style="width:50px;white-space:nowrap;text-align:center" ng-hide="comercial.Indica_Titulo_Programa">
+                                    <span ng-show="comercial.Numero_Mr" class="fa fa-trash span-btn" style="font-size:15px" data-toggle="tooltip" data-placement="top" title="Cortar do Roteiro" ng-click="CortarRoteiro(comercial)"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <!--========================Status da Gravacao-->
+        <div class="row" ng-show="Critica.length>0">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="block">
+                    <div class="table-responsive" style="max-height:400px;overflow-x:scroll">
+                        <table class="table table-bordered table table-striped" style="height:400px">
+                            <thead>
+                                <tr>
+                                    <th colspan="4" style="background-color:#ededed;text-align:center">
+                                        Status da gravação
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>Programa</th>
+                                    <th>Break</th>
+                                    <th>Posicao</th>
+                                    <th>Crítica</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="critica in Critica track by $index">
+                                    <th>{{critica.Cod_Programa}}</th>
+                                    <th>{{critica.Breaks}}</th>
+                                    <th>{{critica.Posicao}}</th>
+                                    <th>{{critica.Critica}}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button class="btn btn-primary margin-top-20" ng-click="Critica=''">Ok</button>
+                </div>
+            </div>
+        </div>
+        <!--========================botoes de acoes-->
+        <div class="fixed-buttons-bottom">
+            <div class="col-md-12">
+                <button class="btn btn-success btn-sm" ng-disabled="Roteiro.length==0" ng-click="SalvarRoteiro(Roteiro)">Salvar Roteiro</button>
+                <button class="btn btn-warning btn-sm" ng-click="CancelarRoteiro()">Cancela</button>
+                <button class="btn btn-danger btn-sm"  ng-show="Roteiro.length>0" ng-click="ExcluirRoteiro(Filtro)">Excluir Roteiro</button>
+
+                <div class="pull-right">
+                    <div class="form-group margin-right-10 form-inline" style="width:auto">
+                        <Label style="color:white;margin-top:10px">Validações</Label>
+                    </div>
+                    
+                    <div class="form-group margin-right-10 form-inline" style="width:auto">
+                            <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Consistencia.Concorrencia" />Choque de Concorrência<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group margin-right-10" style="width:auto">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Consistencia.Outros" /> Outros Programas<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group margin-right-10" style="width:auto">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Consistencia.Rotativo" /> Rotativos<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <button class="btn btn-primary btn-sm margin-right-10" ng-click="MostrarTodos(Roteiro,true)" ng-show="Roteiro.length>0"><span class="fa fa-plus-square"></span></button>
+                <button class="btn btn-primary btn-sm margin-right-10" ng-click="MostrarTodos(Roteiro,false)" ng-show="Roteiro.length>0"><span class="fa fa-minus-square"></span></button>
+            </div>
+        </div>
+    </form>
+</div><div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        var y = $(window).height();
+        $("#divContainer").css('height', y);
+        $("#divComerciais").css('height', y - 200);
+    });
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+    function drop(ev) {
+
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        var id_source = data.replace(/[^0-9,]+/g, "");
+        var id_target = ev.target.id.replace(/[^0-9,]+/g, "");
+        angular.element(document.getElementById('frmRoteiro')).scope().ConsisteOrdenacao(parseInt(id_source), parseInt(id_target));
+    }
+</script>

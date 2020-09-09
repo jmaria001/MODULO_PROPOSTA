@@ -296,6 +296,9 @@
     <Compile Include="Rede\RedeController.cs" />
     <Compile Include="Rede\RedeModel.cs" />
     <Compile Include="Rede\RedeSql.cs" />
+    <Compile Include="Roteiro\RoteiroController.cs" />
+    <Compile Include="Roteiro\RoteiroModel.cs" />
+    <Compile Include="Roteiro\RoteiroSql.cs" />
     <Compile Include="SIMLIB\PDFLIB.cs" />
     <Compile Include="Negociacao\NegociacaoController.cs" />
     <Compile Include="Negociacao\NegociacaoModel.cs" />

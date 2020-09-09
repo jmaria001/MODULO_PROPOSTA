@@ -153,6 +153,7 @@
         _url += "&Cod_Empresa=" + $scope.Parameters.Cod_Empresa;
         _url += "&Numero_Mr=" + $scope.Parameters.Numero_Mr;
         _url += "&Sequencia_Mr=" + $scope.Parameters.Sequencia_Mr;
+        _url += "&Cod_Programa=" + $scope.Compensacao_Temp.Cod_Programa.trim();
         _url += "&";
        httpService.Get(_url).then(function (response) {
             $scope.PesquisaTabelas.Items = response.data;
