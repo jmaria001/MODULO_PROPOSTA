@@ -11,8 +11,8 @@ namespace PROPOSTA
         private Int32 Contador_Programa = 0;
         private Int32 Contador_Item = -1;
         private Int32 Contador_Posicao = 0;
-        private Int32 Contador_Break= 0;
-        private Int32 Contador_Intervalo= 0;
+        private Int32 Contador_Break = 0;
+        private Int32 Contador_Intervalo = 0;
 
         public DataTable CarregarGuiaProgramacao(RoteiroFiltroModel Param)
         {
@@ -87,7 +87,7 @@ namespace PROPOSTA
                             Roteiro.Add(new RoteiroModel()
                             {
                                 Cod_Programa = drw["Cod_Programa"].ToString(),
-                                Cod_Veiculo= drw["Cod_Veiculo"].ToString(),
+                                Cod_Veiculo = drw["Cod_Veiculo"].ToString(),
                                 Data_Exibicao = Param.Data_Exibicao.ConvertToDatetime(),
                                 Titulo_Programa = drw["Titulo_Programa"].ToString(),
                                 Hora_Inicio_Programa = drw["Inicio_Programa"].ToString().ConvertToDatetime(),
@@ -100,7 +100,7 @@ namespace PROPOSTA
                                 Indica_Titulo_Intervalo = false,
                                 Id_Break = Contador_Break,
                                 Id_Intervalo = Contador_Intervalo,
-                                
+
                                 Show = true,
                             });
                             Cod_Programa_Ant = drw["Cod_Programa"].ToString();
@@ -111,7 +111,7 @@ namespace PROPOSTA
                             Contador_Posicao = 0;
                             Break_Ant = drw["Breaks"].ToString().ConvertToInt32();
                         }
-                        AddItem(Roteiro, drw,Param.Data_Exibicao.ConvertToDatetime());
+                        AddItem(Roteiro, drw, Param.Data_Exibicao.ConvertToDatetime(), Param.Cod_Veiculo);
                     }
                     //Roteiro[0].Contador_Item = Contador_Item;
                 }
@@ -151,7 +151,7 @@ namespace PROPOSTA
             return Comerciais;
         }
 
-        private void AddItem(List<RoteiroModel> Roteiro, DataRow drw,DateTime Data_Exibicao)
+        private void AddItem(List<RoteiroModel> Roteiro, DataRow drw, DateTime Data_Exibicao, String Cod_Veiculo)
         {
             String strNome_Tipo_Break = "";
             Boolean bolIndica_Comercial = false;
@@ -181,7 +181,7 @@ namespace PROPOSTA
                 }
 
                 String strOrigem = "";
-                if (drw["Indica_Midia"].ToString()=="1")
+                if (drw["Indica_Midia"].ToString() == "1")
                 {
                     strOrigem = "Midia";
                 }
@@ -210,7 +210,8 @@ namespace PROPOSTA
                 Roteiro.Add(new RoteiroModel()
                 {
                     Cod_Programa = drw["Cod_Programa"].ToString(),
-                    Cod_Veiculo= drw["Cod_Veiculo"].ToString(),
+                    //Cod_Veiculo= drw["Cod_Veiculo"].ToString(),
+                    Cod_Veiculo = Cod_Veiculo,
                     Data_Exibicao = Data_Exibicao,
                     Titulo_Programa = drw["Titulo_Programa"].ToString(),
                     Hora_Inicio_Programa = drw["Inicio_Programa"].ToString().ConvertToDatetime(),
@@ -261,7 +262,7 @@ namespace PROPOSTA
             SqlDataAdapter Adp = new SqlDataAdapter();
             DataTable dtb = new DataTable();
             SimLib clsLib = new SimLib();
-            Int32 Tipo_Break =  - 1;
+            Int32 Tipo_Break = -1;
             String Nome_Tipo_Break = "";
             string strPasta = "";
 
@@ -284,7 +285,7 @@ namespace PROPOSTA
                             Tipo_Break = 1;
                             Nome_Tipo_Break = "Net";
                             break;
-                        case 1 :
+                        case 1:
                             Tipo_Break = 0;
                             Nome_Tipo_Break = "Local";
                             break;
@@ -301,7 +302,7 @@ namespace PROPOSTA
                         strPasta = "Outros";
                         for (int i = 0; i < Param.Programas.Count; i++)
                         {
-                            if (drw["Cod_Programa"].ToString()==Param.Programas[i].Cod_Programa && Param.Programas[i].Selected)
+                            if (drw["Cod_Programa"].ToString() == Param.Programas[i].Cod_Programa && Param.Programas[i].Selected)
                             {
                                 strPasta = "Midia";
                             }
@@ -329,8 +330,8 @@ namespace PROPOSTA
                         Origem = "Midia",
                         Indica_Titulo_Programa = false,
                         Cod_Programa = drw["Cod_Programa"].ToString(),
-                        Cod_Veiculo= drw["Cod_Veiculo"].ToString(),
-                        Data_Exibicao= Param.Data_Exibicao.ConvertToDatetime(),
+                        Cod_Veiculo = drw["Cod_Veiculo"].ToString(),
+                        Data_Exibicao = Param.Data_Exibicao.ConvertToDatetime(),
                         Titulo_Programa = drw["Titulo_Programa"].ToString(),
                         Hora_Inicio_Programa = drw["Inicio_Programa"].ToString().ConvertToDatetime(),
                         Hora_Fim_Programa = drw["FIm_Programa"].ToString().ConvertToDatetime(),
@@ -341,8 +342,8 @@ namespace PROPOSTA
                         Titulo_Comercial = drw["Titulo_Comercial"].ToString(),
                         Duracao = drw["Duracao"].ToString().ConvertToInt32(),
                         Numero_Fita = drw["Numero_Fita"].ToString(),
-                        Tipo_Break=Tipo_Break,
-                        Nome_Tipo_Break=Nome_Tipo_Break,
+                        Tipo_Break = Tipo_Break,
+                        Nome_Tipo_Break = Nome_Tipo_Break,
                         Indica_Titulo_Determinar = drw["Indica_Titulo_Determinar"].ToString().ConvertToBoolean(),
                         Cod_Tipo_Comercial = drw["Cod_Tipo_Comercial"].ToString(),
                         Cod_Produto = drw["Cod_Produto"].ToString(),
@@ -350,7 +351,7 @@ namespace PROPOSTA
                         Indica_Grade = drw["Indica_Grade"].ToString().ConvertToByte(),
                         Chave_Acesso = drw["Chave_Acesso"].ToString().ConvertToInt32(),
                         Obs_Roteiro = drw["Obs_Roteiro"].ToString(),
-                        Indica_Ordenado= drw["Indica_Ordenado"].ToString().ConvertToBoolean(),
+                        Indica_Ordenado = drw["Indica_Ordenado"].ToString().ConvertToBoolean(),
                         Pasta = strPasta,
                     });
                 }
@@ -413,7 +414,7 @@ namespace PROPOSTA
                             Origem = "Midia",
                             Indica_Titulo_Programa = true,
                             Cod_Programa = drw["Cod_Programa"].ToString(),
-                            Cod_Veiculo= drw["Cod_Veiculo"].ToString(),
+                            Cod_Veiculo = drw["Cod_Veiculo"].ToString(),
                             Titulo_Programa = drw["Titulo_Programa"].ToString(),
                             Hora_Inicio_Programa = drw["Hora_Inicio_Programa"].ToString().ConvertToDatetime(),
                             Hora_Fim_Programa = drw["Hora_Fim_Programa"].ToString().ConvertToDatetime(),
@@ -470,7 +471,7 @@ namespace PROPOSTA
             SqlDataAdapter Adp = new SqlDataAdapter();
             DataTable dtb = new DataTable();
             SimLib clsLib = new SimLib();
-            
+
             try
             {
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "Sp_RU_Carrega_Depositorio");
@@ -481,11 +482,11 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo", 0);
                 Adp.Fill(dtb);
 
-            
+
 
                 foreach (DataRow drw in dtb.Rows)
                 {
-                    
+
                     Contador_Item++;
                     Comerciais.Add(new RoteiroComercialModel()
                     {
@@ -493,7 +494,7 @@ namespace PROPOSTA
                         Origem = "Avulso",
                         Indica_Titulo_Programa = false,
                         Cod_Programa = drw["Cod_Programa"].ToString(),
-                        Cod_Veiculo  = Param.Cod_Veiculo,
+                        Cod_Veiculo = Param.Cod_Veiculo,
                         Data_Exibicao = Param.Data_Exibicao.ConvertToDatetime(),
                         Titulo_Comercial = drw["Titulo_Comercial"].ToString(),
                         Duracao = drw["Duracao"].ToString().ConvertToInt32(),
@@ -550,7 +551,7 @@ namespace PROPOSTA
                         Titulo_Comercial = drw["Titulo_Comercial"].ToString(),
                         Duracao = drw["Duracao"].ToString().ConvertToInt32(),
                         Numero_Fita = drw["Numero_Fita"].ToString(),
-                        Id_Fita= drw["IdChave"].ToString().ConvertToInt32(),
+                        Id_Fita = drw["IdChave"].ToString().ConvertToInt32(),
                         Cod_Tipo_Comercial = drw["Cod_Tipo_Comercial"].ToString(),
                         Cod_Produto = drw["Cod_Produto"].ToString(),
                         Nome_Produto = drw["Descricao"].ToString(),
@@ -580,7 +581,7 @@ namespace PROPOSTA
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Roteiro_Baixar_Veiculacao");
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Veiculo", Param.Cod_Veiculo); 
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Veiculo", Param.Cod_Veiculo);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Data_Exibicao", Param.Data_Exibicao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Programa", Param.Cod_Programa);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Chave_Acesso", Param.Chave_Acesso);
@@ -606,7 +607,7 @@ namespace PROPOSTA
             {
                 String strsql = "Delete from Roteiro_Tecnico Where Cod_Veiculo = '" + Param.Cod_Veiculo + "'";
                 strsql += " And Data_Exibicao = '" + Param.Data_Exibicao.ToString().ConvertToDatetime().ToString("yyyy-MM-dd") + "'";
-                SqlCommand cmd = cnn.Text(cnn.Connection, strsql );
+                SqlCommand cmd = cnn.Text(cnn.Connection, strsql);
                 cmd.ExecuteNonQuery();
             }
             catch (Exception)
@@ -645,5 +646,221 @@ namespace PROPOSTA
             }
             return dtb;
         }
+        public BreakModel RoteiroListarBreak(RoteiroFiltroModel Param)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            BreakModel Breaks = new BreakModel();
+            List<ComposicaoBreakModel> Composicao = new List<ComposicaoBreakModel>();
+            SimLib clsLib = new SimLib();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Break_Listar");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Veiculo", Param.Cod_Veiculo);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Data_Exibicao", Param.Data_Exibicao.ConvertToDatetime());
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Programa", Param.Cod_Programa);
+                Adp.Fill(dtb);
+                Int32 Id_Composicao = 0;
+                if (dtb.Rows.Count > 0)
+                {
+                    Breaks.Cod_Programa = dtb.Rows[0]["Cod_Programa"].ToString();
+                    Breaks.Cod_Veiculo = dtb.Rows[0]["Cod_Veiculo"].ToString(); 
+                    Breaks.Data_Exibicao = dtb.Rows[0]["Data_Exibicao"].ToString(); 
+                    Breaks.Ultimo_Dia_Break = dtb.Rows[0]["Ultimo_Dia_Break"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy"); 
+                    Breaks.Grade_Domingo = dtb.Rows[0]["Grade_Domingo"].ToString().ConvertToBoolean();
+                    Breaks.Grade_Segunda = dtb.Rows[0]["Grade_Segunda"].ToString().ConvertToBoolean();
+                    Breaks.Grade_Terca = dtb.Rows[0]["Grade_Terca"].ToString().ConvertToBoolean();
+                    Breaks.Grade_Quarta = dtb.Rows[0]["Grade_Quarta"].ToString().ConvertToBoolean();
+                    Breaks.Grade_Quinta = dtb.Rows[0]["Grade_Quinta"].ToString().ConvertToBoolean();
+                    Breaks.Grade_Sexta = dtb.Rows[0]["Grade_Sexta"].ToString().ConvertToBoolean();
+                    Breaks.Grade_Sabado = dtb.Rows[0]["Grade_Sabado"].ToString().ConvertToBoolean();
+
+                    foreach (DataRow drw in dtb.Rows)
+                    {
+                        Id_Composicao++;
+                        Composicao.Add(new ComposicaoBreakModel()
+                        {
+                            Id_Composicao = Id_Composicao,
+                            Breaks = drw["Breaks"].ToString().ConvertToInt32(),
+                            Sequencia_Faixa = drw["Sequencia_Faixa"].ToString().ConvertToInt32(),
+                            Sequencia = drw["Sequencia"].ToString().ConvertToInt32(),
+                            Duracao = drw["Duracao"].ToString().ConvertToInt32(),
+                            Tipo_Break = new TipoBreakModel() { Codigo = drw["Tipo_Break"].ToString().ConvertToInt32(), Descricao = drw["Nome_Tipo_Break"].ToString() },
+                            Titulo_Break = drw["Titulo_Break"].ToString().Trim(),
+                            Sequencia_Break = drw["Sequencia_Break"].ToString().ConvertToInt32(),
+                            Observacao = drw["Observacao"].ToString().Trim(),
+                            Hora_Inicio = drw["Hora_Inicio"].ToString(),
+                        });
+                    }
+                }
+                Breaks.Composicao = Composicao;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Breaks;
+        }
+        //public BreakModel RoteiroGetBreak(BreakModel Param)
+        //{
+        //    clsConexao cnn = new clsConexao(this.Credential);
+        //    cnn.Open();
+        //    SqlDataAdapter Adp = new SqlDataAdapter();
+        //    DataTable dtb = new DataTable("dtb");
+        //    SimLib clsLib = new SimLib();
+        //    BreakModel Breaks = new BreakModel();
+        //    try
+        //    {
+        //        SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Break_Listar");
+        //        Adp.SelectCommand = cmd;
+        //        Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+        //        Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Veiculo", Param.Cod_Veiculo);
+        //        Adp.SelectCommand.Parameters.AddWithValue("@Par_Data_Exibicao", Param.Data_Exibicao.ConvertToDatetime());
+        //        Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Programa", Param.Cod_Programa);
+        //        Adp.SelectCommand.Parameters.AddWithValue("@Par_Break", Param.Breaks);
+        //        Adp.SelectCommand.Parameters.AddWithValue("@Par_Sequencia_Faixa", Param.Sequencia_Faixa);
+
+        //        Adp.Fill(dtb);
+        //        if (dtb.Rows.Count > 0)
+        //        {
+        //            Breaks.Breaks = dtb.Rows[0]["Breaks"].ToString().ConvertToInt32();
+        //            Breaks.Cod_Programa = dtb.Rows[0]["Cod_Programa"].ToString();
+        //            Breaks.Cod_Veiculo = dtb.Rows[0]["Cod_Veiculo"].ToString();
+        //            Breaks.Data_Exibicao = dtb.Rows[0]["Data_Exibicao"].ToString();
+        //            Breaks.Sequencia_Faixa = dtb.Rows[0]["Sequencia_Faixa"].ToString().ConvertToInt32();
+        //            Breaks.Sequencia = dtb.Rows[0]["Sequencia"].ToString().ConvertToInt32();
+        //            Breaks.Duracao = dtb.Rows[0]["Duracao"].ToString().ConvertToInt32();
+        //            Breaks.Tipo_Break = new TipoBreakModel() { Codigo = dtb.Rows[0]["Tipo_Break"].ToString().ConvertToInt32(), Descricao = dtb.Rows[0]["Nome_Tipo_Break"].ToString() };
+        //            Breaks.Titulo_Break = dtb.Rows[0]["Titulo_Break"].ToString().Trim();
+        //            Breaks.Sequencia_Break = dtb.Rows[0]["Sequencia_Break"].ToString().ConvertToInt32();
+        //            Breaks.Observacao = dtb.Rows[0]["Observacao"].ToString().Trim();
+        //            Breaks.Hora_Inicio = dtb.Rows[0]["Hora_Inicio"].ToString().ConvertToDatetime().ToString("HH:MM");
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        cnn.Close();
+        //    }
+        //    return Breaks;
+        //}
+        public DataTable RoteiroGravarBreak(BreakModel Param)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            String DiaSemana = "";
+            DiaSemana+= (Param.Grade_Domingo ? "S" : "N");
+            DiaSemana += (Param.Grade_Segunda? "S" : "N");
+            DiaSemana += (Param.Grade_Terca? "S" : "N");
+            DiaSemana += (Param.Grade_Quarta? "S" : "N");
+            DiaSemana += (Param.Grade_Quinta? "S" : "N");
+            DiaSemana += (Param.Grade_Sexta? "S" : "N");
+            DiaSemana += (Param.Grade_Sabado? "S" : "N");
+            String xmlComposicao = clsLib.SerializeToString(Param.Composicao);
+            
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Breaks_Gravar");
+
+                cmd.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                cmd.Parameters.AddWithValue("@Par_Cod_Veiculo", Param.Cod_Veiculo);
+                cmd.Parameters.AddWithValue("@Par_Data_Exibicao", Param.Data_Exibicao.ConvertToDatetime());
+                cmd.Parameters.AddWithValue("@Par_Cod_Programa", Param.Cod_Programa);
+                cmd.Parameters.AddWithValue("@Par_Data_Inicio", Param.Data_Inicio_Propagacao.ConvertToDatetime());
+                cmd.Parameters.AddWithValue("@Par_Data_Final", Param.Data_Fim_Propagacao.ConvertToDatetime());
+                cmd.Parameters.AddWithValue("@Par_Dia_Semana", DiaSemana);
+                cmd.Parameters.AddWithValue("@Par_Composicao", xmlComposicao);
+                Adp.SelectCommand = cmd;
+                Adp.Fill(dtb);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
+        public DataTable RoteiroProgramasBreak(RoteiroFiltroModel Param)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Grade_Get");
+
+                cmd.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                cmd.Parameters.AddWithValue("@Par_Cod_Veiculo", Param.Cod_Veiculo);
+                cmd.Parameters.AddWithValue("@Par_Data_Exibicao", Param.Data_Exibicao.ConvertToDatetime());
+                if (!String.IsNullOrEmpty(Param.Cod_Programa))
+                {
+                    cmd.Parameters.AddWithValue("@Par_Cod_Programa", Param.Cod_Programa);
+                }
+                Adp.SelectCommand = cmd;
+                Adp.Fill(dtb);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
+        //public DataTable RoteiroExcluirBreak(BreakModel Param)
+        //{
+        //    clsConexao cnn = new clsConexao(this.Credential);
+        //    cnn.Open();
+        //    SqlDataAdapter Adp = new SqlDataAdapter();
+        //    DataTable dtb = new DataTable("dtb");
+        //    SimLib clsLib = new SimLib();
+        //    try
+        //    {
+        //        SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Break_Excluir");
+
+        //        cmd.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+        //        cmd.Parameters.AddWithValue("@Par_Cod_Veiculo", Param.Cod_Veiculo);
+        //        cmd.Parameters.AddWithValue("@Par_Data_Exibicao", Param.Data_Exibicao.ConvertToDatetime());
+        //        cmd.Parameters.AddWithValue("@Par_Cod_Programa", Param.Cod_Programa);
+        //        cmd.Parameters.AddWithValue("@Par_breaks", Param.Breaks);
+        //        cmd.Parameters.AddWithValue("@Par_Sequencia_Faixa", Param.Sequencia_Faixa);
+        //        cmd.Parameters.AddWithValue("@Par_Data_Inicio", Param.Data_Inicio.ConvertToDatetime());
+        //        cmd.Parameters.AddWithValue("@Par_Data_Fim", Param.Data_Fim.ConvertToDatetime());
+
+        //        Adp.SelectCommand = cmd;
+        //        Adp.Fill(dtb);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;
+        //    }
+        //    finally
+        //    {
+        //        cnn.Close();
+        //    }
+        //    return dtb;
+        //}
     }
 }

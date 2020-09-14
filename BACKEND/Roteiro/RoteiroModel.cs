@@ -75,6 +75,7 @@ namespace PROPOSTA
         {
             public String Cod_Veiculo { get; set; }
             public String Data_Exibicao { get; set; }
+            public String Cod_Programa { get; set; }
             public List<GuiaProgramsaModel> Programas { get; set; }
         }
         public class GuiaProgramsaModel
@@ -114,7 +115,42 @@ namespace PROPOSTA
             public String Obs_Roteiro { get; set; }
             public String Pasta { get; set; }
             public Boolean Indica_Ordenado { get; set; }
+        }
+        public class BreakModel
+        {
+            public String Cod_Programa { get; set; }
+            public String Cod_Veiculo { get; set; }
+            public String Data_Exibicao { get; set; }
+            public String Data_Inicio_Propagacao { get; set; }
+            public String Data_Fim_Propagacao { get; set; }
+            public String Ultimo_Dia_Break { get; set; }
+            public Boolean Grade_Domingo { get; set; }
+            public Boolean Grade_Segunda{ get; set; }
+            public Boolean Grade_Terca { get; set; }
+            public Boolean Grade_Quarta{ get; set; }
+            public Boolean Grade_Quinta { get; set; }
+            public Boolean Grade_Sexta { get; set; }
+            public Boolean Grade_Sabado{ get; set; }
 
+            public List<ComposicaoBreakModel> Composicao { get; set; }
+        }
+        public class ComposicaoBreakModel
+        {
+        public Int32 Id_Composicao { get; set; }
+        public Int32? Breaks { get; set; }
+        public Int32? Sequencia_Faixa { get; set; }
+        public Int32? Sequencia { get; set; }
+        public Int32? Duracao { get; set; }
+        public TipoBreakModel Tipo_Break { get; set; }
+        public String Titulo_Break { get; set; }
+        public Int32? Sequencia_Break { get; set; }
+        public String Observacao { get; set; }
+        public String Hora_Inicio { get; set; }
+        }
+        public class TipoBreakModel
+        {
+            public Int32 Codigo { get; set; }
+            public String Descricao { get; set; }
         }
 
 

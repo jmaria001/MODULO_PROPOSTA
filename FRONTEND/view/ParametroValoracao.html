@@ -11,9 +11,7 @@
                     <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia" params="CompetenciaKeys"></div>
                 </div>
             </div>
-        
-        <!--===================Programa-->
-        
+            <!--===================Programa-->
             <div class="col-md-2  " ng-controller="dictionaryController">
                 <div class="dictionary" dictionary="Programa">
                     <input id="txtCodPrograma"
@@ -32,8 +30,8 @@
                     </div>
                 </div>
             </div>
-        
-        <!--======================Tipo Valoracao -->
+
+            <!--======================Tipo Valoracao -->
             <div class="col-md-2 margin-top-10">
                 <div class="form-group">
                     <label>Tipo de Valoração </label>
@@ -61,7 +59,6 @@
         <div class="row">
             <div class="col-md-8">
 
-
                 <div class="alert alert-primary alert-icon-block" role="alert">
                     <div class="alert-icon">
                         <!--<span class="fa fa-check-circle"></span>-->
@@ -77,8 +74,7 @@
                         Novo Filtro
                     </button>
                 </div>
-
-                <table class="table table-bordered table-striped" style="border-left:solid 1px silver;border-right:solid 1px silver">
+                <table class="table table-bordered table-striped">
 
                     <thead>
                         <tr>
@@ -153,24 +149,24 @@
 
             <!------------------------- Define Duração --------------------->
             <div class="col-md-4">
-                <div id="divGrid" class="block table-responsive" ng-show="ShowGrid">
 
-                    <div class="alert alert-primary alert-icon-block" role="alert">
-                        <div class="alert-icon">
-                            <!--<span class="fa fa-check-circle"></span>-->
-                        </div>
-                        <strong class="pull-right">Duração</strong>
-                        <button class="btn btn-default btn-icon-fixed btn-sm pull-left margin-right-20" style="margin-top:0;margin-bottom:0"
-                                ng-click="Operacao='ID'"
-                                ng-show="PermissaoNew">
-                            <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
-                        </button>
-                        <!--<button class="btn btn-warning btn-sm" ng-click="ShowGrid=false;ShowFilter=true" style="margin-top:0;margin-bottom:0">
-                            Novo Filtro
-                        </button>-->
+
+                <div class="alert alert-primary alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <!--<span class="fa fa-check-circle"></span>-->
                     </div>
-                    <table class="table table-bordered table-striped" style="border-left:solid 1px silver;border-right:solid 1px silver">
-
+                    <strong class="pull-right">Duração</strong>
+                    <button class="btn btn-default btn-icon-fixed btn-sm pull-left margin-right-20" style="margin-top:0;margin-bottom:0"
+                            ng-click="Operacao='ID'"
+                            ng-show="PermissaoNew">
+                        <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
+                    </button>
+                    <!--<button class="btn btn-warning btn-sm" ng-click="ShowGrid=false;ShowFilter=true" style="margin-top:0;margin-bottom:0">
+                        Novo Filtro
+                    </button>-->
+                </div>
+                <div id="divGrid" class="table-responsive" ng-show="ShowGrid">
+                    <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Duração</th>
@@ -213,7 +209,6 @@
                                         <span class="fa fa-trash fa-crud"></span>
                                     </button>
                                 </td>
-
                             </tr>
                         </tbody>
 

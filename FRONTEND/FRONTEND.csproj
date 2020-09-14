@@ -149,6 +149,7 @@
     <Content Include="angular\Controller\RegraAprovacaoCadastro_Controller.js" />
     <Content Include="angular\Controller\PendenciaAprovacao_Controller.js" />
     <Content Include="angular\Controller\NegociacaoController.js" />
+    <Content Include="angular\Controller\Composicao_Break_Controller.js" />
     <Content Include="angular\Controller\RoteiroController.js" />
     <Content Include="angular\Controller\SimulacaoController - Copy.js" />
     <Content Include="angular\Controller\Simulacao_List_Controller - Copy.js" />
@@ -246,6 +247,7 @@
     <Content Include="view\MapaReservaCadastro.html" />
     <Content Include="view\Am_Compensacao.html" />
     <Content Include="view\MenuDashboard.html" />
+    <Content Include="view\PARAM.xml" />
     <Content Include="view\Parametro.html" />
     <Content Include="view\ParametroCadastro.html" />
     <Content Include="view\ParametroValoracao.html" />
@@ -298,6 +300,7 @@
     <Content Include="view\MercadoCadastro.html" />
     <Content Include="view\PacoteDesconto_List.html" />
     <Content Include="view\RegraAprovacao.html" />
+    <Content Include="view\Composicao_Break.html" />
     <Content Include="view\Roteiro.html" />
     <Content Include="view\Simulacao - Copy.html" />
     <Content Include="view\Simulacao_List - Copy.html" />

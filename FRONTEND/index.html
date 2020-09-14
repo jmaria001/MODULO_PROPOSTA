@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/styles.css?hash=V046">
-    <link href="css/custom.css?hash=V046" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css?hash=V050">
+    <link href="css/custom.css?hash=V050" rel="stylesheet" />
 </head>
 <body  class="notranslate" ng-cloak >
     <!-- APP WRAPPER -->
@@ -24,21 +24,28 @@
                 <nav id="navMenu">
                     <ul ng-show="Islogged">
                         <li><a href="#portal" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Portal</a></li>
-                        <li><a href="#MenuDashboard" class="navbar-link"><span class="nav-icon-hexa">Ds</span>Dashboard</a></li>
+                        <li><a href="#MenuDashboard" class="navbar-link"><span class="nav-icon-hexa"></span>Dashboard</a></li>
                         <li>
-                            <a href="#cadastro" class="navbar-link"><span class="nav-icon-hexa">Cd</span>Cadastros</a>
+                            <a href="#cadastro" class="navbar-link"><span class="nav-icon-hexa"></span>Cadastros</a>
                         </li>
-                        <li><a href="#Simulacao" class="navbar-link"><span class="nav-icon-hexa">Si</span>Modelo de Vendas</a></li>
-                        <li><a href="#Proposta" class="navbar-link"><span class="nav-icon-hexa">Pr</span>Propostas</a></li>
-                        <li><a href="#Negociacao/" class="navbar-link"><span class="nav-icon-hexa">Pr</span>Negociações</a></li>
-                        <li><a href="#/" class="navbar-link"><span class="nav-icon-hexa">Pr</span>Mapas Reserva</a>
+                        <li><a href="#Simulacao" class="navbar-link"><span class="nav-icon-hexa"></span>Modelo de Vendas</a></li>
+                        <li><a href="#Proposta" class="navbar-link"><span class="nav-icon-hexa"></span>Propostas</a></li>
+                        <li><a href="#Negociacao/" class="navbar-link"><span class="nav-icon-hexa"></span>Negociações</a></li>
+                        <li><a href="#" class="navbar-link"><span class="nav-icon-hexa"></span>Mapas Reserva</a>
                             <ul>
                                 <li><a href="#MapaReserva/" class="navbar-link"><span class="nav-icon-hexa">Pr</span>Manutenção de Mapas Reserva</a></li>
                                 <li><a href="#ConsultaAM/" class="navbar-link"><span class="nav-icon-hexa">Pr</span>manutenção de Am's</a></li>
                                 <li><a href="#MapaReservaImport/" class="navbar-link"><span class="nav-icon-hexa">Pr</span>Importar Propostas</a></li>
                             </ul>
                         </li>
-                        <li><a href="#Roteiro" class="navbar-link"><span class="nav-icon-hexa">Pr</span>Roteiro</a></li>
+                        <li> <a href="#" class="navbar-link"><span class="nav-icon-hexa"></span>Roteiro</a>
+                            <ul>
+                                <li><a href="#PreOrdenacao" class="navbar-link"><span class="nav-icon-hexa">Pr</span>Pre-Ordenacao</a></li>
+                                <li><a href="#Roteiro" class="navbar-link"><span class="nav-icon-hexa">Pr</span>Ordenação</a></li>
+                                <li><a href="#Breaks" class="navbar-link"><span class="nav-icon-hexa">Pr</span>Composição de Breaks</a></li>
+                                <li><a href="#Material" class="navbar-link"><span class="nav-icon-hexa">Pr</span>Materiais</a></li>
+                            </ul>
+                        </li>
                         <li><a href="#PendenciaAprovacao" class="navbar-link"><span class="nav-icon-hexa">Pr</span>Pendentes de Aprovação</a></li>
                         <li>
                             <a href="#"><span class="nav-icon-hexa">Pd</span>Política de Descontos</a>
@@ -116,138 +123,139 @@
     </div>
     <button id="buttonWait" class="btn btn-default" data-toggle="modal" data-target="#modalWait" data-backdrop="static" style="visibility:hidden"></button>
     <!------------------------------------- IMPORTANT SCRIPTS ---------------------------------->
-    <script type="text/javascript" src="js/vendor/jquery/jquery.min.js?hash=V046"></script>
-    <script type="text/javascript" src="js/vendor/jquery/jquery-migrate.min.js?hash=V046"></script>
-    <script type="text/javascript" src="js/vendor/jquery/jquery-ui.min.js?hash=V046"></script>
-    <script type="text/javascript" src="js/vendor/bootstrap/bootstrap.min.js?hash=V046"></script>
-    <script type="text/javascript" src="js/vendor/moment/moment.min.js?hash=V046"></script>
-    <script type="text/javascript" src="js/vendor/customscrollbar/jquery.mCustomScrollbar.min.js?hash=V046"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery.min.js?hash=V050"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery-migrate.min.js?hash=V050"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery-ui.min.js?hash=V050"></script>
+    <script type="text/javascript" src="js/vendor/bootstrap/bootstrap.min.js?hash=V050"></script>
+    <script type="text/javascript" src="js/vendor/moment/moment.min.js?hash=V050"></script>
+    <script type="text/javascript" src="js/vendor/customscrollbar/jquery.mCustomScrollbar.min.js?hash=V050"></script>
     <!--====================================================================================angular scripts-->
-    <script src="angular/angular-bin/angular.min.js?hash=V046"></script>
-    <script src="angular/angular-route/angular-route.min.js?hash=V046"></script>
-    <script src="angular/angular-cookies/angular-cookies.min.js?hash=V046"></script>
-    <script src="angular/angular-bin/angular-locale_pt-br.js?hash=V046"></script>
+    <script src="angular/angular-bin/angular.min.js?hash=V050"></script>
+    <script src="angular/angular-route/angular-route.min.js?hash=V050"></script>
+    <script src="angular/angular-cookies/angular-cookies.min.js?hash=V050"></script>
+    <script src="angular/angular-bin/angular-locale_pt-br.js?hash=V050"></script>
     <!------------------------------------- Page SCRIPTS ---------------------------------->
-    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap.min.js?hash=V046"></script>
-    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-world-mill-en.js?hash=V046"></script>
-    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-us-aea-en.js?hash=V046"></script>
-    <script src="js/vendor/noty/jquery.noty.packaged.js?hash=V046"></script>
-    <script src="js/vendor/sweetalert/sweetalert.min.js?hash=V046"></script>
+    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap.min.js?hash=V050"></script>
+    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-world-mill-en.js?hash=V050"></script>
+    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-us-aea-en.js?hash=V050"></script>
+    <script src="js/vendor/noty/jquery.noty.packaged.js?hash=V050"></script>
+    <script src="js/vendor/sweetalert/sweetalert.min.js?hash=V050"></script>
 
     <!------------------------------------- App SCRIPTS ---------------------------------->
-    <script type="text/javascript" src="js/app.js?hash=V046"></script>
-    <script type="text/javascript" src="js/app_plugins.js?hash=V046"></script>
+    <script type="text/javascript" src="js/app.js?hash=V050"></script>
+    <script type="text/javascript" src="js/app_plugins.js?hash=V050"></script>
     <!------------------------------------- Controllerangular/Services/service ---------------------------------->
-    <script src="js/SimLib.js?hash=V046"></script>
-    <script src="js/dictionary.js?hash=V046"></script>
-    <script src="angular/Module/app.js?hash=V046"></script>
-    <script src="angular/Filter/AppFilter.js?hash=V046"></script>
-    <script src="angular/config/base_url_config.js?hash=V046"></script>
-    <script src="angular/RouteConfig/route_config.js?hash=V046"></script>
-    <script src="angular/interceptor/errorInterceptor.js?hash=V046"></script>
-    <script src="angular/interceptor/interceptorsConfig.js?hash=V046"></script>
-    <script src="angular/interceptor/loadingInterceptor.js?hash=V046"></script>
-    <script src="angular/interceptor/timestampInterceptor.js?hash=V046"></script>
-    <script src="angular/Diretivas/repeatfinished.js?hash=V046"></script>
-    <script src="angular/Diretivas/uiCalendar.js?hash=V046"></script>
-    <script src="angular/Diretivas/uiCompetencia.js?hash=V046"></script>
-    <script src="angular/Diretivas/uiDate.js?hash=V046"></script>
-    <script src="angular/Controller/ContatoCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/ContatoController.js?hash=V046"></script>
-    <script src="angular/Controller/QualidadeCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/QualidadeController.js?hash=V046"></script>
-    <script src="angular/Controller/TipoMidiaCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/TipoMidiaController.js?hash=V046"></script>
+    <script src="js/SimLib.js?hash=V050"></script>
+    <script src="js/dictionary.js?hash=V050"></script>
+    <script src="angular/Module/app.js?hash=V050"></script>
+    <script src="angular/Filter/AppFilter.js?hash=V050"></script>
+    <script src="angular/config/base_url_config.js?hash=V050"></script>
+    <script src="angular/RouteConfig/route_config.js?hash=V050"></script>
+    <script src="angular/interceptor/errorInterceptor.js?hash=V050"></script>
+    <script src="angular/interceptor/interceptorsConfig.js?hash=V050"></script>
+    <script src="angular/interceptor/loadingInterceptor.js?hash=V050"></script>
+    <script src="angular/interceptor/timestampInterceptor.js?hash=V050"></script>
+    <script src="angular/Diretivas/repeatfinished.js?hash=V050"></script>
+    <script src="angular/Diretivas/uiCalendar.js?hash=V050"></script>
+    <script src="angular/Diretivas/uiCompetencia.js?hash=V050"></script>
+    <script src="angular/Diretivas/uiDate.js?hash=V050"></script>
+    <script src="angular/Controller/ContatoCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/ContatoController.js?hash=V050"></script>
+    <script src="angular/Controller/QualidadeCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/QualidadeController.js?hash=V050"></script>
+    <script src="angular/Controller/TipoMidiaCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/TipoMidiaController.js?hash=V050"></script>
 
-    <script src="angular/Services/tokenApi.js?hash=V046"></script>
-    <script src="angular/Services/httpService.js?hash=V046"></script>
-    <script src="angular/Controller/mainController.js?hash=V046"></script>
-    <script src="angular/Controller/MensagemController.js?hash=V046"></script>
-    <script src="angular/Controller/MenuCadastroController.js?hash=V046"></script>
+    <script src="angular/Services/tokenApi.js?hash=V050"></script>
+    <script src="angular/Services/httpService.js?hash=V050"></script>
+    <script src="angular/Controller/mainController.js?hash=V050"></script>
+    <script src="angular/Controller/MensagemController.js?hash=V050"></script>
+    <script src="angular/Controller/MenuCadastroController.js?hash=V050"></script>
     <script src="angular/Controller/CondPgtoController.js?hash=020"></script>
-    <script src="angular/Controller/CondPgtoCadastroController.js??hash=V046"></script>
-    <script src="angular/Controller/EmpresaController.js??hash=V046"></script>
-    <script src="angular/Controller/EmpresaCadastroController.js??hash=V046"></script>
-    <script src="angular/Controller/VeiculoController.js?hash=V046"></script>
-    <script src="angular/Controller/VeiculoCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/MercadoController.js?hash=V046"></script>
-    <script src="angular/Controller/MercadoCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/TipoComercialController.js?hash=V046"></script>
-    <script src="angular/Controller/TipoComercialCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/MotivoFalhaCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/MotivoFalhaController.js?hash=V046"></script>
-    <script src="angular/Controller/RedeController.js?hash=V046"></script>
-    <script src="angular/Controller/RedeCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/MotivoCancelamentoController.js?hash=V046"></script>
-    <script src="angular/Controller/MotivoCancelamentoCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/dictionaryController.js?hash=V046"></script>
-    <script src="angular/Controller/NewPasswordController.js?hash=V046"></script>
-    <script src="angular/Controller/Simulacao_List_Controller.js?hash=V046"></script>
-    <script src="angular/Controller/SimulacaoController.js?hash=V046"></script>
-    <script src="angular/Controller/PacoteDesconto_List_Controller.js?hash=V046"></script>
-    <script src="angular/Controller/PacoteCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/UsuarioController.js?hash=V046"></script>
-    <script src="angular/Controller/login.js?hash=V046"></script>
-    <script src="angular/Controller/muralController.js?hash=V046"></script>
-    <script src="angular/Controller/RegraAprovacao_Controller.js?hash=V046"></script>
-    <script src="angular/Controller/RegraAprovacaoCadastro_Controller.js?hash=V046"></script>
-    <script src="angular/Controller/PendenciaAprovacao_Controller.js?hash=V046"></script>
-    <script src="angular/Controller/AprovarPendentes_Controller.js?hash=V046"></script>
-    <script src="angular/Controller/CaracVeiculController.js?hash=V046"></script>
-    <script src="angular/Controller/CaracVeiculCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/CategoriaClienteController.js?hash=V046"></script>
-    <script src="angular/Controller/CategoriaClienteCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/MotivoAlterNegocController.js?hash=V046"></script>
-    <script src="angular/Controller/MotivoAlterNegocCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/NegociacaoController.js?hash=V046"></script>
-    <script src="angular/Controller/NegociacaoCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/NegociacaoDetalheController.js?hash=V046"></script>
-    <script src="angular/Controller/MapaReservaController.js?hash=V046"></script>
-    <script src="angular/Controller/MapaReservaDetalheController.js?hash=V046"></script>
-    <script src="angular/Controller/MapaReservaImportController.js?hash=V046"></script>
-    <script src="angular/Controller/MapaReservaCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/TabelaPrecosCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/TabelaPrecosController.js?hash=V046"></script>
-    <script src="angular/Controller/ProgramaCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/ProgramaController.js?hash=V046"></script>
-    <script src="angular/Controller/TerceiroController.js?hash=V046"></script>
-    <script src="angular/Controller/TerceiroCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/ProdutoController.js?hash=V046"></script>
-    <script src="angular/Controller/ProdutoCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/GeneroCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/GeneroController.js?hash=V036?hash=V046"></script>
-    <script src="angular/Controller/ParametroCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/ParametroController.js?hash=V046"></script>
-    <script src="angular/Controller/ParametroValoracaoCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/ParametroValoracaoController.js?hash=V046"></script>
-    <script src="angular/Controller/GradeController.js?hash=V046"></script>
-    <script src="angular/Controller/GradeCadastroController.js?hash=V046"></script>
-    <script src="angular/Controller/PropagacaoGradeController.js?hash=V046"></script>
-    <script src="angular/Controller/MenuDashboardController.js?hash=V046"></script>
-    <script src="angular/Controller/DashGraficoVendasController.js?hash=V046"></script>
-    <script src="angular/Controller/DashFunilVendasController.js?hash=V046"></script>
-    <script src="angular/Controller/DashEvolucaoVendasController.js?hash=V046"></script>
-    <script src="angular/Controller/Am_ConsultaController.js?hash=V046"></script>
-    <script src="angular/Controller/Am_CompensacaoController.js?hash=V046"></script>
-    <script src="angular/Controller/RoteiroController.js?hash=V046""></script>
+    <script src="angular/Controller/CondPgtoCadastroController.js??hash=V050"></script>
+    <script src="angular/Controller/EmpresaController.js??hash=V050"></script>
+    <script src="angular/Controller/EmpresaCadastroController.js??hash=V050"></script>
+    <script src="angular/Controller/VeiculoController.js?hash=V050"></script>
+    <script src="angular/Controller/VeiculoCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/MercadoController.js?hash=V050"></script>
+    <script src="angular/Controller/MercadoCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/TipoComercialController.js?hash=V050"></script>
+    <script src="angular/Controller/TipoComercialCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/MotivoFalhaCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/MotivoFalhaController.js?hash=V050"></script>
+    <script src="angular/Controller/RedeController.js?hash=V050"></script>
+    <script src="angular/Controller/RedeCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/MotivoCancelamentoController.js?hash=V050"></script>
+    <script src="angular/Controller/MotivoCancelamentoCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/dictionaryController.js?hash=V050"></script>
+    <script src="angular/Controller/NewPasswordController.js?hash=V050"></script>
+    <script src="angular/Controller/Simulacao_List_Controller.js?hash=V050"></script>
+    <script src="angular/Controller/SimulacaoController.js?hash=V050"></script>
+    <script src="angular/Controller/PacoteDesconto_List_Controller.js?hash=V050"></script>
+    <script src="angular/Controller/PacoteCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/UsuarioController.js?hash=V050"></script>
+    <script src="angular/Controller/login.js?hash=V050"></script>
+    <script src="angular/Controller/muralController.js?hash=V050"></script>
+    <script src="angular/Controller/RegraAprovacao_Controller.js?hash=V050"></script>
+    <script src="angular/Controller/RegraAprovacaoCadastro_Controller.js?hash=V050"></script>
+    <script src="angular/Controller/PendenciaAprovacao_Controller.js?hash=V050"></script>
+    <script src="angular/Controller/AprovarPendentes_Controller.js?hash=V050"></script>
+    <script src="angular/Controller/CaracVeiculController.js?hash=V050"></script>
+    <script src="angular/Controller/CaracVeiculCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/CategoriaClienteController.js?hash=V050"></script>
+    <script src="angular/Controller/CategoriaClienteCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/MotivoAlterNegocController.js?hash=V050"></script>
+    <script src="angular/Controller/MotivoAlterNegocCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/NegociacaoController.js?hash=V050"></script>
+    <script src="angular/Controller/NegociacaoCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/NegociacaoDetalheController.js?hash=V050"></script>
+    <script src="angular/Controller/MapaReservaController.js?hash=V050"></script>
+    <script src="angular/Controller/MapaReservaDetalheController.js?hash=V050"></script>
+    <script src="angular/Controller/MapaReservaImportController.js?hash=V050"></script>
+    <script src="angular/Controller/MapaReservaCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/TabelaPrecosCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/TabelaPrecosController.js?hash=V050"></script>
+    <script src="angular/Controller/ProgramaCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/ProgramaController.js?hash=V050"></script>
+    <script src="angular/Controller/TerceiroController.js?hash=V050"></script>
+    <script src="angular/Controller/TerceiroCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/ProdutoController.js?hash=V050"></script>
+    <script src="angular/Controller/ProdutoCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/GeneroCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/GeneroController.js?hash=V036?hash=V050"></script>
+    <script src="angular/Controller/ParametroCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/ParametroController.js?hash=V050"></script>
+    <script src="angular/Controller/ParametroValoracaoCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/ParametroValoracaoController.js?hash=V050"></script>
+    <script src="angular/Controller/GradeController.js?hash=V050"></script>
+    <script src="angular/Controller/GradeCadastroController.js?hash=V050"></script>
+    <script src="angular/Controller/PropagacaoGradeController.js?hash=V050"></script>
+    <script src="angular/Controller/MenuDashboardController.js?hash=V050"></script>
+    <script src="angular/Controller/DashGraficoVendasController.js?hash=V050"></script>
+    <script src="angular/Controller/DashFunilVendasController.js?hash=V050"></script>
+    <script src="angular/Controller/DashEvolucaoVendasController.js?hash=V050"></script>
+    <script src="angular/Controller/Am_ConsultaController.js?hash=V050"></script>
+    <script src="angular/Controller/Am_CompensacaoController.js?hash=V050"></script>
+    <script src="angular/Controller/RoteiroController.js?hash=V050"></script>
+    <script src="angular/Controller/Composicao_Break_Controller.js?hash=V050"></script>
     <!--====================================================================================PLUGINS -->
-    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.js?hash=V046"></script>
-    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/dataTables.bootstrap.min.js?hash=V046"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/dataTables.buttons.min.js?hash=V046"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/pdfmake.min.js?hash=V046"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.print.min.js?hash=V046"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.html5.min.js?hash=V046"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/jszip.min.js?hash=V046"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/vfs_fonts.js?hash=V046"></script>
-    <script src="js/vendor/dropzone/dropzone.js?hash=V046"></script>
-    <script src="js/vendor/charts/charts.bundle.js?hash=V046"></script>
-    <script src="js/vendor/moment/moment_locale_pt_br.js?hash=V046"></script>
-    <script type="text/javascript" src="js/vendor/ionrangeslider/ion.rangeSlider.min.js?hash=V046"></script>
+    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.js?hash=V050"></script>
+    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/dataTables.bootstrap.min.js?hash=V050"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/dataTables.buttons.min.js?hash=V050"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/pdfmake.min.js?hash=V050"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.print.min.js?hash=V050"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.html5.min.js?hash=V050"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/jszip.min.js?hash=V050"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/vfs_fonts.js?hash=V050"></script>
+    <script src="js/vendor/dropzone/dropzone.js?hash=V050"></script>
+    <script src="js/vendor/charts/charts.bundle.js?hash=V050"></script>
+    <script src="js/vendor/moment/moment_locale_pt_br.js?hash=V050"></script>
+    <script type="text/javascript" src="js/vendor/ionrangeslider/ion.rangeSlider.min.js?hash=V050"></script>
     <!--====================================================================================Export-->
-    <script src="js/vendor/jspdf/png.js?hash=V046"></script>
-    <script src="js/vendor/jspdf/zlib.js?hash=V046"></script>
-    <script src="js/vendor/jspdf/jspdf.min.js?hash=V046"></script>
-    <script src="js/vendor/jspdf/html2canvas.js?hash=V046"></script>
+    <script src="js/vendor/jspdf/png.js?hash=V050"></script>
+    <script src="js/vendor/jspdf/zlib.js?hash=V050"></script>
+    <script src="js/vendor/jspdf/jspdf.min.js?hash=V050"></script>
+    <script src="js/vendor/jspdf/html2canvas.js?hash=V050"></script>
 
     <div ng-include="'template/wait.html'"></div>
 </body>

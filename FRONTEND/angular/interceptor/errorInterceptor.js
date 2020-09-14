@@ -22,7 +22,6 @@ angular.module('App').factory("errorInterceptor", function ($q, $location, $root
                 }
             }
             else {
-                console.log("erro erro");
                 switch (rejection.status) {
                     case 401:
                         $rootScope.App_Erro = rejection.data.Message;
@@ -30,7 +29,6 @@ angular.module('App').factory("errorInterceptor", function ($q, $location, $root
                         $location.path("/unlogged");
                         break;
                     case 500:
-                        console.log(rejection);
                         $rootScope.App_Erro = rejection.data.ExceptionMessage;
                         $rootScope.loading = false;
                         break

@@ -84,7 +84,7 @@
                                    maxlength="10"
                                    ng-disabled="!Contrato.Editar_Negociacao || Contrato.Comprovado"
                                    ng-change="NegociacaoChange(Contrato.Numero_Negociacao)" />
-                            <div class="input-group-addon" ng-hide="Parameters.Action=='Edit'">
+                            <div class="input-group-addon" ng-show="Parameters.Action=='Import'">
                                 <div class="app-checkbox" style="width:auto;margin-top:5px">
                                     <label>
                                         <input type="checkbox"
@@ -405,7 +405,7 @@
                     <div class="dictionary" dictionary="Data" caption="Início Campanha" required>
                         <input ng-model="Contrato.Periodo_Campanha_Inicio"
                                id="TxtPeriodoCampanhaInicio"
-                               ng-disabled="!Contrato.Editar_Periodo_Campanha || !Contrato.Numero_Negociacao  || Contrato.Comprovado"
+                               ng-disabled="(!Contrato.Editar_Periodo_Campanha || !Contrato.Numero_Negociacao  || Contrato.Comprovado) && !Contrato.Criar_Negociacao"
                                ng-change="PeriodoCampanhaChange(Contrato)"
                                ui-date ng-model-options="{updateOn: 'blur'}" />
                         <div class="dictionary-ui-calendar" ui-calendar typdate="Contrato.Periodo_Campanha_Inicio" reference="TxtPeriodoCampanhaInicio"></div>
@@ -416,7 +416,7 @@
                     <div class="dictionary" dictionary="Data" caption="Término Campanha" required>
                         <input ng-model="Contrato.Periodo_Campanha_Termino" 
                                id="TxtPeriodoCampanhaTermino"
-                               ng-disabled="!Contrato.Editar_Periodo_Campanha || !Contrato.Numero_Negociacao || Contrato.Comprovado"
+                               ng-disabled="(!Contrato.Editar_Periodo_Campanha || !Contrato.Numero_Negociacao  || Contrato.Comprovado) && !Contrato.Criar_Negociacao"
                                ng-change="PeriodoCampanhaChange(Contrato)"
                                ui-date ng-model-options="{updateOn: 'blur'}">
                         <div class="dictionary-ui-calendar" ui-calendar typdate="Contrato.Periodo_Campanha_Termino" reference="TxtPeriodoCampanhaTermino"></div>

@@ -1,176 +1,224 @@
 ﻿
 <div class="container">
     <form name="frmGrade" autocomplete="off">
-
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-6">
                 <div class="block">
                     <div class="row">
-                        <div class="alert alert-info alert-icon-block text-center" role="alert">
+                        <div class="alert alert-primary alert-icon-block text-center" role="alert">
                             <strong>Programação</strong>
                         </div>
                     </div>
+                    <div class="row">
+                        <!--=============================Rede-->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="field-x" for="txtRede">Rede</label>
+                                <select class="form-control"
+                                        ng-model="Grade.RedeId"
+                                        ng-disabled="Parameters.Action=='Edit'"
+                                        name="txtRede"
+                                        ng-change="RedeChange(Grade.RedeId)"
+                                        ng-options="Redes.Codigo as Redes.Descricao for Redes in Redes"></select>
+                            </div>
+                        </div>
+                        <!--=============================Programa-->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="txtCodPrograma " class="field-x">Programa</label>
+                                <div class="input-group" style="min-width:90px">
+                                    <div class="input-group-addon" ng-show="Parameters.Action!='Edit'">
+                                        <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaPrograma(Grade.RedeId)"></span>
+                                    </div>
+                                    <input class="form-control"
+                                           name="txtCodPrograma"
+                                           ng-model="Grade.Cod_Programa"
+                                           ng-disabled="Parameters.Action=='Edit'"
+                                           ng-model-options="{updateOn: 'blur'}"
+                                           ng-change="fnChangePrograma(Grade.RedeId,Grade.Cod_Programa)"
+                                           maxlength="4"
+                                           style="text-transform:uppercase">
+                                </div>
+                            </div>
+                        </div>
+                        <!--=============================Nome do Programa-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="txtNomePrograma " class="field-x">Programa</label>
+                                <input class="form-control"
+                                       name="txtNomePrograma"
+                                       ng-model="Grade.Nome_Programa"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       ng-disabled="true"
+                                       style="text-transform:uppercase">
+                            </div>
+                        </div>
+                        <!--=============================Hora Inicial-->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="txtHorarioInicial" class="field-x">Hor.Inicio</label>
+                                <input class="form-control time"
+                                       name="txtHorarioInicial"
+                                       ng-model="Grade.Horario_Inicial"
+                                       maxlength="5">
+                            </div>
+                        </div>
+                        <!--=============================Hora Final-->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="txtHorarioFinal " class="field-x">Hor.Término</label>
+                                <input class="form-control time"
+                                       name="txtHorarioFinal"
+                                       ng-model="Grade.Horario_Final"
+                                       maxlength="5">
+                            </div>
+                        </div>
+                        <!--=============================Faixa Horaria-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="field-x" for="txtFaixaHoraria">Faixa Horaria</label>
+                                <select class="form-control"
+                                        ng-model="Grade.Faixa_Horaria"
+                                        name="txtFaixaHoraria"
+                                        ng-options="Faixas.Codigo as Faixas.Descricao for Faixas in Faixas"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--=============================Dispo Net-->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="txtDispoNet" class="field-x">Dispo Net</label>
+                                <input class="form-control numeric"
+                                       name="txtDispoNet"
+                                       ng-model="Grade.Dispo_Net"
+                                       maxlength="6">
+                            </div>
+                        </div>
+                        <!--=============================Dispo Local-->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="txtDispoLocal" class="field-x">Dispo Local</label>
+                                <input class="form-control numeric"
+                                       name="txtDispoLocal"
+                                       ng-model="Grade.Dispo_Local"
+                                       maxlength="6">
+                            </div>
+                        </div>
 
+                    </div>
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-6">
                 <div class="block">
                     <div class="row">
-                        <div class="alert alert-info alert-icon-block text-center" role="alert">
-                            <strong>Propagar no Periodo</strong>
+                        <div class="alert alert-primary alert-icon-block text-center" role="alert">
+                            <strong>Repetir essa Operação no Período</strong>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--==============================================Validade Inicio-->
+                        <div class="col-md-8">
+                            <div class="dictionary" dictionary="Data" caption="" style="display:inline-flex">
+                                <label class="field-x" style="width:100px">De</label>
+                                <input ng-model="Grade.Inicio_Validade"
+                                       ui-date ng-model-options="{updateOn: 'blur'}">
+                                <div class="dictionary-ui-calendar" ui-calendar typdate="Grade.Inicio_Validade"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row margin-top-20">
+                        <!--==============================================Validade Termino-->
+                        <div class="col-md-8">
+                            <div class="dictionary" dictionary="Data" caption="" style="display:inline-flex">
+                                <label class="field-x" style="width:100px">Até</label>
+                                <input ng-model="Grade.Termino_Validade"
+                                       ui-date ng-model-options="{updateOn: 'blur'}">
+                                <div class="dictionary-ui-calendar" ui-calendar typdate="Grade.Termino_Validade"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4" ng-show="Parameters.Action=='Edit'">
+                            <button class="btn btn-default btn-sm" ng-click="GetUltimoDiaGrade(Grade.Cod_Programa)">Buscar Ultimo dia da Grade</button>
+                        </div>
+                    </div>
+                    <!--=============================Dias da Semana-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="txtDiaSemana" class="field-x">Dias da Semana</label>
+                            <div class="form-control" name="txtDiaSemana" style="min-height:90px">
+                                <div class="app-checkbox" style="width:70px;margin-top:5px;">
+                                    <label><input type="checkbox" ng-model="Grade.Domingo" name="app-checkbox-1">DOM<span></span></label>
+                                </div>
+                                <div class="app-checkbox" style="width:70px;margin-top:5px;">
+                                    <label><input type="checkbox" ng-model="Grade.Segunda" name="app-checkbox-1">SEG<span></span></label>
+                                </div>
+                                <div class="app-checkbox" style="width:70px;margin-top:5px;">
+                                    <label><input type="checkbox" ng-model="Grade.Terca" name="app-checkbox-1">TER<span></span></label>
+                                </div>
+                                <div class="app-checkbox" style="width:70px;margin-top:5px;">
+                                    <label><input type="checkbox" ng-model="Grade.Quarta" name="app-checkbox-1">QUA<span></span></label>
+                                </div>
+                                <div class="app-checkbox" style="width:70px;margin-top:5px;">
+                                    <label><input type="checkbox" ng-model="Grade.Quinta" name="app-checkbox-1">QUI<span></span></label>
+                                </div>
+                                <div class="app-checkbox" style="width:70px;margin-top:5px;">
+                                    <label><input type="checkbox" ng-model="Grade.Sexta" name="app-checkbox-1">SEX<span></span></label>
+                                </div>
+                                <div class="app-checkbox" style="width:70px;margin-top:5px;">
+                                    <label><input type="checkbox" ng-model="Grade.Sabado" name="app-checkbox-1">SAB<span></span></label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <div class="block">
                     <div class="row">
-                        <div class="alert alert-info alert-icon-block text-center" role="alert">
-                            <strong>Validar para os Veículos</strong>
+                        <div class="alert alert-primary alert-icon-block text-center" role="alert">
+                            <strong>{{TituloVeiculo}}</strong>
                         </div>
                     </div>
-                </div>
-            </div>
-            
-        </div>
-        <div class="block">
-
-
-
-            <div class="row">
-                <!--=============================Rede-->
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="field-x" for="txtRede">Rede</label>
-                        <select class="form-control"
-                                ng-model="Grade.RedeId"
-                                name="txtRede"
-                                ng-options="Redes.Codigo as Redes.Descricao for Redes in Redes"></select>
-                    </div>
-                </div>
-                <!--=============================Programa-->
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="txtCodPrograma " class="field-x">Programa</label>
-                        <div class="input-group" style="min-width:90px">
-                            <input class="form-control"
-                                   name="txtCodPrograma"
-                                   ng-model="Grade.Cod_Programa"
-                                   ng-change="fnChangePrograma()"
-                                   maxlength="4"
-                                   style="text-transform:uppercase">
-                            <div class="input-group-addon">
-                                <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaPrograma(Grade.RedeId)"></span>
+                    <div class="form-group" ng-show="Grade.Veiculos.length>0">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="checkBoxVeiculo" ng-click="MarcarVeiculos(checkBoxVeiculo)" /> Marcar/Desmarcar Todos<span></span></label>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--=============================Hora Inicial-->
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="txtHorarioInicial" class="field-x">Hor.Inicio</label>
-                        <input class="form-control time"
-                               name="txtHorarioInicial"
-                               ng-model="Grade.Horario_Inicial"
-                               maxlength="5">
-                    </div>
-                </div>
-                <!--=============================Hora Final-->
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="txtHorarioFinal " class="field-x">Hor.Inicio</label>
-                        <input class="form-control time"
-                               name="txtHorarioFinal"
-                               ng-model="Grade.Horario_Final"
-                               maxlength="5">
-                    </div>
-                </div>
-                <!--=============================Faixa Horaria-->
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label class="field-x" for="txtFaixaHoraria">Faixa Horaria</label>
-                        <select class="form-control"
-                                ng-model="Grade.Faixa_Horaria"
-                                name="txtFaixaHoraria"
-                                ng-options="Faixas.Codigo as Faixas.Descricao for Faixas in Faixas"></select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <!--=============================Dispo Net-->
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="txtDispoNet" class="field-x">Dispo Net</label>
-                        <input class="form-control numeric"
-                               name="txtDispoNet"
-                               ng-model="Grade.Dispo_Net"
-                               maxlength="6">
-                    </div>
-                </div>
-                <!--=============================Dispo Local-->
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="txtDispoLocal" class="field-x">Dispo Local</label>
-                        <input class="form-control numeric"
-                               name="txtDispoLocal"
-                               ng-model="Grade.Dispo_Local"
-                               maxlength="6">
-                    </div>
-                </div>
-                <!--=============================Dias da Semana-->
-                <div class="col-md-8">
-                    <div class="form-group">
-                        <label for="txtDiaSemana" class="field-x">Dias da Semana</label>
-                        <div class="form-control" name="txtDiaSemana">
-                            <div class="app-checkbox" style="width:auto;margin-top:5px;margin-right:20PX">
-                                <label><input type="checkbox" ng-model="Grade.Domingo" name="app-checkbox-1">DOM<span></span></label>
-                            </div>
-                            <div class="app-checkbox" style="width:auto;margin-top:5px;margin-right:20PX">
-                                <label><input type="checkbox" ng-model="Grade.Segunda" name="app-checkbox-1">SEG<span></span></label>
-                            </div>
-                            <div class="app-checkbox" style="width:auto;margin-top:5px;margin-right:20PX">
-                                <label><input type="checkbox" ng-model="Grade.Terca" name="app-checkbox-1">TER<span></span></label>
-                            </div>
-                            <div class="app-checkbox" style="width:auto;margin-top:5px;margin-right:20PX">
-                                <label><input type="checkbox" ng-model="Grade.Quarta" name="app-checkbox-1">QUA<span></span></label>
-                            </div>
-                            <div class="app-checkbox" style="width:auto;margin-top:5px;margin-right:20PX">
-                                <label><input type="checkbox" ng-model="Grade.Quinta" name="app-checkbox-1">QUI<span></span></label>
-                            </div>
-                            <div class="app-checkbox" style="width:auto;margin-top:5px;margin-right:20PX">
-                                <label><input type="checkbox" ng-model="Grade.Sexta" name="app-checkbox-1">SEX<span></span></label>
-                            </div>
+                    <div style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px silver" ng-show="Grade.Veiculos.length>0">
+                        <div class="col-md-4" ng-repeat="veiculo  in Grade.Veiculos">
                             <div class="app-checkbox" style="width:auto;margin-top:5px">
-                                <label><input type="checkbox" ng-model="Grade.Sabado" name="app-checkbox-1">SAB<span></span></label>
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="veiculo.Selected"/>  {{veiculo.Cod_Veiculo}}-{{veiculo.Nome_Veiculo}} <span></span></label>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
-            <div class="row">
-                <!--==============================================Validade Inicio-->
-                <div class="col-md-3">
-                    <div class="dictionary" dictionary="Data" caption="Início Validade">
-                        <input ng-model="Grade.Validade_Inicio"
-                               ui-date ng-model-options="{updateOn: 'blur'}">
-                        <div class="dictionary-ui-calendar" ui-calendar typdate="Grade.Validade_Inicio"></div>
-                    </div>
-                </div>
-                <!--==============================================Validade Termino-->
-                <div class="col-md-3">
-                    <div class="dictionary" dictionary="Data" caption="Término Validade">
-                        <input ng-model="Grade.Validade_Termino"
-                               ui-date ng-model-options="{updateOn: 'blur'}">
-                        <div class="dictionary-ui-calendar" ui-calendar typdate="Grade.Validade_Termino"></div>
-                    </div>
+
+        </div>
+        <div class="row">
+            <!--========================botoes de acoes-->
+            <div class="fixed-buttons-bottom">
+                <div class="col-md-10">
+                    <button type ="submit" class="btn btn-success" ng-click="SalvarGrade(Grade)">Salvar </button>
+                    <button type="button" class="btn btn-danger" ng-click="ExcluirGrade(Grade)" ng-show="PermissaoDelete && Parameters.Action=='Edit'">Excluir</button>
+                    <button type="button" class="btn btn-info" ng-click="DesativarGrade(Grade,false)" ng-show="PermissaoActivate && Parameters.Action=='Edit'">Desativar</button>
+                    <button type="button" class="btn btn-info" ng-click="DesativarGrade(Grade,true)" ng-show="PermissaoActivate && Parameters.Action=='Edit'">Reativar</button>
+                    <a href="#Grade" class="btn btn-warning">Cancelar</a>
                 </div>
             </div>
         </div>
+
     </form>
 </div>
 <div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+
 <script type="text/javascript">
     $(document).ready(function () {
         GetDictionary();

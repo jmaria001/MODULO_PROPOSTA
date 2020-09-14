@@ -286,16 +286,16 @@
     };
     //=============================Encerrarmento da Am
     $scope.EncerrarAm = function (pCompensacao) {
-        if ($scope.FalhasCompensacao.Qtd_Total_Compensacao==0) {
+        $scope.Solucao = [];
+        if ($scope.FalhasCompensacao.Qtd_Total_Compensacao>0) {
             $scope.Solucao.push({ 'Id': 0, 'Descricao': 'Ponderar', 'Letra': 'P' });
+            $scope.Solucao.push({ 'Id': 3, 'Descricao': 'Faturar', 'Letra': 'F' });
         }
         
         $scope.Solucao.push({ 'Id': 1, 'Descricao': 'Deduzir', 'Letra': 'D' });
         $scope.Solucao.push({ 'Id': 2, 'Descricao': 'Creditar', 'Letra': 'C' });
+        
         if ($scope.FalhasCompensacao.Qtd_Total_Compensacao == 0) {
-            $scope.Solucao.push({ 'Id': 3, 'Descricao': 'Faturar', 'Letra': 'F' }); 
-        }
-        if ($scope.FalhasCompensacao.Qtd_Total_Compensacao > 0) {
             $scope.Solucao.push({ 'Id': 4, 'Descricao': 'Faturar Sem Crédito', 'Letra': 'S' });
         }
         $("#ModalEncerramentoAm").modal(true);

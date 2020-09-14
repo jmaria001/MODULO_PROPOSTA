@@ -8,7 +8,7 @@
 
     //===========================Inicializa Scopes
     $scope.NewFiltro = function () {
-        return { 'Cod_Veiculo': '011', 'Nome_Veiculo': '', 'Data_Exibicao': '02/06/2020', 'Programas': [] }
+        return { 'Cod_Veiculo': '', 'Nome_Veiculo': '', 'Data_Exibicao': '', 'Programas': [] }
     }
     $scope.Filtro = $scope.NewFiltro();
     $scope.checkMarcar = false;
@@ -64,6 +64,7 @@
                 httpService.Post("Roteiro/CarregarComerciais", pFiltro).then(function (responseComercial) {
                     if (responseComercial.data) {
                         $scope.Comerciais = responseComercial.data;
+                        $scope.RenumeraItens($scope.Roteiro);
                     }
                 });
             }
@@ -109,7 +110,9 @@
         var _totalIntervalo = 0;
         var _totalBreak = 0
         var _totalArtistico = 0
-        for (var i = pRoteiro.length - 1; i > 0; i--) {
+        var _total_Encaixe_Programa = 0;
+        var _total_Duracao_Programa = 0
+        for (var i = pRoteiro.length - 1; i >= 0; i--) {
             if (pRoteiro[i].Indica_Comercial) {
                 if (pRoteiro[i].Origem == 'Artistico') {
                     _totalArtistico += pRoteiro[i].Duracao;
@@ -118,6 +121,7 @@
                     _totalIntervalo += pRoteiro[i].Duracao;
                 }
                 _totalBreak += pRoteiro[i].Duracao;
+                _total_Encaixe_Programa += pRoteiro[i].Duracao;
             };
             if (pRoteiro[i].Indica_Titulo_Intervalo) {
                 if (pRoteiro[i].Tipo_Break == '2') {
@@ -131,8 +135,23 @@
             };
             if (pRoteiro[i].Indica_Titulo_Break) {
                 pRoteiro[i].Encaixe = _totalBreak;
+                _total_Duracao_Programa += pRoteiro[i].Duracao;
                 _totalBreak = 0;
                 _totalArtistico = 0;
+                _totalArtistico;
+                _totalIntervalo
+            };
+            if (pRoteiro[i].Indica_Titulo_Programa) {
+                pRoteiro[i].Encaixe = _total_Encaixe_Programa;
+                pRoteiro[i].Duracao = _total_Duracao_Programa;
+                console.log(_total_Encaixe_Programa);
+                console.log(_total_Duracao_Programa);
+                _totalBreak = 0;
+                _totalArtistico = 0;
+                _totalArtistico;
+                _totalIntervalo;
+                var _total_Encaixe_Programa = 0;
+                var _total_Duracao_Programa = 0
             };
         };
     };
@@ -205,42 +224,6 @@
         //----------------Cria o item para o comercial que foi arrastado
         var newItem = {};
         angular.copy($scope.Roteiro[Index_Destino], newItem);
-        //var newItem = {
-        //    'Id_Programa': $scope.Roteiro[Index_Destino].Id_Programa,
-        //    'Id_Break': $scope.Roteiro[Index_Destino].Id_Break,
-        //    'Id_Intervalo': $scope.Roteiro[Index_Destino].Id_Intervalo,
-        //    'Cod_Programa': $scope.Roteiro[Index_Destino].Cod_Programa,
-        //    'Cod_Veiculo': $scope.Roteiro[Index_Destino].Cod_Veiculo,
-        //    'Titulo_Programa': $scope.Roteiro[Index_Destino].Titulo_Programa,
-        //    'Hora_Inicio_Programa': $scope.Roteiro[Index_Destino].Hora_Inicio,
-        //    'Hora_Fim_Programa': $scope.Roteiro[Index_Destino].Hora_Fim,
-        //    'Show': $scope.Roteiro[Index_Destino].Show,
-        //    'Break': $scope.Roteiro[Index_Destino].Break,
-        //    'Titulo_Break': $scope.Roteiro[Index_Destino].Titulo_Break,
-        //    'Sequencia_Faixa': $scope.Roteiro[Index_Destino].Sequencia_Faixa,
-        //    'Sequencia_Break': $scope.Roteiro[Index_Destino].Id_Programa,
-        //    'Sequencia_Intervalo': $scope.Roteiro[Index_Destino].Sequencia_Intervalo + 1,
-        //    'Hora_Inicio_Break': $scope.Roteiro[Index_Destino].Hora_Inicio_Break,
-        //    'Tipo_Break': $scope.Roteiro[Index_Destino].Tipo_Break,
-        //    'Nome_Tipo_Break': $scope.Roteiro[Index_Destino].Nome_Tipo_Break,
-        //    'Indica_Titulo_Programa': false,
-        //    'Indica_Titulo_Break': false,
-        //    'Indica_Titulo_Intervalo': false,
-        //    'Indica_Comercial': true,
-        //    'Titulo_Comercial': $scope.Comerciais[Index_Origem].Titulo_Comercial,
-        //    'Duracao': $scope.Comerciais[Index_Origem].Duracao,
-        //    'Cod_Produto': $scope.Comerciais[Index_Origem].Cod_Produto,
-        //    'Nome_Produto': $scope.Comerciais[Index_Origem].Nome_Produto,
-        //    'Numero_Fita': $scope.Comerciais[Index_Origem].Numero_Fita,
-        //    'Origem': $scope.Comerciais[Index_Origem].Origem,
-        //    'Cod_Empresa': $scope.Comerciais[Index_Origem].Cod_Empresa,
-        //    'Numero_Mr': $scope.Comerciais[Index_Origem].Numero_Mr,
-        //    'Sequencia_Mr': $scope.Comerciais[Index_Origem].Sequencia_Mr,
-        //    'Cod_Programa_Origem': $scope.Comerciais[Index_Origem].Cod_Programa,
-        //    'Cod_Veiculo_Origem': $scope.Comerciais[Index_Origem].Cod_Veiculo,
-        //    'Cod_Data_Exibicao': $scope.Comerciais[Index_Origem].Data_Exibicao,
-        //    'Chave_Acesso': $scope.Comerciais[Index_Origem].Chave_Acesso,
-        //}
         newItem.Indica_Titulo_Programa = false;
         newItem.Indica_Titulo_Break = false;
         newItem.Indica_Titulo_Intervalo = false;
@@ -268,14 +251,6 @@
         if ($scope.Comerciais[Index_Origem].Numero_Mr) {
             $scope.Comerciais[Index_Origem].Indica_Ordenado = true;
         }
-        //----------------Renumera Sequencia Intervalo - Posicao do Comercial dentro do Break
-        //var _Posicao = 0;
-        //for (var i = 0; i < $scope.Roteiro.length; i++) {
-        //    if ($scope.Roteiro[i].Id_Break == $scope.Roteiro[Index_Destino].Id_Break && $scope.Roteiro[i].Indica_Comercial) {
-        //        _Posicao++;
-        //        $scope.Roteiro[i].Sequencia_Intervalo = _Posicao;
-        //    }
-        //}
         //----------------Renumera Itens
         $scope.RenumeraItens($scope.Roteiro)
         //----------------Atualiza scope
@@ -323,27 +298,33 @@
         var _Id_Break = pRoteiro[pIndex].Id_Break;
         var _Break = pRoteiro[pIndex].Break;
         var _Sequencia_Faixa = pRoteiro[pIndex].Sequencia_Faixa;
+        var _Tipo_Break = pRoteiro[pIndex].Tipo_Break;
+        var _Id_Intervalo = pRoteiro[pIndex]._Id_Intervalo;
         if (pDirection == 1) {
             for (var i = pIndex + 1; i < pRoteiro.length; i++) {
                 if (pRoteiro[i].Indica_Titulo_Programa) {
                     break;
                 };
 
-                if (pRoteiro[i].Indica_Titulo_Intervalo && pRoteiro[i].Tipo_Break != pRoteiro[pIndex].Tipo_Break && pRoteiro[i].Tipo_Break != 2) {
+                if (pRoteiro[i].Indica_Titulo_Intervalo && pRoteiro[i].Tipo_Break != pRoteiro[pIndex].Tipo_Break && pRoteiro[pIndex].Origem != 'Artistico') {
                     break;
                 };
 
                 if (pRoteiro[i].Indica_Titulo_Intervalo && pRoteiro[i].Tipo_Break != 2) {
                     _Id_Break = pRoteiro[i].Id_Break;
                     _Break = pRoteiro[i].Break;
+                    _Id_Intervalo = pRoteiro[i].Id_Intervalo;
                     _Sequencia_Faixa = pRoteiro[i].Sequencia_Faixa;
+                    _Tipo_Break = pRoteiro[i].Tipo_Break
                     _NewIndex = i + 1;
                     break;
                 };
                 if (pRoteiro[i].Indica_Comercial) {
                     _Id_Break = pRoteiro[i].Id_Break;
+                    _Id_Intervalo = pRoteiro[i].Id_Intervalo;
                     _Break = pRoteiro[i].Break;
                     _Sequencia_Faixa = pRoteiro[i].Sequencia_Faixa;
+                    _Tipo_Break = pRoteiro[i].Tipo_Break
                     _NewIndex = i + 1;
                     break;
                 };
@@ -356,12 +337,14 @@
                     break;
                 };
 
-                if (pRoteiro[i].Indica_Titulo_Intervalo && pRoteiro[i].Tipo_Break != pRoteiro[pIndex].Tipo_Break && pRoteiro[i].Tipo_Break != 2) {
+                if (pRoteiro[i].Tipo_Break != pRoteiro[pIndex].Tipo_Break && pRoteiro[pIndex].Origem != 'Artistico') {
                     break;
                 };
 
                 if (pRoteiro[i].Indica_Titulo_Intervalo && pRoteiro[i].Tipo_Break != 2 && pRoteiro[i].Id_Break != pRoteiro[pIndex].Id_Break) {
                     _Id_Break = pRoteiro[i].Id_Break;
+                    _Id_Intervalo = pRoteiro[i].Id_Intervalo;
+                    _Tipo_Break = pRoteiro[i].Tipo_Break;
                     Break = pRoteiro[i].Break;
                     _Sequencia_Faixa = pRoteiro[i].Sequencia_Faixa;
                     _NewIndex = i + 1;
@@ -369,9 +352,17 @@
                 };
                 if (pRoteiro[i].Indica_Comercial) {
                     _Id_Break = pRoteiro[i].Id_Break;
+                    _Id_Intervalo = pRoteiro[i].Id_Intervalo;
+                    _Tipo_Break = pRoteiro[i].Tipo_Break
                     _Break = pRoteiro[i].Break;
                     _Sequencia_Faixa = pRoteiro[i].Sequencia_Faixa;
-                    _NewIndex = i+1;
+                    if (pRoteiro[i].Id_Intervalo == pRoteiro[pIndex].Id_Intervalo) {
+                        _NewIndex = i;
+
+                    }
+                    else {
+                        _NewIndex = i + 1;
+                    }
                     break;
                 };
 
@@ -409,9 +400,11 @@
             }, function () {
                 //-------------------Insere o comercial na nova sequencia
                 angular.copy(pRoteiro[pIndex], _NewComercial);
-                _NewComercial.Id_Break = _Id_Break
-                _NewComercial.Break = _Break
-                _NewComercial.Sequencia_Faixa = _Sequencia_Faixa
+                _NewComercial.Id_Break = _Id_Break;
+                _NewComercial.Id_Intervalo = _Id_Intervalo;
+                _NewComercial.Break = _Break;
+                _NewComercial.Sequencia_Faixa = _Sequencia_Faixa;
+                _NewComercial.Tipo_Break = _Tipo_Break;
                 pRoteiro.splice(_NewIndex, 0, _NewComercial);
                 //-------------------Remove  comercial da antiga sequencia
                 if (pDirection == 1) {
@@ -428,8 +421,10 @@
             //-------------------Insere o comercial na nova sequencia
             angular.copy(pRoteiro[pIndex], _NewComercial);
             _NewComercial.Id_Break = _Id_Break
-            _NewComercial.Break = _Break
-            _NewComercial.Sequencia_Faixa = _Sequencia_Faixa
+            _NewComercial.Id_Intervalo = _Id_Intervalo;
+            _NewComercial.Break = _Break;
+            _NewComercial.Tipo_Break = _Tipo_Break;
+            _NewComercial.Sequencia_Faixa = _Sequencia_Faixa;
             pRoteiro.splice(_NewIndex, 0, _NewComercial);
             //-------------------Remove  comercial da antiga sequencia
             if (pDirection == 1) {
@@ -439,45 +434,9 @@
                 pRoteiro.splice(pIndex + 1, 1);
             }
             $scope.RenumeraItens(pRoteiro);
-        }
+        };
+    };
 
-        
-        //angular.copy(pRoteiro[_NewIndex], _NewComercial2);
-
-        //pRoteiro.splice(pIndex, 1);
-        //if (pRoteiro[_NewIndex].Indica_Comercial) {
-        //    pRoteiro.splice(pIndex, 0, _NewComercial2);
-        //}
-
-        //pRoteiro.splice(_NewIndex, 1);
-        //pRoteiro.splice(_NewIndex, 0, _NewComercial1);
-        //$scope.RenumeraItens(pRoteiro);
-        //----------------Renumera Sequencia Intervalo - Posicao do Comercial dentro do Break
-        //var _Posicao = 0;
-        //for (var i = 0; i < pRoteiro.length; i++) {
-        //    if (pRoteiro[i].Id_Break == pRoteiro[pIndex].Id_Break && pRoteiro[i].Indica_Comercial) {
-        //        _Posicao++;
-        //        pRoteiro[i].Sequencia_Intervalo = _Posicao;
-        //    }
-        //}
-        //$scope.$digest();
-
-    }
-
-    //===========================Limpar a Ordencao 
-    //$scope.LimparRoteiro = function () {
-    //    swal({
-    //        title: "Tem certeza que deseja desfazer a Ordenação?",
-    //        //type: "warning",
-    //        showCancelButton: true,
-    //        confirmButtonClass: "btn-danger",
-    //        confirmButtonText: "Sim, Desfazer",
-    //        cancelButtonText: "Não,Cancelar",
-    //        closeOnConfirm: true
-    //    }, function () {
-    //        $scope.CarregarRoteiro($scope.Filtro);
-    //    });
-    //};
     //===========================Excluir o Roteiro
     $scope.ExcluirRoteiro = function (pFiltro) {
         var _data = { 'Cod_Veiculo': pFiltro.Cod_Veiculo, 'Data_Exibicao': pFiltro.Data_Exibicao, 'Cod_Programa': pFiltro.Cod_Programa }

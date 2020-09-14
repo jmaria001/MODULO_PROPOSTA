@@ -103,7 +103,12 @@
 
     //============================Mudou o Tipo de Midia
     $scope.TipoMidiaChange = function (pTipoMidia) {
-        httpService.Get("ValidarTabela/TipoMidias/"+pTipoMidia.trim()).then(function (response) {
+        if (!pTipoMidia) {
+            $scope.Negociacao.Nome_Tipo_Midia = "";
+            return;
+        }
+
+        httpService.Get("ValidarTabela/TipoMidias/"+ pTipoMidia.trim()).then(function (response) {
             if (response.data[0].Status==0) {
                 ShowAlert(response.data[0].Mensagem, "warning");
                 $scope.Negociacao.Cod_Tipo_Midia = "";

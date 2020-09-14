@@ -128,6 +128,68 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
+        //=================================Salvar Ordenacao
+        [Route("api/Roteiro/ListarBreak")]
+        [HttpGet]
+        [ActionName("RoteiroListarBreak")]
+        [Authorize()]
+        public IHttpActionResult RoteiroListarBreak([FromUri] Roteiro.RoteiroFiltroModel Param)
+        {
+            SimLib clsLib = new SimLib();
+            Roteiro Cls = new Roteiro(User.Identity.Name);
+            try
+            {
+                Roteiro.BreakModel Retorno = Cls.RoteiroListarBreak(Param);
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+
+        [Route("api/Roteiro/GravarBreak")]
+        [HttpPost]
+        [ActionName("RoteiroGravarBreak")]
+        [Authorize()]
+        public IHttpActionResult RoteiroGravarBreak([FromBody] Roteiro.BreakModel Param)
+        {
+            SimLib clsLib = new SimLib();
+            Roteiro Cls = new Roteiro(User.Identity.Name);
+            try
+            {
+                DataTable Retorno = Cls.RoteiroGravarBreak(Param);
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/Roteiro/ProgramasBreak")]
+        [HttpGet]
+        [ActionName("RoteiroProgramasBreak")]
+        [Authorize()]
+        public IHttpActionResult RoteiroProgramasBreak([FromUri] Roteiro.RoteiroFiltroModel Param)
+        {
+            SimLib clsLib = new SimLib();
+            Roteiro Cls = new Roteiro(User.Identity.Name);
+            try
+            {
+                DataTable Retorno = Cls.RoteiroProgramasBreak(Param);
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
     }
 
 }

@@ -208,6 +208,21 @@ function GetDictionary() {
     });
     $(".time").blur(function () {
         this.value = TimeFormat(this.value);
+        var _hh = parseInt(this.value.substr(0, 2));
+        var _mm = parseInt(this.value.substr(3, 2));
+        var _mm = this.value.substr(3, 2);
+        var _valido = true;
+        if (_hh < 0 || _hh > 23) {
+            _valido = false;
+        };
+        if (_mm < 0 || _mm > 59) {
+            _valido = false;
+        };
+        
+        if (!_valido) {
+            ShowAlert("Horário Inválido");
+            this.value = "";
+        }
     });
     $(".cnpj").blur(function () {
         this.value = cnpjFormat(this.value);

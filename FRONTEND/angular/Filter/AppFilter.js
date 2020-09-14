@@ -40,7 +40,16 @@ angular.module('App').filter('MesExtenso', [function () {
         }
     };
 }]);
-
+angular.module('App').filter('hhmm', [function () {
+    return function (input) {
+        pdata = input;
+        if (!pdata) {
+            return 
+        }
+        pdata = pdata.replace(/[^0-9]+/g, "");
+        return pdata.substr(0, 2) + ":" + pdata.substr(2, 2);
+    };
+}]);
 
 angular.module('App').filter('range', function () {
     return function (input, min, max) {

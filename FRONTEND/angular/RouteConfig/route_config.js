@@ -644,6 +644,13 @@
         routeName: 'Roteiro Comercial',
         RouteId: 'Roteiro@Index'
     })
+    .when('/Breaks', {
+        templateUrl: 'view/Composicao_Break.html',
+        controller: 'Composicao_Break_Controller',
+        authorize: true,
+        routeName: 'Composicao de Breaks',
+        RouteId: 'Roteiro@Break'
+    })
     .otherwise({ redirectTo: "/blank" })
 
 });

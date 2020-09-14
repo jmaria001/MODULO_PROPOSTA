@@ -221,7 +221,7 @@
 
             }
             else {
-                ShowAlert(response.data[0].Mensagem, "warn+ing");
+                ShowAlert(response.data[0].Mensagem, "warning");
             }
         });
 

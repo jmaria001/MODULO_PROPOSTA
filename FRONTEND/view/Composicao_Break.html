@@ -1,0 +1,402 @@
+﻿
+<style>
+    .TipoArtistico {
+        background-color: seagreen;
+        display: inline-block;
+        width: 100px;
+    }
+
+    .TipoLocal {
+        background-color: dodgerblue;
+        display: inline-block;
+        width: 100px;
+    }
+
+    .TipoAvulso {
+        background-color: dodgerblue;
+        display: inline-block;
+        width: 100px;
+    }
+
+    .TipoPE {
+        background-color: purple;
+        display: inline-block;
+        width: 100px;
+    }
+
+    .TipoNet {
+        background-color: deeppink;
+        display: inline-block;
+        width: 100px;
+    }
+</style>
+<div class="container" id="divContainer">
+    <form name="frmBreak" autocomplete="off">
+        <!--=======================Filtro-->
+        <div class="block" id="divFiltro" ng-show="ShowFilter">
+            <div class="row">
+                <!--=======================Veiculo-->
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Veiculo">
+                        <input id="txtCodVeiculo" class="form-control"
+                               ng-model="Filtro.Cod_Veiculo"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodVeiculo')"
+                               primarybind="txtCodVeiculo"
+                               ng-required="true"
+                               secondarybind="txtNomeVeiculo">
+                    </div>
+                </div>
+                <div class="col-md-3 hidden-mobile">
+                    <div class="form-group">
+                        <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="Filtro.Nome_Veiculo">
+                        </div>
+                    </div>
+                </div>
+                <!--==============================================Data Exibicao-->
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Data" caption="Data Exibicao">
+                        <input ng-model="Filtro.Data_Exibicao" ng-required="true"
+                               ui-date ng-model-options="{updateOn: 'blur'}">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="Filtro.Data_Exibicao"></div>
+                    </div>
+                </div>
+                <!--=======================Programa-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <!--<div class="dictionary" dictionary="Programa">
+                        <input id="txtCodPrograma" class="form-control"
+                               style="text-transform:uppercase"
+                               ng-model="Filtro.Cod_Programa"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodPrograma')"
+                               primarybind="txtCodPrograma"
+                               secondarybind="txtNomePrograma">
+                    </div>-->
+                    <div class="form-group">
+                        <label for="txtCodPrograma" class="field-x">Programa</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="fa fa-search span-btn" ng-click="SelecionarPrograma(Filtro)"></span>
+                            </div>
+                            <input ng-model="Filtro.Cod_Programa"
+                                   class="form-control"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   style="text-transform:uppercase"
+                                   ng-change="ProgramaChange(Filtro)"
+                                   ng-required="true"
+                                   maxlength="4">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 hidden-mobile">
+                    <div class="form-group">
+                        <label for="txtNomePrograma" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomePrograma" class="form-control " ng-model="Filtro.Nome_Programa">
+                        </div>
+                    </div>
+                </div>
+                <!---==============================================Carregar Breaks-->
+                <div class="col-md-4" style="margin-top:33px">
+                    <button type="submit" class="btn btn-success" ng-click="CarregarListaBreaks(Filtro)" ng-disabled="frmBreak.$invalid">Carregar Breaks</button>
+                </div>
+            </div>
+        </div>
+        <!--=========================Table-->
+        <div class="block" ng-show="ShowGrid">
+            <div class="row hidden-mobile">
+                <div class="col-md-4">
+                    <label class="form-control">
+                        Veiculo:{{Filtro.Cod_Veiculo}}
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-control">
+                        Data:{{Filtro.Data_Exibicao}}
+                    </label>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-control">
+                        Programa:{{Filtro.Cod_Programa}}
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <th style="text-align:center">Break</th>
+                                    <th style="text-align:center">Horario</th>
+                                    <th>Título</th>
+                                    <th style="text-align:center">Intervalo</th>
+                                    <th style="text-align:center">Duração</th>
+                                    <th style="text-align:center">Observação</th>
+                                    <th></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="b in Breaks.Composicao | orderBy:['Id_Composicao']">
+                                    <td style="width:50px">
+                                        <span class="fa fa-edit fa-crud span-btn" ng-click="EditarBreak(b,'Alteracao')"></span>
+                                    </td>
+                                    <td style="text-align:center">{{b.Breaks}}</td>
+                                    <td style="text-align:center">{{b.Hora_Inicio}}</td>
+                                    <td>{{b.Titulo_Break}}</td>
+                                    <td style="text-align:center">
+                                        <label ng-class="{'label TipoLocal':b.Tipo_Break.Codigo==0,'label TipoNet':b.Tipo_Break.Codigo==1,'label TipoArtistico':b.Tipo_Break.Codigo==2,'label TipoPE':b.Tipo_Break.Codigo==3}">
+                                            {{b.Tipo_Break.Descricao}}
+                                        </label>
+                                    </td>
+                                    <td style="text-align:center">{{b.Duracao}}</td>
+                                    <td>{{b.Observacao}}</td>
+                                    <td style="width:20px;white-space:nowrap;text-align:center;padding:0px">
+                                        <span class="fa fa-arrow-up span-btn"
+                                              style="font-size:15px"
+                                              data-toggle="tooltip"
+                                              data-placement="top"
+                                              title="Mover para cima"
+                                              ng-show="item.Cod_Veiculo == item.Cod_Veiculo_Origem"
+                                              ng-click="MoverIntervalo(b,-1)"></span>
+                                    </td>
+                                    <td style="width:20px;white-space:nowrap;text-align:center;padding:0px">
+                                        <span class="fa fa-arrow-down span-btn"
+                                              style="font-size:15px"
+                                              data-toggle="tooltip"
+                                              data-placement="top"
+                                              title="Mover para baixo"
+                                              ng-show="item.Cod_Veiculo == item.Cod_Veiculo_Origem"
+                                              ng-click="MoverIntervalo(b,1)"></span>
+                                    </td>
+                                    <td style="width:50px">
+                                        <span class="fa fa-trash fa-crud span-btn" ng-click="ExcluirBreak(b)"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--========================botoes de acoes-->
+            <div class="fixed-buttons-bottom">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-default" ng-click="AdicionarBreak(Filtro)">Adicionar Break</button>
+                        <button type="button" class="btn btn-success" ng-click="ShowGrid=false;ShowGravacao=true">Salvar Alterações</button>
+                        <button type="button" class="btn btn-warning" ng-click="NovoFiltro()">Cancela</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--=========================Edicao/Exclusao/Inclusao Break-->
+        <div class="row" ng-show="ShowEdit">
+            <div class="col-md-8 col-lg-offset-2">
+                <div class="block">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="txtBreak" class="field-x">Break</label>
+                                <select class="form-control"
+                                        ng-model="Temp_Break.Breaks"
+                                        ng-model-options="{updateOn: 'blur'}"
+                                        id="txtBreak"
+                                        ng-change="ChangeBreak(Temp_Break)"
+                                        ng-disabled="Operacao=='Alteracao'"
+                                        ng-options="opt as opt for opt in ListaBreaks"></select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="txtDuracao" class="field-x">Duracao</label>
+                                <input id="txtDuracao" 
+                                       class="form-control numeric" 
+                                       ng-model="Temp_Break.Duracao" 
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       maxlength="4" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="txtHorario" class="field-x">Horário Início</label>
+                                <input id="txtHorario" 
+                                       class="form-control time" 
+                                       ng-model="Temp_Break.Hora_Inicio" 
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       maxlength="6" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="txtIntervalo" class="field-x">Intervalo</label>
+                                <select class="form-control"
+                                        ng-model="Temp_Break.Tipo_Break"
+                                        ng-model-options="{updateOn: 'blur'}"
+                                        id="txtIntervalo"
+                                        ng-disabled="Operacao=='Alteracao'"
+                                        ng-options="Intervalo as Intervalo.Descricao for Intervalo in Intervalo">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="txtSequencia" class="field-x">Sequencia</label>
+                                <select class="form-control"
+                                        ng-model="Temp_Break.Sequencia"
+                                        ng-model-options="{updateOn: 'blur'}"
+                                        id="txtSequencia"
+                                        ng-disabled="Operacao=='Alteracao'"
+                                        ng-options="opt as opt for opt in ListaSequencias"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="txtTitulo" class="field-x">Título do Break</label>
+                                <input id="txtTitulo" 
+                                       class="form-control" 
+                                       ng-model="Temp_Break.Titulo_Break" 
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       maxlength="50" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="txtObs" class="field-x">Observação</label>
+                                <textarea id="txtObs" 
+                                          class="form-control" 
+                                          ng-model="Temp_Break.Observacao" 
+                                          ng-model-options="{updateOn: 'blur'}"
+                                          maxlength="60" 
+                                          style="height:120px" />
+                            </div>
+                        </div>
+                    </div>
+                    <!--==============================================Botao edicao-->
+                    <div class="row margin-top-20">
+                        <div class="col-md-12">
+                            <button  type="button" class="btn btn-success" ng-click="InsertBreak(Temp_Break)" ng-show="Operacao=='Inclusao'">Ok</button>
+                            <button  type="button" class="btn btn-success" ng-click="UpdateBreak(Temp_Break)" ng-show="Operacao=='Alteracao'">Ok</button>
+                            <button  type="button" class="btn btn-warning" ng-click="CancelaEdicao()">Cancela</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--=========================Informa Periodo para Gravacao-->
+        <div class="row" ng-show="ShowGravacao">
+            <div class="col-md-6 col-lg-offset-3">
+                <div class="block">
+                    <div class="row">
+                        <!--==============================================Data Inicio Propagacao-->
+                        <div class="col-md-5">
+                            <div class="dictionary" dictionary="Data" caption="Propagar no Período: De ">
+                                <input ng-model="Breaks.Data_Inicio_Propagacao"
+                                       ui-date ng-model-options="{updateOn: 'blur'}">
+                                <div class="dictionary-ui-calendar" ui-calendar typdate="Breaks.Data_Inicio_Propagacao"></div>
+                            </div>
+                        </div>
+                        <!--==============================================Data Fim Propagacao-->
+                        <div class="col-md-5">
+                            <div class="dictionary" dictionary="Data" caption="Até">
+                                <input ng-model="Breaks.Data_Fim_Propagacao"
+                                       ui-date ng-model-options="{updateOn: 'blur'}">
+                                <div class="dictionary-ui-calendar" ui-calendar typdate="Breaks.Data_Fim_Propagacao"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-2" style="margin-top:35px">
+                            <button  type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Ultimo dia de Break" ng-click="RefreshData(Breaks)"><span class="fa fa-refresh"></span></button>
+                        </div>
+                    </div>
+                        <!--=============================Dias da Semana-->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="txtDiaSemana" class="field-x">Dias da Semana</label>
+                            <div class="form-control" name="txtDiaSemana">
+                                <div class="app-checkbox" style="width:70px;margin-top:5px;">
+                                    <label><input type="checkbox" ng-model="Breaks.Grade_Domingo" name="app-checkbox-1">DOM<span></span></label>
+                                </div>
+                                <div class="app-checkbox" style="width:70px;margin-top:5px;">
+                                    <label><input type="checkbox" ng-model="Breaks.Grade_Segunda" name="app-checkbox-1">SEG<span></span></label>
+                                </div>
+                                <div class="app-checkbox" style="width:70px;margin-top:5px;">
+                                    <label><input type="checkbox" ng-model="Breaks.Grade_Terca" name="app-checkbox-1">TER<span></span></label>
+                                </div>
+                                <div class="app-checkbox" style="width:70px;margin-top:5px;">
+                                    <label><input type="checkbox" ng-model="Breaks.Grade_Quarta" name="app-checkbox-1">QUA<span></span></label>
+                                </div>
+                                <div class="app-checkbox" style="width:70px;margin-top:5px;">
+                                    <label><input type="checkbox" ng-model="Breaks.Grade_Quinta" name="app-checkbox-1">QUI<span></span></label>
+                                </div>
+                                <div class="app-checkbox" style="width:70px;margin-top:5px;">
+                                    <label><input type="checkbox" ng-model="Breaks.Grade_Sexta" name="app-checkbox-1">SEX<span></span></label>
+                                </div>
+                                <div class="app-checkbox" style="width:70px;margin-top:5px;">
+                                    <label><input type="checkbox" ng-model="Breaks.Grade_Sabado" name="app-checkbox-1">SAB<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--==============================================Botao confirma gravacao-->
+                    <div class="row margin-top-20">
+                        <div class="col-md-12">
+                            <button  type="button" class="btn btn-success" ng-click="GravarBreak(Breaks)" ng-disabled="!Breaks.Data_Inicio_Propagacao || !Breaks.Data_Fim_Propagacao">Confirmar Gravação</button>
+                            <button  type="button" class="btn btn-warning" ng-click="ShowGrid=true;ShowGravacao=false">Cancela</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--========================Status da Gravacao-->
+        <div class="row" ng-show="ShowStatus>0">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="block">
+                    <div class="table-responsive" style="max-height:400px">
+                        <table class="table table-bordered table table-striped">
+                            <thead>
+                                <tr>
+                                    <th colspan="4" style="background-color:#ededed;text-align:center">
+                                        Status da gravação
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>Programa</th>
+                                    <th>Break</th>
+                                    <th>Intervalo</th>
+                                    <th>Crítica</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="critica in Critica track by $index">
+                                    <td>{{critica.Cod_Programa}}</td>
+                                    <td>{{critica.Breaks}}</td>
+                                    <td>{{Intervalo[critica.Tipo_Break].Descricao}}</td>
+                                    <td>{{critica.Critica}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button  type="button" class="btn btn-warning margin-top-20" ng-click="CriticaOk()">Voltar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $("[type='number']").keypress(function (evt) {
+            evt.preventDefault();
+        });
+    });
+</script>

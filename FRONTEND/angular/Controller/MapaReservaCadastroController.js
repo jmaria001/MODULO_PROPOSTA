@@ -39,6 +39,7 @@
     };
     //===========================Carrega Dados do Contrato para New ou Edit
     $scope.CarregaContrato = function (pIdContrato) {
+        console.log(pIdContrato);
         httpService.Get('MapaReserva/GetContrato/' + pIdContrato).then(function (response) {
             if (response) {
                 $scope.Contrato = response.data;
