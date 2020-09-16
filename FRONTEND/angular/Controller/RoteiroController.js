@@ -144,8 +144,6 @@
             if (pRoteiro[i].Indica_Titulo_Programa) {
                 pRoteiro[i].Encaixe = _total_Encaixe_Programa;
                 pRoteiro[i].Duracao = _total_Duracao_Programa;
-                console.log(_total_Encaixe_Programa);
-                console.log(_total_Duracao_Programa);
                 _totalBreak = 0;
                 _totalArtistico = 0;
                 _totalArtistico;

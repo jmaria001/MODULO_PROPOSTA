@@ -166,8 +166,6 @@
                 $scope.PesquisaTabelas.Titulo = "Seleção de Usuários"
                 $scope.PesquisaTabelas.MultiSelect = true;
                 for (var i = 0; i < $scope.PesquisaTabelas.Items.length; i++) {
-                    console.log($scope.PesquisaTabelas.Items[i].Codigo.trim());
-                    console.log($scope.Ctrl.Login.trim());
                     if ($scope.PesquisaTabelas.Items[i].Codigo.trim()==$scope.Ctrl.Login.trim()) {
                         $scope.PesquisaTabelas.Items.splice(i,1);
                         break;

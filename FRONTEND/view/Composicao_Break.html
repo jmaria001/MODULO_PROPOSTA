@@ -107,21 +107,28 @@
         <!--=========================Table-->
         <div class="block" ng-show="ShowGrid">
             <div class="row hidden-mobile">
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label class="form-control">
-                        Veiculo:{{Filtro.Cod_Veiculo}}
+                        Veiculo:{{Breaks.Cod_Veiculo}}
                     </label>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label class="form-control">
-                        Data:{{Filtro.Data_Exibicao}}
+                        Data:{{Breaks.Data_Exibicao}}
                     </label>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label class="form-control">
-                        Programa:{{Filtro.Cod_Programa}}
+                        Programa:{{Breaks.Cod_Programa}}-{{Breaks.Nome_Programa}}&nbsp;&nbsp;{{Breaks.Hora_Inicio_Programa}}
                     </label>
                 </div>
+                <div class="col-md-5">
+                    <label class="form-control">
+                        Dispo Net:{{Breaks.Dispo_Net}} &nbsp;&nbsp;Local: {{Breaks.Dispo_Local}}
+                    </label>
+
+                </div>
+
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -131,6 +138,7 @@
                                 <tr>
                                     <td></td>
                                     <th style="text-align:center">Break</th>
+                                    <th style="text-align:center">Seq</th>
                                     <th style="text-align:center">Horario</th>
                                     <th>Título</th>
                                     <th style="text-align:center">Intervalo</th>
@@ -147,7 +155,8 @@
                                         <span class="fa fa-edit fa-crud span-btn" ng-click="EditarBreak(b,'Alteracao')"></span>
                                     </td>
                                     <td style="text-align:center">{{b.Breaks}}</td>
-                                    <td style="text-align:center">{{b.Hora_Inicio}}</td>
+                                    <td style="text-align:center">{{b.Sequencia}}</td>
+                                    <td style="text-align:center">{{b.Hora_Inicio | hhmm}}</td>
                                     <td>{{b.Titulo_Break}}</td>
                                     <td style="text-align:center">
                                         <label ng-class="{'label TipoLocal':b.Tipo_Break.Codigo==0,'label TipoNet':b.Tipo_Break.Codigo==1,'label TipoArtistico':b.Tipo_Break.Codigo==2,'label TipoPE':b.Tipo_Break.Codigo==3}">
@@ -204,7 +213,6 @@
                                 <label for="txtBreak" class="field-x">Break</label>
                                 <select class="form-control"
                                         ng-model="Temp_Break.Breaks"
-                                        ng-model-options="{updateOn: 'blur'}"
                                         id="txtBreak"
                                         ng-change="ChangeBreak(Temp_Break)"
                                         ng-disabled="Operacao=='Alteracao'"

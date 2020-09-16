@@ -49,7 +49,7 @@ namespace PROPOSTA
             public Double Valor_Total_Compensacao { get; set; }
             public Int32 Situacao { get; set; }
             public List<Falhas_Model> Falhas { get; set; }
-            public List<Compensacao_Model> Compensacoes{ get; set; }
+            public List<Reencaixe_Model> Compensacoes{ get; set; }
             
 
         }
@@ -67,7 +67,7 @@ namespace PROPOSTA
             public Int32 Qtd_Falhas { get; set; }
 
         }
-        public class Compensacao_Model
+        public class Reencaixe_Model
         {
             public String Cod_Empresa { get; set; }
             public Int32 Numero_Mr { get; set; }
@@ -83,6 +83,7 @@ namespace PROPOSTA
             public Double Valor { get; set; }
             public Int32 Qtd_Compensacao { get; set; }
             public SolucaoModel Solucao { get; set; }
+            public Int32 Chave_Acesso { get; set; }
         }
 
         public class ParamGradeModel
@@ -101,6 +102,9 @@ namespace PROPOSTA
             public String Letra { get; set; }
 
         }
-    }
+
+
+
+        }
 
 }

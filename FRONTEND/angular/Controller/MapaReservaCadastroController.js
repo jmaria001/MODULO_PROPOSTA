@@ -39,7 +39,6 @@
     };
     //===========================Carrega Dados do Contrato para New ou Edit
     $scope.CarregaContrato = function (pIdContrato) {
-        console.log(pIdContrato);
         httpService.Get('MapaReserva/GetContrato/' + pIdContrato).then(function (response) {
             if (response) {
                 $scope.Contrato = response.data;
@@ -694,7 +693,7 @@
             _qtd = pVeiculacao.Qtd_Replicar + 1;
         };
         for (var i = 0; i < pVeiculacao.Insercoes.length; i++) {
-            if (pVeiculacao.Insercoes[i].Tem_Grade) {
+            if (pVeiculacao.Insercoes[i].Tem_Grade && pVeiculacao.Insercoes[i].Valido) {
                 pVeiculacao.Insercoes[i].Qtd = _qtd;
             }
         }
@@ -731,8 +730,10 @@
                             else {
                                 pContrato.Veiculacoes[i].Insercoes[x].Valido = true;
                             };
+                            $scope.fnTotalizaVeiculacao(pContrato.Veiculacoes[i]);
                         };
                     };
+                    
                 };
             };
         }); 

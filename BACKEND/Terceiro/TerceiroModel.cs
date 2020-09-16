@@ -129,7 +129,7 @@ namespace PROPOSTA
             public Int32 Conta_Contabil_Adiantamento { get; set; }
             public Byte Indica_ERP_Integra { get; set; }
             public Byte Indica_Foi_Integrado { get; set; }
-            public Double Comissao_Padrao { get; set; }
+            public String Comissao_Padrao { get; set; }
             public Boolean Permite_Edicao { get; set; }
             public Boolean Base_Edicao { get; set; }
 

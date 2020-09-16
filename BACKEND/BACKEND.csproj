@@ -268,9 +268,9 @@
     <Compile Include="Grade\GradeController.cs" />
     <Compile Include="Grade\GradeModel.cs" />
     <Compile Include="Grade\GradeSql.cs" />
-    <Compile Include="PDF\PacoteDesconto\PacoteDescontoController.cs" />
-    <Compile Include="PDF\PacoteDesconto\PacoteDescontoModel.cs" />
-    <Compile Include="PDF\PacoteDesconto\PacoteDecontoSql.cs" />
+    <Compile Include="PacoteDesconto\PacoteDescontoController.cs" />
+    <Compile Include="PacoteDesconto\PacoteDescontoModel.cs" />
+    <Compile Include="PacoteDesconto\PacoteDecontoSql.cs" />
     <Compile Include="Mercado\MercadoController.cs" />
     <Compile Include="Mercado\MercadoModel.cs" />
     <Compile Include="Mercado\MercadoSql.cs" />

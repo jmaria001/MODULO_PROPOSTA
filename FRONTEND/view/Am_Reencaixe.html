@@ -1,0 +1,96 @@
+﻿<div class="container">
+    <div class="block">
+        <form id="Am_Reencaixe" autocomplete="off">
+            <!--==============================================Grid -->
+
+            <div class="alert alert-primary alert-icon-block" role="alert">
+                <div class="alert-icon">
+                    <span class="fa fa-check-circle"></span>
+                </div>
+
+                <strong>
+                    Reencaixe
+                    <span class="pull-right"> Contrato:{{Parameters.Cod_Empresa}}-{{Parameters.Numero_Mr}}-{{Parameters.Sequencia_Mr}} &nbsp;&nbsp;&nbsp;Documento Para: {{Parameters.Numero_Docto}}  &nbsp;&nbsp;&nbsp;Veiculo: {{Parameters.Cod_Veiculo}}&nbsp;&nbsp;&nbsp;Competencia: {{Parameters.Competencia}} </span>
+                </strong>
+            </div>
+
+            <div class="box table-responsive " style="min-height:600px" ng-show="CurrentShow=='Grid'">
+
+                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Data</th>
+                            <th>Programa</th>
+                            <th>Com.</th>
+                            <th>Titulo</th>
+                            <th>Dur.</th>
+                            <th>Documento</th>
+                            <th>Qualidade</th>
+                            <th>Valor</th>
+                            <th>CH.Acesso</th>
+                            <th  ng-hide="!PermissaoMostraVeiculo">Veiculo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="amr in Amrs track by $index" on-finish-render="ngRepeatFinished()">
+
+                            <td>
+                                <input type="checkbox" name="SelReencaixe" ng-model="amr.Selected" ng-click="CheckReencaixe(amr)" />
+                            </td>
+
+                            <td>{{::amr.Data_Exibicao}}</td>
+                            <td>{{::amr.Cod_Programa}}</td>
+                            <td>{{::amr.Cod_Comercial}}</td>
+                            <td>{{::amr.Titulo_Comercial}}</td>
+                            <td>{{::amr.Duracao}}</td>
+                            <td>{{::amr.Documento_Para}}</td>
+                            <td>{{::amr.Cod_Qualidade}}</td>
+                            <td>{{::amr.Valor}}</td>
+                            <td>{{::amr.Chave_Acesso}}</td>
+                            <td  ng-hide="!PermissaoMostraVeiculo">{{::amr.Cod_Veiculo}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+    <!--=============================Botoes-->
+    <div class="fixed-buttons-bottom">
+        <div class="row">
+            <div class="col-md-6">
+
+                <!--<label><input type="checkbox" name="app-checkbox-1" ng-model="checkBoxReencaixe" ng-click="MarcaReencaixe()"/>Marcar/Desmarcar Todos<span></span></label>-->
+                <btn class="btn btn-success btn-sm" ng-click="EfetuarReencaixe(Amrs)">Reencaixar</btn>
+
+                <a href="#ConsultaAM" class="btn btn-warning  btn-sm">Voltar</a>
+                <div class="form-group margin-right-10" style="width:auto">
+                    <div class="input-group">
+                        <div class="app-checkbox">
+                            <label style="color:#fff"><input type="checkbox" name="app-checkbox-1" ng-model="checkBoxReencaixe" ng-click="MarcaReencaixe()" /> Marcar/Desmarcar Todos<span></span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="form-group">
+        <div class="input-group">
+            <div class="app-checkbox">
+                <label><input type="checkbox" name="app-checkbox-1" ng-model="checkBoxPerfil" ng-click="MarcarPerfil()" /> Marcar/Desmarcar Todos<span></span></label>
+            </div>
+        </div>
+    </div>-->
+
+
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+
+    });
+
+</script>

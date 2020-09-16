@@ -119,6 +119,7 @@ namespace PROPOSTA
         public class BreakModel
         {
             public String Cod_Programa { get; set; }
+            public String Nome_Programa { get; set; }
             public String Cod_Veiculo { get; set; }
             public String Data_Exibicao { get; set; }
             public String Data_Inicio_Propagacao { get; set; }
@@ -131,6 +132,9 @@ namespace PROPOSTA
             public Boolean Grade_Quinta { get; set; }
             public Boolean Grade_Sexta { get; set; }
             public Boolean Grade_Sabado{ get; set; }
+            public String Hora_Inicio_Programa{ get; set; }
+            public Int32 Dispo_Net { get; set; }
+            public Int32 Dispo_Local{ get; set; }
 
             public List<ComposicaoBreakModel> Composicao { get; set; }
         }
@@ -152,7 +156,19 @@ namespace PROPOSTA
             public Int32 Codigo { get; set; }
             public String Descricao { get; set; }
         }
-
+        public class FiltroPreOrdModel
+        {
+            public String Veiculo { get; set; }
+            public String Data { get; set; }
+            public Boolean Indica_Somente_Prg { get; set; }
+            public Boolean Indica_Todos_Prgs { get; set; }
+            public String Programa { get; set; }
+            public Boolean Indica_PreOrdenar_Rotativos { get; set; }
+            public Boolean Indica_PreOrdenar_Vinhetas { get; set; }
+            public Boolean Indica_Evitar_Choque_Produtos { get; set; }
+            public Boolean Indica_Evitar_Choque_Apresent { get; set; }
+            public Boolean Indica_Nao_Colar_Comerciais { get; set; }
+        }
 
     }
 

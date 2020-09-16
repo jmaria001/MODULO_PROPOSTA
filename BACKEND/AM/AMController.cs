@@ -30,10 +30,34 @@ namespace PROPOSTA
             }
         }
 
+        [Route("api/AM/AmReencaixe")]
+        [HttpGet]
+        [ActionName("AmReencaixe")]
+        [Authorize()]
+        public IHttpActionResult AmReencaixe([FromUri]AM.Reencaixe_Model Param)
+        {
+            SimLib clsLib = new SimLib();
+            AM Cls = new AM(User.Identity.Name);
+            try
+            {
+                DataTable Retorno = Cls.AmReencaixe(Param);
+                return Ok(Retorno);
+
+
+
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+
         [Route("api/Am/ReabrirAM")]
         [HttpPost]
         [Authorize()]
-        public IHttpActionResult ReabrirAM([FromBody]  AM.Compensacao_Model Param)
+        public IHttpActionResult ReabrirAM([FromBody]  AM.Reencaixe_Model Param)
         {
             SimLib clsLib = new SimLib();
             try
@@ -49,10 +73,7 @@ namespace PROPOSTA
             }
         }
 
-
-
-
-
+                     
 
         [Route("api/AMFalhas")]
         [HttpGet]
@@ -131,7 +152,7 @@ namespace PROPOSTA
         [HttpPost]
         [ActionName("AMSalvarCompensacao")]
         [Authorize()]
-        public IHttpActionResult AMSalvarCompensacao([FromBody] AM.Compensacao_Model Param)
+        public IHttpActionResult AMSalvarCompensacao([FromBody] AM.Reencaixe_Model Param)
         {
             SimLib clsLib = new SimLib();
             AM Cls = new AM(User.Identity.Name);
@@ -154,7 +175,7 @@ namespace PROPOSTA
         [HttpPost]
         [ActionName("AmSolucao")]
         [Authorize()]
-        public IHttpActionResult AmSolucao([FromBody] AM.Compensacao_Model Param)
+        public IHttpActionResult AmSolucao([FromBody] AM.Reencaixe_Model Param)
         {
             SimLib clsLib = new SimLib();
             AM Cls = new AM(User.Identity.Name);
@@ -181,7 +202,7 @@ namespace PROPOSTA
         [ActionName("ExcluirCompensacao")]
         [Authorize()]
 
-        public IHttpActionResult ExcluirPrograma([FromBody] AM.Compensacao_Model pCompensacao)
+        public IHttpActionResult ExcluirPrograma([FromBody] AM.Reencaixe_Model pCompensacao)
         {
             SimLib clsLib = new SimLib();
             AM Cls = new AM(User.Identity.Name);
@@ -196,6 +217,32 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
+
+
+        //===========================Excluir Programa
+
+        [Route("api/AM/EfetuarReencaixe")]
+        [HttpPost]
+        [ActionName("EfetuarReencaixe")]
+        [Authorize()]
+
+        public IHttpActionResult EfetuarReencaixe([FromBody] List<AM.Reencaixe_Model> pReencaixe)
+        {
+            SimLib clsLib = new SimLib();
+            AM Cls = new AM(User.Identity.Name);
+            try
+            {
+                Boolean retorno = Cls.EfetuarReencaixe(pReencaixe);
+                return Ok(retorno);
+
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
 
     }
  }

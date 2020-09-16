@@ -637,6 +637,13 @@
         routeName: 'Compensação de Falhas',
         RouteId: 'Am@Compensacao'
     })
+        .when('/Am_Reencaixe/:Cod_Empresa/:Numero_Mr/:Sequencia_Mr/:Numero_Docto/:Competencia/:Cod_Veiculo', {
+            templateUrl: 'view/Am_Reencaixe.html',
+            controller: 'Am_ReencaixeController',
+            authorize: true,
+            routeName: 'Manutenção de Am',
+            RouteId: 'Am@Reencaixe'
+        })
     .when('/Roteiro', {
         templateUrl: 'view/Roteiro.html',
         controller: 'RoteiroController',
@@ -644,6 +651,14 @@
         routeName: 'Roteiro Comercial',
         RouteId: 'Roteiro@Index'
     })
+    .when('/PreOrdenacao', {
+        templateUrl: 'view/PreOrdenacao.html',
+        authorize: true,
+        controller: 'PreOrdenacaoController',
+        routeName: 'Pré-Ordenação do Roteiro',
+        RouteId: 'Roteiro@Pre_Ordenacao'
+    })
+
     .when('/Breaks', {
         templateUrl: 'view/Composicao_Break.html',
         controller: 'Composicao_Break_Controller',

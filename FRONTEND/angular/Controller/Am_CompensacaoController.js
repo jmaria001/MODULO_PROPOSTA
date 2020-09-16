@@ -193,7 +193,6 @@
 
     //=======================Salvar a Compensação
     $scope.SalvarCompensacao = function (pParam) {
-        console.log(pParam);
         var _url = "AM/SalvarCompensacao"
         var _data = {
             'Cod_Empresa': $scope.Parameters.Cod_Empresa,
@@ -284,6 +283,25 @@
         });
 
     };
+    //=============================Consistencia da data da compensacao
+    $scope.$watch('Compensacao_Temp.Data_Exibicao', function (newValue, OldValue) {
+        if (!newValue) {
+            return;
+        };
+        if (!$scope.Compensacao_Temp.Competencia) {
+            ShowAlert("Informe competência antes de digitar a data de compensação ")
+            $scope.Compensacao_Temp.Data_Exibicao = "";
+            return;
+        };
+        _mmCompetencia = parseInt($scope.Compensacao_Temp.Competencia.substr(0, 2));
+        _yyCompetencia = parseInt($scope.Compensacao_Temp.Competencia.substr(3, 4));
+        _mmData = parseInt($scope.Compensacao_Temp.Data_Exibicao.substr(3, 2));
+        _yyData = parseInt($scope.Compensacao_Temp.Competencia.substr(6, 4));
+        if (_mmCompetencia !=_mmData || _yyCompetencia !=_yyData) {
+            ShowAlert("Data para compensação está fora da competencia")
+            $scope.Compensacao_Temp.Data_Exibicao = "";
+        };
+    });
     //=============================Encerrarmento da Am
     $scope.EncerrarAm = function (pCompensacao) {
         $scope.Solucao = [];
@@ -304,12 +322,12 @@
     $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
         $scope.RepeatFinished();
     });
+
     //===========================fim do load da pagina
     $scope.$watch('$viewContentLoaded', function () {
 
         $scope.CarregarFalhasCompensacao();
     });
-
 
 }]);
 

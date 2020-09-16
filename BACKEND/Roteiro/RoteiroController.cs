@@ -190,6 +190,47 @@ namespace PROPOSTA
             }
         }
 
+        [Route("api/Roteiro/PreOrdenar")]
+        [HttpPost]
+        [ActionName("PreOrdenar")]
+        [Authorize()]
+        public IHttpActionResult PreOrdenar([FromBody] Roteiro.FiltroPreOrdModel Roteiro)
+        {
+            SimLib clsLib = new SimLib();
+            Roteiro Cls = new Roteiro(User.Identity.Name);
+            try
+            {
+                DataTable retorno = Cls.PreOrdenar(Roteiro);
+                return Ok(retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/Roteiro/ExisteRoteiroOrdenado")]
+        [HttpGet]
+        [ActionName("ExisteRoteiroOrdenado")]
+        [Authorize()]
+        public IHttpActionResult ExisteRoteiroOrdenado([FromUri] Roteiro.FiltroPreOrdModel Roteiro)
+        {
+            SimLib clsLib = new SimLib();
+            Roteiro Cls = new Roteiro(User.Identity.Name);
+            try
+            {
+                Boolean Retorno = Cls.ExisteRoteiroOrdenado(Roteiro);
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+
     }
 
 }

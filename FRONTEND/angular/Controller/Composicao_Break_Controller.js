@@ -1,4 +1,4 @@
-﻿angular.module('App').controller('Composicao_Break_Controller', ['$scope', '$rootScope', '$location', 'httpService', '$location', function ($scope, $rootScope, $location, httpService, $location, $routeParams) {
+﻿angular.module('App').controller('Composicao_Break_Controller', ['$scope', '$rootScope', '$location', 'httpService', '$filter', function ($scope, $rootScope, $location, httpService, $filter, $routeParams) {
 
 
     //====================Inicializa scopes
@@ -18,7 +18,7 @@
 
 
     $scope.NewFiltro = function(){
-        return { 'Cod_Veiculo': '', 'Nome_Veiculo': '', 'Data_Exibicao': '', 'Cod_Programa': '', 'Nome_Programa': '', 'Data_Inicio': '', 'Data_Fim': '' }
+        return { 'Cod_Veiculo': '011', 'Nome_Veiculo': '', 'Data_Exibicao': '2020-09-15', 'Cod_Programa': 'JMEI', 'Nome_Programa': '', 'Data_Inicio': '', 'Data_Fim': '' }
     };
     $scope.Filtro = $scope.NewFiltro();
     //====================Carrega Table de Breaks
@@ -249,6 +249,9 @@
                 _seq = $scope.Breaks.Composicao[i].Sequencia;
                 if ($scope.ListaSequencias.indexOf(_seq) == -1) {
                     $scope.ListaSequencias.push(_seq);
+                }
+                if ($scope.Breaks.Composicao[i].Hora_Inicio) {
+                    pBreak.Hora_Inicio = $filter('hhmm')($scope.Breaks.Composicao[i].Hora_Inicio)
                 }
             };
         };

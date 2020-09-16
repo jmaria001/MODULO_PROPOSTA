@@ -56,9 +56,53 @@ namespace PROPOSTA
             }
             return dtb;
         }
+
+        //Definindo Reencaixe de AM
+
+        public DataTable AmReencaixe(Reencaixe_Model Param)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_AmReencaixe_List");
+                Adp.SelectCommand = cmd;
+                if (String.IsNullOrEmpty(Param.Competencia))
+                {
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia", DBNull.Value);
+                }
+                else
+                {
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia", clsLib.CompetenciaInt(Param.Competencia));
+                }
+
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Empresa", Param.Cod_Empresa);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Numero_Mr", Param.Numero_Mr);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Sequencia_Mr", Param.Sequencia_Mr);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Numero_Docto", Param.Documento_Para);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Veiculo", Param.Cod_Veiculo);
+
+                Adp.Fill(dtb);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
+
+
         // Definindo reabertura de AM
 
-        public DataTable ReabrirAM(AM.Compensacao_Model Param)
+        public DataTable ReabrirAM(AM.Reencaixe_Model Param)
         {
             DataTable dtb = new DataTable();
             clsConexao cnn = new clsConexao(this.Credential);
@@ -184,13 +228,13 @@ namespace PROPOSTA
         }
 
         // Lista de Compensaçoes
-        private List<Compensacao_Model> AddCompensacoes(String Cod_Empresa, String Documento_Para, Int32 Numero_Mr, Int32 Sequencia_Mr)
+        private List<Reencaixe_Model> AddCompensacoes(String Cod_Empresa, String Documento_Para, Int32 Numero_Mr, Int32 Sequencia_Mr)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
             SqlDataAdapter Adp = new SqlDataAdapter();
             DataTable dtb = new DataTable("dtb");
-            List<Compensacao_Model> ListaCompensacoes = new List<Compensacao_Model>();
+            List<Reencaixe_Model> ListaCompensacoes = new List<Reencaixe_Model>();
             try
             {
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "Sp_Am_Compensacao");
@@ -205,7 +249,7 @@ namespace PROPOSTA
                 {
                     Qtd_Total_Compensacao+= drw["Qtd"].ToString().ConvertToInt32();
                     Valor_Total_Compensacao += drw["Valor"].ToString().ConvertToDouble();
-                    ListaCompensacoes.Add(new Compensacao_Model()
+                    ListaCompensacoes.Add(new Reencaixe_Model()
                     {
                         Cod_Programa = drw["Cod_Programa"].ToString(),
                         Data_Exibicao = drw["Data_Exibicao"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy"),
@@ -292,7 +336,7 @@ namespace PROPOSTA
             return dtb;
         }
 
-        public DataTable AMFalhaSalvar(Compensacao_Model Param)
+        public DataTable AMFalhaSalvar(Reencaixe_Model Param)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
@@ -336,7 +380,7 @@ namespace PROPOSTA
         }
 
 
-        public DataTable GravarSolucaoCompensacaoFalhaSalvar(Compensacao_Model Param)
+        public DataTable GravarSolucaoCompensacaoFalhaSalvar(Reencaixe_Model Param)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
@@ -368,7 +412,7 @@ namespace PROPOSTA
         }
 
 
-        public DataTable ExcluirCompensacao(Compensacao_Model pCompensacao)
+        public DataTable ExcluirCompensacao(Reencaixe_Model pCompensacao)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
@@ -400,6 +444,47 @@ namespace PROPOSTA
                 cnn.Close();
             }
             return dtb;
+        }
+
+
+        //==========================Efetuar reencaixe
+
+        public Boolean EfetuarReencaixe(List<Reencaixe_Model> pReencaixe)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            //SqlDataAdapter Adp = new SqlDataAdapter();
+            //DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            Boolean Retorno = true;
+            try
+            {
+                for (int i = 0; i < pReencaixe.Count; i++)
+                {
+                    SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Am_Reencaixe");
+                    //Adp.SelectCommand = cmd;
+                    cmd.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                    cmd.Parameters.AddWithValue("@Par_Cod_Veiculo", pReencaixe[i].Cod_Veiculo);
+                    cmd.Parameters.AddWithValue("@Par_Data_Exibicao", pReencaixe[i].Data_Exibicao.ConvertToDatetime());
+                    cmd.Parameters.AddWithValue("@Par_Cod_Programa", pReencaixe[i].Cod_Programa);
+                    cmd.Parameters.AddWithValue("@Par_Chave_Acesso", pReencaixe[i].Chave_Acesso);
+                    cmd.Parameters.AddWithValue("@Par_Cod_Empresa", pReencaixe[i].Cod_Empresa);
+                    cmd.Parameters.AddWithValue("@Par_Numero_Mr", pReencaixe[i].Numero_Mr);
+                    cmd.Parameters.AddWithValue("@Par_Sequencia_Mr", pReencaixe[i].Sequencia_Mr);
+                    cmd.ExecuteNonQuery();
+                    cmd.Dispose();
+                }
+            }
+            catch (Exception Ex)
+            {
+                Retorno = false;
+                throw new Exception(Ex.Message);
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Retorno;
         }
 
 

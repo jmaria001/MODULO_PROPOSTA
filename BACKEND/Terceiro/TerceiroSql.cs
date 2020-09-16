@@ -136,6 +136,7 @@ namespace PROPOSTA
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Telefone_Contato_Compl_1", pTerceiro.Complementar[IBaseComplementar].Telefone_Contato_Compl_1);
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Telefone_Contato_Compl_2", pTerceiro.Complementar[IBaseComplementar].Telefone_Contato_Compl_2);
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Email_Contato_Compl", pTerceiro.Complementar[IBaseComplementar].Email_Contato_Compl);
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Comissao_Padrao", pTerceiro.Complementar[IBaseComplementar].Comissao_Padrao);
                 }
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Empresas", xmlEmpresas);
                 Adp.Fill(dtb);
@@ -314,7 +315,7 @@ namespace PROPOSTA
                         Bco_Conta_Corrente_DV = drw["Bco_Conta_Corrente_DV"].ToString().TrimEnd(),
                         Conta_Contabil_Passivo = drw["Conta_Contabil_Passivo"].ToString().ConvertToInt32(),
                         Conta_Contabil_Adiantamento = drw["Conta_Contabil_Adiantamento"].ToString().ConvertToInt32(),
-                        Comissao_Padrao = drw["Comissao_Padrao"].ToString().ConvertToDouble(),
+                        Comissao_Padrao = drw["Comissao_Padrao"].ToString().ConvertToPercent(),
                         Permite_Edicao = drw["Permite_Edicao"].ToString().ConvertToBoolean(),
                     });
                 }

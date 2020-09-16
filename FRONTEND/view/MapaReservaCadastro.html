@@ -84,7 +84,7 @@
                                    maxlength="10"
                                    ng-disabled="!Contrato.Editar_Negociacao || Contrato.Comprovado"
                                    ng-change="NegociacaoChange(Contrato.Numero_Negociacao)" />
-                            <div class="input-group-addon" ng-show="Parameters.Action=='Import'">
+                            <div class="input-group-addon" ng-show="Parameters.Action!='Edit'">
                                 <div class="app-checkbox" style="width:auto;margin-top:5px">
                                     <label>
                                         <input type="checkbox"
@@ -214,6 +214,7 @@
                                    ng-disabled="!Contrato.Editar_Cliente || Contrato.Comprovado"
                                    ng-model-options="{updateOn: 'blur'}"
                                    maxlength="6"
+                                   style="text-transform:uppercase"
                                    ng-change="ValidarNegociacaoTerceiro(Contrato,'cliente','Cod_Cliente','Nome_Cliente')" />
                         </div>
                     </div>
@@ -244,6 +245,7 @@
                                    ng-disabled="!Contrato.Editar_Agencia  || Contrato.Comprovado"
                                    ng-model-options="{updateOn: 'blur'}"
                                    maxlength="6"
+                                   style="text-transform:uppercase"
                                    ng-change="ValidarNegociacaoTerceiro(Contrato,'agencia','Cod_Agencia','Nome_Agencia')" />
                         </div>
                     </div>
@@ -276,6 +278,7 @@
                                    ng-disabled="!Contrato.Editar_Nucleo  || Contrato.Comprovado"
                                    ng-model-options="{updateOn: 'blur'}"
                                    maxlength="7"
+                                   style="text-transform:uppercase"
                                    ng-change="ValidarNegociacaoTerceiro(Contrato,'nucleo','Cod_Nucleo','Nome_Nucleo')" />
                         </div>
                     </div>
@@ -306,6 +309,7 @@
                                    ng-disabled="!Contrato.Editar_Contato  || Contrato.Comprovado"
                                    ng-model-options="{updateOn: 'blur'}"
                                    maxlength="6"
+                                   style="text-transform:uppercase"
                                    ng-change="ValidarNegociacaoTerceiro(Contrato,'contato','Cod_Contato','Nome_Contato')" />
                         </div>
                     </div>
@@ -333,6 +337,7 @@
                                ng-model="Contrato.Cod_Programa"
                                ng-disabled="Contrato.Comprovado"
                                ng-model-options="{updateOn: 'blur'}"
+                               style="text-transform:uppercase"
                                ng-change="DicionaryValidate('txtCodPrograma')"
                                primarybind="txtCodPrograma">
                     </div>
@@ -345,6 +350,7 @@
                                 ng-model="Contrato.Caracteristica_Contrato"
                                 ng-disabled="!Contrato.Editar_Caracteristica_Contrato || Contrato.Comprovado"   
                                 name="txtCaracteristicaContrato"
+                                style="text-transform:uppercase"
                                 ng-options="CaracContrato.Codigo as CaracContrato.Descricao for CaracContrato in CaracContrato"></select>
                     </div>
                 </div>
@@ -394,6 +400,7 @@
                                ng-disabled="!Contrato.Editar_Mercado || Contrato.Indica_Grade<1  || Contrato.Comprovado"
                                ng-model="Contrato.Cod_Mercado"
                                ng-model-options="{updateOn: 'blur'}"
+                               style="text-transform:uppercase"
                                ng-change="MercadoChange(Contrato)"
                                primarybind="txtCodMercado">
                     </div>
@@ -535,7 +542,7 @@
                     <tbody>
                         <tr ng-repeat="comercial in Contrato.Comerciais track by $index">
                             <td style="max-width:50px">
-                                <button class="btn btn-default btn-sm" ng-disabled="comercial.Tem_Veiculacao || Contrato.Comprovado" ng-click="RemoverComercial(Contrato,comercial)">
+                                <button class="btn btn-default btn-sm" ng-disabled="comercial.Tem_Veiculacao || Contrato.Comprovado || !comercial.Cod_Comercial" ng-click="RemoverComercial(Contrato,comercial)">
                                     <span class="fa fa-trash"></span>
                                 </button>
                             </td>

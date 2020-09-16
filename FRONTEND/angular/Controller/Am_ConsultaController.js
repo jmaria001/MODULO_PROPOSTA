@@ -13,7 +13,8 @@
 
     $scope.CompetenciaKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
 
-    $scope.gridheaders = [{ 'title': 'Edit', 'visible': true, 'searchable': false, 'config': false, 'sortable': false },
+    $scope.gridheaders = [{ 'title': 'Botao1', 'visible': true, 'searchable': false, 'config': false, 'sortable': false },
+    { 'title': 'Botao2', 'visible': true, 'searchable': false, 'config': false, 'sortable': false },
     { 'title': 'AM', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
     { 'title': 'Negociação', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
     { 'title': 'Agencia', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
@@ -57,8 +58,12 @@
 
     //====================Permissoes
     $scope.PermissaoReabrir = false;
+    $scope.PermissaoReencaixe= false;
     httpService.Get("credential/AM@Reabrir").then(function (response) {
         $scope.PermissaoReabrir = response.data;
+    });
+    httpService.Get("credential/Am@Reencaixar").then(function (response) {
+        $scope.PermissaoReencaixe = response.data;
     });
 
     //====================Quando terminar carga do grid, torna view do grid visible
@@ -75,6 +80,10 @@
 
     $scope.CarregarMapaReservaCompensacao = function (pFiltro) {
         $scope.Ams = [];
+        if (!pFiltro.Competencia){
+            ShowAlert("Competência é um filtro obrigatório");
+            return ;
+        }
         localStorage.setItem('AmFilter', JSON.stringify($scope.Filtro));
         $scope.CurrentShow = '';
         $('#dataTable').dataTable().fnDestroy();

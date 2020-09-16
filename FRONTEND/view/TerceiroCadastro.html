@@ -496,30 +496,28 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="field-x">Contato Principal</label>
-                        <input style="text-transform:uppercase" type="text" name="txtEmail" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Nome_Contato" maxlength="50" ng-disabled="Parameters.Action=='Dados'"/>
+                        <input style="text-transform:uppercase" type="text" name="txtEmail" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Nome_Contato" maxlength="50" ng-disabled="Parameters.Action=='Dados'" />
+                    </div>
+                </div>
+                <!--===================Email-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="field-x">Email</label>
+                        <input style="text-transform:lowercase" type="text" name="txtEmail" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Email_Contato" maxlength="50" ng-disabled="Parameters.Action=='Dados'" />
                     </div>
                 </div>
                 <!--===================Telefone-->
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="field-x">Telefone 1</label>
-                        <input type="text" name="txtTelefone" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Telefone_Contato_1" maxlength="50" ng-disabled="Parameters.Action=='Dados'"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <!--===================Email-->
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="field-x">Email</label>
-                        <input style="text-transform:lowercase" type="text" name="txtEmail" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Email_Contato" maxlength="50" ng-disabled="Parameters.Action=='Dados'"/>
+                        <input type="text" name="txtTelefone" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Telefone_Contato_1" maxlength="50" ng-disabled="Parameters.Action=='Dados'" />
                     </div>
                 </div>
                 <!--===================Telefone-->
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="field-x">Telefone 2</label>
-                        <input type="text" name="txtTelefone" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Telefone_Contato_2" maxlength="50" ng-disabled="Parameters.Action=='Dados'"/>
+                        <input type="text" name="txtTelefone" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Telefone_Contato_2" maxlength="50" ng-disabled="Parameters.Action=='Dados'" />
                     </div>
                 </div>
 
@@ -529,30 +527,36 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="field-x">Contato Complementar</label>
-                        <input style="text-transform:uppercase" type="text" name="txtEmail" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Nome_Contato_Compl" maxlength="50" ng-disabled="Parameters.Action=='Dados'"/>
+                        <input style="text-transform:uppercase" type="text" name="txtEmail" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Nome_Contato_Compl" maxlength="50" ng-disabled="Parameters.Action=='Dados'" />
+                    </div>
+                </div>
+                <!--===================Email-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="field-x">Email</label>
+                        <input style="text-transform:lowercase" type="text" name="txtEmail" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Email_Contato_Compl" maxlength="50" ng-disabled="Parameters.Action=='Dados'" />
                     </div>
                 </div>
                 <!--===================Telefone-->
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="field-x">Telefone 1</label>
-                        <input type="text" name="txtTelefone" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Telefone_Contato_Compl_1" maxlength="50" ng-disabled="Parameters.Action=='Dados'"/>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <!--===================Email-->
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="field-x">Email</label>
-                        <input style="text-transform:lowercase" type="text" name="txtEmail" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Email_Contato_Compl" maxlength="50" ng-disabled="Parameters.Action=='Dados'"/>
+                        <input type="text" name="txtTelefone" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Telefone_Contato_Compl_1" maxlength="50" ng-disabled="Parameters.Action=='Dados'" />
                     </div>
                 </div>
                 <!--===================Telefone-->
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="field-x">Telefone 2</label>
-                        <input type="text" name="txtTelefone" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Telefone_Contato_Compl_2" maxlength="50" ng-disabled="Parameters.Action=='Dados'"/>
+                        <input type="text" name="txtTelefone" class="form-control" ng-model="Terceiro.Complementar[CurrentEmpresa].Telefone_Contato_Compl_2" maxlength="50" ng-disabled="Parameters.Action=='Dados'" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="field-x">Comissão Padrão</label>
+                        <input type="text" name="txtComissaoPadrao" class="form-control percent" ng-model="Terceiro.Complementar[CurrentEmpresa].Comissao_Padrao" maxlength="10" ng-disabled="Parameters.Action=='Dados'" />
                     </div>
                 </div>
             </div>

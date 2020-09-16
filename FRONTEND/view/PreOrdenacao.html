@@ -1,0 +1,190 @@
+﻿<div class="container">
+    <form name="frmFiltroPreOrdenar" autocomplete="off">
+        <div class="block">
+            <!-------------------------- Filtro - Bloco 1 --------------------------------------->
+            <!-------Linha 1------->
+            <div class="row">
+                <!----- Veiculo ----->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Veiculo" caption="Veiculo">
+                        <input id="txtCodVeiculo"
+                               ng-model="FiltroPreOrd.Veiculo"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodVeiculo')"
+                               primarybind="txtCodVeiculo"
+                               secondarybind="txtNomeVeiculo"
+                               maxlength="3" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="FiltroPreOrd.Nome_Veiculo">
+                        </div>
+                    </div>
+                </div>
+                <!--afasta-->
+                <!--<div class="col-md-1"></div>-->
+                <!----- Data ----->
+                <div class="col-md-3">
+                    <div class="dictionary" dictionary="Data" caption="Data">
+                        <input ng-model="FiltroPreOrd.Data"
+                               ui-date ng-model-options="{updateOn: 'blur'}"
+                               placeholder="Informe a Data">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="FiltroPreOrd.Data"></div>
+                    </div>
+                </div>
+            </div>
+            <!-------------------------- Filtro - Bloco 2 --------------------------------------->
+            <!-------Pula Linhas------->
+            <div class="row">
+                <div class="col-md-1">
+                    <label> </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <label> </label>
+                </div>
+            </div>
+            <!-------Linha 1------->
+            <div class="row">
+                <!----- Parâmetros da Programação ----->
+                <div class="col-md-3">
+                    <div class="form-group field-x">
+                        <label>Parâmetros da Programação</label>
+                        <div class="input-group" style="display:flex">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="FiltroPreOrd.Indica_Somente_Prg" ng-change="SetaPrograma('P')" />Pré-Ordenar Somente o Programa:<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Programa" caption="Programa">
+                        <input id="txtCodPrograma"
+                               ng-model="FiltroPreOrd.Programa"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodPrograma')"
+                               primarybind="txtCodPrograma"
+                               secondarybind="txtTitulo"
+                               maxlength="4" 
+                               style="text-transform:uppercase" 
+                               ng-disabled="FiltroPreOrd.Indica_Todos_Prgs"/>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtTitulo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtTitulo" class="form-control " ng-model="FiltroPreOrd.Titulo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-------Linha 2------->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group field-x">
+                        <div class="input-group" style="display:flex">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="FiltroPreOrd.Indica_Todos_Prgs" ng-change="SetaPrograma('T')" />Pré-Ordenar Todos os Programas<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-------------------------- FiltroPreOrd - Bloco 3 --------------------------------------->
+            <!-------Pula Linhas------->
+            <div class="row">
+                <div class="col-md-1">
+                    <label> </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <label> </label>
+                </div>
+            </div>
+            <!-------Linha 1------->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Outros Parâmetros</label>
+                    </div>
+                </div>
+            </div>
+            <!-------Linha 2------->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="input-group" style="display:flex">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="FiltroPreOrd.Indica_PreOrdenar_Rotativos" />Pré-Ordenar Comerciais Rotativos<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="input-group" style="display:flex">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="FiltroPreOrd.Indica_PreOrdenar_Vinhetas" />Pré-Ordenar Vinhetas de Abertura e Encerramento<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="input-group" style="display:flex">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="FiltroPreOrd.Indica_Evitar_Choque_Produtos" />Evitar Choque de Concorrência de Produtos<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-------Linha 3------->
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="input-group" style="display:flex">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="FiltroPreOrd.Indica_Evitar_Choque_Apresent" />Evitar Choque de Concorrência de Apresentadores<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="input-group" style="display:flex">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="FiltroPreOrd.Indica_Nao_Colar_Comerciais" />Não Colar Comerciais com Apresentadores/Locutores<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--============================================== BOTÕES DO FILTRO ==========================================-->
+            <div class="fixed-buttons-bottom">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-success" ng-disabled="frmFiltroPreOrdenar.$invalid" ng-click="PreOrdenar(FiltroPreOrd)">Pré-Ordenar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
+
+
+
+

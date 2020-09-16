@@ -111,8 +111,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
 
                 <div class="row">
@@ -192,6 +190,7 @@
                     <thead>
                         <tr>
                             <th></th>
+                            <th ng-hide="!PermissaoReencaixe"></th>
                             <th>AM</th>
                             <th>Numero_Negociacao</th>
                             <th>Agencia</th>
@@ -207,6 +206,7 @@
                     <tbody>
                         <tr ng-repeat="am in Ams track by $index" on-finish-render="ngRepeatFinished()">
                             <td style="width:50px; text-align:center">
+
                                 <a class="btn btn-sm btn-primary" ng-show="!am.Solucao" href="#Am_Compensacao/{{am.Cod_Empresa}}/{{am.Numero_MR}}/{{am.Sequencia_MR}}/{{am.Numero_Docto}}/{{am.Cod_Veiculo}}">
                                     Compensar
                                 </a>
@@ -215,6 +215,12 @@
                                 </button>
 
                             </td>
+                            <td ng-hide="!PermissaoReencaixe">
+                                <a data-toggle="tooltip" data-placement="top" title="Reencaixe de Falhas" ng-show="PermissaoReencaixe && !am.Solucao" href="#Am_Reencaixe/{{am.Cod_Empresa}}/{{am.Numero_MR}}/{{am.Sequencia_MR}}/{{am.Numero_Docto}}/{{am.Competencia}}/{{am.Cod_Veiculo}}">
+                                    <span class="fa fa-edit fa-crud"></span>
+                                </a>
+                            </td>
+
                             <td>{{::am.Numero_Docto}}</td>
                             <td>{{::am.Numero_Negociacao}}</td>
                             <td>{{::am.Cod_Agencia}}</td>
@@ -237,5 +243,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         GetDictionary();
+
     });
+    
 </script>

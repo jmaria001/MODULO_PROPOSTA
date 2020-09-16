@@ -238,7 +238,14 @@ function GetDictionary() {
     $(".time").focus(function () {
         this.value = TimeUnformat(this.value);
     });
-
+    
+    $('input[style*="text-transform:uppercase"]').blur(function () {
+        this.value = this.value.toUpperCase();
+        var ctrl = angular.element(this).data('$ngModelController');
+        ctrl.$setViewValue(this.value);
+        ctrl.$commitViewValue();
+    });
+    
 }
 
 
