@@ -93,10 +93,10 @@ namespace PROPOSTA
             FileStream strea = new FileStream(strFile, FileMode.Create);
             Document doc = new Document(PageSize.A4.Rotate());
             PdfWriter write = PdfWriter.GetInstance(doc, strea);
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
             try
             {
-                clsConexao cnn = new clsConexao(this.Credential);
-                cnn.Open();
                 //==================Carrega Dados Gerais
                 DataTable dtb = new DataTable();
                 SqlDataAdapter dta = new SqlDataAdapter();
@@ -129,11 +129,18 @@ namespace PROPOSTA
             }
             finally
             {
-                doc.Close();
-                doc.Dispose();
-                write.Dispose();
-                strea.Dispose();
-
+                cnn.Close();
+                try
+                {
+                    doc.Close();
+                    doc.Dispose();
+                    strea.Dispose();
+                    write.Dispose();
+                }
+                catch (Exception)
+                {
+                    bolRetorno = false;
+                }
             }
             return bolRetorno;
         }

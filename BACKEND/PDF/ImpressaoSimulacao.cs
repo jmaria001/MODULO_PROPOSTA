@@ -54,18 +54,15 @@ namespace PROPOSTA
                     }
                     //=========================Apaga todos os arquivos da pasta antes da geracao do PDf 
                     var list = System.IO.Directory.GetFiles(sPath, "*.pdf");
-
-                    foreach (var item in list)
+                    try
                     {
-                        try
+                        foreach (var item in list)
                         {
                             System.IO.File.Delete(item);
                         }
-                        catch (Exception)
-                        {
-
-                       }
-                    
+                    }
+                    catch (Exception)
+                    {
                     }
                     //=========================Gera pdf 
                     strFilePdf = "ANALISE_SIMULACAO_" + pId_Simulacao.ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".PDF";
@@ -107,11 +104,17 @@ namespace PROPOSTA
             }
             finally
             {
-                doc.Close();
-                doc.Dispose();
-                write.Dispose();
-                strea.Dispose();
-             
+                try
+                {
+                    doc.Close();
+                    doc.Dispose();
+                    strea.Dispose();
+                    write.Dispose();
+                }
+                catch (Exception)
+                {
+                    bolRetorno = false;
+                }
             }
             return bolRetorno;
         }

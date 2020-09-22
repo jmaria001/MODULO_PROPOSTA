@@ -20,7 +20,6 @@
     }
     .LinhaPrograma {
         background-color: #D7C9A0 ;
-        /*#F69F00;*/
         text-align: center;
     }
 
@@ -162,6 +161,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <button class="btn btn-primary" ng-click="CarregarRoteiro(Filtro)">Carregar Roteiro</button>
+                        <button class="btn btn-primary" ng-click="ImprimirRoteiro(Filtro)">Imprimir Roteiro</button>
                     </div>
                 </div>
             </div>
@@ -184,8 +184,6 @@
                                 
                                 <tr ng-repeat="item in Roteiro | orderBy:['Id_Item'] track by $index">
                                     <!--------Linha do programa-->
-
-                                    
                                     <td class="LinhaPrograma"
                                         ng-show="item.Indica_Titulo_Programa">
                                         <span class="fa fa-check LinhaCheck" ng-show="item.Duracao==item.Encaixe"></span>
@@ -200,12 +198,6 @@
                                         </span>
                                         <span class="pull-right">{{item.Encaixe}}/{{item.Duracao}}</span>
                                     </td>
-                                    <!--<td class="LinhaPrograma" style="white-space:nowrap"
-                                        ng-show="item.Indica_Titulo_Programa">
-                                        <span ng-class="item.Show?'fa fa-minus span-btn pull-right':'fa fa-plus -btn pull-right'"
-                                              ng-click="fnShowHide(item.Id_Programa)">
-                                        </span>
-                                    </td>-->
                                     <!--------Linha do Break-->
                                     <td colspan="7" class="LinhaBreak"
                                         ng-show="item.Indica_Titulo_Break && item.Show">
@@ -292,7 +284,7 @@
                                               data-toggle="tooltip" 
                                               data-placement="top" 
                                               title="Desordenar" 
-                                                ng-show="item.Cod_Veiculo == item.Cod_Veiculo_Origem"
+                                                ng-show="item.Permite_Ordenacao"
                                               ng-click="Desordenar(item)">
                                         </span>
                                 </tr>

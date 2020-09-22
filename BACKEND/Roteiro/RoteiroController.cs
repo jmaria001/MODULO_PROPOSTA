@@ -230,6 +230,24 @@ namespace PROPOSTA
             }
         }
 
+        [Route("api/Roteiro/ImprimirRoteiro")]
+        [HttpPost]
+        [ActionName("ImprimirRoteiro")]
+        [Authorize()]
+        public IHttpActionResult ImprimirRoteiro([FromBody] Roteiro.RoteiroFiltroModel Param)
+        {
+            SimLib clsLib = new SimLib();
+            try
+            {
+                ImpressaoRoteiro  Cls = new ImpressaoRoteiro(User.Identity.Name);
+                return Ok(Cls.ImprimirRoteiro(Param));
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
 
     }
 

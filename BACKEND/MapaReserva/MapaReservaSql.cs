@@ -699,6 +699,7 @@ namespace PROPOSTA
                     Contrato.Nome_Agencia = dtb.Rows[0]["Nome_Agencia"].ToString();
                     Contrato.Indica_Por_Credito = dtb.Rows[0]["Indica_Por_Credito"].ToString().ConvertToBoolean(); ;
                     Contrato.Vlr_Informado = dtb.Rows[0]["Vlr_Informado"].ToString().ConvertToMoney();
+                    Contrato.Desconto= dtb.Rows[0]["Desconto"].ToString().ConvertToPercent();
                     Contrato.Indica_Apoio = dtb.Rows[0]["Indica_Apoio"].ToString().ConvertToBoolean();
                     Contrato.Cod_Mercado = dtb.Rows[0]["Cod_Mercado"].ToString();
                     Contrato.Id_Contrato = dtb.Rows[0]["Id_Contrato"].ToString().ConvertToInt32();
@@ -975,6 +976,7 @@ namespace PROPOSTA
                 clsLib.NewParameter(Adp, "@Par_Cod_Agencia", pContrato.Cod_Agencia);
                 clsLib.NewParameter(Adp, "@Par_Indica_Por_Credito", pContrato.Indica_Por_Credito, true);
                 clsLib.NewParameter(Adp, "@Par_Vlr_Informado", pContrato.Vlr_Informado);
+                clsLib.NewParameter(Adp, "@Par_Desconto", pContrato.Desconto);
                 clsLib.NewParameter(Adp, "@Par_Indica_Apoio", pContrato.Indica_Apoio, true);
                 clsLib.NewParameter(Adp, "@Par_Cod_Mercado", pContrato.Cod_Mercado);
                 clsLib.NewParameter(Adp, "@Par_Id_Contrato", pContrato.Id_Contrato, true);

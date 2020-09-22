@@ -36,6 +36,7 @@
             'Agencia': '',
             'Cliente': '',
             'Contato': '',
+            'Cod_Tipo_Midia':''
         }
     }
     //===========================Se ja tiver filtro anterior gravado
@@ -83,6 +84,7 @@
         _url += '&Agencia=' + pFiltro.Agencia;
         _url += '&Cliente=' + pFiltro.Cliente;
         _url += '&Contato=' + pFiltro.Contato;
+        _url += '&Cod_Tipo_Midia=' + pFiltro.Cod_Tipo_Midia;
         _url += '&';
         httpService.Get(_url).then(function (response) {
             if (response) {

@@ -159,6 +159,12 @@
         if (!Index_Destino) {
             return;
         }
+        //----------------Tipos de Intervalo que nao Permite Ordenacao. nao pode soltar
+        if (!$scope.Roteiro[Index_Destino].Permite_Ordenacao) {
+            _Mensagem = "Esse Veículo não permite ordenação no Intervalo " + $scope.Roteiro[Index_Destino].Nome_Tipo_Break;
+            ShowAlert(_Mensagem)
+            return;
+        }
         //----------------Tipos de Breaks Diferente nao pode soltar
         if ($scope.Comerciais[Index_Origem].Tipo_Break != null && $scope.Roteiro[Index_Destino].Tipo_Break != 3 && $scope.Comerciais[Index_Origem].Tipo_Break != $scope.Roteiro[Index_Destino].Tipo_Break) {
             _Mensagem += 'Comercial ' + $scope.Comerciais[Index_Origem].Nome_Tipo_Break;
@@ -183,7 +189,7 @@
             };
         };
         //---------------------Programas diferentes
-        if (($scope.Roteiro[Index_Destino].Cod_Programa != $scope.Comerciais[Index_Origem].Cod_Programa) && ($scope.Comerciais[Index_Origem].Pasta == 'Midia' || $scope.Comerciais[Index_Origem].Pasta == 'Outros')) {
+        if (    $scope.Comerciais[Index_Origem].Cod_Programa  && $scope.Roteiro[Index_Destino].Cod_Programa != $scope.Comerciais[Index_Origem].Cod_Programa && $scope.Comerciais[Index_Origem].Pasta != 'Rotativo') {
             if ($scope.Consistencia.Outros) {
                 _Mensagem += "\n Comercial não pertence a esse Programa."
             }
@@ -464,7 +470,29 @@
             }
         });
     };
-    
+    //===========================Imprimir Roteiro
+    $scope.ImprimirRoteiro = function (pRoteiro) {
+        var Marcado = false
+        for (var i = 0; i < $scope.Filtro.Programas.length; i++) {
+            if ($scope.Filtro.Programas[i].Selected) {
+                Marcado = true;
+            }
+        };
+        if (!Marcado) {
+            ShowAlert("Nenhum programa foi Selecionado");
+            return;
+        };
+        httpService.Post("Roteiro/ImprimirRoteiro/" , pRoteiro).then(function (response) {
+            if (response.data) {
+                url = $rootScope.baseUrl + "PDFFILES/ROTEIRO/" + $rootScope.UserData.Login.trim() + "/" + response.data;
+                var win = window.open(url, '_blank');
+                win.focus();
+            }
+            else {
+                ShowAlert("Não existe Roteiro a ser Impresso", "warning")
+            }
+        });
+    };
     //===========================fim do load da pagina
     $scope.$watch('$viewContentLoaded', function () {
         $rootScope.routeloading = false;

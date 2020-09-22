@@ -468,14 +468,25 @@
             <div class="row">
 
                 <!--==================Valor Informado-->
-                <div class="col-md-3">
+                <div class="col-md-2">
                     <div class="form-group">
                         <label for="txtValorInformado" class="field-x">Valor Informado</label>
                         <input type="text" id="txtValorInformado" class="form-control money"
                                ng-model="Contrato.Vlr_Informado"
                                ng-disabled="!Contrato.Editar_Valor_Informado || Contrato.Comprovado"
                                ng-model-options="{updateOn: 'blur'}"
-                               maxlength="20" />
+                               maxlength="10" />
+                    </div>
+                </div>
+                <!--==================Desconto-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="txtDesconto" class="field-x">Desconto</label>
+                        <input type="text" id="txtDesconto" class="form-control decimal"    
+                               ng-model="Contrato.Desconto"
+                               ng-disabled="!Contrato.Editar_Valor_Informado || Contrato.Comprovado"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="5" />
                     </div>
                 </div>
                 <div class="col-md-1"></div>

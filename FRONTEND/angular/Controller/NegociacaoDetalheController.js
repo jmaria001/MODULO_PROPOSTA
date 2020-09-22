@@ -83,7 +83,7 @@
                 win.focus();
             }
             else {
-                ShowAlert("Não existe mídia a ser", "warning")
+                ShowAlert("Não existe mídia a ser Impressa", "warning")
             }
         });
     };

@@ -35,6 +35,16 @@
                         <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Validade_Termino" params="MesAnoKeys"></div>
                     </div>
                 </div>
+                <!--==================Tipo de Midia-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="TipoMidias">
+                        <input id="txtCodTipoMidia"
+                               ng-model="Filtro.Cod_Tipo_Midia"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodTipoMidia')"
+                               primarybind="txtCodTipoMidia">
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <!--==============================================Empresa de Venda-->

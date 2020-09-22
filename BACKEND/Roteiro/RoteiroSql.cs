@@ -100,6 +100,7 @@ namespace PROPOSTA
                                 Indica_Titulo_Intervalo = false,
                                 Id_Break = Contador_Break,
                                 Id_Intervalo = Contador_Intervalo,
+                                Permite_Ordenacao = drw["Permite_Ordenacao"].ToString().ConvertToBoolean(),
 
                                 Show = true,
                             });
@@ -247,6 +248,7 @@ namespace PROPOSTA
                     Chave_Acesso = drw["Chave_Acesso"].ToString().ConvertToInt32(),
                     Versao = drw["Inicio_Programa"].ToString().ConvertToInt32(),
                     Origem = strOrigem,
+                    Permite_Ordenacao = drw["Permite_Ordenacao"].ToString().ConvertToBoolean(),
                     Show = true
                 });
             }

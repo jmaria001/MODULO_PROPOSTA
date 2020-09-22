@@ -18,7 +18,7 @@
 
 
     $scope.NewFiltro = function(){
-        return { 'Cod_Veiculo': '011', 'Nome_Veiculo': '', 'Data_Exibicao': '2020-09-15', 'Cod_Programa': 'JMEI', 'Nome_Programa': '', 'Data_Inicio': '', 'Data_Fim': '' }
+        return { 'Cod_Veiculo': '', 'Nome_Veiculo': '', 'Data_Exibicao': '', 'Cod_Programa': '', 'Nome_Programa': '', 'Data_Inicio': '', 'Data_Fim': '' }
     };
     $scope.Filtro = $scope.NewFiltro();
     //====================Carrega Table de Breaks
@@ -138,12 +138,21 @@
     $scope.RenumeraId = function (pBreak) {
         var _seq = 0;
         var _break_ant = -1;
+        $scope.Breaks.ComposicaoNet = 0;
+        $scope.Breaks.ComposicaoLocal = 0;
+         
         for (var i = 0; i < pBreak.length; i++) {
             if (_break_ant != pBreak[i].Breaks) {
                 _seq = 0;
                 _break_ant = pBreak[i].Breaks;
             }
             _seq++;
+            if (pBreak[i].Tipo_Break.Codigo == 1) {
+                $scope.Breaks.ComposicaoNet += parseInt(pBreak[i].Duracao);
+            }
+            if (pBreak[i].Tipo_Break.Codigo == 0 || pBreak[i].Tipo_Break.Codigo == 3) {
+                $scope.Breaks.ComposicaoLocal += parseInt(pBreak[i].Duracao);
+            }
             pBreak[i].Id_Composicao = i + 1;
             pBreak[i].Sequencia = _seq;
         }
@@ -203,8 +212,9 @@
         if (_index > -1) {
             angular.forEach(pBreak, function (value, key) {
                 $scope.Breaks.Composicao[_index][key] = value;
-            });
+            }); 
         };
+        $scope.RenumeraId($scope.Breaks.Composicao);
         $scope.CancelaEdicao();
     };
     //===========================Alteracao
@@ -231,7 +241,7 @@
             closeOnConfirm: true
         }, function () {
             for (var i = 0; i < $scope.Breaks.Composicao.length; i++) {
-                if ($scope.Breaks.Composicao[i].Id_Item == pBreak.Id_Item) {
+                if ($scope.Breaks.Composicao[i].Id_Composicao == pBreak.Id_Composicao) {
                     $scope.Breaks.Composicao.splice(i, 1);
                     $scope.RenumeraId($scope.Breaks.Composicao);
                     $scope.$digest();

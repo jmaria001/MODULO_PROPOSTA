@@ -41,11 +41,27 @@ namespace webapi.SIMLIB
 
             
             cell.Colspan = celula.colspan;
-            cell.BorderWidthTop = BorderScale(celula.BorderTop);
-            cell.BorderWidthBottom = BorderScale(celula.BorderBottom);
-            cell.BorderWidthLeft = BorderScale(celula.BorderLeft);
-            cell.BorderWidthRight = BorderScale(celula.BorderRight);
+            if (celula.Border)
+            {
+                cell.BorderWidthTop = BorderScale(celula.BorderTop);
+                cell.BorderWidthBottom = BorderScale(celula.BorderBottom);
+                cell.BorderWidthLeft = BorderScale(celula.BorderLeft);
+                cell.BorderWidthRight = BorderScale(celula.BorderRight);
+            }
+            else
+            {
+                cell.BorderWidth = 0;
+                //cell.BorderWidthTop = 0;
+                //cell.BorderWidthBottom = 0;
+                //cell.BorderWidthLeft = 0;
+                //cell.BorderWidthRight = 0;  
+            }
             cell.NoWrap = false;
+            //cell.BorderWidthTop = BorderScale(celula.BorderTop);
+            //cell.BorderWidthBottom = BorderScale(celula.BorderBottom);
+            //cell.BorderWidthLeft = BorderScale(celula.BorderLeft);
+            //cell.BorderWidthRight = BorderScale(celula.BorderRight);
+            //cell.NoWrap = false;
             if (celula.Height > 0)
             {
                 cell.FixedHeight = celula.Height;
@@ -131,6 +147,7 @@ namespace webapi.SIMLIB
         public float PaddingBottom{ get; set; } = 2f;
         public float PaddingLeft{ get; set; } = 2f;
         public float PaddingRight{ get; set; } = 2f;
+        public bool Border { get; set; } = true;
 
         public float Height { get; set; } 
     }

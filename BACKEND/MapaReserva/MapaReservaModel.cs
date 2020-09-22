@@ -47,6 +47,7 @@ namespace PROPOSTA
             public String Nome_Agencia { get; set; }
             public Boolean Indica_Por_Credito { get; set; }
             public String Vlr_Informado { get; set; }
+            public String Desconto{ get; set; }
             public Boolean Indica_Apoio { get; set; }
             public String Cod_Mercado { get; set; }
             public Int32 Id_Contrato { get; set; }

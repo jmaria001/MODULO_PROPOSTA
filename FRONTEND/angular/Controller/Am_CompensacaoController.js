@@ -296,7 +296,8 @@
         _mmCompetencia = parseInt($scope.Compensacao_Temp.Competencia.substr(0, 2));
         _yyCompetencia = parseInt($scope.Compensacao_Temp.Competencia.substr(3, 4));
         _mmData = parseInt($scope.Compensacao_Temp.Data_Exibicao.substr(3, 2));
-        _yyData = parseInt($scope.Compensacao_Temp.Competencia.substr(6, 4));
+        _yyData = parseInt($scope.Compensacao_Temp.Data_Exibicao.substr(6, 4));
+
         if (_mmCompetencia !=_mmData || _yyCompetencia !=_yyData) {
             ShowAlert("Data para compensação está fora da competencia")
             $scope.Compensacao_Temp.Data_Exibicao = "";

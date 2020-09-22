@@ -642,7 +642,7 @@
             controller: 'Am_ReencaixeController',
             authorize: true,
             routeName: 'Manutenção de Am',
-            RouteId: 'Am@Reencaixe'
+            RouteId: 'Am@Reencaixar'
         })
     .when('/Roteiro', {
         templateUrl: 'view/Roteiro.html',

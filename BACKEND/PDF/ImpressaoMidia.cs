@@ -54,11 +54,17 @@ namespace PROPOSTA
                     }
                     //=========================Apaga todos os arquivos da pasta antes da geracao do strFilePDf 
                     var list = System.IO.Directory.GetFiles(sPath, "*.pdf");
-
-                    foreach (var item in list)
+                    try
                     {
-                        System.IO.File.Delete(item);
+                        foreach (var item in list)
+                        {
+                            System.IO.File.Delete(item);
+                        }
                     }
+                    catch (Exception)
+                    {
+                    }
+
                     //=========================Gera pdf para cada mapa da simulacao
                     strFilePdf = "SIMULACAO_" + pId_Simulacao.ToString() + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".PDF";
                     if (GerarPdf(pId_Simulacao, sPath, strFilePdf))
@@ -112,14 +118,21 @@ namespace PROPOSTA
 
                 throw;
             }
-            finally
+                finally
             {
                 cnn.Close();
-                doc.Close();
-                doc.Dispose();
-                strea.Dispose();
-                write.Dispose();
-            }
+                try
+                    {
+                        doc.Close();
+                        doc.Dispose();
+                        strea.Dispose();
+                        write.Dispose();
+                }
+                    catch (Exception)
+                    {
+                        bolRetorno = false;
+                    }
+                }
             return bolRetorno;
         }
         private void ImprimDadosBase(PdfWriter ww, Document dd, Int32 pid_Esquema)

@@ -227,8 +227,14 @@
                 })    
         });
     };
-
-
+    $scope.Reencaixar = function (param) {
+        if (param.Tem_Compensacao==1) {
+            ShowAlert("Não é possivel reencaixar essa AM porque já tem Compensação !")
+            return;
+        }
+        var _ulr = "/Am_Reencaixe/" + param.Cod_Empresa + "/" + param.Numero_MR + "/" + param.Sequencia_MR + "/" + param.Numero_Docto + "/" + param.Competencia + "/" + param.Cod_Veiculo;
+        $location.path(_ulr)
+    };
     //===========================Evento chamado ao fim do ngrepeat ao carregar grid 
     $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
         $scope.RepeatFinished();

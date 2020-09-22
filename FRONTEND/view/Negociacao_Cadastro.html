@@ -92,9 +92,9 @@
                 <div class="row">
                     <!--====================Valor Negociado-->
                     <div class="col-md-2">
-                        <label class="field-x" for="txtNumeroNegociacao">Valor Negociado</label>
+                        <label class="field-x" for="txtVerbaNegociada">Valor Negociado</label>
                         <div class="form-group">
-                            <input id="txtNumeroNegociacao"
+                            <input id="txtVerbaNegociada"
                                    class="form-control money"
                                    ng-disabled="!Negociacao.Permite_Editar"
                                    ng-model="Negociacao.Verba_Negociada_String"
@@ -103,9 +103,9 @@
                     </div>
                     <!--====================Desconto Concedido-->
                     <div class="col-md-2">
-                        <label class="field-x" for="txtNumeroNegociacao">Desconto Concedido</label>
+                        <label class="field-x" for="txtDescontoGeral">Desconto Concedido</label>
                         <div class="form-group">
-                            <input id="txtNumeroNegociacao"
+                            <input id="txtDesconto"
                                    ng-disabled="!Negociacao.Permite_Editar"
                                    class="form-control percent"
                                    ng-model="Negociacao.Desconto_Concedido_String"
@@ -168,6 +168,7 @@
                                    ng-disabled="!Negociacao.Permite_Editar || Negociacao.Tem_Contrato || Negociacao.Tem_Complemento"
                                    ng-model="Negociacao.Cod_Tipo_Midia"
                                    ng-model-options="{updateOn: 'blur'}"
+                                   style="text-transform:uppercase"
                                    ng-change="TipoMidiaChange(Negociacao.Cod_Tipo_Midia)"
                                    primarybind="txtCodTipoMidia"
                                    secondarybind="txtNomeTipoMidia">
@@ -897,7 +898,7 @@
                                             <input class="form-control" 
                                                    ng-model="parcela.Percentual_Text" 
                                                    ng-disabled="!parcela.Permite_Editar || !Negociacao.Permite_Editar"
-                                                   ng-change="TotalizaParcelas()"
+                                                   ng-change="CalculaValorParcela(parcela)"
                                                    ng-model-options="{updateOn: 'blur'}"
                                                    maxlength="8"
                                                     onblur="this.value = PercentFormat(this.value)"
@@ -907,7 +908,7 @@
                                         <td>
                                             <input class="form-control money" ng-model="parcela.Valor_Fatura_Text" 
                                                     ng-disabled="!parcela.Permite_Editar || !Negociacao.Permite_Editar"
-                                                    ng-change="TotalizaParcelas()"
+                                                    ng-change="CalculaPctParcela(parcela)"
                                                    ng-model-options="{updateOn: 'blur'}"
                                                    onblur="this.value = MoneyFormat(this.value)"
                                                    onfocus="this.value = DecimalUnformat(this.value)"
@@ -923,15 +924,31 @@
                                             <span class="fa fa-trash fa-2x span-btn" ng-show="parcela.Permite_Editar &&  Negociacao.Permite_Editar"  ng-click="RemoverParcela(parcela)"></span>
                                         </td>
                                     </tr>
+                                    
+                                </tbody>
+                                <tfoot>
                                     <tr>
                                         <td colspan="2" style="text-align:center;font-weight:bold"><strong>Total</strong></td>
                                         <td style="text-align:center;font-weight:bold">{{Negociacao.TotalParcelasPct | number:4}}</td>
                                         <td style="text-align:center;font-weight:bold">{{Negociacao.TotalParcelasValor | currency :"R$ ":2}}</td>
                                         <td></td>
                                     </tr>
-                                </tbody>
+                                    <tr>
+                                        <td  td colspan="2" style="text-align:center;font-weight:bold">
+                                            <strong>Verba:&nbsp; {{Negociacao.Verba_Negociada_String}}</strong>
+                                            
+                                        </td>
+                                        <td style="text-align:center;font-weight:bold">
+                                            <strong>Saldo a Parcelar Perc. {{Negociacao.Saldo_Pct | number:4}}</strong>
+                                        </td>
+                                        <td  style="text-align:center;font-weight:bold">
+                                            <strong>Saldo a Parcelar Valor {{Negociacao.Saldo_Valor | currency :"R$ ":2}}</strong>
+                                        </td>
+                                    </tr>
+                                </tfoot>
                             </table>
                         </div>
+                        
                     </div>
                 </div>
             </div>

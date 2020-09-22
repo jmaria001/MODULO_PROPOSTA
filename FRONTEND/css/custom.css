@@ -2,7 +2,7 @@
     display: none;
 }
 
-    #divItem {
+    .divItem {
         border: solid 1px black;
         height: 70px;
         width: 250px;
@@ -17,11 +17,11 @@
         color:white;
         border:none;
     }
-        #divItem a {
+        .divItem a {
             color: white !important;
             text-decoration:none;
         }
-    #divItem:hover
+    .divItem:hover
     {
         /*background-color: #F5F5F5;*/
         background-color: #e79500;

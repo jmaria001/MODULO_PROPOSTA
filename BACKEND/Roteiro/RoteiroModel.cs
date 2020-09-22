@@ -69,6 +69,7 @@ namespace PROPOSTA
             public Int32 Chave_Acesso{ get; set; }
             public Int32 Versao{ get; set; }
             public Int32 Contador_Item { get; set; }
+            public Boolean Permite_Ordenacao { get; set; }
 
         }
         public class RoteiroFiltroModel

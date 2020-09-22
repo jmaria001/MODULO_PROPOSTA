@@ -388,8 +388,8 @@ function TimeFormat(pValue) {
 function DoubleVal(pValue) {
     var _ret = 0;
     if (pValue) {
-        pValue = pValue.toString().replace(".", "");
-        pValue = pValue.toString().replace(",", ".");
+        pValue = pValue.toString().replace(/\./g, '')
+        pValue = pValue.toString().replace(/\,/g, '.')
         pValue = pValue.toString().replace(/[^0-9.,-]+/g, "");
         _ret = parseFloat(pValue);
     }

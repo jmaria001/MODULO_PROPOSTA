@@ -783,16 +783,50 @@
         'Situacao': 'Pendente', 
         });
     };
+
+    //=====================================Calcular Valor da parcela a partir do percentual
+    $scope.CalculaValorParcela = function(parcela)
+    {
+        var _pct = DoubleVal(parcela.Percentual_Text);
+        var _verba = DoubleVal($scope.Negociacao.Verba_Negociada_String);
+        if (_pct && _verba) {
+            parcela.Valor_Fatura_Text = MoneyFormat(_verba * (_pct / 100));
+        }
+        else {
+            parcela.Valor_Fatura_Text = "";
+        }
+        $scope.TotalizaParcelas();
+    }
+    //=====================================Calcular Percentual da Parcela a partir do valor 
+    $scope.CalculaPctParcela = function (parcela) {
+        var _verba = DoubleVal($scope.Negociacao.Verba_Negociada_String);
+        var _parcela = DoubleVal(parcela.Valor_Fatura_Text);
+        var _pct = 0 
+        if (_parcela && _verba) {
+            _pct = (_parcela / _verba) * 100;
+            _pct = PercentFormat(_pct);
+            parcela.Percentual_Text = _pct;
+        }
+        else {
+            parcela.Percentual_Text = "";
+        }
+        $scope.TotalizaParcelas();
+    }
+
     //=====================================Totalizar Parcelas
     $scope.TotalizaParcelas = function () {
         var _totalpct = 0;
-        var _totalValor = 0
+        var _totalValor = 0;
+        var _saldo_pct = 0;
+        var _saldo_valor = 0;
         for (var i = 0; i < $scope.Negociacao.Parcelas.length; i++) {
             _totalpct += DoubleVal($scope.Negociacao.Parcelas[i].Percentual_Text);
             _totalValor += DoubleVal($scope.Negociacao.Parcelas[i].Valor_Fatura_Text);
         }
         $scope.Negociacao.TotalParcelasPct = _totalpct;
         $scope.Negociacao.TotalParcelasValor = _totalValor;
+        $scope.Negociacao.Saldo_Pct = 100 - _totalpct;
+        $scope.Negociacao.Saldo_Valor = DoubleVal($scope.Negociacao.Verba_Negociada_String) - _totalValor;
     };
     //===============Renumera parcelas
     $scope.RenumeraParcelas = function()

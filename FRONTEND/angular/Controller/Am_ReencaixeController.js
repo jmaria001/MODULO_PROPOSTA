@@ -53,11 +53,18 @@
 
         httpService.Get(_url).then(function (response) {
             if (response) {
-                $scope.Amrs = response.data;
-                if ($scope.Amrs.length == 0) {
-                    $scope.RepeatFinished();
+                if (response.data[0].Status == 0) {
+                    ShowAlert(response.data[0].Mensagem)
+                    $location.path("/ConsultaAM");
                 }
-            }
+                else {
+
+                    $scope.Amrs = response.data;
+                    if ($scope.Amrs.length == 0) {
+                        $scope.RepeatFinished();
+                    };
+                };
+            };
         });
     }
     // Definindo o reencaixe após feito as escolhas 
@@ -85,20 +92,6 @@
                             'Numero_Mr': $scope.Parameters.Numero_Mr,
                             'Sequencia_Mr': $scope.Parameters.Sequencia_Mr,
                         });
-
-                        //httpService.Post("AM/EfetuarReencaixe", _data).then(function (response) {
-                        //    if (response) {
-                        //        if (response.data[0].Status == 1) {
-                        //            ShowAlert(response.data[0].Mensagem);
-                        //            $scope.CarregarReencaixe();
-                        //        }
-                        //        //else {
-
-                        //        //    $scope.CarregarReencaixe();
-                        //        //}
-                        //    }
-                        //});
-
                     };
                 };
                 httpService.Post("AM/EfetuarReencaixe", _data).then(function (response) {
@@ -113,17 +106,8 @@
                         }
                     }
                 });
-                //if (pParam.length == 0)
-                //{
-                //    $scope.CarregarReencaixe();
-                //}
-
         });
     }
-
-
-
-
     
     //====================Funcao para configurar o Grid
     $scope.ConfiguraGrid = function () {
