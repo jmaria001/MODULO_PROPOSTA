@@ -1,0 +1,171 @@
+﻿<style>
+    #tbParamet td {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+</style>
+<div class="container">
+    <form name="frmParRetorPlayLists" autocomplete="off">
+        <div class="block">
+            <!-------------------------- Filtro -------------------------------->
+            <div id="divFiltro" ng-show="ShowFilter">
+                <div class="row">
+                    <!-- Cod.Veiculo -->
+                    <div class="col-md-2" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Veiculo" caption="Veiculo">
+                            <input id="txtCodVeiculo"
+                                   ng-model="ParRetorPlayList.Cod_Veiculo"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCodVeiculo')"
+                                   primarybind="txtCodVeiculo"
+                                   secondarybind="txtNomeVeiculo"
+                                   maxlength="3" />
+                        </div>
+                    </div>
+                    <!--Nome Veiculo-->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control" ng-model="ParRetorPlayList.Nome_Veiculo">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Botão de Filtro -->
+                    <div class="col-md-2" style="margin-top:35px">
+                        <button type="submit" class="btn btn-success" ng-disabled="!ParRetorPlayList.Cod_Veiculo" ng-click="ParRetorPlayListsCarregar(ParRetorPlayList)">Filtrar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-------------------------- Grids --------------------------------->
+            <div id="divGrids" ng-show="ShowGrids">
+                <!--Cabeçalho da Tela-->
+                <div class="row">
+                    <div class="row col-md-12">
+                        <div class="alert alert-info alert-icon-block text-center" role="alert">
+                            <strong>Veiculo: {{ParRetorPlayList.Cod_Veiculo}} - {{ParRetorPlayList.Nome_Veiculo}}</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!----- Linhas do Grid 1 - Campos ----->
+                    <div class="col-md-5">
+                        <div class="box table-responsive">
+                            <table id="tbParamet" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" style="text-align:center;background-color:silver;height:50px">Campos</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:50%">Campo</th>
+                                        <th style="width:25%">Posição</th>
+                                        <th style="width:25%">Tamanho</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="campo in ParRetorPlayLists.Campos track by $index">
+                                        <td>{{::campo.Nome_Campo}}</td>
+                                        <td>
+                                            <input type="text" class="form-control" onkeypress="return NumericOnly(event)" ng-model="campo.Posicao" ng-model-options="{updateOn: 'blur'}" maxlength="4" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" onkeypress="return NumericOnly(event)" ng-model="campo.Tamanho" ng-model-options="{updateOn: 'blur'}" maxlength="4" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Formato da Data</td>
+                                        <td colspan="2">
+                                            <select class="form-control" ng-model="ParRetorPlayLists.Formato_Data">
+                                                <option value="dd/mm/yyyy">dd/mm/yyyy</option>
+                                                <option value="mm/dd/yyyy">mm/dd/yyyy</option>
+                                                <option value="yyyy/mm/dd">yyyy/mm/dd</option>
+                                                <option value="dd/mm/yy">dd/mm/yy</option>
+                                                <option value="mm/dd/yy">mm/dd/yy</option>
+                                                <option value="yy/mm/dd">yy/mm/dd</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tipo do Arquivo</td>
+                                        <td colspan="2">
+                                            <select class="form-control" ng-model="ParRetorPlayLists.Tipo_Arquivo">
+                                                <option value="TXT">TXT</option>
+                                                <option value="CSV">CSV</option>
+                                                <option value="MDB">MDB</option>
+                                                <option value="DBF">DBF</option>
+                                                <option value="XML">XML</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!----- Linhas do Grid 2 - Validação ----->
+                    <div class="col-md-7">
+                        <div class="box table-responsive">
+                            <table id="tbParamet2" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" style="text-align:center;background-color:silver;height:50px">Validações</th>
+                                        <th style="background-color:silver">
+                                            <button class="btn btn-default btn-icon-fixed btn-sm pull-right" style="margin-top:0px;margin-bottom:0px"
+                                                    ng-click="AdicionarValidacao()">
+                                                <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
+                                            </button>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th style="width:35%">Descrição</th>
+                                        <th style="width:15%">Posição</th>
+                                        <th style="width:15%">Tamanho</th>
+                                        <th style="width:35%">Conteúdo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="validacao in ParRetorPlayLists.Validacao track by $index">
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="validacao.Descricao" ng-model-options="{updateOn: 'blur'}" maxlength="20" style="text-transform:uppercase" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" onkeypress="return NumericOnly(event)" ng-model="validacao.Posicao" ng-model-options="{updateOn: 'blur'}" maxlength="4" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" onkeypress="return NumericOnly(event)" ng-model="validacao.Tamanho" ng-model-options="{updateOn: 'blur'}" maxlength="4" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="validacao.Conteudo" ng-model-options="{updateOn: 'blur'}" maxlength="50" style="text-transform:uppercase" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!------------------------ Botões da Tela ------------------------->
+            <div class="fixed-buttons-bottom">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-success" ng-click="SalvarAlteracoes(ParRetorPlayLists)">Salvar Alterações</button>
+                        <button type="button" class="btn btn-warning" ng-click="NewFilter()">Novo Filtro</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
+
+
+
+

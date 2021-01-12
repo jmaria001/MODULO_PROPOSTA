@@ -175,8 +175,7 @@ namespace PROPOSTA
         }
 
 
-        //Definindo Veiculo
-        public List<Veiculos_Model> VeiculosListar()
+        public DataTable VeiculosListar(Int32 pRedeId)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
@@ -189,17 +188,8 @@ namespace PROPOSTA
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_Programa_Veiculo_Listar");
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Rede_Id", pRedeId);
                 Adp.Fill(dtb);
-                foreach (DataRow drw in dtb.Rows)
-                {
-                    Veiculos.Add(new Veiculos_Model()
-                    {
-                        Cod_Veiculo = drw["Cod_Veiculo"].ToString(),
-                        Nome_Veiculo = drw["Nome_Veiculo"].ToString(),
-                       
-                    });
-                }
-
             }
             catch (Exception)
             {
@@ -209,7 +199,7 @@ namespace PROPOSTA
             {
                 cnn.Close();
             }
-            return Veiculos;
+            return dtb;
         }
         public DataTable VeiculosMostrar(String pCod_Programa)
         {

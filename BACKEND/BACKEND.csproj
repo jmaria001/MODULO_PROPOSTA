@@ -280,6 +280,12 @@
     <Compile Include="ParametroValoracao\ParametroValoracaoController.cs" />
     <Compile Include="ParametroValoracao\ParametroValoracaoModel.cs" />
     <Compile Include="ParametroValoracao\ParametroValoracaoSql.cs" />
+    <Compile Include="ParamRoteiro\ParamRoteiroController.cs" />
+    <Compile Include="ParamRoteiro\ParamRoteiroModel.cs" />
+    <Compile Include="ParamRoteiro\ParamRoteiroSql.cs" />
+    <Compile Include="ParRetorPlayList\ParRetorPlayListController.cs" />
+    <Compile Include="ParRetorPlayList\ParRetorPlayListModel.cs" />
+    <Compile Include="ParRetorPlayList\ParRetorPlayListSql.cs" />
     <Compile Include="PDF\ImpressaoRoteiro.cs" />
     <Compile Include="PDF\ImpressaoMapa.cs" />
     <Compile Include="PDF\ImpressaoProposta.cs" />

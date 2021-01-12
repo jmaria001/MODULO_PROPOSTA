@@ -49,13 +49,6 @@
         routeName: 'Acesso não autorizado',
         RouteId: 0
     })
-    //.when('/dashboard', {
-    //    templateUrl: 'view/UnderConstrution.html',
-    //    templateUrl: 'view/dashboard.html',
-    //    authorize: true,
-    //    routeName: 'Dashboard',
-    //    RouteId: 'Dashboard@Index'
-    //})
     .when('/MenuDashboard', {
         templateUrl: 'view/MenuDashboard.html',
         controller: 'MenuDashboardController',
@@ -666,6 +659,22 @@
         routeName: 'Composicao de Breaks',
         RouteId: 'Roteiro@Break'
     })
+
+    .when('/ParamRoteiro', {
+        templateUrl: 'view/ParamRoteiro.html',
+        authorize: true,
+        controller: 'ParamRoteiroController',
+        routeName: 'Parâmetros do Roteiro',
+        RouteId: 'Roteiro@Parametros'
+    })
+    .when('/ParRetorPlayList', {
+        templateUrl: 'view/ParRetorPlayList.html',
+        authorize: true,
+        controller: 'ParRetorPlayListController',
+        routeName: 'Parametrização do Retorno da PlayList',
+        RouteId: 'Roteiro@Par_Ret_Play'
+    })
+
     .otherwise({ redirectTo: "/blank" })
 
 });

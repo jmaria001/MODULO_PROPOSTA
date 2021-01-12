@@ -79,49 +79,18 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
-// Definindo controle apresentadores
-        //[Route("api/GetApresentador/{pIdApresentador}")]
-        //[HttpGet]
-        //[ActionName("GetApresentador")]
-        //[Authorize()]
-        //public IHttpActionResult GetApresentador(Int32 pIdApresentador)
-        //{
-        //    SimLib clsLib = new SimLib();
-        //    Programa Cls = new Programa(User.Identity.Name);
-        //    try
-        //    {
-        //        Programa.Apresentador_Model Apresentador = new Programa.Apresentador_Model();
-        //        if (pIdApresentador == 0)
-        //        {
 
-        //            Apresentador.ApresentadoresSel = (new List<Programa.ApresentadorSel_Model>());
-        //        }
-        //        else
-        //        {
-        //            Apresentador = Cls.GetApresentador(pIdApresentador);
-        //        }
-
-        //        return Ok(Apresentador);
-        //    }
-        //    catch (Exception Ex)
-        //    {
-        //        clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
-        //        throw new Exception(Ex.Message);
-        //    }
-        //}
-
-        // Definindo controle veiculos    
-        [Route("api/VeiculosListar")]
+        [Route("api/VeiculosListar/{RedeId}")]
         [HttpGet]
         [ActionName("VeiculosListar")]
         [Authorize()]
-        public IHttpActionResult VeiculosListar()
+        public IHttpActionResult VeiculosListar(Int32 RedeId)
         {
             SimLib clsLib = new SimLib();
             Programa Cls = new Programa(User.Identity.Name);
             try
             {
-                List<Programa.Veiculos_Model> Veiculos = Cls.VeiculosListar();
+                DataTable Veiculos = Cls.VeiculosListar(RedeId);
                 return Ok(Veiculos);
             }
             catch (Exception Ex)

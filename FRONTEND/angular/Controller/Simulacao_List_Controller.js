@@ -68,6 +68,7 @@
     //====================Carrega Lista De Stutus
     httpService.Get("ListarTabela/Status_" + $scope.Descricao_Processo).then(function (response) {
         $scope.ListStatus = response.data;
+
     });
 
     //====================Permissoes

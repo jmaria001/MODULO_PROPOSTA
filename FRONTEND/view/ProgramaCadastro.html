@@ -22,7 +22,7 @@
                         <input id="txtRede"
                                ng-model="Programa.RedeId"
                                ng-model-options="{updateOn: 'blur'}"
-                               ng-change="DicionaryValidate('txtRede')"
+                               ng-change="DicionaryValidate('txtRede');Programa.Veiculos=[]"
                                primarybind="txtRede"
                                secondarybind="txtDescRede">
                     </div>
@@ -350,12 +350,9 @@
                                 </label>
                             </td>
                             <td style="width:90px;min-width:90px;border-left:none">
-
-                                <button type="button" class="btn btn-default btn-sm" ng-click="SelecionarVeiculos(veiculo.Cod_Veiculo)" >
-
+                                <button type="button" class="btn btn-default btn-sm" ng-click="SelecionarVeiculos(Programa.RedeId)" >
                                     <span class="fa fa-search"></span>
                                 </button>
-
                             </td>
                         </tr>
                     </tbody>

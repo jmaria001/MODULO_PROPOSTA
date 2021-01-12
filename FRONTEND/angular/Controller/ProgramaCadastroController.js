@@ -123,17 +123,17 @@
     }
 
     // Aqui foi definindo funções para veículos
-    $scope.SelecionarVeiculos = function () {
+    $scope.SelecionarVeiculos = function (pRedeId) {
+        if (!pRedeId) {
+            ShowAlert("Informa a Rede antes de selecionar Veículos");
+            return;
+        }
+        
         $scope.PesquisaTabelas = NewPesquisaTabela();
-        var _url = 'ListarTabela/Veiculo'
+        var _url = 'VeiculosListar/' + pRedeId;
         httpService.Get(_url).then(function (response) {
             if (response.data) {
                 $scope.ListadeVeiculos = response.data;
-                $scope.ListadeApresentadores = response.data;
-                if ($scope.Programa.Veiculos == null && $scope.Programa.Veiculos == undefined) {
-                    $scope.Programa.Veiculos = 0;
-                }
-
                 for (var i = 0; i < $scope.Programa.Veiculos.length; i++) {
                     for (var y = 0; y < $scope.ListadeVeiculos.length; y++) {
                         if ($scope.Programa.Veiculos[i].Cod_Veiculo == $scope.ListadeVeiculos[y].Codigo) {

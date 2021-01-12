@@ -1,0 +1,104 @@
+﻿<style>
+    #tbParametro td
+    {
+        padding-top:2px;
+        padding-bottom:2px;
+    }
+</style>
+<div class="container">
+    <form name="frmParamRoteiros" autocomplete="off">
+        <div class="block">
+            <!-------------------------- Filtro -------------------------------->
+            <div id="divFiltro" ng-show="ShowFilter">
+                <div class="row">
+                    <!----- Veiculo ----->
+                    <div class="col-md-2" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Veiculo" caption="Veiculo">
+                            <input id="txtCodVeiculo"
+                                    ng-model="ParamRoteiro.Cod_Veiculo"
+                                    ng-model-options="{updateOn: 'blur'}"
+                                    ng-change="DicionaryValidate('txtCodVeiculo')"
+                                    primarybind="txtCodVeiculo"
+                                    secondarybind="txtNomeVeiculo"
+                                    maxlength="3" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="ParamRoteiro.Nome_Veiculo">
+                            </div>
+                        </div>
+                    </div>
+                    <!---- Botão de Filtro ---->
+                    <div class="col-md-2" style="margin-top:35px">
+                        <button type="submit" class="btn btn-success" ng-disabled="!ParamRoteiro.Cod_Veiculo" ng-click="ParamRoteirosCarregar(ParamRoteiro)">Filtrar</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-------------------------- Grid --------------------------------->
+            <div id="divGrid" ng-show="ShowGrid">
+                <div class="row" ng-show="ParamRoteiros.length>0">
+                    <!------- Cabeçalho ------------->
+                    <div class="row margin-top-20 col-md-7">
+                        <div class="alert alert-info alert-icon-block text-center" role="alert">
+                            <strong>Veiculo: {{ParamRoteiro.Cod_Veiculo}} - {{ParamRoteiro.Nome_Veiculo}}</strong>
+                        </div>
+                    </div>
+                    <!------- Linhas do Grid -------->
+                    <div class="col-md-7">
+                        <div class="box table-responsive">
+                            <table id="tbParametro" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Descrição</th>
+                                        <th>Origem do Break</th>
+                                        <th>Origem do Roteiro</th>
+                                        <th>Permite Ordenação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="param in ParamRoteiros track by $index">
+                                        <td>{{::param.Descricao}}</td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="param.Origem_Break" ng-model-options="{updateOn: 'blur'}" maxlength="3" />
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="param.Origem_Roteiro" ng-model-options="{updateOn: 'blur'}" maxlength="3" />
+                                        </td>
+                                        <td>
+                                            <input type="checkbox" class="form-control" ng-model="param.Permite_Ordenacao" />
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!----------- Botões do Grid -------------->
+                <div class="fixed-buttons-bottom">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-success" ng-click="SalvarAlteracoes(ParamRoteiros)">Salvar Alterações</button>
+                            <button type="button" class="btn btn-warning" ng-click="NewFilter()">Novo Filtro</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
+
+
+
+

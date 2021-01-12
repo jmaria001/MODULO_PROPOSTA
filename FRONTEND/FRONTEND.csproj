@@ -129,6 +129,8 @@
     <Content Include="angular\Controller\ParametroValoracaoCadastroController.js" />
     <Content Include="angular\Controller\ParametroValoracaoController.js" />
     <Content Include="angular\Controller\MapaReservaImportController.js" />
+    <Content Include="angular\Controller\ParamRoteiroController.js" />
+    <Content Include="angular\Controller\ParRetorPlayListController.js" />
     <Content Include="angular\Controller\PreOrdenacaoController.js" />
     <Content Include="angular\Controller\ProdutoCadastroController - Copy.js" />
     <Content Include="angular\Controller\ProdutoCadastroController.js" />
@@ -256,6 +258,8 @@
     <Content Include="view\ParametroValoracao.html" />
     <Content Include="view\ParametroValoracaoCadastro.html" />
     <Content Include="view\MapaReservaImport.html" />
+    <Content Include="view\ParamRoteiro.html" />
+    <Content Include="view\ParRetorPlayList.Html" />
     <Content Include="view\PreOrdenacao.html" />
     <Content Include="view\ProdutoCadastro.html" />
     <Content Include="Proposta_Aprovacao.html" />

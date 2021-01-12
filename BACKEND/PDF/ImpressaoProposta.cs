@@ -101,7 +101,8 @@ namespace PROPOSTA
                 DataTable dtb = new DataTable();
                 SqlDataAdapter dta = new SqlDataAdapter();
 
-                dta.SelectCommand = cnn.Procedure(cnn.Connection, "Pr_Imprime_Proposta_Dados");
+                dta.SelectCommand = cnn.Procedure(cnn.Connection, "
+                    ");
                 dta.SelectCommand.Parameters.AddWithValue("@Par_Id_Simulacao", pId_Simulacao);
                 dta.Fill(dtb);
 
