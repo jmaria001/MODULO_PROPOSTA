@@ -20,6 +20,7 @@
                             { 'title': 'Delete', 'visible': true, 'searchable': false, 'config': false, 'sortable': false }
     ];
     $scope.MesAnoKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
+    $scope.HistoricoStatus = [];
     //====================Check se é Simulacao ou Proposta
     if ($rootScope.routeId == 'Proposta@Index') {
         $scope.Processo = 'P'
@@ -202,6 +203,16 @@
 
     $scope.NovaSimulacao = function () {
         $location.path("/SimulacaoCadastro/New/0/" + $scope.Processo);
+    }
+    //===========================Mostrar Historico do Status 
+    $scope.ShowHistorico = function (pId_Simulacao) {
+        $scope.HistoricoStatus = [];
+        httpService.Get("ListHistorico/" + pId_Simulacao).then(function (response) {
+            if (response.data) {
+                $scope.HistoricoStatus = response.data;
+            }
+        });
+        $("#modalHistorico").modal(true);
     }
     //===========================Evento chamado ao fim do ngrepeat ao carregar grid 
     $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {

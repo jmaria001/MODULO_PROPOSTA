@@ -17,7 +17,7 @@
     $scope.TotalizadorIndex = 0;
     $scope.TabelaPrecoKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
     $scope.CompetenciaEsquemaKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
-
+    $scope.HistoricoStatus = [];
     $scope.SetaCompetenciaEsquema = function (pDataInicio, pDataFim) {
         $scope.CompetenciaEsquemaKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
         if (pDataInicio) {
@@ -50,16 +50,14 @@
         $scope.Condicao_Pagamento = response.data;
     });
     //==========================Carrega Tabela de Caracteristica do Contrato
-    $scope.CaracteristicaContrato= [];
+    $scope.CaracteristicaContrato = [];
     httpService.Get('ListarTabela/Caracteristica_Contrato').then(function (response) {
         $scope.Caracteristica_Contrato = response.data;
     });
     //=====================Carrega a Simulacao 
     $scope.CarregarSimulacao = function (pId_Simulacao, pProcesso) {
         $scope.GeracaoProposta = {};
-
         httpService.Get("GetSimulacao/" + pId_Simulacao + "/" + pProcesso).then(function (response) {
-            //httpService.Get(_url).then(function (response) {
             if (response.data) {
                 $scope.Simulacao = response.data;
                 $scope.Indica_Sem_Midia = $scope.Simulacao.Indica_Sem_Midia;
@@ -69,6 +67,8 @@
                 }, 1000);
                 $scope.SetaCompetenciaEsquema($scope.Simulacao.Validade_Inicio, $scope.Simulacao.Validade_Termino);
                 InitTermometro($scope.Simulacao.Termometro_Venda, !$scope.Simulacao.Permite_Editar);
+                $scope.Simulacao.Cod_Empresa_Venda = $scope.FnSetEmpresaDefault('Codigo');
+                $scope.Simulacao.Nome_Empresa_Venda = $scope.FnSetEmpresaDefault('Nome');
             }
         });
     };
@@ -90,6 +90,7 @@
             _tempEsquema.Id_Esquema = $scope.Simulacao.ContadorEsquema;
             _tempEsquema.Abrangencia = -1;
             _tempEsquema.RedeId = "";
+            _tempEsquema.Cod_Empresa_Faturamento = $scope.FnSetEmpresaDefault("CODIGO");
             $scope.Simulacao.Esquemas.push(angular.copy(_tempEsquema));
         });
     }
@@ -168,9 +169,17 @@
             });
         }
     }  //==========================Mudou a Rede no Esquema
-    $scope.RedeChange = function () {
+    $scope.RedeChange = function (pRedeId) {
         $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos = [];
         $scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Mercado = "";
+        httpService.Get('ValidarTabela/rede/' + pRedeId).then(function (response) {
+            if (response.data) {
+                if (response.data[0].Status == 1) {
+                    $scope.Simulacao.Esquemas[$scope.currentEsquema].BackColorTab = response.data[0].Extra;
+                    console.log($scope.Simulacao.Esquemas[$scope.currentEsquema].BackColorTab);
+                };
+            };
+        });
     };
     //==============================Mudou algum dado da midia
     $scope.fnChangeMidia = function (pMidia, pField) {
@@ -483,6 +492,25 @@
             $scope.SalvarSimulacao($scope.Simulacao, false)
         });
     }
+    //===================================Rebrir Proposta
+    $scope.ReabrirProposta = function (pIdSimulacao) {
+        swal({
+            title: "Tem certeza que deseja reabrir a Proposta",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Sim, Reabrir",
+            cancelButtonText: "Cancelar",
+            closeOnConfirm: true
+        }, function () {
+            httpService.Get("SimulacaoReabrir/" + pIdSimulacao).then(function (response) {
+                if (response.data) {
+                    ShowAlert("Proposta reaberta com Sucesso");
+                    $scope.CarregarSimulacao(pIdSimulacao, $scope.Parameters.Processo)
+                }
+            });
+        });
+    };
     //===================================Mostra a critica da Valoracao
     $scope.MostraCritica = function (pLinha) {
         if (pLinha) {
@@ -769,7 +797,7 @@
         _url += "&";
         httpService.Get(_url).then(function (response) {
 
-            if (response.data.length==0) {
+            if (response.data.length == 0) {
                 ShowAlert("Pacote Inválido ou fora da Validade");
                 $scope.Simulacao.Id_Pacote = "";
                 $scope.Simulacao.Descricao_Pacote = "";
@@ -779,4 +807,15 @@
             }
         });
     };
+    //===========================Mostrar Historico do Status 
+    $scope.ShowHistorico = function (pId_Simulacao) {
+        $scope.HistoricoStatus = [];
+        httpService.Get("ListHistorico/" + pId_Simulacao).then(function (response) {
+            if (response.data) {
+                $scope.HistoricoStatus = response.data;
+            }
+        });
+        $("#modalHistorico").modal(true);
+    }
 }]);
+;

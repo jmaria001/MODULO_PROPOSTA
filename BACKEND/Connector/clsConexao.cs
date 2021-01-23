@@ -128,14 +128,26 @@ namespace CLASSDB
                 }
                 //oConnection.Credential = Cred;
                 oConnection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                String strSql = "delete from sim_conexao where Id_Conexao = @@spid";
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strSql;
+                cmd.Connection = oConnection;
+                cmd.ExecuteNonQuery();
+
+                cmd = new SqlCommand();
+                strSql = "Insert Into Sim_Conexao (Id_Conexao,Host_Name,Login,Data_Conexao,Application_Name)";
+                strSql += "values (@@spid,HOST_NAME(),'" + usuario + "',getdate(),App_Name())";
+                cmd.CommandType = CommandType.Text;
+                cmd.CommandText = strSql;
+                cmd.Connection = oConnection;
+                cmd.ExecuteNonQuery();
             }
             catch
             {
-                //throw new Exception("Não foi possivel autenticar conexão com o Servidor de dados");
                 throw new Exception("Não foi possivel autenticar conexão com o Servidor de dados.");
-                
             }
-
             finally
             {
             }
@@ -146,6 +158,13 @@ namespace CLASSDB
             {
                 if (oConnection.State == ConnectionState.Open)
                 {
+                    SqlCommand cmd = new SqlCommand();
+                    String strSql = "delete from sim_conexao where Id_Conexao = @@spid";
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = strSql;
+                    cmd.Connection = oConnection;
+                    cmd.ExecuteNonQuery();
+
                     oConnection.Close();
                     oConnection.Dispose();
                 }

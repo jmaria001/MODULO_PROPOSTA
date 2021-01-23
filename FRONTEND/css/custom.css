@@ -1,34 +1,66 @@
-﻿.HideButton {
-    display: none;
+﻿.backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 8000;
+  background-color: #000;
+  opacity: 0.3;
+  display: none;
 }
 
-    .divItem {
-        border: solid 1px black;
-        height: 70px;
-        width: 250px;
-        background-color:cornflowerblue;
-        font-weight: bolder;
-        display:inline-grid;
-        margin: 10px 10px 10px 10px;
-        align-content:center;
-        text-align:center;
+.backdrop.active {
+  display: block;
+}
+
+.divwait {
+    background-color: #161924;
+    color: white;
+    height: 80px;
+    width:300px;
+    border-radius: 10px 10px 10px 10px;
+    position: fixed;
+    z-index: 9999;
+    top: 30%;
+    left: 43%;
+    display:none;
+    background: rgba(0,0,0,0.7);
+}
+.divwait i
+{
+    padding:15px;
+}
+.HideButton {
+    display: none;
+}
+.divItem {
+    border: solid 1px black;
+    height: 70px;
+    width: 250px;
+    background-color:cornflowerblue;
+    font-weight: bolder;
+    display:inline-grid;
+    margin: 10px 10px 10px 10px;
+    align-content:center;
+    text-align:center;
+    text-decoration:none;
+    border-radius: 20px 20px 20px 20px;
+    color:white;
+    border:none;
+}
+    .divItem a {
+        color: white !important;
         text-decoration:none;
-        border-radius: 20px 20px 20px 20px;
-        color:white;
-        border:none;
     }
-        .divItem a {
-            color: white !important;
-            text-decoration:none;
-        }
-    .divItem:hover
-    {
-        /*background-color: #F5F5F5;*/
-        background-color: #e79500;
-        color:white;
-        cursor:pointer;
+.divItem:hover
+{
+    /*background-color: #F5F5F5;*/
+    background-color: #e79500;
+    color:white;
+    cursor:pointer;
         
-    }
+}
 
 .table-select td {
     padding-top: 5px;
@@ -404,4 +436,35 @@ input:focus, textarea:focus {
 .table-competencia button {
     width: 70px;
     line-height: 15px !important;
+    margin-bottom:5px ;
+    margin-right:5px
 }
+.btnEsquemaUnselected{
+    width: 180px;
+    line-height: 15px !important;
+    margin-bottom:5px ;
+    margin-right:5px;
+    height: 65px !important;
+    border-radius: 0px 20px 0px 0px;
+    color:white !important;
+    border-width:5px;
+    border-color:transparent !important;
+    border-style:solid 
+}
+.btnEsquemaSelected{
+    width: 180px;
+    line-height: 15px !important;
+    margin-bottom:5px ;
+    margin-right:5px;
+    height: 65px !important;
+    border-radius: 0px 20px 0px 0px;
+    color:white !important;
+    border-width:5px;
+    border-color:orange !important;
+    border-style:solid 
+}
+
+
+
+
+

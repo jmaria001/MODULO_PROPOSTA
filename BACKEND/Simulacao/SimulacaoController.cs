@@ -59,6 +59,26 @@ namespace PROPOSTA
             }
         }
 
+        [Route("api/SimulacaoReabrir/{Id_Simulacao}")]
+        [HttpGet]
+        [ActionName("SimulacaoReabrir")]
+        [Authorize()]
+        public IHttpActionResult SimulacaoReabrir(Int32 Id_Simulacao)
+        {
+            SimLib clsLib = new SimLib();
+            Simulacao Cls = new Simulacao(User.Identity.Name);
+            try
+            {
+                Cls.SimulacaoReabrir(Id_Simulacao);
+                return Ok(true);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
         [Route("api/GetSimulacao/{Id_Simulacao}/{Processo}")]
         [HttpGet]
         [ActionName("GetSimulacao")]
@@ -147,6 +167,7 @@ namespace PROPOSTA
             try
             {
                 Simulacao.EsquemaModel Esquema = new Simulacao.EsquemaModel();
+                Esquema.BackColorTab = "#C0C0C0";
                 Esquema.Veiculos = new List<Simulacao.VeiculoModel>();
                 Esquema.Midias= new List<Simulacao.MidiaModel>();
                 return Ok(Esquema);
@@ -470,7 +491,6 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
-        
 
         [Route("api/AprovarProposta")]
         [HttpPost]
@@ -509,10 +529,17 @@ namespace PROPOSTA
                     if (!String.IsNullOrEmpty(Param.Email_Contato))
                     {
                         String strAssinatura = Cls.GetAssinatura();
-                        String strBody = "<style>";
+                        //var baseUrl = Request.RequestUri.GetLeftPart(UriPartial.Authority);
+                        //String strBody = "<html>";
+                        //strBody += "<head>";
+                        String strBody = "";
+                        strBody += "<style>";
                         strBody += "p {font-family:verdana;font-size:12;font-style:italic}";
-                        strBody += "}";
+                        strBody += ".btnAceitar{background-color:#6ea038;border:none;height:30px;padding:7px 10px 10px 10px;color:#fff;vertical-align:middle;border-radius: 5px;margin-right:20px;text-decoration: none;cursor:pointer}";
+                        strBody += ".btnRecusar{background-color:#ef4043;border:none;height:30px;padding:7px 10px 10px 10px;color:#fff;vertical-align:middle;border-radius: 5px;margin-right:20px;text-decoration: none;cursor:pointer}";
                         strBody += "</style>";
+                        strBody += "</head>";
+                        strBody += "<body>";
                         strBody +=  "<p>Prezado(a) Sr(a) " + Param.Nome_Contato  + "</p>";
                         strBody += "<p>É com satisfação que apresentamos a V.Sa. nossa proposta Comercial.</p>";
                         strBody += "<p>Desde já agradecemos a oportunidade que nos foi concedida e colocamo-nos a disposição para quaisquer esclarecimentos.</p>";
@@ -521,8 +548,20 @@ namespace PROPOSTA
                         strBody += "<br>";
                         strBody += "<p>" + strAssinatura + "</p>";
                         strBody += "<br>";
+
+                        //strBody += "<a href ='http://www.google.com.br'";
+                        //strBody += " style='background-color:#6ea038;border:none;height:30px;padding:7px 10px 10px 10px;color:#fff;vertical-align:middle;border-radius: 5px;margin-right:20px;text-decoration: none !important;cursor:pointer'";
+                        //strBody += "> Aceitar a Proposta 21</a>";
+
+                        //strBody += "<a href ='http://www.globo.com'";
+                        //strBody += " style='background-color:#ef4043;border:none;height:30px;padding:7px 10px 10px 10px;color:#fff;vertical-align:middle;border-radius: 5px;margin-right:20px;text-decoration: none !important;cursor:pointer'";
+                        //strBody += "> Recusar a Proposta 21</a>";
+
                         strBody += "<br>";
-                        strBody += "<p style='font-size=9'>" + "Email enviado automáticamente,favor não responder."+ "</p>";
+                        strBody += "<br>";
+                        strBody += "<p style='font-size=9'>" + "Email enviado automáticamente,favor não responder." + "</p>";
+                        //strBody += "</body>";
+                        //strBody += "</html>";
                         clsLib.EnviaEmail(Param.Email_Contato,Param.Email_Copia,"","Módulo Proposta - Proposta Comercial",strBody,strPath+strPdfName);
                     }
                     
@@ -592,6 +631,26 @@ namespace PROPOSTA
             }
         }
 
+        [Route("api/ListHistorico/{Id_Simulacao}")]
+        [HttpGet]
+        [ActionName("ListHistorico")]
+        [Authorize()]
+        public IHttpActionResult ListHistorico(Int32 Id_Simulacao)
+        {
+            SimLib clsLib = new SimLib();
+            Simulacao Cls = new Simulacao(User.Identity.Name);
+            try
+            {
+                DataTable dtbRetorno = Cls.ListHistorico(Id_Simulacao);
+                return Ok(dtbRetorno);
+
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
 
     }
 }

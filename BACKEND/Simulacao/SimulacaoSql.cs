@@ -166,6 +166,7 @@ namespace PROPOSTA
                     Simulacao.Permite_Confirmar_Venda = drwBase["Permite_Confirmar_Venda"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Gerar = drwBase["Permite_Gerar"].ToString().ConvertToBoolean();
                     Simulacao.Permite_Editar = drwBase["Permite_Editar"].ToString().ConvertToBoolean();
+                    Simulacao.Permite_Reabrir= drwBase["Permite_Reabrir"].ToString().ConvertToBoolean();
                     Simulacao.Indica_Inconsistencia = drwBase["Indica_Inconsistencia"].ToString().ConvertToBoolean();
                     Simulacao.Indica_Sem_Midia = drwBase["Indica_Sem_Midia"].ToString().ConvertToBoolean();
                     Simulacao.Termometro_Venda = drwBase["Termometro_Venda"].ToString().ConvertToInt32();
@@ -263,9 +264,11 @@ namespace PROPOSTA
                         Fixar_Valor = drw["Fixar_Valor"].ToString().ConvertToBoolean(),
                         Caracteristica_Contrato= drw["Caracteristica_Contrato"].ToString().Trim(),
                         Cod_Programa_Patrocinado= drw["Cod_Programa_Patrocinado"].ToString().Trim(),
+                        BackColorTab= drw["BackColorTab"].ToString().Trim(),
                         Cod_Empresa_Faturamento = drw["Cod_Empresa_Faturamento"].ToString(),
                         Midias = AddListMidia(drw["Id_Esquema"].ToString().ConvertToInt32()),
                         Veiculos = AddListVeiculos(drw["Id_Esquema"].ToString().ConvertToInt32()),
+                        
                         
                     });
                 }
@@ -597,7 +600,8 @@ namespace PROPOSTA
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Validade_Termino", Param.Validade_Termino.ConvertToDatetime());
                 }
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Empresa_Venda", Param.Cod_Empresa_Venda);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Tipo_Midia", Param.Cod_Tipo_Midia.TrimEnd().ToUpper());
+                //Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Tipo_Midia", Param.Cod_Tipo_Midia.TrimEnd().ToUpper());
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Tipo_Midia", Param.Cod_Tipo_Midia);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Agencia", Param.Cod_Agencia);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome_Agencia", Param.Nome_Agencia);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cnpj_Agencia", Param.Cnpj_Agencia);
@@ -948,6 +952,26 @@ namespace PROPOSTA
                 cnn.Close();
             }
         }
+        public void SimulacaoReabrir(Int32 pId_Simulacao)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Reabrir");
+                cmd.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                cmd.Parameters.AddWithValue("@Par_Id_Simulacao", pId_Simulacao);
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+        }
         public DataTable SelecionarPacotes(ParamSelecionarPacote param)
         {
             DataTable dtb = new DataTable();
@@ -963,6 +987,31 @@ namespace PROPOSTA
                 clsLib.NewParameter(Adp, "@Par_Id_Pacote", param.Id_Pacote, true);
                 clsLib.NewParameter(Adp, "@Par_Validade_Inicio", param.Validade_Inicio.ConvertToDatetime());
                 clsLib.NewParameter(Adp, "@Par_Validade_Termino", param.Validade_Termino.ConvertToDatetime());
+                Adp.Fill(dtb);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
+        public DataTable ListHistorico(Int32 pId_Simulacao)
+        {
+            DataTable dtb = new DataTable();
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            SimLib clsLib = new SimLib();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Historico_List");
+                Adp.SelectCommand = cmd;
+                clsLib.NewParameter(Adp, "@Par_Login", this.CurrentUser);
+                clsLib.NewParameter(Adp, "@Par_Id_Simulacao", pId_Simulacao);
                 Adp.Fill(dtb);
             }
             catch (Exception)

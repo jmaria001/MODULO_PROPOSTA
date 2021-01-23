@@ -159,7 +159,10 @@
                         <td style="text-align:right">{{::Simulacao.Valor_Total_Negociado | currency:"R$ ":2}}</td>
                         <td style="text-align:right">{{::Simulacao.Desconto_Real | currency:"":4}}%</td>
                         <td>{{::Simulacao.Nome_Usuario}}</td>
-                        <td style="text-align:center"><label class="label" ng-style="{'background-color':Simulacao.Backcolor,'color':Simulacao.Forecolor}">{{::Simulacao.Descricao_Status}}</label></td>
+                        <td style="text-align:center"><label class="label" ng-style="{'background-color':Simulacao.Backcolor,'color':Simulacao.Forecolor}">
+                                    <span class="span-btn" ng-click="ShowHistorico(Simulacao.Id_Simulacao)">{{::Simulacao.Descricao_Status}}</span>
+                            </label>
+                        </td>
                         <td width="50px">
                             <button class="btn btn-default btn-sm" ng-click="ExcluirSimulacao(Simulacao.Id_Simulacao)" ng-disabled="!PermissaoExcluir">
                                 <span class="fa fa-trash fa-crud"></span>
@@ -172,6 +175,7 @@
     </div>
 </div>
 <div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/modalHistorico.html'"></div>
 <script type="text/javascript">
     $(document).ready(function () {
         GetDictionary();

@@ -25,7 +25,7 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
-        ////=================================Obtem dados do tipo_midia
+        ////=================================Obtem dados da Rede
         [Route("api/GetRedeData/{RedeID}")]
         [HttpGet]
         [ActionName("GetRedeData")]

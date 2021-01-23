@@ -7,13 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/styles.css?Hash=V072">
-    <link href="css/custom.css??Hash=V072" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css??Hash=V076">
+    <link href="css/custom.css?Hash=V076" rel="stylesheet" />
 </head>
-<body  class="notranslate" ng-cloak >
+<body  class="notranslate" ng-cloak>
     <!-- APP WRAPPER -->
+    <div class="backdrop"></div>
+    <div class="divwait">
+        <div style="text-align:center">
+            <i class="fa fa-circle-o-notch fa-spin fa-4x"></i>
+        </div>
+        <!--<button class="btn btn-default" id="ButtonCloseWait" data-dismiss="modal" style="visibility:hidden">Close</button>-->
+    </div>
     <div class="app">
-
+        
+        
         <!-- START APP HEADER -->
         <div class="app-header app-header-design-dark" style="height:auto">
             <ul class="app-header-buttons visible-mobile">
@@ -27,7 +35,7 @@
                         <li><a href="#MenuDashboard" class="navbar-link"><span class="nav-icon-hexa"></span>Dashboard</a>
                             <ul>
                                 <li><a href="#MenuDashboard" class="navbar-link"><span class="nav-icon-hexa"></span>Análises de Vendas</a>
-                                <li><a href="https://app.powerbi.com/reportEmbed?reportId=883df52a-73b8-471b-8e26-4ceedb4de474&autoAuth=true&ctid=4da4ad8f-166f-4293-b735-e0a19e531a96&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1yZWRpcmVjdC5hbmFseXNpcy53aW5kb3dzLm5ldC8ifQ%3D%3D" target="_blank" class="navbar-link"><span class="nav-icon-hexa"></span>Power BI</a></li>
+                                <li><a href="https://app.powerbi.com/reportEmbed?reportId=9b6eab85-1b02-4aaa-a8ff-5e62fc03b271&autoAuth=true&ctid=83f7a8c8-e89b-4ca7-b107-f0765f6c7535&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLWJyYXppbC1zb3V0aC1iLXByaW1hcnktcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQvIn0%3D" target="_blank" class="navbar-link"><span class="nav-icon-hexa"></span>Power BI</a></li>
                                 
                             </ul>
                         </li>
@@ -128,145 +136,145 @@
             </div>
         </div>
     </div>
-    <button id="buttonWait" class="btn btn-default" data-toggle="modal" data-target="#modalWait" data-backdrop="static" style="visibility:hidden"></button>
+    <!--<button id="buttonWait" class="btn btn-default" data-toggle="modal" data-target="#modalWait" data-backdrop="static" style="visibility:hidden"></button>-->
     <!------------------------------------- IMPORTANT SCRIPTS ---------------------------------->
-    <script type="text/javascript" src="js/vendor/jquery/jquery.min.js??Hash=V072"></script>
-    <script type="text/javascript" src="js/vendor/jquery/jquery-migrate.min.js??Hash=V072"></script>
-    <script type="text/javascript" src="js/vendor/jquery/jquery-ui.min.js??Hash=V072"></script>
-    <script type="text/javascript" src="js/vendor/bootstrap/bootstrap.min.js??Hash=V072"></script>
-    <script type="text/javascript" src="js/vendor/moment/moment.min.js??Hash=V072"></script>
-    <script type="text/javascript" src="js/vendor/customscrollbar/jquery.mCustomScrollbar.min.js??Hash=V072"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery.min.js?Hash=V076"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery-migrate.min.js?Hash=V076"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery-ui.min.js?Hash=V076"></script>
+    <script type="text/javascript" src="js/vendor/bootstrap/bootstrap.min.js?Hash=V076"></script>
+    <script type="text/javascript" src="js/vendor/moment/moment.min.js?Hash=V076"></script>
+    <script type="text/javascript" src="js/vendor/customscrollbar/jquery.mCustomScrollbar.min.js?Hash=V076"></script>
     <!--====================================================================================angular scripts-->
-    <script src="angular/angular-bin/angular.min.js??Hash=V072"></script>
-    <script src="angular/angular-route/angular-route.min.js??Hash=V072"></script>
-    <script src="angular/angular-cookies/angular-cookies.min.js??Hash=V072"></script>
-    <script src="angular/angular-bin/angular-locale_pt-br.js??Hash=V072"></script>
+    <script src="angular/angular-bin/angular.min.js?Hash=V076"></script>
+    <script src="angular/angular-route/angular-route.min.js?Hash=V076"></script>
+    <script src="angular/angular-cookies/angular-cookies.min.js?Hash=V076"></script>
+    <script src="angular/angular-bin/angular-locale_pt-br.js?Hash=V076"></script>
     <!------------------------------------- Page SCRIPTS ---------------------------------->
-    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap.min.js??Hash=V072"></script>
-    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-world-mill-en.js??Hash=V072"></script>
-    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-us-aea-en.js??Hash=V072"></script>
-    <script src="js/vendor/noty/jquery.noty.packaged.js??Hash=V072"></script>
-    <script src="js/vendor/sweetalert/sweetalert.min.js??Hash=V072"></script>
+    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap.min.js?Hash=V076"></script>
+    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-world-mill-en.js?Hash=V076"></script>
+    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-us-aea-en.js?Hash=V076"></script>
+    <script src="js/vendor/noty/jquery.noty.packaged.js?Hash=V076"></script>
+    <script src="js/vendor/sweetalert/sweetalert.min.js?Hash=V076"></script>
 
     <!------------------------------------- App SCRIPTS ---------------------------------->
-    <script type="text/javascript" src="js/app.js??Hash=V072"></script>
-    <script type="text/javascript" src="js/app_plugins.js??Hash=V072"></script>
+    <script type="text/javascript" src="js/app.js?Hash=V076"></script>
+    <script type="text/javascript" src="js/app_plugins.js?Hash=V076"></script>
     <!------------------------------------- Controllerangular/Services/service ---------------------------------->
-    <script src="js/SimLib.js??Hash=V072"></script>
-    <script src="js/dictionary.js??Hash=V072"></script>
-    <script src="angular/Module/app.js??Hash=V072"></script>
-    <script src="angular/Filter/AppFilter.js??Hash=V072"></script>
-    <script src="angular/config/base_url_config.js??Hash=V072"></script>
-    <script src="angular/RouteConfig/route_config.js??Hash=V072"></script>
-    <script src="angular/interceptor/errorInterceptor.js??Hash=V072"></script>
-    <script src="angular/interceptor/interceptorsConfig.js??Hash=V072"></script>
-    <script src="angular/interceptor/loadingInterceptor.js??Hash=V072"></script>
-    <script src="angular/interceptor/timestampInterceptor.js??Hash=V072"></script>
-    <script src="angular/Diretivas/repeatfinished.js??Hash=V072"></script>
-    <script src="angular/Diretivas/uiCalendar.js??Hash=V072"></script>
-    <script src="angular/Diretivas/uiCompetencia.js??Hash=V072"></script>
-    <script src="angular/Diretivas/uiDate.js??Hash=V072"></script>
-    <script src="angular/Controller/ContatoCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/ContatoController.js??Hash=V072"></script>
-    <script src="angular/Controller/QualidadeCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/QualidadeController.js??Hash=V072"></script>
-    <script src="angular/Controller/TipoMidiaCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/TipoMidiaController.js??Hash=V072"></script>
+    <script src="js/SimLib.js?Hash=V076"></script>
+    <script src="js/dictionary.js?Hash=V076"></script>
+    <script src="angular/Module/app.js?Hash=V076"></script>
+    <script src="angular/Filter/AppFilter.js?Hash=V076"></script>
+    <script src="angular/config/base_url_config.js?Hash=V076"></script>
+    <script src="angular/RouteConfig/route_config.js?Hash=V076"></script>
+    <script src="angular/interceptor/errorInterceptor.js?Hash=V076"></script>
+    <script src="angular/interceptor/interceptorsConfig.js?Hash=V076"></script>
+    <script src="angular/interceptor/loadingInterceptor.js?Hash=V076"></script>
+    <script src="angular/interceptor/timestampInterceptor.js?Hash=V076"></script>
+    <script src="angular/Diretivas/repeatfinished.js?Hash=V076"></script>
+    <script src="angular/Diretivas/uiCalendar.js?Hash=V076"></script>
+    <script src="angular/Diretivas/uiCompetencia.js?Hash=V076"></script>
+    <script src="angular/Diretivas/uiDate.js?Hash=V076"></script>
+    <script src="angular/Controller/ContatoCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/ContatoController.js?Hash=V076"></script>
+    <script src="angular/Controller/QualidadeCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/QualidadeController.js?Hash=V076"></script>
+    <script src="angular/Controller/TipoMidiaCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/TipoMidiaController.js?Hash=V076"></script>
 
-    <script src="angular/Services/tokenApi.js??Hash=V072"></script>
-    <script src="angular/Services/httpService.js??Hash=V072"></script>
-    <script src="angular/Controller/mainController.js??Hash=V072"></script>
-    <script src="angular/Controller/MensagemController.js??Hash=V072"></script>
-    <script src="angular/Controller/MenuCadastroController.js??Hash=V072"></script>
+    <script src="angular/Services/tokenApi.js?Hash=V076"></script>
+    <script src="angular/Services/httpService.js?Hash=V076"></script>
+    <script src="angular/Controller/mainController.js?Hash=V076"></script>
+    <script src="angular/Controller/MensagemController.js?Hash=V076"></script>
+    <script src="angular/Controller/MenuCadastroController.js?Hash=V076"></script>
     <script src="angular/Controller/CondPgtoController.js?hash=020"></script>
-    <script src="angular/Controller/CondPgtoCadastroController.js???Hash=V072"></script>
-    <script src="angular/Controller/EmpresaController.js???Hash=V072"></script>
-    <script src="angular/Controller/EmpresaCadastroController.js???Hash=V072"></script>
-    <script src="angular/Controller/VeiculoController.js??Hash=V072"></script>
-    <script src="angular/Controller/VeiculoCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/MercadoController.js??Hash=V072"></script>
-    <script src="angular/Controller/MercadoCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/TipoComercialController.js??Hash=V072"></script>
-    <script src="angular/Controller/TipoComercialCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/MotivoFalhaCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/MotivoFalhaController.js??Hash=V072"></script>
-    <script src="angular/Controller/RedeController.js??Hash=V072"></script>
-    <script src="angular/Controller/RedeCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/MotivoCancelamentoController.js??Hash=V072"></script>
-    <script src="angular/Controller/MotivoCancelamentoCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/dictionaryController.js??Hash=V072"></script>
-    <script src="angular/Controller/NewPasswordController.js??Hash=V072"></script>
-    <script src="angular/Controller/Simulacao_List_Controller.js??Hash=V072"></script>
-    <script src="angular/Controller/SimulacaoController.js??Hash=V072"></script>
-    <script src="angular/Controller/PacoteDesconto_List_Controller.js??Hash=V072"></script>
-    <script src="angular/Controller/PacoteCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/UsuarioController.js??Hash=V072"></script>
-    <script src="angular/Controller/login.js??Hash=V072"></script>
-    <script src="angular/Controller/muralController.js??Hash=V072"></script>
-    <script src="angular/Controller/RegraAprovacao_Controller.js??Hash=V072"></script>
-    <script src="angular/Controller/RegraAprovacaoCadastro_Controller.js??Hash=V072"></script>
-    <script src="angular/Controller/PendenciaAprovacao_Controller.js??Hash=V072"></script>
-    <script src="angular/Controller/AprovarPendentes_Controller.js??Hash=V072"></script>
-    <script src="angular/Controller/CaracVeiculController.js??Hash=V072"></script>
-    <script src="angular/Controller/CaracVeiculCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/CategoriaClienteController.js??Hash=V072"></script>
-    <script src="angular/Controller/CategoriaClienteCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/MotivoAlterNegocController.js??Hash=V072"></script>
-    <script src="angular/Controller/MotivoAlterNegocCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/NegociacaoController.js??Hash=V072"></script>
-    <script src="angular/Controller/NegociacaoCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/NegociacaoDetalheController.js??Hash=V072"></script>
-    <script src="angular/Controller/MapaReservaController.js??Hash=V072"></script>
-    <script src="angular/Controller/MapaReservaDetalheController.js??Hash=V072"></script>
-    <script src="angular/Controller/MapaReservaImportController.js??Hash=V072"></script>
-    <script src="angular/Controller/MapaReservaCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/TabelaPrecosCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/TabelaPrecosController.js??Hash=V072"></script>
-    <script src="angular/Controller/ProgramaCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/ProgramaController.js??Hash=V072"></script>
-    <script src="angular/Controller/TerceiroController.js??Hash=V072"></script>
-    <script src="angular/Controller/TerceiroCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/ProdutoController.js??Hash=V072"></script>
-    <script src="angular/Controller/ProdutoCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/GeneroCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/GeneroController.js?hash=V036??Hash=V072"></script>
-    <script src="angular/Controller/ParametroCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/ParametroController.js??Hash=V072"></script>
-    <script src="angular/Controller/ParametroValoracaoCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/ParametroValoracaoController.js??Hash=V072"></script>
-    <script src="angular/Controller/GradeController.js??Hash=V072"></script>
-    <script src="angular/Controller/GradeCadastroController.js??Hash=V072"></script>
-    <script src="angular/Controller/PropagacaoGradeController.js??Hash=V072"></script>
-    <script src="angular/Controller/MenuDashboardController.js??Hash=V072"></script>
-    <script src="angular/Controller/DashGraficoVendasController.js??Hash=V072"></script>
-    <script src="angular/Controller/DashFunilVendasController.js??Hash=V072"></script>
-    <script src="angular/Controller/DashEvolucaoVendasController.js??Hash=V072"></script>
-    <script src="angular/Controller/Am_ConsultaController.js??Hash=V072"></script>
-    <script src="angular/Controller/Am_CompensacaoController.js??Hash=V072"></script>
-    <script src="angular/Controller/Am_ReencaixeController.js??Hash=V072"></script>
-    <script src="angular/Controller/RoteiroController.js??Hash=V072"></script>
-    <script src="angular/Controller/Composicao_Break_Controller.js?Hash=V072"></script>
-    <script src="angular/Controller/PreOrdenacaoController.js?Hash=V072"></script>
-    <script src="angular/Controller/ParamRoteiroController.js?Hash=V072"></script>
-    <script src="angular/Controller/ParRetorPlayListController.js?Hash=V072"></script>
+    <script src="angular/Controller/CondPgtoCadastroController.js??Hash=V076"></script>
+    <script src="angular/Controller/EmpresaController.js??Hash=V076"></script>
+    <script src="angular/Controller/EmpresaCadastroController.js??Hash=V076"></script>
+    <script src="angular/Controller/VeiculoController.js?Hash=V076"></script>
+    <script src="angular/Controller/VeiculoCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/MercadoController.js?Hash=V076"></script>
+    <script src="angular/Controller/MercadoCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/TipoComercialController.js?Hash=V076"></script>
+    <script src="angular/Controller/TipoComercialCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/MotivoFalhaCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/MotivoFalhaController.js?Hash=V076"></script>
+    <script src="angular/Controller/RedeController.js?Hash=V076"></script>
+    <script src="angular/Controller/RedeCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/MotivoCancelamentoController.js?Hash=V076"></script>
+    <script src="angular/Controller/MotivoCancelamentoCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/dictionaryController.js?Hash=V076"></script>
+    <script src="angular/Controller/NewPasswordController.js?Hash=V076"></script>
+    <script src="angular/Controller/Simulacao_List_Controller.js?Hash=V076"></script>
+    <script src="angular/Controller/SimulacaoController.js?Hash=V076"></script>
+    <script src="angular/Controller/PacoteDesconto_List_Controller.js?Hash=V076"></script>
+    <script src="angular/Controller/PacoteCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/UsuarioController.js?Hash=V076"></script>
+    <script src="angular/Controller/login.js?Hash=V076"></script>
+    <script src="angular/Controller/muralController.js?Hash=V076"></script>
+    <script src="angular/Controller/RegraAprovacao_Controller.js?Hash=V076"></script>
+    <script src="angular/Controller/RegraAprovacaoCadastro_Controller.js?Hash=V076"></script>
+    <script src="angular/Controller/PendenciaAprovacao_Controller.js?Hash=V076"></script>
+    <script src="angular/Controller/AprovarPendentes_Controller.js?Hash=V076"></script>
+    <script src="angular/Controller/CaracVeiculController.js?Hash=V076"></script>
+    <script src="angular/Controller/CaracVeiculCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/CategoriaClienteController.js?Hash=V076"></script>
+    <script src="angular/Controller/CategoriaClienteCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/MotivoAlterNegocController.js?Hash=V076"></script>
+    <script src="angular/Controller/MotivoAlterNegocCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/NegociacaoController.js?Hash=V076"></script>
+    <script src="angular/Controller/NegociacaoCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/NegociacaoDetalheController.js?Hash=V076"></script>
+    <script src="angular/Controller/MapaReservaController.js?Hash=V076"></script>
+    <script src="angular/Controller/MapaReservaDetalheController.js?Hash=V076"></script>
+    <script src="angular/Controller/MapaReservaImportController.js?Hash=V076"></script>
+    <script src="angular/Controller/MapaReservaCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/TabelaPrecosCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/TabelaPrecosController.js?Hash=V076"></script>
+    <script src="angular/Controller/ProgramaCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/ProgramaController.js?Hash=V076"></script>
+    <script src="angular/Controller/TerceiroController.js?Hash=V076"></script>
+    <script src="angular/Controller/TerceiroCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/ProdutoController.js?Hash=V076"></script>
+    <script src="angular/Controller/ProdutoCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/GeneroCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/GeneroController.js?hash=V036?Hash=V076"></script>
+    <script src="angular/Controller/ParametroCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/ParametroController.js?Hash=V076"></script>
+    <script src="angular/Controller/ParametroValoracaoCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/ParametroValoracaoController.js?Hash=V076"></script>
+    <script src="angular/Controller/GradeController.js?Hash=V076"></script>
+    <script src="angular/Controller/GradeCadastroController.js?Hash=V076"></script>
+    <script src="angular/Controller/PropagacaoGradeController.js?Hash=V076"></script>
+    <script src="angular/Controller/MenuDashboardController.js?Hash=V076"></script>
+    <script src="angular/Controller/DashGraficoVendasController.js?Hash=V076"></script>
+    <script src="angular/Controller/DashFunilVendasController.js?Hash=V076"></script>
+    <script src="angular/Controller/DashEvolucaoVendasController.js?Hash=V076"></script>
+    <script src="angular/Controller/Am_ConsultaController.js?Hash=V076"></script>
+    <script src="angular/Controller/Am_CompensacaoController.js?Hash=V076"></script>
+    <script src="angular/Controller/Am_ReencaixeController.js?Hash=V076"></script>
+    <script src="angular/Controller/RoteiroController.js?Hash=V076"></script>
+    <script src="angular/Controller/Composicao_Break_Controller.js??Hash=V076"></script>
+    <script src="angular/Controller/PreOrdenacaoController.js??Hash=V076"></script>
+    <script src="angular/Controller/ParamRoteiroController.js??Hash=V076"></script>
+    <script src="angular/Controller/ParRetorPlayListController.js??Hash=V076"></script>
     <!--====================================================================================PLUGINS -->
-    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.js??Hash=V072"></script>
-    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/dataTables.bootstrap.min.js??Hash=V072"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/dataTables.buttons.min.js??Hash=V072"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/pdfmake.min.js??Hash=V072"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.print.min.js??Hash=V072"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.html5.min.js??Hash=V072"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/jszip.min.js??Hash=V072"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/vfs_fonts.js??Hash=V072"></script>
-    <script src="js/vendor/dropzone/dropzone.js??Hash=V072"></script>
-    <script src="js/vendor/charts/charts.bundle.js??Hash=V072"></script>
-    <script src="js/vendor/moment/moment_locale_pt_br.js??Hash=V072"></script>
-    <script type="text/javascript" src="js/vendor/ionrangeslider/ion.rangeSlider.min.js??Hash=V072"></script>
+    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.js?Hash=V076"></script>
+    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/dataTables.bootstrap.min.js?Hash=V076"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/dataTables.buttons.min.js?Hash=V076"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/pdfmake.min.js?Hash=V076"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.print.min.js?Hash=V076"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.html5.min.js?Hash=V076"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/jszip.min.js?Hash=V076"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/vfs_fonts.js?Hash=V076"></script>
+    <script src="js/vendor/dropzone/dropzone.js?Hash=V076"></script>
+    <script src="js/vendor/charts/charts.bundle.js?Hash=V076"></script>
+    <script src="js/vendor/moment/moment_locale_pt_br.js?Hash=V076"></script>
+    <script type="text/javascript" src="js/vendor/ionrangeslider/ion.rangeSlider.min.js?Hash=V076"></script>
     <!--====================================================================================Export-->
-    <script src="js/vendor/jspdf/png.js??Hash=V072"></script>
-    <script src="js/vendor/jspdf/zlib.js??Hash=V072"></script>
-    <script src="js/vendor/jspdf/jspdf.min.js??Hash=V072"></script>
-    <script src="js/vendor/jspdf/html2canvas.js??Hash=V072"></script>
+    <script src="js/vendor/jspdf/png.js?Hash=V076"></script>
+    <script src="js/vendor/jspdf/zlib.js?Hash=V076"></script>
+    <script src="js/vendor/jspdf/jspdf.min.js?Hash=V076"></script>
+    <script src="js/vendor/jspdf/html2canvas.js?Hash=V076"></script>
 
     <div ng-include="'template/wait.html'"></div>
 </body>
@@ -279,12 +287,14 @@
                 if (e.keyCode == 8) {
                     if (!rx.test(e.target.tagName) || e.target.disabled || e.target.readOnly) {
                         e.preventDefault();
-                    }
-                }
+                    };
+                };
             //}
         });
         $(".navbar-link").click(function () {
             $(".app-header-navigation").removeClass("show");
         });
     });
+
+    
 </script>

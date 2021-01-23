@@ -11,6 +11,7 @@
                         <th></th>
                         <th>Codigo</th>
                         <th>Nome Rede</th>
+                        <th>Cor Esquema</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -22,6 +23,9 @@
                         </td>
                         <td>{{::Rede.RedeID}}</td>
                         <td>{{::Rede.NomeRede}}</td>
+                        <td style="width:150px">
+                            <label class="label" ng-style="{'background-color':Rede.BackColorTab}" style="width:100px !important;display:block">{{::Rede.BackColorTab}}</label>
+                        </td>
                     </tr>
                 </tbody>
             </table>

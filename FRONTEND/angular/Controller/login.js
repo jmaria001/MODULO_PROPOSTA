@@ -25,14 +25,14 @@ angular.module('App').controller('loginController', ['$scope', '$rootScope', 'to
             httpService.Post('security/token', _data).then(function (response) {
                 var _valido = true
                 if ($rootScope.App_Erro) {
-                    ShowAlert($rootScope.App_Erro, 'warning', 2000, 'topRight')
-                    _valido=false
+                    ShowAlert($rootScope.App_Erro, 'warning', 2000, 'topRight');
+                    _valido = false;
+                    $rootScope.loading = 0;
                 } 
                 if (_valido == true) {
                     tokenApi.setToken('oAuth_token', response.data['access_token']);
                     $rootScope.Islogged = true;
-                    delete $scope.app_user
-
+                    delete $scope.app_user;
                     httpService.Get('GetUserData').then(function (response) {
                         $rootScope.UserData = response.data[0];
                     });

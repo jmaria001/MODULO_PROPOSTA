@@ -18,6 +18,7 @@ namespace PROPOSTA
         {
             public Int32 RedeID { get; set; }
             public String NomeRede { get; set; }
+            public String BackColorTab{ get; set; }
             public string id_operacao { get; set; }
         }
 

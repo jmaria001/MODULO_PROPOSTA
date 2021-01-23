@@ -14,6 +14,7 @@
     $scope.gridheaders = [{ 'title': '', 'visible': true, 'searchable': false, 'sortable': false },
     { 'title': 'RedeID', 'visible': true, 'searchable': true, 'sortable': true },
     { 'title': 'NomeRede', 'visible': true, 'searchable': true, 'sortable': true },
+    { 'title': 'Cor Esquema', 'visible': true, 'searchable': true, 'sortable': true },
     ];
 
     //====================Quando terminar carga do grid, torna view do grid visible

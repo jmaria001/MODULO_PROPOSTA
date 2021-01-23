@@ -67,6 +67,7 @@ namespace PROPOSTA
             public Boolean Permite_Gerar{ get; set; }
             public Boolean Permite_Editar{ get; set; }
             public Boolean Permite_Confirmar_Venda{ get; set; }
+            public Boolean Permite_Reabrir { get; set; }
             public String Observacao{ get; set; }
             public String Motivo_Recusa{ get; set; }
             public List<EsquemaModel> Esquemas { get; set; }
@@ -105,6 +106,7 @@ namespace PROPOSTA
             public String Cod_Programa_Patrocinado { get; set; }
             public List<MidiaModel> Midias { get; set; }
             public List<VeiculoModel> Veiculos { get; set; }
+            public String BackColorTab { get; set; }
         }
         public class MidiaModel
         {

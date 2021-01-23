@@ -24,11 +24,11 @@
         height: 30px;
     }
 
-    #btnEsquema {
+    /*#btnEsquema {
         height: 80px !important;
         line-height: 20px !important;
         border-radius: 0px 35px 0px 0px;
-    }
+    }*/
 
     #tbDigitacaoEsquema td {
         padding: 5px 5px !important;
@@ -331,9 +331,12 @@
                                                     <td>Desconto Real </td>
                                                     <td style="text-align:right">{{Simulacao.Totalizadores[TotalizadorIndex].Desconto_Real |number:4}}% </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Status</td>
-                                                    <td style="text-align:right">
+                                                <tr ng-show="Simulacao.Id_Simulacao" >
+                                                    <!--<td>Status</td>-->
+                                                    <td>    
+                                                        <label class="label label-default pull-left"><span class="span-btn" ng-click="ShowHistorico(Simulacao.Id_Simulacao)">Histórico do Status</span></label>
+                                                    </td>
+                                                    <td  style="text-align:right">
                                                         <label class="label" ng-style="{'background-color':Simulacao.BackColorStatus,'color':Simulacao.ForeColorStatus}">{{Simulacao.Descricao_Status}}</label>
                                                     </td>
                                                 </tr>
@@ -583,7 +586,11 @@
                 <div ng-show="Simulacao.Esquemas.length>0">
                     <div class="row">
                         <div class="col-md-12">
-                            <button style="width:180px" id="btnEsquema" class="btn btn-default margin-bottom-5 margin-right-5 btntab" ng-repeat="Esquema in Simulacao.Esquemas track by $index" ng-style="{'background-color':(Esquema.Id_Esquema==Simulacao.Esquemas[currentEsquema].Id_Esquema) ?'orange':'#e0e0e0'}" ng-click="SetCurrenEsquema(Esquema.Id_Esquema)">
+                            <!--<button style="color:white; width:180px" id="btnEsquema" class="btn btn-default margin-bottom-5 margin-right-5 btntab" ng-repeat="Esquema in Simulacao.Esquemas track by $index"
+                                 ng-style="{'background-color':(Esquema.Id_Esquema==Simulacao.Esquemas[currentEsquema].Id_Esquema) ?'orange':Esquema.BackColorTab}" ng-click="SetCurrenEsquema(Esquema.Id_Esquema)">-->
+                            <button id="btnEsquema"  ng-repeat="Esquema in Simulacao.Esquemas track by $index"
+                                    ng-style="{'background-color':Esquema.BackColorTab}"
+                                    ng-class="(Esquema.Id_Esquema==Simulacao.Esquemas[currentEsquema].Id_Esquema) ?'btn btn-default btntab btnEsquemaSelected':'btn btn-default btntab btnEsquemaUnselected'" ng-click="SetCurrenEsquema(Esquema.Id_Esquema)">
                                 {{Simulacao.Esquemas[$index].Nome_Rede}}
                                 <br />
                                 ({{$index+1}})-{{Esquema.Competencia | MesExtenso}}
@@ -611,7 +618,7 @@
                                                 <input id="txtIdRede"
                                                        ng-model="Simulacao.Esquemas[currentEsquema].RedeId"
                                                        ng-model-options="{updateOn: 'blur'}"
-                                                       ng-change="DicionaryValidate('txtIdRede');RedeChange()"
+                                                       ng-change="DicionaryValidate('txtIdRede');RedeChange(Simulacao.Esquemas[currentEsquema].RedeId)"
                                                        ng-disabled="Simulacao.Esquemas[currentEsquema].Midias.length>0 || !Simulacao.Permite_Editar"
                                                        primarybind="txtIdRede"
                                                        secondarybind="txtNomeRede" />
@@ -1055,7 +1062,6 @@
                                         <td><span ng-show="Linha.IsValid">{{Linha.Qtd_Total_Insercoes}}</span></td>
                                         <td><span ng-show="Linha.IsValid">{{Linha.Valor_Tabela_Unitario}}</span></td>
                                         <!--<td><span ng-show="Linha.IsValid">{{Linha.Desconto_Informado}}</span></td>-->
-                                        <td><span
                                         <td><span class="span-btn" style="text-decoration:underline" data-toggle="tooltip" title="Detalhar Descontos" ng-show="Linha.IsValid" ng-click="DetalharDesconto(Linha)">{{Linha.Desconto_Real}}  </span></td>
                                         <td><span ng-show="Linha.IsValid">{{Linha.Valor_Negociado_Total}} </span></td>
                                         <td>
@@ -1084,6 +1090,7 @@
                 <button class="btn btn-default btn-sm" ng-click="ImprimirSimulacao(Simulacao.Id_Simulacao)" ng-show="!Simulacao.Indica_Sem_Midia">Analisar {{Descricao_Processo}}</button>
                 <button class="btn btn-default btn-sm" ng-click="PreencherProposta(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Gerar">Enviar Proposta</button>
                 <button class="btn btn-default btn-sm" ng-click="ConfirmarVenda(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Confirmar_Venda">Confirmar Venda</button>
+                <button class="btn btn-default btn-sm" ng-click="ReabrirProposta(Simulacao.Id_Simulacao)" ng-show="Simulacao.Permite_Reabrir">Reabrir</button>
                 <button class="btn btn-success btn-sm" ng-click="SalvarSimulacao(Simulacao,true)" ng-show="Simulacao.Permite_Editar">Salvar</button>
                 <a class="btn btn-warning btn-sm" href="#Simulacao" ng-if="Parameters.Processo=='S'"><span class="nav-icon-hexa"></span>Cancela</a>
                 <a class="btn btn-warning btn-sm" href="#Proposta" ng-if="Parameters.Processo=='P'"><span class="nav-icon-hexa"></span>Cancela</a>
@@ -1134,7 +1141,7 @@
 <div ng-include="'template/modalInfo.html'"></div>
 <div ng-include="'template/DescontoDetalhe.html'"></div>
 <div ng-include="'template/GeracaoProposta.html'"></div>
-
+<div ng-include="'template/modalHistorico.html'"></div>
 
 <script type="text/javascript">
     $(document).ready(function () {

@@ -35,12 +35,27 @@ angular.module('App').controller('MainController', ['$scope', '$rootScope', '$co
     
     $rootScope.$watch('loading', function (newValue, oldValue) {
         if (newValue) {
-            $("#buttonWait").click()
+            //$("#buttonWait").click()
+            $(".divwait").css("display", "block")
+            $('.backdrop').toggleClass('active');
+            //  $("body").addClass("modal-open");
         }
         else {
-            $("#ButtonCloseWait").click()
+            //$("#ButtonCloseWait").click();
+            $(".divwait").css("display", "none")
+            $('.backdrop').removeClass('active');
         }
     });
+
+    //==================================Funcao para achar empresa default do usuario
+    $scope.FnSetEmpresaDefault = function (ptipo) {
+        if (ptipo.toUpperCase() == 'CODIGO') {
+            return $rootScope.UserData.Cod_Empresa;
+        };
+        if (ptipo.toUpperCase() == 'NOME') {
+            return $rootScope.UserData.Nome_Empresa;
+        };
+    };
 }]);
 
 

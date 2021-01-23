@@ -50,6 +50,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_RedeID", pRede.RedeID);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_NomeRede", pRede.NomeRede);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_BackColorTab", pRede.BackColorTab);
                 Adp.Fill(dtb);
             }
             catch (Exception)
@@ -82,6 +83,7 @@ namespace PROPOSTA
                 {
                     Rede.RedeID = dtb.Rows[0]["RedeID"].ToString().ConvertToInt32();
                     Rede.NomeRede = dtb.Rows[0]["NomeRede"].ToString();
+                    Rede.BackColorTab = dtb.Rows[0]["BackColorTab"].ToString();
                 }
             }
             catch (Exception)

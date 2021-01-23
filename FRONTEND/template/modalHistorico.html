@@ -1,0 +1,36 @@
+﻿<div class="modal fade" id="modalHistorico" tabindex="-1" role="dialog" aria-labelledby="modalInfo"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h5 class="modal-title"> Histórico</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-times" style="color:#fff"></span></button>
+            </div>
+            <div class="modal-body" style="max-height:500px;overflow-y:scroll">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Data</th>
+                                <th>Usuário</th>
+                                <th>Operação</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="hist in HistoricoStatus track by $index">
+                                <td>{{::hist.Data_Operacao | date:"dd/MM/yyyy HH:mm:ss"}}</td>
+                                <td>{{::hist.Login}}</td>
+                                <td>{{::hist.Operacao}}</td>
+                                <td style="text-align:center"><label class="label" ng-style="{'background-color':hist.Backcolor,'color':hist.Forecolor}">{{::hist.Nome_Status}}</label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
