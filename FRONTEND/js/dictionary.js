@@ -37,6 +37,7 @@ function GetDictionary() {
                         { 'Id': 'Ibge', 'label': 'Cod.Ibge', 'icon': 'search', 'atributos': { 'maxlength': '10', 'type': 'text', 'keymode': 'text', 'filter': true } },
                         { 'Id': 'Projeto', 'label': 'Projeto', 'icon': 'search', 'atributos': { 'maxlength': '10', 'type': 'text', 'keymode': 'text', 'filter': false } },
                         { 'Id': 'Produto', 'label': 'Produto', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'numeric' } },
+                        { 'Id': 'Tipo_Comercial', 'label': 'Tipo de Comercial', 'icon': 'search', 'atributos': { 'maxlength': '2', 'type': 'text', 'keymode': 'text' } },
     ];
 
     //==============Config html

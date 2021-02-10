@@ -1,0 +1,124 @@
+﻿<div class="container">
+    <div class="block">
+        <form id="frmMateriaisFitas" autocomplete="off">
+            <button type="button" id="btnNovoMapaReserva" class="btn btn-primary" style="display:none" ng-click="NovoMateriaisFitas()">Novo Filtro</button>
+            <button type="button" id="btnNovoFiltro" class="btn btn-primary" style="display:none" ng-click="CurrentShow='Filtro'">Novo Filtro</button>
+            <!--==============================================Filtros-->
+            <div class="box" ng-show="CurrentShow=='Filtro'">
+                <div class="alert alert-info alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <span class="fa fa-filter"></span>
+                    </div>
+                    <strong>Filtros</strong>
+                </div>
+
+                <div class="row">
+
+                    <!--==============================================Agencia-->
+                    <div class="col-md-2" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Agencia">
+                            <input id="txtCodAgencia"
+                                   ng-model="Filtro.Cod_Agencia"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCodAgencia')"
+                                   primarybind="txtCodAgencia"
+                                   secondarybind="txtNomeAgencia">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="txtNomeAgencia" class="field-x" style="visibility:hidden">..</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNomeAgencia" class="form-control " ng-model="Filtro.Nome_Agencia">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--==============================================Cliente-->
+                    <div class="col-md-2" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Cliente">
+                            <input id="txtCodCliente"
+                                   ng-model="Filtro.Cod_Cliente"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCodCliente')"
+                                   primarybind="txtCodCliente"
+                                   secondarybind="txtNomeCliente">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="txtNomeCliente" class="field-x" style="visibility:hidden">..</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNomeCliente" class="form-control " ng-model="Filtro.Nome_Cliente">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--========================Botoes-->
+                <div class="row margin-top-20">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-success" ng-click="CarregarMateriaisFitas(Filtro)">Filtrar</button>
+                        <button type="button" class="btn btn-warning" ng-click="Filtro=NewFiltro()">Limpar Filtros</button>
+                        <a id="btnNovoMateriaisFitasCadastro" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#MateriaisFitasCadastro/New/0">Novo Material</a>
+
+                        <!--<button type="button" id="btnNovaMateriaisFitas" class="btn btn-primary" ng-click="NovaMateriaisFitas()" ng-disabled="!PermissaoNew">Novo Material</button>-->
+                    </div>
+                </div>
+            </div>
+
+            <!--==============================================Grid -->
+            <div class="box table-responsive " style="min-height:600px" ng-show="CurrentShow=='Grid'">
+                <table id="dataTable" class="table table-striped table-bordered " cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Título</th>
+                            <th>Numero_Fita</th>
+                            <th>Cod_Veículo</th>
+                            <th>Duracao</th>
+                            <th>Status</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="materiaisfitas in MateriaisFitasS track by $index" on-finish-render="ngRepeatFinished">
+                            <td style="width:50px;text-align:center">
+                                <a href="#MateriaisFitasCadastro/Edit/{{::materiaisfitas.Id_Fita}}" ng-show="PermissaoEdit && materiaisfitas.Id_Fita!=0 ">
+                                    <span class="fa fa-edit fa-2x"></span>
+                                </a>
+                  
+                            </td>
+
+                            <td>{{::materiaisfitas.Titulo_Comercial}}</td>
+                            <td>{{::materiaisfitas.Numero_Fita}} </td>
+                            <td>{{::materiaisfitas.Cod_Veiculo}}</td>
+                            <td>{{::materiaisfitas.Duracao}}</td>
+
+                            <td style="width:50px; text-align:center">
+
+                                <label class="label  label-success" ng-show="!materiaisfitas.Id_Fita">
+                                    Mapa
+                                </label>
+                                <label  class="label label-danger" ng-show="materiaisfitas.Id_Fita">
+                                    Pendente
+                                </label>
+
+                            </td>
+
+                            <!--<td>{{::materiaisfitas.Id_Fita}}</td>-->
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

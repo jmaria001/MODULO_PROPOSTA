@@ -176,7 +176,6 @@
             if (response.data) {
                 if (response.data[0].Status == 1) {
                     $scope.Simulacao.Esquemas[$scope.currentEsquema].BackColorTab = response.data[0].Extra;
-                    console.log($scope.Simulacao.Esquemas[$scope.currentEsquema].BackColorTab);
                 };
             };
         });

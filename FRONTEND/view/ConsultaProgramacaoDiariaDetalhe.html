@@ -1,0 +1,119 @@
+﻿<div class="containe+r">
+    <form name="frmConsultaProgramacaoDiariaDetalhe" autocomplete="off">
+        <div class="block">
+            <!--============================Campos na parte de cima da tela-->
+            <div class="row">
+                <div class="alert alert-info alert-icon-block text-left" role="alert">
+                    <strong>Veiculo: {{Parameters.Veiculo}} &nbsp;&nbsp;&nbsp;&nbsp; Data: {{Parameters.Data | date:'dd/MM/yyyy'}} &nbsp;&nbsp;&nbsp;&nbsp; Programa: {{Parameters.Programa}}  </strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3" style="display:inline-flex">
+                    <div style="width:10px;height:10px;background-color:blue;margin-bottom:10px"></div><span style="margin-left:10px;margin-top:-5px">Comerciais que Absorvem Espaços</span>
+                </div>
+                <div class="col-md-3" style="display:inline-flex">
+                    <div style="width:10px;height:10px;background-color:red;margin-bottom:10px"></div><span style="margin-left:10px;margin-top:-5px">Comerciais que Não Absorvem Espaços</span>
+                </div>
+                <div class="col-md-3" style="display:inline-flex">
+                    <div style="width:10px;height:10px;background-color:black;margin-bottom:10px"></div><span style="margin-left:10px;margin-top:-5px">Falhas</span>
+                </div>
+            </div>
+
+            <!--pula linha-->
+            <div class="row">
+                <div class="col-md-1">
+                    <label> </label>
+                </div>
+            </div>
+
+            <div class="row">
+                <!--========================================Grid-->
+                <div id="divGridDetalhe" class="block table-responsive">
+                        <table id="dataTable" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Tipo</th>
+                                    <th>Emp</th>
+                                    <th>Núcleo</th>
+                                    <th>Cliente</th>
+                                    <th>Agencia</th>
+                                    <th>F.Pagto</th>
+                                    <th>Merch</th>
+                                    <th>Programa Patr</th>
+                                    <th>Tipo de Mídia</th>
+                                    <th>Dur</th>
+                                    <th>C.Veic</th>
+                                    <th>Qual</th>
+                                    <th>Comp</th>
+                                    <th>Produto</th>
+                                    <th>Contrato/Seq</th>
+                                    <th>Abs</th>
+                                    <th>TQP</th>
+                                    <th>Data Cadastramento</th>
+                                    <th>Ch.Acesso</th>
+                                </tr>
+
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="ConsultaProgramacaoDiariaDetalhe in ConsultaProgramacaoDiariaDetalhes track by $index" on-finish-render="ngRepeatFinished()">
+                                    <!--== Coluna dos quadradinhos-->
+                                    <td>
+                                        <div ng-show="ConsultaProgramacaoDiariaDetalhe.Indica_Absorcao=='0'" style="width:10px;height:10px;background-color:red;margin-bottom:10px"></div>
+                                        <div ng-show="ConsultaProgramacaoDiariaDetalhe.Indica_Absorcao=='1'" style="width:10px;height:10px;background-color:blue;margin-bottom:10px"></div>
+                                        <div ng-show="ConsultaProgramacaoDiariaDetalhe.indica_falha=='1'" style="width:10px;height:10px;background-color:black"></div>
+                                    </td>
+                                    <!--== Coluna Tipo-->
+                                    <td>
+                                        <span ng-show="ConsultaProgramacaoDiariaDetalhe.Indica_Grade==0">Net</span>
+                                        <span ng-show="ConsultaProgramacaoDiariaDetalhe.Indica_Grade==2">Local</span>
+                                        <span ng-show="ConsultaProgramacaoDiariaDetalhe.Indica_Grade==1">Rede</span>
+                                    </td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Cod_Empresa}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Cod_Nucleo}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Cod_Cliente}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Cod_Agencia}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Forma_Pgto}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Merchandising}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Cod_Programa}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Cod_Tipo_Midia}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Duracao}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Cod_Caracteristica}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Cod_Qualidade}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Documento_DE}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Descricao}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Numero_MR}} - {{::ConsultaProgramacaoDiariaDetalhe.Sequencia_MR}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Indica_Absorcao}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Indica_Estouro}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Data_Cadastramento | date:'dd/MM/yyyy hh:mm:ss'}}</td>
+                                    <td>{{::ConsultaProgramacaoDiariaDetalhe.Chave_Acesso}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    
+                </div>
+            </div>
+
+            <!--========================================Botoes-->
+            
+            <div class="fixed-buttons-bottom">
+                <div class="row">
+                    <div class="col-md-12">
+                        <a href="#ConsultaProgramacaoDiaria" class="btn btn-warning">Cancelar</a>    
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>
+</div>
+
+
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
+
+
+

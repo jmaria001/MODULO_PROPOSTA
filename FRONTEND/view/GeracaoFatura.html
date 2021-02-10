@@ -1,0 +1,103 @@
+﻿<div class="container">
+    <!--div do filtro-->
+    <div class="block">
+        <div id="divFiltro" ng-show="ShowFilter">
+            <div class="row margin-left-10">
+                <!--===================Empresa de Faturamento-->
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Usuario" caption="Empresa de Faturamento">
+                        <input id="txtCodEmpresaFaturamento"
+                               ng-model="Filtro.Emp_Faturamento"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodEmpresaFaturamento')"
+                               primarybind="txtCodEmpresaFaturamento"
+                               secondarybind="txtNomeEmpresaFaturamento">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="txtNomeEmpresaFaturamento" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeEmpresaFaturamento" class="form-control " ng-model="Filtro.Nome_EmpresaFaturamento">
+                        </div>
+                    </div>
+                </div>
+                <!--===================================Botão-->
+                <button class="btn btn-primary row margin-left-40 margin-top-30" ng-click="ShowGrid=false;ContratosFaturaLista(Filtro)">Carregar</button>
+            </div>
+
+        </div>
+    </div>
+    <!--Div do grid-->
+    <div id="divGrid" class="block table-responsive" ng-show="ShowGrid">
+        <!--===================================Botoes-->
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Origem</th>
+                        <th>Negociação</th>
+                        <th>Contrato</th>
+                        <th>Tipo de Mídia</th>
+                        <th>Cliente</th>
+                        <th>Agência</th>
+                        <th>Valor</th>
+                        <th>N.Complemento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Contrato in ContratosFatura track by $index" on-finish-render="ngRepeatFinished()">
+                        <td>
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Contrato.Selected" /><span></span></label>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{::Contrato.Origem}}</td>
+                        <td>{{::Contrato.Numero_Negociacao}}</td>
+                        <td>{{::Contrato.Cod_Empresa}} - {{::Contrato.Numero_Mr}} - {{::Contrato.Sequencia_Mr}}</td>
+                        <td>{{::Contrato.Tipo_Midia}}</td>
+                        <td>{{::Contrato.Cod_Cliente}} - {{::Contrato.Nome_Cliente}}</td>
+                        <td>{{::Contrato.Cod_Agencia}} - {{::Contrato.Nome_Agencia}}</td>
+                        <td>{{::Contrato.Vlr_nf | currency}}</td>
+                        <td>{{::Contrato.Numero_Complemento}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <!--========================botoes de acoes-->
+            <div class="fixed-buttons-bottom">
+                <div class="row">
+
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" ng-click="MarcarDismarcar(ContratosFatura,checkMarcar)" ng-model="checkMarcar" />Marcar/Desmarcar todos<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-10">
+                        <button class="btn btn-primary" ng-click="IncluirSolicitacao(ContratosFatura)">Gerar</button>
+                        <button class="btn btn-warning" ng-click="ShowGrid=false;ShowFilter=true">Cancelar</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+
+    
+
+</script>

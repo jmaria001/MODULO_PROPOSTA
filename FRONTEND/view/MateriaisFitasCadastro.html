@@ -1,0 +1,218 @@
+﻿
+<div class="container">
+    <form name="frmMateriaisFitasCadastro" autocomplete="off">
+
+        <div class="block">
+
+            <div class="row">
+
+                <!--==============================================Agencia-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Agencia">
+                        <input id="txtCodAgencia"
+                               ng-model="MateriaisFitas.Cod_Agencia"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodAgencia')"
+                               primarybind="txtCodAgencia"
+                               secondarybind="txtNomeAgencia">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="txtNomeAgencia" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeAgencia" class="form-control " ng-model="MateriaisFitas.Nome_Agencia">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--==============================================Cliente-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Cliente">
+                        <input id="txtCodCliente"
+                               ng-model="MateriaisFitas.Cod_Cliente"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodCliente')"
+                               primarybind="txtCodCliente"
+                               secondarybind="txtNomeCliente">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="txtNomeCliente" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeCliente" class="form-control " ng-model="MateriaisFitas.Nome_Cliente">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!--====================Titulo -->
+                <div class="col-md-4 margin-top-10">
+                    <div class="form-group">
+                        <label>Titulo</label>
+                        <div class="input-group">
+                            <input type="text" id="txtTitulo" class="form-control" ng-model="MateriaisFitas.Titulo">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--====================Duracao-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <label>Duração</label>
+                        <div class="input-group">
+                            <input type="text" id="txtDuracao" class="form-control" ng-model="MateriaisFitas.Duracao">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--===================tipo midia-->
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="TipoMidias">
+                        <input id="txtCod_Tipo_Midia"
+                               ng-model="MateriaisFitas.Cod_Tipo_Midia"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCod_Tipo_Midia')"
+                               primarybind="txtCod_Tipo_Midia"
+                               secondarybind="txtDescMidia">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtDescMidia" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtDescMidia" class="form-control " ng-model="MateriaisFitas.Descricao_Midia">
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-2  " ng-controller="dictionaryController">
+
+                    <div class="dictionary" dictionary="Produto">
+                        <input id="txtCod_Red_Produto"
+                               ng-model="MateriaisFitas.Cod_Red_Produto"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCod_Red_Produto')"
+                               primarybind="txtCod_Red_Produto"
+                               secondarybind="txtDescricao_Produto">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtDescricao_Produto" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtDescricao_Produto" class="form-control " ng-model="MateriaisFitas.Descricao_Produto">
+                        </div>
+                    </div>
+                </div>
+
+                <!--===================tipo comercial-->
+                <div class="col-md-1  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Tipo_Comercial">
+                        <input id="txtCod_Tipo_Comercial"
+                               ng-model="MateriaisFitas.Cod_Tipo_Comercial"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCod_Tipo_Comercial')"
+                               primarybind="txtCod_Tipo_Comercial"
+                               secondarybind="txtDescComercial">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtDescComercial" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtDescComercial" class="form-control " ng-model="MateriaisFitas.Descricao_Comercial">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-2  " ng-controller="dictionaryController">
+
+                    <div class="dictionary" dictionary="Veiculo">
+                        <input id="txtCod_Veiculo"
+                               ng-model="MateriaisFitas.Cod_Veiculo"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCod_Veiculo')"
+                               primarybind="txtCod_Veiculo"
+                               secondarybind="txtNome_Veiculo">
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label for="txtNome_Veiculo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNome_Veiculo" class="form-control " ng-model="MateriaisFitas.Nome_Veiculo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block">
+
+            <div class="row">
+
+                <table class="table table-noborder">
+                    <tbody>
+                        <tr>
+                            <td style="width:150px;min-width:150px">
+
+                                <input type="text" id="txtNumero_Fita" class="form-control" ng-model="MateriaisFitas.Numero_Fita" ng-disabled="!PermissaoEdit">
+
+                            </td>
+
+                            <td>
+                                <button type="submit" class="btn btn-success" ng-click="CarregarNumeroFita(MateriaisFitas)" ng-disabled="Parameters.Action!='New'">Numero Fita</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!--===================Botoes-->
+        <div class="row margin-top-20">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-success" ng-click="SalvarMateriaisFitas(MateriaisFitas)" ng-disabled="frmMateriaisFitasCadastro.$invalid">Salvar</button>
+                <button type="button" class="btn btn-danger" ng-click="ExcluirMateriaisFitas(MateriaisFitas)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
+                <a href="#/MateriaisFitas" class="btn btn-warning">Cancelar</a>
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
+
+
+

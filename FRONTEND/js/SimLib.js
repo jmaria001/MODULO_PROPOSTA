@@ -100,11 +100,19 @@ function CurrentMMYYYY(pIncrement) {
     return _mes.substring(_mes.length - 2, _mes.length) + '/' + _ano
 }
 function addMonths(pDate, value) {
-    var n = pDate;
-    n.setDate(1);
-    n.setMonth(n.getMonth() + value);
-    //n.setDate(Math.min(n, n.getDaysInMonth()));
-    return n;
+    //var _date = pDate;
+    var _date = new Date(pDate.valueOf())
+    var _dia = pDate.getDate();
+    var _mes = pDate.getMonth();
+    var _ano = pDate.getFullYear();
+    var _new_mes = _mes + value;
+    var _last_day = new Date(_ano, _new_mes + 1, 0);
+    var _result = pDate;
+    _result.setMonth(_result.getMonth() + value);
+    if (_result > _last_day) {
+        _result = _last_day
+    }
+    return _result;
 };
 function Left(str, n) {
     if (n <= 0)

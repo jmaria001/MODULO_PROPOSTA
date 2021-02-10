@@ -6,10 +6,11 @@ angular.module('App').controller('loginController', ['$scope', '$rootScope', 'to
         tokenApi.removeAll();
         $rootScope.Mensagens = [];
         $rootScope.UserData = {};
-        $location.path("/login");
+        //$location.path("/login");
         for (key in localStorage) {
             delete localStorage[key];
         }
+        redirect($rootScope.pageUrl + "#login");
     };
     
     $scope.setLogin = function (user) {
@@ -42,13 +43,12 @@ angular.module('App').controller('loginController', ['$scope', '$rootScope', 'to
                         $rootScope.Mensagens = response.data;
                         $rootScope.ShowMensagem = $rootScope.Mensagens.length;
                     });
-                    $location.path("/portal")
+                    $location.path("/PortalApp")
                 }
                 else {
                     $rootScope.Islogged = false;
                     tokenApi.removeAll();
                     delete $scope.app_user
-                    //ShowAlert(_Error, 'warning', 2000,'topRight') 
                 }
             });
             for (key in localStorage) {

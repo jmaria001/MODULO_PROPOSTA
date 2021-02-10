@@ -1,0 +1,160 @@
+﻿<div class="container">
+    <form name="frmEnvioPlayList" autocomplete="off">
+        <!--------------------------------  FILTRO  ------------------------------------------->
+        <div id="divFiltro" ng-show="ShowFiltro">
+            <div class="block">
+                <div class="row">
+                    <!-----Campo "Cod.Veiculo"---->
+                    <div class="col-md-2" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Veiculo" caption="Veiculo">
+                            <input id="txtCodVeiculo"
+                                   ng-model="Parametros.Cod_Veiculo"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCodVeiculo')"
+                                   primarybind="txtCodVeiculo"
+                                   secondarybind="txtNomeVeiculo"
+                                   maxlength="3" />
+                        </div>
+                    </div>
+                    <!-----Campo "Nome Veiculo"---->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control" ng-model="Parametros.Nome_Veiculo">
+                            </div>
+                        </div>
+                    </div>
+                    <!----Campo "Data da Programação"---->
+                    <div class="col-md-3">
+                        <div class="dictionary" dictionary="Data" caption="Data da Programação">
+                            <input ng-model="Parametros.Data_Programacao"
+                                   ui-date ng-model-options="{updateOn: 'blur'}"
+                                   placeholder="Informe a Data">
+                            <div class="dictionary-ui-calendar" ui-calendar typdate="Parametros.Data_Programacao"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!----Campo "Exibidor"---->
+                    <div class="col-md-3">
+                        <div class="form-group field-x">
+                            <label>Exibidor</label>
+                            <input type="text" disabled="disabled" name="txtExibidor" class="form-control" ng-model="Parametros.Exibidor" maxlength="60" style="text-transform:uppercase" />
+                        </div>
+                    </div>
+                    <!----Campo "Nome do Arquivo"---->
+                    <div class="col-md-5">
+                        <div class="form-group field-x">
+                            <label>Nome do Arquivo</label>
+                            <input type="text" disabled="disabled" name="txtNomeArquivo" class="form-control" ng-model="Parametros.Nome_Arquivo" maxlength="60" style="text-transform:uppercase" />
+                        </div>
+                    </div>
+                </div>
+                <!----------------------------  BOTÕES DO FILTRO -------------------------------->
+                <div class="row" style="margin-top:20px">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-success" ng-click="GerarArquivos(Parametros)">Gerar Arquivos</button>
+                        <button type="button" class="btn btn-warning" ng-click="AlterarParametros(Parametros)">Alterar Parâmetros</button>
+                        <button type="button" class="btn btn-warning" ng-click="NewFilter()">Novo Filtro</button>
+                        <a href={{DownloadUrl}} download id="btnDownload" class="btn btn-info" ng-show="DownloadUrl"> Download Arquivo Gerado </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!---------------------------------  DADOS DOS PARÂMETROS  --------------------------------------->
+        <div id="divDados" ng-show="ShowDados">
+            <div class="block">
+                <!--Cabeçalho da Tela-->
+                <div class="row">
+                    <div class="row col-md-12">
+                        <div class="alert alert-info alert-icon-block text-center" role="alert">
+                            <strong>Veiculo: {{Parametros.Cod_Veiculo}} - {{Parametros.Nome_Veiculo}}</strong>
+                        </div>
+                    </div>
+                </div>
+                <!-----------------Dados----------------->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group field-x">
+                            <label>Sistema de Exibição Digital</label>
+                            <select class="form-control" ng-model="ParametrosDados.Sistema_Exibicao_Digital">
+                                <option value="Louth">Louth</option>
+                                <option value="Omneon ProDrive">Omneon ProDrive</option>
+                                <option value="Floripa">Floripa</option>
+                                <option value="VR">VR</option>
+                                <option value="VR400">VR400</option>
+                                <option value="4S">4S</option>
+                                <option value="Leitch">Leitch</option>
+                                <option value="VICTOR">VICTOR</option>
+                                <option value="VSN">VSN</option>
+                                <option value="DAD">DAD</option>
+                                <option value="INFORMA">Informa</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!----Campo "Nome do Arquivo para Integração"---->
+                    <div class="col-md-4">
+                        <div class="form-group field-x">
+                            <label>Nome do Arquivo para Integração</label>
+                            <input type="text" name="txtNome_Arquivo_Integracao" class="form-control" ng-model="ParametrosDados.Nome_Arquivo_Integracao" maxlength="60" style="text-transform:uppercase" />
+                        </div>
+                    </div>
+                    <!----Campo "Posição do Número da Fita"---->
+                    <div class="col-md-2">
+                        <div class="form-group field-x">
+                            <label>Posição do Número da Fita</label>
+                            <input type="text" name="txtPosicao_Num_Fita" class="form-control" ng-model="ParametrosDados.Posicao_Num_Fita" maxlength="2" />
+                        </div>
+                    </div>
+                    <!----Campo "Tamanho do Número da Fita"---->
+                    <div class="col-md-2">
+                        <div class="form-group field-x">
+                            <label>Tamanho do Número da Fita</label>
+                            <input type="text" name="txtTamanho_Num_Fita" class="form-control" ng-model="ParametrosDados.Tamanho_Num_Fita" maxlength="2" />
+                        </div>
+                    </div>
+                </div>
+                <!--Mensagem da Tela-->
+                <div class="row" style="margin-top:20px">
+                    <div class="col-md-12">
+                        <label>
+                            OBS.: O nome do arquivo é opcional e quando não informado, o sistema cria o
+                            arquivo com o nome composto pela sigla do veículo mais a data da programação.
+                            Ex: GSP291020.TXT
+                        </label>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:20px">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-success" ng-click="SalvarParametros(ParametrosDados)">Salvar Parâmetros</button>
+                        <button type="button" class="btn btn-warning" ng-click="Cancelar()">Cancelar</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+       
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+

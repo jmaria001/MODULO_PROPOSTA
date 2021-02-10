@@ -1,0 +1,532 @@
+﻿<div class="container">
+    <div class="block">
+        <!--div do filtro-->
+        <div id="divFiltro" ng-show="ShowFilter">
+            <div class="row">
+                <!--===================Empresa-->
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Usuario" caption="Empresa Fat.">
+                        <input id="txtCodEmpresa"
+                               ng-model="Filtro.Cod_Empresa_Faturamento"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodEmpresa')"
+                               primarybind="txtCodEmpresa"
+                               secondarybind="txtNomeEmpresa">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="txtNomeEmpresa" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeEmpresa" class="form-control " ng-model="Filtro.Nome_Empresa">
+                        </div>
+                    </div>
+                </div>
+                <!--===================Negociação-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x">Negociação</label>
+                        <input id="TxtNegociacao"
+                               type="text"
+                               name="txtNegociacao"
+                               class="form-control numeric"
+                               ng-model="Filtro.Negociacao"
+                               maxlength="10" />
+                    </div>
+                </div>
+                <!--===================Negociação-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x">N.Fatura</label>
+                        <input id="txtFatura"
+                               type="text"
+                               name="txtFatura"
+                               class="form-control numeric"
+                               ng-model="Filtro.Fatura"
+                               maxlength="10" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Agência-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Agencia">
+                        <input id="txtCodAgencia"
+                               ng-model="Filtro.Agencia"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodAgencia')"
+                               primarybind="txtCodAgencia"
+                               secondarybind="txtNomeAgencia" />
+                    </div>
+                </div>
+                <!--===================Nome Agência-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtNomeAgencia" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeAgencia" class="form-control " ng-model="Filtro.Nome_Agencia">
+                        </div>
+                    </div>
+                </div>
+                <!--===================Cliente-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Cliente">
+                        <input id="txtCodCliente"
+                               ng-model="Filtro.Cliente"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodCliente')"
+                               primarybind="txtCodCliente"
+                               secondarybind="txtNomeCliente" />
+
+                    </div>
+                </div>
+                <!--===================Nome Cliente-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtNomeCLiente" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeCLiente" class="form-control " ng-model="Filtro.Nome_CLiente">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Contrato-->
+                <div class="col-md-2">
+                    <div class="form-group numeric">
+                        <label class="field-x">Contrato</label>
+                        <input id="txtContrato"
+                               type="text"
+                               name="txtContrato"
+                               class="form-control"
+                               ng-model="Filtro.Contrato" maxlength="10" />
+                    </div>
+                </div>
+                <!--===================Sequência-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="field-x">Seq.</label>
+                        <input id="txtSequencia"
+                               type="text"
+                               name="txtSequencia"
+                               class="form-control numeric" ng-model="Filtro.Sequencia"
+                               maxlength="2" />
+                    </div>
+                </div>
+                <!--===================somente pendentes-->
+                <div class="col-md-3  margin-top-30">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="app-checkbox">
+                            <label><input type="checkbox" name="chkIndicaFatLiq" ng-model="Filtro.Indica_Somente_Pendente" />Somente Pendentes de Faturamento<span></span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <div id="divBotaoFiltro" class="row margin-top-30">
+                <div class="col-12">
+                    <button class="btn btn-primary" ng-click="ShowGrid=false;CarregaComplementos(Filtro)">Carrega Complementos</button>
+                    <button class="btn btn-info" id="btnNovoFiltro" ng-click="ShowGrid=false;ShowFilter=true;NewFiltro()">Novo Filtro</button>
+                    <button class="btn btn-info hidden" id="btnShowFiltro" ng-click="ShowGrid=false;ShowFilter=true">Novo Filtro</button>
+                </div>
+            </div>
+        </div>
+        <!--Div do grid-->
+        <div id="divGrid" ng-show="ShowGrid">
+            <div class="table-responsive">
+                <table id="dataTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Complemento</th>
+                            <th>Origem</th>
+                            <th>Negociação.</th>
+                            <th>Emp.Fat</th>
+                            <th>N.Fatura</th>
+                            <th>Agência</th>
+                            <th>Cliente</th>
+                            <th>Contrato</th>
+                            <th>Valor</th>
+                            <th>Produto</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="Complemento in Complementos track by $index" on-finish-render="ngRepeatFinished()">
+                            <td style="width:50px;text-align:center">
+                                <button class="btn btn-default btn-sm" ng-click="CarregaComplemento(Complemento.Numero_Complemento)">
+                                    {{::Complemento.Numero_Complemento}}
+                                </button>
+                            </td>
+                            <td>
+                                <label style="width:100%;display:block" ng-show="Complemento.Origem==0" class="label label-info">Antecipado</label>
+                                <label  style="width:100% ;display:block" ng-show="Complemento.Origem==1" class="label label-success">Mídia</label>
+                                <label style="width:100% ;display:block" ng-show="Complemento.Origem==2" class="label label-warning">Mídia Complementar</label>
+                                <label  style="width:100%;display:block" ng-show="Complemento.Origem==3" class="label label-danger">Outra Receitas</label>
+                            </td>
+                            <td>    
+                                <span>{{::Complemento.Numero_Negociacao}}</span>
+                                <span ng-show="Complemento.Origem==0">-{{::Complemento.Numero_Parcela}}</span>
+                            </td>
+                            <td>{{::Complemento.Cod_Empresa_Faturamento}}</td>
+                            <td>
+                                <span ng-show="Complemento.Numero_Fatura">{{::Complemento.Numero_Fatura}}</span>
+                            </td>
+                            <td>{{::Complemento.Cod_Agencia}}-{{::Complemento.Nome_Agencia}}</td>
+                            <td>{{::Complemento.Cod_Cliente}}-{{::Complemento.Nome_Cliente}}</td>
+                            <td>{{::Complemento.Cod_Empresa}}-{{::Complemento.Numero_Mr}}-{{::Complemento.Sequencia_Mr}}</td>
+                            <td style="text-align:right">{{::Complemento.Valor | currency}}</td>
+                            <td>{{::Complemento.Produto}}</td>
+                            <td>
+                                <span ng-show="!Complemento.Numero_Fatura && PermissaoExclusao" 
+                                      class="fa fa-trash fa-crud span-btn" 
+                                      ng-click="ExcluirComplemento(Complemento)">
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-----------------Div dos Dados-->
+        <div ng-show="ShowDados">
+            <div id="divDadosFatura" class="row">
+                <div class="alert alert-primary alert-icon-block" role="alert">
+                    <strong>
+                        1-Dados da Fatura
+                    </strong>
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <!---------------------------------Negociacao-->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="field-x" for="txtNumeroNegociacao">Negociação</label>
+                                <label class="form-control" name="txtNumeroNegociacao">{{::ComplementoDados.Numero_Negociacao}}</label>
+                            </div>
+                        </div>
+                        <!---------------------------------Empresa de Faturamento-->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="field-x" for="txtEmpresaFaturamento">Emp.Fat</label>
+                                <label class="form-control" name="txtEmpresaFaturamento">{{::ComplementoDados.Cod_Empresa_Faturamento}}</label>
+                            </div>
+                        </div>
+                        <!---------------------------------Natureza Servicos-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="field-x" for="txtNaturezaServico">Nat.Servicos</label>
+                                <label class="form-control" name="txtNaturezaServico">{{::ComplementoDados.Natureza_Servico}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!---------------------------------Descricao-->
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label class="field-x" for="txtDescricao">Descrição</label>
+                                <label class="form-control" name="txtDescricao">{{::ComplementoDados.Descricao}}</label>
+                            </div>
+                        </div>
+                        <!---------------------------------Forma Pagamento-->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="field-x" for="txtFormaPagamento">Forma Pgto</label>
+                                <label class="form-control" name="txtFormaPagamento">{{::ComplementoDados.Descricao_Forma_Pgto}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!---------------------------------Periodo Inicio-->
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="field-x" for="txtPeriodoInicial">Período Inicial</label>
+                                <label class="form-control" name="txtFormaPagamento">{{::ComplementoDados.Periodo_Inicial | date:"dd/MM/yyyy"}}</label>
+                            </div>
+                        </div>
+                        <!---------------------------------Periodo final-->
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="field-x" for="txtPeriodoFinal">Período Final</label>
+                                <label class="form-control" name="txtPeriodoFinal">{{::ComplementoDados.Periodo_Final| date:"dd/MM/yyyy"}}</label>
+                            </div>
+                        </div>
+                        <!---------------------------------Nucleo-->
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="field-x" for="txtNucleo">Núcleo</label>
+                                <label class="form-control" name="txtPeriodoFinal">{{::ComplementoDados.Cod_Nucleo}}</label>
+                            </div>
+                        </div>
+                        <!---------------------------------Contato-->
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="field-x" for="txtContato">Contato</label>
+                                <label class="form-control" name="txtPeriodoFinal">{{::ComplementoDados.Cod_Contato}}</label>
+                            </div>
+                        </div>
+                        <!---------------------------------Historico-->
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="field-x" for="txtHistorico">Histórico</label>
+                                <label class="form-control" name="txtPeriodoFinal">{{::ComplementoDados.Cod_Historico}}</label>
+                            </div>
+                        </div>
+                        <!---------------------------------Comissao Agencia-->
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="field-x" for="txtComissaoAgencia">Com. Agência</label>
+                                <label class="form-control" style="text-align:right" name="txtComissaoAgencia">{{::ComplementoDados.Comissao_Agencia | number:2}}%</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="table-responsive" style="border:solid 1px silver;height:235px">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <td colspan="4" style="text-align:center;background-color:#f5f5f5">Composição</td>
+                                </tr>
+                                <tr>
+                                    <th>Contrato</th>
+                                    <!--<th>Mestre</th>-->
+                                    <th>Numero PI</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="composicao in ComplementoDados.ComposicaoComplemento track by $index">
+                                    <td>{{composicao.Cod_Empresa}}-{{composicao.Numero_Mr}}-{{composicao.Sequencia_Mr}}</td>
+                                    <!--<td>
+                                        <span class="fa fa-check" style="color:seagreen"></span>
+                                    </td>-->
+                                    <td>{{composicao.Numero_Pi}}</td>
+                                    <td style="text-align:right">{{composicao.Vlr_Considerado_Contrato | currency}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label class="field-x" for="txtIntermediario">Intermediário</label>
+                    <label class="form-control" style="text-align:right" name="txtIntermediario">
+                        <span ng-show="ComplementoDados.Intermediario">{{::ComplementoDados.Intermediario}}-{{ComplementoDados.Nome_Intermediario}}</span>
+                    </label>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x" for="txtComissaoIntermediario">Com. Interm</label>
+                        <label class="form-control" style="text-align:right" name="txtComissaoIntermediario">
+                            <span ng-show="ComplementoDados.Intermediario">{{::ComplementoDados.Comissao_Intermediario| number:2}}%</span>
+                        </label>
+                    </div>
+                </div>
+                <!---------------------------------Origem-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x" for="txtOrigem">Origem</label>
+                        <label class="form-control" name="txtOrigem">{{['Antecipado','Mídia','','Outras Receitas'][ComplementoDados.Origem]}}</label>
+                    </div>
+                </div>
+                <!---------------------------------Valor a Faturar-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x" for="txtValor">Valor Total</label>
+                        <label class="form-control" style="text-align:right" name="txtValor">{{::ComplementoDados.Valor | currency}}</label>
+                    </div>
+                </div>
+                <!--===================Venda Net-->
+                <div class="col-md-1 margin-top-30">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label style="white-space:nowrap"><input type="checkbox" ng-disabled="true" name="chkVendaNet" ng-model="ComplementoDados.Indica_Venda_Net" />Venda Net<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--===================Indica Faturamento Liquido-->
+                <div class="col-md-1 margin-top-30">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label  style="white-space:nowrap"><input type="checkbox" ng-disabled="true" name="chkIndicaFatLiq" ng-model="ComplementoDados.Indica_Faturamento_Liquido" />Fat.Liquido<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="divRateio" class="row">
+                <div class="alert alert-primary alert-icon-block" role="alert">
+                    <strong>2-Rateios </strong>
+                </div>
+
+                
+
+                <!--=====================================Mostra as Abas-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <button id="btnRateio" ng-repeat="rateio in ComplementoDados.Rateios track by $index"
+                                style="background-color:silver;color:black" ;
+                                ng-class="(rateio.Numero_Rateio==currentRateio+1) ?'btn btn-default btntab btnEsquemaSelected':'btn btn-default btntab btnEsquemaUnselected'" ng-click="SetCurrentRateio(rateio.Numero_Rateio)">
+                            Rateio - {{rateio.Numero_Rateio}}
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="row">
+                            <!--===================Data Emissão-->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="field-x" for="txtDataEmissao">Dt Emissão</label>
+                                    <label class="form-control" name="txtDataEmissao">{{ComplementoDados.Rateios[currentRateio].Data_Emissao | date:"dd/MM/yyyy"}}</label>
+                                </div>
+                            </div>
+                            <!--===================Condição NF-->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="field-x" for="txtCondicaoNf">Cond Pgto</label>
+                                    <label class="form-control" name="txtCondicaoNf">{{ComplementoDados.Rateios[currentRateio].Condicao_Nf}}{{ComplementoDados.Rateios[currentRateio].Tipo_Vencimento}}</label>
+                                </div>
+                            </div>
+                            <!--===================Veiculo-->
+                            <div class="col-md-6" ng-controller="dictionaryController">
+                                <div class="form-group">
+                                    <label class="field-x" for="txtVeiculo">Veículo</label>
+                                    <label class="form-control" name="txtVeiculo">
+                                        <span ng-show="ComplementoDados.Rateios[currentRateio].Cod_Veiculo">{{ComplementoDados.Rateios[currentRateio].Cod_Veiculo}}-{{ComplementoDados.Rateios[currentRateio].Nome_Veiculo}}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--===================Agência-->
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="field-x" for="txtAgencia">Agência</label>
+                                    <label class="form-control" name="txtAgencia">{{ComplementoDados.Rateios[currentRateio].Cod_Agencia}}-{{ComplementoDados.Rateios[currentRateio].Nome_Agencia}}</label>
+                                </div>
+                            </div>
+                            <!--===================Log Agência-->
+                            <div class="col-md-2">
+                                <label class="field-x" for="txtAgencia">Log.</label>
+                                <label class="form-control" name="txtOrigem">{{ComplementoDados.Rateios[currentRateio].Indica_Log_Agencia}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--===================Cliente-->
+                            <div class="col-md-10">
+                                <div class="form-group">
+                                    <label class="field-x" for="txtCliente">Cliente</label>
+                                    <label class="form-control" name="txtCliente">{{ComplementoDados.Rateios[currentRateio].Cod_Cliente}}-{{ComplementoDados.Rateios[currentRateio].Nome_Cliente}}</label>
+                                </div>
+                            </div>
+                            <!--===================Log Cliente-->
+                            <div class="col-md-2">
+                                <label class="field-x" for="txtCliente">Log.</label>
+                                <label class="form-control" name="txtOrigem">{{ComplementoDados.Rateios[currentRateio].Indica_Log_Cliente}}</label>
+                            </div>
+                        </div>
+                        <!--==================Referencia-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="field-x" for="txtReferencia">Referência</label>
+                                    <label class="form-control" name="txtReferencia">{{ComplementoDados.Rateios[currentRateio].Referencia}}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!--===================Perc Rateio%-->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="field-x" for="txtReferencia">% Rateio</label>
+                                    <label class="form-control" style="text-align:right" name="txtReferencia">{{ComplementoDados.Rateios[currentRateio].Percentual_Rateio | number}}%</label>
+                                </div>
+                            </div>
+                            <!--===================Valor a Faturar-->
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="field-x" for="txtValorNf">Valor Fatura</label>
+                                    <label class="form-control" style="text-align:right" name="txtValorNf">{{ComplementoDados.Rateios[currentRateio].Vlr_Nf | currency}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Parcelas-->
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12" style="margin-top:35px">
+                                <table class="table table-bordered" style="margin-bottom:0px !important">
+                                    <thead>
+                                        <tr style="background-color:#f5f5f5">
+                                            <td colspan="6" style="text-align:center;width:90%">Parcelamento</td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="table-responsive" style="max-height: 320px;border: solid 1px silver;border-top:none !important">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Parcela</th>
+                                                <th colspan="2" style="text-align:center">Vencimento</th>
+                                                <th colspan="2">Valor</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="duplicata in ComplementoDados.Rateios[currentRateio].Duplicatas track by $index">
+                                                <td style="text-align:center">{{duplicata.Numero_Duplicata}}/{{ComplementoDados.Rateios[currentRateio].Duplicatas.length}} </td>
+                                                <td style="text-align:center">{{duplicata.Data_Vencimento | date :"dd/MM/yyyy"}}</td>
+                                                <td style="text-align:center">{{duplicata.Dia_Semana}}</td>
+                                                <td style="text-align:right">{{duplicata.Valor | currency}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!--===================================Botoes-->
+            <div class="fixed-buttons-bottom">
+                <div class="row">
+                    <div class="col-md-10">
+                        <button class="btn btn-warning" ng-click="ShowDados=false;ShowGrid=true">Retornar</button>
+                    </div>
+                    <div class="col-md-2 pull-right hidden-mobile hidden-sm">
+                        <button class="btn btn-primary btn-sm anchorscroll" target="divDadosFatura">1</button>
+                        <button class="btn btn-primary btn-sm anchorscroll" target="divRateio">2</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('.anchorscroll').click(function (e) {
+            var _target = this.getAttribute("target")
+            $('html, body').animate({
+                scrollTop: $('#' + _target).offset().top
+            }, 'slow');
+        });
+
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

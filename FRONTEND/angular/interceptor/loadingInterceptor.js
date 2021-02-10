@@ -12,7 +12,7 @@ angular.module("App").factory("loadingInterceptor", function ($q, $rootScope, $t
 			return $q.reject(rejection);
 		},
     	    response: function (response) {
-	        $rootScope.RequestCount--
+    	        $rootScope.RequestCount--;
 	        $timeout(function () {
 	            if ($rootScope.RequestCount == 0) {
 	                $rootScope.loading = false;

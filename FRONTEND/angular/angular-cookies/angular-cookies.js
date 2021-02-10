@@ -319,7 +319,7 @@ function $$CookieWriter($document, $log, $browser) {
   return function(name, value, options) {
     rawDocument.cookie = buildCookieString(name, value, options);
   };
-}
+}   
 
 $$CookieWriter.$inject = ['$document', '$log', '$browser'];
 

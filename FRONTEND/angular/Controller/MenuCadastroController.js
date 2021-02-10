@@ -4,7 +4,6 @@
     $scope.Cadastros = [
         { 'Link': 'CondPgto', 'Title': 'Condições de Pagamento' },
         { 'Link': 'Empresa', 'Title': 'Empresas' },
-        { 'Link': 'usuario', 'Title': 'Usuários' },
         { 'Link': 'veiculo', 'Title': 'Veículos' },
         { 'Link': 'mercado', 'Title': 'Mercados' },
         { 'Link': 'TipoComercial', 'Title': 'Tipo de Comercial'},
@@ -21,9 +20,6 @@
         { 'Link': 'Terceiro', 'Title': 'Terceiros' },
         { 'Link': 'Produto', 'Title': 'Produtos' },
         { 'Link': 'Genero', 'Title': 'Generos' },
-        { 'Link': 'Parametro', 'Title': 'Parâmetros Gerais' },
-        { 'Link': 'ParametroValoracao', 'Title': 'Parâmetros de Valoração' },
-        { 'Link': 'Grade', 'Title': 'Grade da Programação' },
         { 'Link': 'Rede', 'Title': 'Redes' },
     ];
     //===========================fim do load da pagina

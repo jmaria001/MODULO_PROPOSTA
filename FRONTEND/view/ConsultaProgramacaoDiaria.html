@@ -1,0 +1,207 @@
+﻿<div class="container">
+    <div class="block">
+        <!--======================================== CAMPOS DO FILTRO ============================================-->
+        <div id="divFiltro" ng-show="ShowFilter">
+            <div class="row">
+                <!--====================Data Inicial-->
+                <div class="col-md-3">
+                    <div class="dictionary" dictionary="Data" caption="Data Inicial">
+                        <input ng-model="Filtro.Data_Inicial"
+                               ng-required="true"
+                               ui-date ng-model-options="{updateOn: 'blur'}"
+                               placeholder="Informe a Data Inicial">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="Filtro.Data_Inicial"></div>
+                    </div>
+                </div>
+                <!--====================Data Final-->
+                <div class="col-md-3">
+                    <div class="dictionary" dictionary="Data" caption="Data Final">
+                        <input ng-model="Filtro.Data_Final"
+                               ng-required="true"
+                               ui-date ng-model-options="{updateOn: 'blur'}"
+                               placeholder="Informe a Data Final">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="Filtro.Data_Final"></div>
+                    </div>
+                </div>
+                <!--afasta-->
+                <div class="col-md-1"></div>
+                <!--====================Flags de Tipo de Dispo-->
+                <div class="col-md-2">
+                    <div class="form-group field-x">
+                        <label>Tipo de Dispo</label>
+                        <div class="input-group" style="display:flex">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Filtro.Indica_Local" />Local<span></span></label>
+                            </div>
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Filtro.Indica_Net" />NET<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Veiculo-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Veiculo" caption="Veiculo">
+                        <input id="txtCodVeiculo"
+                               ng-model="Filtro.Veiculo"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodVeiculo')"
+                               primarybind="txtCodVeiculo"
+                               secondarybind="txtNomeVeiculo"
+                               maxlength="3" ng-required="true" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="Filtro.Nome_Veiculo">
+                        </div>
+                    </div>
+                </div>
+                <!--afasta-->
+                <div class="col-md-1"></div>
+                <!--===================Programa-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Programa" caption="Programa">
+                        <input id="txtCodPrograma"
+                               ng-model="Filtro.Programa"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodPrograma')"
+                               primarybind="txtCodPrograma"
+                               secondarybind="txtTitulo"
+                               maxlength="4" style="text-transform:uppercase" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtTitulo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtTitulo" class="form-control " ng-model="Filtro.Titulo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--pula linha-->
+            <div class="row">
+                <div class="col-md-1">
+                    <label> </label>
+                </div>
+            </div>
+            <!--====================Flags de Opções-->
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <!--<label>Opções</label>-->
+                        <div class="input-group" style="display:flex">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Filtro.Indica_Progs_Saldo_Zero" />Mostrar Programas com Saldo Zerado<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group" style="display:flex">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Filtro.Indica_Progs_Saldo_Posit" />Mostrar Programas com Saldo Positivo<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group" style="display:flex">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Filtro.Indica_Progs_Saldo_Estou" />Mostrar Programas com Saldo Estourado<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group" style="display:flex">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Filtro.Indica_Progs_Desativados" />Mostrar Programas Desativados<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--============================================== BOTÕES DO FILTRO ==========================================-->
+            <div id="divBotaoFiltro" class="row margin-top-20">
+                <div class="col-12">
+                    <button class="btn btn-primary" ng-click="CarregarConsultaProgramacaoDiaria(Filtro)">Filtrar</button>
+                    <button class="btn btn-warning" ng-click="NewFiltro()">Limpar Filtro</button>
+                </div>
+            </div>
+        </div>
+        <!--============================================== GRID DA GRADE =========================================-->
+        <div id="divGrid" class="block table-responsive" ng-show="ShowGrid">
+            <!--===================================Botoes-->
+            <button class="btn btn-info" ng-click="ShowGrid=false;ShowFilter=true;NewFiltro()">Novo Filtro</button>
+            <button id="ExportReporttoExcel" class="btn btn-warning" ng-disabled="ConsultaProgramacaoDiarias.length==0">Exportar Excel</button>
+            <!--===================================Grid-->
+            <div class="box table-responsive " style="min-height:600px">
+                <table id="dataTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Veículo</th>
+                            <th>Programa</th>
+                            <th>H.Início</th>
+                            <th>H.Final</th>
+                            <th>Data</th>
+                            <th>Tipo Dispo</th>
+                            <th>Dispo</th>
+                            <th>Absorv</th>
+                            <!--<th>Reserva</th>
+                            <th>Invadido</th>-->
+                            <th>Saldo</th>
+                            <th>Detalhe</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="ConsultaProgramacaoDiaria in ConsultaProgramacaoDiarias track by $index" on-finish-render="ngRepeatFinished()">
+                            <td>{{::ConsultaProgramacaoDiaria.Cod_Veiculo}}-{{::ConsultaProgramacaoDiaria.Nome_Veiculo}}</td>
+                            <td>{{::ConsultaProgramacaoDiaria.Cod_Programa}}-{{::ConsultaProgramacaoDiaria.Titulo}}</td>
+                            <td>{{::ConsultaProgramacaoDiaria.Horario_Inicial}}</td>
+                            <td>{{::ConsultaProgramacaoDiaria.Horario_Final}}</td>
+                            <td>{{::ConsultaProgramacaoDiaria.Data_Exibicao | date:'dd/MM/yyyy'}}</td>
+                            <td>
+                                <label ng-show="ConsultaProgramacaoDiaria.Indica_Grade==0">Net</label>
+                                <label ng-show="ConsultaProgramacaoDiaria.Indica_Grade==2">Local</label>
+                            </td>
+                            <td>{{::ConsultaProgramacaoDiaria.Dispo}}</td>
+                            <td>{{::ConsultaProgramacaoDiaria.Absorvido}}</td>
+                            <!--<td>{{::ConsultaProgramacaoDiaria.Reservado}}</td>
+                            <td>{{::ConsultaProgramacaoDiaria.Invasao}}</td>-->
+                            <td>{{::ConsultaProgramacaoDiaria.Saldo}}</td>
+
+
+                            <td>
+                                <a href="#ConsultaProgramacaoDiariaDetalhe/{{Filtro.Veiculo}}/{{ConsultaProgramacaoDiaria.Data_Exibicao}}/{{ConsultaProgramacaoDiaria.Cod_Programa}}/{{ConsultaProgramacaoDiaria.Indica_Grade}}" class="btn btn-success btn-sm">
+                                    Ver
+                                </a>
+                            </td>
+
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

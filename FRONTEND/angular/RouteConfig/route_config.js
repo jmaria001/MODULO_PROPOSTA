@@ -1,5 +1,12 @@
 ﻿angular.module('App').config(function ($routeProvider) {
     $routeProvider
+        .when('/PortalApp', {
+            templateUrl: 'view/PortalApp.html',
+            authorize: false,
+            routeName: 'Portal de Aplicações',
+            controller:'PortalAppController',
+            RouteId: 0
+        })
     .when('/portal', {
         templateUrl: 'view/portal.html',
         authorize: false,
@@ -12,8 +19,14 @@
         routeName: 'Cadastros',
         RouteId: 0
     })
-    .when('/blank', {
+    .when('/UnderConstrution', {
         templateUrl: 'view/UnderConstrution.html',
+        authorize: false,
+        routeName: 'Pagina em Construção',
+        RouteId: 0
+    })
+    .when('/blank', {
+        templateUrl: 'view/Portal.html',
         authorize: false,
         routeName: 'SIM - Módulo Propostas',
         RouteId: 0
@@ -488,7 +501,20 @@
         routeName: 'Propagação da Grade',
         RouteId: 'Grade@Replicar'
     })
-
+.when('/ConsultaProgramacaoDiaria', {
+    templateUrl: 'view/ConsultaProgramacaoDiaria.html',
+    authorize: true,
+    controller: 'ConsultaProgramacaoDiariaController',
+    routeName: 'Consulta da Programação Prevista',
+    RouteId: 'ConsultaProgramacaoDiaria@Index'
+})
+        .when('/ConsultaProgramacaoDiariaDetalhe/:Veiculo/:Data/:Programa/:Grade', {
+            templateUrl: 'view/ConsultaProgramacaoDiariaDetalhe.html',
+            authorize: true,
+            controller: 'ConsultaProgramacaoDiariaDetalheController',
+            routeName: 'Consulta da Programação Prevista - Detalhe',
+            RouteId: 'ConsultaProgramacaoDiariaDetalhe@Edit'
+        })
     //----------------------------------------------------
     .when('/Simulacao', {
         templateUrl: 'view/simulacao_List.html',
@@ -674,9 +700,70 @@
         routeName: 'Parametrização do Retorno da PlayList',
         RouteId: 'Roteiro@Par_Ret_Play'
     })
-
+    .when('/EnvioPlayList', {
+        templateUrl: 'view/EnvioPlayList.html',
+        authorize: true,
+        controller: 'EnvioPlayListController',
+        routeName: 'Envio da PlayList',
+        RouteId: 'Roteiro@EnvioPlayList'
+    })
+    .when('/ComplementoContrato/:Origem', {
+        templateUrl: 'view/ComplementoContrato.html',
+        authorize: true,
+        controller: 'ComplementoContratoController',
+        routeName: 'Complemento de Faturas',
+        RouteId: 'Faturamento@Complemento'
+    })
+    .when('/ComplementoContratoPesquisa', {
+        templateUrl: 'view/ComplementoContratoPesquisa.html',
+        authorize: true,
+        controller: 'ComplementoContratoPesquisaController',
+        routeName: 'Pesquisa de Complementos',
+        RouteId: 'Complemento@Pesquisa'
+    })
+    .when('/FaturasPesquisa', {
+        templateUrl: 'view/FaturasPesquisa.html',
+        authorize: true,
+        controller: 'FaturasPesquisaController',
+        routeName: 'Pesquisa de Faturas',
+        RouteId: 'Fatura@Pesquisa'
+    })
+    .when('/FaturaGeracao', {
+        templateUrl: 'view/GeracaoFatura.html',
+        authorize: true,
+        controller: 'GeracaoFaturaController',
+        routeName: 'Geração de Faturas',
+        RouteId: 'Fatura@Geracao'
+    })
+    .when('/DepositorioFitas', {
+        templateUrl: 'view/DepositorioFitas.html',
+        controller: 'DepositorioFitasController',
+        authorize: true,
+        routeName: 'Deposítório de Fitas',
+        RouteId: 'Fitas@Depositorio'
+    })
+        .when('/DepositorioFitasCadastro/:Action/:Id', {
+            templateUrl: 'view/DepositorioFitasCadastro.html',
+            authorize: true,
+            controller: 'DepositorioFitasCadastroController',
+            routeName: 'Alteração de Fita',
+            RouteId: 'Fitas@Depositorio'
+        })
+    .when('/MateriaisFitas', {
+        templateUrl: 'view/MateriaisFitas.html',
+        controller: 'MateriaisFitasController',
+        authorize: true,
+        routeName: 'Cadastro de Materiais',
+        RouteId: 'Fitas@Material'
+    })
+         .when('/MateriaisFitasCadastro/:Action/:Id', {
+             templateUrl: 'view/MateriaisFitasCadastro.html',
+             authorize: true,
+             controller: 'MateriaisFitasCadastroController',
+             routeName: 'Manutenção do Cadastro de materiais',
+             RouteId: 'Fitas@Material'
+         })
     .otherwise({ redirectTo: "/blank" })
-
 });
 
 angular.module('App')

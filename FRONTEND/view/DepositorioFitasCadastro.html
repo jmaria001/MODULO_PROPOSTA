@@ -1,0 +1,463 @@
+﻿
+<div class="container">
+    <form name="frmDepositorioFitasCadastro" autocomplete="off">
+
+        <div class="block">
+
+            <!--==================Tipo de Fitas-->
+            <div class="row">
+                <div class="col-md-2 margin-top-10">
+                    <div class="form-group">
+                        <label>Tipo de Fita</label>
+                        <select class="form-control"
+                                ng-model="DepositorioFitas.Tipo_Fita"
+                                name="optTipoFita"
+                                ng-options="PosTipoFita.id as PosTipoFita.nome for PosTipoFita in PosTipoFita"></select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!--==============================================Data Inicio Exibição-->
+                <div class="col-md-4">
+                    <div class="dictionary" dictionary="Data" caption="Início Periodo">
+                        <input ng-model="DepositorioFitas.Data_Inicio"
+                               ui-date ng-model-options="{updateOn: 'blur'}">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="DepositorioFitas.Data_Inicio"></div>
+                    </div>
+                </div>
+
+                <!--==============================================Data Final Exibição-->
+                <div class="col-md-4">
+                    <div class="dictionary" dictionary="Data" caption="Final Período">
+                        <input ng-model="DepositorioFitas.Data_Final"
+                               ui-date ng-model-options="{updateOn: 'blur'}">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="DepositorioFitas.Data_Final"></div>
+                    </div>
+                </div>
+
+
+
+                <!--====================Quantidade-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <label>Quantidade</label>
+                        <div class="input-group">
+                            <input type="text" id="txtQuantidade" class="form-control" ng-model="DepositorioFitas.Quantidade">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================Titulo Comercial-->
+                <div class="col-md-4 margin-top-10">
+                    <div class="form-group">
+                        <label>Titulo Comercial</label>
+                        <div class="input-group">
+                            <input type="text" id="txtTituloComercial" class="form-control" ng-model="DepositorioFitas.Titulo_Comercial">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--====================Indica Chamada-->
+                <div class="col-md-4 margin-top-30">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="DepositorioFitas.Indica_Chamada" />Chamada Indetermindada<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--====================Duracao-->
+                <div class="col-md-1 margin-top-10">
+                    <div class="form-group">
+                        <label>Duração</label>
+                        <div class="input-group">
+                            <input type="text" id="txtDuracao" class="form-control" ng-model="DepositorioFitas.Duracao">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="block">
+            <div class="row">
+
+                <!--===================tipo comercial-->
+                <div class="col-md-1  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Tipo_Comercial">
+                        <input id="txtCod_Tipo_Comercial"
+                               ng-model="DepositorioFitas.Cod_Tipo_Comercial"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCod_Tipo_Comercial')"
+                               primarybind="txtCod_Tipo_Comercial"
+                               secondarybind="txtDescComercial">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtDescComercial" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtDescComercial" class="form-control " ng-model="DepositorioFitas.Descricao_Comercial">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--===================Programa-->
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Programa">
+                        <input id="txtCod_Programa"
+                               ng-model="DepositorioFitas.Cod_Programa"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCod_Programa')"
+                               primarybind="txtCod_Programa"
+                               secondarybind="txtTitulo">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtTitulo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtTitulo" class="form-control " ng-model="DepositorioFitas.Titulo_Programa">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!--===================Programa Antes -->
+                <div class="col-md-2  " ng-controller="dictionaryController">
+
+                    <div class="dictionary" dictionary="Programa">
+                        <input id="txtCod_Programa_Antes"
+                               ng-model="DepositorioFitas.Cod_Programa_Antes"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCod_Programa_Antes')"
+                               ng-disabled="DepositorioFitas.Tipo_Fita<2"
+                               primarybind="txtCod_Programa_Antes"
+                               secondarybind="txtTituloProgramaAntes">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Exibir antes</label>
+                        <label for="txtTituloProgramaAntes" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtTituloProgramaAntes" class="form-control " ng-model="DepositorioFitas.Titulo_Programa_Antes" ng-disabled="!PermissaoAvulso">
+                        </div>
+                    </div>
+                </div>
+
+                <!--===================Programa Apos -->
+                <div class="col-md-2  " ng-controller="dictionaryController">
+
+                    <div class="dictionary" dictionary="Programa">
+                        <input id="txtCod_Programa_Apos"
+                               ng-model="DepositorioFitas.Cod_Programa_Apos"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCod_Programa_Apos')"
+                               ng-disabled="DepositorioFitas.Tipo_Fita<2"
+                               primarybind="txtCod_Programa_Apos"
+                               secondarybind="txtTituloProgramaApos">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Exibir Apos</label>
+                        <label for="txtTituloProgramaApos" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtTituloProgramaApos" class="form-control " ng-model="DepositorioFitas.Titulo_Programa_Apos">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-md-2  " ng-controller="dictionaryController">
+
+                    <div class="dictionary" dictionary="Produto">
+                        <input id="txtCod_Red_Produto"
+                               ng-model="DepositorioFitas.Cod_Red_Produto"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCod_Red_Produto')"
+                               ng-disabled="DepositorioFitas.Tipo_Fita>1"
+                               primarybind="txtCod_Red_Produto"
+                               secondarybind="txtDescricao_Produto">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtDescricao_Produto" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtDescricao_Produto" class="form-control " ng-model="DepositorioFitas.Descricao_Produto">
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-2  " ng-controller="dictionaryController">
+
+                    <div class="dictionary" dictionary="Apresentador">
+                        <input id="txtCod_Apresentador"
+                               ng-model="DepositorioFitas.Cod_Apresentador"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCod_Apresentador')"
+                               primarybind="txtCod_Apresentador"
+                               secondarybind="txtNome_Apresentador">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtNome_Apresentador" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNome_Apresentador" class="form-control " ng-model="DepositorioFitas.Nome_Apresentador">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block">
+
+            <div class="row">
+                <div class="col-md-2  " ng-controller="dictionaryController">
+
+                    <div class="dictionary" dictionary="Veiculo">
+                        <input id="txtCod_Veiculo"
+                               ng-model="DepositorioFitas.Cod_Veiculo"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCod_Veiculo')"
+                               primarybind="txtCod_Veiculo"
+                               secondarybind="txtNome_Veiculo">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtNome_Veiculo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNome_Veiculo" class="form-control " ng-model="DepositorioFitas.Nome_Veiculo">
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!--====================Arquivo de Mídia-->
+                <div class="col-md-5 margin-top-10">
+                    <div class="form-group">
+                        <label>Arquivo de Mídia</label>
+                        <div class="input-group">
+                            <input type="text" id="txtArquivoMidia" class="form-control" ng-model="DepositorioFitas.Arquivo_Midia">
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="table-responsive margin-top-30">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th colspan="2" style="background-color:#f5f5f5">Veículos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                    <td style="border-right:none">
+                        <label ng-repeat="veiculo in DepositorioFitas.Veiculos track by $index"
+                               class="label label-info"
+                               style="margin-right:10px;display:inline-block">
+                            {{veiculo.Cod_Veiculo}}-{{veiculo.Nome_Veiculo}}
+                            <span class="fa fa-times span-btn pull-right" ng-click="RemoverVeiculos(veiculo.Cod_Veiculo)"></span>
+                        </label>
+                    </td>
+                    <td style="width:90px;min-width:90px;border-left:none">
+
+                        <button type="button" class="btn btn-default btn-sm" ng-click="SelecionarVeiculos(veiculo)">
+                            <span class="fa fa-search"></span>
+                        </button>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>-->
+            </div>
+        </div>
+
+
+        <!--<div class="row">
+            <div class="col-md-10 margin-top-10">
+                <div class="form-group">
+                    <label for="txtArquivoMidia">Selecione o aquivo de Mídia</label>
+                    <div class="input-group">
+                        <input type="file" id="txtArquivoMidia" name="txtArquivoMidia" class="form-control" ng-model="DepositorioFitas.Arquivo_Midia">
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+
+<!--====================Numero Fita-->
+<div class="block">
+
+    <div class="row">
+
+        <table class="table table-noborder">
+            <tbody>
+                <tr>
+                    <td style="width:150px;min-width:150px">
+
+                        <input type="text" id="txtNumero_Fita" class="form-control" ng-model="DepositorioFitas.Numero_Fita" ng-disabled="!PermissaoEdit">
+
+                    </td>
+
+                    <td>
+                        <button type="submit" class="btn btn-success" ng-click="CarregarNumeroFita(DepositorioFitas)" ng-disabled="Parameters.Action!='New'">Numero Fita</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+
+<div class="block">
+    <label for="txtDiaSemana" class="field-x">Dias da Semana</label>
+    <div class="row">
+        <!--====================Dia da semana segunda-->
+        <div class="col-md-1 margin-top-10">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="app-checkbox">
+                        <label><input type="checkbox" name="app-checkbox-1" ng-model="DepositorioFitas.Indica_DiaSeg" /> Seg<span></span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--====================Dia da semana Terça-->
+        <div class="col-md-1 margin-top-10">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="app-checkbox">
+                        <label><input type="checkbox" name="app-checkbox-1" ng-model="DepositorioFitas.Indica_DiaTer" /> Ter<span></span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====================Dia da semana Quarta-->
+        <div class="col-md-1 margin-top-10">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="app-checkbox">
+                        <label><input type="checkbox" name="app-checkbox-1" ng-model="DepositorioFitas.Indica_DiaQua" /> Qua<span></span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====================Dia da semana Quinta-->
+        <div class="col-md-1 margin-top-10">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="app-checkbox">
+                        <label><input type="checkbox" name="app-checkbox-1" ng-model="DepositorioFitas.Indica_DiaQui" /> Qui<span></span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====================Dia da semana Sexta-->
+        <div class="col-md-1 margin-top-10">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="app-checkbox">
+                        <label><input type="checkbox" name="app-checkbox-1" ng-model="DepositorioFitas.Indica_DiaSex" /> Sex<span></span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====================Dia da semana Sábado-->
+        <div class="col-md-1 margin-top-10">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="app-checkbox">
+                        <label><input type="checkbox" name="app-checkbox-1" ng-model="DepositorioFitas.Indica_DiaSab" /> Sab<span></span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--====================Dia da semana Domingo-->
+        <div class="col-md-1 margin-top-10">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="app-checkbox">
+                        <label><input type="checkbox" name="app-checkbox-1" ng-model="DepositorioFitas.Indica_DiaDom" /> Dom<span></span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--====================Escolhendo todos os dias-->
+        <div class="col-md-3 margin-top-10">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="app-checkbox">
+                        <label><input type="checkbox" name="app-checkbox-1" ng-model="DepositorioFitas.MarcarDesmarcar" ng-click="MarcaDepositorioFitas()" />  Marcar/Desmarcar Todos<span></span></label>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--====================Dia da semana Domingo-->
+    <!--<div class="row">
+        <div class="col-md-2 margin-top-10">
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="app-checkbox">
+                        <label style="color:#fff"><input type="checkbox" name="app-checkbox-1" ng-model="checkBoxReencaixe" ng-click="MarcaReencaixe()" />Todos</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+
+</div>
+<!--===================Botoes-->
+<div class="row margin-top-20">
+    <div class="col-md-12">
+        <button type="submit" class="btn btn-success" ng-click="SalvarDepositorioFitas(DepositorioFitas)" ng-disabled="frmDepositorioFitasCadastro.$invalid">Salvar</button>
+        <button type="button" class="btn btn-danger" ng-click="ExcluirDepositorioFitas(DepositorioFitas)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
+        <a href="#/DepositorioFitas" class="btn btn-warning">Cancelar</a>
+    </div>
+</div>
+
+
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
+
+
+

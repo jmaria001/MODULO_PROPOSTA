@@ -1,0 +1,14 @@
+﻿<div class="container">
+    <div class="block">
+        <div class="row margin-top-20">
+            <div class="col-md-3" ng-repeat="mod in AppModulos track by $index" style="cursor:pointer">
+                <a href="{{pageUrl }}{{mod.url}}"  class="app-widget-tile" ng-style="{'background-color':mod.bgcolor}" style="height:120px !important">
+                    <div class="intval intval-lg" style="font-size:20px !important;line-height:30px !important" ng-style="{'color':mod.color}"> {{mod.Name}}</div>
+                    <div class="line">
+                        <div class="title wide text-center" style="text-transform:none !important" ng-style="{'color':mod.color}">{{mod.Text}}</div>
+                    </div>  
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

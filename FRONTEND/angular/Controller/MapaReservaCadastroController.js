@@ -46,6 +46,14 @@
                 $scope.Contrato.Competencia_Text = MesExtenso($scope.Contrato.Competencia);
                 $scope.Periodo_Campanha_Inicio_Original = $scope.Contrato.Periodo_Campanha_Inicio;
                 $scope.Periodo_Campanha_Termino_Original = $scope.Contrato.Periodo_Campanha_Termino;
+                if ($scope.Parameters.Action = 'New') {
+                    $scope.Contrato.Cod_Empresa_Venda= $scope.FnSetEmpresaDefault('Codigo');
+                    $scope.Contrato.Nome_Empresa_Venda = $scope.FnSetEmpresaDefault('Nome');
+                    $scope.Contrato.Cod_Empresa_Faturamento= $scope.FnSetEmpresaDefault('Codigo');
+                    $scope.Contrato.Nome_Empresa_Faturamento= $scope.FnSetEmpresaDefault('Nome');
+                }
+
+                
                 if ($scope.Contrato.Versao_Projeto == 0) {
                     $scope.Contrato.Versao_Projeto = ""
                 };
