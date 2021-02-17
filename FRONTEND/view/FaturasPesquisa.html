@@ -1,5 +1,16 @@
-﻿<div class="container">
+﻿<style>
+    td, th {
+        white-space: nowrap;
+    }
+</style>
+<div class="container">
         <div id="divFiltro" class="block" ng-show="ShowFilter">
+            <div class="alert alert-info alert-icon-block" role="alert">
+                <div class="alert-icon">
+                    <span class="fa fa-filter"></span>
+                </div>
+                <strong>Filtros</strong>
+            </div>
             <div class="row">
                 <!--===================Empresa de Faturamento-->
                 <div class="col-md-2  " ng-controller="dictionaryController">

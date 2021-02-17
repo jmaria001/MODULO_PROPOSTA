@@ -20,7 +20,7 @@ namespace PROPOSTA
             public Int32 Numero_Mr { get; set; }
             public Int16 Sequencia_Mr { get; set; }
             public Int32 Numero_Complemento { get; set; }
-            public Int16 Indica_Sem_Midia { get; set; }
+            public Int16 Indica_Midia { get; set; }
             public String Cod_Empresa_Faturamento { get; set; }
             public String Cod_Usuario { get; set; }
             public Boolean Selected { get; set; }

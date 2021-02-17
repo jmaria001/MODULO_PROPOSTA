@@ -388,7 +388,7 @@
             };
             if (_index > -1) {
                 swal({
-                    title: "Confirma a exclusão da Parcela 3" + (pDuplicatas[_index].Parcela),
+                    title: "Confirma a exclusão da Parcela " + (pDuplicatas[_index].Parcela),
                     type: "warning",
                     showCancelButton: true,
                     confirmButtonClass: "btn-danger",

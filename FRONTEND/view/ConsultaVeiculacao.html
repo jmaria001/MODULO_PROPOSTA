@@ -1,0 +1,269 @@
+﻿
+<style>
+    td,th{white-space:nowrap}
+</style>
+<div class="container">
+    <!--div do filtro-->
+    <div id="divFiltro" ng-show="ShowFilter" class="block">
+        <div class="alert alert-info alert-icon-block" role="alert">
+            <div class="alert-icon">
+                <span class="fa fa-filter"></span>
+            </div>
+            <strong>Filtros</strong>
+        </div>
+        <!--===================Veiculo-->
+        <div class="row">
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Veiculo" caption="Veículo">
+                    <input id="txtCodVeiculo"
+                           ng-model="Filtro.Veiculo"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodVeiculo')"
+                           primarybind="txtCodVeiculo"
+                           secondarybind="txtNomeVeiculo">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="Filtro.Nome_Veiculo">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Empresa_Usuario" caption="Empresa">
+                    <input id="txtCodEmpresa"
+                           ng-model="Filtro.Empresa"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodEmpresa')"
+                           primarybind="txtCodEmpresa"
+                           secondarybind="txtNomeEmpresa">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtNomeEmpresa" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeEmpresa" class="form-control " ng-model="Filtro.Nome_Empresa">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="field-x">Contrato</label>
+                    <input id="txtContrato" type="text" name="txtContrato numeric" class="form-control" ng-model="Filtro.Contrato" maxlength="10" />
+                </div>
+            </div>
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="field-x">Seq.</label>
+                    <input id="txtSequencia" type="text" name="txtSequencia" class="form-control numeric" ng-model="Filtro.Sequencia" maxlength="2" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Programa" caption="Programa">
+                    <input id="txtCodPrograma"
+                           ng-model="Filtro.Programa"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodPrograma')"
+                           primarybind="txtCodPrograma"
+                           secondarybind="txtNomePrograma">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtNomePrograma" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomePrograma" class="form-control " ng-model="Filtro.Nome_Programa">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Qualidade" caption="Qualidade">
+                    <input id="txtCodQualidade"
+                           ng-model="Filtro.Qualidade"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodQualidade')"
+                           primarybind="txtCodQualidade"
+                           secondarybind="txtNomeQualidade">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtNomeQualidade" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeQualidade" class="form-control " ng-model="Filtro.Nome_Qualidade">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!--=======Data Início===============================================-->
+            <div class="col-md-2">
+                <div class="dictionary" dictionary="Data" caption="Data Início">
+                    <input ng-model="Filtro.Data_Inicio"
+                           ui-date
+                           ng-model-options="{updateOn: 'blur'}">
+                    <div class="dictionary-ui-calendar" ui-calendar typdate="Filtro.Data_Inicio"></div>
+                </div>
+            </div>
+            <!--=======Data Término==============================================-->
+            <div class="col-md-2">
+                <div class="dictionary" dictionary="Data" caption="Data Término">
+                    <input ng-model="Filtro.Data_Termino"
+                           ui-date ng-model-options="{updateOn: 'blur'}">
+                    <div class="dictionary-ui-calendar" ui-calendar typdate="Filtro.Data_Termino"></div>
+                </div>
+            </div>
+            <!--============================Situacao das veicululacoes-->
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label class="field-x" for="txtSituacaoVeicualacao">Situação das Veiculaçoes</label>
+                    <div class="form-control" name="txtSituacaoVeicualacao">
+                        <!--================================Baixadas-->
+                        <div class="col-md-3">
+                            <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                <label>
+                                    <input type="checkbox"
+                                           name="app-checkbox-1"
+                                           ng-model="Filtro.Baixadas"> &nbsp;&nbsp;Baixadas<span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <!--================================Nao Baixadas-->
+                        <div class="col-md-3">
+                            <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                <label>
+                                    <input type="checkbox"
+                                           name="app-checkbox-1"
+                                           ng-model="Filtro.NaoBaixadas"> &nbsp;&nbsp;Não Baixadas<span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <!--================================Ordenadas-->
+                        <div class="col-md-3">
+                            <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                <label>
+                                    <input type="checkbox"
+                                           name="app-checkbox-1"
+                                           ng-model="Filtro.Ordenadas"> &nbsp;&nbsp;Ordenadas<span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <!--================================Nao Ordenadas-->
+                        <div class="col-md-3">
+                            <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                <label>
+                                    <input type="checkbox"
+                                           name="app-checkbox-1"
+                                           ng-model="Filtro.NaoOrdenadas"> &nbsp;&nbsp;Não Ordenadas<span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label class="field-x" for="Abrangencia">Abranbência</label>
+                    <div class="form-control"name="txtAbrangencia">
+                        <!--================================Baixadas-->
+                        <div class="col-md-6">
+                            <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                <label>
+                                    <input type="checkbox"
+                                           name="app-checkbox-1"
+                                           ng-model="Filtro.Net"> &nbsp;&nbsp;Net<span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <!--================================Nao Baixadas-->
+                        <div class="col-md-6">
+                            <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                <label>
+                                    <input type="checkbox"
+                                           name="app-checkbox-1"
+                                           ng-model="Filtro.Local"> &nbsp;&nbsp;Local<span></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="divBotaoFiltro" class="row margin-top-30">
+                <div class="col-12">
+                    <button class="btn btn-success" ng-click="RoteiroExibir(Filtro)"> Filtrar</button>
+                    <button class="btn btn-warning" ng-click="ShowGrid=false;ShowFilter=true;Filtro=NewFiltro()">Novo Filtro</button>
+                    <button class="btn btn-default hidden" id="btnVoltar" ng-click="ShowGrid=false;ShowFilter=true;">Voltar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Div do grid-->
+    <div id="divGrid" class="block table-responsive" ng-show="ShowGrid">
+        <!--===================================Botoes-->
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Progr</th>
+                        <th>Break</th>
+                        <th>Abrang.</th>
+                        <th>Chv</th>
+                        <th>Vei.</th>
+                        <th>Contrato</th>
+                        <th>Comercial</th>
+                        <th>Produto</th>
+                        <th>Dur.</th>
+                        <th>Tipo Com.</th>
+                        <th>Qual.</th>
+                        <th>Horário</th>
+                        <th>Docto De</th>
+                        <th>Docto Para</th>
+                        <th>Prog.Ordenado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Roteiro in Roteiros track by $index" on-finish-render="ngRepeatFinished()">
+                        <td>{{::Roteiro.Data_Exibicao | date: "dd/MM/yyyy"}}</td>
+                        <td>{{::Roteiro.Cod_Programa}}-{{::Roteiro.Titulo_Programa}}</td>
+                        <td>{{::Roteiro.Breaks}}</td>
+                        <td>
+                            <label class="label" style="background-color:hotpink" ng-show="Roteiro.Indica_Grade==0">Net</label>
+                            <label class="label" style="background-color:darkblue" ng-show="Roteiro.Indica_Grade!=0">Local</label>
+                        </td>
+                        <td>{{::Roteiro.Chave_Acesso}}</td>
+                        <td>{{::Roteiro.Cod_Veiculo}}</td>
+                        <td>{{::Roteiro.Cod_Empresa}}-{{::Roteiro.Numero_Mr}}-{{::Roteiro.Sequencia_Mr}}</td>
+                        <td>{{::Roteiro.Titulo_Comercial}}</td>
+                        <td>{{::Roteiro.Nome_Produto}}</td>
+                        <td>{{::Roteiro.Duracao}}</td>
+                        <td>{{::Roteiro.Cod_Tipo_Comercial}}</td>
+                        <td>{{::Roteiro.Cod_Qualidade}}</td>
+                        <td>{{::Roteiro.Horario_Exibicao}}</td>
+                        <td>{{::Roteiro.Documento_De}}</td>
+                        <td>{{::Roteiro.Documento_Para}}</td>
+                        <td>{{::Roteiro.Cod_Programa_Ordenado}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

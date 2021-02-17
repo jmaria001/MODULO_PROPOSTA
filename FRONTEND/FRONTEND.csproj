@@ -94,6 +94,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="angular\Controller\BaixaVeiculacoesController.js" />
+    <Content Include="angular\Controller\ComplementoOutrasReceitas.js" />
     <Content Include="angular\Controller\ComplementoContrato.js" />
     <Content Include="angular\Controller\ComplementoContratoPesquisaController.js" />
     <Content Include="angular\Controller\ConsultaProgramacaoDiariaController.js" />
@@ -106,6 +108,9 @@
     <Content Include="angular\Controller\indexController.js" />
     <Content Include="angular\Controller\MateriaisFitasCadastroController.js" />
     <Content Include="angular\Controller\MateriaisFitasController.js" />
+    <Content Include="angular\Controller\ConsultaVeiculacaoController.js" />
+    <Content Include="Index.html" />
+    <Content Include="IndexChecking.html" />
     <Content Include="IndexFaturamento.html" />
     <Content Include="IndexRoteiro.html" />
     <Content Include="IndexProg.html" />
@@ -269,6 +274,8 @@
     <Content Include="template\PesquisaGradeCompensacao.html" />
     <Content Include="view\Am_Consulta.html" />
     <Content Include="view\Am_Reencaixe.html" />
+    <Content Include="view\BaixaVeiculacoes.html" />
+    <Content Include="view\ComplementoOutrasReceitas.html" />
     <Content Include="view\ComplementoContrato.html" />
     <Content Include="view\ComplementoContratoPesquisa.html" />
     <Content Include="view\ConsultaProgramacaoDiaria.html" />
@@ -350,6 +357,7 @@
     <Content Include="view\RegraAprovacao.html" />
     <Content Include="view\Composicao_Break.html" />
     <Content Include="view\Roteiro.html" />
+    <Content Include="view\ConsultaVeiculacao.html" />
     <Content Include="view\Simulacao - Copy.html" />
     <Content Include="view\Simulacao_List - Copy.html" />
     <Content Include="view\Simulacao_List.html" />
@@ -436,7 +444,7 @@
     <Content Include="images\no-image.png" />
     <Content Include="images\SIMLOGO.png" />
     <Content Include="images\user_1.png" />
-    <Content Include="index.html" />
+    <Content Include="indexPortal.html" />
     <Content Include="js\app.js" />
     <Content Include="js\app_demo.js" />
     <Content Include="js\app_plugins.js" />

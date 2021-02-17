@@ -7,7 +7,6 @@
     $scope.DepositorioFitas = "";
     $scope.DepositorioFitas.Veiculos = [];
     $scope.currentVeiculos = 0;
-    console.log($scope.Parameters);
     $scope.PosTipoFita = [
         { 'id': 1, 'nome': 'Avulso' },
         { 'id': 2, 'nome': 'Artistico' }

@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/styles.css?Hash=V082">
-    <link href="css/custom.css?Hash=V082" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css?Hash=V085">
+    <link href="css/custom.css?Hash=V085" rel="stylesheet" />
 </head>
 <body class="notranslate" ng-cloak>
     <div class="backdrop"></div>
@@ -26,13 +26,13 @@
             <div class="app-header-navigation app-header-navigation-hover app-navigation-style-blue">
                 <nav id="navMenu">
                     <ul ng-show="Islogged">
-                        <li><a href="{{pageUrl}}/#PortalApp" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Portal de Aplicações</a></li>
+                        <li><a href="#PortalApp" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Portal de Aplicações</a></li>
                         <li><a href="#portal" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Mural</a></li>
                         <li><a href="" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Complementos</a>
                             <ul>
                                 <li><a href="#ComplementoContrato/1" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Complementar Contrato</a></li>
                                 <li><a href="#ComplementoContrato/0" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Complementar Antecipados</a></li>
-                                <li><a href="#UnderConstrution" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Outras Receitas</a></li>
+                                <li><a href="#ComplementoOutrasReceitas" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Outras Receitas</a></li>
                                 <li><a href="#ComplementoContratoPesquisa" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Pesquisa de Complementos</a></li>
                             </ul>
                         </li>
@@ -111,73 +111,75 @@
         </div>
     </div>
     <!------------------------------------- IMPORTANT SCRIPTS ---------------------------------->
-    <script type="text/javascript" src="js/vendor/jquery/jquery.min.js?Hash=V082"></script>
-    <script type="text/javascript" src="js/vendor/jquery/jquery-migrate.min.js?Hash=V082"></script>
-    <script type="text/javascript" src="js/vendor/jquery/jquery-ui.min.js?Hash=V082"></script>
-    <script type="text/javascript" src="js/vendor/bootstrap/bootstrap.min.js?Hash=V082"></script>
-    <script type="text/javascript" src="js/vendor/moment/moment.min.js?Hash=V082"></script>
-    <script type="text/javascript" src="js/vendor/customscrollbar/jquery.mCustomScrollbar.min.js?Hash=V082"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery.min.js?Hash=V085"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery-migrate.min.js?Hash=V085"></script>
+    <script type="text/javascript" src="js/vendor/jquery/jquery-ui.min.js?Hash=V085"></script>
+    <script type="text/javascript" src="js/vendor/bootstrap/bootstrap.min.js?Hash=V085"></script>
+    <script type="text/javascript" src="js/vendor/moment/moment.min.js?Hash=V085"></script>
+    <script type="text/javascript" src="js/vendor/customscrollbar/jquery.mCustomScrollbar.min.js?Hash=V085"></script>
     <!--====================================================================================angular scripts-->
-    <script src="angular/angular-bin/angular.min.js?Hash=V082"></script>
-    <script src="angular/angular-route/angular-route.min.js?Hash=V082"></script>
-    <script src="angular/angular-cookies/angular-cookies.min.js?Hash=V082"></script>
-    <script src="angular/angular-bin/angular-locale_pt-br.js?Hash=V082"></script>
+    <script src="angular/angular-bin/angular.min.js?Hash=V085"></script>
+    <script src="angular/angular-route/angular-route.min.js?Hash=V085"></script>
+    <script src="angular/angular-cookies/angular-cookies.min.js?Hash=V085"></script>
+    <script src="angular/angular-bin/angular-locale_pt-br.js?Hash=V085"></script>
     <!------------------------------------- Page SCRIPTS ---------------------------------->
-    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap.min.js?Hash=V082"></script>
-    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-world-mill-en.js?Hash=V082"></script>
-    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-us-aea-en.js?Hash=V082"></script>
-    <script src="js/vendor/noty/jquery.noty.packaged.js?Hash=V082"></script>
-    <script src="js/vendor/sweetalert/sweetalert.min.js?Hash=V082"></script>
+    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap.min.js?Hash=V085"></script>
+    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-world-mill-en.js?Hash=V085"></script>
+    <script type="text/javascript" src="js/vendor/jvectormap/jquery-jvectormap-us-aea-en.js?Hash=V085"></script>
+    <script src="js/vendor/noty/jquery.noty.packaged.js?Hash=V085"></script>
+    <script src="js/vendor/sweetalert/sweetalert.min.js?Hash=V085"></script>
 
     <!------------------------------------- App SCRIPTS ---------------------------------->
-    <script type="text/javascript" src="js/app.js?Hash=V082"></script>
-    <script type="text/javascript" src="js/app_plugins.js?Hash=V082"></script>
+    <script type="text/javascript" src="js/app.js?Hash=V085"></script>
+    <script type="text/javascript" src="js/app_plugins.js?Hash=V085"></script>
     <!------------------------------------- Controllerangular/Services/service ---------------------------------->
-    <script src="js/SimLib.js?Hash=V082"></script>
-    <script src="js/dictionary.js?Hash=V082"></script>
-    <script src="angular/Module/app.js?Hash=V082"></script>
-    <script src="angular/Filter/AppFilter.js?Hash=V082"></script>
-    <script src="angular/config/base_url_config.js?Hash=V082"></script>
-    <script src="angular/RouteConfig/route_config.js?Hash=V082"></script>
-    <script src="angular/interceptor/errorInterceptor.js?Hash=V082"></script>
-    <script src="angular/interceptor/interceptorsConfig.js?Hash=V082"></script>
-    <script src="angular/interceptor/loadingInterceptor.js?Hash=V082"></script>
-    <script src="angular/interceptor/timestampInterceptor.js?Hash=V082"></script>
-    <script src="angular/Diretivas/repeatfinished.js?Hash=V082"></script>
-    <script src="angular/Diretivas/uiCalendar.js?Hash=V082"></script>
-    <script src="angular/Diretivas/uiCompetencia.js?Hash=V082"></script>
-    <script src="angular/Diretivas/uiDate.js?Hash=V082"></script>
-    <script src="angular/Services/tokenApi.js?Hash=V082"></script>
-    <script src="angular/Services/httpService.js?Hash=V082"></script>
-    <script src="angular/Controller/mainController.js?Hash=V082"></script>
-    <script src="angular/Controller/dictionaryController.js?Hash=V082"></script>
-    <script src="angular/Controller/login.js?Hash=V082"></script>
-    <script src="angular/Controller/muralController.js?Hash=V082"></script>
-    <script src="angular/Controller/AprovacaoProposta.js?Hash=V082"></script>
-    <script src="angular/Controller/AprovarPendentes_Controller.js?Hash=V082"></script>
+    <script src="js/SimLib.js?Hash=V085"></script>
+    <script src="js/dictionary.js?Hash=V085"></script>
+    <script src="angular/Module/app.js?Hash=V085"></script>
+    <script src="angular/Filter/AppFilter.js?Hash=V085"></script>
+    <script src="angular/config/base_url_config.js?Hash=V085"></script>
+    <script src="angular/RouteConfig/route_config.js?Hash=V085"></script>
+    <script src="angular/interceptor/errorInterceptor.js?Hash=V085"></script>
+    <script src="angular/interceptor/interceptorsConfig.js?Hash=V085"></script>
+    <script src="angular/interceptor/loadingInterceptor.js?Hash=V085"></script>
+    <script src="angular/interceptor/timestampInterceptor.js?Hash=V085"></script>
+    <script src="angular/Diretivas/repeatfinished.js?Hash=V085"></script>
+    <script src="angular/Diretivas/uiCalendar.js?Hash=V085"></script>
+    <script src="angular/Diretivas/uiCompetencia.js?Hash=V085"></script>
+    <script src="angular/Diretivas/uiDate.js?Hash=V085"></script>
+    <script src="angular/Services/tokenApi.js?Hash=V085"></script>
+    <script src="angular/Services/httpService.js?Hash=V085"></script>
+    <script src="angular/Controller/mainController.js?Hash=V085"></script>
+    <script src="angular/Controller/dictionaryController.js?Hash=V085"></script>
+    <script src="angular/Controller/login.js?Hash=V085"></script>
+    <script src="angular/Controller/muralController.js?Hash=V085"></script>
+    <script src="angular/Controller/AprovacaoProposta.js?Hash=V085"></script>
+    <script src="angular/Controller/AprovarPendentes_Controller.js?Hash=V085"></script>
+    <script src="angular/Controller/PortalApp.js?Hash=V085"></script>
     <!---====================================================================================Controles desse modulo-->
-    <script src="angular/Controller/ComplementoContrato.js?Hash=V082"></script>
-    <script src="angular/Controller/ComplementoContratoPesquisaController.js?Hash=V082"></script>
-    <script src="angular/Controller/FaturasPesquisaController.js?Hash=V082"></script>
-    <script src="angular/Controller/GeracaoFaturaController.js?Hash=V082"></script>
+    <script src="angular/Controller/ComplementoContrato.js?Hash=V085"></script>
+    <script src="angular/Controller/ComplementoContratoPesquisaController.js?Hash=V085"></script>
+    <script src="angular/Controller/FaturasPesquisaController.js?Hash=V085"></script>
+    <script src="angular/Controller/GeracaoFaturaController.js?Hash=V085"></script>
+    <script src="angular/Controller/ComplementoOutrasReceitas.js?Hash=V085"></script>
     <!--====================================================================================PLUGINS -->
-    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.js?Hash=V082"></script>
-    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/dataTables.bootstrap.min.js?Hash=V082"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/dataTables.buttons.min.js?Hash=V082"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/pdfmake.min.js?Hash=V082"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.print.min.js?Hash=V082"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.html5.min.js?Hash=V082"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/jszip.min.js?Hash=V082"></script>
-    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/vfs_fonts.js?Hash=V082"></script>
-    <script src="js/vendor/dropzone/dropzone.js?Hash=V082"></script>
-    <script src="js/vendor/charts/charts.bundle.js?Hash=V082"></script>
-    <script src="js/vendor/moment/moment_locale_pt_br.js?Hash=V082"></script>
-    <script type="text/javascript" src="js/vendor/ionrangeslider/ion.rangeSlider.min.js?Hash=V082"></script>
+    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.js?Hash=V085"></script>
+    <script src="js/vendor/XTABLES/DataTables-1.10.16/js/dataTables.bootstrap.min.js?Hash=V085"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/dataTables.buttons.min.js?Hash=V085"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/pdfmake.min.js?Hash=V085"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.print.min.js?Hash=V085"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/buttons.html5.min.js?Hash=V085"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/jszip.min.js?Hash=V085"></script>
+    <script src="js/vendor/XTABLES/Buttons-1.5.1/js/vfs_fonts.js?Hash=V085"></script>
+    <script src="js/vendor/dropzone/dropzone.js?Hash=V085"></script>
+    <script src="js/vendor/charts/charts.bundle.js?Hash=V085"></script>
+    <script src="js/vendor/moment/moment_locale_pt_br.js?Hash=V085"></script>
+    <script type="text/javascript" src="js/vendor/ionrangeslider/ion.rangeSlider.min.js?Hash=V085"></script>
     <!--====================================================================================Export-->
-    <script src="js/vendor/jspdf/png.js?Hash=V082"></script>
-    <script src="js/vendor/jspdf/zlib.js?Hash=V082"></script>
-    <script src="js/vendor/jspdf/jspdf.min.js?Hash=V082"></script>
-    <script src="js/vendor/jspdf/html2canvas.js?Hash=V082"></script>
+    <script src="js/vendor/jspdf/png.js?Hash=V085"></script>
+    <script src="js/vendor/jspdf/zlib.js?Hash=V085"></script>
+    <script src="js/vendor/jspdf/jspdf.min.js?Hash=V085"></script>
+    <script src="js/vendor/jspdf/html2canvas.js?Hash=V085"></script>
 
     <div ng-include="'template/wait.html'"></div>
 </body>

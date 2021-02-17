@@ -7,20 +7,6 @@
     $scope.CompetenciaKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
     $scope.MesAnoKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
     $scope.Solucao = [];
-    //========================Recebe Parametro
-    //httpService.Get("credential/MapaReservaCompensacaoFalhas@New").then(function (response) {
-    //    $scope.PermissaoNew = response.data;
-    //});
-
-    
-    //httpService.Get("credential/" + "MapaReservaCompensacaoFalhas@Edit").then(function (response) {
-    //    $scope.PermissaoEdit = response.data;
-    //});
-
-
-    //httpService.Get("credential/MapaReservaCompensacaoFalhas@Destroy").then(function (response) {
-    //    $scope.PermissaoExcluir = response.data;
-    //});
 
     //====================Inicializa scopes
     $scope.ShowGrid = false;
@@ -38,9 +24,9 @@
         $rootScope.routeloading = false;
         $scope.CurrentShow = 'Grid';
         $scope.ShowGrid = true;
-        //setTimeout(function () {
-        //    $("#dataTable").dataTable().fnAdjustColumnSizing();
-        //}, 10)
+        setTimeout(function () {
+            $("#dataTable").dataTable().fnAdjustColumnSizing();
+        }, 10)
     };
 
     $scope.NewCompensacao = function () {

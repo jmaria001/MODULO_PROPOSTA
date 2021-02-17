@@ -28,8 +28,12 @@
                     <ul ng-show="Islogged">
                         <li><a href="#PortalApp" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Portal de Aplicações</a></li>
                         <li><a href="#portal" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Mural</a></li>
-                        <li><a href="#Grade" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Manutenção da Grade</a></li>
-                        <li><a href="#ConsultaProgramacaoDiaria"><span class="nav-icon-hexa">Us</span>Consulta da Disponibilidade</a></li>
+                        <li><a href="" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Baixas</a>
+                            <ul>
+                                <li><a href="#BaixaVeiculacao" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Baixa por Veiculaçao</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#ConsultaVeiculacoes/" class="navbar-link"><span class="nav-icon-hexa">Pr</span>Consulta de Veiculaçoes</a></li>
                         <li ng-controller="loginController"><a href="" ng-click="app_Logout()"><span class="icon-exit"></span> Sair</a></li>
                     </ul>
                 </nav>
@@ -141,11 +145,8 @@
     <script src="angular/Controller/AprovarPendentes_Controller.js?Hash=V085"></script>
     <script src="angular/Controller/PortalApp.js?Hash=V085"></script>
     <!---====================================================================================Controles desse modulo-->
-    <script src="angular/Controller/GradeCadastroController.js?Hash=V085"></script>
-    <script src="angular/Controller/GradeController.js?Hash=V085"></script>
-    <script src="angular/Controller/ConsultaProgramacaoDiariaController.js?Hash=V085"></script>
-    <script src="angular/Controller/ConsultaProgramacaoDiariaDetalheController.js?Hash=V085"></script>
-    <script src="angular/Controller/PropagacaoGradeController.js?Hash=V085"></script>
+    <script src="angular/Controller/BaixaVeiculacoesController.js?Hash=V085"></script>
+    <script src="angular/Controller/ConsultaVeiculacaoController.js?Hash=V085"></script>
     <!--====================================================================================PLUGINS -->
     <script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.js?Hash=V085"></script>
     <script src="js/vendor/XTABLES/DataTables-1.10.16/js/dataTables.bootstrap.min.js?Hash=V085"></script>

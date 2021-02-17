@@ -38,6 +38,7 @@ function GetDictionary() {
                         { 'Id': 'Projeto', 'label': 'Projeto', 'icon': 'search', 'atributos': { 'maxlength': '10', 'type': 'text', 'keymode': 'text', 'filter': false } },
                         { 'Id': 'Produto', 'label': 'Produto', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'numeric' } },
                         { 'Id': 'Tipo_Comercial', 'label': 'Tipo de Comercial', 'icon': 'search', 'atributos': { 'maxlength': '2', 'type': 'text', 'keymode': 'text' } },
+                        { 'Id': 'Qualidade', 'label': 'Tipo de Comercial', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'text' } },
     ];
 
     //==============Config html
@@ -217,7 +218,7 @@ function GetDictionary() {
             _valido = false;
         };
         if (_mm < 0 || _mm > 59) {
-            _valido = false;
+            _valido = false;    
         };
         
         if (!_valido) {
@@ -237,6 +238,7 @@ function GetDictionary() {
         this.value = cnpjUnformat(this.value);
     });
     $(".time").focus(function () {
+        console.log("time");
         this.value = TimeUnformat(this.value);
     });
     

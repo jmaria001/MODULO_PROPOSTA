@@ -28,6 +28,7 @@
     //========================Parametros do Grid
     $scope.ShowFilter = true;
     $scope.gridheaders = [{ 'Complemento': '', 'visible': true, 'searchable': true, 'sortable': true },
+        { 'title': 'Rateio', 'visible': true, 'searchable': true, 'sortable': true },
         { 'title': 'Origem', 'visible': true, 'searchable': true, 'sortable': true },
         { 'title': 'Negociação', 'visible': true, 'searchable': true, 'sortable': true },
         { 'title': 'Emp.', 'visible': true, 'searchable': true, 'sortable': true },

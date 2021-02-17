@@ -642,6 +642,13 @@
         routeName: 'Importação de Propostas para Mapa Reserva',
         RouteId: 'MapaReserva@Import'
     })
+    .when('/ConsultaVeiculacoes', {
+        templateUrl: 'view/ConsultaVeiculacao.html',
+        controller: 'ConsultaVeiculacaoController',
+        authorize: true,
+        routeName: "Consulta de Veiculaçoes",
+        RouteId: 'Veiculacao@Consulta'
+    })
     .when('/ConsultaAM', {
         templateUrl: 'view/Am_Consulta.html',
         controller: 'Am_ConsultaController',
@@ -714,6 +721,13 @@
         routeName: 'Complemento de Faturas',
         RouteId: 'Faturamento@Complemento'
     })
+    .when('/ComplementoOutrasReceitas', {
+        templateUrl: 'view/ComplementoOutrasReceitas.html',
+        authorize: true,
+        controller: 'ComplementoOutrasReceitas',
+        routeName: 'Complemento de Outras Receitas',
+        RouteId: 'Faturamento@OutrasReceitas'
+    })
     .when('/ComplementoContratoPesquisa', {
         templateUrl: 'view/ComplementoContratoPesquisa.html',
         authorize: true,
@@ -756,13 +770,20 @@
         routeName: 'Cadastro de Materiais',
         RouteId: 'Fitas@Material'
     })
-         .when('/MateriaisFitasCadastro/:Action/:Id', {
-             templateUrl: 'view/MateriaisFitasCadastro.html',
-             authorize: true,
-             controller: 'MateriaisFitasCadastroController',
-             routeName: 'Manutenção do Cadastro de materiais',
-             RouteId: 'Fitas@Material'
-         })
+    .when('/MateriaisFitasCadastro/:Action/:Id', {
+        templateUrl: 'view/MateriaisFitasCadastro.html',
+        authorize: true,
+        controller: 'MateriaisFitasCadastroController',
+        routeName: 'Manutenção do Cadastro de materiais',
+        RouteId: 'Fitas@Material'
+    })
+    .when('/BaixaVeiculacao', {
+        templateUrl: 'view/BaixaVeiculacoes.html',
+        controller: 'BaixaVeiculacoesController',
+        authorize: true,
+        routeName: 'Baixa de Veiculações',
+        RouteId: 'Baixa@Veiculacao'
+    })
     .otherwise({ redirectTo: "/blank" })
 });
 

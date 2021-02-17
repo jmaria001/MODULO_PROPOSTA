@@ -38,17 +38,14 @@ namespace PROPOSTA
         [ActionName("IncluirSolicitacao")]
         [Authorize()]
 
-        // aqui se vc ta passando uma lista, tem que receber a lista
         public IHttpActionResult IncluirSolicitacao([FromBody] List<GeracaoFatura.SolicitacaoFaturaModel> pContratos)
         {
             SimLib clsLib = new SimLib();
             GeracaoFatura Cls = new GeracaoFatura(User.Identity.Name);
             try
             {
-                //aqui ta dando erro porque o incluirsolicitacao ta esperando um model SolicitacaoFaturaModel entao tem que mudar la tambem para lista
                 DataTable retorno = Cls.IncluirSolicitacao(pContratos);
                 return Ok(retorno);
-
             }
             catch (Exception Ex)
             {

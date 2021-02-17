@@ -231,6 +231,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BaixaVeiculacao\BaixaVeiculacoesController.cs" />
+    <Compile Include="BaixaVeiculacao\BaixaVeiculacoesModel.cs" />
+    <Compile Include="BaixaVeiculacao\BaixaVeiculacoesSql.cs" />
     <Compile Include="CaracVeicul\CaracVeiculController.cs" />
     <Compile Include="CaracVeicul\CaracVeiculModel.cs" />
     <Compile Include="CaracVeicul\CaracVeiculSql.cs" />
@@ -330,6 +333,9 @@
     <Compile Include="Rede\RedeController.cs" />
     <Compile Include="Rede\RedeModel.cs" />
     <Compile Include="Rede\RedeSql.cs" />
+    <Compile Include="Roteiro\ConsultaVeiculacaoController.cs" />
+    <Compile Include="Roteiro\ConsultaVeiculacaoModel.cs" />
+    <Compile Include="Roteiro\ConsultaVeiculacaoSql.cs" />
     <Compile Include="Roteiro\RoteiroController.cs" />
     <Compile Include="Roteiro\RoteiroModel.cs" />
     <Compile Include="Roteiro\RoteiroSql.cs" />

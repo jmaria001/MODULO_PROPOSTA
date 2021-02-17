@@ -2,15 +2,15 @@ angular.module('App').controller('loginController', ['$scope', '$rootScope', 'to
        
     $scope.CookieEnabled = navigator.cookieEnabled;
     $scope.app_Logout = function (event) {
+        console.log("saindo");
         $rootScope.Islogged = false;
         tokenApi.removeAll();
         $rootScope.Mensagens = [];
         $rootScope.UserData = {};
-        //$location.path("/login");
         for (key in localStorage) {
             delete localStorage[key];
         }
-        redirect($rootScope.pageUrl + "#login");
+        window.location.href = $rootScope.pageUrl;
     };
     
     $scope.setLogin = function (user) {

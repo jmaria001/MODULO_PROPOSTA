@@ -8,7 +8,6 @@
     //========================Recebe Parametro
     $scope.Parameters = $routeParams;
     $scope.Contrato = "";
-    console.log($scope.Parameters);
 
     //====================Inicializa scopes
     $scope.Filtro = {};
@@ -38,6 +37,7 @@
         { 'title': 'Agencia', 'visible': true, 'searchable': true, 'sortable': true },
         { 'title': 'Valor', 'visible': true, 'searchable': true, 'sortable': true },
         { 'title': 'Complemento', 'visible': true, 'searchable': true, 'sortable': true },
+        { 'title': 'Rateio', 'visible': true, 'searchable': true, 'sortable': true },
     ];
 
     //====================Quando terminar carga do grid, torna view do grid visible
@@ -80,31 +80,30 @@
 
     //==========================Incluir solicitação de fatura
     $scope.IncluirSolicitacao = function (pContratos) {
-        //if ($scope.Parameters.Action == "New")
-        //{
-        //    $scope.Veiculo.id_operacao = 'I';Parameters.Action
-        //}
-        //$scope.TipoMidia.id_operacao = $scope.sw == "New" ? 'I' : 'E';
-        $scope.Contrato.id_operacao = $scope.Parameters.Action == "New" ? 'I' : 'E';
+        var bMarcou = false;
+        for (var i = 0; i < pContratos.length; i++) {
+            if (pContratos[i].Selected) {
+                bMarcou = true;
+                break;
+            };
+        };
+        if (!bMarcou) {
+            ShowAlert("Nenhuma linha foi marcada para geraçao");
+            return
+        };
         httpService.Post("IncluirSolicitacao", pContratos).then(function (response) {
             if (response) {
-
                 if (response.data[0].Status) {
-                    ShowAlert(response.data[0].Mensagem, 'success');
-                    if ($scope.Parameters.Action == 'New') {
-                        $scope.CarregaDados();
-                    }
-                    else {
-                        $location.path("/Contrato")
-                    }
-                }
-                else {
-                    ShowAlert(response.data[0].Mensagem, 'warning');
-                }
+                    var _msg = 'Geração Concluida co Sucesso. Faturas Geradas de:' + response.data[0].Numero_Inicial + ' até:' + response.data[0].Numero_Final
+                    ShowAlert(_msg);
+                    $scope.CarregaDados();
+                };
             }
-        })
+            else {
+                ShowAlert(response.data[0].Mensagem, 'warning');
+            };
+        });
     };
-
     //====================Funcao para configurar o Grid
     $scope.ConfiguraGrid = function () {
         param = {};
@@ -146,7 +145,6 @@
 
     //===========================Funcao MarcarDismarcar
     $scope.MarcarDismarcar = function (pContratos, pvalue) {
-        //console.log("chegando");
         for (var i = 0; i < pContratos.length; i++) {
             pContratos[i].Selected= pvalue;
         }

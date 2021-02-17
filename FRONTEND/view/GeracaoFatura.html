@@ -2,6 +2,12 @@
     <!--div do filtro-->
     <div class="block">
         <div id="divFiltro" ng-show="ShowFilter">
+            <div class="alert alert-info alert-icon-block" role="alert">
+                <div class="alert-icon">
+                    <span class="fa fa-filter"></span>
+                </div>
+                <strong>Filtros</strong>
+            </div>
             <div class="row margin-left-10">
                 <!--===================Empresa de Faturamento-->
                 <div class="col-md-2  " ng-controller="dictionaryController">
@@ -44,6 +50,7 @@
                         <th>Agência</th>
                         <th>Valor</th>
                         <th>N.Complemento</th>
+                        <th>Qtd Rateios</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -63,6 +70,7 @@
                         <td>{{::Contrato.Cod_Agencia}} - {{::Contrato.Nome_Agencia}}</td>
                         <td>{{::Contrato.Vlr_nf | currency}}</td>
                         <td>{{::Contrato.Numero_Complemento}}</td>
+                        <td>{{::Contrato.Numero_Rateio}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -82,7 +90,7 @@
                         </div>
                     </div>
                     <div class="col-md-10">
-                        <button class="btn btn-primary" ng-click="IncluirSolicitacao(ContratosFatura)">Gerar</button>
+                        <button class="btn btn-success" ng-click="IncluirSolicitacao(ContratosFatura)">Gerar</button>
                         <button class="btn btn-warning" ng-click="ShowGrid=false;ShowFilter=true">Cancelar</button>
 
                     </div>

@@ -98,7 +98,7 @@ namespace PROPOSTA
                                 Referencia = "",
                                 Perc_Rateio = "100"
                                 
-                            }); ;
+                            }); 
                             };
                         Vlr_Fatura += dtb.Rows[0]["Vlr_A_Faturar"].ToString().ConvertToDouble();
                         
@@ -186,10 +186,12 @@ namespace PROPOSTA
 
             String xmlComplementoMapas = null;
             String xmlRateios = null;
+            
             if (Complemento.ComplementoMapas.Count > 0)
             {
                 xmlComplementoMapas = clsLib.SerializeToString(Complemento.ComplementoMapas);
             }
+
             if (Complemento.Rateios.Count > 0)
             {
                 xmlRateios = clsLib.SerializeToString(Complemento.Rateios);
@@ -209,6 +211,11 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Numero_Parcela", Complemento.Numero_Parcela);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Nucleo", Complemento.Cod_Nucleo);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Intermediario", Complemento.Cod_Intermediario);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Comissao_Intermediario", Complemento.Comissao_Intermediario);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo_Intermediario", Complemento.Tipo_Intermediario);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo_Comissao", Complemento.Tipo_Comissao);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Comissao_Agencia", Complemento.Comissao_Agencia);
+
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Contato", Complemento.Cod_Contato);
                 if (!String.IsNullOrEmpty(Complemento.Periodo_Inicial))
                 {

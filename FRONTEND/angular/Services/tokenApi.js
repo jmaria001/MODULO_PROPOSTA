@@ -5,7 +5,7 @@ angular.module("App").service("tokenApi", function ($cookies) {
     //};
     
     this.setToken= function (Key,Value) {
-        var cook = Key + "=" + Value + ";SameSite=Lax";
+        var cook = Key + "=" + Value + ";SameSite=Lax"; 
         document.cookie = cook;
     };
     this.removeAll = function (Key, Value) { //exceto filter

@@ -1,0 +1,497 @@
+﻿<div class="container">
+    <form name="frmOutrasReceitas" autocomplete="off" class="form-horizontal">
+        <div class="block" id="divDadosFatura">
+            <div class="alert alert-primary alert-icon-block" role="alert">
+                <strong>
+                    1-Dados da Fatura
+                </strong>
+            </div>
+            <div class="row">
+                <!--==============================================Empresa de Faturamento-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Faturamento">
+                        <input id="txtCodEmpresaFaturamento"
+                               ng-model="ContratoDados.Cod_Empresa_Faturamento"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodEmpresaFaturamento')"
+                               primarybind="txtCodEmpresaFaturamento"
+                               secondarybind="" />
+                    </div>
+                </div>
+                <!--==============================================Empresa de Venda-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Venda">
+                        <input id="txtCodEmpresa"
+                               ng-model="ContratoDados.Cod_Empresa"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodEmpresa')"
+                               primarybind="txtCodEmpresa"
+                               secondarybind="" />
+                    </div>
+                </div>                
+                <!--===================Natureza Serviço-->
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label class="field-x" for="ComplementoMapa">Nat.Servico</label>
+                        <select class="form-control"
+                                name="ComplementoMapa"
+                                ng-model-options="{updateOn: 'blur'}"
+                                ng-model="ContratoDados.Natureza_Servico"
+                                ng-options="Natureza.Cod_Natureza as Natureza.Descricao_Completa for Natureza in Natureza_Servico"></select>
+                    </div>
+                </div>
+                <!--===================Venda Net-->
+                <div class="col-md-2 margin-top-30">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="chkVendaNet" ng-model-options="{updateOn: 'blur'}" ng-model="ContratoDados.Indica_Venda_Net" />Venda Net<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Descrição-->
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <label class="field-x">Descrição</label>
+                        <input style="text-transform:uppercase" type="text" ng-model-options="{updateOn: 'blur'}" name="txtDescricao" id="txtDescricao" class="form-control" ng-model="ContratoDados.Descricao" maxlength="100" />
+                    </div>
+                </div>
+                <!--===================Período Inicial-->
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Data" caption="Período Inicial">
+                        <input ng-model="ContratoDados.Periodo_Inicial"
+                               ui-date ng-model-options="{updateOn: 'blur'}">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="ContratoDados.Periodo_Inicial"></div>
+                    </div>
+                </div>
+                <!--===================Período Final-->
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Data" caption="Período Final ">
+                        <input ng-model="ContratoDados.Periodo_Final"
+                               ui-date ng-model-options="{updateOn: 'blur'}">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="ContratoDados.Periodo_Final"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Núcleo-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Nucleo" caption="Núcleo">
+                        <input id="txtNucleo"
+                               ng-model="ContratoDados.Cod_Nucleo"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtNucleo')"
+                               primarybind="txtNucleo"
+                               secondarybind="txtNomeNucleo" />
+                    </div>
+                </div>
+                <!--===================Nome Nucleo -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtNomeNucleo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeNucleo" class="form-control " ng-model="ContratoDados.Nome_Nucleo">
+                        </div>
+                    </div>
+                </div>
+                <!--===================Contato-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Contato" caption="Contato">
+                        <input id="txtContato"
+                               ng-model="ContratoDados.Cod_Contato"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtContato')"
+                               primarybind="txtContato"
+                               secondarybind="txtNomeContato" />
+                    </div>
+                </div>
+                <!--===================Nome Contato -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtNomeContato" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeContato" class="form-control " ng-model="ContratoDados.Nome_Contato">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Intermediario-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Terceiro" caption="Intermediário">
+                        <input id="txtIntermediario"
+                               ng-model="ContratoDados.Cod_Intermediario"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtIntermediario')"
+                               primarybind="txtIntermediario"
+                               secondarybind="txtNomeIntermediario" />
+                    </div>
+                </div>
+
+                <!--===================Nome Intermediario -->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtNomeIntermediario" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeIntermediario" class="form-control " ng-model="ContratoDados.Nome_Intermediario">
+                        </div>
+                    </div>
+                </div>
+                <!--===================Tipo Intermediario-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x" for="txtTipoIntermediario">Tipo</label>
+                        <select class="form-control"
+                                id="txtTipoIntermediario"
+                                ng-model="ContratoDados.Tipo_Intermediario"
+                                ng-model-options="{updateOn: 'blur'}"
+                                ng-options="tipoIntermediario.Codigo as tipoIntermediario.Nome  for tipoIntermediario in TipoIntermediario"></select>
+                    </div>
+                </div>
+                <!--===================Comissao do Intermediario-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="txtComissaoIntermediario" class="field-x">%Com.Intermediário</label>
+                        <div class="input-group">
+                            <input type="text"ng-model-options="{updateOn: 'blur'}" id="txtComissaoIntermediario" class="form-control percent" ng-model="ContratoDados.Comissao_Intermediario">
+                        </div>
+                    </div>
+                </div>
+                <!--===================Tipo Comissao-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x" for="txtTipoComissao">Tipo Comissão</label>
+                        <select class="form-control"
+                                id="txtTipoComissao"
+                                ng-model="ContratoDados.Tipo_Comissao"
+                                ng-model-options="{updateOn: 'blur'}"
+                                ng-options="tipoComissao.Codigo as tipoComissao.Nome  for tipoComissao in TipoComissao"></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Valor da Fatura-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="txtVlr_A_Faturar" class="field-x">Valor a Faturar</label>
+                        <div class="input-group">
+                            <input type="text" 
+                                   id="txtVlr_A_Faturar" 
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="RecalculaRateios()"
+                                   class="form-control money" 
+                                   ng-model="ContratoDados.Vlr_A_Faturar">
+                        </div>
+                    </div>
+                </div>
+                <!--===================Comissao do Agencia-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="txtComissaoAgencia" class="field-x">%Com.Agência</label>
+                        <div class="input-group">
+                            <input type="text" id="txtComissaoAgencia" ng-model-options="{updateOn: 'blur'}" class="form-control percent" ng-model="ContratoDados.Comissao_Agencia">
+                        </div>
+                    </div>
+                </div>
+                <!--===================Forma Pgto-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x" for="txtFormaPgto">Forma Pgto</label>
+                        <select class="form-control"
+                                id="txtFormaPgto"
+                                ng-model-options="{updateOn: 'blur'}"
+                                ng-model="ContratoDados.Forma_Pgto"
+                                ng-options="FormaPgto.Codigo as FormaPgto.Nome  for FormaPgto in FormaPgto"></select>
+                    </div>
+                </div>
+                <!--===================Indica Faturamento Liquido-->
+                <div class="col-md-2  margin-top-30">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="chkIndicaFatLiq" ng-model="ContratoDados.Indica_Faturamento_liquido" />Fat.Liquido<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block" id="divRateios">
+            <!--===========================Inicio Rateios-->
+            <div class="alert alert-primary alert-icon-block" role="alert" style="padding:5px">
+                <div class="row">
+                    <div class="col-md-6">
+                        <strong>2-Rateios </strong>
+                        <button class="btn btn-default btn-icon-fixed btn-sm"
+                                ng-click="AdicionarRateio()"
+                                style="margin-left:50px">
+                            <span class="fa fa-plus" ng-disabled="true"></span> Adicionar Rateios
+                        </button>
+                    </div>
+                    <div class="col-md-6">
+                        <label ng-class="ContratoDados.Saldo_A_Faturar<0?'label label-danger pull-right':'label label-default pull-right'" style="margin-top:10px;margin-left:50px">Saldo Faturar:<span style="margin-left:10px">{{ContratoDados.Saldo_A_Faturar | currency }}</span> </label>
+                        <label class="label label-default pull-right" style="margin-top:10px">Total a Faturar:<span style="margin-left:10px">{{ContratoDados.Vlr_A_Faturar | currency }}</span> </label>
+                    </div>
+
+                </div>
+
+            </div>
+            <!--=====================================Mostra as Abas-->
+            <div class="row">
+                <div class="col-md-12">
+                    <button id="btnRateio" ng-repeat="rateio in ContratoDados.Rateios track by $index"
+                            style="background-color:silver;color:black" ;
+                            ng-class="(rateio.Numero_Rateio==ContratoDados.Rateios[currentTab].Numero_Rateio) ?'btn btn-default btntab btnEsquemaSelected':'btn btn-default btntab btnEsquemaUnselected'" ng-click="SetCurrentRateio(rateio.Id_Rateio)">
+                        Rateio - {{rateio.Numero_Rateio}}
+                        <span class="fa fa-trash span-btn" style="margin-left:40px;font-size:18px" ng-click="RemoveRateio(rateio.Id_Rateio)" ng-show="ContratoDados.Rateios.length>1">  </span>
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <!--===================Data Emissão-->
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Data" caption="Data Emissão">
+                        <input ng-model="ContratoDados.Rateios[currentTab].Data_Emissao"
+                               id="txtDataEmissao"
+                               ui-date ng-model-options="{updateOn: 'blur'}">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="ContratoDados.Rateios[currentTab].Data_Emissao"></div>
+                    </div>
+                </div>
+                <!--===================Condição NF-->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label class="field-x" for="txtCondicao">Cond. Pagamento</label>
+                        <select class="form-control"
+                                name="txtCondicao"
+                                ng-change="CalculaParcelas(currentTab)"
+                                ng-model="ContratoDados.Rateios[currentTab].Cod_Condicao"
+                                ng-options="Condicao.Codigo.trim() as Condicao.Codigo.trim() + '-' +  Condicao.Descricao for Condicao in CondicoesPgto"></select>
+                    </div>
+                </div>
+                <!--===================Veiculo-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Veiculo" caption="Veículo">
+                        <input id="txtCodVeiculo"
+                               name="txtCodVeiculo"
+                               ng-model="ContratoDados.Rateios[currentTab].Cod_Veiculo"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodVeiculo')"
+                               primarybind="txtCodVeiculo"
+                               secondarybind="txtNomeVeiculo">
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="ContratoDados.Rateios[currentTab].NomeVeiculo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!--Agencia/Cliente e intermediario , etcccc-->
+                <div class="col-md-8">
+                    <div class="row">
+                        <!--===================Agência-->
+                        <div class="col-md-3" ng-controller="dictionaryController">
+                            <div class="dictionary" dictionary="Terceiro" caption="Agência">
+                                <input id="txtAgencia"
+                                       ng-model="ContratoDados.Rateios[currentTab].Cod_Agencia"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       ng-change="DicionaryValidate('txtAgencia')"
+                                       primarybind="txtAgencia"
+                                       secondarybind="txtNomeAgencia" />
+                            </div>
+                        </div>
+
+                        <!--===================Nome Agencia -->
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="txtNomeAgencia" class="field-x" style="visibility:hidden">..</label>
+                                <div class="input-group">
+                                    <input type="text" disabled="disabled" id="txtNomeAgencia" class="form-control " ng-model="ContratoDados.Rateios[currentTab].Nome_Agencia">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--===================Log Agência-->
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="field-x">Log.</label>
+                                <input style="text-transform:uppercase" type="number" min="1" max="2" name="txtIndica_Log_Agencia" class="form-control numeric" ng-model="ContratoDados.Rateios[currentTab].Indica_Log_Agencia " maxlength="1" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--===================Cliente-->
+                        <div class="col-md-3" ng-controller="dictionaryController">
+                            <div class="dictionary" dictionary="Terceiro" caption="Cliente">
+                                <input id="txtClientea"
+                                       ng-model="ContratoDados.Rateios[currentTab].Cod_Cliente"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       ng-change="DicionaryValidate('txtClientea')"
+                                       primarybind="txtClientea"
+                                       secondarybind="txtNomeClientea" />
+                            </div>
+                        </div>
+
+                        <!--===================Nome Clientea -->
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="txtNomeClientea" class="field-x" style="visibility:hidden">..</label>
+                                <div class="input-group">
+                                    <input type="text" disabled="disabled" id="txtNomeClientea" class="form-control " ng-model="ContratoDados.Rateios[currentTab].Nome_Cliente">
+                                </div>
+                            </div>
+                        </div>
+                        <!--===================Log Cliente-->
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label class="field-x">Log.</label>
+                                <input style="text-transform:uppercase" type="number" min="1" max="2" name="txtIndica_Log_Cliente" class="form-control numeric" ng-model="ContratoDados.Rateios[currentTab].Indica_Log_Cliente " maxlength="1" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--===================Referência-->
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="field-x">Referência</label>
+                                <textarea style="text-transform:uppercase;height:40px;resize:vertical"
+                                          type="" name="txtReferencia"
+                                          class="form-control" ng-model="ContratoDados.Rateios[currentTab].Referencia " maxlength="100" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <!--===================Origem do Rateio-->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="field-x">Origem do Rateio</label>
+                                <label class="form-control">Outras Receitas</label>
+                            </div>
+                        </div>
+                        <!--===================Nota Fiscal Complementar-->
+                        <!--<div class="col-md-3">
+                            <div class="form-group">
+                                <label class="field-x">NF.Complementar</label>
+                                <input style="text-transform:uppercase" type="text" name="txtComplementar" class="form-control" ng-model="ContratoDados.Rateios[currentTab].Complementar " maxlength="10" />
+                            </div>
+                        </div>-->
+                        <!--===================Perc Rateio%-->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="field-x">% Rateio</label>
+                                <input style="text-transform:uppercase"
+                                       type="text" name="txtPercRateiro"
+                                       class="form-control percent"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       maxlength="10"
+                                       ng-disabled="ContratoDados.Rateios.length==1 || ContratoDados.Vlr_A_Faturar==0"
+                                       ng-change="Perc_RateioChange()"
+                                       ng-model="ContratoDados.Rateios[currentTab].Perc_Rateio " />
+                            </div>
+                        </div>
+                        <!--===================Valor a Faturar-->
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="field-x">Valor a Faturar</label>
+                                <input type="text"
+                                       name="txtVlr_A_Faturar"
+                                       class="form-control money"
+                                       ng-change="ValorFaturarChange()"
+                                       ng-disabled="ContratoDados.Rateios.length==1 || ContratoDados.Vlr_A_Faturar==0"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       ng-model="ContratoDados.Rateios[currentTab].Vlr_A_Faturar" maxlength="15" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Parcelas-->
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-12" style="margin-top:35px">
+                            <table class="table table-bordered" style="margin-bottom:0px !important">
+                                <thead>
+                                    <tr style="background-color:#f5f5f5">
+                                        <td colspan="5" style="text-align:center;width:90%">Parcelamento</td>
+                                        <th><span class="fa fa-plus span-btn" style="font-size:15px;width:10%" ng-click="AdicionarParcela(ContratoDados.Rateios[currentTab].Duplicatas)"></span></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="table-responsive" style="height: 340px;border: solid 1px silver;border-top:none !important">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Parcela</th>
+                                            <th colspan="2">Vencimento</th>
+                                            <th colspan="2">Valor
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="duplicata in ContratoDados.Rateios[currentTab].Duplicatas track by $index">
+                                            <td>{{duplicata.Parcela}}/{{ContratoDados.Rateios[currentTab].Duplicatas.length}} </td>
+                                            <td>{{duplicata.Vencimento}}</td>
+                                            <td>{{['Dom','Seg','Ter','Qua','Qui','Sex','Sab'][duplicata.Dia_Semana]}}</td>
+                                            <td>{{duplicata.Valor}}</td>
+                                            <td><span class="fa fa-trash span-btn" style="font-size:15px" ng-click="RemoverParcela(ContratoDados.Rateios[currentTab].Duplicatas,duplicata.Id_Parcela)"></span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--===================================Botoes-->
+        <div class="fixed-buttons-bottom">
+            <div class="row">
+                <div class="col-md-10">
+                    <button class="btn btn-success" ng-click="SalvarComplemento(ContratoDados)">Gravar</button>
+                    <a href="#Portal" class="btn btn-warning" ng-click="ShowDados=false;ShowGrid=true">Sair</a>
+                </div>
+                <div class="col-md-2 pull-right hidden-mobile hidden-sm">
+                    <button class="btn btn-primary btn-sm anchorscroll" target="divDadosFatura">1</button>
+                    <button class="btn btn-primary btn-sm anchorscroll" target="divRateios">2</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('.anchorscroll').click(function (e) {
+            var _target = this.getAttribute("target")
+            $('html, body').animate({
+                scrollTop: $('#' + _target).offset().top
+            }, 'slow');
+        });
+        $("input[type='text']").css('text-transform','uppercase')
+
+        $("textarea[name='txtReferencia']").focus(function () {
+            if (this.value.trim() == '') {
+                this.value = document.getElementById('txtDescricao').value;
+                var ctrl = angular.element(this).data('$ngModelController');
+                ctrl.$setViewValue(this.value);
+                ctrl.$commitViewValue();
+            };
+        });
+    });
+</script>

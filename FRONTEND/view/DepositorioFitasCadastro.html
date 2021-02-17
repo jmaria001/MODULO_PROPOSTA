@@ -1,9 +1,7 @@
 ﻿
 <div class="container">
     <form name="frmDepositorioFitasCadastro" autocomplete="off">
-
         <div class="block">
-
             <!--==================Tipo de Fitas-->
             <div class="row">
                 <div class="col-md-2 margin-top-10">
@@ -11,6 +9,7 @@
                         <label>Tipo de Fita</label>
                         <select class="form-control"
                                 ng-model="DepositorioFitas.Tipo_Fita"
+                                ng-disabled="Parameters.Action=='Edit'"
                                 name="optTipoFita"
                                 ng-options="PosTipoFita.id as PosTipoFita.nome for PosTipoFita in PosTipoFita"></select>
                     </div>

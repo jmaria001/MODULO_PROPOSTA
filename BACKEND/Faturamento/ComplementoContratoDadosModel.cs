@@ -28,6 +28,9 @@ namespace PROPOSTA
             public String Periodo_Inicial { get; set; }
             public String Periodo_Final { get; set; }
             public String Cod_Intermediario { get; set; }
+            public String Comissao_Intermediario { get; set; }
+            public String Tipo_Intermediario { get; set; }
+            public String Tipo_Comissao{ get; set; }
             public Double Vlr_A_Faturar { get; set; }
             public Double Saldo_A_Faturar { get; set; }
             public String Natureza_Servico { get; set; }
@@ -40,6 +43,7 @@ namespace PROPOSTA
             public String Nome_Forma_Pgto { get; set; }
             public List<ComplementoMapasModel> ComplementoMapas { get; set; }
             public List<RateioModel> Rateios { get; set; }
+            public String Comissao_Agencia { get; set; }
         }
 
         public class RateioModel

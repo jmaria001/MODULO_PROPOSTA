@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
-<html lang="en" ng-app="App" ng-controller="MainController as Mc">
-<head ng-cloak>
-    <title ng-bind="'SIM-VENDAS - '+ routeName">Administração" </title>
+<html lang="en" ng-app="App" ng-controller="IndexController as Mc">
+<head ng-cloak >
+    <title ng-bind="'SIM-VENDAS - '+ routeName">SIM VENDAS" </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/styles.css?Hash=V085">
     <link href="css/custom.css?Hash=V085" rel="stylesheet" />
 </head>
-<body class="notranslate" ng-cloak>
+<body  class="notranslate" ng-cloak>
     <div class="backdrop"></div>
     <div class="divwait">
         <div style="text-align:center">
@@ -23,17 +23,6 @@
                 <li><a href="#" class="btn btn-link btn-icon" data-header-navigation-toggle="true"><span class="icon-menu"></span></a></li>
             </ul>
             <a href="" class="app-header-logo app-header-logo-light app-header-logo-condensed" style="width:200px">Project</a>
-            <div class="app-header-navigation app-header-navigation-hover app-navigation-style-blue">
-                <nav id="navMenu">
-                    <ul ng-show="Islogged">
-                        <li><a href="#PortalApp" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Portal de Aplicações</a></li>
-                        <li><a href="#portal" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Mural</a></li>
-                        <li><a href="#Grade" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Manutenção da Grade</a></li>
-                        <li><a href="#ConsultaProgramacaoDiaria"><span class="nav-icon-hexa">Us</span>Consulta da Disponibilidade</a></li>
-                        <li ng-controller="loginController"><a href="" ng-click="app_Logout()"><span class="icon-exit"></span> Sair</a></li>
-                    </ul>
-                </nav>
-            </div>
         </div>
         <div class="app-container">
             <div ng-class="Islogged?' app-content BackgroundLogged':'app-content BackgroundUnLogged'">
@@ -118,7 +107,6 @@
     <script type="text/javascript" src="js/app_plugins.js?Hash=V085"></script>
     <!------------------------------------- Controllerangular/Services/service ---------------------------------->
     <script src="js/SimLib.js?Hash=V085"></script>
-    <script src="js/dictionary.js?Hash=V085"></script>
     <script src="angular/Module/app.js?Hash=V085"></script>
     <script src="angular/Filter/AppFilter.js?Hash=V085"></script>
     <script src="angular/config/base_url_config.js?Hash=V085"></script>
@@ -133,19 +121,10 @@
     <script src="angular/Diretivas/uiDate.js?Hash=V085"></script>
     <script src="angular/Services/tokenApi.js?Hash=V085"></script>
     <script src="angular/Services/httpService.js?Hash=V085"></script>
-    <script src="angular/Controller/mainController.js?Hash=V085"></script>
-    <script src="angular/Controller/dictionaryController.js?Hash=V085"></script>
+    <script src="angular/Controller/indexController.js"></script>
     <script src="angular/Controller/login.js?Hash=V085"></script>
-    <script src="angular/Controller/muralController.js?Hash=V085"></script>
-    <script src="angular/Controller/AprovacaoProposta.js?Hash=V085"></script>
-    <script src="angular/Controller/AprovarPendentes_Controller.js?Hash=V085"></script>
     <script src="angular/Controller/PortalApp.js?Hash=V085"></script>
-    <!---====================================================================================Controles desse modulo-->
-    <script src="angular/Controller/GradeCadastroController.js?Hash=V085"></script>
-    <script src="angular/Controller/GradeController.js?Hash=V085"></script>
-    <script src="angular/Controller/ConsultaProgramacaoDiariaController.js?Hash=V085"></script>
-    <script src="angular/Controller/ConsultaProgramacaoDiariaDetalheController.js?Hash=V085"></script>
-    <script src="angular/Controller/PropagacaoGradeController.js?Hash=V085"></script>
+    <script src="angular/Controller/muralController.js?Hash=V085"></script>
     <!--====================================================================================PLUGINS -->
     <script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.js?Hash=V085"></script>
     <script src="js/vendor/XTABLES/DataTables-1.10.16/js/dataTables.bootstrap.min.js?Hash=V085"></script>
@@ -183,6 +162,5 @@
             $(".app-header-navigation").removeClass("show");
         });
     });
-
-
+   
 </script>

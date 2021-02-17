@@ -1,7 +1,14 @@
-﻿<div class="container">
+﻿ 
+<div class="container">
     <div class="block">
         <!--div do filtro-->
         <div id="divFiltro" ng-show="ShowFilter">
+            <div class="alert alert-info alert-icon-block" role="alert">
+                <div class="alert-icon">
+                    <span class="fa fa-filter"></span>
+                </div>
+                <strong>Filtros</strong>
+            </div>
             <div class="row">
                 <!--===================Empresa-->
                 <div class="col-md-2  " ng-controller="dictionaryController">
@@ -139,8 +146,9 @@
                     <thead>
                         <tr>
                             <th>Complemento</th>
+                            <th>Rateio</th>
                             <th>Origem</th>
-                            <th>Negociação.</th>
+                            <th>Negociação</th>
                             <th>Emp.Fat</th>
                             <th>N.Fatura</th>
                             <th>Agência</th>
@@ -158,6 +166,7 @@
                                     {{::Complemento.Numero_Complemento}}
                                 </button>
                             </td>
+                            <td>{{::Complemento.Numero_Rateio}}</td>
                             <td>
                                 <label style="width:100%;display:block" ng-show="Complemento.Origem==0" class="label label-info">Antecipado</label>
                                 <label  style="width:100% ;display:block" ng-show="Complemento.Origem==1" class="label label-success">Mídia</label>

@@ -9,6 +9,7 @@
   opacity: 0.3;
   display: none;
 }
+ 
 
 .backdrop.active {
   display: block;
