@@ -10,7 +10,7 @@
     .when('/portal', {
         templateUrl: 'view/portal.html',
         authorize: false,
-        routeName: 'Portal',
+        routeName: 'Mural',
         RouteId: 0
     })
     .when('/cadastro', {
@@ -28,7 +28,7 @@
     .when('/blank', {
         templateUrl: 'view/Portal.html',
         authorize: false,
-        routeName: 'SIM - Módulo Propostas',
+        routeName: 'Mural',
         RouteId: 0
     })
     .when('/login', {
@@ -784,6 +784,13 @@
         routeName: 'Baixa de Veiculações',
         RouteId: 'Baixa@Veiculacao'
     })
+        .when('/FitaPatrocinio', {
+            templateUrl: 'view/FitaPatrocinio.html',
+            controller: 'FitaPatrocinioController',
+            authorize: true,
+            routeName: 'Controle de Fitas de Patrocínio',
+            RouteId: 'Fita@Numeracao'
+        })
     .otherwise({ redirectTo: "/blank" })
 });
 

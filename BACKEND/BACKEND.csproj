@@ -240,8 +240,11 @@
     <Compile Include="CategoriaCliente\CategoriaClienteController.cs" />
     <Compile Include="CategoriaCliente\CategoriaClienteModel.cs" />
     <Compile Include="CategoriaCliente\CategoriaClienteSql.cs" />
+    <Compile Include="ControleFitas\FitaPatrocinioController.cs" />
     <Compile Include="ControleFitas\DepositoFitasController.cs" />
+    <Compile Include="ControleFitas\FitaPatrocinioModel.cs" />
     <Compile Include="ControleFitas\DepositoFitasModel.cs" />
+    <Compile Include="ControleFitas\FitaPatrocinioSql.cs" />
     <Compile Include="ControleFitas\DepositoFitasSql.cs" />
     <Compile Include="ControleFitas\MateriaisFitasController.cs" />
     <Compile Include="ControleFitas\MateriaisFitasModel.cs" />

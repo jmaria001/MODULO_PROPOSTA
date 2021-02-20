@@ -104,11 +104,13 @@
     <Content Include="angular\Controller\DepositorioFitasController.js" />
     <Content Include="angular\Controller\EnvioPlaylistController.js" />
     <Content Include="angular\Controller\FaturasPesquisaController.js" />
+    <Content Include="angular\Controller\FitaPatrocinioController.js" />
     <Content Include="angular\Controller\GeracaoFaturaController.js" />
     <Content Include="angular\Controller\indexController.js" />
     <Content Include="angular\Controller\MateriaisFitasCadastroController.js" />
     <Content Include="angular\Controller\MateriaisFitasController.js" />
     <Content Include="angular\Controller\ConsultaVeiculacaoController.js" />
+    <Content Include="css\AppToolTip.css" />
     <Content Include="Index.html" />
     <Content Include="IndexChecking.html" />
     <Content Include="IndexFaturamento.html" />
@@ -287,6 +289,7 @@
     <Content Include="view\DepositorioFitas.html" />
     <Content Include="view\DepositorioFitasCadastro.html" />
     <Content Include="view\EnvioPlaylist.html" />
+    <Content Include="view\FitaPatrocinio.html" />
     <Content Include="view\Genero.html" />
     <Content Include="view\GeneroCadastro.html" />
     <Content Include="view\GeracaoFatura.html" />
@@ -376,7 +379,7 @@
     <Content Include="view\Veiculo.Html" />
     <Content Include="img\web.config" />
     <Content Include="view\VeiculoCadastro.html" />
-    <Content Include="Z-demo\components-widgets.html" />
+    <Content Include="Z-demo\components-alerts-notifications.html" />
     <Content Include="Z-demo\index.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

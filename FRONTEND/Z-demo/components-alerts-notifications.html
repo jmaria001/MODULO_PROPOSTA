@@ -1,7 +1,7 @@
-﻿    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>                        
-        <title>Boooya - Widgets</title>            
+        <title>Boooya - Alerts And Notifications</title>            
         
         <!-- META SECTION -->
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -18,10 +18,9 @@
     <body>        
         
         <!-- APP WRAPPER -->
-        <div class="app">            
-            
+        <div class="app">                        
             <!-- START APP CONTAINER -->
-            <div class="app-container">                
+            <div class="app-container">
                 <!-- START SIDEBAR -->
                 <div class="app-sidebar app-navigation app-navigation-fixed scroll app-navigation-style-default app-navigation-open-hover dir-left" data-type="close-other">
                     <a href="index.html" class="app-navigation-logo">
@@ -388,8 +387,8 @@
                     <!-- START PAGE HEADING -->
                     <div class="app-heading app-heading-bordered app-heading-page">                        
                         <div class="title">
-                            <h1>Widgets & Informers</h1>
-                            <p>Awesome way to show some quick info for your customers</p>
+                            <h1>Alerts & Notifications</h1>
+                            <p>Take customers atention right where you need.</p>
                         </div>
                         <!--
                         <div class="heading-elements">
@@ -402,540 +401,262 @@
                         <ul class="breadcrumb">
                             <li><a href="#">Dashboard</a></li>
                             <li><a href="#">Components</a></li>
-                            <li class="active">Widgets & Informers</li>
+                            <li class="active">Alerts & Notifications</li>
                         </ul>
                     </div>
-                    <!-- END PAGE HEADING -->                 
-                    
+                    <!-- END PAGE HEADING -->
+                                        
                     <!-- START PAGE CONTAINER -->
                     <div class="container">
-                        
-                        <div class="block block-condensed">
+                                                                               
+                        <div class="block">
                             <div class="app-heading app-heading-small">                                
                                 <div class="title">
-                                    <h5>Widget Tiles</h5>
-                                    <p>Use <code>.app-widget-tile</code> to create your widget tiles.</p>
+                                    <h2>Alerts</h2>
+                                    <p>Provide contextual feedback messages for typical user actions with the handful of available and flexible alert messages.</p>
+                                </div>                                
+                            </div>                            
+                            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="alert alert-default" role="alert"> 
+                                        <strong>Default!</strong> Lorem ipsum dolor sit amet.
+                                    </div>                                           
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="alert alert-default alert-dismissible">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span class="fa fa-times"></span></button>
+                                        <strong>Dismissible alerts!</strong> Use this markup to get dismissible alert feature.
+                                    </div>                                                                            
+                                </div>                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="alert alert-default">                                        
+                                        <div class="alert-icon"><span class="fa fa-check"></span></div>    
+                                        <strong>FontAwesome</strong> Lorem ipsum dolor sit amet.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="alert alert-default">                                        
+                                        <div class="alert-icon">
+                                            <span class="icon-diamond"></span> 
+                                        </div>    
+                                        <strong>Linearicons</strong> Lorem ipsum dolor sit amet.
+                                    </div>                                    
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class="col-md-6">                                          
+                                    <div class="alert alert-default alert-icon-block">                                        
+                                        <div class="alert-icon">
+                                            <span class="icon-database"></span> 
+                                        </div>    
+                                        <strong>Icon Block</strong> Lorem ipsum dolor sit amet.
+                                    </div>                                  
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="alert alert-default alert-icon-block dir-right">                                        
+                                        <strong>Icon Block</strong> Lorem ipsum dolor sit amet.
+                                        <div class="alert-icon">
+                                            <span class="icon-alarm"></span> 
+                                        </div>
+                                    </div>
+                                </div>                               
                             </div>
                             
-                            <div class="block-content">
-                                <div class="row">
-                                    <div class="col-md-3">
-
-                                        <div class="app-widget-tile">
-                                            <div class="line">
-                                                <div class="title">title</div>
-                                            </div>                                        
-                                            <div class="intval">120</div>                                        
-                                            <div class="line">
-                                                <div class="subtitle">subtitle</div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-3">
-
-                                        <div class="app-widget-tile">
-                                            <div class="line">
-                                                <div class="title">title</div>
-                                                <div class="title pull-right">25%</div>
-                                            </div>                                        
-                                            <div class="intval">1,488</div>                                        
-                                            <div class="line">
-                                                <div class="subtitle">subtitle</div>                                            
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-3">
-
-                                        <div class="app-widget-tile">
-                                            <div class="line">
-                                                <div class="title">title</div>
-                                                <div class="title pull-right">25%</div>
-                                            </div>                                        
-                                            <div class="intval">15,000</div>                                        
-                                            <div class="line">
-                                                <div class="subtitle">subtitle</div>
-                                                <div class="subtitle pull-right text-success"><span class="fa fa-arrow-up"></span></div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-3">
-
-                                        <div class="app-widget-tile">                                                                                    
-                                            <div class="intval intval-lg">2,187</div>                                        
-                                            <div class="line">
-                                                <div class="title">title</div>
-                                                <div class="title pull-right"><span class="fa fa-arrow-up text-success"></span> 25%</div>
-                                            </div>
-                                        </div>
-
-                                    </div>                                    
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-2">                                    
-
-                                        <div class="app-widget-tile">                                                                                    
-                                            <div class="intval intval-lg">2,187</div>
-                                            <div class="line">
-                                                <div class="title wide text-center">Default Style</div>                                                
-                                            </div>
-                                        </div>
-                                    
-                                    </div>
-                                    <div class="col-md-2">                                    
-
-                                        <div class="app-widget-tile app-widget-tile-primary">                                                                                    
-                                            <div class="intval intval-lg">2,187</div>
-                                            <div class="line">
-                                                <div class="title wide text-center">Primary Style</div>                                                
-                                            </div>
-                                        </div>
-                                    
-                                    </div>
-                                    <div class="col-md-2">                                    
-
-                                        <div class="app-widget-tile app-widget-tile-info">                                            
-                                            <div class="intval intval-lg">2,187</div>
-                                            <div class="line">
-                                                <div class="title wide text-center">Info Style</div>                                                
-                                            </div>
-                                        </div>
-                                    
-                                    </div>
-                                    <div class="col-md-2">                                    
-
-                                        <div class="app-widget-tile app-widget-tile-success">                                            
-                                            <div class="intval intval-lg">2,187</div>
-                                            <div class="line">
-                                                <div class="title wide text-center">Success Style</div>                                                
-                                            </div>
-                                        </div>
-                                    
-                                    </div>
-                                    <div class="col-md-2">                                    
-
-                                        <div class="app-widget-tile app-widget-tile-warning">                                            
-                                            <div class="intval intval-lg">2,187</div>
-                                            <div class="line">
-                                                <div class="title wide text-center">Warning Style</div>                                                
-                                            </div>
-                                        </div>
-                                    
-                                    </div>
-                                    <div class="col-md-2">                                    
-
-                                        <div class="app-widget-tile app-widget-tile-danger">                                            
-                                            <div class="intval intval-lg">2,187</div>
-                                            <div class="line">
-                                                <div class="title wide text-center">Danger Style</div>                                                
-                                            </div>
-                                        </div>
-                                    
-                                    </div>
-                                </div>
-                                
-                                <div class="row">
-                                    <div class="col-md-3">
-
-                                        <div class="app-widget-tile">
-                                            <div class="row">
-                                                <div class="col-md-5">
-                                                    <div class="icon icon-lg">
-                                                        <span class="icon-smile"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-7">                                                    
-                                                    <div class="line">
-                                                        <div class="title">title</div>
-                                                        <div class="subtitle pull-right text-success"><span class="fa fa-arrow-up"></span></div>
-                                                    </div>                                        
-                                                    <div class="intval text-left">15,000</div>                                        
-                                                    <div class="line">
-                                                        <div class="subtitle">subtitle</div>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>                                            
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-3">
-
-                                        <div class="app-widget-tile">
-                                            <div class="row">                                                
-                                                <div class="col-md-7">
-                                                    
-                                                    <div class="line">
-                                                        <div class="subtitle pull-left text-danger"><span class="fa fa-arrow-down"></span></div>
-                                                        <div class="title pull-right">title</div>                                                        
-                                                    </div>                                        
-                                                    <div class="intval text-right">15,000</div>                                        
-                                                    <div class="line">
-                                                        <div class="subtitle pull-right">subtitle</div>
-                                                    </div>
-                                                    
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <div class="icon icon-lg icon-right">
-                                                        <span class="icon-sad"></span>
-                                                    </div>
-                                                </div>
-                                            </div>                                            
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-3">
-
-                                        <div class="app-widget-tile">                                                                                                
-                                            <div class="icon">
-                                                <span class="icon-mustache"></span>
-                                            </div>
-                                            <div class="line">
-                                                <div class="title wide text-center">Long Title Goes Here</div>
-                                            </div>                                                                                                                                                                     
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-3">
-                                        
-                                        <div class="app-widget-tile">                                                                                                
-                                            <div class="icon">
-                                                <span class="icon-neutral"></span>
-                                            </div>
-                                            <div class="line">
-                                                <div class="subtitle">Subtitle</div>
-                                                <div class="subtitle pull-right text-success"><span class="fa fa-arrow-up"></span></div>
-                                            </div>                                                                                                                                                                     
-                                        </div>
-
-                                    </div>                                    
-                                </div>
-                                
+                            <div class="app-heading app-heading-small">                                
+                                <div class="title">
+                                    <h2>Custom Colors</h2>
+                                    <p>Use classes to customize your alerts.</p>
+                                </div>                                
                             </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6">                                          
+                                    <div class="alert alert-default alert-icon-block alert-dismissible" role="alert">
+                                        <div class="alert-icon">
+                                            <span class="icon-cog"></span> 
+                                        </div>
+                                        <strong>Default!</strong> We wanna let you know something.
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span class="fa fa-times"></span></button>
+                                    </div>                                           
+                                </div>                                
+                                <div class="col-md-6">
+                                    <div class="alert alert-primary alert-icon-block alert-dismissible" role="alert"> 
+                                        <div class="alert-icon">
+                                            <span class="icon-location"></span> 
+                                        </div>
+                                        <strong>Primary!</strong> Look at me, i'm so bright. 
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span class="fa fa-times"></span></button>
+                                    </div>                                            
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">                                          
+                                    <div class="alert alert-success alert-icon-block alert-dismissible" role="alert">
+                                        <div class="alert-icon">
+                                            <span class="icon-checkmark-circle"></span> 
+                                        </div>
+                                        <strong>Success!</strong> You successfully read this important alert message. 
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span class="fa fa-times"></span></button>
+                                    </div>                                           
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="alert alert-warning alert-icon-block alert-dismissible" role="alert"> 
+                                        <div class="alert-icon">
+                                            <span class="icon-chart-bars"></span> 
+                                        </div>
+                                        <strong>Warning!</strong> Better check yourself, you're not looking too good. 
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span class="fa fa-times"></span></button>
+                                    </div>                                            
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="alert alert-info alert-icon-block alert-dismissible" role="alert"> 
+                                        <div class="alert-icon">
+                                            <span class="icon-clock"></span> 
+                                        </div>
+                                        <strong>Info!</strong> This alert needs your attention, but it's not super important. 
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span class="fa fa-times"></span></button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="alert alert-danger alert-icon-block alert-dismissible" role="alert"> 
+                                        <div class="alert-icon">
+                                            <span class="icon-menu-circle"></span> 
+                                        </div>                                        
+                                        <strong>Danger!</strong> Change a few things up and try submitting again. 
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span class="fa fa-times"></span></button>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                        
-                        <div class="block block-condensed">
-                            <div class="app-heading app-heading-small">                                
-                                <div class="title">
-                                    <h5>Widget Button</h5>
-                                    <p>Use <code>.app-widget-button</code> to create your widget button.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="block-content">
-                                <div class="row margin-bottom-15">
-                                    <div class="col-md-3">
-                                        <a href="#" class="app-widget-button"><span class="icon-alarm"></span></a>
-                                        <a href="#" class="app-widget-button app-widget-button-primary"><span class="icon-star"></span></a>
-                                        <a href="#" class="app-widget-button app-widget-button-info"><span class="icon-thumbs-up"></span></a>
-                                        <a href="#" class="app-widget-button app-widget-button-success"><span class="icon-checkmark-circle"></span></a>
-                                        <a href="#" class="app-widget-button app-widget-button-warning"><span class="icon-warning"></span></a>
-                                        <a href="#" class="app-widget-button app-widget-button-danger"><span class="icon-cross-circle"></span></a>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <strong>Basic</strong>
-                                        <p><code>app-widget-button</code></p>
-                                    </div>
-                                </div>
-                                <div class="row margin-bottom-15">
-                                    <div class="col-md-3">
-                                        <a href="#" class="app-widget-button app-widget-button-bordered"><span class="icon-alarm"></span></a>
-                                        <a href="#" class="app-widget-button app-widget-button-bordered app-widget-button-primary"><span class="icon-star"></span></a>
-                                        <a href="#" class="app-widget-button app-widget-button-bordered app-widget-button-info"><span class="icon-thumbs-up"></span></a>
-                                        <a href="#" class="app-widget-button app-widget-button-bordered app-widget-button-success"><span class="icon-checkmark-circle"></span></a>
-                                        <a href="#" class="app-widget-button app-widget-button-bordered app-widget-button-warning"><span class="icon-warning"></span></a>
-                                        <a href="#" class="app-widget-button app-widget-button-bordered app-widget-button-danger"><span class="icon-cross-circle"></span></a>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <strong>Bordered</strong>
-                                        <p><code>app-widget-button-bordered</code></p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-3">                                        
-                                        <a href="#" class="app-widget-button app-widget-button-ghost"><span class="icon-alarm"></span></a>
-                                        <a href="#" class="app-widget-button app-widget-button-ghost app-widget-button-primary"><span class="icon-star"></span></a>
-                                        <a href="#" class="app-widget-button app-widget-button-ghost app-widget-button-info"><span class="icon-thumbs-up"></span></a>
-                                        <a href="#" class="app-widget-button app-widget-button-ghost app-widget-button-success"><span class="icon-checkmark-circle"></span></a>
-                                        <a href="#" class="app-widget-button app-widget-button-ghost app-widget-button-warning"><span class="icon-warning"></span></a>
-                                        <a href="#" class="app-widget-button app-widget-button-ghost app-widget-button-danger"><span class="icon-cross-circle"></span></a>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <strong>Ghost</strong>
-                                        <p><code>app-widget-button app-widget-button-ghost</code></p>
-                                    </div>
-                                </div>
-                            </div>
-                                                        
-                            <div class="app-heading app-heading-small">                                
-                                <div class="title">
-                                    <h5>Custom Size</h5>
-                                    <p>Add <code>.app-widget-button-lg</code> to get large button.</p>
-                                </div>
-                            </div>
-                            <div class="block-content">
-                                <a href="#" class="app-widget-button app-widget-button-lg"><span class="icon-alarm"></span></a>                                
-                                <a href="#" class="app-widget-button app-widget-button-lg app-widget-button-bordered app-widget-button-primary"><span class="icon-star"></span></a>
-                                <a href="#" class="app-widget-button app-widget-button-lg app-widget-button-ghost app-widget-button-info"><span class="icon-thumbs-up"></span></a>
-                            </div>
-                            
-                        </div>                        
                         
                         <div class="block">
                             <div class="app-heading app-heading-small">                                
                                 <div class="title">
-                                    <h5>Widget Informer</h5>
-                                    <p>Use <code>.app-widget-informer</code> to create your basic informer.</p>
+                                    <h2>Tooltip</h2>
+                                    <p>Tooltips are an updated version, which don't rely on images, use CSS3 for animations, and data-attributes for local title storage.</p>
+                                </div>                                
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-3 text-center">
+                                    <h5>Tooltip On Left</h5>
+                                    <p>Add <code>data-placement="left"</code> to get left placement.</p>
+                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="left" title="Tooltip on left">Hover Me</button>
+                                </div>
+                                <div class="col-md-3 text-center">
+                                    <h5>Tooltip On Top</h5>
+                                    <p>Add <code>data-placement="top"</code> to get top placement.</p>
+                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on top">Hover Me</button>
+                                </div>
+                                <div class="col-md-3 text-center">
+                                    <h5>Tooltip On Bottom</h5>
+                                    <p>Add <code>data-placement="bottom"</code> to get bottom placement.</p>
+                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Hover Me</button>
+                                </div>
+                                <div class="col-md-3 text-center">
+                                    <h5>Tooltip On Right</h5>
+                                    <p>Add <code>data-placement="right"</code> to get right placement.</p>
+                                    <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Tooltip on right">Hover Me</button>
+                                </div>
+                            </div>                                                        
+                        </div>
+                        
+                        <div class="block">
+                            <div class="app-heading app-heading-small">                                
+                                <div class="title">
+                                    <h2>Noty</h2>
+                                    <p>NOTY is a jQuery plugin that makes it easy to create alert as an alternative the standard alert dialog.</p>
+                                </div>                          
+                                <div class="heading-elements">
+                                    <button class="btn btn-default" onClick="$.noty.closeAll();"><span class="icon-cross"></span> Close All Notifications</button>
                                 </div>
                             </div>
                             
                             <div class="row">
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">
-                                        <div class="title">Lorem Ipsum Dolor</div>
-                                        <div class="tinyintval">34,544</div>                                                                             
-                                    </div>
-                                    
+                                <div class="col-md-2 text-center">
+                                    <h5>Default</h5>
+                                    <p>Example of default notification.</p>
+                                    <button type="button" class="btn btn-default notify" data-notify-type="alert" data-notify="<strong>Default</strong>Your notification goes here!">Show Me</button>
                                 </div>
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">   
-                                        <div class="subtitle">Sitamet toilel</div>                                        
-                                        <div class="tinyintval">7,348</div>                                         
-                                    </div>
-                                    
-                                </div>                                
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">   
-                                        <div class="subtitle">Return rate</div>                                        
-                                        <div class="tinyintval">45.55 <small>%</small></div>
-                                    </div>
-                                    
+                                <div class="col-md-2 text-center">
+                                    <h5>Information</h5>
+                                    <p>Example of information notification.</p>
+                                    <button type="button" class="btn btn-default notify" data-notify-type="information" data-notify="<strong>Information</strong>Your notification goes here!">Show Me</button>
                                 </div>
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">   
-                                        <div class="title"><span class="fa fa-male"></span> Visitors</div>                                        
-                                        <div class="tinyintval">15,000,251</div>
-                                    </div>
-                                    
+                                <div class="col-md-2 text-center">
+                                    <h5>Success</h5>
+                                    <p>Example of success notification.</p>
+                                    <button type="button" class="btn btn-default notify" data-notify-type="success" data-notify="<strong>Success</strong>Your notification goes here!">Show Me</button>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <h5>Wraning</h5>
+                                    <p>Example of warning notification.</p>
+                                    <button type="button" class="btn btn-default notify" data-notify-type="warning" data-notify="<strong>Warning</strong>Your notification goes here!">Show Me</button>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <h5>Error</h5>
+                                    <p>Example of error notification.</p>
+                                    <button type="button" class="btn btn-default notify" data-notify-type="error" data-notify="<strong>Error</strong>Your notification goes here!">Show Me</button>
                                 </div>
                             </div>
                             
-                            <div class="row margin-top-30">
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">
-                                        <div class="title">Lorem Ipsum Dolor</div>
-                                        <div class="intval">34,544</div>                                                                             
-                                    </div>
-                                    
-                                </div>
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">   
-                                        <div class="subtitle">Sitamet toilel</div>                                        
-                                        <div class="intval">7,348</div>                                         
-                                    </div>
-                                    
+                            <div class="app-heading app-heading-small">                                
+                                <div class="title">
+                                    <h2>Custom Layout</h2>
+                                    <p>It's easy to change position of your notification.</p>
                                 </div>                                
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">
-                                        <div class="title">Income</div>                                        
-                                        <div class="intval">7,348 <small>USD</small></div>                                        
-                                    </div>
-                                    
-                                </div>
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">
-                                        <div class="intval intval-floated">7,348</div>                                            
-                                        <div class="app-widget-informer-side">
-                                            <div class="title">Visitors</div>
-                                            <div class="subtitle">Total visitors per week</div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <div class="row margin-top-30">
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">
-                                        <div class="title"><span class="icon-arrow-up text-success"></span> Lorem Ipsum Dolor</div>
-                                        <div class="intval">34,544</div>                                                                             
-                                    </div>
-                                    
-                                </div>
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">   
-                                        <div class="subtitle"><span class="icon-arrow-down text-danger"></span> Sitamet toilel</div>                                        
-                                        <div class="intval">7,348</div>                                         
-                                    </div>
-                                    
-                                </div>                                
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">                                                          
-                                        <div class="intval">7,348 <small>USD</small></div>
-                                        <div class="subtitle">Monthly income <span class="icon-arrow-up text-success"></span></div>
-                                    </div>
-                                    
-                                </div>
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">   
-                                        <div class="subtitle">New Visitors</div>
-                                        <div class="intval">57.41 <small>%</small></div>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                               
-                            <div class="row margin-top-30">
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <input class="knob" data-fgColor="#1b2531" data-thickness=".1" data-displayInput="false" readonly value="75" data-min="0" data-max="100" data-width="100%">
-                                            </div>
-                                            <div class="col-md-9">
-                                                <div class="title">Lorem Ipsum Dolor</div>
-                                                <div class="intval">34,544</div>                                                                             
-                                            </div>
-                                        </div>                                        
-                                    </div>
-                                    
-                                </div>
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">   
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <input class="knob" data-fgColor="#f04e51" data-thickness=".1" data-displayInput="false" readonly value="33" data-min="0" data-max="100" data-width="100%">
-                                            </div>
-                                            <div class="col-md-9">
-                                                <div class="subtitle"><span class="icon-arrow-down text-danger"></span> Sitamet toilel</div>
-                                                <div class="intval">7,348</div>                                         
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>                                
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">  
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <input class="knob" data-fgColor="#84bf43" data-thickness=".1" readonly value="81" data-min="0" data-max="100" data-width="100%">
-                                            </div>
-                                            <div class="col-md-9">
-                                                <div class="intval">14,257 <small>USD</small></div>
-                                                <div class="subtitle">Monthly income <span class="icon-arrow-up text-success"></span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">   
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <input class="knob" data-fgColor="#1b2531" data-thickness=".25" data-displayInput="false" readonly value="57" data-min="0" data-max="100" data-width="100%">
-                                            </div>
-                                            <div class="col-md-9">
-                                                <div class="subtitle">New Visitors</div>
-                                                <div class="intval">57.41 <small>%</small></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
+                                <div class="heading-elements">
+                                    <button class="btn btn-default" onClick="$.noty.closeAll();"><span class="icon-cross"></span> Close All Notifications</button>
                                 </div>
                             </div>
                             
-                            <div class="row margin-top-30">
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <span class="sparkline" spotColor="" sparkFillColor="#FFF" sparkLineWidth="2" sparkLineColor="#76AB3C" sparkSpotColor="#76AB3C" sparkMaxSpotColor="#76AB3C" sparkMinSpotColor="#76AB3C" sparkWidth="100%" sparkHeight="40">5,4,3,2,4,5,6,7,8,6,4,5</span>
-                                            </div>
-                                            <div class="col-md-7">                                                
-                                                <div class="title">Lorem Ipsum Dolor</div>
-                                                <div class="tinyintval">34,544</div>                                                                                                                 
-                                            </div>
-                                        </div>                                        
-                                    </div>
-                                    
+                            <div class="row">
+                                <div class="col-md-2 text-center">
+                                    <h5>Top Left</h5>
+                                    <p>Add <code>topLeft</code> to get this layout.</p>
+                                    <button type="button" class="btn btn-default notify" data-notify-type="alert" data-notify-layout="topLeft" data-notify="<strong>Default</strong>Your notification goes here!">Show Me</button>
                                 </div>
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">   
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <span class="sparkline" sparkType="bar" sparkBarColor="#4FC0E8" sparkWidth="100%" sparkHeight="55" sparkBarWidth="4">5,4,3,2,4,5,6,7,8,6,4,5</span>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <div class="subtitle"><span class="icon-arrow-down text-danger"></span> Sitamet toilel</div>
-                                                <div class="intval">7,348</div>                                         
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>                                
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">  
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <span class="sparkline" sparkType="discrete" sparkLineColor="#F6BB43" sparkWidth="80" sparkHeight="55">5,4,3,2,4,5,6,7,8,6,4,5</span>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <div class="intval">14,257 <small>USD</small></div>
-                                                <div class="subtitle">Monthly income <span class="icon-arrow-up text-success"></span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
+                                <div class="col-md-2 text-center">
+                                    <h5>Top</h5>
+                                    <p>Add <code>top</code> to get this layout.</p>
+                                    <button type="button" class="btn btn-default notify" data-notify-type="alert" data-notify-layout="top" data-notify="<strong>Default</strong>Your notification goes here!">Show Me</button>
                                 </div>
-                                <div class="col-md-3">
-                                    
-                                    <div class="app-widget-informer">   
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <span class="sparkline" sparkType="pie" sparkWidth="55" sparkHeight="55">5,4,3,2</span>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <div class="subtitle">New Visitors</div>
-                                                <div class="intval">57.41 <small>%</small></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
+                                <div class="col-md-2 text-center">
+                                    <h5>Top Right</h5>
+                                    <p>Add <code>topRight</code> to get this layout.</p>
+                                    <button type="button" class="btn btn-default notify" data-notify-type="alert" data-notify-layout="topRight" data-notify="<strong>Default</strong>Your notification goes here!">Show Me</button>
                                 </div>
-                            </div>
-                            
+                                <div class="col-md-2 text-center">
+                                    <h5>Bottom Right</h5>
+                                    <p>Add <code>bottomRight</code> to get this layout.</p>
+                                    <button type="button" class="btn btn-default notify" data-notify-type="alert" data-notify-layout="bottomRight" data-notify="<strong>Default</strong>Your notification goes here!">Show Me</button>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <h5>Bottom</h5>
+                                    <p>Add <code>bottom</code> to get this layout.</p>
+                                    <button type="button" class="btn btn-default notify" data-notify-type="alert" data-notify-layout="bottom" data-notify="<strong>Default</strong>Your notification goes here!">Show Me</button>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <h5>Bottom Left</h5>
+                                    <p>Add <code>bottomLeft</code> to get this layout.</p>
+                                    <button type="button" class="btn btn-default notify" data-notify-type="alert" data-notify-layout="bottomLeft" data-notify="<strong>Default</strong>Your notification goes here!">Show Me</button>
+                                </div>
+                            </div>                            
                         </div>                        
                         
-                    </div>
-                    <!-- END PAGE CONTAINER -->
-                    
+                    </div>                    
+
                 </div>
                 <!-- END APP CONTENT -->
                                 
             </div>
-            <!-- END APP CONTAINER -->                        
+            <!-- END APP CONTAINER -->            
             
             <!-- START APP SIDEPANEL -->
             <div class="app-sidepanel scroll" data-overlay="show">                
@@ -1128,9 +849,8 @@
         <script type="text/javascript" src="js/vendor/customscrollbar/jquery.mCustomScrollbar.min.js"></script>
         <!-- END IMPORTANT SCRIPTS -->
         <!-- THIS PAGE SCRIPTS -->
-        <script type="text/javascript" src="js/vendor/sparkline/jquery.sparkline.min.js"></script>
-        <script type="text/javascript" src="js/vendor/knob/jquery.knob.min.js"></script>
-        <!-- END THIS PAGE SCRIPTS -->        
+        <script type="text/javascript" src="js/vendor/noty/jquery.noty.packaged.js"></script>
+        <!-- END THIS PAGE SCRIPTS -->
         <!-- APP SCRIPTS -->
         <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="js/app_plugins.js"></script>
