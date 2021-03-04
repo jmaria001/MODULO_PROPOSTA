@@ -1,0 +1,348 @@
+﻿<style>
+    td{
+        white-space:nowrap;
+    }
+</style>
+<div class="container">
+    <!--<form name="frmRetornoPlayList" autocomplete="off">-->
+        <!--------------------------------  FILTRO  ------------------------------------------->
+        <div class="block" id="divFiltro" ng-show="ShowFilter">
+            <div class="row">
+                <!-----Campo "Cod.Veiculo"---->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Veiculo" caption="Veículo">
+                        <input id="txtCodVeiculo"
+                               ng-model="Parametros.Cod_Veiculo"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodVeiculo')"
+                               primarybind="txtCodVeiculo"
+                               secondarybind="txtNomeVeiculo"
+                               maxlength="3" />
+                    </div>
+                </div>
+                <!-----Campo "Nome Veiculo"---->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control" ng-model="Parametros.Nome_Veiculo">
+                        </div>
+                    </div>
+                </div>
+                <!----Campo "Data de Exibição"---->
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Data" caption="Data de Exibição">
+                        <input ng-model="Parametros.Data_Exibicao"
+                               ui-date ng-model-options="{updateOn: 'blur'}"
+                               placeholder="Informe a Data">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="Parametros.Data_Exibicao"></div>
+                    </div>
+                </div>
+            
+
+            
+                <div class="col-md-2" style="margin-top:40px">
+                    <div class="form-group">
+                        <div class="input-group" style="display:flex">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Parametros.Indica_Fitas_Avulsas" />Mostrar Fitas Avulsas<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Flag "Mostrar Fitas Artísticas"-->
+                <div class="col-md-2" style="margin-top:40px">
+                    <div class="form-group">
+                        <div class="input-group" style="display:flex">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Parametros.Indica_Fitas_Artisticas" />Mostrar Fitas Artísticas<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-------Considerar Log´s no Período------->
+            <div class="block margin-top-30">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="field-x">Considerar Log´s no Período:</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!----Campo "Data Início"---->
+                    <div class="col-md-3">
+                        <div class="dictionary" dictionary="Data" caption="Data Início">
+                            <input ng-model="Parametros.Data_Inicio"
+                                   ui-date ng-model-options="{updateOn: 'blur'}"
+                                   placeholder="Informe a Data">
+                            <div class="dictionary-ui-calendar" ui-calendar typdate="Parametros.Data_Inicio"></div>
+                        </div>
+                    </div>
+                    <!----Campo "Hora Início"---->
+                    <div class="col-md-3">
+                        <div class="form-group field-x">
+                            <label>Hora Início</label>
+                            <input type="text" name="txtHoraInicio" class="form-control time" ng-model="Parametros.Hora_Inicio" maxlength="5" />
+                        </div>
+                    </div>
+                    <!----Campo "Data Fim"---->
+                    <div class="col-md-3">
+                        <div class="dictionary" dictionary="Data" caption="Data Fim">
+                            <input ng-model="Parametros.Data_Fim"
+                                   ui-date ng-model-options="{updateOn: 'blur'}"
+                                   placeholder="Informe a Data">
+                            <div class="dictionary-ui-calendar" ui-calendar typdate="Parametros.Data_Fim"></div>
+                        </div>
+                    </div>
+                    <!----Campo "Hora Fim" (obrigatorio)---->
+                    <div class="col-md-3">
+                        <div class="form-group field-x">
+                            <label>Hora Fim</label>
+                            <input type="text" name="txtHoraFim" class="form-control time" ng-model="Parametros.Hora_Fim" maxlength="5" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--==============================Documentos-->
+            <form>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="txtObservacoes" class="field-x">
+                                <button class="btn btn-default" data-toggle="modal" data-target="#modalUpload">Selecionar Arquivos da Play List</button>
+                            </label>
+                            <div style="border:solid 1px #DBE0E4;width:100%;min-height:40px">
+                                <label class="label label-default label-flag" ng-repeat="file in Parametros.Anexos track by $index" style="height:25px; margin-left:10px;margin-top:10px; display:inline-block !important">
+                                    {{file.AnexoName}}
+                                    <span class="fa fa-trash fa-2x span-btn pull-right" style="font-size:13px;" ng-click="RemoveAnexo(file)"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="modalUpload" role="dialog">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header bg-primary">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span class="fa fa-times" style="color:#fff"></span></button>
+                                <h4 class="modal-title">Selecionar Arquivos da Play List</h4>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="block">
+                                    <div class="row" ng-controller="upLoadController">
+                                        <div class="row">
+                                            <div class="files" id="previews">
+                                                <div id="template" class="file-row">
+                                                    <div class="row" style="border-bottom:solid 1px #e5e5e5;margin-top:10px;margin-left:5px">
+                                                        <div class="col-md-1 " id="fileAction">
+                                                            <button class="btn btn-default btn-sm destroy" data-dz-remove>
+                                                                <span class="fa fa-trash fa-2x"></span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <p class="name" data-dz-name style="overflow:hidden"></p>
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <p class="size" data-dz-size></p>
+                                                        </div>
+                                                        <div class="col-md-1" id="downloadok" style="display:none;margin-top:-5px">
+                                                            <span class="fa fa-check fa-3x" style="color:forestgreen"></span>
+                                                        </div>
+                                                        <div class="col-md-1" id="downloaderror" style="display:none;none;margin-top:-5px">
+                                                            <span class="fa fa-times-circle fa-3x" style="color:red"></span>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <strong class="error text-danger" data-dz-errormessage></strong>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="progress progress-striped active" id="ProgressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="background-color:transparent">
+                                                                <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <div class="col-md-12">
+                                    <div id="actions">
+                                        <span class="btn btn-default fileinput-button">
+                                            <span>Selecionar Arquivo</span>
+                                        </span>
+                                        <button type="submit" id="btnSendFiles" class="btn btn-default start" style="visibility:visible">
+                                            <span>Enviar</span>
+                                        </button>
+                                        <button type="reset" class="btn btn-default cancel" id="btnLimpar" style="visibility:visible">
+                                            <span>Limpar</span>
+                                        </button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!----------------------------  BOTÕES DO FILTRO -------------------------------->
+            <div class="row" style="margin-top:20px">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success" ng-click="ImportarArquivo(Parametros)">Importar Arquivo</button>
+                    <button type="button" class="btn btn-warning" ng-click="NewFilter()">Novo Filtro</button>
+                </div>
+            </div>
+
+        </div>
+        <!--------------------------------  Pastas------------------------------------------->
+        <div class="block" id="divPastas" ng-show="ShowGrid">
+            <!-----------------------Abas-->
+            <div class="row">
+                <div class="col-md-12">
+                    <button style="background-color:silver;color:black;height:50px !important" ;
+                            ng-class="currentTab==0 ?'btn btn-default btntab btnEsquemaSelected':'btn btn-default btntab btnEsquemaUnselected'" ng-click="currentTab=0">
+                        Previsto e Exibido
+                    </button>
+
+                    <button style="background-color:silver;color:black;height:50px !important" ;
+                            ng-class="currentTab==1 ?'btn btn-default btntab btnEsquemaSelected':'btn btn-default btntab btnEsquemaUnselected'" ng-click="currentTab=1">
+                        Previsto e não  Exibido
+                    </button>
+                    <button style="background-color:silver;color:black;height:50px !important" ;
+                            ng-class="currentTab==2 ?'btn btn-default btntab btnEsquemaSelected':'btn btn-default btntab btnEsquemaUnselected'" ng-click="currentTab=2">
+                        Não Previsto e Exibido
+                    </button>
+                </div>
+            </div>
+            <!-----------------------Grid-->
+            <div class="table-responsive" style="max-height:500px">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Veículo</th>
+                            <th>Data Exib</th>
+                            <th>Programa</th>
+                            <th>Ch.Acesso</th>
+                            <th>Fita</th>
+                            <th>Título</th>
+                            <th  style="width:100px">Qual</th>
+                            <th>Horário</th>
+                            <th>C.E.</th>
+                            <th>Baixado</th>
+                            <th>Dur.Sctv</th>
+                            <th>Dur. Exibidor</th>
+                            <th>Dif.</th>
+                            <th>% Exib.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="veiculacao in Veiculacoes | filter: {Status:currentTab}">
+                            <td>
+                                <label class="label label-success" ng-show="veiculacao.Indica_Processado">Processado</label>
+                                <label class="label label-danger" ng-show="veiculacao.Mensagem_Critica">{{veiculacao.Mensagem_Critica}}</label>
+                            </td>
+                            <td>{{veiculacao.Cod_Veiculo}}</td>
+                            <td>{{veiculacao.Data_Exibicao | date:"dd/MM/yyyy"}}</td>
+                            <td>{{veiculacao.Cod_Programa}}</td>
+                            <td>{{veiculacao.Chave_Acesso}}</td>
+                            <td>{{veiculacao.Numero_Fita}}</td>
+                            <td>{{veiculacao.Titulo_Comercial}}</td>
+                            <td style="width:100px">
+                                <span ng-show="veiculacao.Status!=1  || veiculacao.Indica_Processado || veiculacao.Cod_Qualidade_Anterior">{{veiculacao.Cod_Qualidade || veiculacao.Numero_Ce}}</span>
+                                <div class="input-group" style="min-width:100px;margin-bottom:0px !important" 
+                                     ng-show="veiculacao.Status==1  && !veiculacao.Indica_Processado && !veiculacao.Cod_Qualidade_Anterior && !veiculacao.Numero_Ce">
+                                    <input id="TxtCodQualidade"
+                                           class="form-control"
+                                           ng-model="veiculacao.Cod_Qualidade"
+                                           ng-model-options="{updateOn: 'blur'}"
+                                           maxlength="3"
+                                           ng-change="ValidarQualidade(veiculacao)"
+                                           style="text-transform:uppercase">
+                                    <div class="input-group-addon">
+                                        <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaQualidade(veiculacao)"></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span  ng-show="veiculacao.Status!=1 || veiculacao.Indica_Processado || veiculacao.Cod_Qualidade_Anterior || veiculacao.Numero_Ce">{{veiculacao.Horario_Exibicao}}</span>
+                                <input type="text" class="form-control"  
+                                       style="width:90PX"
+                                       ng-show="veiculacao.Status==1 && !veiculacao.Indica_Processado && !veiculacao.Cod_Qualidade_Anterior  && !veiculacao.Numero_Ce"
+                                       ng-model="veiculacao.Horario_Exibicao"
+                                       maxlength="5"
+                                       onkeypress="return NumericOnly(event)"
+                                       ng-change="ValidarHorario(veiculacao)"
+                                       onblur="this.value =TimeFormat(this.value)"
+                                       onfocus="this.value = TimeUnformat(this.value);"
+                                       ng-model-options="{updateOn: 'blur'}" />
+                            </td>
+                            <td>
+                                <span class="fa fa-check" style="color:seagreen" ng-show="veiculacao.Numero_Ce"></span>
+                            </td>
+                            <td style="text-align:center">
+                                <span class="fa fa-check" style="color:seagreen" ng-show="veiculacao.Cod_Qualidade_Anterior"></span>
+                            </td>
+                            <td>{{veiculacao.Duracao}}</td>
+                            <td>{{veiculacao.Duracao_Exibidor}}</td>
+                            <td>{{veiculacao.Diferenca}}</td>
+                            <td>{{veiculacao.Pct_Exibido}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!--------------------------------  Nenhum registro foi encontrado---------------------->
+        <div class="block" ng-show="ShowAviso">
+            <div class="alert alert-info alert-icon-block" role="alert">
+                <div class="alert-icon">
+                    <span class="fa fa-times" ng-click="ShowAviso=false"></span>
+                </div>
+                <strong>Nenhum Registro foi Encontrado para esse Veículo Data</strong>
+            </div>
+        </div>
+        <!-------------------Botoes baixar e retornar-->
+        <div class="fixed-buttons-bottom" ng-show="ShowGrid">
+            <div class="col-md-8">
+                <button class="btn btn-success btn-sm" ng-click="ProcessarBaixa(Veiculacoes)">Baixar Veiculaçoes</button>
+                <button class="btn btn-warning btn-sm" ng-click="ShowGrid=false;ShowFilter=true">Retornar</button>
+            </div>
+            
+        </div>
+    <!--</form>-->
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+
+        //$("#txtArquivo").change(function () {
+        //    var filename = $("#txtArquivo").val().replace(/.*(\/|\\)/, '');
+        //    var ctrl = angular.element(this).data('$ngModelController');
+        //    ctrl.$setViewValue(filename);
+        //    ctrl.$commitViewValue();
+        //});
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+

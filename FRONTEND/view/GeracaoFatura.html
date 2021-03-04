@@ -8,7 +8,7 @@
                 </div>
                 <strong>Filtros</strong>
             </div>
-            <div class="row margin-left-10">
+            <div class="row">
                 <!--===================Empresa de Faturamento-->
                 <div class="col-md-2  " ng-controller="dictionaryController">
                     <div class="dictionary" dictionary="Empresa_Usuario" caption="Empresa de Faturamento">
@@ -20,7 +20,7 @@
                                secondarybind="txtNomeEmpresaFaturamento">
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-6">
                     <div class="form-group">
                         <label for="txtNomeEmpresaFaturamento" class="field-x" style="visibility:hidden">..</label>
                         <div class="input-group">
@@ -29,7 +29,9 @@
                     </div>
                 </div>
                 <!--===================================Botão-->
-                <button class="btn btn-primary row margin-left-40 margin-top-30" ng-click="ShowGrid=false;ContratosFaturaLista(Filtro)">Carregar</button>
+                <div class="col-md-2">
+                    <button class="btn btn-primary row margin-left-40 margin-top-30" ng-click="ShowGrid=false;ContratosFaturaLista(Filtro)">Carregar</button>
+                </div>
             </div>
 
         </div>
@@ -79,11 +81,10 @@
             <!--========================botoes de acoes-->
             <div class="fixed-buttons-bottom">
                 <div class="row">
-
                     <div class="col-md-2">
-                        <div class="form-group">
+                        <div class="form-group" style="background-color:white">
                             <div class="input-group">
-                                <div class="app-checkbox">
+                                <div class="app-checkbox" style="margin-left:10px">
                                     <label><input type="checkbox" ng-click="MarcarDismarcar(ContratosFatura,checkMarcar)" ng-model="checkMarcar" />Marcar/Desmarcar todos<span></span></label>
                                 </div>
                             </div>

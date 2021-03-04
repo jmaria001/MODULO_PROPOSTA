@@ -32,6 +32,7 @@ namespace PROPOSTA
             public String Tipo_Intermediario { get; set; }
             public String Tipo_Comissao{ get; set; }
             public Double Vlr_A_Faturar { get; set; }
+            public String Vlr_A_Faturar_String { get; set; }
             public Double Saldo_A_Faturar { get; set; }
             public String Natureza_Servico { get; set; }
             public int Cod_Historico { get; set; }

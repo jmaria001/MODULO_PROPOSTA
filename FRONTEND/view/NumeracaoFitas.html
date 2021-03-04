@@ -1,0 +1,212 @@
+﻿<style>
+    td{
+        white-space:nowrap;
+    }
+</style>
+<div class="container">
+    <div class="block">
+        <form id="frmNumeracaoFitas" autocomplete="off">
+            <!--==============================================Filtros-->
+            <div class="box" ng-show="CurrentShow=='Filtro'">
+                <div class="alert alert-info alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <span class="fa fa-filter"></span>
+                    </div>
+                    <strong>Filtros</strong>
+                </div>
+                <div class="row">
+                    <!--===================Veiculo -->
+                    <div class="col-md-2  " ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Veiculo">
+                            <input id="txtCodVeiculo"
+                                   ng-model="Filtro.Cod_Veiculo"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCodVeiculo')"
+                                   primarybind="txtCodVeiculo"
+                                   secondarybind="txtNomeVeiculo">
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="Filtro.Nome_Veiculo">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Programa">
+                            <input id="txtCodPrograma"
+                                   ng-model="Filtro.Cod_Programa"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCodPrograma')"
+                                   primarybind="txtCodPrograma"
+                                   secondarybind="txtNomePrograma">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="txtNomePrograma" class="field-x" style="visibility:hidden">..</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNomePrograma" class="form-control " ng-model="Filtro.Nome_Programa">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--==============================================Validade Inicio-->
+                    <div class="col-md-5">
+                        <div class="dictionary" dictionary="Data" caption="Início Validade">
+                            <input ng-model="Filtro.Data_Inicio"
+                                   ui-date ng-model-options="{updateOn: 'blur'}">
+                            <div class="dictionary-ui-calendar" ui-calendar typdate="Filtro.Data_Inicio"></div>
+                        </div>
+                    </div>
+                    <!--==============================================Validade Termino-->
+                    <div class="col-md-5">
+                        <div class="dictionary" dictionary="Data" caption="Término Validade">
+                            <input ng-model="Filtro.Data_Final"
+                                   ui-date ng-model-options="{updateOn: 'blur'}">
+                            <div class="dictionary-ui-calendar" ui-calendar typdate="Filtro.Data_Final"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <!--==================Numero de Fita -->
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="field-x" for="txtNumeroFitaInicio">N. Fita de</label>
+                            <input type="text" id="txtNumeroFitaInicio" class="form-control" ng-model="Filtro.Numero_Fita_Inicio" maxlength="10" ng-model-options="{updateOn: 'blur'}" style="text-transform:uppercase" />
+                        </div>
+                    </div>
+
+                    <!--==================Numero de Fita -->
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label class="field-x" for="txtNumeroFitaFim">N. Fita até</label>
+                            <input type="text" id="txtNumeroFitaFim" class="form-control" ng-model="Filtro.Numero_Fita_Fim" maxlength="10" ng-model-options="{updateOn: 'blur'}" style="text-transform:uppercase" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-3">
+                        <div class="form-group field-x">
+
+                            <div class="input-group" style="display:flex">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Filtro.Indica_Pendentes_Numeracao" />Mostrar Pendentes de Numeração<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-2">
+                        <div class="form-group field-x">
+                            <div class="input-group" style="display:flex">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Filtro.Indica_Numeradas" />Mostrar Numeradas<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group field-x">
+                            <div class="input-group" style="display:flex">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Filtro.Indica_Desativadas_Devolvidas" />Mostrar Desativadas/Devolvidas<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="form-group field-x">
+                            <div class="input-group" style="display:flex">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Filtro.Indica_Ativas" />Mostrar Ativas<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--========================Botoes-->
+                <div class="row margin-top-20">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-success" ng-click="CarregarNumeracaoFitas(Filtro)">Filtrar</button>
+                        <button type="button" class="btn btn-warning" ng-click="Filtro=NewFiltro()">Limpar Filtros</button>
+                        <button type="button" id="btnNovoFiltro" class="btn btn-warning" style="display:none" ng-click="CurrentShow='Filtro'">Novo Filtro</button>
+                    </div>
+                </div>
+            </div>
+
+                <!--==============================================Grid -->
+
+            <div class="box table-responsive " style="min-height:600px" ng-show="CurrentShow=='Grid'">
+
+                <table id="dataTable" class="table table-striped table-bordered" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Contrato</th>
+                            <th>Tipo Com. </th>
+                            <th>Tit.Comercial</th>
+                            <th>Produto</th>
+                            <th>Dur.</th>
+                            <th>N.Fita</th>
+                            <th>Veículo</th>
+                            <th>Agencia</th>
+                            <th>Cliente</th>
+                            <th>Status</th>
+                            <th>Inicio.Prog</th>
+                            <th>Térm.Prog</th>
+                            <th>Apresentador</th>
+                            <th>Localização</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="NumeracaoFitas in NumeracaoFitasS track by $index" on-finish-render="ngRepeatFinished()">
+                            <td style="width:50px; text-align:center">
+                                <a class="btn btn-sm btn-default" href="#NumeracaoFitasCadastro/{{NumeracaoFitas.Cod_Empresa}}/{{NumeracaoFitas.Numero_MR}}/{{NumeracaoFitas.Sequencia_MR}}/{{NumeracaoFitas.Cod_Comercial}}/{{NumeracaoFitas.Cod_Tipo_Comercial}}/{{NumeracaoFitas.Cod_Tipo_Midia}}" ng-disabled="NumeracaoFitas.Numero_Fita">
+                                    Numerar                           
+                                </a>
+                            </td>
+                            <td>{{NumeracaoFitas.Cod_Empresa}}-{{NumeracaoFitas.Numero_MR}}-{{NumeracaoFitas.Sequencia_MR}}</td>
+                            <td>{{NumeracaoFitas.Cod_Tipo_Comercial}}</td>
+                            <td>{{NumeracaoFitas.Cod_Comercial}}-{{NumeracaoFitas.Titulo_Comercial}}</td>
+                            <td>{{NumeracaoFitas.Nome_Produto}}</td>
+                            <td>{{NumeracaoFitas.Duracao}}</td>
+                            <td>{{NumeracaoFitas.Numero_Fita}}</td>
+                            <td>{{NumeracaoFitas.Cod_Veiculo}}</td>
+                            <td>{{NumeracaoFitas.Cod_Agencia}}-{{NumeracaoFitas.Nome_Agencia}}</td>
+                            <td>{{NumeracaoFitas.Cod_Cliente}}-{{NumeracaoFitas.Nome_Cliente}}</td>
+                            <td>{{NumeracaoFitas.Indica_Status}}</td>
+                            <td>{{NumeracaoFitas.Data_Inicio | date:"dd/MM/yyyy"}}</td>
+                            <td>{{NumeracaoFitas.Data_Final  | date:"dd/MM/yyyy"}}</td>
+                            <td>{{NumeracaoFitas.Nome_Apresentador}}</td>
+                            <td>{{NumeracaoFitas.Localizacao}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+
+    </div>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $("input[type='text']").css('text-transform', 'uppercase')
+
+    });
+
+</script>

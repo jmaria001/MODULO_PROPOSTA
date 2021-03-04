@@ -234,27 +234,10 @@
 
                     return;
                 }
-
-                //if (response.data[0].Indica_Horaria == 1) {
-                //    $scope.PermissaoHorario = false;
-                //    return;
-                //}
-                //else
-                //{
-                //    $scope.PermissaoHorario = true;
-                //    return;
-
-                //}
-
-
-
-
                 if (response.data[0].Critica == 1) {
                     pCodQualidade.Cod_Qualidade = pCodQualidade.Cod_Qualidade_Ant
                     return;
                 }
-
-
             }
         });
     };
@@ -299,8 +282,8 @@
         });
     };
 
-    //===============Clicou na lupa Tpo do Comercial 
-    $scope.PesquisaQualidade = function (pQualidade) {
+    //===============Clicou na lupa de qualidade
+    $scope.PesquisaQualidade = function (pQualidade) {7
         $scope.PesquisaTabelas = NewPesquisaTabela();
         httpService.Get('ListarTabela/Qualidade').then(function (response) {
             if (response.data) {

@@ -68,7 +68,7 @@ namespace PROPOSTA
                 }
                 else
                 {
-                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia", pFiltro.Competencia);
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia", clsLib.CompetenciaInt( pFiltro.Competencia));
                 }
                 if (pFiltro.Nota_Fiscal == 0)
                 {

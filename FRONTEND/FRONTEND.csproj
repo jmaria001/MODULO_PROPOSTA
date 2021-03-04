@@ -110,6 +110,9 @@
     <Content Include="angular\Controller\MateriaisFitasCadastroController.js" />
     <Content Include="angular\Controller\MateriaisFitasController.js" />
     <Content Include="angular\Controller\ConsultaVeiculacaoController.js" />
+    <Content Include="angular\Controller\NumeracaoFitasCadastroController.js" />
+    <Content Include="angular\Controller\NumeracaoFitasController.js" />
+    <Content Include="angular\Controller\RetornoPlaylistController.js" />
     <Content Include="css\AppToolTip.css" />
     <Content Include="Index.html" />
     <Content Include="IndexChecking.html" />
@@ -301,6 +304,8 @@
     <Content Include="view\MateriaisFitas.html" />
     <Content Include="view\MateriaisFitasCadastro.html" />
     <Content Include="view\MenuDashboard.html" />
+    <Content Include="view\NumeracaoFitas.html" />
+    <Content Include="view\NumeracaoFitasCadastro.html" />
     <Content Include="view\PARAM.xml" />
     <Content Include="view\Parametro.html" />
     <Content Include="view\ParametroCadastro.html" />
@@ -359,6 +364,7 @@
     <Content Include="view\PacoteDesconto_List.html" />
     <Content Include="view\RegraAprovacao.html" />
     <Content Include="view\Composicao_Break.html" />
+    <Content Include="view\RetornoPlayList.html" />
     <Content Include="view\Roteiro.html" />
     <Content Include="view\ConsultaVeiculacao.html" />
     <Content Include="view\Simulacao - Copy.html" />

@@ -161,11 +161,12 @@ namespace PROPOSTA
                 //===================Complementa dados 
 
                 dados.Vlr_A_Faturar = Vlr_Fatura;
+                dados.Vlr_A_Faturar_String = Vlr_Fatura.ToString();
                 dados.Saldo_A_Faturar = 0;
                 dados.ComplementoMapas = ComplementoMapas;
                 dados.Rateios = Rateios;
             }
-            catch (Exception)
+            catch (Exception)   
             {
                 throw;
             }
@@ -238,7 +239,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Venda_Net", Complemento.Indica_Venda_Net);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Faturamento_Liquido", Complemento.Indica_Faturamento_liquido);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Forma_Pgto", Complemento.Forma_Pgto);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Valor_Fatura", Complemento.Vlr_A_Faturar);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Valor_Fatura", Complemento.Vlr_A_Faturar_String);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Descricao", Complemento.Descricao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_ComplementoMapas", xmlComplementoMapas);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Rateios", xmlRateios);

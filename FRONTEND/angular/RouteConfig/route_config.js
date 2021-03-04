@@ -4,7 +4,7 @@
             templateUrl: 'view/PortalApp.html',
             authorize: false,
             routeName: 'Portal de Aplicações',
-            controller:'PortalAppController',
+            controller: 'PortalAppController',
             RouteId: 0
         })
     .when('/portal', {
@@ -777,6 +777,20 @@
         routeName: 'Manutenção do Cadastro de materiais',
         RouteId: 'Fitas@Material'
     })
+        .when('/NumeracaoFitas', {
+            templateUrl: 'view/NumeracaoFitas.html',
+            controller: 'NumeracaoFitasController',
+            authorize: true,
+            routeName: 'Numeração de Fitas',
+            RouteId: 'Fitas@Numeracao'
+        })
+    .when('/NumeracaoFitasCadastro/:Cod_Empresa/:Numero_Mr/:Sequencia_Mr/:Cod_Comercial/:Cod_Tipo_Comercial/:Cod_Tipo_Midia', {
+        templateUrl: 'view/NumeracaoFitasCadastro.html',
+        authorize: true,
+        controller: 'NumeracaoFitasCadastroController',
+        routeName: 'Numeração de Fita',
+        RouteId: 'Fitas@Numeracao'
+    })
     .when('/BaixaVeiculacao', {
         templateUrl: 'view/BaixaVeiculacoes.html',
         controller: 'BaixaVeiculacoesController',
@@ -789,8 +803,15 @@
             controller: 'FitaPatrocinioController',
             authorize: true,
             routeName: 'Controle de Fitas de Patrocínio',
-            RouteId: 'Fita@Numeracao'
+            RouteId: 'FitaPatrocino@Numerar'
         })
+    .when('/RetornoPlayList', {
+    templateUrl: 'view/RetornoPlayList.html',
+    authorize: true,
+    controller: 'RetornoPlayListController',
+    routeName: 'Parametrização do Retorno da PlayList',
+    RouteId: 'Retorno@PlayList'
+})
     .otherwise({ redirectTo: "/blank" })
 });
 

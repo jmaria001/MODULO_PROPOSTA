@@ -70,7 +70,7 @@
                 $scope.ContratosFatura = response.data;
 
                 if ($scope.ContratosFatura.length == 0) {
-                    ShowAlert("Não existe dados cadastrado p/ este Filtro");
+                    //ShowAlert("Não existe dados cadastrado p/ este Filtro");
                     $scope.RepeatFinished();
                 }
             }
@@ -94,9 +94,9 @@
         httpService.Post("IncluirSolicitacao", pContratos).then(function (response) {
             if (response) {
                 if (response.data[0].Status) {
-                    var _msg = 'Geração Concluida co Sucesso. Faturas Geradas de:' + response.data[0].Numero_Inicial + ' até:' + response.data[0].Numero_Final
+                    var _msg = 'Geração Concluida com Sucesso. Faturas Geradas de:' + response.data[0].Numero_Inicial + ' até:' + response.data[0].Numero_Final
                     ShowAlert(_msg);
-                    $scope.CarregaDados();
+                    $scope.ContratosFaturaLista($scope.Filtro);
                 };
             }
             else {

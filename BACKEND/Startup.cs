@@ -16,13 +16,16 @@ namespace webapi
         public void Configuration(IAppBuilder app)
         {
             HttpConfiguration config = new HttpConfiguration();
+            config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
             ConfigureRoute(config);
             ConfigureOAuth(app);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
             var formatters = config.Formatters;
             formatters.Remove(formatters.XmlFormatter);
+            
         }
+
 
         public static void ConfigureRoute(HttpConfiguration config)
         {
