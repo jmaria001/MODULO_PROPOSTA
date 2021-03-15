@@ -60,6 +60,7 @@ namespace PROPOSTA
 
         public class FiltroExibirVeiculoModel
         {
+            public Int32 Id_Numeracao { get; set; }
             public String Cod_Empresa { get; set; }
             public Int32  Numero_Mr { get; set; }
             public Int32  Sequencia_Mr { get; set; }
@@ -70,11 +71,13 @@ namespace PROPOSTA
             public String Tipo_Fita { get; set; }
             public String Numero_Fita { get; set; }
             public String Cod_Apresentador { get; set; }
+            public String Nome_Apresentador { get; set; }
             public String Localizacao { get; set; }
             public Int32 Duracao { get; set; }
             public Boolean Status { get; set; }
             public String Mensagem { get; set; }
-
+            public Boolean Indica_Reutilizar { get; set; }
+            public Boolean Reutilizar { get; set; }
 
         }
 

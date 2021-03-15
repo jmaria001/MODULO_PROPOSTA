@@ -1,0 +1,202 @@
+﻿<style>
+    td {
+        white-space: nowrap;
+    }
+</style>
+<div class="container">
+    <form name="frmGeracaoCE" autocomplete="off">
+        <!------------------------------------------GRID VEICULOS------------------------------------------------>
+        <div class="col-md-4">
+            <div class="block" id="divGridVei" ng-show="ShowGridVei">
+                <div class="row">
+                    <div class="box table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Veículo</th>
+                                    <th>Nome Veículo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="Veiculo in Veiculos track by $index">
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="input-group" style="display:flex">
+                                                <div class="app-checkbox" style="margin-top:-25px">
+                                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Veiculo.Indica_Marcado" ng-click="GeracaoCECarregaPendentes(Parametros,Veiculos)" /><span></span></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{::Veiculo.Cod_Veiculo}}</td>
+                                    <td>{{::Veiculo.Nome_Veiculo}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!------------------------------Marca/Desmarca Todos-------------------------------------->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="input-group" style="display:flex">
+                                <div class="app-checkbox">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="chkMarcar" ng-click="MarcarTodos(Veiculos,chkMarcar);GeracaoCECarregaPendentes(Parametros,Veiculos)" />Marca/Desmarca Todos<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="block" id="divCampos" ng-show="ShowCampos">
+                <!-------------------------------------------CAMPOS---------------------------------------->
+                <div class="row">
+                    <div class="col-md-3" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Empresa_Usuario">
+                            <input id="txtCodEmpresa"
+                                   ng-model="Parametros.Cod_Empresa"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCodEmpresa')"
+                                   primarybind="txtCodEmpresa"
+                                   secondarybind="txtNomeEmpresa">
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label for="txtNomeEmpresa" class="field-x" style="visibility:hidden">..</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNomeEmpresa" class="form-control" ng-model="Parametros.Razao_Social">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="dictionary" dictionary="Data" caption="Data Limite">
+                            <input ng-model="Parametros.Data_Limite"
+                                   ui-date ng-model-options="{updateOn: 'blur'}"
+                                   placeholder="Informe a Data">
+                            <div class="dictionary-ui-calendar" ui-calendar typdate="Parametros.Data_Limite"></div>
+                        </div>
+                    </div>
+                    <!-----------------------------------  BOTÕES DO FILTRO --------------------------------------->
+                    <div class="col-md-8" style="margin-top:35px">
+                        <button type="button" class="btn btn-success" ng-click="GerarComprovante(Parametros,Veiculos)">Gerar</button>
+                        <button type="button" class="btn btn-warning" ng-click="NewFilter()">Novo Filtro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!----------------------------------------------------GRID DE LOG------------------------------------------------>
+        <div class="col-md-8">
+            <div class="block" id="divGridLog" ng-show="ShowGridLog">
+                <div class="row">
+                    <div class="alert alert-info alert-icon-block text-left" role="alert">
+                        <strong>Processamento</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="box table-responsive">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Emp.Fat</th>
+                                    <th>C.E.Inicial</th>
+                                    <th>C.E.Final</th>
+                                    <th>Qtd.Pendentes</th>
+                                    <th>Qtd.Gerados</th>
+                                    <th>Qtd.Criticados</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="Log in Logs track by $index">
+                                    <td>{{::Log.Cod_Empresa_Faturamento}}</td>
+                                    <td>{{::Log.Numero_CE_Inicio}}</td>
+                                    <td>{{::Log.Numero_CE_Termino}}</td>
+                                    <td>{{::Log.Qtde_Pendente}}</td>
+                                    <td>{{::Log.Qtde_Gerado}}</td>
+                                    <td>{{::Log.Qtde_Criticado}}</td>
+                                    <td style="width:50px; text-align:center">
+                                        <button type="button" class="btn btn-danger btn-sm" 
+                                                ng-show="Log.Qtde_Criticado && Log.Cod_Empresa_Faturamento.toUpperCase() !='TOTAL'"
+                                                ng-click="VerCritica(Log.Cod_Empresa_Faturamento)" 
+                                                style="margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:0px;line-height:20px">
+                                        Ver</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-----------------------------------------TELA DE CRITICA------------------------------------------->
+        <div class="block" id="divCritica" ng-show="ShowCritica">
+            <!----Cabeçalho da Tela--->
+            <div class="row">
+                <div class="row col-md-12">
+                    <div class="alert alert-danger alert-icon-block text-left" role="alert">
+                        <strong>Crítica dos Comprovantes</strong>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!---Grid Critica--->
+                <div class="box table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Emp.Fat</th>
+                                <th>Emp.Venda</th>
+                                <th>Contrato</th>
+                                <th>Seq</th>
+                                <th>Veiculo</th>
+                                <th>Mensagem</th>
+                                <th>Processamento</th>
+                                <th>Geração</th>
+                                <th>Usuário</th>
+                                <th>Qtde</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="Critica in Criticas track by $index">
+                                <td>{{::Critica.Cod_Emp_Fat_Crit}}</td>
+                                <td>{{::Critica.Cod_Empresa_Crit}}</td>
+                                <td>{{::Critica.Numero_MR_Crit}}</td>
+                                <td>{{::Critica.Sequencia_Mr_Crit}}</td>
+                                <td>{{::Critica.Cod_Veiculo_Crit}}</td>
+                                <td>{{::Critica.Mensagem_Crit}}</td>
+                                <td>{{::Critica.Data_Process_Crit | date:"dd/MM/yyyy"}}</td>
+                                <td>{{::Critica.Data_Geracao_Crit | date:"dd/MM/yyyy"}}</td>
+                                <td>{{::Critica.Usuario_Crit}}</td>
+                                <td>{{::Critica.Qtde_Crit}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+            <!-------Botão Retornar----->
+            <div class="col-md-8" style="margin-top:35px">
+                <button type="button" class="btn btn-warning" ng-click="ShowCritica=false;ShowGridVei=true;ShowCampos=true;ShowGridLog=true">Retornar</button>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
+
+
+

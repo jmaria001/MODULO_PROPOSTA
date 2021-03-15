@@ -1,0 +1,337 @@
+﻿<div class="container">
+    <form name="BaixaContrato" autocomplete="off" class="form">
+        <div class="block">
+            <div class="row">
+                <!--===================Empresa-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x">Emp.</label>
+                        <input style="text-transform:uppercase" type="text" name="txtEmpresa" class="form-control" ng-model="Filtro.Cod_Empresa" maxlength="3" />
+                    </div>
+                </div>
+                <!--===================Contrato.-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x">Contrato</label>
+                        <input id="txtContrato" type="text" name="txtContrato" class="form-control numeric" ng-model="Filtro.Numero_Mr" maxlength="6" />
+                    </div>
+                </div>
+                <!--===================Sequência-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x">Seq.</label>
+                        <input id="txtSequencia" type="text" name="txtSequencia" class="form-control numeric" ng-model="Filtro.Sequencia_Mr" maxlength="1" />
+                    </div>
+                </div>
+                <!--===================botão Carregar-->
+                <div class="col-md-2">
+                    <button class="btn btn-primary row margin-left-10 margin-top-30" ng-click="CarregarContratoBaixa(Filtro)">Carregar Dados</button>
+                </div>
+            </div>
+            <!--====================Dados do Contrato-->
+            <div ng-show="BaixaContrato.Loaded">
+                <div class="row">
+                    <!--===================Agência-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x">Agência</label>
+                            <label class="form-control" ng-bind="BaixaContrato.Cod_Agencia " />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="field-x" style="visibility:hidden">..</label>
+                            <label class="form-control" ng-bind="BaixaContrato.Nome_Agencia " />
+                        </div>
+                    </div>
+                    <!--===================Cliente-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x">Cliente</label>
+                            <label class="form-control" ng-bind="BaixaContrato.Cod_Cliente " />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="field-x" style="visibility:hidden">..</label>
+                            <label class="form-control" ng-bind="BaixaContrato.Nome_Cliente " />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x" for="txtTipoOperacao">Tipo de Operação</label>
+                            <select class="form-control"
+                                    name="txtTipoOperacao"
+                                    ng-model="BaixaContrato.Tipo_Operacao "
+                                    ng-options="Tipo_Operacao.Descricao as Tipo_Operacao.Descricao for Tipo_Operacao in Tipo_Operacao"></select>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <!--===================Motivo Baixa-->
+                        <div class="form-group">
+                            <label class="field-x">Motivo da Baixa</label>
+                            <input style="text-transform:uppercase" type="text" name="txtMotivoBaixa" class="form-control" ng-model="BaixaContrato.MotivoBaixa " maxlength="100" />
+                        </div>
+                    </div>
+                    <!--===================A Partir de-->
+                    <div class="col-md-2">
+                        <div class="dictionary" dictionary="Data" caption="A Partir de">
+                            <input ng-model="BaixaContrato.Data_Inicial"
+                                   ui-date ng-model-options="{updateOn: 'blur'}">
+                            <div class="dictionary-ui-calendar" ui-calendar typdate="BaixaContrato.Data_Inicial"></div>
+                        </div>
+                    </div>
+                    <!--===================Até-->
+                    <div class="col-md-2">
+                        <div class="dictionary" dictionary="Data" caption="Ate">
+                            <input ng-model="BaixaContrato.Data_Final"
+                                   ui-date ng-model-options="{updateOn: 'blur'}">
+                            <div class="dictionary-ui-calendar" ui-calendar typdate="BaixaContrato.Data_Final"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x">Programa</label>
+                            <div class="input-group">
+                                <input style="text-transform:uppercase"
+                                       type="text"
+                                       name="txtCodPrograma"
+                                       class="form-control"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       ng-model="BaixaContrato.Cod_Programa"
+                                       ng-change="ValidarPrograma(Filtro,BaixaContrato)"
+                                       maxlength="4" />
+                                <div class="input-group-addon">
+                                    <span class="fa fa-search span-btn" ng-click="PesquisaProgramaContrato(Filtro,BaixaContrato)"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="field-x" style="visibility:hidden">...</label>
+                            <input style="text-transform:uppercase" disabled="disabled" type="text" name="txtTitulo" class="form-control" ng-model="BaixaContrato.Titulo" value='' maxlength="50" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x">Comercial</label>
+                            <div class="input-group">
+                                <input style="text-transform:uppercase"
+                                       type="text"
+                                       name="txtTituloComercial"
+                                       class="form-control"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       ng-model="BaixaContrato.Cod_Comercial"
+                                       ng-change="ValidarComercial(Filtro,BaixaContrato)"
+                                       maxlength="2" />
+                                <div class="input-group-addon">
+                                    <span class="fa fa-search span-btn" ng-click="PesquisaComercialContrato(Filtro,BaixaContrato)"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="field-x" style="visibility:hidden">...</label>
+                            <input style="text-transform:uppercase" disabled="disabled" type="text" name="txtTituloComercial" class="form-control" ng-model="BaixaContrato.Titulo_Comercial" value='' maxlength="30" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--===================Qualidade-->
+                    <div class="col-md-2  " ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Qualidade" caption="Qualidade">
+                            <input id="txtCodQualidade"
+                                   ng-model="BaixaContrato.Cod_Qualidade"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCodQualidade')"
+                                   primarybind="txtCodQualidade"
+                                   style="text-transform:uppercase"
+                                   secondarybind="txtNomeQualidade">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="txtNomeQualidade" class="field-x" style="visibility:hidden">..</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNomeQualidade" class="form-control " ng-model="BaixaContrato.Nome_Qualidade">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div style="text-align:center" class="block margin-top-20">
+                            <p>Dias da Semana</p>
+                            <!--===================Domingo-->
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="app-checkbox">
+                                            <label><input id="0" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Domingo" />Dom.<span></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--===================Segunda Feira-->
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="app-checkbox">
+                                            <label><input id="1" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Segunda" />Seg.<span></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--===================Terça Feira-->
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="app-checkbox">
+                                            <label><input id="2" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Terca" />Ter.<span></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--===================Quarta Feira-->
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="app-checkbox">
+                                            <label><input id="3" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Quarta" />Qua.<span></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--===================Quinta Feira-->
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="app-checkbox">
+                                            <label><input id="4" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Quinta" />Qui.<span></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--===================Sexta Feira-->
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="app-checkbox">
+                                            <label><input id="5" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Sexta" />Sex.<span></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--===================Sábado-->
+                            <div class="col-md-1">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="app-checkbox">
+                                            <label><input id="6" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Sabado" />Sab.<span></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--Exclui automaticamente-->
+                        <div class="col-md-12">
+                            <div id="DivExclui" class="col-md-4 margin-top-20" ng-show="BaixaContrato.Tipo_Operacao=='Cancelamento'">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="app-checkbox">
+                                            <label><input id="exclui" type="checkbox" name="chkExclui" ng-model="BaixaContrato.Cancel" />Exclui automaticamente Am's em aberta do contrato <span></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--===================Selecionar Veiculos-->
+                    <div class="row" ng-show="BaixaContrato.Tipo_Operacao=='Baixa'">
+                        <div class="col-md-6 col-offset-3">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="3" style="text-align:center;background-color:silver">Processar para os Veiculos</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="width:50px"></th>
+                                            <th>Código</th>
+                                            <th>Nome</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="veiculo in BaixaContrato.Veiculos">
+                                            <td style="width:50px">
+                                                <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                                    <label>
+                                                        <input type="checkbox"
+                                                               tabindex="-1 "
+                                                               name="app-checkbox-1"
+                                                               ng-model="veiculo.Selected"> &nbsp;&nbsp;<span></span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td>{{veiculo.Cod_Veiculo}}</td>
+                                            <td>{{veiculo.Nome_Veiculo}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--===================================Botoes-->
+            <div class="fixed-buttons-bottom" ng-show="BaixaContrato.Loaded">
+                <button class="btn btn-success" ng-click="SalvarContratoBaixa(BaixaContrato)">Baixar Contrato</button>
+                <button class="btn btn-warning" ng-click="NewFiltro();BaixaContrato=''">Cancelar</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+
+    //$(document).ready(function () {
+    //    //GetDictionary();
+    //    $( "#txtReferencia" ).focus(function() {
+    //        var _descricao = document.getElementById('txtDescricao').value.toUpperCase();
+    //        var _obj = document.getElementById('txtReferencia');
+    //        if (! _obj.value) {
+    //            _obj.value = _descricao;
+
+    //            var ctrl = angular.element(_obj).data('$ngModelController');
+    //            ctrl.$setViewValue(_descricao);
+    //            ctrl.$commitViewValue();
+    //        };
+    //    });
+    //});
+
+    function SomenteNumero(e) {
+        var tecla = (window.event) ? event.keyCode : e.which;
+        if ((tecla > 47 && tecla < 58)) return true;
+        else {
+            if (tecla == 8 || tecla == 0) return true;
+            else return false;
+        }
+    }
+
+</script>

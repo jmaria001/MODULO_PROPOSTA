@@ -225,7 +225,7 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label class="field-x" for="txtNumeroFatura">N.Fatura</label>
-                                <label class="form-control" name="txtNumero_Fatura">{{::FaturaDados.Numero_Fatura}}</label>
+                                <label class="form-control" name="txtNumero_Fatura">{{FaturaDados.Numero_Fatura}}</label>
                             </div>
                         </div>
                         <!--------------------Numero ERP-->
@@ -233,7 +233,7 @@
                             <div class="form-group">
                                 <label class="field-x" for="txtNumeroFatura">N.ERP</label>
                                 <label class="form-control" name="txtNumeroErp">
-                                    <span ng-show="FaturaDados.Numero_Erp">{{::FaturaDados.Numero_Erp}}</span>
+                                    <span ng-show="FaturaDados.Numero_Erp">{{FaturaDados.Numero_Erp}}</span>
                                 </label>
                             </div>
                         </div>
@@ -242,7 +242,7 @@
                             <div class="form-group">
                                 <label class="field-x" for="txtNumeroNegociacao">Negociação</label>
                                 <label class="form-control" name="txtNumeroNegociacao">
-                                    <span ng-show="FaturaDados.Numero_Negociacao">{{::FaturaDados.Numero_Negociacao}}</span>
+                                    <span ng-show="FaturaDados.Numero_Negociacao">{{FaturaDados.Numero_Negociacao}}</span>
                                 </label>
                             </div>
                         </div>
@@ -251,7 +251,7 @@
                             <div class="form-group">
                                 <label class="field-x" for="txtEmpresaFaturamento">Emp Fat</label>
                                 <label class="form-control" name="txtEmpresaFaturamento">
-                                    <span >{{::FaturaDados.Cod_Empresa_Faturamento}}</span>
+                                    <span >{{FaturaDados.Cod_Empresa_Faturamento}}</span>
                                 </label>
                             </div>
                         </div>
@@ -260,7 +260,7 @@
                             <div class="form-group">
                                 <label class="field-x" for="txtEmpresa">Emp Venda</label>
                                 <label class="form-control" name="txtEmpresa">
-                                    <span>{{::FaturaDados.Cod_Empresa}}</span>
+                                    <span>{{FaturaDados.Cod_Empresa}}</span>
                                 </label>
                             </div>
                         </div>
@@ -269,7 +269,7 @@
                             <div class="form-group">
                                 <label class="field-x" for="txtRateio">Rateio</label>
                                 <label class="form-control" name="txtRateio">
-                                    <span>{{::FaturaDados.Numero_Rateio}}</span>
+                                    <span>{{FaturaDados.Numero_Rateio}}</span>
                                 </label>
                             </div>
                         </div>
@@ -281,7 +281,7 @@
                             <div class="form-group">
                                 <label class="field-x" for="txtNucleo">Núcleo de Venda</label>
                                 <label class="form-control" name="txtNucleo">
-                                    <span ng-show="FaturaDados.Cod_Nucleo">{{::FaturaDados.Cod_Nucleo}}-{{::FaturaDados.Nome_Nucleo}}</span>
+                                    <span ng-show="FaturaDados.Cod_Nucleo">{{FaturaDados.Cod_Nucleo}}-{{FaturaDados.Nome_Nucleo}}</span>
                                 </label>
                             </div>
                         </div>
@@ -290,7 +290,7 @@
                             <div class="form-group">
                                 <label class="field-x" for="txtContato">Contato</label>
                                 <label class="form-control" name="txtContato">
-                                    <span ng-show="FaturaDados.Cod_Contato">{{::FaturaDados.Cod_Contato}}-{{::FaturaDados.Nome_Contato}}</span>
+                                    <span ng-show="FaturaDados.Cod_Contato">{{FaturaDados.Cod_Contato}}-{{FaturaDados.Nome_Contato}}</span>
                                 </label>
                             </div>
                         </div>
@@ -301,7 +301,7 @@
                             <div class="form-group">
                                 <label class="field-x" for="txtAgencia">Agência</label>
                                 <label class="form-control" name="txtAgencia">
-                                    <span>{{::FaturaDados.Cod_Agencia}}-{{::FaturaDados.Nome_Agencia}}</span>
+                                    <span>{{FaturaDados.Cod_Agencia}}-{{FaturaDados.Nome_Agencia}}</span>
                                 </label>
                             </div>
                         </div>
@@ -310,7 +310,7 @@
                             <div class="form-group">
                                 <label class="field-x" for="txtCliente">Cliente</label>
                                 <label class="form-control" name="txtCliente">
-                                    <span>{{::FaturaDados.Cod_Cliente}}-{{::FaturaDados.Nome_Cliente}}</span>
+                                    <span>{{FaturaDados.Cod_Cliente}}-{{FaturaDados.Nome_Cliente}}</span>
                                 </label>
                             </div>
                         </div>
@@ -336,7 +336,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="field-x" for="txtValorBruto">Valor Bruto</label>
-                                <label style="text-align:right" class="form-control" name="txtValorBruto">{{::FaturaDados.Valor_Bruto | currency}}</label>
+                                <label style="text-align:right" class="form-control" name="txtValorBruto">{{FaturaDados.Valor_Bruto | currency}}</label>
                             </div>
                         </div>
                     </div>
@@ -345,7 +345,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="field-x" for="txtComissaoAgencia">Com. Agência</label>
-                                <label style="text-align:right" class="form-control" name="txtComissaoAgencia">{{::FaturaDados.Valor_Comissao | currency}}</label>
+                                <label style="text-align:right" class="form-control" name="txtComissaoAgencia">{{FaturaDados.Valor_Comissao | currency}}</label>
                             </div>
                         </div>
                     </div>
@@ -354,7 +354,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="field-x" for="txtValorIss">ISS</label>
-                                <label style="text-align:right" class="form-control" name="txtValorIss">{{::FaturaDados.Valor_Iss| currency}}</label>
+                                <label style="text-align:right" class="form-control" name="txtValorIss">{{FaturaDados.Valor_Iss| currency}}</label>
                             </div>
                         </div>
                     </div>
@@ -363,7 +363,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="field-x" for="txtValorIntermediario">Com. Intermediário</label>
-                                <label style="text-align:right" class="form-control" name="txtValorIntermediario">{{::FaturaDados.Valor_Intermediario| currency}}</label>
+                                <label style="text-align:right" class="form-control" name="txtValorIntermediario">{{FaturaDados.Valor_Intermediario| currency}}</label>
                             </div>
                         </div>
                     </div>
@@ -372,7 +372,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="field-x" for="txtValorLiquido">Valor Liquido</label>
-                                <label style="text-align:right" class="form-control" name="txtValorLiquido">{{::FaturaDados.Valor_Liquido| currency}}</label>
+                                <label style="text-align:right" class="form-control" name="txtValorLiquido">{{FaturaDados.Valor_Liquido| currency}}</label>
                             </div>
                         </div>
                     </div>
@@ -380,18 +380,25 @@
             </div>
             <!---------------------Dados parte de baixo-->
             <div class="row">
+                <!--------------------Origem-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x" for="txtOrigem">Origem</label>
+                        <label class="form-control" name="txtDataEmissao">{{Origem[FaturaDados.Origem].Nome}}</label>
+                    </div>
+                </div>
                 <!--------------------Data da Emissao-->
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="field-x" for="txtDataEmissao">Dt Emissão</label>
-                        <label class="form-control" name="txtDataEmissao">{{::FaturaDados.Data_Emissao | date:"dd/MM/yyyy"}}</label>
+                        <label class="form-control" name="txtDataEmissao">{{FaturaDados.Data_Emissao | date:"dd/MM/yyyy"}}</label>
                     </div>
                 </div>
                 <!--------------------Cond Pagamento-->
                 <div class="col-md-2">
                     <div class="form-group">
                         <label class="field-x" for="txtCondicaoPgto">Cond. Pagamento</label>
-                        <label class="form-control" name="txtCondicaoPgto">{{::FaturaDados.Condicao_Nf }}{{::FaturaDados.Tipo_Vencimento}}</label>
+                        <label class="form-control" name="txtCondicaoPgto">{{FaturaDados.Condicao_Nf }}{{FaturaDados.Tipo_Vencimento}}</label>
                     </div>
                 </div>
                 <!--------------------Intermediario-->
@@ -399,7 +406,7 @@
                     <div class="form-group">
                         <label class="field-x" for="txtIntermediario">Intermediário</label>
                         <label class="form-control" name="txtIntermediario">
-                            <span ng-show="FaturaDados.Cod_Intermediario">{{::FaturaDados.Cod_Intermediario}}-{{::FaturaDados.Nome_Intermediario}}</span>
+                            <span ng-show="FaturaDados.Cod_Intermediario">{{FaturaDados.Cod_Intermediario}}-{{FaturaDados.Nome_Intermediario}}</span>
                         </label>
                     </div>
                 </div>
@@ -423,9 +430,9 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="duplicata in FaturaDados.Duplicatas">
-                                    <td>{{::duplicata.Parcela}}/{{FaturaDados.Duplicatas.length}}</td>
-                                    <td>{{::duplicata.Vencimento | date:"dd/MM/yyyy"}}&nbsp;({{duplicata.Dia_Semana}})</td>
-                                    <td style="text-align:right">{{::duplicata.Valor | currency}}</td>
+                                    <td>{{duplicata.Parcela}}/{{FaturaDados.Duplicatas.length}}</td>
+                                    <td>{{duplicata.Vencimento | date:"dd/MM/yyyy"}}&nbsp;({{duplicata.Dia_Semana}})</td>
+                                    <td style="text-align:right">{{duplicata.Valor | currency}}</td>
                                 </tr>
                             </tbody>
                         </table>

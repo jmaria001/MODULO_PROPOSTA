@@ -231,6 +231,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BaixaContrato\BaixaContratoController.cs" />
+    <Compile Include="BaixaContrato\BaixaContratoModel.cs" />
+    <Compile Include="BaixaContrato\BaixaContratoSql.cs" />
     <Compile Include="BaixaVeiculacao\BaixaVeiculacoesController.cs" />
     <Compile Include="BaixaVeiculacao\BaixaVeiculacoesModel.cs" />
     <Compile Include="BaixaVeiculacao\BaixaVeiculacoesSql.cs" />
@@ -240,6 +243,9 @@
     <Compile Include="CategoriaCliente\CategoriaClienteController.cs" />
     <Compile Include="CategoriaCliente\CategoriaClienteModel.cs" />
     <Compile Include="CategoriaCliente\CategoriaClienteSql.cs" />
+    <Compile Include="ConfirmacaoRoteiro\ConfirmacaoRoteiroController.cs" />
+    <Compile Include="ConfirmacaoRoteiro\ConfirmacaoRoteiroModel.cs" />
+    <Compile Include="ConfirmacaoRoteiro\ConfirmacaoRoteiroSql.cs" />
     <Compile Include="ControleFitas\FitaPatrocinioController.cs" />
     <Compile Include="ControleFitas\DepositoFitasController.cs" />
     <Compile Include="ControleFitas\FitaPatrocinioModel.cs" />
@@ -261,9 +267,9 @@
     <Compile Include="Faturamento\ComplementoContratoPesquisaController.cs" />
     <Compile Include="Faturamento\ComplementoContratoPesquisaModel.cs" />
     <Compile Include="Faturamento\ComplementoContratoPesquisaSql.cs" />
-    <Compile Include="CondPgto\CondPgtoController.cs" />
-    <Compile Include="CondPgto\CondPgtoModel.cs" />
-    <Compile Include="CondPgto\CondPgtoSql.cs" />
+    <Compile Include="Connector\CondPgto\CondPgtoController.cs" />
+    <Compile Include="Connector\CondPgto\CondPgtoModel.cs" />
+    <Compile Include="Connector\CondPgto\CondPgtoSql.cs" />
     <Compile Include="ConsultaProgramacaoDiaria\ConsultaProgramacaoDiariaController.cs" />
     <Compile Include="ConsultaProgramacaoDiaria\ConsultaProgramacaoDiariaModel.cs" />
     <Compile Include="ConsultaProgramacaoDiaria\ConsultaProgramacaoDiariaSql.cs" />
@@ -289,6 +295,9 @@
     <Compile Include="AM\AMController.cs" />
     <Compile Include="AM\AMModel.cs" />
     <Compile Include="AM\AMSql.cs" />
+    <Compile Include="GeracaoCE\GeracaoCEController.cs" />
+    <Compile Include="GeracaoCE\GeracaoCEModel.cs" />
+    <Compile Include="GeracaoCE\GeracaoCESql.cs" />
     <Compile Include="MotivoAlterNegoc\MotivoAlterNegocController.cs" />
     <Compile Include="MotivoAlterNegoc\MotivoAlterNegocModel.cs" />
     <Compile Include="MotivoAlterNegoc\MotivoAlterNegocSql.cs" />
@@ -304,6 +313,9 @@
     <Compile Include="Grade\GradeController.cs" />
     <Compile Include="Grade\GradeModel.cs" />
     <Compile Include="Grade\GradeSql.cs" />
+    <Compile Include="NaturezadeServico\NaturezadeServicoController.cs" />
+    <Compile Include="NaturezadeServico\NaturezadeServicoModel.cs" />
+    <Compile Include="NaturezadeServico\NaturezadeServicoSql.cs" />
     <Compile Include="PacoteDesconto\PacoteDescontoController.cs" />
     <Compile Include="PacoteDesconto\PacoteDescontoModel.cs" />
     <Compile Include="PacoteDesconto\PacoteDecontoSql.cs" />

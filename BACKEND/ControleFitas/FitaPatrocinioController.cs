@@ -42,8 +42,8 @@ namespace PROPOSTA
             FitaPatrocinio Cls = new FitaPatrocinio(User.Identity.Name);
             try
             {
-                DataTable dtb = Cls.FitaPatrocinioGravar(filtro);
-                return Ok(dtb);
+                FitaPatrocinio.FitaPatrocinioModel Retorno = Cls.FitaPatrocinioGravar(filtro);
+                return Ok(Retorno);
 
             }
             catch (Exception Ex)

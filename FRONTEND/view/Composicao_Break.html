@@ -106,7 +106,17 @@
         </div>
         <!--=========================Table-->
         <div class="block" ng-show="ShowGrid">
-            <div class="row hidden-mobile">
+            <div class="row">
+                <strong class="margin-left-20">Veículo:</strong>{{Breaks.Cod_Veiculo}}
+                <strong class="margin-left-20">Data:</strong>{{Breaks.Data_Exibicao | date:'dd/MM/yyyy'}}
+                <strong class="margin-left-20">Programa:</strong>{{Breaks.Cod_Programa}}-{{Filtro.Nome_Programa}}
+                <strong class="margin-left-20">Dispo Net:</strong>{{Breaks.Dispo_Net}}-{{Filtro.Nome_Programa}}
+                <strong class="margin-left-20">Dispo Local:</strong>{{Breaks.Dispo_Local}}
+                <strong class="margin-left-20">Saldo a Compor Net:</strong>{{Breaks.Dispo_Net - Breaks.ComposicaoNet}} 
+                <strong class="margin-left-20">Local:</strong>{{Breaks.Dispo_Local - Breaks.ComposicaoLocal}} 
+            </div>
+
+            <!--<div class="row hidden-mobile">
                 <div class="col-md-2">
                     <label class="form-control">
                         Veiculo:{{Breaks.Cod_Veiculo}}
@@ -129,7 +139,7 @@
                     </label>
                 </div>
 
-            </div>
+            </div>-->
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
@@ -207,6 +217,11 @@
         <div class="row" ng-show="ShowEdit">
             <div class="col-md-8 col-lg-offset-2">
                 <div class="block">
+                    <div class="row">
+                        <strong class="margin-left-20">Veículo:</strong>{{Filtro.Cod_Veiculo}}-{{Filtro.Nome_Veiculo}}
+                        <strong class="margin-left-20">Data:</strong>{{Filtro.Data_Exibicao | date:'dd/MM/yyyy'}}
+                        <strong class="margin-left-20">Programa:</strong>{{Filtro.Cod_Programa}}-{{Filtro.Nome_Programa}}
+                    </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">

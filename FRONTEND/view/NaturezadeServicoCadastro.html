@@ -1,0 +1,225 @@
+﻿
+<div class="container">
+    <form name="frmNaturezadeServicoCadastro" autocomplete="off">
+        <div class="block">
+            <!--==================Codidgo da Empresa-->
+            <div class="row">
+
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Faturamento">
+                        <input id="txtCodEmpresaFaturamento"
+                               ng-model="NaturezadeServico.Cod_Empresa"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodEmpresaFaturamento')"
+                               primarybind="txtCodEmpresaFaturamento"
+                               secondarybind="txtNomeEmpresaFaturamento">
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label for="txtNomeEmpresa" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeEmpresaFaturamento" class="form-control " ng-model="NaturezadeServico.Razao_Social">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--==================Codidgo da Natureza-->
+            <div class="row">
+                <div class="col-md-4 margin-top-10">
+                    <div class="form-group">
+                        <label>Código da Natureza</label>
+                        <div class="input-group">
+                            <input type="text"
+                                   style="text-transform:uppercase"
+                                   id="txtCod_Natureza"
+                                   class="form-control"
+                                   ng-required="true"
+                                   ng-model="NaturezadeServico.Cod_Natureza"
+                                   ng-disabled="Parameters.Action=='Edit'"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   maxlength="6" />
+                        </div>
+
+                        <!--ng-disabled="!PermissaoEdit"-->
+                    </div>
+                </div>
+                <!--==================Codidgo da Atividade -->
+                <div class="col-md-5 margin-top-10">
+                    <div class="form-group">
+                        <label>Código da Atividade</label>
+                        <div class="input-group">
+                            <input type="text"
+                                   style="text-transform:uppercase"
+                                   id="txtCod_Atividade"
+                                   class="form-control"
+                                   ng-model="NaturezadeServico.Cod_Atividade"
+                                   maxlength="6">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9 margin-top-10">
+                    <div class="form-group">
+                        <label>Descrição</label>
+                        <div class="input-group">
+
+                            <input type="text" id="txtDescricao" class="form-control" ng-model="NaturezadeServico.Descricao">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--====================Historico -->
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Historico">
+                        <input id="txtCod_Historico"
+                               ng-model="NaturezadeServico.Cod_Historico"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCod_Historico')"
+                               primarybind="txtCod_Historico"
+                               secondarybind="txtDescHistorico">
+                    </div>
+                </div>
+
+                <div class="col-md-7">
+                    <div class="form-group">
+                        <label for="txtDescHistorico" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtDescHistorico" class="form-control " ng-model="NaturezadeServico.Descricao_Historico">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block">
+            <label>Impostos</label>
+            <div class="row">
+                <!--====================Percentual ISS-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>ISS %</label>
+                        <div class="input-group">
+                            <input type="text"
+                                   id="txtPercentual_Iss"
+                                   class="form-control percent"
+                                   ng-model="NaturezadeServico.Percentual_Iss">
+
+                        </div>
+                    </div>
+                </div>
+
+                <!--====================Percentual IR-->
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>IR %</label>
+                        <div class="input-group">
+                            <input type="text" id="txtPercentual_IR" class="form-control percent" ng-model="NaturezadeServico.Perc_IR">
+                        </div>
+                    </div>
+                </div>
+
+                <!--====================Percentual CS-->
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>CS %</label>
+                        <div class="input-group">
+                            <input type="text" id="txtPerc_CS" class="form-control percent" ng-model="NaturezadeServico.Perc_CS">
+                        </div>
+                    </div>
+                </div>
+                <!--====================Percentual COFINS-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>COFINS %</label>
+                        <div class="input-group">
+                            <input type="text" id="txtPercentual_IR" class="form-control percent" ng-model="NaturezadeServico.Perc_COFINS">
+                        </div>
+                    </div>
+                </div>
+                <!--====================Percentual PIS-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>PIS %</label>
+                        <div class="input-group">
+                            <input type="text" id="txtPerc_PIS" class="form-control percent" ng-model="NaturezadeServico.Perc_PIS">
+                        </div>
+                    </div>
+                </div>
+                <!--====================Percentual INSS-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label>INSS %</label>
+                        <div class="input-group">
+                            <input type="text" id="txtPercentual_INSS" class="form-control percent" ng-model="NaturezadeServico.PERC_INSS">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="block">
+            <label>Indicadores</label>
+            <div class="row">
+                <!--====================Indica Midia-->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="NaturezadeServico.Indica_Midia" />Mídia<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====================Indica NFE-->
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="NaturezadeServico.Indica_NFE" />Nota Fiscal Eletrônica - Prefeitura<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====================Indica NFEE-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="NaturezadeServico.Indica_NFEE" />Nota Fiscal Eletrônica - Estado<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--===================Botoes-->
+        <div class="fixed-buttons-bottom">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success" ng-click="SalvarNaturezadeServico(NaturezadeServico)" ng-disabled="frmNaturezadeServicoCadastro.$invalid">Salvar</button>
+                    <button type="button" class="btn btn-danger" ng-click="ExcluirNaturezadeServico(NaturezadeServico)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
+                    <button type="button" class="btn btn-info" ng-show="NaturezadeServico.Indica_Desativado && Parameters.Action=='Edit'" ng-disabled="!PermissaoDesativar" ng-click="DesativarReativarNaturezadeServico(NaturezadeServico.Cod_Natureza,NaturezadeServico.Cod_Empresa,'R')">Reativar</button>
+                    <button type="button" class="btn btn-info" ng-show="!NaturezadeServico.Indica_Desativado && Parameters.Action=='Edit'" ng-disabled="!PermissaoDesativar" ng-click="DesativarReativarNaturezadeServico(NaturezadeServico.Cod_Natureza,NaturezadeServico.Cod_Empresa,'D')">Desativar</button>
+                    <a href="#/NaturezadeServico" class="btn btn-warning">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
+
+
+

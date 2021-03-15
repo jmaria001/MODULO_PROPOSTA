@@ -21,6 +21,7 @@
         { 'Link': 'Produto', 'Title': 'Produtos' },
         { 'Link': 'Genero', 'Title': 'Generos' },
         { 'Link': 'Rede', 'Title': 'Redes' },
+         { 'Link': 'NaturezadeServico', 'Title': 'Natureza de Serviços' },
     ];
     //===========================fim do load da pagina
     $scope.$watch('$viewContentLoaded', function () {

@@ -464,8 +464,160 @@ input:focus, textarea:focus {
     border-color:orange !important;
     border-style:solid 
 }
+.AppToolTip {
+  position: relative;
+  display: inline-block;
+  /*border-bottom: 1px dotted black;*/ 
+}
+
+.AppToolTip .AppToolTipText {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 1;
+}
+.AppToolTip .AppToolTipRight{
+  top: -5px;
+  left: 130%;
+}
+
+.AppToolTip .AppToolTipLeft{
+  top: -5px;
+  right: 130%;
+}
+
+.AppToolTip .AppToolTipTop{
+  width: 120px;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.AppToolTip .AppToolTipBottom {
+  width: 120px;
+  top: 100%;
+  left: 50%;
+  margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+}
+
+.AppToolTip .AppToolTipTop::after {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+.AppToolTip .AppToolTipBottom::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%;  /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+}
+
+.AppToolTip .AppToolTipRight::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%; /* To the left of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+
+.AppToolTip .AppToolTipLeft::after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 100%; /* To the right of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent transparent black;
+}
+
+/*-------*/
+.AppToolTip:hover .AppToolTipText {
+  visibility: visible;
+}
+
+    .portal-a a{
+    position: absolute;
+    z-index: 8888;
+    font-weight: bold;
+    color: #fff;
+    font-size: 1.4em;
+    padding-left: 22px;
+    display: block;
+    /*width: 160px;
+    height: 40px;*/
+    text-decoration: none;
+}
 
 
+/*.portal-a a:hover{
+    color: blue;
+    border-right: 2px solid #fff;
+}*/
 
+.menu{
+    position: relative;
+    list-style: none;
+    width: 182px;
+    padding: 40px 0;
+    margin: 20px;
+}
+/*.menu:before {
+    content: "";
+    position: absolute;
+    z-index: 10;
+    background: #5b9780;
+    height: 100%;
+    width: 182px;
+    margin-top: -40px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}*/
+.menu li{
+    height: 50px;
+    width: 100%;
+}
+.menu li .submenu{
+    /*width: 152px;*/
+    /*height: 220px;
+    padding: 15px;*/
+    /*margin-top: 16px;*/
+    /*background-color:orange;*/  
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    opacity: 0;
+          
 
-
+    /*-webkit-transition: 1s left,1s width,1s opacity;
+    transition: 1s left, 1s width, 1s opacity;*/
+    /*border-top-right-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;*/
+}
+.menu li:hover .submenu{
+    left: 250px;
+    opacity: 1;
+    width: 276px;
+}

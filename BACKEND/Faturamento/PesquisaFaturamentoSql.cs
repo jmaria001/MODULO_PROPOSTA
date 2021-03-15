@@ -169,8 +169,10 @@ namespace PROPOSTA
                 Fatura.Cod_Cancelamento = dtb.Rows[0]["Cod_Cancelamento"].ToString();
                 Fatura.Obs_Cancelamento = dtb.Rows[0]["Obs_Cancelamento"].ToString();
                 Fatura.Motivo_Cancelamento = dtb.Rows[0]["Motivo_Cancelamento"].ToString();
+                Fatura.Origem = dtb.Rows[0]["Origem"].ToString().ConvertToInt32();
                 Fatura.Duplicatas = AddDuplicatas(dtb.Rows[0]["Numero_Complemento"].ToString().ConvertToInt32(), dtb.Rows[0]["Numero_Rateio"].ToString().ConvertToInt32());
                 Fatura.Composicao = AddComposicaoComplemento(dtb.Rows[0]["Numero_Complemento"].ToString().ConvertToInt32());
+                
             }
             catch (Exception)
             {

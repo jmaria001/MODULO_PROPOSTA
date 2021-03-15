@@ -133,13 +133,17 @@
     $scope.ConfirmarNumeracao = function (pNumeracao) {
         httpService.Post('FitaPatrocinioGravar', pNumeracao).then(function (response) {
             if (response.data) {
-                if (response.data[0].Status) {
-                    ShowAlert('Dados Gravados com Sucesso.');
-                    $scope.CarregaFitasPatrocinio($scope.Filtro);
+                pNumeracao = response.data;
+                $scope.Numeracao = response.data;
+                if (response.data.Status) {
+                    for (var i = 0; i < $scope.FitasPatrocinio.length; i++) {
+                        if ($scope.FitasPatrocinio[i].Id_Registro == pNumeracao.Id_Registro) {
+                            $scope.FitasPatrocinio[i].Numero_Fita = pNumeracao.Numero_Fita;
+                            $scope.FitasPatrocinio[i].Duracao_Cabeca = pNumeracao.Duracao_Cabeca;
+                            $scope.FitasPatrocinio[i].Id_Fita_Patrocinio = pNumeracao.Id_Fita_Patrocinio;
+                        };
+                    };
                     $scope.CancelarNumeracao();
-                }
-                else {
-                    ShowAlert(response.data[0].Mensagem);
                 };
             };
         });

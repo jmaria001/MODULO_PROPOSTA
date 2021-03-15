@@ -26,15 +26,39 @@
             <div class="app-header-navigation app-header-navigation-hover app-navigation-style-blue">
                 <nav id="navMenu">
                     <ul ng-show="Islogged">
-                        <li><a href="#PortalApp" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Portal de Aplicações</a></li>
-                        <li><a href="#portal" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Mural</a></li>
+                        <li>
+                            <a href="#" class="navbar-link"><span class="fa fa-bars" style="display:inline-block;font-size:20px"></span></a>
+                            <ul class="portal-a menu" ng-controller="PortalAppController" style="min-height:500px;background-color:white">
+                                <li ng-repeat="menu in ShortMenus track by $index">
+                                    <a href="">{{menu.Title}}<span class="fa fa-caret-right pull-right" style="display:inline-block;font-size:18px"></span></a>
+                                    <div class="submenu">
+                                        <ul style="display:block;position:relative;min-height:500px;background-color:white">
+                                            <li ng-repeat="subitem in menu.SubItens track by $index">
+                                                <a href={{subitem.Url}} target="_blank">{{subitem.Title}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="#PortalApp" class="navbar-link"><span class="fa fa-home" style="display:inline-block;font-size:20px"></span></a></li>
+                        <li><a href="#portal" class="navbar-link"><span class="fa fa-newspaper-o" style="display:inline-block;font-size:20px"></span></a></li>
                         <li><a href="" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Baixas</a>
                             <ul>
                                 <li><a href="#BaixaVeiculacao" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Baixa por Veiculaçao</a></li>
+                                <li><a href="#BaixaContrato" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Baixa por Contrato</a></li>
                             </ul>
                         </li>
+                        <li><a href="#ConfirmacaoRoteiro"><span class="nav-icon-hexa">Fr</span>Confirmacao do Roteiro</a></li>
                         <li><a href="#RetornoPlayList" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Retorno da Play-List</a></li>
                         <li><a href="#ConsultaVeiculacoes/" class="navbar-link"><span class="nav-icon-hexa">Pr</span>Consulta de Veiculaçoes</a></li>
+                        <li>
+                            <a href="" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Comp.Exibição</a>
+                            <ul>
+                                <li><a href="#GeracaoCE" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Geração</a></li>
+                                <li><a href="#UnderConstrution" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Impressão</a></li>
+                            </ul>
+                        </li>
                         <li ng-controller="loginController"><a href="" ng-click="app_Logout()"><span class="icon-exit"></span> Sair</a></li>
                     </ul>
                 </nav>
@@ -150,6 +174,9 @@
     <script src="angular/Controller/ConsultaVeiculacaoController.js?Hash=V087"></script>
     <script src="angular/Controller/RetornoPlaylistController.js?Hash=V087"></script>
     <script src="angular/Controller/upLoadController.js?Hash=V087"></script>
+    <script src="angular/Controller/BaixaContratoController.js?Hash=V087"></script>
+    <script src="angular/Controller/ConfirmacaoRoteiroController.js?Hash=V087"></script>
+    <script src="angular/Controller/GeracaoCEController.js?Hash=V087"></script>
     <!--====================================================================================PLUGINS -->
     <script src="js/vendor/XTABLES/DataTables-1.10.16/js/jquery.dataTables.js?Hash=V087"></script>
     <script src="js/vendor/XTABLES/DataTables-1.10.16/js/dataTables.bootstrap.min.js?Hash=V087"></script>

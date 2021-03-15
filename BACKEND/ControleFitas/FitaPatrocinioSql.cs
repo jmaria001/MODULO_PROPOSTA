@@ -40,7 +40,7 @@ namespace PROPOSTA
             return dtb;
         }
         //===========================Gravar Fitas Patrocinio
-        public DataTable FitaPatrocinioGravar(FitaPatrocinioModel Param)
+        public FitaPatrocinioModel FitaPatrocinioGravar(FitaPatrocinioModel Param)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
@@ -49,6 +49,7 @@ namespace PROPOSTA
             SimLib clsLib = new SimLib();
             try
             {
+                Param.Permite_Reutilizar = false;
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Fita_Patrocinio_Gravar");
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
@@ -70,8 +71,13 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Obs_Texto", Param.Obs_Texto);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Titulo_Texto", Param.Titulo_Texto);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Apresentador", Param.Id_Apresentador);
-
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Reutilizar", Param.Indica_Reutilizar);
                 Adp.Fill(dtb);
+                Param.Permite_Reutilizar = dtb.Rows[0]["Permite_Reutilizar"].ToString().ConvertToBoolean();
+                Param.Indica_Reutilizar = false;
+                Param.Status = dtb.Rows[0]["Status"].ToString().ConvertToBoolean();
+                Param.Mensagem= dtb.Rows[0]["Mensagem"].ToString();
+                Param.Id_Fita_Patrocinio = dtb.Rows[0]["Id_Fita_Patrocinio"].ToString().ConvertToInt32();
             }
             catch (Exception)
             {
@@ -81,7 +87,7 @@ namespace PROPOSTA
             {
                 cnn.Close();
             }
-            return dtb;
+            return Param;
         }
         //===========================Procurar Fita Disponivel
         public DataTable FitaPatrocinioProcurarFita(FitaPatrocinioModel Param)

@@ -150,6 +150,9 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Tipo_Midia", Param.Tipo_Midia);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Tipo_Comercial", Param.Cod_Tipo_Comercial);
                 Adp.Fill(dtb);
+
+                SqlCommand cmdDelete = cnn.Text(cnn.Connection, "Delete From Reserva_Fita Where Cod_Usuario = '" + this.CurrentUser + "'");
+                cmdDelete.ExecuteNonQuery();
             }
             catch (Exception)
             {

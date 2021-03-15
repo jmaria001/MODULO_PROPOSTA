@@ -94,10 +94,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="angular\Controller\BaixaContratoController.js" />
     <Content Include="angular\Controller\BaixaVeiculacoesController.js" />
     <Content Include="angular\Controller\ComplementoOutrasReceitas.js" />
     <Content Include="angular\Controller\ComplementoContrato.js" />
     <Content Include="angular\Controller\ComplementoContratoPesquisaController.js" />
+    <Content Include="angular\Controller\ConfirmacaoRoteiroController.js" />
     <Content Include="angular\Controller\ConsultaProgramacaoDiariaController.js" />
     <Content Include="angular\Controller\ConsultaProgramacaoDiariaDetalheController.js" />
     <Content Include="angular\Controller\DepositorioFitasCadastroController.js" />
@@ -105,16 +107,21 @@
     <Content Include="angular\Controller\EnvioPlaylistController.js" />
     <Content Include="angular\Controller\FaturasPesquisaController.js" />
     <Content Include="angular\Controller\FitaPatrocinioController.js" />
+    <Content Include="angular\Controller\GeracaoCEController.js" />
     <Content Include="angular\Controller\GeracaoFaturaController.js" />
     <Content Include="angular\Controller\indexController.js" />
     <Content Include="angular\Controller\MateriaisFitasCadastroController.js" />
     <Content Include="angular\Controller\MateriaisFitasController.js" />
     <Content Include="angular\Controller\ConsultaVeiculacaoController.js" />
+    <Content Include="angular\Controller\NaturezadeServicoCadastroController.js" />
+    <Content Include="angular\Controller\NaturezadeServicoController.js" />
     <Content Include="angular\Controller\NumeracaoFitasCadastroController.js" />
     <Content Include="angular\Controller\NumeracaoFitasController.js" />
     <Content Include="angular\Controller\RetornoPlaylistController.js" />
-    <Content Include="css\AppToolTip.css" />
+    <Content Include="css\custom - Copy.css" />
     <Content Include="Index.html" />
+    <Content Include="IndexAdm - Copy %282%29.html" />
+    <Content Include="IndexAdm - Copy.html" />
     <Content Include="IndexChecking.html" />
     <Content Include="IndexFaturamento.html" />
     <Content Include="IndexRoteiro.html" />
@@ -279,10 +286,12 @@
     <Content Include="template\PesquisaGradeCompensacao.html" />
     <Content Include="view\Am_Consulta.html" />
     <Content Include="view\Am_Reencaixe.html" />
+    <Content Include="view\BaixaContrato.html" />
     <Content Include="view\BaixaVeiculacoes.html" />
     <Content Include="view\ComplementoOutrasReceitas.html" />
     <Content Include="view\ComplementoContrato.html" />
     <Content Include="view\ComplementoContratoPesquisa.html" />
+    <Content Include="view\ConfirmacaoRoteiro.html" />
     <Content Include="view\ConsultaProgramacaoDiaria.html" />
     <Content Include="view\ConsultaProgramacaoDiariaDetalhe.html" />
     <Content Include="view\DashboardTeste.html" />
@@ -295,6 +304,7 @@
     <Content Include="view\FitaPatrocinio.html" />
     <Content Include="view\Genero.html" />
     <Content Include="view\GeneroCadastro.html" />
+    <Content Include="view\GeracaoCE.html" />
     <Content Include="view\GeracaoFatura.html" />
     <Content Include="view\GradeCadastro - Copy.html" />
     <Content Include="view\GradeCadastro.html" />
@@ -304,6 +314,8 @@
     <Content Include="view\MateriaisFitas.html" />
     <Content Include="view\MateriaisFitasCadastro.html" />
     <Content Include="view\MenuDashboard.html" />
+    <Content Include="view\NaturezadeServico.html" />
+    <Content Include="view\NaturezadeServicoCadastro.html" />
     <Content Include="view\NumeracaoFitas.html" />
     <Content Include="view\NumeracaoFitasCadastro.html" />
     <Content Include="view\PARAM.xml" />

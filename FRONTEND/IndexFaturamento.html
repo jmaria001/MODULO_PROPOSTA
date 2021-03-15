@@ -26,8 +26,23 @@
             <div class="app-header-navigation app-header-navigation-hover app-navigation-style-blue">
                 <nav id="navMenu">
                     <ul ng-show="Islogged">
-                        <li><a href="#PortalApp" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Portal de Aplicações</a></li>
-                        <li><a href="#portal" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Mural</a></li>
+                        <li>
+                            <a href="#" class="navbar-link"><span class="fa fa-bars" style="display:inline-block;font-size:20px"></span></a>
+                            <ul class="portal-a menu" ng-controller="PortalAppController" style="min-height:500px;background-color:white">
+                                <li ng-repeat="menu in ShortMenus track by $index">
+                                    <a href="">{{menu.Title}}<span class="fa fa-caret-right pull-right" style="display:inline-block;font-size:18px"></span></a>
+                                    <div class="submenu">
+                                        <ul style="display:block;position:relative;min-height:500px;background-color:white">
+                                            <li ng-repeat="subitem in menu.SubItens track by $index">
+                                                <a href={{subitem.Url}} target="_blank">{{subitem.Title}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="#PortalApp" class="navbar-link"><span class="fa fa-home" style="display:inline-block;font-size:20px"></span></a></li>
+                        <li><a href="#portal" class="navbar-link"><span class="fa fa-newspaper-o" style="display:inline-block;font-size:20px"></span></a></li>
                         <li><a href="" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Complementos</a>
                             <ul>
                                 <li><a href="#ComplementoContrato/1" class="navbar-link"><span class="nav-icon-hexa">Pt</span>Complementar Contrato</a></li>

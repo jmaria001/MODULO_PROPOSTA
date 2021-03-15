@@ -338,6 +338,20 @@
                                           ng-model-options="{updateOn: 'blur'}" />
                             </div>
                         </div>
+                    </div>  
+                    <!--=============================Confirmacao de Reutilizar-->
+                    
+                    <div class="col-row" style="margin-top:20px" ng-show="Numeracao.Mensagem">
+                        <div class="alert alert-default">
+                            <span style="color:red"> {{Numeracao.Mensagem}}</span>
+                            <div class="form-group" ng-show="Numeracao.Permite_Reutilizar">
+                                <div class="input-group">
+                                    <div class="app-checkbox">
+                                        <label><input type="checkbox" name="app-checkbox-1" ng-model="Numeracao.Indica_Reutilizar" />Utiliar mesmo Número ? <span></span></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!--=============================Botoes da Numeracao-->
                     <div class="row margin-top-20">
@@ -346,7 +360,7 @@
                             <button class="btn btn-warning" ng-click="CancelarNumeracao()">Cancelar</button>
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
         <!--==================================Contratos da Fita-->
@@ -366,11 +380,6 @@
                                     <td><strong>Veículo:</strong>{{Contrato.Cod_Veiculo}}-{{Contrato.Nome_Veiculo}}</td>
                                     <td><strong>Programa:</strong>{{Contrato.Cod_Programa}}-{{Contrato.Nome_Programa}}</td>
                                 </tr>
-                                <!--<tr>
-                                    <td><strong>Tipo do Comercial:</strong>{{Contrato.Cod_Tipo_Comercial}}-{{Contrato.Nome_Tipo_Comercial}}</td>
-                                    <td><strong>Número da Fita:</strong>{{Contrato.Numero_Fita}}</td>
-                                    <td><strong>Duração Total:</strong>{{Contrato.Duracao_Total}}</td>
-                                </tr>-->
 
                             </tbody>
                         </table>

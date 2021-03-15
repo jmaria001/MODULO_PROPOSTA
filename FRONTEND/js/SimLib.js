@@ -46,12 +46,23 @@ function ShowAlert(pMensagem, pType, pTimeout, pLayoyt) {
     if (!pType) {
         pType="warning"
     }
-    //nao mostrar mais icones de warning/erros
     if (pType=='warning' || pType=='error') {
         pType   = ""
     }
+    //setTimeout(function () {
+    //    swal('', pMensagem, pType);
+    //}, 100)
     setTimeout(function () {
-        swal('', pMensagem, pType);
+        swal({
+            title: '',
+            text:pMensagem,
+        }, function () {
+            var close = window.swal.close;
+            window.swal.close = function () {
+                close();
+                window.onkeydown = null;
+            };
+        });
     }, 100)
 }
 

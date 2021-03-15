@@ -749,6 +749,13 @@
         routeName: 'Geração de Faturas',
         RouteId: 'Fatura@Geracao'
     })
+    .when('/GeracaoCE', {
+        templateUrl: 'view/GeracaoCE.html',
+        authorize: true,
+        controller: 'GeracaoCEController',
+        routeName: 'Geração do Comprovante de Exibição',
+        RouteId: 'Geracao@Ce'
+    })
     .when('/DepositorioFitas', {
         templateUrl: 'view/DepositorioFitas.html',
         controller: 'DepositorioFitasController',
@@ -811,7 +818,47 @@
     controller: 'RetornoPlayListController',
     routeName: 'Parametrização do Retorno da PlayList',
     RouteId: 'Retorno@PlayList'
-})
+    })
+         .when('/BaixaContrato', {
+             templateUrl: 'view/BaixaContrato.html',
+             authorize: true,
+             controller: 'BaixaContratoController',
+             routeName: 'Baixa por Contrato',
+             RouteId: 'baixa@contrato'
+         })
+
+    .when('/NaturezadeServico', {
+        templateUrl: 'view/NaturezadeServico.html',
+        authorize: true,
+        controller: 'NaturezadeServicoController',
+        routeName: 'Cadastro de Natureza de Serviço',
+        RouteId: 'Natureza@Index'
+    })
+
+
+    .when('/NaturezadeServicoCadastro/:Action/:Cod_Natureza/:Cod_Empresa', {
+        templateUrl: 'view/NaturezadeServicoCadastro.html',
+        authorize: true,
+        controller: 'NaturezadeServicoCadastroController',
+        routeName: 'Manutenção de Natureza de Serviço',
+        RouteId: 'Natureza@Index'
+    })
+
+    .when('/NaturezadeServicoCadastro', {
+        templateUrl: 'view/NaturezadeServicoCadastro.html',
+        authorize: true,
+        controller: 'NaturezadeServicoCadastroController',
+        routeName: 'Manutenção de Natureza de Serviço',
+        RouteId:  'Natureza@Index'
+    })
+    .when('/ConfirmacaoRoteiro', {
+        templateUrl: 'view/ConfirmacaoRoteiro.html',
+        authorize: true,
+        controller: 'ConfirmacaoRoteiroController',
+        routeName: 'Confirmacao do Roteiro',
+        RouteId: 'Roteiro@Confirmacao'
+    })
+
     .otherwise({ redirectTo: "/blank" })
 });
 

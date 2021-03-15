@@ -9,12 +9,12 @@ namespace PROPOSTA
 
         //=================================Lista de Fitas Avulsos e Artistico
         [Route("api/NumeracaoFitasListar")]
-        [HttpGet]
+        [HttpPost]
         [ActionName("NumeracaoFitasListar")]
         [Authorize()]
 
 
-        public IHttpActionResult NumeracaoFitasListar([FromUri]NumeracaoFitas.FiltroModel filtro)
+        public IHttpActionResult NumeracaoFitasListar([FromBody]NumeracaoFitas.FiltroModel filtro)
         {
             SimLib clsLib = new SimLib();
             NumeracaoFitas Cls = new NumeracaoFitas(User.Identity.Name);
@@ -34,23 +34,17 @@ namespace PROPOSTA
 
 
         [Route("api/ExibirVeiculosFitas")]
-        [HttpGet]
+        [HttpPost]
         [ActionName("ExibirVeiculosFitas")]
         [Authorize()]
-        public IHttpActionResult ExibirVeiculosFitas([FromUri]NumeracaoFitas.FiltroExibirVeiculoModel pfiltro)
+        public IHttpActionResult ExibirVeiculosFitas([FromBody]NumeracaoFitas.FiltroExibirVeiculoModel pfiltro)
         {
             SimLib clsLib = new SimLib();
             NumeracaoFitas Cls = new NumeracaoFitas(User.Identity.Name);
             try
             {
-                //DataTable dtb = Cls.ExibirVeiculosFitas(pfiltro);
-
                 List<NumeracaoFitas.FiltroExibirVeiculoModel> Retorno = Cls.ExibirVeiculosFitas(pfiltro);
                 return Ok(Retorno);
-
-                //return Ok(dtb);
-
-
             }
             catch (Exception Ex)
             {
@@ -121,7 +115,6 @@ namespace PROPOSTA
         }
 
         //===========================Salvar Numeração de Fitas
-
         [Route("api/SalvarNumeracaoFitas")]
         [HttpPost]
         [ActionName("SalvarNumeracaoFitas")]
@@ -142,7 +135,27 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
+        //===========================Excluir Numeração de Fitas
+        [Route("api/ExcluirNumeracaoFitas")]
+        [HttpPost]
+        [ActionName("ExcluirNumeracaoFitas")]
+        [Authorize()]
 
+        public IHttpActionResult ExcluirNumeracaoFitas([FromBody] NumeracaoFitas.NumeracaoFitasModel pNumeracaoFitas)
+        {
+            SimLib clsLib = new SimLib();
+            NumeracaoFitas Cls = new NumeracaoFitas(User.Identity.Name);
+            try
+            {
+                Cls.ExcluirNumeracaoFitas(pNumeracaoFitas);
+                return Ok(true);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
 
 
     }

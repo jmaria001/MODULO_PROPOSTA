@@ -1,0 +1,126 @@
+﻿<style>
+    td
+    {
+        white-space:nowrap;
+    }
+</style>
+<div class="container">
+    <div class="block">
+        <form id="frmNaturezadeServico" autocomplete="off">
+            <!--<button type="button" id="btnNovoNaturezadeServico" class="btn btn-primary" style="display:none" ng-click="NovoNaturezadeServico()">Novo Filtro</button>-->
+            <!--<button type="button" id="btnNovoFiltro" class="btn btn-primary" style="display:none" ng-click="CurrentShow='Filtro'">Novo Filtro</button>-->
+            <button type="button" id="btnNovoFiltro" class="btn btn-warning" style="display:none" ng-click="CurrentShow='Filtro';Filtro=NewFiltro()">Novo Filtro</button>
+            <!--==============================================Filtros-->
+            <div class="box" ng-show="CurrentShow=='Filtro'">
+                <div class="alert alert-info alert-icon-block" role="alert">
+                    <div class="alert-icon">
+                        <span class="fa fa-filter"></span>
+                    </div>
+                    <strong>Filtros</strong>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-2" ng-controller="dictionaryController">
+                        <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Faturamento">
+                            <input id="txtCodEmpresaFaturamento"
+                                   ng-model="Filtro.Cod_Empresa"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCodEmpresaFaturamento')"
+                                   primarybind="txtCodEmpresaFaturamento"
+                                   secondarybind="txtNomeEmpresaFaturamento">
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="txtNomeEmpresa" class="field-x" style="visibility:hidden">..</label>
+                            <div class="input-group">
+                                <input type="text" disabled="disabled" id="txtNomeEmpresaFaturamento" class="form-control " ng-model="Filtro.Nome_Empresa_Faturamento">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--========================Botoes-->
+                <div class="row margin-top-20">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-success" ng-click="CarregarNaturezadeServico(Filtro)">Filtrar</button>
+                        <button type="button" class="btn btn-warning" ng-click="Filtro=NewFiltro()">Limpar Filtros</button>
+                        <!--<a id="btnNovoNaturezadeServicoCadastro" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#NaturezadeServicoCadastro/New/0">Novo Natureza de Serviço</a>-->
+                        <a id="btnNovoNaturezadeServicoCadastro" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#NaturezadeServicoCadastro">Novo Natureza de Serviço</a>
+                          
+                    </div>
+                </div>
+            </div>
+
+            <!--==============================================Grid -->
+            <div class="box table-responsive " style="min-height:600px" ng-show="CurrentShow=='Grid'">
+                <table id="dataTable" class="table table-striped table-bordered " cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Código</th>
+                            <th>Descrição</th>
+                            <th>Código Atividade</th>
+                            <th>Status</th>
+                            <th>Mídia</th>
+                            <th>%ISS</th>
+                            <th>NFep</th>
+                            <th>NFee</th>
+                            <th>Hist.</th>
+                            <th>IR</th>
+                            <th>CS</th>
+                            <th>COFINS</th>
+                            <th>PIS</th>
+                            <th>INSS</th>
+                            <th>Data Desativação</th>
+                            <th>Usuario</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="NaturezadeServico in NaturezadeServicoS track by $index" on-finish-render="ngRepeatFinished">
+                            <td style="width:50px;text-align:center">
+
+                                <a href="#NaturezadeServicoCadastro/Edit/{{NaturezadeServico.Cod_Natureza}}/{{NaturezadeServico.Cod_Empresa}}" ng-show="PermissaoEdit">
+                                    <span class="fa fa-edit fa-2x"></span>
+                                </a>
+                            </td>
+
+                            <td>{{::NaturezadeServico.Cod_Natureza}}</td>
+                            <td>{{::NaturezadeServico.Descricao}} </td>
+                            <td>{{::NaturezadeServico.Cod_Atividade}}</td>
+                            <td>
+                                <label class="label label-success" ng-show="!NaturezadeServico.Indica_Desativado" style="display:inline-block;width:80px">Ativo</label>
+                                <label class="label label-danger" ng-show="NaturezadeServico.Indica_Desativado"  style="display:inline-block;width:80px">Inativo</label>
+                            </td>
+                            <td style="text-align:center">
+                                <label ng-show="NaturezadeServico.Indica_Midia"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                            </td>
+                            <td>{{::NaturezadeServico.Percentual_Iss  |number:2}}% </td>
+                            <td style="text-align:center">
+                                <label ng-show="NaturezadeServico.Indica_NFE"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                            </td>
+                            <td style="text-align:center">
+                                <label ng-show="NaturezadeServico.Indica_NFEE"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                            </td>
+                            <td>{{::NaturezadeServico.Cod_Historico}}</td>
+                            <td>{{::NaturezadeServico.Perc_IR  |number:2}}%     </td>
+                            <td>{{::NaturezadeServico.Perc_CS |number:2}}%    </td>
+                            <td>{{::NaturezadeServico.Perc_COFINS |number:2}}% </td>
+                            <td>{{::NaturezadeServico.Perc_PIS |number:2}}%     </td>
+                            <td>{{::NaturezadeServico.PERC_INSS |number:2}}%   </td>
+                            <td>{{::NaturezadeServico.Data_Desativacao  | date:"dd/MM/yyyy"}} </td>
+                            <td>{{::NaturezadeServico.Cod_Usuario_Desativacao}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

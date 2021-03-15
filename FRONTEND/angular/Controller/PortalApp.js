@@ -1,4 +1,4 @@
-﻿angular.module('App').controller('PortalAppController', ['$scope', '$rootScope', 'tokenApi', 'httpService',  '$location', function ($scope, $rootScope, tokenApi, httpService, $location) {
+﻿angular.module('App').controller('PortalAppController', ['$scope', '$rootScope', 'tokenApi', 'httpService', '$location', function ($scope, $rootScope, tokenApi, httpService, $location) {
     $scope.AppModulos = [
         {
             'Id': 1,
@@ -63,6 +63,92 @@
             'url': 'indexFaturamento.html'
         },
     ];
+    $scope.ShortMenus = [
+        {
+            'Title': 'DashBoard',
+            'SubItens': [
+                { 'Title': 'Evolução de Vendas', 'Url': $rootScope.pageUrl + 'indexDash.html#/EvolucaoVendas' },
+                { 'Title': 'Funil de Vendas', 'Url': $rootScope.pageUrl + 'indexDash.html#/FunilVendas' },
+                { 'Title': 'Gráfico de Vendas', 'Url': $rootScope.pageUrl + 'indexDash.html#/GraficoVendas' },
+                { 'Title': 'Power-Bi', 'Url': 'https://app.powerbi.com/view?r=eyJrIjoiNTk0MmVhMGItODBmOS00NWFlLTllZTEtZTQxZjdmOTRmNDdlIiwidCI6ImIyMWNiNTRlLTM1YzEtNDkwZi05OWRkLTBkNmQ4ODYwZTAyYSJ9&pageName=ReportSection' }
+            ],
+        },
+        {
+            'Title': 'Administração',
+            'SubItens': [
+                { 'Title': 'Usuários', 'Url': $rootScope.pageUrl + 'IndexAdm.html#/usuario' },
+                { 'Title': 'Parâmetros Gerais', 'Url': $rootScope.pageUrl + 'IndexAdm.html#/Parametro' },
+                { 'Title': 'Parâmetros de Valoração', 'Url': $rootScope.pageUrl + 'IndexAdm.html#/ParametroValoracao' },
+                { 'Title': 'Cadastros', 'Url': $rootScope.pageUrl + 'IndexAdm.html#/cadastro' },
+            ],
+        },
+        {
+            'Title': 'Opec',
+            'SubItens': [
+                { 'Title': 'Manutenção de Mapa Reserva', 'Url': $rootScope.pageUrl + 'IndexOpec.html#/MapaReserva' },
+                { 'Title': 'Importar Propostas', 'Url': $rootScope.pageUrl + 'IndexOpec.html#/MapaReservaImport' },
+                { 'Title': 'Consulta de Veiculações', 'Url': $rootScope.pageUrl + 'IndexOpec.html#/ConsultaVeiculacoes' },
+            ],
+        },
+        {
+            'Title': 'Vendas',
+            'SubItens': [
+                { 'Title': 'Modelo de Vendas', 'Url': $rootScope.pageUrl + 'IndexVendas.html#/Simulacao' },
+                { 'Title': 'Propostas   ', 'Url': $rootScope.pageUrl + 'IndexVendas.html#/Proposta' },
+                { 'Title': 'Negociações', 'Url': $rootScope.pageUrl + 'IndexVendas.html#/Negociações' },
+                { 'Title': "Manutenção de Am's", 'Url': $rootScope.pageUrl + 'IndexVendas.html#/ConsultaAM' },
+                { 'Title': "Pacote de Descontos", 'Url': $rootScope.pageUrl + 'IndexVendas.html#/pacote' },
+                { 'Title': "Regras de Aprovação", 'Url': $rootScope.pageUrl + 'IndexVendas.html#/regraaprovacao' },
+            ],
+        },
+        {
+            'Title': 'Programação',
+            'SubItens': [
+                { 'Title': 'Manutenção da Grade', 'Url': $rootScope.pageUrl + 'IndexProg.html#/Grade' },
+                { 'Title': 'Consulta da Disponibilidade', 'Url': $rootScope.pageUrl + 'IndexProg.html#/ConsultaProgramacaoDiaria' },
+            ],
+        },
+        {
+            'Title': 'Roteiro',
+            'SubItens': [
+                { 'Title': 'Parâmetros do Roteiro', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/ParamRoteiro' },
+                { 'Title': 'Parâmetros de Retorno da Play-List', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/ParRetorPlayList' },
+                { 'Title': 'Depositórios', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/DepositorioFitas' },
+                { 'Title': 'Materiais', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/MateriaisFitas' },
+                { 'Title': 'Numeração de Fitas', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/NumeracaoFitas' },
+                { 'Title': 'Numeração de Fitas Patrocínio', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/FitaPatrocinio' },
+                { 'Title': 'Consulta de Veiculações', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/ConsultaVeiculacoes' },
+                { 'Title': 'Pré-Ordenação', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/PreOrdenacao' },
+                { 'Title': 'Ordenação', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/Roteiro' },
+                { 'Title': 'Composição de Breaks', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/Breaks' },
+                { 'Title': 'Envio Play-List', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/EnvioPlayList' },
+            ],
+        },
+        {
+            'Title': 'Checking',
+            'SubItens': [
+                { 'Title': 'Baixa por Veiculação', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/BaixaVeiculacao' },
+                { 'Title': 'Baixa por Contrato', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/BaixaContrato' },
+                { 'Title': 'Confirmação do Roteiro', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/ConfirmacaoRoteiro' },
+                { 'Title': 'Retorno da Play-List', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/RetornoPlayList' },
+                { 'Title': 'Consulta de Veiculações', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/ConsultaVeiculacoes' },
+                { 'Title': 'Geração do Comprovante', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/GeracaoCE' },
+                { 'Title': 'Impressão do Comprovante', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/UnderConstrution' },
+            ],
+        },
+        {
+            'Title': 'Faturamento',
+            'SubItens': [
+                { 'Title': 'Complemento de Contratos', 'Url': $rootScope.pageUrl + 'IndexFaturamento.html#/ComplementoContrato/1' },
+                { 'Title': 'Complemento de Antecipados', 'Url': $rootScope.pageUrl + 'IndexFaturamento.html#/ComplementoContrato/0' },
+                { 'Title': 'Outras Receitas', 'Url': $rootScope.pageUrl + 'IndexFaturamento.html#/ComplementoOutrasReceitas' },
+                { 'Title': 'Pesquisa de Complementos', 'Url': $rootScope.pageUrl + 'IndexFaturamento.html#/ComplementoContratoPesquisa' },
+                { 'Title': 'Geração de Faturas', 'Url': $rootScope.pageUrl + 'IndexFaturamento.html#/FaturaGeracao' },
+                { 'Title': 'Pesquisa de Faturas', 'Url': $rootScope.pageUrl + 'IndexFaturamento.html#/FaturasPesquisa' },
+
+            ],
+        },
+    ]
 }]);
 
 

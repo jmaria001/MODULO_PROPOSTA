@@ -30,6 +30,7 @@ namespace PROPOSTA
             public String Competencia{get; set;}
             public String Competencia_String{get; set;}
             public Int32 Id_Fita_Patrocinio{get; set;}
+            public Int32 Id_Registro{ get; set; }
             public String Cod_Veiculo{get; set;}
             public String Nome_Veiculo{get; set;}
             public String Cod_Programa{get; set;}
@@ -49,6 +50,11 @@ namespace PROPOSTA
             public String Nome_Apresentador{get; set;}
             public String Cod_Apresentador { get; set; }
             public Boolean Indica_Desativada { get; set; }
+            public Boolean Status { get; set; }
+            public String Mensagem { get; set; }
+            public Boolean Indica_Reutilizar { get; set; }
+            public Boolean Permite_Reutilizar { get; set; }
+
         }
     }
 }

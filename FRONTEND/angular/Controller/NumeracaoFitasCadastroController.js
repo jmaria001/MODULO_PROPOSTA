@@ -1,6 +1,5 @@
 ﻿angular.module('App').controller('NumeracaoFitasCadastroController', ['$scope', '$rootScope', 'httpService', '$location', '$timeout', '$routeParams', function ($scope, $rootScope, httpService, $location, $timeout, $routeParams) {
     //====================Inicializa scopes
-    $scope.Parameters = $routeParams;
     $scope.ShowGrid = false;
     $scope.NumeroFitasS = "";
     //$scope.NumeroFitas = "";
@@ -9,8 +8,8 @@
     $scope.NumeracaoFitas = "";
     $scope.NumeracaoFitasS = "";
         
-    //====================Carrega o Grid
-    $scope.CarregarNumerarFitas = function () {
+    //====================Carrega o Grid de fitas por Veiculo / Numeracao
+    $scope.CarregarNumerarFitas = function (pFita) {
         $rootScope.routeloading = true;
         $scope.NumeracaoFitasS = [];
         $scope.ShowGrid = '';
@@ -44,20 +43,12 @@
     };
     //=====================Carregar Numero de Fita 
     $scope.CarregarNumero = function (pNumero_Fita) {
-
-
         var vCod_Veiculo = pNumero_Fita.Cod_Veiculo;
         var tipo_fita = 'CO';
-
-
         if (pNumero_Fita.Cod_Veiculo == null && pNumero_Fita.Cod_Veiculo == undefined) {
-
-
             ShowAlert("Para utilizar numeração automática, primeiro selecione um veiculo");
             return;
         }
-
-
         var _data = {
             'Cod_Veiculo': pNumero_Fita.Cod_Veiculo,
             'Tipo_Fita': tipo_fita,
@@ -66,25 +57,20 @@
         };
         httpService.Post("RangeFitaNumeracao", _data).then(function (response) {
             if (response) {
-
                 if (response.data[0].Status == 0) {
-
-
                     ShowAlert('Veículo não esta parametrizado corretamente em Paramêtros de Numeração de Fitas');
                     return;
                 }
                 else {
-
                     for (var i = 0; i < $scope.NumeracaoFitasS.length; i++) {
 
                         if (vCod_Veiculo == $scope.NumeracaoFitasS[i].Cod_Veiculo) {
                             $scope.NumeracaoFitasS[i].Numero_Fita = response.data[0].Numero_Fita;
-                        }
-                        
-                    }
-                }
-            }
-        })
+                        };
+                    };
+                };
+            };
+        });
     };
 
     //=======================Validacao de Apresentadores
@@ -100,7 +86,6 @@
             }
         });
     };
-
     //=======================Selecao de Apresentadores
     $scope.PesquisaApresentador = function (pParam) {
         var vCod_Veiculo = pParam.Cod_Veiculo;
@@ -116,31 +101,23 @@
             $scope.PesquisaTabelas.Titulo = "Seleção de Apresentador"
             $scope.PesquisaTabelas.MultiSelect = false;
             $scope.PesquisaTabelas.ClickCallBack = function (value) {
-
                 for (var i = 0; i < $scope.NumeracaoFitasS.length; i++) {
                     if (vCod_Veiculo == $scope.NumeracaoFitasS[i].Cod_Veiculo) {
                         $scope.NumeracaoFitasS[i].Cod_Apresentador = value.Codigo;
-                    }
-                }
+                    };
+                };
             },
                 $("#modalTabela").modal(true);
         });
     };
-
-
     //======================= Gravar as fitas numeradas
-
     $scope.SalvarFitasNumeradas = function (pParam) {
-        
-
         for (var i = 0; i < pParam.length; i++) {
-           
             if (pParam[i].Numero_Fita == null && pParam[i].Numero_Fita == undefined) {
-
-                ShowAlert("Veículo:"+pParam[i].Cod_Veiculo+ " Nenhum Numero de Fita foi Informado");
+                ShowAlert("Veículo:" + pParam[i].Cod_Veiculo + " Nenhum Numero de Fita foi Informado");
                 return;
-            }
-        }
+            };
+        };
         httpService.Post("SalvarNumeracaoFitas", pParam).then(function (response) {
             if (response) {
 
@@ -150,22 +127,14 @@
                 }
                 else {
                     ShowAlert(response.data[0].Mensagem, 'warning');
-                }
-            }
+                };
+            };
         })
-
-
     };
-
-
-
-
-
     //===========================Evento chamado ao fim do ngrepeat ao carregar grid 
     $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
         $scope.RepeatFinished();
     });
-
     //===========================fim do load da pagina
     $scope.$watch('$viewContentLoaded', function () {
         $rootScope.routeloading = false;

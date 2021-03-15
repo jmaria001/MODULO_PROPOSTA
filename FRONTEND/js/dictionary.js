@@ -39,6 +39,7 @@ function GetDictionary() {
                         { 'Id': 'Produto', 'label': 'Produto', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'numeric' } },
                         { 'Id': 'Tipo_Comercial', 'label': 'Tipo de Comercial', 'icon': 'search', 'atributos': { 'maxlength': '2', 'type': 'text', 'keymode': 'text' } },
                         { 'Id': 'Qualidade', 'label': 'Tipo de Comercial', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'text' } },
+                        { 'Id': 'Historico', 'label': 'Historico', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'text' } },
     ];
 
     //==============Config html
@@ -238,7 +239,6 @@ function GetDictionary() {
         this.value = cnpjUnformat(this.value);
     });
     $(".time").focus(function () {
-        console.log("time");
         this.value = TimeUnformat(this.value);
     });
     

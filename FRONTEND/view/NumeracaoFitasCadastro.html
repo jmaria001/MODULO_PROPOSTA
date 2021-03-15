@@ -1,28 +1,22 @@
 ﻿<div class="container">
     <div class="block">
-       
+
         <form id="frmNumeracaoFitasCadastro" autocomplete="off">
-
             <!--==============================================Grid -->
-
             <div class="box table-responsive " style="min-height:300px" ng-show="CurrentShow=='Grid'">
-
                 <!------- Cabeçalho ------------->
                 <div class="row margin-top-20 col-md-13">
                     <div class="alert alert-info alert-icon-block text-center" role="alert">
                         <strong>Contrato: {{NumeracaoFitasS[0].Numero_Mr}} Sequência: {{NumeracaoFitasS[0].Sequencia_Mr}} Cod.Comercial:  {{NumeracaoFitasS[0].Cod_Comercial}}</strong>
                     </div>
                 </div>
-
                 <table id="dataTable" class="table table-striped table-bordered" cellspacing="0">
                     <thead>
                         <tr>
-                            <th style="width:100px" >Veiculo</th>
+                            <th style="width:100px">Veiculo</th>
                             <th style="width:200px">Numero Fita</th>
                             <th>Arquivo</th>
                             <th>Apresentador</th>
-
-
                         </tr>
                     </thead>
                     <tbody>
@@ -33,37 +27,35 @@
                                 </div>
                             </td>
                             <td>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control numeric" id="txtNumeroFita"
-                                               ng-change="FormataNumeroFita(NumeracaoFitas)"
-                                               ng-model="NumeracaoFitas.Numero_Fita"
-                                               maxlength="10"
-                                               ng-model-options="{updateOn: 'blur'}" />
-                                        <div class="input-group-addon">
-                                            <span class="fa fa-calculator span-btn" ng-click="CarregarNumero(NumeracaoFitas)"></span>
-                                        </div>
+                                <div class="input-group">
+                                    <input type="text" class="form-control numeric" id="txtNumeroFita"
+                                           ng-change="FormataNumeroFita(NumeracaoFitas)"
+                                           ng-model="NumeracaoFitas.Numero_Fita"
+                                           maxlength="10"
+                                           ng-model-options="{updateOn: 'blur'}" />
+                                    <div class="input-group-addon">
+                                        <span class="fa fa-calculator span-btn" ng-click="CarregarNumero(NumeracaoFitas)"></span>
                                     </div>
+                                </div>
                             </td>
                             <td>
                                 <div class="input-group">
                                     <input type="text" id="txtArquivo" class="form-control" ng-model="NumeracaoFitas.Localizacao" ng-model-options="{updateOn: 'blur'}">
                                 </div>
                             </td>
-
                             <td>
-                                
-                                    <div class="input-group">
-                                        <input type="text" class="form-control"
-                                               ng-model="NumeracaoFitas.Cod_Apresentador"
-                                               maxlength="6"
-                                               style="text-transform:uppercase"
-                                               ng-change="ValidarApresentador(NumeracaoFitas)"
-                                               ng-model-options="{updateOn: 'blur'}" />
-                                        <div class="input-group-addon">
-                                            <span class="fa fa-search span-btn" ng-click="PesquisaApresentador(NumeracaoFitas)"></span>
-                                        </div>
+                                <div class="input-group">
+                                    <input type="text" class="form-control"
+                                           ng-model="NumeracaoFitas.Cod_Apresentador"
+                                           maxlength="6"
+                                           style="text-transform:uppercase"
+                                           ng-change="ValidarApresentador(NumeracaoFitas)"
+                                           ng-model-options="{updateOn: 'blur'}" />
+                                    <div class="input-group-addon">
+                                        <span class="fa fa-search span-btn" ng-click="PesquisaApresentador(NumeracaoFitas)"></span>
                                     </div>
-                                
+                                </div>
+
                             </td>
                         </tr>
                     </tbody>
