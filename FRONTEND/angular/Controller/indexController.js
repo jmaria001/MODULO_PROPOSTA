@@ -39,6 +39,7 @@ angular.module('App').controller('IndexController', ['$scope', '$rootScope', '$c
     });
     //==================================Funcao para achar empresa default do usuario
     $scope.FnSetEmpresaDefault = function (ptipo) {
+        console.log($rootScope.UserData);
         if ($rootScope.UserData) {
             if (ptipo.toUpperCase() == 'CODIGO') {
                 return $rootScope.UserData.Cod_Empresa;

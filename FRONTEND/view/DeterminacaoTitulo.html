@@ -1,0 +1,120 @@
+﻿<style>
+    td, th {
+        white-space: nowrap;
+        padding-top:5px !important;
+        padding-bottom:5px !important;
+    }
+    input{
+        text-transform:uppercase;
+    }
+</style>
+<form name="frmDeterminacao" autocomplete="off">
+    <div class="container">
+        <div class="block" id="divFiltro">
+            <div class="row">
+                <!--===================Empresa-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Usuario">
+                        <input id="txtCodEmpresa"
+                               ng-model="Filtro.Cod_Empresa"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodEmpresa')"
+                               primarybind="txtCodEmpresa"
+                               style="text-transform:uppercase" />
+                    </div>
+                </div>
+                <!--===================Contrato.-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x">Contrato</label>
+                        <input id="txtContrato" type="text" name="txtContrato" class="form-control numeric" ng-model="Filtro.Numero_Mr" maxlength="6" />
+                    </div>
+                </div>
+                <!--===================Sequência-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x">Seq.</label>
+                        <input id="txtSequencia" type="text" name="txtSequencia" class="form-control numeric" ng-model="Filtro.Sequencia_Mr" maxlength="1" />
+                    </div>
+                </div>
+                <!--===================botão Carregar-->
+                <div class="col-md-2">
+                    <button class="btn btn-primary row margin-left-10 margin-top-30" ng-click="CarregarComerciais(Filtro)">Carregar Dados</button>
+                </div>
+            </div>
+        </div>
+        <!--===================Determinacao-->
+        <div id="divDeterminacao" class="block">
+            
+
+            <!--========================================Grid da Determinacao-->
+            <div class="table-responsive">
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Comercial</th>
+                            <th rowspan="2">Dur.</th>
+                            <th rowspan="2">Tipo</th>
+                            <th rowspan="2">Qtd</th>
+                            <th rowspan="2">Dur.Total</th>
+                            <th colspan="6" style="text-align:center">Trocar Por</th>
+                            <th rowspan="2">Dur.Total</th>
+                        </tr>
+                        <tr>
+                            <th>Cod</th>
+                            <th>Qtd</th>
+                            <th>Cod</th>
+                            <th>Qtd</th>
+                            <th>Cod</th>
+                            <th>Qtd</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in Determinacao track by $index">
+                            <td >{{item.Cod_Comercial}}-{{item.Titulo_Comercial}}</td>
+                            <td td style="width:70px">{{item.Duracao}}</td>
+                            <td td style="width:70px">{{item.Cod_Tipo_Comercial}}-{{item.Nome_Tipo_Comercial}}</td>
+                            <td td style="width:70px">{{item.Qtd_Veiculacoes}}</td>
+                            <td td style="width:70px">{{item.Duracao  * item.Qtd_Veiculacoes}}</td>
+
+                            <td style="width:70px">
+                                <div class="form-group-sm">
+                                    <input type="text" 
+                                           class="form-control" 
+                                           ng-model-options="{updateOn: 'blur'}"
+                                           ng-model="item.Cod_Comercial_Para_1"
+                                           ng-maxlength="2"/>
+                                </div>
+                            </td>
+                            <td style="width:70px">
+                                <div class="form-group-sm">
+                                    <input type="text"
+                                           class="form-control"
+                                           ng-model="item.Qtd_Comercial_Para_1"
+                                           onkeypress="return NumericOnly(event)"
+                                           ng-maxlength="2" />
+                                </div>
+                            </td>
+                            <td style="width:70px"><div class="form-group-sm"><input class="form-control" /></div></td>
+                            <td style="width:70px"><div class="form-group-sm"><input class="form-control" /></div></td>
+                            <td style="width:70px"><div class="form-group-sm"><input class="form-control" /></div></td>
+                            <td style="width:70px"><div class="form-group-sm"><input class="form-control" /></div></td>
+                            <td style="width:100px"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+
+        </div>
+
+    </div>
+</form>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

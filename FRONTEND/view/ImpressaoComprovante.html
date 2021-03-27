@@ -1,0 +1,166 @@
+﻿<div class="container">
+    <form name="frmConfirmacaoRoteiro" autocomplete="off">
+        <!--===============================Filtros-->
+        <div class="block">
+            <div class="alert alert-info alert-icon-block" role="alert">
+                <div class="alert-icon">
+                    <span class="fa fa-filter"></span>
+                </div>
+                <strong>Filtros</strong>
+            </div>
+            <div class="row">
+                <!--===============================Empresa de Faturamento-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Faturamento">
+                        <input id="txtCodEmpresaFaturamento"
+                               ng-model="Filtro.Cod_Empresa_Faturamento"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodEmpresaFaturamento')"
+                               primarybind="txtCodEmpresaFaturamento"
+                               secondarybind="txtNomeEmpresaFaturamento">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtNomeEmpresaFaturamento" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text"
+                                   disabled="disabled"
+                                   id="txtNomeEmpresaFaturamento"
+                                   class="form-control"
+                                   ng-model="Filtro.Nome_Empresa_Faturamento">
+                        </div>
+                    </div>
+                </div>
+                <!--===============================Competencia da Midia-->
+                <div class="col-md-3">
+                    <div class="dictionary" dictionary="Competencia" caption="Comp. Mídia">
+                        <input ng-model="Filtro.Competencia"
+                               ui-MesAno
+                               ng-model-options="{updateOn: 'blur'}" />
+                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Validade_Inicio" params="CompetenciaKeys"></div>
+                    </div>
+                </div>
+                <!--===============================Data de Processamento-->
+                <div class="col-md-3">
+                    <div class="dictionary" dictionary="Data" caption="Data Processamento">
+                        <input ng-model="Filtro.Data_Processamento"
+                               ui-date ng-model-options="{updateOn: 'blur'}">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="Filtro.Data_Processamento"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===============================Numero do Comprovante - Inicio-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="Numero_Ce_Inicio" class="field-x">Numero Ce Inicio</label>
+                        <input  type="text"
+                               id="txtNumero_Ce_Inicio"
+                               class="form-control numeric"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-model="Filtro.Numero_Ce_Inicio"/>
+                    </div>
+                </div>
+                <!--===============================Numero do Comprovante - Fim-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="Numero_Ce_Fim" class="field-x">Numero Ce Fim</label>
+                        <input type="text"
+                               id="txtNumero_Ce_Fim"
+                               class="form-control numeric"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-model="Filtro.Numero_Ce_Fim" />
+                    </div>
+                </div>
+                <!--===============================Empresa de Venda-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Usuario" caption="Emp.Venda">
+                        <input id="txtCodEmpresaVenda"
+                               ng-model="Filtro.Cod_Empresa_Venda"'
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodEmpresaVenda')"
+                               primarybind="txtCodEmpresaVenda" />
+                    </div>
+                </div>
+                <!--===============================Numero MR-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="txtNumeroMr" class="field-x">Contrato</label>
+                        <input type="text"
+                               id="txtNumeroMr"
+                               class="form-control numeric"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-model="Filtro.Numero_Mr" />
+                    </div>
+                </div>
+                <!--===============================Sequencia MR-->
+                <div class="col-md-2">  
+                    <div class="form-group">
+                        <label for="txtSequenciaMr" class="field-x">Seq</label>
+                        <input type="text"
+                               id="txtSequenciaMr"
+                               class="form-control numeric"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-model="Filtro.Sequencia_Mr" />
+                    </div>
+                </div>
+                <!--===============================Numero Fatura-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="txtNumeroFatura" class="field-x">N.Fatura</label>
+                        <input type="text"
+                               id="txtNumeroFatura"
+                               class="form-control numeric"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-model="Filtro.Numero_Fatura" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--==============================================Agencia-->
+                <div class="col-md-6" ng-controller="dictionaryController">
+                    <div class="form-group">
+                        <label class="field-x" for=" txtAgencia">Agência</label>
+                        <input id="txtAgencia"
+                               class="form-control"
+                               ng-model="Filtro.Agencia"
+                               placeholder="Digite parte do nome da agência"
+                               ng-model-options="{updateOn: 'blur'}" />
+                    </div>
+                </div>
+                <!--==============================================Cliente-->
+                <div class="col-md-6" ng-controller="dictionaryController">
+                    <div class="form-group">
+                        <label class="field-x" for="txtCliente">Cliente</label>
+                        <input id="txtCliente"
+                               class="form-control"
+                               ng-model="Filtro.Cliente"
+                               placeholder="Digite parte do nome do Cliente"
+                               ng-model-options="{updateOn: 'blur'}" />
+                    </div>
+                </div>
+            </div>
+            <!--==========================Botoes-->
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <button class="btn btn-success" ng-click="ImprimirCe(Filtro)">Imprimir</button>
+                    <button class="btn btn-info" ng-click="Filtro=newFilter()">Limpar Filtros</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>
+
+
+

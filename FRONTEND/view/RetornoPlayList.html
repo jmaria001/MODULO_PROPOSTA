@@ -281,8 +281,8 @@
                                        maxlength="5"
                                        onkeypress="return NumericOnly(event)"
                                        ng-change="ValidarHorario(veiculacao)"
-                                       onblur="this.value =TimeFormat(this.value)"
-                                       onfocus="this.value = TimeUnformat(this.value);"
+                                       onblur="this.value =TimeFormat(this)"
+                                       onfocus="this.value = TimeUnformat(this);"
                                        ng-model-options="{updateOn: 'blur'}" />
                             </td>
                             <td>

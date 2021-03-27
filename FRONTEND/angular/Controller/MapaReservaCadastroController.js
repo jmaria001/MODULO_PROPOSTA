@@ -220,8 +220,8 @@
     }
     //===============Validar Produto
     $scope.ProdutoChange = function (pComercial) {
-        if (!pComercial.Cod_Tipo_Comercial) {
-            pComercial.Nome_Tipo_Comercial = "";
+        if (!pComercial.Cod_Red_Produto) {
+            pComercial.Nome_Produto = "";
             return;
         }
         httpService.Get('ValidarTabela/Produto/' + pComercial.Cod_Red_Produto).then(function (response) {

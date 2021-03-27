@@ -1,4 +1,7 @@
-﻿<div class="container">
+﻿<style>
+    input {text-transform:uppercase}
+</style>
+<div class="container">
     <form id="frmMateriaisFitas" autocomplete="off">
         <!--==============================================Filtros-->
         <div class="box" ng-show="CurrentShow=='Filtro'">
@@ -150,7 +153,6 @@
             </div>
         </div>
         <!--==============================================Grid -->
-
         <div class="box table-responsive " style="min-height:600px" ng-show="CurrentShow=='Grid'">
             <table id="dataTable" class="table table-striped table-bordered " cellspacing="0">
                 <thead>
@@ -202,8 +204,8 @@
                             <input type="text" class="form-control"
                                    ng-model="baixaveiculacoes.Horario_Exibicao"
                                    maxlength="5"
-                                   onblur="this.value =TimeFormat(this.value)"
-                                   onfocus="this.value = TimeUnformat(this.value);"
+                                   onblur="this.value = TimeFormat(this)"
+                                   onfocus="this.value = TimeUnformat(this);"
                                    ng-model-options="{updateOn: 'blur'}" />
                         </td>
                         <td>{{baixaveiculacoes.Documento_De}}</td>
@@ -234,16 +236,12 @@
         </div>
     </form>
 </div>
-</div>
-
 <div ng-include="'template/SelectItem.html'"></div>
 <div ng-include="'template/PesquisaTabela.html'"></div>
 <script type="text/javascript">
     $(document).ready(function () {
         GetDictionary();
-        $("input[type='text']").css('text-transform', 'uppercase')
     });
-
 </script>
 
 

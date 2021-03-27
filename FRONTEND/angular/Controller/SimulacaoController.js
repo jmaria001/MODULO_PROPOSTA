@@ -67,9 +67,11 @@
                 }, 1000);
                 $scope.SetaCompetenciaEsquema($scope.Simulacao.Validade_Inicio, $scope.Simulacao.Validade_Termino);
                 InitTermometro($scope.Simulacao.Termometro_Venda, !$scope.Simulacao.Permite_Editar);
-                $scope.Simulacao.Cod_Empresa_Venda = $scope.FnSetEmpresaDefault('Codigo');
-                $scope.Simulacao.Nome_Empresa_Venda = $scope.FnSetEmpresaDefault('Nome');
-            }
+                if ($scope.Parameters.Action == 'New') {
+                    $scope.Simulacao.Cod_Empresa_Venda = $scope.FnSetEmpresaDefault('Codigo');
+                    $scope.Simulacao.Nome_Empresa_Venda = $scope.FnSetEmpresaDefault('Nome');
+                };
+            };
         });
     };
     $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo);

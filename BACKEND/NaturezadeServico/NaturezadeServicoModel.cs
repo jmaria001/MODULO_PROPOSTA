@@ -22,15 +22,15 @@ namespace PROPOSTA
             public String Descricao      { get; set; }
             public String Cod_Atividade  { get; set; }
             public Boolean Indica_Midia  { get; set; }
-            public Double Percentual_Iss { get; set; }
+            public String Percentual_Iss { get; set; }
             public Boolean Indica_NFE    { get; set; }
             public Boolean Indica_NFEE   { get; set; }
             public String Cod_Historico  { get; set; }
-            public Double Perc_IR        { get; set; }
-            public Double Perc_CS        { get; set; }
-            public Double Perc_COFINS   { get; set; }
-            public Double Perc_PIS      { get; set; }
-            public Double PERC_INSS     { get; set; }
+            public String Perc_IR        { get; set; }
+            public String Perc_CS        { get; set; }
+            public String Perc_COFINS   { get; set; }
+            public String Perc_PIS      { get; set; }
+            public String PERC_INSS     { get; set; }
             public String Data_Desativacao { get; set; }
             public String Cod_Usuario_Desativacao { get; set; }
             public String Descricao_Historico { get; set; }

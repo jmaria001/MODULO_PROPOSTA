@@ -205,5 +205,16 @@
             }
         })
     };
+    $scope.SetaQualidadePadrao = function (pBaixaContrato) {
+        if (pBaixaContrato.Tipo_Operacao.toUpperCase() == 'CANCELAMENTO') {
+            pBaixaContrato.Cod_Qualidade = pBaixaContrato.Cod_Qualidade_Cancelamento;
+            pBaixaContrato.Nome_Qualidade = pBaixaContrato.Descricao_Qualidade_Cancelamento;
+        }
+        else {
+            pBaixaContrato.Cod_Qualidade = "";
+            pBaixaContrato.Nome_Qualidade = "";
+        }
+        
+    };
 }]);
 

@@ -383,25 +383,42 @@ function DecimalFormat(pValue) {
         return "";
     }
 }
-function TimeUnformat(pValue) {
+function TimeUnformat(elm) {
 
-    if (pValue) {
-        return pValue.replace(':', '');
+    if (elm.value) {
+        return elm.value.replace(':', '');
     }
     else {
         return "";
     }
 }
-function TimeFormat(pValue) {
+//function TimeFormat(pValue) {
 
-    if (pValue) {
-        pValue = pValue.trim();
-        var x = LeftZero(pValue, 4)
-        return x.substr(0,2)+':' + x.substr(2,2);
+//    if (pValue) {
+//        pValue = pValue.trim();
+//        var x = LeftZero(pValue, 4)
+//        return x.substr(0, 2) + ':' + x.substr(2, 2);
+//    }
+//    else {
+//        return "";
+//    }
+//}
+
+function TimeFormat(elm) {
+    var x = elm.value;
+    if (x) {
+        x= x.trim();
+        x = LeftZero(x, 4)
+        x= x.substr(0, 2) + ':' + x.substr(2, 2);
     }
     else {
-        return "";
+        x = "";
     }
+    var ctrl = angular.element(elm).data('$ngModelController');
+    ctrl.$setViewValue(x);
+    ctrl.$commitViewValue();
+    return x;
+    
 }
 
 function DoubleVal(pValue) {

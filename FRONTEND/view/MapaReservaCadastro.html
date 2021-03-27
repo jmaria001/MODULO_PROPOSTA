@@ -615,19 +615,19 @@
                                 </div>
                             </td>
                             <td style="width:150px">
-                                <div class="input-group" style="min-width:50px">
-                                    <input id="txtProduto"
-                                           class="form-control inputComercial"
-                                           ng-model="comercial.Cod_Red_Produto"
-                                           ng-model-options="{updateOn: 'blur'}"
-                                           ng-change="ProdutoChange(comercial)"
-                                           ng-disabled="Contrato.Comprovado"
-                                           maxlength="10"
-                                           onkeypress="return NumericOnly(event)">
-                                    <div class="input-group-addon" ng-hide="Contrato.Comprovado">
-                                        <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaProduto(comercial)"></span>
+                                    <div class="input-group" style="min-width:50px">
+                                        <input id="txtProduto"
+                                               class="form-control inputComercial"
+                                               ng-model="comercial.Cod_Red_Produto"
+                                               ng-model-options="{updateOn: 'blur'}"
+                                               ng-change="ProdutoChange(comercial)"
+                                               ng-disabled="Contrato.Comprovado"
+                                               maxlength="10"
+                                               onkeypress="return NumericOnly(event)">
+                                        <div class="input-group-addon" ng-hide="Contrato.Comprovado">
+                                            <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaProduto(comercial)"></span>
+                                        </div>
                                     </div>
-                                </div>
                             </td>
                             <td>
                                 <div class="input-group">

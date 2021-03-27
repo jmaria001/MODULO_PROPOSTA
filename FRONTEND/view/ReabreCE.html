@@ -1,0 +1,94 @@
+﻿<div class="container">
+    <div class="block">
+        <div class="row">
+            <!--===================Empresa-->
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Empresa_Usuario" caption="Empresa">
+                    <input id="txtCodEmpresa"
+                           ng-model="Filtro.Empresa"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodEmpresa')"
+                           primarybind="txtCodEmpresa"
+                           secondarybind="txtNomeEmpresa">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="txtNomeEmpresa" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeEmpresa" class="form-control " ng-model="Filtro.Nome_Empresa">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!--===================Contrato-->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Contrato</label>
+                    <input id="txtContrato" 
+                           type="text" 
+                           name="txtContrato" 
+                           class="form-control numeric" 
+                           ng-model="Filtro.Contrato" maxlength="10" />
+                </div>
+            </div>
+            <!--===================Sequência-->
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="field-x">Seq.</label>
+                    <input id="txtSequencia" 
+                           type="text" 
+                           name="txtSequencia" 
+                           class="form-control numeric" 
+                           ng-model="Filtro.Sequencia" maxlength="2" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!--===================Veiculo-->
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Veiculo" caption="Veículo">
+                    <input id="txtCodVeiculo"
+                           ng-model="Filtro.Veiculo"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodVeiculo')"
+                           primarybind="txtCodVeiculo"
+                           secondarybind="txtNomeVeiculo">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="Filtro.Nome_Veiculo">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <!--===================Motivo Reabertura-->
+                <div class="form-group">
+                    <label class="field-x">Motivo da Reabertura</label>
+                    <input style="text-transform:uppercase" type="text" name="txtMotivoReabertura" class="form-control" ng-model="Filtro.MotivoReabertura " maxlength="1000" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="divBotaoFiltro" class="row margin-top-30">
+                <div class="col-12">
+                    <button class="btn btn-success" ng-click="ReaberturaExecutar(Filtro)">Reabrir Comprovante</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

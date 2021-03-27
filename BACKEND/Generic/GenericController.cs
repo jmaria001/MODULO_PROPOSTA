@@ -16,26 +16,6 @@ namespace PROPOSTA
         {
             try
             {
-                string connectionString = @"Provider=Microsoft.Jet.OLEDB.4.0;Data Source=E:\temp;Extended Properties=dBase IV";
-
-                using (OleDbConnection connection = new OleDbConnection(connectionString))
-                using (OleDbCommand command = connection.CreateCommand())
-                {
-                    connection.Open();
-
-                    command.CommandText = "CREATE TABLE TESTEJM2 (Id Integer, NOME varchar(40), ENDERECO varchar(40))";
-                    command.ExecuteNonQuery();
-                    command.CommandText = "INSERT INTO TESTEJM2 ( Id,NOME,ENDERECO) SELECT 1,'joao maria','rua bela cintra'";
-                    command.ExecuteNonQuery();
-                    command.CommandText = "INSERT INTO TESTEJM2 ( Id,NOME,ENDERECO) SELECT 1,'joao maria2','rua bela cintra'";
-                    command.ExecuteNonQuery();
-                    command.CommandText = "INSERT INTO TESTEJM2 ( Id,NOME,ENDERECO) SELECT 1,'joao maria3','rua bela cintra'";
-                    command.ExecuteNonQuery();
-                    command.CommandText = "INSERT INTO TESTEJM2 ( Id,NOME,ENDERECO) SELECT 1,'joao maria4','rua bela cintra'";
-                    command.ExecuteNonQuery();
-                    connection.Close();
-
-                }
                 
 
                 return Ok("teste ok");

@@ -36,6 +36,10 @@ namespace PROPOSTA
                     BaixaContrato.Nome_Agencia = dtb.Rows[0]["Nome_Agencia"].ToString();
                     BaixaContrato.Cod_Cliente = dtb.Rows[0]["Cod_Cliente"].ToString();
                     BaixaContrato.Nome_Cliente = dtb.Rows[0]["Nome_Cliente"].ToString();
+                    BaixaContrato.Cod_Qualidade_Cancelamento= dtb.Rows[0]["Cod_Qualidade_Cancelamento"].ToString();
+                    BaixaContrato.Descricao_Qualidade_Cancelamento = dtb.Rows[0]["Descricao_Qualidade_Cancelamento"].ToString();
+                    BaixaContrato.Data_Inicial = dtb.Rows[0]["Data_Inicial"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
+                    BaixaContrato.Data_Final= dtb.Rows[0]["Data_Final"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy");
                     BaixaContrato.Domingo = true;
                     BaixaContrato.Segunda = true;
                     BaixaContrato.Terca = true;
@@ -106,7 +110,6 @@ namespace PROPOSTA
             }
             return Veiculos;
         }
-
         public DataTable SalvarContratoBaixa(BaixaContratoModel pContrato)
         {
             clsConexao cnn = new clsConexao(this.Credential);
@@ -181,8 +184,15 @@ namespace PROPOSTA
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Data_Help", DBNull.Value);
                 }
 
-
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Cancelamento", pContrato.Indica_Cancelamento).ToString().ConvertToBoolean();
+                if (pContrato.Tipo_Operacao.ToUpper()=="CANCELAMENTO")
+                {
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Cancelamento", true);
+                }
+                else
+                {
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Cancelamento", true);
+                }
+                
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Cancelar_Am", pContrato.Indica_Cancelar_Am).ToString().ConvertToBoolean();
 
                 if (!String.IsNullOrEmpty(pContrato.Motivo_Cancelamento))
@@ -207,7 +217,6 @@ namespace PROPOSTA
             }
             return dtb;
         }
-
         //===========================Buscar Programas do Contrato
         public DataTable GetProgramaContrato(FiltroModel pFiltro)
         {

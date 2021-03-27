@@ -210,7 +210,7 @@ function GetDictionary() {
         this.value = PercentFormat(this.value);
     });
     $(".time").blur(function () {
-        this.value = TimeFormat(this.value);
+        this.value = TimeFormat(this);
         var _hh = parseInt(this.value.substr(0, 2));
         var _mm = parseInt(this.value.substr(3, 2));
         var _mm = this.value.substr(3, 2);
@@ -239,7 +239,7 @@ function GetDictionary() {
         this.value = cnpjUnformat(this.value);
     });
     $(".time").focus(function () {
-        this.value = TimeUnformat(this.value);
+        this.value = TimeUnformat(this);
     });
     
     $('input[style*="text-transform:uppercase"]').blur(function () {

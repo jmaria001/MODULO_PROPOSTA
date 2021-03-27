@@ -1,4 +1,10 @@
-﻿<div class="container">
+﻿<style>
+    input
+    {
+        text-transform:uppercase;
+    }
+</style>
+<div class="container">
     <div class="block">
         <form id="frmMateriaisFitas" autocomplete="off">
             <button type="button" id="btnNovoMapaReserva" class="btn btn-primary" style="display:none" ng-click="NovoMateriaisFitas()">Novo Filtro</button>
@@ -73,13 +79,15 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Título</th>
                             <th>Numero_Fita</th>
                             <th>Cod_Veículo</th>
+                            <th>Título</th>
                             <th>Duracao</th>
+                            <th>Tipo Comercial</th>
+                            <th>Agência</th>
+                            <th>Cliente</th>
+                            <th>Produto</th>
                             <th>Status</th>
-
-
                         </tr>
                     </thead>
                     <tbody>
@@ -88,27 +96,32 @@
                                 <a href="#MateriaisFitasCadastro/Edit/{{::materiaisfitas.Id_Fita}}" ng-show="PermissaoEdit && materiaisfitas.Id_Fita!=0 ">
                                     <span class="fa fa-edit fa-2x"></span>
                                 </a>
-                  
+                            </td>
+                            <td>{{::materiaisfitas.Numero_Fita}} </td>
+                            <td>{{::materiaisfitas.Cod_Veiculo}}-{{::materiaisfitas.Nome_Veiculo}}</td>
+                            <td>{{::materiaisfitas.Titulo_Comercial}}</td>
+                            <td>{{::materiaisfitas.Duracao}}</td>
+                            <td>
+                                <span ng-show="materiaisfitas.Cod_Tipo_Comercial">{{::materiaisfitas.Cod_Tipo_Comercial}}-{{::materiaisfitas.Nome_Tipo_Comercial}}</span>
+                            </td>
+                            <td>
+                                <span ng-show="materiaisfitas.Cod_Agencia">{{::materiaisfitas.Cod_Agencia}}-{{::materiaisfitas.Nome_Agencia}}</span>
+                            </td>
+                            <td>
+                                <span ng-show="materiaisfitas.Cod_Cliente">{{::materiaisfitas.Cod_Cliente}}-{{::materiaisfitas.Nome_Cliente}}</span>
+                            </td>
+                            <td>
+                                <span ng-show="materiaisfitas.Cod_Red_Produto">{{::materiaisfitas.Cod_Red_Produto}}-{{::materiaisfitas.Nome_Produto}}</span>
                             </td>
 
-                            <td>{{::materiaisfitas.Titulo_Comercial}}</td>
-                            <td>{{::materiaisfitas.Numero_Fita}} </td>
-                            <td>{{::materiaisfitas.Cod_Veiculo}}</td>
-                            <td>{{::materiaisfitas.Duracao}}</td>
-
                             <td style="width:50px; text-align:center">
-
                                 <label class="label  label-success" ng-show="!materiaisfitas.Id_Fita">
                                     Mapa
                                 </label>
                                 <label  class="label label-danger" ng-show="materiaisfitas.Id_Fita">
                                     Pendente
                                 </label>
-
                             </td>
-
-                            <!--<td>{{::materiaisfitas.Id_Fita}}</td>-->
-
                         </tr>
                     </tbody>
                 </table>

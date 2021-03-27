@@ -70,7 +70,7 @@
                 { 'Title': 'Evolução de Vendas', 'Url': $rootScope.pageUrl + 'indexDash.html#/EvolucaoVendas' },
                 { 'Title': 'Funil de Vendas', 'Url': $rootScope.pageUrl + 'indexDash.html#/FunilVendas' },
                 { 'Title': 'Gráfico de Vendas', 'Url': $rootScope.pageUrl + 'indexDash.html#/GraficoVendas' },
-                { 'Title': 'Power-Bi', 'Url': 'https://app.powerbi.com/view?r=eyJrIjoiNTk0MmVhMGItODBmOS00NWFlLTllZTEtZTQxZjdmOTRmNDdlIiwidCI6ImIyMWNiNTRlLTM1YzEtNDkwZi05OWRkLTBkNmQ4ODYwZTAyYSJ9&pageName=ReportSection' }
+                { 'Title': 'Power-Bi', 'Url': 'https://app.powerbi.com/view?r=eyJrIjoiYWU0MjA5YjktYWI0YS00YzU1LTg2OGQtNmEwNzA0YWEyYTk1IiwidCI6ImIyMWNiNTRlLTM1YzEtNDkwZi05OWRkLTBkNmQ4ODYwZTAyYSJ9&pageName=ReportSection294b1d6666875dd21759' }
             ],
         },
         {
@@ -86,6 +86,7 @@
             'Title': 'Opec',
             'SubItens': [
                 { 'Title': 'Manutenção de Mapa Reserva', 'Url': $rootScope.pageUrl + 'IndexOpec.html#/MapaReserva' },
+                { 'Title': 'Determinação de Títulos', 'Url': $rootScope.pageUrl + 'IndexOpec.html#/Determinacao' },
                 { 'Title': 'Importar Propostas', 'Url': $rootScope.pageUrl + 'IndexOpec.html#/MapaReservaImport' },
                 { 'Title': 'Consulta de Veiculações', 'Url': $rootScope.pageUrl + 'IndexOpec.html#/ConsultaVeiculacoes' },
             ],
@@ -106,6 +107,9 @@
             'SubItens': [
                 { 'Title': 'Manutenção da Grade', 'Url': $rootScope.pageUrl + 'IndexProg.html#/Grade' },
                 { 'Title': 'Consulta da Disponibilidade', 'Url': $rootScope.pageUrl + 'IndexProg.html#/ConsultaProgramacaoDiaria' },
+                { 'Title': 'De-Para da Programação(Período)', 'Url': $rootScope.pageUrl + 'IndexProg.html#/DeParaPeriodo' },
+                { 'Title': 'De-Para da Programação(Data)', 'Url': $rootScope.pageUrl + 'IndexProg.html#/DeParaData' },
+                { 'Title': 'Confirmação Horário da Programação', 'Url': $rootScope.pageUrl + 'IndexProg.html#/HorarioExibicao' },
             ],
         },
         {
@@ -121,6 +125,7 @@
                 { 'Title': 'Pré-Ordenação', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/PreOrdenacao' },
                 { 'Title': 'Ordenação', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/Roteiro' },
                 { 'Title': 'Composição de Breaks', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/Breaks' },
+                { 'Title': 'Consulta de Fitas Ordenadas', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/ConsultaFitasOrdenadas' },
                 { 'Title': 'Envio Play-List', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/EnvioPlayList' },
             ],
         },
@@ -129,11 +134,13 @@
             'SubItens': [
                 { 'Title': 'Baixa por Veiculação', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/BaixaVeiculacao' },
                 { 'Title': 'Baixa por Contrato', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/BaixaContrato' },
+                { 'Title': 'Baixa por Roteiro', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/BaixaRoteiro' },
                 { 'Title': 'Confirmação do Roteiro', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/ConfirmacaoRoteiro' },
                 { 'Title': 'Retorno da Play-List', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/RetornoPlayList' },
                 { 'Title': 'Consulta de Veiculações', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/ConsultaVeiculacoes' },
                 { 'Title': 'Geração do Comprovante', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/GeracaoCE' },
-                { 'Title': 'Impressão do Comprovante', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/UnderConstrution' },
+                { 'Title': 'Impressão do Comprovante', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/ImpressaoCe' },
+                { 'Title': 'Reabrir Comprovante', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/ReabreCE' },
             ],
         },
         {

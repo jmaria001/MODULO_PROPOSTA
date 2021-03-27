@@ -59,6 +59,19 @@ namespace PROPOSTA
                 return 0;
             }
         }
+        public static Decimal ConvertToDecimal(this string value)
+        {
+            //value = value.Replace(',', '.');
+            Decimal dtOut;
+            if (Decimal.TryParse(value, out dtOut))
+            {
+                return dtOut;
+            }
+            else
+            {
+                return 0;
+            }
+        }
         public static Byte ConvertToByte(this string value)
         {
             Byte dtOut;

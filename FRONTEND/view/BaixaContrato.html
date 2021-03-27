@@ -3,12 +3,24 @@
         <div class="block">
             <div class="row">
                 <!--===================Empresa-->
-                <div class="col-md-2">
+
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Usuario">
+                        <input id="txtCodEmpresa"
+                               ng-model="Filtro.Cod_Empresa"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodEmpresa')"
+                               primarybind="txtCodEmpresa"
+                               style="text-transform:uppercase" />
+                    </div>
+                </div>
+                
+                <!--<div class="col-md-2">
                     <div class="form-group">
                         <label class="field-x">Emp.</label>
                         <input style="text-transform:uppercase" type="text" name="txtEmpresa" class="form-control" ng-model="Filtro.Cod_Empresa" maxlength="3" />
                     </div>
-                </div>
+                </div>-->
                 <!--===================Contrato.-->
                 <div class="col-md-2">
                     <div class="form-group">
@@ -17,7 +29,7 @@
                     </div>
                 </div>
                 <!--===================Sequência-->
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <div class="form-group">
                         <label class="field-x">Seq.</label>
                         <input id="txtSequencia" type="text" name="txtSequencia" class="form-control numeric" ng-model="Filtro.Sequencia_Mr" maxlength="1" />
@@ -64,7 +76,8 @@
                             <label class="field-x" for="txtTipoOperacao">Tipo de Operação</label>
                             <select class="form-control"
                                     name="txtTipoOperacao"
-                                    ng-model="BaixaContrato.Tipo_Operacao "
+                                    ng-model="BaixaContrato.Tipo_Operacao"
+                                    ng-change="SetaQualidadePadrao(BaixaContrato)"
                                     ng-options="Tipo_Operacao.Descricao as Tipo_Operacao.Descricao for Tipo_Operacao in Tipo_Operacao"></select>
                         </div>
                     </div>
@@ -73,7 +86,7 @@
                         <!--===================Motivo Baixa-->
                         <div class="form-group">
                             <label class="field-x">Motivo da Baixa</label>
-                            <input style="text-transform:uppercase" type="text" name="txtMotivoBaixa" class="form-control" ng-model="BaixaContrato.MotivoBaixa " maxlength="100" />
+                            <input style="text-transform:uppercase" type="text" name="txtMotivoBaixa" class="form-control" ng-model="BaixaContrato.Motivo_Cancelamento " maxlength="100" />
                         </div>
                     </div>
                     <!--===================A Partir de-->
@@ -144,125 +157,101 @@
                     </div>
                 </div>
                 <div class="row">
-                    <!--===================Qualidade-->
-                    <div class="col-md-2  " ng-controller="dictionaryController">
-                        <div class="dictionary" dictionary="Qualidade" caption="Qualidade">
-                            <input id="txtCodQualidade"
-                                   ng-model="BaixaContrato.Cod_Qualidade"
-                                   ng-model-options="{updateOn: 'blur'}"
-                                   ng-change="DicionaryValidate('txtCodQualidade')"
-                                   primarybind="txtCodQualidade"
-                                   style="text-transform:uppercase"
-                                   secondarybind="txtNomeQualidade">
+                    <div class="col-md-6">
+                        <!--===================Qualidade-->
+                        <div class="col-md-4" ng-controller="dictionaryController">
+                            <div class="dictionary" dictionary="Qualidade" caption="Qualidade">
+                                <input id="txtCodQualidade"
+                                       ng-model="BaixaContrato.Cod_Qualidade"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       ng-change="DicionaryValidate('txtCodQualidade')"
+                                       primarybind="txtCodQualidade"
+                                       style="text-transform:uppercase"
+                                       secondarybind="txtNomeQualidade">
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="txtNomeQualidade" class="field-x" style="visibility:hidden">..</label>
+                                <div class="input-group">
+                                    <input type="text" disabled="disabled" id="txtNomeQualidade" class="form-control " ng-model="BaixaContrato.Nome_Qualidade">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
+                        <table class="table table-bordered" style="margin-top:35px">
+                            <thead>
+                                <tr>
+                                    <th colspan="7" style="text-align:center;background-color:#f5f5f5">
+                                        Dias da Semana
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="app-checkbox">
+                                            <label><input id="0" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Domingo" />Dom.<span></span></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="app-checkbox">
+                                            <label><input id="0" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Segunda" />Seg.<span></span></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="app-checkbox">
+                                            <label><input id="0" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Terca" />Ter.<span></span></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="app-checkbox">
+                                            <label><input id="0" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Quarta" />Qua.<span></span></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="app-checkbox">
+                                            <label><input id="0" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Quinta" />Qui.<span></span></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="app-checkbox">
+                                            <label><input id="0" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Sexta" />Sex.<span></span></label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="app-checkbox">
+                                            <label><input id="0" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Sabado" />Sab.<span></span></label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--Exclui automaticamente-->
+                    <div class="col-md-6" ng-show="BaixaContrato.Tipo_Operacao=='Cancelamento'">
+
                         <div class="form-group">
-                            <label for="txtNomeQualidade" class="field-x" style="visibility:hidden">..</label>
                             <div class="input-group">
-                                <input type="text" disabled="disabled" id="txtNomeQualidade" class="form-control " ng-model="BaixaContrato.Nome_Qualidade">
+                                <div class="app-checkbox">
+                                    <label><input id="exclui" type="checkbox" name="chkExclui" ng-model="BaixaContrato.Indica_Cancelar_Am" />Exclui automaticamente Am's em aberta do contrato <span></span></label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-6">
-                        <div style="text-align:center" class="block margin-top-20">
-                            <p>Dias da Semana</p>
-                            <!--===================Domingo-->
-                            <div class="col-md-1">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="app-checkbox">
-                                            <label><input id="0" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Domingo" />Dom.<span></span></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--===================Segunda Feira-->
-                            <div class="col-md-1">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="app-checkbox">
-                                            <label><input id="1" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Segunda" />Seg.<span></span></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--===================Terça Feira-->
-                            <div class="col-md-1">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="app-checkbox">
-                                            <label><input id="2" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Terca" />Ter.<span></span></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--===================Quarta Feira-->
-                            <div class="col-md-1">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="app-checkbox">
-                                            <label><input id="3" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Quarta" />Qua.<span></span></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--===================Quinta Feira-->
-                            <div class="col-md-1">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="app-checkbox">
-                                            <label><input id="4" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Quinta" />Qui.<span></span></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--===================Sexta Feira-->
-                            <div class="col-md-1">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="app-checkbox">
-                                            <label><input id="5" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Sexta" />Sex.<span></span></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--===================Sábado-->
-                            <div class="col-md-1">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="app-checkbox">
-                                            <label><input id="6" type="checkbox" name="chkDiasemana" ng-model="BaixaContrato.Sabado" />Sab.<span></span></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!--Exclui automaticamente-->
-                        <div class="col-md-12">
-                            <div id="DivExclui" class="col-md-4 margin-top-20" ng-show="BaixaContrato.Tipo_Operacao=='Cancelamento'">
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <div class="app-checkbox">
-                                            <label><input id="exclui" type="checkbox" name="chkExclui" ng-model="BaixaContrato.Cancel" />Exclui automaticamente Am's em aberta do contrato <span></span></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <!--===================Selecionar Veiculos-->
                     <div class="row" ng-show="BaixaContrato.Tipo_Operacao=='Baixa'">
-                        <div class="col-md-6 col-offset-3">
+                        <div class="col-md-12">
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th colspan="3" style="text-align:center;background-color:silver">Processar para os Veiculos</th>
+                                            <th colspan="3" style="text-align:center;background-color:#f5f5f5">Processar para os Veiculos</th>
                                         </tr>
                                         <tr>
                                             <th style="width:50px"></th>
@@ -290,12 +279,13 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
-            </div>
-            <!--===================================Botoes-->
-            <div class="fixed-buttons-bottom" ng-show="BaixaContrato.Loaded">
-                <button class="btn btn-success" ng-click="SalvarContratoBaixa(BaixaContrato)">Baixar Contrato</button>
-                <button class="btn btn-warning" ng-click="NewFiltro();BaixaContrato=''">Cancelar</button>
+                <!--===================================Botoes-->
+                <div class="fixed-buttons-bottom" ng-show="BaixaContrato.Loaded">
+                    <button class="btn btn-success" ng-click="SalvarContratoBaixa(BaixaContrato)">Baixar Contrato</button>
+                    <button class="btn btn-warning" ng-click="NewFiltro();BaixaContrato=''">Cancelar</button>
+                </div>
             </div>
         </div>
     </form>

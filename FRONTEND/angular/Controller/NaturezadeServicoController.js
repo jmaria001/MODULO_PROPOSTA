@@ -7,7 +7,7 @@
     httpService.Get("credential/Natureza@New").then(function (response) {
         $scope.PermissaoNew = response.data;
     });
-    httpService.Get("credential/Naturezade@Edit").then(function (response) {
+    httpService.Get("credential/Natureza@Edit").then(function (response) {
         $scope.PermissaoEdit = response.data;
     });
 

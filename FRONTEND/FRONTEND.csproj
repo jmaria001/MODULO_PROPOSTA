@@ -95,6 +95,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="angular\Controller\BaixaContratoController.js" />
+    <Content Include="angular\Controller\BaixaRoteiroController.js" />
+    <Content Include="angular\Controller\ConsultaFitasOrdenadasController.js" />
+    <Content Include="angular\Controller\DeParaData.js" />
+    <Content Include="angular\Controller\DeParaPeriodo.js" />
+    <Content Include="angular\Controller\DeterminacaoTituloController.js" />
     <Content Include="angular\Controller\BaixaVeiculacoesController.js" />
     <Content Include="angular\Controller\ComplementoOutrasReceitas.js" />
     <Content Include="angular\Controller\ComplementoContrato.js" />
@@ -109,6 +114,8 @@
     <Content Include="angular\Controller\FitaPatrocinioController.js" />
     <Content Include="angular\Controller\GeracaoCEController.js" />
     <Content Include="angular\Controller\GeracaoFaturaController.js" />
+    <Content Include="angular\Controller\HorarioExibicaoController.js" />
+    <Content Include="angular\Controller\ImpressaoCeController.js" />
     <Content Include="angular\Controller\indexController.js" />
     <Content Include="angular\Controller\MateriaisFitasCadastroController.js" />
     <Content Include="angular\Controller\MateriaisFitasController.js" />
@@ -117,11 +124,10 @@
     <Content Include="angular\Controller\NaturezadeServicoController.js" />
     <Content Include="angular\Controller\NumeracaoFitasCadastroController.js" />
     <Content Include="angular\Controller\NumeracaoFitasController.js" />
+    <Content Include="angular\Controller\ReabreCEController.js" />
     <Content Include="angular\Controller\RetornoPlaylistController.js" />
     <Content Include="css\custom - Copy.css" />
     <Content Include="Index.html" />
-    <Content Include="IndexAdm - Copy %282%29.html" />
-    <Content Include="IndexAdm - Copy.html" />
     <Content Include="IndexChecking.html" />
     <Content Include="IndexFaturamento.html" />
     <Content Include="IndexRoteiro.html" />
@@ -287,19 +293,24 @@
     <Content Include="view\Am_Consulta.html" />
     <Content Include="view\Am_Reencaixe.html" />
     <Content Include="view\BaixaContrato.html" />
+    <Content Include="view\BaixaRoteiro.html" />
     <Content Include="view\BaixaVeiculacoes.html" />
     <Content Include="view\ComplementoOutrasReceitas.html" />
     <Content Include="view\ComplementoContrato.html" />
     <Content Include="view\ComplementoContratoPesquisa.html" />
     <Content Include="view\ConfirmacaoRoteiro.html" />
+    <Content Include="view\ConsultaFitasOrdenadas.html" />
     <Content Include="view\ConsultaProgramacaoDiaria.html" />
     <Content Include="view\ConsultaProgramacaoDiariaDetalhe.html" />
     <Content Include="view\DashboardTeste.html" />
     <Content Include="view\DashEvolucaoVendas.html" />
     <Content Include="view\DashFunilVendas.html" />
     <Content Include="view\DashGraficoVendas.html" />
+    <Content Include="view\DeParaData.html" />
+    <Content Include="view\DeParaPeriodo.html" />
     <Content Include="view\DepositorioFitas.html" />
     <Content Include="view\DepositorioFitasCadastro.html" />
+    <Content Include="view\DeterminacaoTitulo.html" />
     <Content Include="view\EnvioPlaylist.html" />
     <Content Include="view\FitaPatrocinio.html" />
     <Content Include="view\Genero.html" />
@@ -308,6 +319,8 @@
     <Content Include="view\GeracaoFatura.html" />
     <Content Include="view\GradeCadastro - Copy.html" />
     <Content Include="view\GradeCadastro.html" />
+    <Content Include="view\HorarioExibicao.html" />
+    <Content Include="view\ImpressaoComprovante.html" />
     <Content Include="view\MapaReserva.html" />
     <Content Include="view\MapaReservaCadastro.html" />
     <Content Include="view\Am_Compensacao.html" />
@@ -368,6 +381,7 @@
     <Content Include="view\PropostaPendenteAprovacao.html" />
     <Content Include="view\Qualidade.html" />
     <Content Include="view\QualidadeCadastro.html" />
+    <Content Include="view\ReabreCE.html" />
     <Content Include="view\Rede.html" />
     <Content Include="view\RedeCadastro.html" />
     <Content Include="view\RegraAprovacao_Cadastro.html" />
@@ -397,8 +411,6 @@
     <Content Include="view\Veiculo.Html" />
     <Content Include="img\web.config" />
     <Content Include="view\VeiculoCadastro.html" />
-    <Content Include="Z-demo\components-alerts-notifications.html" />
-    <Content Include="Z-demo\index.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -599,6 +611,7 @@
   <ItemGroup>
     <Folder Include="js\vendor\bootstrap-datetimepicker\" />
     <Folder Include="js\vendor\bootstrap-tagsinput\" />
+    <Folder Include="Z-demo\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

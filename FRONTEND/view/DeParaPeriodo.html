@@ -1,0 +1,192 @@
+﻿<style>
+    input{text-transform:uppercase}
+</style>
+<form id="frmDeParaProgramacao" autocomplete="off">
+    <div class="container">
+        
+        <div class="row">
+            <!--=======================================Lista de Veiculos-->
+            <div class="col-md-4">
+                <div class="block">
+                    <div class="table-responsive" style="max-height:500px">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th colspan="3" style="background-color:#f5f5f5;text-align:center">Veículos</th>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th>Código</th>
+                                    <th>Nome</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="veiculo in DePara.Veiculos track by $index">
+                                    <td>
+                                        <div class="input-group" style="margin-bottom:0px">
+                                            <div class="app-checkbox">
+                                                <label><input type="checkbox" name="app-checkbox-1" style="position:relative" ng-model="veiculo.Selected" /><span></span></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{veiculo.Cod_Veiculo}}</td>
+                                    <td>{{veiculo.Nome_Veiculo}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="checkMarcarVeiculo" ng-click="MarcarTodosVeiculos(DePara,checkMarcarVeiculo)"/> Marcar Todos<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="block">
+                    <div class="row">
+                        <!--=====================Periodo Inicio-->
+                        <div class="col-md-4">
+                            <div class="dictionary" dictionary="Data" caption="Data Início">
+                                <input ng-model="DePara.Data_Inicio"
+                                       ui-date ng-model-options="{updateOn: 'blur'}">
+                                <div class="dictionary-ui-calendar" ui-calendar typdate="DePara.Data_Inicio"></div>
+                            </div>
+                        </div>
+                        <!--=====================Periodo Termino-->
+                        <div class="col-md-4">
+                            <div class="dictionary" dictionary="Data" caption="Data Término">
+                                <input ng-model="DePara.Data_Termino"
+                                       ui-date ng-model-options="{updateOn: 'blur'}">
+                                <div class="dictionary-ui-calendar" ui-calendar typdate="DePara.Data_Termino"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <!--=====================Dias da Semana-->
+                            <div class="form-group table-responsive">
+                                <label class="field-x">Dias da Semana</label>
+                                <table class="table table-noborder">
+                                    <tr>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="app-checkbox">
+                                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="DePara.Dom" />Dom<span></span></label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="app-checkbox">
+                                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="DePara.Seg" />Seg<span></span></label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="app-checkbox">
+                                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="DePara.Ter" />Ter<span></span></label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="app-checkbox">
+                                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="DePara.Qua" />Qua<span></span></label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="app-checkbox">
+                                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="DePara.Qui" />Qui<span></span></label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="app-checkbox">
+                                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="DePara.Sex" />Sex<span></span></label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <div class="app-checkbox">
+                                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="DePara.Sab" />Sab<span></span></label>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--===================Programa De-->
+                        <div class="col-md-4  " ng-controller="dictionaryController">
+                            <div class="dictionary" dictionary="Programa" caption="Programa De">
+                                <input id="txtCodPrograma_De"
+                                       ng-model="DePara.Cod_Programa_De"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       ng-change="DicionaryValidate('txtCodPrograma_De')"
+                                       primarybind="txtCodPrograma_De"
+                                       secondarybind="txtNomePrograma_De">
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="txtNomePrograma_De" class="field-x" style="visibility:hidden">..</label>
+                                <div class="input-group">
+                                    <input type="text" disabled="disabled" id="txtNomePrograma_De" class="form-control " ng-model="DePara.Nome_Programa_De">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!--===================Programa Para-->
+                        <div class="col-md-4  " ng-controller="dictionaryController">
+                            <div class="dictionary" dictionary="Programa" caption="Programa De">
+                                <input id="txtCodPrograma_Para"
+                                       ng-model="DePara.Cod_Programa_Para"
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       ng-change="DicionaryValidate('txtCodPrograma_Para')"
+                                       primarybind="txtCodPrograma_Para"
+                                       secondarybind="txtNomePrograma_Para">
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="txtNomePrograma_Para" class="field-x" style="visibility:hidden">..</label>
+                                <div class="input-group">
+                                    <input type="text" disabled="disabled" id="txtNomePrograma_Para" class="form-control " ng-model="DePara.Nome_Programa_Para">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--=========================Botoes confirma/ Cancela-->
+    <div class="fixed-buttons-bottom">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-success" ng-click="ConfirmarDePara(DePara)">Confirmar De-Para</button>
+                <button class="btn btn-warning" ng-click="CarregaDados()">Limpar</button>
+            </div>
+        </div>
+    </div>
+</form>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+
+    });
+
+</script>

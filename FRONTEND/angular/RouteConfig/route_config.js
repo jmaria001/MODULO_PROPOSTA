@@ -515,6 +515,20 @@
             routeName: 'Consulta da Programação Prevista - Detalhe',
             RouteId: 'ConsultaProgramacaoDiariaDetalhe@Edit'
         })
+.when('/DeParaPeriodo/', {
+    templateUrl: 'view/DeParaPeriodo.html',
+    authorize: true,
+    controller: 'DeParaPeriodoController',
+    routeName: 'De-Para da Programação por Período',
+    RouteId: 'Grade@DePara'
+})
+        .when('/DeParaData/', {
+            templateUrl: 'view/DeParaData.html',
+            authorize: true,
+            controller: 'DeParaDataController',
+            routeName: 'De-Para da Programação por Data',
+            RouteId: 'Grade@DePara'
+        })
     //----------------------------------------------------
     .when('/Simulacao', {
         templateUrl: 'view/simulacao_List.html',
@@ -642,6 +656,13 @@
         routeName: 'Importação de Propostas para Mapa Reserva',
         RouteId: 'MapaReserva@Import'
     })
+    .when('/Determinacao', {
+        templateUrl: 'view/UnderConstrution.html',
+        controller: 'DeterminacaoTituloController',
+        authorize: true,
+        routeName: "Determinação de Títulos",
+        RouteId: 'MapaReserva@Determinacao'
+    })
     .when('/ConsultaVeiculacoes', {
         templateUrl: 'view/ConsultaVeiculacao.html',
         controller: 'ConsultaVeiculacaoController',
@@ -756,6 +777,13 @@
         routeName: 'Geração do Comprovante de Exibição',
         RouteId: 'Geracao@Ce'
     })
+.when('/ImpressaoCe', {
+    templateUrl: 'view/ImpressaoComprovante.html',
+    authorize: true,
+    controller: 'ImpressaoCeController',
+    routeName: 'Impressão do Comprovante de Exibição',
+    RouteId: 'Impressao@Ce'
+})
     .when('/DepositorioFitas', {
         templateUrl: 'view/DepositorioFitas.html',
         controller: 'DepositorioFitasController',
@@ -858,7 +886,36 @@
         routeName: 'Confirmacao do Roteiro',
         RouteId: 'Roteiro@Confirmacao'
     })
+    .when('/ConsultaFitasOrdenadas', {
+    templateUrl: 'view/ConsultaFitasOrdenadas.html',
+    authorize: true,
+    controller: 'ConsultaFitasOrdenadasController',
+    routeName: 'Consulta de Fitas Ordenadas',
+    RouteId: 'Roteiro@FitaOrdenada'
+    })
+ .when('/HorarioExibicao', {
+     templateUrl: 'view/HorarioExibicao.html',
+     authorize: true,
+     controller: 'HorarioExibicaoController',
+     routeName: 'Horario Exibicao de Programas',
+     RouteId: 'Programacao@Confirmacao'
+ })
+.when('/BaixaRoteiro', {
+    templateUrl: 'view/BaixaRoteiro.html',
+    authorize: true,
+    controller: 'BaixaRoteiroController',
+    routeName: 'Baixa por Roteiro',
+    RouteId: 'baixa@roteiro'
+})
+ .when('/ReabreCE', {
+     templateUrl: 'view/ReabreCE.html',
+     authorize: true,
+     controller: 'ReabreCEController',
+     routeName: 'Reabre Comprovante de Exibição',
+     RouteId: 'Reabrir@Ce'
+ })
 
+        .otherwise({ redirectTo: "/blank" })
     .otherwise({ redirectTo: "/blank" })
 });
 

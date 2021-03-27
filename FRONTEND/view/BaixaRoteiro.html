@@ -1,0 +1,235 @@
+﻿<style>
+    input{
+        text-transform:uppercase;
+    }
+</style>
+<div class="container">
+    <form name="BaixaRoteiro" autocomplete="off" class="form-horizontal">
+        <div class="block">
+            <div class="row">
+                <!--===================Programa-->
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Programa" caption="Programa">
+                        <input id="txtCodPrograma"
+                               ng-model="BaixaRoteiro.Cod_Programa"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodPrograma')"
+                               primarybind="txtCodPrograma"
+                               secondarybind="txtNomePrograma">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtNomePrograma" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomePrograma" class="form-control " ng-model="BaixaRoteiro.Nome_Programa">
+                        </div>
+                    </div>
+                </div>
+                <!--===================Comercial-->
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Tipo_Comercial" caption="Tipo_Comercial">
+                        <input id="txtCodTipo_Comercial"
+                               ng-model="BaixaRoteiro.Cod_Tipo_Comercial"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodTipo_Comercial')"
+                               primarybind="txtCodTipo_Comercial"
+                               secondarybind="txtNomeComercial">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtNomeComercial" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeComercial" class="form-control " ng-model="BaixaRoteiro.Nome_Comercial">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Qualidade-->
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Qualidade" caption="Qualidade">
+                        <input id="txtCodQualidade"
+                               ng-model="BaixaRoteiro.Cod_Qualidade"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodQualidade')"
+                               primarybind="txtCodQualidade"
+                               secondarybind="txtNomeQualidade">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtNomeQualidade" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeQualidade" class="form-control " ng-model="BaixaRoteiro.Nome_Qualidade">
+                        </div>
+                    </div>
+                </div>
+
+                <!--===================Período Inicial-->
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Data" caption="Período Inicial">
+                        <input ng-model="BaixaRoteiro.Data_Inicial"
+                               ui-date ng-model-options="{updateOn: 'blur'}">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="BaixaRoteiro.Data_Inicial"></div>
+                    </div>
+                </div>
+                <!--===================Período Final-->
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Data" caption="Período Final">
+                        <input ng-model="BaixaRoteiro.Data_Final"
+                               ui-date ng-model-options="{updateOn: 'blur'}">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="BaixaRoteiro.Data_Final"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center" class="block margin-top-20">
+                <p>Dias da Semana</p>
+                <div class="row">
+                    <!--===================Domingo-->
+                    <div class="col-md-1 margin-top-20">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input id="0" type="checkbox" name="chkDiasemana" ng-model="BaixaRoteiro.Domingo" />Dom.<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--===================Segunda Feira-->
+                    <div class="col-md-1 margin-top-20">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input id="1" type="checkbox" name="chkDiasemana" ng-model="BaixaRoteiro.Segunda" />Seg.<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--===================Terça Feira-->
+                    <div class="col-md-1 margin-top-20">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input id="2" type="checkbox" name="chkDiasemana" ng-model="BaixaRoteiro.Terca" />Ter.<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--===================Quarta Feira-->
+                    <div class="col-md-1 margin-top-20">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input id="3" type="checkbox" name="chkDiasemana" ng-model="BaixaRoteiro.Quarta" />Qua.<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--===================Quinta Feira-->
+                    <div class="col-md-1 margin-top-20">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input id="4" type="checkbox" name="chkDiasemana" ng-model="BaixaRoteiro.Quinta" />Qui.<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--===================Sexta Feira-->
+                    <div class="col-md-1 margin-top-20">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input id="5" type="checkbox" name="chkDiasemana" ng-model="BaixaRoteiro.Sexta" />Sex.<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--===================Sábado-->
+                    <div class="col-md-1 margin-top-20">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="app-checkbox">
+                                    <label><input id="6" type="checkbox" name="chkDiasemana" ng-model="BaixaRoteiro.Sabado" />Sab.<span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+ 
+            <!--===================Selecionar Veiculos-->
+            <div class="row">
+                <div class="col-md-6 col-offset-3">
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th colspan="3" style="text-align:center;background-color:silver">Veiculos</th>
+                                </tr>
+                                <tr>
+                                    <th style="width:50px"></th>
+                                    <th>Código</th>
+                                    <th>Nome</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="veiculo in BaixaRoteiro.Veiculos">
+                                    <td style="width:50px">
+                                        <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                            <label>
+                                                <input type="checkbox"
+                                                       tabindex="-1 "
+                                                       name="app-checkbox-1"
+                                                       ng-model="veiculo.Selected"> &nbsp;&nbsp;<span></span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>{{veiculo.Cod_Veiculo}}</td>
+                                    <td>{{veiculo.Nome_Veiculo}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>"
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" ng-click="MarcarDismarcar(BaixaRoteiro.Veiculos,checkMarcar)" ng-model="checkMarcar" />Marcar/Desmarcar todos<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--===================================Botão-->
+        <div class="fixed-buttons-bottom">
+            <button class="btn btn-success" ng-click="SalvarRoteiroBaixa(BaixaRoteiro)">Baixar Veiculações</button>
+        </div>
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+
+    function SomenteNumero(e) {
+        var tecla = (window.event) ? event.keyCode : e.which;
+        if ((tecla > 47 && tecla < 58)) return true;
+        else {
+            if (tecla == 8 || tecla == 0) return true;
+            else return false;
+        }
+    }
+
+</script>

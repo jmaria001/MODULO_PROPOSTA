@@ -1,4 +1,8 @@
-﻿
+﻿<style>
+    input  {
+        text-transform:uppercase;
+    }
+</style>
 <div class="container">
     <form name="frmMateriaisFitasCadastro" autocomplete="off">
 
@@ -58,8 +62,6 @@
                         </div>
                     </div>
                 </div>
-
-
                 <!--====================Duracao-->
                 <div class="col-md-1 margin-top-10">
                     <div class="form-group">
@@ -69,8 +71,6 @@
                         </div>
                     </div>
                 </div>
-
-
                 <!--===================tipo midia-->
                 <div class="col-md-2  " ng-controller="dictionaryController">
                     <div class="dictionary" dictionary="TipoMidias">
@@ -91,23 +91,23 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
             </div>
-
             <div class="row">
-
-                <div class="col-md-2  " ng-controller="dictionaryController">
-
-                    <div class="dictionary" dictionary="Produto">
-                        <input id="txtCod_Red_Produto"
-                               ng-model="MateriaisFitas.Cod_Red_Produto"
-                               ng-model-options="{updateOn: 'blur'}"
-                               ng-change="DicionaryValidate('txtCod_Red_Produto')"
-                               primarybind="txtCod_Red_Produto"
-                               secondarybind="txtDescricao_Produto">
+                <!--===================Produto-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="txtProduto" class="field-x">Produto</label>
+                        <div class="input-group">
+                            <input id="txtProduto"
+                                   class="form-control numeric"
+                                   ng-model="MateriaisFitas.Cod_Red_Produto"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="ProdutoChange(MateriaisFitas)"
+                                   maxlength="10">
+                            <div class="input-group-addon">
+                                <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaProduto(MateriaisFitas)"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -121,7 +121,7 @@
                 </div>
 
                 <!--===================tipo comercial-->
-                <div class="col-md-1  " ng-controller="dictionaryController">
+                <div class="col-md-2  " ng-controller="dictionaryController">
                     <div class="dictionary" dictionary="Tipo_Comercial">
                         <input id="txtCod_Tipo_Comercial"
                                ng-model="MateriaisFitas.Cod_Tipo_Comercial"
@@ -132,7 +132,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="txtDescComercial" class="field-x" style="visibility:hidden">..</label>
                         <div class="input-group">
@@ -165,45 +165,38 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="block">
 
             <div class="row">
-
-                <table class="table table-noborder">
-                    <tbody>
-                        <tr>
-                            <td style="width:150px;min-width:150px">
-
-                                <input type="text" id="txtNumero_Fita" class="form-control" ng-model="MateriaisFitas.Numero_Fita" ng-disabled="!PermissaoEdit">
-
-                            </td>
-
-                            <td>
-                                <button type="submit" class="btn btn-success" ng-click="CarregarNumeroFita(MateriaisFitas)" ng-disabled="Parameters.Action!='New'">Numero Fita</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x">Numero de Fita</label>
+                        <div class="input-group" style="margin-top:0px;margin-bottom:0px">
+                            <input type="text" class="form-control numeric" id="txtNumeroFita"
+                                   ng-change="FormataNumeroFita(numeracao)"
+                                   ng-model="MateriaisFitas.Numero_Fita"
+                                   ng-disabled="Parameters.Action=='Edit'"
+                                   maxlength="10"
+                                   onkeypress="return NumericOnly(event)"
+                                   ng-model-options="{updateOn: 'blur'}" />
+                            <div class="input-group-addon" ng-show="Parameters.Action=='New'">
+                                <span class="fa fa-calculator span-btn" ng-click="CarregarNumeroFita(MateriaisFitas)"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
         </div>
-
-
         <!--===================Botoes-->
-        <div class="row margin-top-20">
-            <div class="col-md-12">
-                <button type="submit" class="btn btn-success" ng-click="SalvarMateriaisFitas(MateriaisFitas)" ng-disabled="frmMateriaisFitasCadastro.$invalid">Salvar</button>
-                <button type="button" class="btn btn-danger" ng-click="ExcluirMateriaisFitas(MateriaisFitas)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
-                <a href="#/MateriaisFitas" class="btn btn-warning">Cancelar</a>
+        <div class="fixed-buttons-bottom">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success" ng-click="SalvarMateriaisFitas(MateriaisFitas)" ng-disabled="frmMateriaisFitasCadastro.$invalid">Salvar</button>
+                    <button type="button" class="btn btn-danger" ng-click="ExcluirMateriaisFitas(MateriaisFitas)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
+                    <a href="#/MateriaisFitas" class="btn btn-warning">Cancelar</a>
+                </div>
             </div>
         </div>
-
-
     </form>
-
 </div>
 
 <div ng-include="'template/SelectItem.html'"></div>

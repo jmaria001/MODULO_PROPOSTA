@@ -48,6 +48,8 @@ namespace PROPOSTA
             public String Cod_Veiculo { get; set; }
             public String DiaSemana { get; set; }
             public Boolean Loaded { get; set; }
+            public String Cod_Qualidade_Cancelamento { get; set; }
+            public String Descricao_Qualidade_Cancelamento { get; set; }
             public List<BaixaContratoVeiculoModel> Veiculos { get; set; }
         }
 

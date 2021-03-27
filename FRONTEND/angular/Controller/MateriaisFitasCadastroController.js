@@ -8,16 +8,10 @@
     $scope.DepositorioFitas = "";
     $scope.DepositorioFitas.Veiculos = [];
     $scope.currentVeiculos = 0;
-    console.log($scope.Parameters);
-
-
     //========================Verifica Permissoes
-
     $scope.PermissaoDelete = false;
 
-
-
-    httpService.Get("credential/MateriaisFitas@Destroy").then(function (response) {
+    httpService.Get("credential/MateriaisFita@Destroy").then(function (response) {
         $scope.PermissaoDelete = response.data;
     });
 
@@ -35,7 +29,48 @@
             }
         }
     });
+    //===============Clicou na lupa Produto 
+    $scope.PesquisaProduto = function (pMaterial) {
+        $scope.PesquisaTabelas = NewPesquisaTabela();
+        $scope.PesquisaTabelas.Items = [];
+        $scope.PesquisaTabelas.PreFiltroTexto = "";
+        $scope.PesquisaTabelas.PreFilter = true;
+        $scope.PesquisaTabelas.Titulo = "Seleção de Produtos";
+        $scope.PesquisaTabelas.MultiSelect = false;
+        if (pMaterial.Cod_Cliente) {
+            $scope.PesquisaTabelas.ButtonText = "Mostrar Produtos do Cliente " + pMaterial.Cod_Cliente
+            $scope.PesquisaTabelas.ButtonCallBack = function () {
+                httpService.Get('MapaReserva/ListarProdutoCliente/' + pMaterial.Cod_Cliente).then(function (response) {
+                    $scope.PesquisaTabelas.Items = response.data;
+                });
+            };
+        };
+        $scope.PesquisaTabelas.ClickCallBack = function (value) { pMaterial.Cod_Red_Produto = value.Codigo; pMaterial.Descricao_Produto = value.Descricao };
+        $scope.PesquisaTabelas.LoadCallBack = function (pFilter) {
+            httpService.Get('ListarTabela/Produto/' + pFilter).then(function (response) {
+                $scope.PesquisaTabelas.Items = response.data;
+            });
+        }
 
+        $("#modalTabela").modal(true);
+    };
+    ////==========================Validar o Produto
+    $scope.ProdutoChange = function (pMaterial) {
+        if (!pMaterial.Cod_Red_Produto) {
+            pMaterial.Descricao_Produto = "";
+            return;
+        };
+        httpService.Get("ValidarTabela/Produto/" + pMaterial.Cod_Red_Produto).then(function (response) {
+            if (!response.data[0].Status) {
+                ShowAlert("Produto Inválido");
+                pMaterial.Cod_Red_Produto = "";
+                pMaterial.Descricao_Produto = "";
+            }
+            else {
+                pMaterial.Descricao_Produto = response.data[0].Descricao;
+            }
+        });
+    };
     ////==========================Salvar
     $scope.SalvarMateriaisFitas = function (pMateriaisFitas) {
         $scope.MateriaisFitas.id_operacao = $scope.Parameters.Action == "New" ? 'I' : 'E';

@@ -88,8 +88,11 @@
         var _dia = parseInt(pParam.Data_Limite.substr(0, 2));
         var _mes = parseInt(pParam.Data_Limite.substr(3, 2));
         var _ano = parseInt(pParam.Data_Limite.substr(6, 4));
-        var _datalim = new Date(_ano, _mes - 1, _dia).toDateString();  //--pega só a data sem a hora
-        var _hoje = new Date().toDateString();  //--pega só a data de hoje sem a hora
+        var _datalim = new Date(_ano, _mes - 1, _dia,0,0,0);  
+        var _hoje = new Date();  
+        
+        console.log(_datalim);
+        console.log(_hoje);
         if (_datalim > _hoje) {
             ShowAlert("Data Limite não pode ser maior que hoje");
             return;

@@ -5,10 +5,10 @@
     $scope.PermissaoEdit = false;
     $scope.PermissaoProgramaAvulso = false;
 
-    httpService.Get("credential/MateriaisFitas@New").then(function (response) {
+    httpService.Get("credential/MateriaisFita@New").then(function (response) {
         $scope.PermissaoNew = response.data;
     });
-    httpService.Get("credential/MateriaisFitas@Edit").then(function (response) {
+    httpService.Get("credential/MateriaisFita@Edit").then(function (response) {
         $scope.PermissaoEdit = response.data;
     });
 
@@ -19,10 +19,14 @@
 
 
     $scope.gridheaders = [{ 'title': '', 'visible': true, 'searchable': false, 'config': false, 'sortable': false },
-    { 'title': 'Titulo', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
     { 'title': 'Numero Fita', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
     { 'title': 'Cod.Veiculo', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
-    { 'title': 'Dur.', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+    { 'title': 'Titulo', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+    { 'title': 'Duração', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+    { 'title': 'Tipo Com.', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+    { 'title': 'Agencia', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+    { 'title': 'Cliente', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+    { 'title': 'Produto', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
     { 'title': 'Status', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
     ];
     //====================Inicializa o Filtro
