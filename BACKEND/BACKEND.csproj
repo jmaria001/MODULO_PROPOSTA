@@ -34,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -240,6 +241,9 @@
     <Compile Include="ConsultaFitasOrdenadas\ConsultaFitasOrdenadasController.cs" />
     <Compile Include="ConsultaFitasOrdenadas\ConsultaFitasOrdenadasModel.cs" />
     <Compile Include="ConsultaFitasOrdenadas\ConsultaFitasOrdenadasSql.cs" />
+    <Compile Include="ConsultaRoteiroOrdenado\ConsultaRoteiroOrdenadoController.cs" />
+    <Compile Include="ConsultaRoteiroOrdenado\ConsultaRoteiroOrdenadoModel.cs" />
+    <Compile Include="ConsultaRoteiroOrdenado\ConsultaRoteiroOrdenadoSql.cs" />
     <Compile Include="DeParaProgramacao\DeParaProgramacaoController.cs" />
     <Compile Include="DeParaProgramacao\DeParaProgramacaoModel.cs" />
     <Compile Include="DeParaProgramacao\DeParaProgramacaoSql.cs" />

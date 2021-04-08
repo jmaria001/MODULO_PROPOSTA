@@ -124,6 +124,7 @@
                 { 'Title': 'Consulta de Veiculações', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/ConsultaVeiculacoes' },
                 { 'Title': 'Pré-Ordenação', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/PreOrdenacao' },
                 { 'Title': 'Ordenação', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/Roteiro' },
+                { 'Title': 'Consulta do Roteiro', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/ConsultaRoteiroOrdenado' },
                 { 'Title': 'Composição de Breaks', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/Breaks' },
                 { 'Title': 'Consulta de Fitas Ordenadas', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/ConsultaFitasOrdenadas' },
                 { 'Title': 'Envio Play-List', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/EnvioPlayList' },

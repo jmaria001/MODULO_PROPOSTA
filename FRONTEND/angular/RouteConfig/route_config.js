@@ -657,7 +657,7 @@
         RouteId: 'MapaReserva@Import'
     })
     .when('/Determinacao', {
-        templateUrl: 'view/UnderConstrution.html',
+        templateUrl: 'view/DeterminacaoTitulo.html',
         controller: 'DeterminacaoTituloController',
         authorize: true,
         routeName: "Determinação de Títulos",
@@ -914,6 +914,14 @@
      routeName: 'Reabre Comprovante de Exibição',
      RouteId: 'Reabrir@Ce'
  })
+
+    .when('/ConsultaRoteiroOrdenado', {
+        templateUrl: 'view/ConsultaRoteiroOrdenado.html',
+        authorize: true,
+        controller: 'ConsultaRoteiroOrdenadoController',
+        routeName: 'Consulta de Roteiro Ordenado',
+        RouteId: 'ConsultaRoteiroOrdenado@Fitas'
+    })
 
         .otherwise({ redirectTo: "/blank" })
     .otherwise({ redirectTo: "/blank" })

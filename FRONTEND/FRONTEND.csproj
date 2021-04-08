@@ -97,6 +97,7 @@
     <Content Include="angular\Controller\BaixaContratoController.js" />
     <Content Include="angular\Controller\BaixaRoteiroController.js" />
     <Content Include="angular\Controller\ConsultaFitasOrdenadasController.js" />
+    <Content Include="angular\Controller\ConsultaRoteiroOrdenadoController.js" />
     <Content Include="angular\Controller\DeParaData.js" />
     <Content Include="angular\Controller\DeParaPeriodo.js" />
     <Content Include="angular\Controller\DeterminacaoTituloController.js" />
@@ -128,6 +129,7 @@
     <Content Include="angular\Controller\RetornoPlaylistController.js" />
     <Content Include="css\custom - Copy.css" />
     <Content Include="Index.html" />
+    <Content Include="IndexAdm.html" />
     <Content Include="IndexChecking.html" />
     <Content Include="IndexFaturamento.html" />
     <Content Include="IndexRoteiro.html" />
@@ -135,7 +137,6 @@
     <Content Include="IndexVendas.html" />
     <Content Include="IndexOpec.html" />
     <Content Include="IndexDash.html" />
-    <Content Include="IndexAdm.html" />
     <Content Include="angular\Controller\Am_ReencaixeController.js" />
     <Content Include="angular\Controller\AprovarPendentes_Controller.js" />
     <Content Include="angular\Controller\AprovacaoProposta.js" />
@@ -302,6 +303,7 @@
     <Content Include="view\ConsultaFitasOrdenadas.html" />
     <Content Include="view\ConsultaProgramacaoDiaria.html" />
     <Content Include="view\ConsultaProgramacaoDiariaDetalhe.html" />
+    <Content Include="view\ConsultaRoteiroOrdenado.html" />
     <Content Include="view\DashboardTeste.html" />
     <Content Include="view\DashEvolucaoVendas.html" />
     <Content Include="view\DashFunilVendas.html" />

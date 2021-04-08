@@ -1,6 +1,17 @@
-﻿<div class="container">
+﻿<style>
+    input{
+        text-transform:uppercase
+    }
+</style>
+<div class="container">
     <!--div do filtro-->
-    <div id="divFiltro" ng-show="ShowFilter">
+    <div id="divFiltro" ng-show="ShowFilter" class="block">
+        <div class="alert alert-info alert-icon-block" role="alert">
+            <div class="alert-icon">
+                <span class="fa fa-filter"></span>
+            </div>
+            <strong>Filtros</strong>
+        </div>
         <div class="row">
             <div class="col-md-3">
                 <div class="dictionary" dictionary="Competencia" caption="Competência">

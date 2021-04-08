@@ -55,7 +55,7 @@
         $scope.Caracteristica_Contrato = response.data;
     });
     //=====================Carrega a Simulacao 
-    $scope.CarregarSimulacao = function (pId_Simulacao, pProcesso) {
+    $scope.CarregarSimulacao = function (pId_Simulacao, pProcesso,fromImport) {
         $scope.GeracaoProposta = {};
         httpService.Get("GetSimulacao/" + pId_Simulacao + "/" + pProcesso).then(function (response) {
             if (response.data) {
@@ -67,7 +67,7 @@
                 }, 1000);
                 $scope.SetaCompetenciaEsquema($scope.Simulacao.Validade_Inicio, $scope.Simulacao.Validade_Termino);
                 InitTermometro($scope.Simulacao.Termometro_Venda, !$scope.Simulacao.Permite_Editar);
-                if ($scope.Parameters.Action == 'New') {
+                if ($scope.Parameters.Action == 'New' && !fromImport) {
                     $scope.Simulacao.Cod_Empresa_Venda = $scope.FnSetEmpresaDefault('Codigo');
                     $scope.Simulacao.Nome_Empresa_Venda = $scope.FnSetEmpresaDefault('Nome');
                 };
@@ -561,7 +561,7 @@
 
         httpService.Post('ImportarSimulacao', _data).then(function (response) {
             if (response) {
-                $scope.CarregarSimulacao(response.data[0].Id_Simulacao, 'P')
+                $scope.CarregarSimulacao(response.data[0].Id_Simulacao, 'P',true)
             }
         });
     }
