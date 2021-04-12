@@ -1,8 +1,4 @@
-﻿<style>
-    input {
-        text-transform: uppercase;
-    }
-</style>
+﻿
 <div class="container">
     <form name="frmParametroCadastro" autocomplete="off">
         <!--{{Parametro.Indica_Valor_Individual}}-->
@@ -19,7 +15,7 @@
                 <!--===================Codigo-->
                 <div class="col-md-2">
                     <div class="form-group">
-                        <label class="fieldrequired">Código Param</label>
+                        <label class="fieldrequired">Código</label>
                         <input type="text"
                                name="txtCod_Parametro"
                                ng-required="false"
@@ -33,15 +29,17 @@
                 <!--===================Descricao-->
                 <div class="col-md-5">
                     <div class="form-group">
-                        <label>Descricao</label> <!--class="fieldrequired"-->
+                        <label>Descricao</label> 
                         <input style="text-transform:uppercase" type="text" name="txtDescricao" class="form-control" ng-model="Parametro.Descricao" maxlength="30" ng-required="true" />
                     </div>
                 </div>
+            </div>
+            <div class="row">
                 <!--===================Chave-->
-                <div class="col-md-3">
+                <div class="col-md-10">
                     <div class="form-group">
-                        <label>Chave</label> <!--class="fieldrequired"-->
-                        <input style="text-transform:uppercase" type="text" name="txtDescricao" class="form-control" ng-model="Parametro.Cod_Chave" maxlength="200" ng-required="true" />
+                        <label>Chave</label> 
+                        <input type="text" name="txtDescricao" class="form-control" ng-model="Parametro.Cod_Chave" maxlength="1000" ng-required="true" />
                     </div>
                 </div>
                 <!--===================Individual-->

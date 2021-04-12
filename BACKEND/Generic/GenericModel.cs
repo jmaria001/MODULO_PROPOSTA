@@ -32,40 +32,30 @@ namespace PROPOSTA
 
         public class GridConfig
         {
-            public List<GridConfigHeaders> Header;
-            public GridConfigScrool Scrool;
-        }
+            public List<GridConfigHeaders> Header { get; set; } 
+            public GridConfigScrool Scrool { get; set; }         }
 
         public class GridConfigHeaders
         {
-            public String title;
-            public Boolean visible;
-            public Boolean searchable;
-            public Boolean config;
+            public String title { get; set; }
+            public Boolean visible { get; set; }
+            public Boolean searchable { get; set; }
+            public Boolean config { get; set; }
 
         }
         public class GridConfigScrool
         {
-            public Boolean ScroolX;
-            public Boolean ScroolY;
+            public Boolean ScroolX { get; set; } 
+            public Boolean ScroolY { get; set; } 
         }
 
 
         public class VistoMensagemParam
         {
-            public Int32 Id_Mensagem;
+            public Int32 Id_Mensagem { get; set; } 
         }
 
-        public class FiltroAtividade
-        {
-            public List<Filtro> Projeto;
-            public List<Filtro> Analista;
-            public List<Filtro> Solicitante;
-            public List<Filtro> Caracteristica;
-            public List<Filtro> Situacao;
-            public List<Filtro> Cliente;
-
-        }
+        
         public class Filtro
         {
             public Int32 Id;
@@ -83,6 +73,14 @@ namespace PROPOSTA
         {
             public Int32 Usuario_Id;
             public String Usuario_Nome;
+        }
+        public class ParametroGeralModel
+        {
+            public Int32 Cod_Parametro { get; set; }
+            public String Cod_Empresa_Venda { get; set; }
+            public String Cod_Empresa_Faturamento { get; set; }
+            public String Cod_Veiculo { get; set; }
+
         }
     }
 }

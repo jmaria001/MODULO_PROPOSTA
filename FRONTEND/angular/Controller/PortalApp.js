@@ -1,4 +1,5 @@
 ﻿angular.module('App').controller('PortalAppController', ['$scope', '$rootScope', 'tokenApi', 'httpService', '$location', function ($scope, $rootScope, tokenApi, httpService, $location) {
+
     $scope.AppModulos = [
         {
             'Id': 1,
@@ -80,6 +81,7 @@
                 { 'Title': 'Parâmetros Gerais', 'Url': $rootScope.pageUrl + 'IndexAdm.html#/Parametro' },
                 { 'Title': 'Parâmetros de Valoração', 'Url': $rootScope.pageUrl + 'IndexAdm.html#/ParametroValoracao' },
                 { 'Title': 'Cadastros', 'Url': $rootScope.pageUrl + 'IndexAdm.html#/cadastro' },
+                { 'Title': 'Fechamento de Competência', 'Url': $rootScope.pageUrl + 'IndexAdm.html#/numeracao' },
             ],
         },
         {

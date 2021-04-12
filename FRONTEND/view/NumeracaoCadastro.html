@@ -1,0 +1,91 @@
+﻿<div class="container">
+    <form name="frmNumeracaoCadastro" autocomplete="off">
+        <div class="block">
+            <div class="row">
+                <!--===================Empresa-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Usuario" caption="Empresa"  ng-hide="!PermissaoNova">
+                        <input id="txtCodEmpresa"
+                               ng-model="numeracao.Cod_Empresa"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodEmpresa')"
+                               primarybind="txtCodEmpresa"
+                               secondarybind="txtRazaoSocial">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtRazaoSocial" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtRazaoSocial" class="form-control " ng-model="numeracao.RazaoSocial"  ng-hide="!PermissaoNova">
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--===================Competencia Vigente-->
+
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Competencia" caption="Competência Vigente"   ng-hide="!PermissaoNova">
+                        <input ng-model="numeracao.Competencia_Vigente"
+                               ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                               placeholder="Informe a Competência"
+                                ng-hide="PermissaoEdit==True">
+                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="numeracao.Competencia_Vigente" params="CompetenciaKeys"></div>
+                    </div>
+                </div>
+
+                <!--===================N. Ultima Fatura-->
+                <div class="col-md-2"  ng-hide="!PermissaoNova"  >
+                    <div class="form-group">
+                        <label class="field-x">N. Ultima Fatura</label>
+                        <input id="txtNumero" type="text" name="txtNumero" class="form-control" ng-model="numeracao.Numero" size='6' value='' onkeypress='return NumericOnly(event)' maxlength="6" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!--===================Competencia Nova-->
+
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Competencia" caption="Competência Nova"   ng-hide="PermissaoNova">
+                        <input ng-model="numeracao.Competencia_Nova"
+                               ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                               placeholder="Informe a Competência"
+                                ng-hide="PermissaoEdit==True">
+                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="numeracao.Competencia_Nova" params="CompetenciaKeys"></div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+            <!--===================Botoes-->
+            <div class="fixed-buttons-bottom">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-success" ng-click="SalvarNumeracao(numeracao)"
+                                ng-disabled="frmNumeracaoCadastro.$invalid">
+                            Salvar
+                        </button>
+
+
+
+                        <a href="#numeracao" class="btn btn-warning">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>

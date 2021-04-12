@@ -1,0 +1,97 @@
+﻿<div class="container">
+    <!--Div do grid-->
+    <form id="frmNumeracao" autocomplete="off">
+
+        <div id="divGrid" class="block" ng-show="CurrentShow=='Grid'">
+
+            <a id="btnNovoNumeracao" class="btn btn-primary" href="#NumeracaoCadastro/New/0">Nova Numeração</a>
+            <button id="ExportReporttoExcel" class="btn btn-warning" ng-show="NumeracaoFiscais.length > 0">Exportar Excel</button>
+            <!--===================================Botoes-->
+            <div class="table-responsive margin-top-20">
+                <table id="dataTable" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <!--<th>Editar</th>-->
+                            <th></th>
+                            <th>Empresa</th>
+                            <th>Competência</th>
+                            <th>Ultima Emissão</th>
+                            <th>Tipo</th>
+                            <th>Ultima NF</th>
+                            <th>Encerrado por</th>
+                            <th>Critica</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="numeracao in NumeracaoFiscais track by $index" on-finish-render="ngRepeatFinished()">
+                            <td>
+                                <div class="input-group">
+                                    <div class="app-checkbox">
+                                        <label><input type="checkbox" name="app-checkbox-1" ng-model="numeracao.Selected"><span></span></label>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{numeracao.Cod_Empresa}}</td>
+                            <td>{{numeracao.Competencia_Vigente}}</td>
+                            <td>{{numeracao.Data_Ultima_Emissao  | date:"dd/MM/yyyy" }}</td>
+                            <td>{{numeracao.Tipo_Numeracao}}</td>
+                            <td>{{numeracao.Numero}}</td>
+                            <td>{{numeracao.Cod_Usuario}}</td>
+                            <td>
+                                <span class="fa fa-check" style="color:seagreen" ng-show="numeracao.Status"></span>
+                                <span class="fa fa-times" style="color:red" ng-show="!numeracao.Status && numeracao.Critica"></span>
+                                <span>{{numeracao.Critica}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="app-checkbox">
+                        <label><input type="checkbox" ng-click="MarcarDismarcar(NumeracaoFiscais,checkMarcar)" ng-model="checkMarcar" />Marcar/Desmarcar todos<span></span></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--===================Competencia Nova-->
+        <div class="block" ng-show="CurrentShow=='Base'">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="dictionary" dictionary="Competencia" caption="Competência Nova">
+                        <input ng-model="Competencia_Nova"
+                               ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                               placeholder="Informe a Competência">
+                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="Competencia_Nova" params="CompetenciaKeys"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <button class="btn btn-success" ng-click="ConfirmarFechamento(NumeracaoFiscais)">Confirmar</button>
+                    <button class="btn btn-warning" ng-click="CurrentShow='Grid'">Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <!--========================botoes de acoes-->
+        <div class="fixed-buttons-bottom">
+            <div class="row">
+                <div class="col-md-12">
+                    <button  class="btn btn-success" ng-click="FecharCompetencia(NumeracaoFiscais)" ng-hide="CurrentShow=='Base'">Fechar Competência</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

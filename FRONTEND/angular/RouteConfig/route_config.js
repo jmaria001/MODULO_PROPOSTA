@@ -922,7 +922,36 @@
         routeName: 'Consulta de Roteiro Ordenado',
         RouteId: 'ConsultaRoteiroOrdenado@Fitas'
     })
+         .when('/numeracao', {
+             templateUrl: 'view/Numeracao.html',
+             authorize: true,
+             controller: 'NumeracaoController',
+             routeName: 'Numeracao',
+             RouteId: 'Numeracao@Fiscais'
+         })
 
+        .when('/NumeracaoCadastro/:Action/:Id', {
+            templateUrl: 'view/NumeracaoCadastro.html',
+            authorize: true,
+            controller: 'NumeracaoCadastroController',
+            routeName: 'Numeracao',
+            RouteId: 'Numeracao@New'
+        })
+        .when('/TiposComercializacao', {
+            templateUrl: 'view/TiposComercializacao.html',
+            authorize: true,
+            controller: 'TiposComercializacaoController',
+            routeName: 'Tipos de Comercialização',
+            RouteId: 'TiposComercializacao@Index'
+        })
+
+    .when('/TiposComercializacaoCadastro/:Action/:Id', {
+        templateUrl: 'view/TiposComercializacaoCadastro.html',
+        authorize: true,
+        controller: 'TiposComercializacaoCadastroController',
+        routeName: 'Tipos de Comercialização',
+        RouteId: 'TiposComercializacao@New'
+    })
         .otherwise({ redirectTo: "/blank" })
     .otherwise({ redirectTo: "/blank" })
 });

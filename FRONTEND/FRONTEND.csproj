@@ -123,10 +123,14 @@
     <Content Include="angular\Controller\ConsultaVeiculacaoController.js" />
     <Content Include="angular\Controller\NaturezadeServicoCadastroController.js" />
     <Content Include="angular\Controller\NaturezadeServicoController.js" />
+    <Content Include="angular\Controller\NumeracaoCadastroController.js" />
+    <Content Include="angular\Controller\NumeracaoController.js" />
     <Content Include="angular\Controller\NumeracaoFitasCadastroController.js" />
     <Content Include="angular\Controller\NumeracaoFitasController.js" />
     <Content Include="angular\Controller\ReabreCEController.js" />
     <Content Include="angular\Controller\RetornoPlaylistController.js" />
+    <Content Include="angular\Controller\TiposComercializacaoCadastroController.js" />
+    <Content Include="angular\Controller\TiposComercializacaoController.js" />
     <Content Include="css\custom - Copy.css" />
     <Content Include="Index.html" />
     <Content Include="IndexAdm.html" />
@@ -331,6 +335,8 @@
     <Content Include="view\MenuDashboard.html" />
     <Content Include="view\NaturezadeServico.html" />
     <Content Include="view\NaturezadeServicoCadastro.html" />
+    <Content Include="view\Numeracao.html" />
+    <Content Include="view\NumeracaoCadastro.html" />
     <Content Include="view\NumeracaoFitas.html" />
     <Content Include="view\NumeracaoFitasCadastro.html" />
     <Content Include="view\PARAM.xml" />
@@ -408,6 +414,8 @@
     <Content Include="view\TipoComercialCadastro.html" />
     <Content Include="view\TipoMidia.html" />
     <Content Include="view\TipoMidiaCadastro.html" />
+    <Content Include="view\TiposComercializacao.html" />
+    <Content Include="view\TiposComercializacaoCadastro.html" />
     <Content Include="view\UnderConstrution.html" />
     <Content Include="view\Usuario.html" />
     <Content Include="view\Veiculo.Html" />

@@ -185,74 +185,7 @@ namespace PROPOSTA
 
         }
 
-        public FiltroAtividade GetFiltroUsuario()
-        {
-            clsConexao cnn = new clsConexao(this.Credential);
-            cnn.Open();
-            SqlDataAdapter Adp = new SqlDataAdapter();
-            DataTable dtb = new DataTable("dtb");
-
-            FiltroAtividade FiltroAtividade = new FiltroAtividade();
-            List<Filtro> Projeto = new List<Filtro>();
-            List<Filtro> Analista= new List<Filtro>();
-            List<Filtro> Solicitante= new List<Filtro>();
-            List<Filtro> Caracteristica= new List<Filtro>();
-            List<Filtro> Situacao= new List<Filtro>();
-            List<Filtro> Cliente= new List<Filtro>();
-
-
-            try
-            {
-                SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_Filtro_S");
-                Adp.SelectCommand = cmd;
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
-                Adp.Fill(dtb);
-
-                foreach (DataRow drw  in dtb.Rows)
-                {
-                    
-                    switch (drw["Tipo"].ToString())
-                    {
-                        case "Projeto":
-                            Projeto.Add(new Filtro() { Id = Int32.Parse(drw["Id"].ToString()), Descricao = drw["Descricao"].ToString(),Selecionado = Boolean.Parse(drw["Selecionado"].ToString())});
-                            break;
-                        case "Analista":
-                            Analista.Add(new Filtro() { Id = Int32.Parse(drw["Id"].ToString()), Descricao = drw["Descricao"].ToString(), Selecionado = Boolean.Parse(drw["Selecionado"].ToString()) });
-                            break;
-                        case "Solicitante":
-                            Solicitante.Add(new Filtro() { Id = Int32.Parse(drw["Id"].ToString()), Descricao = drw["Descricao"].ToString(), Selecionado = Boolean.Parse(drw["Selecionado"].ToString()) });
-                            break;
-                        case "Caracteristica":
-                            Caracteristica.Add(new Filtro() { Id = Int32.Parse(drw["Id"].ToString()), Descricao = drw["Descricao"].ToString(), Selecionado = Boolean.Parse(drw["Selecionado"].ToString()) });
-                            break;
-                        case "Situacao":
-                            Situacao.Add(new Filtro() { Id = Int32.Parse(drw["Id"].ToString()), Descricao = drw["Descricao"].ToString(), Selecionado = Boolean.Parse(drw["Selecionado"].ToString()) });
-                            break;
-                        case "Cliente":
-                            Cliente.Add(new Filtro() { Id = Int32.Parse(drw["Id"].ToString()), Descricao = drw["Descricao"].ToString(), Selecionado = Boolean.Parse(drw["Selecionado"].ToString()) });
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                FiltroAtividade.Projeto = Projeto;
-                FiltroAtividade.Analista= Analista;
-                FiltroAtividade.Solicitante = Solicitante;
-                FiltroAtividade.Caracteristica = Caracteristica;
-                FiltroAtividade.Situacao = Situacao;
-                FiltroAtividade.Cliente = Cliente;
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                cnn.Close();
-            }
-            return FiltroAtividade;
-        }
+      
 
         
         public DataTable ListarTabela(String pTabela)
@@ -381,6 +314,46 @@ namespace PROPOSTA
                 cnn.Close();
             }
             return dtb;
+        }
+
+        public String GetParametroKey(ParametroGeralModel Param)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            String Key = "";
+            String strSql = "select dbo.fn_ParametrosGerais(";
+            strSql += Param.Cod_Parametro.ToString() + ",";
+            strSql += String.IsNullOrEmpty(Param.Cod_Empresa_Faturamento) ? "null" : Param.Cod_Empresa_Faturamento;
+            strSql += ",";
+            strSql += String.IsNullOrEmpty(Param.Cod_Empresa_Venda) ? "null" : Param.Cod_Empresa_Venda;
+            strSql += ",";
+            strSql += String.IsNullOrEmpty(Param.Cod_Veiculo) ? "null" : Param.Cod_Veiculo;
+            strSql += ")";
+
+            try
+            {
+                //SqlCommand cmd = cnn.Procedure(cnn.Connection, "pr_Parametro_S");
+                //cmd.Parameters.AddWithValue("@Parametro_Par", 308);
+                //Adp.SelectCommand = cmd;
+                SqlCommand cmd = cnn.Text(cnn.Connection, strSql);
+                Adp.SelectCommand = cmd;
+                Adp.Fill(dtb);
+                if (dtb.Rows.Count>=0)
+                {
+                    Key = dtb.Rows[0][0].ToString();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Key;
         }
     }
 

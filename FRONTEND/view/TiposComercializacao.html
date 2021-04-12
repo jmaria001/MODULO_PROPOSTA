@@ -1,0 +1,42 @@
+﻿<div class="container">
+    <div class="block table-responsive" ng-show="ShowGrid">
+        <!--===================================Botoes-->
+        <a id="btnNovaTabelaTiposComercializacao" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#TiposComercializacaoCadastro/New/0">Novo Tipo de Comercialização</a>
+        <button id="ExportReporttoExcel" class="btn btn-warning" ng-show="TiposComercializacaoS.length > 0">Exportar Excel</button>
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Codigo</th>
+                        <th>Descricao</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="TiposComercializacao in TiposComercializacaoS track by $index" on-finish-render="ngRepeatFinished()">
+                        <td style="width:50px;text-align:center">
+                            <a href="#TiposComercializacaoCadastro/Edit/{{TiposComercializacao.Cod_Tipo_Comercializacao}}" ng-show="PermissaoEdit">
+                                <span class="fa fa-edit fa-2x"></span>
+                            </a>
+                        </td>
+                        <td>{{::TiposComercializacao.Cod_Tipo_Comercializacao}}</td>
+                        <td>{{::TiposComercializacao.Descricao}}</td>
+                        <td>
+                            <label class="label label-success" ng-show="!TiposComercializacao.Indica_Desativado" style="display:inline-block;width:80px">Ativo</label>
+                            <label class="label label-danger" ng-show="TiposComercializacao.Indica_Desativado" style="display:inline-block;width:80px">Inativo</label>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

@@ -338,6 +338,9 @@
     <Compile Include="NaturezadeServico\NaturezadeServicoController.cs" />
     <Compile Include="NaturezadeServico\NaturezadeServicoModel.cs" />
     <Compile Include="NaturezadeServico\NaturezadeServicoSql.cs" />
+    <Compile Include="Numeracao\NumeracaoController.cs" />
+    <Compile Include="Numeracao\NumeracaoModel.cs" />
+    <Compile Include="Numeracao\NumeracaoSql.cs" />
     <Compile Include="PacoteDesconto\PacoteDescontoController.cs" />
     <Compile Include="PacoteDesconto\PacoteDescontoModel.cs" />
     <Compile Include="PacoteDesconto\PacoteDecontoSql.cs" />
@@ -409,6 +412,9 @@
     <Compile Include="TipoMidia\TipoMidiaController.cs" />
     <Compile Include="TipoMidia\TipoMidiaModel.cs" />
     <Compile Include="TipoMidia\TipoMidiaSql.cs" />
+    <Compile Include="TiposComercializacao\TiposComercializacaoController.cs" />
+    <Compile Include="TiposComercializacao\TiposComercializacaoModel.cs" />
+    <Compile Include="TiposComercializacao\TiposComercializacaoSql.cs" />
     <Compile Include="Veiculo\VeiculoController.cs" />
     <Compile Include="Veiculo\VeiculoModel.cs" />
     <Compile Include="Veiculo\VeiculoSql.cs" />

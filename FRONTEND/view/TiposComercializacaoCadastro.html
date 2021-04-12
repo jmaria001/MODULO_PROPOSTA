@@ -1,0 +1,59 @@
+﻿<div class="container">
+    <form name="frmTiposComercializacaoCadastro" autocomplete="off">
+        <div class="block">
+            <div class="row">
+                <!--===================Codigo-->
+                <div class="col-md-1">
+                    <div class="form-group">
+                        <label class="fieldrequired">Código</label>
+                        <input type="text"
+                               name="txtCod_Tipo_Comercializacao"
+                               ng-required="true"
+                               ng-model="TiposComercializacao.Cod_Tipo_Comercializacao"
+                               class="form-control"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="3" 
+                               style="text-transform:uppercase"/>
+                    </div>
+                </div>
+                <!--===================Descricao-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label  class="fieldrequired" >Descricao</label>
+                        <input type="text" 
+                               name="txtDescricao" 
+                               ng-required="true"
+                               class="form-control" 
+                               ng-model="TiposComercializacao.Descricao"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Botoes-->
+                <div class="fixed-buttons-bottom">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-success" ng-click="SalvarTiposComercializacao(TiposComercializacao)"
+                                    ng-disabled="frmTiposComercializacaoCadastro.$invalid">
+                                Salvar
+                            </button>
+                            <button class="btn btn-danger" ng-disabled="!PermissaoDelete" ng-show="Parameters.Action=='Edit'" ng-click="ExcluirTiposComercializacao(TiposComercializacao) ">Excluir</button>
+                            <a href="#TiposComercializacao" class="btn btn-warning">Cancelar</a>                                                                                                 
+                            <button type="button" class="btn btn-info" ng-show="TiposComercializacao.Indica_Desativado && Parameters.Action=='Edit'" ng-disabled="!PermissaoDesativar" ng-click="DesativarReativarTiposComercializacao(TiposComercializacao.Cod_Tipo_Comercializacao,'R')">Reativar</button>
+                            <button type="button" class="btn btn-info" ng-show="!TiposComercializacao.Indica_Desativado && Parameters.Action=='Edit'" ng-disabled="!PermissaoDesativar" ng-click="DesativarReativarTiposComercializacao(TiposComercializacao.Cod_Tipo_Comercializacao,'D')">Desativar</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+        $(document).ready(function () {
+            GetDictionary();
+        });
+</script>

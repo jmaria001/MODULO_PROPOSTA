@@ -21,7 +21,8 @@
         { 'Link': 'Produto', 'Title': 'Produtos' },
         { 'Link': 'Genero', 'Title': 'Generos' },
         { 'Link': 'Rede', 'Title': 'Redes' },
-         { 'Link': 'NaturezadeServico', 'Title': 'Natureza de Serviços' },
+        { 'Link': 'NaturezadeServico', 'Title': 'Natureza de Serviços' },
+        { 'Link': 'TiposComercializacao', 'Title': 'Tipo de Comercialização Midia On Line' },
     ];
     //===========================fim do load da pagina
     $scope.$watch('$viewContentLoaded', function () {

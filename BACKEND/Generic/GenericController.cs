@@ -224,6 +224,26 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
+
+        [Route("api/GetParametroKey")]
+        [HttpGet]
+        [ActionName("GetUrlPowerBi")]
+        [Authorize()]
+        public IHttpActionResult GetParametroKey([FromUri] Generic.ParametroGeralModel Param)
+        {
+            SimLib clsLib = new SimLib();
+            Generic Cls = new Generic(User.Identity.Name);
+            try
+            {
+                String Key = Cls.GetParametroKey(Param);
+                return Ok(Key);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
     }
 
 }
