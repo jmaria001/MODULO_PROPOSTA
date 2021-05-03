@@ -1,5 +1,4 @@
 ﻿angular.module('App').controller('MapaReservaDetalheController', ['$scope', '$rootScope', '$location', 'httpService', '$location', '$routeParams', function ($scope, $rootScope, $location, httpService, $location, $routeParams) {
-
     //========================Recebe Parametro
     $scope.Parameters = $routeParams;
     $scope.FiltroMidia = { 'Competencia': '', 'Cod_Veiculo': '', 'Indica_Demanda': true, 'Display': 1 };
@@ -12,11 +11,7 @@
     $scope.Resumos= [];
     $scope.Veiculacoes= [];
     $scope.Competencia_Text = ""
-
-
-
-
-    //==========================Carrega Dados do Contrato
+        //==========================Carrega Dados do Contrato
     $scope.CarregaContrato = function () {
         var _url = "MapaReserva/DetalheContrato/" + $scope.Parameters.Id;
         httpService.Get(_url).then(function (response) {
@@ -38,10 +33,9 @@
     };
     //==========================Carrega Competencias
     $scope.CarregaCompetencias = function () {
-
         var _url = "MapaReserva/DetalheCompetencia/" + $scope.Parameters.Id;
         httpService.Get(_url).then(function (response) {
-            if (response) {
+            if (response.data.length>0) {
                 $scope.Competencias = response.data;
                 $scope.FiltroMidia.Competencia = response.data[0].Competencia_Int;
                 var _year = parseInt($scope.FiltroMidia.Competencia.substr(0, 4));
@@ -108,7 +102,11 @@
         });
         
     };
-    $scope.CarregaContrato();
+    //===========================fim do load da pagina
+    $scope.$watch('$viewContentLoaded', function () {
+        $scope.CarregaContrato();
+    });
+    
 }]);
 
 

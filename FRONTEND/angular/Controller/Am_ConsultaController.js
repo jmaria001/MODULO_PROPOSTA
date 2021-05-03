@@ -79,11 +79,12 @@
     //====================Carrega o Grid
 
     $scope.CarregarMapaReservaCompensacao = function (pFiltro) {
-        $scope.Ams = [];
+        
         if (!pFiltro.Competencia){
             ShowAlert("Competência é um filtro obrigatório");
             return ;
         }
+        $scope.Ams = [];
         localStorage.setItem('AmFilter', JSON.stringify($scope.Filtro));
         $scope.CurrentShow = '';
         $('#dataTable').dataTable().fnDestroy();
@@ -99,8 +100,8 @@
         _url += '&Cod_Empresa_Venda=' + pFiltro.Cod_Empresa;
         _url += '&Numero_Mr=' + pFiltro.Numero_Mr;
         _url += '&Sequencia=' + pFiltro.Sequencia;
-        _url += '?&Numero_Negociacao=' + pFiltro.Numero_Negociacao;
-        _url += '?&Situacao=' + pFiltro.Situacao;
+        _url += '&Numero_Negociacao=' + pFiltro.Numero_Negociacao;
+        _url += '&Situacao=' + pFiltro.Situacao;
         _url += '&';
         httpService.Get(_url).then(function (response) {
             if (response) {

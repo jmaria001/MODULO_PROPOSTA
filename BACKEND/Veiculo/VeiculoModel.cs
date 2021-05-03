@@ -49,6 +49,7 @@ namespace PROPOSTA
             public Boolean Indica_RoteiroNao { get; set; }
             public Boolean Ocultar_MMA { get; set; }
             public Boolean Indica_Nao_Emite_Ce { get; set; }
+            public Boolean Indica_Midia_Online { get; set; }
             public Int32 RedeId { get; set; }
             public String NomeRede { get; set; }
 

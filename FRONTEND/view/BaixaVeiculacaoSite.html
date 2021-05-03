@@ -1,0 +1,217 @@
+﻿<style>
+    #tbBaixa td{
+        padding-top:5px;
+        padding-bottom:5px;
+        padding-left:5px;
+        padding-right:5px;
+    }
+</style>
+<form name="frmConfirmacaoRoteiro" autocomplete="off">
+    <div class="container">
+        <!--===========================Filtro-->
+        <div class="block" id="divFiltro" ng-show="ShowFilter">
+            <div class="alert alert-info alert-icon-block" role="alert">
+                <div class="alert-icon">
+                    <span class="fa fa-filter"></span>
+                </div>
+                <strong>Filtros</strong>
+            </div>
+            <div class="row">
+
+                <!--===================Veiculo -->
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Veiculo">
+                        <input id="txtCodVeiculo"
+                               ng-model="Filtro.Cod_Veiculo"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodVeiculo')"
+                               primarybind="txtCodVeiculo"
+                               secondarybind="txtNomeVeiculo">
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="Filtro.Nome_Veiculo">
+                        </div>
+                    </div>
+                </div>
+
+                <!--==============================================Data de Exibicao-->
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Data" caption="Data Exibição">
+                        <input ng-model="Filtro.Data_Exibicao"
+                               ui-date ng-model-options="{updateOn: 'blur'}">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="Filtro.Data_Exibicao"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--===================Programa-->
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Programa">
+                        <input id="txtCodPrograma"
+                               ng-model="Filtro.Cod_Programa"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodPrograma')"
+                               primarybind="txtCodPrograma"
+                               secondarybind="txtTituloPrograma">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtTituloPrograma" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtTituloPrograma" class="form-control" ng-model="Filtro.Titulo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--==================Empresa-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Empresa_Usuario" caption="Empresa">
+                        <input id="txtCodEmpresa"
+                               ng-model="Filtro.Cod_Empresa"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodEmpresa')"
+                               primarybind="txtCodEmpresa"
+                               secondarybind="txtRazaoSocial">
+                    </div>
+                </div>
+
+                <!--==================Numero Contrato-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x" for="txtNumeroContrato">N. Contrato</label>
+                        <input type="text" 
+                               id="txtNumeroContrato" 
+                               class="form-control numeric" 
+                               ng-model="Filtro.Numero_Mr" 
+                               maxlength="10" 
+                               ng-model-options="{updateOn: 'blur'}" />
+                    </div>
+                </div>
+                <!--==================Numero Sequencia-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="field-x" for="txtNumeroContrato">Sequência Mr</label>
+                        <input type="text" 
+                               id="txtSequenciaMr" 
+                               class="form-control numeric" 
+                               ng-model="Filtro.Sequencia_Mr" 
+                               maxlength="2"
+                               ng-model-options="{updateOn: 'blur'}" />
+                    </div>
+                </div>
+            </div>
+            <!--==================Botoes do Filtro-->
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <button class="btn btn-primary" ng-click="CarregarVeiculacoesSite(Filtro)">Carregar Veiculaçoes</button>
+                    <button class="btn btn-warning" ng-click="NewFilter()">Limpar Filtros</button>
+                </div>
+            </div>
+
+
+        </div>
+        <!--===========================Grid-->
+        <div class="block" id="divGrid" ng-show="ShowGrid">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="tbBaixa">
+                    <thead>
+                        <tr>
+                            <th colspan="6"></th>
+                            <th colspan="3" style="text-align:center">
+                                <span>Quantidade Inserções</span>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>Veículo</th>
+                            <th>Dt Exibição</th>
+                            <th>Programa</th>
+                            <th>Contrato</th>
+                            <th>Comercial</th>
+                            <th>Tipo</th>
+                            <th>Previsto</th>
+                            <th>Exibidos</th>
+                            <th>Falhas</th>
+                            <!--<th>Qual.Falha</th>-->
+                            <th>Comprovado</th>
+                            <th>Critica</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="veic in Veiculacoes track by $index">
+                            <td>{{veic.Cod_Veiculo}}</td>
+                            <td>{{veic.Data_Exibicao | date:'dd/MM/yyyy'}}</td>
+                            <td>{{veic.Cod_Programa}}</td>
+                            <td>{{veic.Cod_Empresa}}-{{veic.Numero_Mr}}-{{veic.Sequencia_Mr}}</td>
+                            <td>{{veic.Cod_Comercial}}-{{veic.Titulo_Comercial}}</td>
+                            <td>{{veic.Cod_Tipo_Comercial}}-{{veic.Nome_Tipo_Comercial}}</td>
+                            <td>{{veic.Qtd_Previsto | emtpyzero}}</td>
+                            <td>
+                                <input class="form-control" 
+                                       type="text" 
+                                       ng-model-options="{updateOn: 'blur'}"
+                                       ng-model="veic.Qtd_Exibido" 
+                                       onkeypress="return NumericOnly(event)"
+                                       ng-disabled="veic.Indica_Comprovado"
+                                       ng-change="QtdExibidoChange(veic)"
+                                       style="width:70px;height:30px"/>
+                            </td>
+                            <td>{{veic.Qtd_Falha | emtpyzero}}</td>
+                            <!--<td>
+                                <div class="input-group" style="width:100px;margin-bottom:0px">
+                                    <input id="TxtCodQualidade"
+                                           class="form-control"
+                                           ng-model="veic.Cod_Qualidade"
+                                           ng-model-options="{updateOn: 'blur'}"
+                                           maxlength="3"
+                                           ng-disabled="!veic.Qtd_Falha"
+                                           ng-change="ValidarQualidade(veic)"
+                                           style="text-transform:uppercase;height:30px">
+                                    <div class="input-group-addon" ng-show="veic.Qtd_Falha" >
+                                        <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaQualidade(veic)"></span>
+                                    </div>
+                                </div>
+                            </td>-->
+                            <td style="text-align:center">
+                                <span class="fa fa-check" style="color:seagreen" ng-show="veic.Indica_Comprovado"></span>
+                                <span ng-show="!veic.Indica_Comprovado">Não</span>
+                            </td>
+                            <td> 
+                                <span class="fa fa-check" ng-show="veic.Status && veic.Critica" style="color:seagreen"></span>
+                                <span ng-style="{color:(veic.Status?'black':'red')}">{{veic.Critica}}</span>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+    <div class="fixed-buttons-bottom" ng-show="ShowGrid">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-success" ng-click="SalvarBaixa(Veiculacoes)">Salvar Baixa</button>
+                <button class="btn btn-warning" ng-click="CancelarBaixa()">Cancelar</button>
+                <button class="btn btn-info" ng-click="ConfirmarTodos(Veiculacoes)">Confirmar Todos como Exibidos</button>
+                
+            </div>
+        </div>
+    </div>
+    <div ng-include="'template/SelectItem.html'"></div>
+    <div ng-include="'template/PesquisaTabela.html'"></div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
+
+
+

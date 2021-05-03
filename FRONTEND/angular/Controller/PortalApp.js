@@ -71,7 +71,7 @@
                 { 'Title': 'Evolução de Vendas', 'Url': $rootScope.pageUrl + 'indexDash.html#/EvolucaoVendas' },
                 { 'Title': 'Funil de Vendas', 'Url': $rootScope.pageUrl + 'indexDash.html#/FunilVendas' },
                 { 'Title': 'Gráfico de Vendas', 'Url': $rootScope.pageUrl + 'indexDash.html#/GraficoVendas' },
-                { 'Title': 'Power-Bi', 'Url': 'https://app.powerbi.com/view?r=eyJrIjoiYWU0MjA5YjktYWI0YS00YzU1LTg2OGQtNmEwNzA0YWEyYTk1IiwidCI6ImIyMWNiNTRlLTM1YzEtNDkwZi05OWRkLTBkNmQ4ODYwZTAyYSJ9&pageName=ReportSection294b1d6666875dd21759' }
+                { 'Title': 'Power-Bi', 'Url': 'https://app.powerbi.com/view?r=eyJrIjoiYWY5ZTRlYTYtMWZhZC00ZGYxLWEyZTYtMGU5OWQwNmU5Mzk5IiwidCI6ImIyMWNiNTRlLTM1YzEtNDkwZi05OWRkLTBkNmQ4ODYwZTAyYSJ9&pageName=ReportSection294b1d6666875dd21759' }
             ],
         },
         {
@@ -98,11 +98,11 @@
             'SubItens': [
                 { 'Title': 'Modelo de Vendas', 'Url': $rootScope.pageUrl + 'IndexVendas.html#/Simulacao' },
                 { 'Title': 'Propostas   ', 'Url': $rootScope.pageUrl + 'IndexVendas.html#/Proposta' },
-                { 'Title': 'Negociações', 'Url': $rootScope.pageUrl + 'IndexVendas.html#/Negociações' },
+                { 'Title': 'Negociações', 'Url': $rootScope.pageUrl + 'IndexVendas.html#/Negociacao' },
                 { 'Title': "Manutenção de Am's", 'Url': $rootScope.pageUrl + 'IndexVendas.html#/ConsultaAM' },
                 { 'Title': "Pacote de Descontos", 'Url': $rootScope.pageUrl + 'IndexVendas.html#/pacote' },
                 { 'Title': "Regras de Aprovação", 'Url': $rootScope.pageUrl + 'IndexVendas.html#/regraaprovacao' },
-            ],
+            ],  
         },
         {
             'Title': 'Programação',
@@ -130,6 +130,7 @@
                 { 'Title': 'Composição de Breaks', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/Breaks' },
                 { 'Title': 'Consulta de Fitas Ordenadas', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/ConsultaFitasOrdenadas' },
                 { 'Title': 'Envio Play-List', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/EnvioPlayList' },
+                { 'Title': 'Parâmetros de Numeração de Fitas ', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/ParamNumFitas' },
             ],
         },
         {
@@ -138,6 +139,7 @@
                 { 'Title': 'Baixa por Veiculação', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/BaixaVeiculacao' },
                 { 'Title': 'Baixa por Contrato', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/BaixaContrato' },
                 { 'Title': 'Baixa por Roteiro', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/BaixaRoteiro' },
+                { 'Title': 'Baixa de Veiculações de Site', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/BaixaSite' },
                 { 'Title': 'Confirmação do Roteiro', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/ConfirmacaoRoteiro' },
                 { 'Title': 'Retorno da Play-List', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/RetornoPlayList' },
                 { 'Title': 'Consulta de Veiculações', 'Url': $rootScope.pageUrl + 'IndexChecking.html#/ConsultaVeiculacoes' },
@@ -155,6 +157,7 @@
                 { 'Title': 'Pesquisa de Complementos', 'Url': $rootScope.pageUrl + 'IndexFaturamento.html#/ComplementoContratoPesquisa' },
                 { 'Title': 'Geração de Faturas', 'Url': $rootScope.pageUrl + 'IndexFaturamento.html#/FaturaGeracao' },
                 { 'Title': 'Pesquisa de Faturas', 'Url': $rootScope.pageUrl + 'IndexFaturamento.html#/FaturasPesquisa' },
+                { 'Title': 'Crítica da Valoração', 'Url': $rootScope.pageUrl + 'IndexFaturamento.html#/CriticaValoracao' },
 
             ],
         },

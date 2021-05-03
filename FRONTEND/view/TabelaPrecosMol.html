@@ -1,0 +1,127 @@
+﻿
+<div class="container">
+    <!--div do filtro-->
+    <div id="divFiltro" class="block" ng-show="ShowFilter">
+        <div class="alert alert-info alert-icon-block" role="alert">
+            <div class="alert-icon">
+                <span class="fa fa-filter"></span>
+            </div>
+            <strong>Filtros</strong>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <div class="dictionary" dictionary="Competencia" caption="Competência">
+                    <input ng-model="Filtro.Competencia"
+                           ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                           placeholder="Informe a Competência">
+                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia" params="CompetenciaKeys"></div>
+                </div>
+            </div>
+            <!--===================Veiculo Mercado-->
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Veiculo_Mercado">
+                    <input id="txtCodVeiculo"
+                           ng-model="Filtro.Veiculo"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodVeiculo')"
+                           primarybind="txtCodVeiculo"
+                           secondarybind="txtNomeVeiculo">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="Filtro.Nome_Veiculo">
+                    </div>
+                </div>
+            </div>
+            <!--===================Programa-->
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Programa">
+                    <input id="txtCodPrograma"
+                           ng-model="Filtro.Programa"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodPrograma')"
+                           primarybind="txtCodPrograma"
+                           secondarybind="txtTituloPrograma">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtTituloPrograma" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtTituloPrograma" class="form-control " ng-model="Filtro.Titulo">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--<div class="row">
+            <div class="col-md-32 margin-top-30">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="app-checkbox">
+                            <label><input type="checkbox" name="app-checkbox-1" ng-model="Filtro.Indica_Vigente" /> Mostrar Tabela Vigente<span></span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+        <!--=========================Botões da Tela de Filtro-->
+        <div id="divBotaoFiltro" class="row margin-top-20">
+            <div class="col-12">
+                <button class="btn btn-primary" ng-click="CarregarTabelaPrecosMol(Filtro)">Filtrar</button>
+                <button class="btn btn-warning" ng-click="NewFiltro()">Limpar Filtro</button>
+                <a id="btnNovaTabelaPrecosMol" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#TabelaPrecosMolCadastroNew/New/0,0,0">Nova Tabela</a>
+            </div>
+        </div>
+    </div>
+    <!--Div do grid-->
+    <div id="divGrid" class="block table-responsive" ng-show="ShowGrid">
+        <!--==========================Botoes do Grid de Filtro-->
+        <a id="btnNovaTabelaPrecosMol" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#TabelaPrecosMolCadastroNew/New/0,0,0">Nova Tabela</a>
+        <button class="btn btn-warning" ng-click="ShowGrid=false;ShowFilter=true;NewFiltro()">Novo Filtro</button>
+        <button id="ExportReporttoExcel" class="btn btn-info" ng-disabled="TabelaPrecosMolS.length==0">Exportar Excel</button>
+        <!--==========================Grid-->
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Competência</th>
+                        <th>Veiculo/Mercado</th>
+                        <th>Programa</th>
+                        <th>Tipo Comercialização</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="TabelaPrecosMol in TabelaPrecosMolS track by $index" on-finish-render="ngRepeatFinished()">
+                        <td style="width:50px; text-align:center">
+                            <a href="#TabelaPrecosMolCadastroEdit/Edit/{{TabelaPrecosMol.Competencia.replace('/','')}},{{::TabelaPrecosMol.Cod_Programa}},{{::TabelaPrecosMol.Cod_Veiculo_Mercado.trim()}}" ng-show="PermissaoEdit">
+                                <span class="fa fa-edit fa-2x"></span>
+                            </a>
+                        </td>
+                        <td>{{::TabelaPrecosMol.Competencia}}</td>
+                        <td>{{::TabelaPrecosMol.Cod_Veiculo_Mercado}}-{{::TabelaPrecosMol.Nome_Veiculo}}</td>
+                        <td>{{::TabelaPrecosMol.Cod_Programa}}-{{::TabelaPrecosMol.Titulo}}</td>
+                        <td>{{::TabelaPrecosMol.Cod_Tipo_Comercializacao}}-{{::TabelaPrecosMol.Nome_Tipo_Comercializacao}}</td>
+                        <td>{{::TabelaPrecosMol.Valor | currency}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

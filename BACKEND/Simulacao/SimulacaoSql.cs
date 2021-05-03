@@ -442,6 +442,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@pCodEmpresa", Param.Cod_Empresa);
                 Adp.SelectCommand.Parameters.AddWithValue("@pCodEmpresa_Faturamento", Param.Cod_Empresa_Faturamento);
                 Adp.SelectCommand.Parameters.AddWithValue("@pRedeId", Param.RedeId);
+                Adp.SelectCommand.Parameters.AddWithValue("@PIndica_Midia_On_Line", Param.Indica_Midia_Online);
                 Adp.Fill(dtb);
             }   
             catch (Exception)

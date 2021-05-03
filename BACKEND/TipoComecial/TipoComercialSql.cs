@@ -52,17 +52,17 @@ namespace PROPOSTA
                 Adp.Fill(dtb);
                 if (dtb.Rows.Count > 0)
                 {
-                    TipoComercial.Cod_Tipo_Comercial = dtb.Rows[0]["Cod_Tipo_Comercial"].ToString();
-                    TipoComercial.Descricao = dtb.Rows[0]["Descricao"].ToString();
-                    TipoComercial.Absorcao = dtb.Rows[0]["Absorcao"].ToString().ConvertToBoolean();
-                    TipoComercial.INDICA_ABSORCAO_MERCHA = dtb.Rows[0]["INDICA_ABSORCAO_MERCHA"].ToString().ConvertToBoolean();
-                    TipoComercial.Roteiro_Tecnico = dtb.Rows[0]["Roteiro_Tecnico"].ToString().ConvertToBoolean();
-                    TipoComercial.Merchandising = dtb.Rows[0]["Merchandising"].ToString().ConvertToBoolean();
-                    TipoComercial.Tipo_Valoracao = dtb.Rows[0]["Tipo_Valoracao"].ToString().ConvertToBoolean();
-                    TipoComercial.Indica_Midia_On_Line = dtb.Rows[0]["Indica_Midia_On_Line"].ToString().ConvertToBoolean();
-                    TipoComercial.Exibidora_DAD = dtb.Rows[0]["Exibidora_DAD"].ToString();
-
-
+                    TipoComercial.Cod_Tipo_Comercial        = dtb.Rows[0]["Cod_Tipo_Comercial"].ToString();
+                    TipoComercial.Descricao                 = dtb.Rows[0]["Descricao"].ToString();
+                    TipoComercial.Absorcao                  = dtb.Rows[0]["Absorcao"].ToString().ConvertToBoolean();
+                    TipoComercial.INDICA_ABSORCAO_MERCHA    = dtb.Rows[0]["INDICA_ABSORCAO_MERCHA"].ToString().ConvertToBoolean();
+                    TipoComercial.Roteiro_Tecnico           = dtb.Rows[0]["Roteiro_Tecnico"].ToString().ConvertToBoolean();
+                    TipoComercial.Merchandising             = dtb.Rows[0]["Merchandising"].ToString().ConvertToBoolean();
+                    TipoComercial.Tipo_Valoracao            = dtb.Rows[0]["Tipo_Valoracao"].ToString().ConvertToBoolean();
+                    TipoComercial.Indica_Midia_On_Line      = dtb.Rows[0]["Indica_Midia_On_Line"].ToString().ConvertToBoolean();
+                    TipoComercial.Exibidora_DAD             = dtb.Rows[0]["Exibidora_DAD"].ToString();
+                    TipoComercial.Cod_Tipo_Comercializacao  = dtb.Rows[0]["Cod_Tipo_Comercializacao"].ToString();
+                    TipoComercial.Desc_Tipo_Comercializacao  = dtb.Rows[0]["Desc_Tipo_Comercializacao"].ToString();
                 }
             }
             catch (Exception)
@@ -98,6 +98,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo_Valoracao", pTipoComercial.Tipo_Valoracao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Midia_On_Line", pTipoComercial.Indica_Midia_On_Line);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Exibidora_DAD", pTipoComercial.Exibidora_DAD);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Tipo_Comercializacao", pTipoComercial.Cod_Tipo_Comercializacao);
 
 
                 Adp.Fill(dtb);

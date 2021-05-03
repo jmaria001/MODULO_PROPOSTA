@@ -69,6 +69,7 @@
                         { 'Codigo': 'CAL', 'Descricao': 'Calhau' }];
                 };
             };
+            console.log($scope.Contrato);
         });
     };
     //===========================Criar Negociacao Automatica
@@ -111,7 +112,8 @@
                             $scope.Negociacao = responseNegociacao.data;
                             $scope.Contrato.Cod_Tipo_Midia = $scope.Negociacao.Cod_Tipo_Midia;
                             $scope.Contrato.Editar_Tipo_Midia = false;
-
+                            $scope.Contrato.Indica_Midia_Online = $scope.Negociacao.Indica_Midia_Online;
+                            console.log($scope.Contrato);
                             if ($scope.Negociacao.Nucleos.length == 1) {
                                 $scope.Contrato.Cod_Nucleo = $scope.Negociacao.Nucleos[0].Cod_Nucleo;
                                 $scope.Contrato.Nome_Nucleo = $scope.Negociacao.Nucleos[0].Nome_Nucleo;
@@ -183,6 +185,17 @@
             }
         });
     };
+    //===========================Mudou o Tipo de Midia
+    $scope.TipoMidiaChange = function (pContrato) {
+        if (pContrato.Cod_Tipo_Midia) {
+            httpService.Get("GetTipoMidiaData/" + pContrato.Cod_Tipo_Midia.trim()).then(function (response) {
+                if (response.data) {
+                    pContrato.Indica_Midia_Online = response.data.Indica_Midia_Online;
+                    console.log($scope.Contrato);
+                };
+            });
+        };
+    };
     //===========================Adicionar Linhas de Comercial
     $scope.AdicionarComercial = function () {
         $scope.Contrato.Comerciais.push({});
@@ -190,13 +203,25 @@
     //===============Clicou na lupa Tpo do Comercial 
     $scope.PesquisaTipoComercial = function (pComercial) {
         $scope.PesquisaTabelas = NewPesquisaTabela();
-        httpService.Get('ListarTabela/Tipo_Comercial').then(function (response) {
+        var _url = ""
+        if ($scope.Contrato.Indica_Midia_Online) {
+            _url = 'ListarTabela/Tipo_Comercial_OnLine'
+        }
+        else {
+            'ListarTabela/Tipo_Comercial'
+        }
+        httpService.Get(_url).then(function (response) {
             if (response.data) {
                 $scope.PesquisaTabelas.Items = response.data;
                 $scope.PesquisaTabelas.FiltroTexto = "";
                 $scope.PesquisaTabelas.Titulo = "Seleção de Tipo de Comercial";
                 $scope.PesquisaTabelas.MultiSelect = false;
-                $scope.PesquisaTabelas.ClickCallBack = function (value) { pComercial.Cod_Tipo_Comercial = value.Codigo; pComercial.Nome_Tipo_Comercial = value.Descricao };
+                $scope.PesquisaTabelas.ClickCallBack = function (value) {
+                    pComercial.Cod_Tipo_Comercial = value.Codigo;
+                    pComercial.Nome_Tipo_Comercial = value.Descricao;
+                    pComercial.Cod_Tipo_Comercializacao = value.Tipo_Comercializacao;
+                    pComercial.Nome_Tipo_Comercializacao = value.Nome_Tipo_Comercializacao;
+                };
                 $("#modalTabela").modal(true);
             }
         });
@@ -205,13 +230,24 @@
     $scope.TipoComercialChange = function (pComercial) {
         if (!pComercial.Cod_Tipo_Comercial) {
             pComercial.Nome_Tipo_Comercial = "";
+            pComercial.Cod_Tipo_Comercializacao = "";
+            pComercial.Nome_Tipo_Comercializacao = "";
             return;
         }
-        httpService.Get('ValidarTabela/Tipo_Comercial/' + pComercial.Cod_Tipo_Comercial).then(function (response) {
+        var _url = ""
+        if ($scope.Contrato.Indica_Midia_Online) {
+            _url = 'ValidarTabela/Tipo_Comercial_Online/'
+        }
+        else {
+            _url = 'ValidarTabela/Tipo_Comercial/'
+        };
+        httpService.Get(_url + pComercial.Cod_Tipo_Comercial).then(function (response) {
             if (response.data[0].Status == 0) {
                 ShowAlert(response.data[0].Mensagem)
                 pComercial.Cod_Tipo_Comercial = "";
                 pComercial.Nome_Tipo_Comercial = "";
+                pComercial.Cod_Tipo_Comercializacao = "";
+                pComercial.Nome_Tipo_Comercializacao = "";
             }
             else {
                 pComercial.Nome_Tipo_Comercial = response.data[0].Descricao
@@ -444,13 +480,13 @@
             ShowAlert("Informe a Abrangência antes de Selecionar Veículos");
             return;
         }
-
         var _url = 'GetVeiculos'
         _url += '?Abrangencia=' + pContrato.Indica_Grade;
         _url += '&Cod_Mercado=' + NullToString(pContrato.Cod_Mercado);
         _url += '&Cod_Empresa=' + NullToString(pContrato.Cod_Empresa_Venda);
         _url += '&Cod_Empresa_Faturamento=' + NullToString(pContrato.Cod_Empresa_Faturamento);
         _url += '&RedeId='
+        _url += '&Indica_Midia_Online=' + pContrato.Indica_Midia_Online;
         _url += '&'
         httpService.Get(_url).then(function (response) {
             if (response) {
@@ -541,6 +577,7 @@
             'Inicio_Campanha': pContrato.Periodo_Campanha_Inicio,
             'Fim_Campanha': pContrato.Periodo_Campanha_Termino,
             'Cod_Programa': null,
+            'Indica_Midia_Online':pContrato.Indica_Midia_Online,
             'Veiculos': pContrato.Veiculos
         }
         httpService.Post('MapaReserva/NewMida', _param).then(function (response) {
@@ -548,7 +585,13 @@
                 pContrato.Sequenciador_Veiculacao++;
                 var _NewVeiculacao = response.data;
                 _NewVeiculacao.Id_Veiculacao = pContrato.Sequenciador_Veiculacao;
-                pContrato.Veiculacoes.push(_NewVeiculacao);
+                if (pContrato.Indica_Midia_Online) {
+                    pContrato.VeiculacoesOnLine.push(_NewVeiculacao);
+                }
+                else {
+                    pContrato.Veiculacoes.push(_NewVeiculacao);
+                }
+                
             }
         });
     };
@@ -574,7 +617,10 @@
                 $scope.PesquisaTabelas.MultiSelect = false;
                 $scope.PesquisaTabelas.ClickCallBack = function (value) {
                     pVeiculacao.Cod_Programa = value.Codigo;
-                    $scope.ProgramaChange(pVeiculacao, pContrato);
+                    if (!pContrato.Indica_Midia_Online) {
+                        $scope.ProgramaChange(pVeiculacao, pContrato);
+                    }
+                    
                 };
             }
             $("#modalTabela").modal(true);
@@ -586,7 +632,8 @@
             'Inicio_Campanha': pContrato.Periodo_Campanha_Inicio,
             'Fim_Campanha': pContrato.Periodo_Campanha_Termino,
             'Cod_Programa': pVeiculacao.Cod_Programa,
-            'Veiculos': pContrato.Veiculos
+            'Veiculos': pContrato.Veiculos,
+            'Indica_Midia_Online':pContrato.Indica_Midia_Online,
         }
         httpService.Post('MapaReserva/NewMida', _param).then(function (response) {
             if (response.data) {
@@ -624,7 +671,25 @@
             }
             $("#modalTabela").modal(true);
         });
-    }
+    };
+    //=====================================Validar Programa on Line 
+    $scope.ProgramaOnlineChange = function (pVeiculacao, pContrato) {
+        var _param = {
+            'Inicio_Campanha': pContrato.Periodo_Campanha_Inicio,
+            'Fim_Campanha': pContrato.Periodo_Campanha_Termino,
+            'Cod_Programa': pVeiculacao.Cod_Programa,
+            'Veiculos': pContrato.Veiculos,
+            'Indica_Midia_Online': pContrato.Indica_Midia_Online,
+        }
+        httpService.Post('MapaReserva/ValidarGradePeriodo', _param).then(function (response) {
+            if (response.data) {
+                if (response.data.length == 0) {
+                    ShowAlert("Programa Inválido ou não tem Grade no Período")
+                    pVeiculacao.Cod_Programa = "";
+                }
+            };
+        });
+    };
     //===============================Validar Caracteristica
     $scope.CaracVeiculacaoChange = function (pVeiculacao) {
         if (pVeiculacao.Cod_Caracteristica) {
@@ -644,12 +709,17 @@
             $scope.PesquisaTabelas.Items.push({
                 'Codigo': pContrato.Comerciais[i].Cod_Comercial,
                 'Descricao': pContrato.Comerciais[i].Titulo_Comercial,
+                'Cod_Tipo_Comercializacao': pContrato.Comerciais[i].Cod_Tipo_Comercializacao,
+                'Nome_Tipo_Comercializacao': pContrato.Comerciais[i].Nome_Tipo_Comercializacao,
             });
         };
         $scope.PesquisaTabelas.FiltroTexto = ""
         $scope.PesquisaTabelas.MultiSelect = false;
         $scope.PesquisaTabelas.ClickCallBack = function (value) {
             pVeiculacao.Cod_Comercial = value.Codigo;
+            pVeiculacao.Titulo_Comercial = value.Descricao;
+            pVeiculacao.Cod_Tipo_Comercializacao = value.Cod_Tipo_Comercializacao;
+            pVeiculacao.Nome_Tipo_Comercializacao = value.Nome_Tipo_Comercializacao;
         };
         $("#modalTabela").modal(true);
     };
@@ -667,19 +737,27 @@
     //=================================Validar comercial da veiculacao
     $scope.VeiculacaoComercialChange = function (pContrato, pVeiculacao) {
         var _valido = false;
+        pVeiculacao.Titulo_Comercial = "";
+        pVeiculacao.Cod_Tipo_Comercializacao= "";
+        pVeiculacao.Nome_Tipo_Comercializacao= "";
         if (pVeiculacao.Cod_Comercial) {
-
             for (var i = 0; i < pContrato.Comerciais.length; i++) {
                 if (pVeiculacao.Cod_Comercial.toUpperCase().trim() == pContrato.Comerciais[i].Cod_Comercial.toUpperCase().trim()) {
-                    if (pContrato.Comerciais[i].Cod_Comercial && pContrato.Comerciais[i].Cod_Red_Produto && pContrato.Comerciais[i].Duracao) {
+                    if (pContrato.Comerciais[i].Cod_Comercial && pContrato.Comerciais[i].Cod_Red_Produto ) {
+                        pVeiculacao.Titulo_Comercial = pContrato.Comerciais[i].Titulo_Comercial;
+                        pVeiculacao.Cod_Tipo_Comercializacao = pContrato.Comerciais[i].Cod_Tipo_Comercializacao;
+                        pVeiculacao.Nome_Tipo_Comercializacao = pContrato.Comerciais[i].Nome_Tipo_Comercializacao;
                         _valido = true;
                         break;
                     };
                 };
             };
             if (!_valido) {
-                ShowAlert("Comercial não existe ou está imcompleto");
+                ShowAlert("Comercial não existe ou falta preencher algum  campo");
                 pVeiculacao.Cod_Comercial = "";
+                pVeiculacao.Titulo_Comercial = "";
+                pVeiculacao.Cod_Tipo_Comercializacao= "";
+                pVeiculacao.Nome_Tipo_Comercializacao= "";
             };
         };
         $scope.AtualizaTemVeiculacao(pContrato);

@@ -12,10 +12,10 @@
         white-space: nowrap;
         text-align: center;
     }
-        #tbComercial td button{
-        margin:0 0 0 0;
 
-    }
+        #tbComercial td button {
+            margin: 0 0 0 0;
+        }
 
     #tbComercial .input-group {
         margin-bottom: 0px;
@@ -44,26 +44,25 @@
 
         #tbMidia td .input-group {
             margin: 0px;
-            padding:0px 0px 0px 0px;
+            padding: 0px 0px 0px 0px;
         }
 
         #tbMidia td input {
             text-transform: uppercase;
-            padding:2px 2px 2px 2px;
+            padding: 2px 2px 2px 2px;
         }
-        #tbMidia td button{
-            margin:0px 0px 0px 0px;
+
+        #tbMidia td button {
+            margin: 0px 0px 0px 0px;
         }
-            #tbMidia td input[disabled] {
-                background-color: white;
-            }
+
+        #tbMidia td input[disabled] {
+            background-color: white;
+        }
 </style>
 <div class="container">
     <form name="frmContrato" autocomplete="off">
         <div class="block">
-            faturamento{{Contrato.Editar_Empresa_Faturamento}}
-            <br />
-            venda{{Contrato.Editar_Empresa_Venda}}
             <!--=====================Dados do Contrato-->
             <div class="row" id="divContrato">
                 <div class="alert alert-primary alert-icon-block" role="alert">
@@ -102,11 +101,13 @@
                     </div>
                 </div>
                 <!--==================Localizar Negociacao-->
-                <div class="col-md-2" style="margin-top:35px" >
-                    <button class="btn btn-info" tabindex="-1" 
-                            ng-disabled="Contrato.Criar_Negociacao" 
-                            ng-show="Contrato.Editar_Negociacao" 
-                            ng-click="LocalizarNegociacao(Contrato)">Localizar Negociação</button>
+                <div class="col-md-2" style="margin-top:35px">
+                    <button class="btn btn-info" tabindex="-1"
+                            ng-disabled="Contrato.Criar_Negociacao"
+                            ng-show="Contrato.Editar_Negociacao"
+                            ng-click="LocalizarNegociacao(Contrato)">
+                        Localizar Negociação
+                    </button>
                 </div>
                 <!--==================Numero do Pi-->
                 <div class="col-md-2">
@@ -132,11 +133,11 @@
                 <div class="col-md-2" ng-controller="dictionaryController">
                     <div class="dictionary" dictionary="TipoMidias" caption="Tipo de Mídia" required>
                         <input id="txtCodTipoMidia"
-                               maxlength="10"
+                               maxlength="6"
                                ng-model="Contrato.Cod_Tipo_Midia"
                                ng-disabled="!Contrato.Editar_Tipo_Midia || Contrato.Comprovado"
                                ng-model-options="{updateOn: 'blur'}"
-                               ng-change="DicionaryValidate('txtCodTipoMidia')"
+                               ng-change="DicionaryValidate('txtCodTipoMidia');TipoMidiaChange(Contrato)"
                                primarybind="txtCodTipoMidia">
                     </div>
                 </div>
@@ -351,7 +352,7 @@
                         <label class="field-x fieldrequired" for="txtCaracteristicaContrato">Característica</label>
                         <select class="form-control"
                                 ng-model="Contrato.Caracteristica_Contrato"
-                                ng-disabled="!Contrato.Editar_Caracteristica_Contrato || Contrato.Comprovado"   
+                                ng-disabled="!Contrato.Editar_Caracteristica_Contrato || Contrato.Comprovado"
                                 name="txtCaracteristicaContrato"
                                 style="text-transform:uppercase"
                                 ng-options="CaracContrato.Codigo as CaracContrato.Descricao for CaracContrato in CaracContrato"></select>
@@ -424,7 +425,7 @@
                 <!--==============================================Periodo Campanha Término-->
                 <div class="col-md-3">
                     <div class="dictionary" dictionary="Data" caption="Término Campanha" required>
-                        <input ng-model="Contrato.Periodo_Campanha_Termino" 
+                        <input ng-model="Contrato.Periodo_Campanha_Termino"
                                id="TxtPeriodoCampanhaTermino"
                                ng-disabled="(!Contrato.Editar_Periodo_Campanha || !Contrato.Numero_Negociacao  || Contrato.Comprovado) && !Contrato.Criar_Negociacao"
                                ng-change="PeriodoCampanhaChange(Contrato)"
@@ -451,7 +452,7 @@
                         <label for="txtObsContrato" class="field-x">Observação para Contrato</label>
                         <textarea id="txtObsContrato" class="form-control" style="min-height:100px"
                                   ng-model="Contrato.Obs_Contrato"
-                                   ng-disabled="Contrato.Comprovado"
+                                  ng-disabled="Contrato.Comprovado"
                                   ng-model-options="{updateOn: 'blur'}"
                                   maxlength="500" />
                     </div>
@@ -485,7 +486,7 @@
                 <div class="col-md-2">
                     <div class="form-group">
                         <label for="txtDesconto" class="field-x">Desconto</label>
-                        <input type="text" id="txtDesconto" class="form-control decimal"    
+                        <input type="text" id="txtDesconto" class="form-control decimal"
                                ng-model="Contrato.Desconto"
                                ng-disabled="!Contrato.Editar_Valor_Informado || Contrato.Comprovado"
                                ng-model-options="{updateOn: 'blur'}"
@@ -550,7 +551,7 @@
                             <th>Descrição Produto</th>
                             <!--<th>Numero Fita</th>-->
                             <th>A Determinar</th>
-                            
+
                         </tr>
                     </thead>
                     <tbody>
@@ -615,19 +616,19 @@
                                 </div>
                             </td>
                             <td style="width:150px">
-                                    <div class="input-group" style="min-width:50px">
-                                        <input id="txtProduto"
-                                               class="form-control inputComercial"
-                                               ng-model="comercial.Cod_Red_Produto"
-                                               ng-model-options="{updateOn: 'blur'}"
-                                               ng-change="ProdutoChange(comercial)"
-                                               ng-disabled="Contrato.Comprovado"
-                                               maxlength="10"
-                                               onkeypress="return NumericOnly(event)">
-                                        <div class="input-group-addon" ng-hide="Contrato.Comprovado">
-                                            <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaProduto(comercial)"></span>
-                                        </div>
+                                <div class="input-group" style="min-width:50px">
+                                    <input id="txtProduto"
+                                           class="form-control inputComercial"
+                                           ng-model="comercial.Cod_Red_Produto"
+                                           ng-model-options="{updateOn: 'blur'}"
+                                           ng-change="ProdutoChange(comercial)"
+                                           ng-disabled="Contrato.Comprovado"
+                                           maxlength="10"
+                                           onkeypress="return NumericOnly(event)">
+                                    <div class="input-group-addon" ng-hide="Contrato.Comprovado">
+                                        <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaProduto(comercial)"></span>
                                     </div>
+                                </div>
                             </td>
                             <td>
                                 <div class="input-group">
@@ -638,16 +639,6 @@
                                            style="text-transform:uppercase">
                                 </div>
                             </td>
-                            <!--<td style="width:100px">
-                                <div class="input-group">
-                                    <input class="form-control inputComercial"
-                                           ng-model="comercial.Numero_Fita"
-                                           ng-model-options="{updateOn: 'blur'}"
-                                           style="text-transform:uppercase"
-                                           maxlength="10">
-                                </div>
-                            </td>-->
-
                             <td style="text-align:center">
                                 <div class="app-checkbox" style="margin-top:-25px;margin-left:20px">
                                     <label>
@@ -701,7 +692,7 @@
                         <span class="fa fa-plus"></span> Adicionar Mídias
                     </button>
                 </div>
-                <div class="col-md-9" ng-hide="Contrato.Comprovado">
+                <div class="col-md-9" ng-hide="Contrato.Comprovado || Contrato.Indica_Midia_Online">
                     <div class="app-checkbox">
                         <label>
                             <input type="checkbox"
@@ -712,8 +703,10 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive" ng-show="Contrato.Veiculacoes.length>0">
-                <table class="table table-bordered" id="tbMidia">
+            <!--=============================Digitacao para midia nao on line-->
+            <div class="table-responsive" ng-show="Contrato.Veiculacoes.length>0 && !Contrato.Indica_Midia_Online">
+                <label class="label label-info">Midia Normal</label>
+                <table class="table table-bordered" id="tbMidia" style="margin-bottom:200px">
                     <thead>
                         <tr class="bg-warning">
                             <th colspan="5">
@@ -747,6 +740,9 @@
                             </td>
                             <td>
                                 <div class="input-group">
+                                    <div class="input-group-addon" ng-show="veiculacao.Permite_Editar">
+                                        <span class="fa fa-search span-btn" ng-click="SelecionarPrograma(Contrato,veiculacao)"></span>
+                                    </div>
                                     <input ng-model="veiculacao.Cod_Programa"
                                            style="min-width:70px"
                                            class="form-control"
@@ -754,13 +750,14 @@
                                            ng-model-options="{updateOn: 'blur'}"
                                            ng-change="ProgramaChange(veiculacao,Contrato)"
                                            maxlength="4">
-                                    <div class="input-group-addon" ng-show="veiculacao.Permite_Editar">
-                                        <span class="fa fa-search span-btn" ng-click="SelecionarPrograma(Contrato,veiculacao)"></span>
-                                    </div>
+
                                 </div>
                             </td>
                             <td>
                                 <div class="input-group">
+                                    <div class="input-group-addon" ng-show="veiculacao.Permite_Editar">
+                                        <span class="fa fa-search span-btn" ng-click="SelecionarCaracteristica(Contrato,veiculacao)"></span>
+                                    </div>
                                     <input ng-model="veiculacao.Cod_Caracteristica"
                                            style="min-width:50px"
                                            class="form-control"
@@ -768,13 +765,14 @@
                                            ng-model-options="{updateOn: 'blur'}"
                                            ng-change="CaracVeiculacaoChange(veiculacao)"
                                            maxlength="2">
-                                    <div class="input-group-addon" ng-show="veiculacao.Permite_Editar">
-                                        <span class="fa fa-search span-btn" ng-click="SelecionarCaracteristica(Contrato,veiculacao)"></span>
-                                    </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="input-group">
+                                    <div class="input-group-addon" ng-show="veiculacao.Permite_Editar">
+                                        <span class="fa fa-search span-btn" ng-click="SelecionarComercial(Contrato,veiculacao)"></span>
+                                    </div>
+
                                     <input ng-model="veiculacao.Cod_Comercial"
                                            style="min-width:50px"
                                            class="form-control"
@@ -782,9 +780,6 @@
                                            ng-model-options="{updateOn: 'blur'}"
                                            ng-change="VeiculacaoComercialChange(Contrato,veiculacao)"
                                            maxlength="2">
-                                    <div class="input-group-addon" ng-show="veiculacao.Permite_Editar">
-                                        <span class="fa fa-search span-btn" ng-click="SelecionarComercial(Contrato,veiculacao)"></span>
-                                    </div>
                                 </div>
                             </td>
                             <td style="min-width:30px">
@@ -801,6 +796,118 @@
                                        ng-change="fnTotalizaVeiculacao(veiculacao)">
                             </td>
                             <td><span> {{veiculacao.Qtd_Total}}</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--=============================Digitacao para midia on line-->
+            <div class="table-responsive" ng-show="Contrato.VeiculacoesOnLine.length>0 && Contrato.Indica_Midia_Online">
+                <label class="label label-warning">Mídia on Line</label>
+                <table class="table table-bordered" id="tbMidia" style="margin-bottom:200px">
+                    <thead>
+                        <tr class="bg-warning">
+                            <td></td>
+                            <td>Data Início</td>
+                            <td>Data Fim</td>
+                            <td>Carac.</td>
+                            <td>Cod.Com</td>
+                            <td>Titulo</td>
+                            <td>Tipo Comercialização</td>
+                            <td>Programa</td>
+                            <td>Qtd</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="veiculacaomol in Contrato.VeiculacoesOnLine track by $index">
+                            <td> 
+                                <button class="btn btn-default btn-sm" ng-click="RemoverMidia(Contrato,veiculacaomol)" style="min-width:30px">
+                                    <span class="fa fa-trash"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="fa fa-calendar dropdown-toggle" data-toggle="dropdown"></span>
+                                        <ul id="calendar"ui-calendar="" typdate="veiculacaomol.Data_Inicio"></ul>
+                                    </div>
+                                    <input class="form-control" ng-model="veiculacaomol.Data_Inicio" ui-date="" ng-model-options="{updateOn: 'blur'}" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="fa fa-calendar dropdown-toggle" data-toggle="dropdown"></span>
+                                        <ul id="calendar" ui-calendar="" typdate="veiculacaomol.Data_Fim"></ul>
+                                    </div>
+                                    <input class="form-control" ng-model="veiculacaomol.Data_Fim" ui-date="" ng-model-options="{updateOn: 'blur'}" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="fa fa-search span-btn" ng-click="SelecionarCaracteristica(Contrato,veiculacaomol)"></span>
+                                    </div>
+                                    <input ng-model="veiculacaomol.Cod_Caracteristica"
+                                           style="min-width:50px"
+                                           class="form-control"
+                                           ng-model-options="{updateOn: 'blur'}"
+                                           ng-change="CaracVeiculacaoChange(veiculacaomol)"
+                                           maxlength="2">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="fa fa-search span-btn" ng-click="SelecionarComercial(Contrato,veiculacaomol)"></span>
+                                    </div>
+                                    <input ng-model="veiculacaomol.Cod_Comercial"
+                                           style="min-width:50px"
+                                           class="form-control"
+                                           ng-model-options="{updateOn: 'blur'}"
+                                           ng-change="VeiculacaoComercialChange(Contrato,veiculacaomol)"
+                                           maxlength="2">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input ng-model="veiculacaomol.Titulo_Comercial"
+                                           style="min-width:50px"
+                                           ng-disabled="true"
+                                           class="form-control"
+                                           ng-model-options="{updateOn: 'blur'}">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input ng-model="veiculacaomol.Nome_Tipo_Comercializacao"
+                                           class="form-control"
+                                           ng-disabled="true" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <span class="fa fa-search span-btn" ng-click="SelecionarPrograma(Contrato,veiculacaomol)" ng-show="veiculacaomol.Data_Inicio && veiculacaomol.Data_Fim"></span>
+                                    </div>
+                                    <input ng-model="veiculacaomol.Cod_Programa"
+                                           style="min-width:70px"
+                                           class="form-control"
+                                           ng-disabled="!veiculacaomol.Data_Inicio || !veiculacaomol.Data_Fim"
+                                           ng-model-options="{updateOn: 'blur'}"
+                                           ng-change="ProgramaOnlineChange(veiculacaomol,Contrato)"
+                                           maxlength="4">
+                                </div>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input ng-model="veiculacaomol.Qtd"
+                                           style="min-width:70px"
+                                           class="form-control"
+                                           ng-model-options="{updateOn: 'blur'}"
+                                           onkeypress="return NumericOnly(event)"
+                                           maxlength="4">
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -829,7 +936,7 @@
 <div ng-include="'template/MultiSelecaoVeiculo.html'"></div>
 <script type="text/javascript">
     $(document).ready(function () {
-        
+
         GetDictionary();
         $('.anchorscroll').click(function (e) {
             var _target = this.getAttribute("target")
@@ -847,7 +954,7 @@
                 event.stopPropagation();
             };
         });
-        
+
     });
 
 </script>

@@ -24,17 +24,17 @@
                     </div>
                 </div>
             </div>
-            
-                <!--====================Fatura Antecipada-->
-                <div class="col-md-2 margin-top-10">
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="app-checkbox">
-                                <label><input type="checkbox" name="app-checkbox-1" ng-model="TipoMidia.Fatura_Antecipada" />Fatura Antecipada<span></span></label>
-                            </div>
+
+            <!--====================Fatura Antecipada-->
+            <div class="col-md-2 margin-top-10">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="app-checkbox">
+                            <label><input type="checkbox" name="app-checkbox-1" ng-model="TipoMidia.Fatura_Antecipada" />Fatura Antecipada<span></span></label>
                         </div>
                     </div>
                 </div>
+            </div>
             <div class="row">
                 <!--====================Gera Receita-->
                 <div class="col-md-2 margin-top-10">
@@ -46,17 +46,33 @@
                         </div>
                     </div>
                 </div>
+
+                <!--====================TipoComercial.Indica_Midia_On_Line-->
+                <div class="col-md-2 margin-top-10">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox" name="app-checkbox-1" ng-model="TipoMidia.Indica_Midia_Online" /> Midia_On_Line<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+
+            
             <div class="row">
                 <!--===================Botoes-->
-                <div class="row margin-top-20">
-                    <div class="col-md-12">
-                        <button class="btn btn-success" ng-click="SalvarTipoMidia(TipoMidia)"
-                                ng-disabled="frmTipoMidiaCadastro.$invalid">
-                            Salvar
-                        </button>
-                        <button type="button" class="btn btn-danger" ng-click="excluirtipomidia(TipoMidia)"ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete" >Excluir</button>
-                        <a href="#TipoMidia" class="btn btn-warning">Cancelar</a>
+                <div class="fixed-buttons-bottom">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-success" ng-click="SalvarTipoMidia(TipoMidia)"
+                                    ng-disabled="frmTipoMidiaCadastro.$invalid">
+                                Salvar
+                            </button>
+                            <button type="button" class="btn btn-danger" ng-click="excluirtipomidia(TipoMidia)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
+                            <a href="#TipoMidia" class="btn btn-warning">Cancelar</a>
+                        </div>
                     </div>
                 </div>
             </div>

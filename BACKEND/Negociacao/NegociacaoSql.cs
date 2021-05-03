@@ -112,6 +112,7 @@ namespace PROPOSTA
                     Negociacao.Sequencia_Tabela_Reaplicacao = drw["Sequencia_Reaplicacao"].ToString().ConvertToByte();
                     Negociacao.Desconto_Reaplicacao = drw["Desconto_Reaplicacao"].ToString().ConvertToPercent();
                     Negociacao.Indica_Antecipado = drw["Indica_Antecipado"].ToString().ConvertToBoolean();
+                    Negociacao.Indica_Midia_OnLine = drw["Indica_Midia_OnLine"].ToString().ConvertToBoolean();
                     Negociacao.Texto= drw["Texto"].ToString();
                     Negociacao.Condicao_Pagamento = drw["Condicao_Pagamento"].ToString();
                     Negociacao.Empresas_Venda = AddEmpresaVenda(drw["Numero_Negociacao"].ToString().ConvertToInt32());
@@ -133,6 +134,7 @@ namespace PROPOSTA
                     Negociacao.Sequenciador_Desconto = Sequenciador_Id_Desconto;
                     Negociacao.Sequenciador_Parcela = Sequenciador_Id_Parcela;
                     
+
                 }
             }
             catch (Exception)

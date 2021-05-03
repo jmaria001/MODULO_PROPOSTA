@@ -181,6 +181,7 @@ namespace PROPOSTA
             public String Cod_Empresa { get; set; }
             public String Cod_Empresa_Faturamento { get; set; }
             public Int32 RedeId{ get; set; }
+            public Boolean Indica_Midia_Online { get; set; }
         }
         public class GetProgramasGradeParam
         {

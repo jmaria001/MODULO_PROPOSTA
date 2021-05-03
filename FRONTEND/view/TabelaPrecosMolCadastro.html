@@ -1,0 +1,155 @@
+﻿<style>
+    #tbValoresMol td {
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+</style>
+<div class="container">
+    <form name="frmTabelaPrecosMolCadastro" autocomplete="off">
+
+        <div class="block">
+            <!--===================Competencia-->
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Competencia" caption="Competência">
+                        <input ng-model="TabelaPrecosMolCad.Competencia"
+                               ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               placeholder="Informe a Competência">
+                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="TabelaPrecosMolCad.Competencia" params="CompetenciaKeys"></div>
+                    </div>
+                </div>
+
+                <!--===================Programa-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Programa">
+                        <input id="txtCodPrograma"
+                               ng-model="TabelaPrecosMolCad.Cod_Programa"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodPrograma')"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               primarybind="txtCodPrograma"
+                               secondarybind="txtTituloPrograma">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtTituloPrograma" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtTituloPrograma" class="form-control " ng-model="TabelaPrecosMolCad.Titulo">
+                        </div>
+                    </div>
+                </div>
+
+                <!--===================Veiculo Mercado-->
+
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Veiculo_Mercado">
+                        <input id="txtCodVeiculo"
+                               ng-model="TabelaPrecosMolCad.Cod_Veiculo_Mercado"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodVeiculo')"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               primarybind="txtCodVeiculo"
+                               secondarybind="txtNomeVeiculo">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="TabelaPrecosMolCad.Nome_Veiculo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="block">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <!----------GRID------------>
+                    <div class="box table-responsive" >
+                        <table id="tbValoresMol" class="table table-striped table-bordered">
+                            <thead>
+                                <tr>
+                                    <th colspan="4">
+                                        <button class="btn btn-default btn-icon-fixed btn-sm pull-right" style="margin-top:0px;margin-bottom:0px"
+                                                ng-disabled="!TabelaPrecosMolCad.Competencia"
+                                                ng-click="AdicionarLinha()">
+                                            <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
+                                        </button>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th style="width:30%">Tipo Comercializacao</th>
+                                    <th style="width:40%">Nome Comercializacao</th>
+                                    <th style="width:30%">Valor</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="valoresmol in TabelaPrecosMolCad.ValoresMol track by $index" on-finish-render="ngRepeatFinished()">
+                                    <td>
+                                        <div class="form-group" style="width:150px">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-model="valoresmol.Cod_Tipo_Comercializacao" ng-model-options="{updateOn: 'blur'}"
+                                                       ng-change="ValidarTipoComercializacao(valoresmol)" maxlength="3" style="text-transform:uppercase" />
+                                                <div class="input-group-addon">
+                                                    <span class="fa fa-search span-btn" ng-click="SelecionarTipoComercializacao(valoresmol)"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{valoresmol.Nome_Comercializacao}}</td>
+                                    <td>
+                                        <input class="form-control form-control-sm" ng-model="valoresmol.Valor" ng-model-options="{updateOn: 'blur'}"
+                                               onblur="this.value = MoneyFormat(this.value)" onfocus="this.value = DecimalUnformat(this.value)"
+                                               onkeypress="return DecimalOnly(event)">
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger btn-sm" style="margin:0px 0px !important" ng-click="RemoverLinha(valoresmol.Id_Linha)">
+                                            <span class="fa fa-trash"></span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <div class="fixed-buttons-bottom">
+            <div class="row">
+                <!--===================Botoes-->
+                <div class="col-md-12">
+                    <button class="btn btn-success" ng-click="SalvarTabelaPrecosMol(TabelaPrecosMolCad,TabelaPrecosMolCad.ValoresMol)">
+                        Salvar
+                    </button>
+                    <button type="button" class="btn btn-danger" ng-click="ExcluirTabelaPrecosMol(TabelaPrecosMolCad)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
+                    <a href="#TabelaPrecosMol" class="btn btn-warning">Cancelar</a>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<div ng-include="'template/SelectItem.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $("span[control_group*='icon_group']").click(function (e) {
+            var _group = this.getAttribute("control_group");
+            _group = _group.replace('icon', 'input');
+            var el = document.querySelector('[control_group="' + _group + '"]');
+            if ($(el).is(':disabled')) {
+                event.stopPropagation();
+            };
+        });
+    });
+</script>

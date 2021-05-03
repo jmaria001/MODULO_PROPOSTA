@@ -50,6 +50,13 @@ namespace PROPOSTA
                         Hora_Termino = drw["Hora_Termino"].ToString(),
                         Nome_Genero = drw["Nome_Genero"].ToString(),
                         Indica_Desativado = drw["Indica_Desativado"].ToString().ConvertToBoolean(),
+                        Dispo_Net = drw["Dispo_Net"].ToString().ConvertToInt32(),
+                        Dispo_Local = drw["Dispo_Local"].ToString().ConvertToInt32(),
+                        Absorvido_Net = drw["Absorvido_Net"].ToString().ConvertToInt32(),
+                        Absorvido_Local = drw["Absorvido_Local"].ToString().ConvertToInt32(),
+                        Saldo_Net = drw["Saldo_Net"].ToString().ConvertToInt32(),
+                        Saldo_Local = drw["Saldo_Local"].ToString().ConvertToInt32(), 
+
                     });
                 }
                 if (dtUltimoDia != DateTime.MinValue)
@@ -473,8 +480,9 @@ namespace PROPOSTA
             return ListadeProgramas;
         }
         //--Salva a Propagação
-        public DataTable SalvarPropagacaoGrade(PropagacaoGradeModel Grade)
+        public Boolean  SalvarPropagacaoGrade(PropagacaoGradeModel Grade)
         {
+            Boolean Retorno = true;
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
             SqlDataAdapter Adp = new SqlDataAdapter();
@@ -511,13 +519,14 @@ namespace PROPOSTA
             }
             catch (Exception)
             {
+                Retorno = false;
                 throw;
             }
             finally
             {
                 cnn.Close();
             }
-            return dtb;
+            return Retorno;
         }
 
         //--mmm FIM

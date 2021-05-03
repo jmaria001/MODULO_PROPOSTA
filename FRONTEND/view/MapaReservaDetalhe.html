@@ -30,6 +30,7 @@
     #tbMidia td {
         font-size: 11px !important;
     }
+    
 </style>
 <div class="container">
     <div class="block">
@@ -254,6 +255,7 @@
                         <th>Tipo do Comercial</th>
                         <th>Produto</th>
                         <th>A Determinar</th>
+                        <th>Tipo Comercialização</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -265,6 +267,9 @@
                         <td>{{comercial.Cod_Red_Produto}}-{{comercial.Nome_Produto}}</td>
                         <td>
                             <label ng-show="comercial.Indica_Titulo_Determinar"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
+                        <td>
+                            {{comercial.Cod_Tipo_Comercializacao}}- {{comercial.Nome_Tipo_Comercializacao}}
                         </td>
                     </tr>
                 </tbody>
@@ -382,6 +387,7 @@
                                     <th>Ch.Acesso</th>
                                     <th>Car.</th>
                                     <th>Cod.Com</th>
+                                    <th>Qtd Ins</th>
                                     <th>Aut.</th>
                                     <th>Qual.</th>
                                     <th>Hor.Exibicao</th>
@@ -408,6 +414,7 @@
                                     <td>{{::veic.Chave_Acesso}}</td>
                                     <td>{{::veic.Cod_Caracteristica}}</td>
                                     <td>{{::veic.Cod_Comercial}}</td>
+                                    <td>{{::veic.Qtd_Insercoes}}</td>
                                     <td>
                                         <span class="fa fa-check bg-success" ng-show="veic.Indica_Valoracao"></span>
                                     </td>
@@ -422,8 +429,11 @@
                                     <td>{{::veic.Indica_Estouro}}</td>
                                     <!--<td>{{::veic.Data_Cadastramento | date:'dd/MM/yyyy'}} por {{::veic.Cod_Usuario}}</td>-->
                                     <td>{{::veic.Data_Cadastramento | date:'dd/MM/yyyy'}}</td>
-                                    <td>{{::veic.Tabela_Negociada}}-{{::veic.Sequencia_Negociada}}</td>
-                                    <td>{{::veic.Tabela_Vigente}}-{{::veic.Sequencia_Tabela_Vigente}}</td>
+                                    <td>
+                                     <span ng-show="!veic.Tabela_Negociada">Vigente</span>       
+                                        <span ng-show="veic.Tabela_Negociada">{{::veic.Tabela_Negociada}}<span ng-show="veic.Sequencia_Negociada">-{{::veic.Sequencia_Negociada}}</span></span>
+                                    </td>
+                                    <td>{{::veic.Tabela_Vigente}}<span ng-show="veic.Sequencia_Vigente">-{{::veic.Sequencia_Vigente}}</span></td>
                                     <td>{{::veic.Pre_Roteiro_Break}}</td>
                                     <td>{{::veic.Pre_Roteiro_Horario}}</td>
                                     <td>{{::veic.Pre_Roteiro_Posicao}}</td>
@@ -448,6 +458,7 @@
                 <label ng-show="Contrato.Status_Valoracao==1" class="label label-success">Contrato Valorado com Sucesso</label>
                 <label ng-show="Contrato.Status_Valoracao==2" class="label label-danger">Contrato com Crítica de Valoração</label>
                 <label ng-show="Contrato.Status_Valoracao==2" class="label label-warning">Pendente de Valoração</label>
+                <a  ng-show="Contrato.Status_Valoracao==2" href="#CriticaValoracao/{{Contrato.Cod_Empresa}}/{{Contrato.Numero_Mr}}/{{Contrato.Sequencia_Mr}}"   target="_blank" class="btn btn-sm btn-default" ng-click="VerCritica(Contrato)">Ver Critica</a>
             </div>
         </div>
         <div class="row margin-top-20">

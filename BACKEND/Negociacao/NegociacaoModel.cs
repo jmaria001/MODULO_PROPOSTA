@@ -53,6 +53,7 @@ namespace PROPOSTA
             public Int32 MaxGrupo { get; set; }
             public Int32 MaxParcela { get; set; }
             public Boolean Indica_Antecipado { get; set; }
+            public Boolean Indica_Midia_OnLine{ get; set; }
             public Boolean Indica_Desativado{ get; set; }
             public Boolean Permite_Editar{ get; set; }
             public Boolean Tem_Contrato { get; set; }

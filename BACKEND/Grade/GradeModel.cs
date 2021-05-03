@@ -62,6 +62,12 @@ namespace PROPOSTA
             public String Hora_Termino { get; set; }
             public String Nome_Genero { get; set; }
             public Boolean Indica_Desativado { get; set; }
+            public Int32 Dispo_Net { get; set; }
+            public Int32 Dispo_Local { get; set; }
+            public Int32 Absorvido_Net { get; set; }
+            public Int32 Absorvido_Local { get; set; }
+            public Int32 Saldo_Net { get; set; }
+            public Int32 Saldo_Local { get; set; }
         }
         public class GradeFiltroModel
         {

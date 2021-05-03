@@ -92,7 +92,7 @@
             }
         }
         httpService.Post('Grade/SalvarPropagacaoGrade', $scope.ParametrosPropagacao).then(function (response) {
-            if (response.data[0].Status == 0) {
+            if (!response.data) {
                 ShowAlert(response.data[0].Mensagem, 'error');
             }
             else {

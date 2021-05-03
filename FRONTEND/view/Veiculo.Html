@@ -16,6 +16,7 @@
                         <th>Cidade</th>
                         <th>Sigla</th>
                         <th>Empresa</th>
+                        <th>Midia On-Line</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,6 +33,9 @@
                         <td>{{veiculo.Cidade}}</td>
                         <td>{{veiculo.Sigla}}</td>
                         <td>{{veiculo.Cod_Empresa}}</td>
+                        <td style="text-align:center">
+                            <label ng-show="veiculo.Indica_Midia_Online"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
+                        </td>
                     </tr>
                 </tbody>
             </table>

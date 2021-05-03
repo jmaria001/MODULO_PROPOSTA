@@ -944,7 +944,6 @@
             routeName: 'Tipos de Comercialização',
             RouteId: 'TiposComercializacao@Index'
         })
-
     .when('/TiposComercializacaoCadastro/:Action/:Id', {
         templateUrl: 'view/TiposComercializacaoCadastro.html',
         authorize: true,
@@ -952,6 +951,55 @@
         routeName: 'Tipos de Comercialização',
         RouteId: 'TiposComercializacao@New'
     })
+    .when('/BaixaSite', {
+        templateUrl: 'view/BaixaVeiculacaoSite.html',
+        authorize: true,
+        controller: 'BaixaVeiculacaoSiteController',
+        routeName: 'Baixa de Veiculaçoes de Site',
+        RouteId: 'baixa@site'
+    })
+    .when('/TabelaPrecosMol', {
+        templateUrl: 'view/TabelaPrecosMol.html',
+        authorize: true,
+        controller: 'TabelaPrecosMolController',
+        routeName: 'Cadastro de Tabela de Preços de Mídia On-Line',
+        RouteId: 'TabelaPrecosMol@Index'
+    })
+    .when('/TabelaPrecosMolCadastroNew/:Action/:Id', {
+    templateUrl: 'view/TabelaPrecosMolCadastro.html',
+    authorize: true,
+    controller: 'TabelaPrecosMolCadastroController',
+    routeName: 'Inclusao de Tabela de Preço de Mídia On-Line',
+    RouteId: 'TabelaPrecosMol@New'
+    })
+    .when('/TabelaPrecosMolCadastroEdit/:Action/:Id', {
+    templateUrl: 'view/TabelaPrecosMolCadastro.html',
+    authorize: true,
+    controller: 'TabelaPrecosMolCadastroController',
+    routeName: 'Alteração de Tabela de Preço de Mídia On-Line',
+    RouteId: 'TabelaPrecosMol@Edit'
+    })
+    .when('/ParamNumFitas', {
+        templateUrl: 'view/ParamNumFitas.html',
+        authorize: true,
+        controller: 'ParamNumFitasController',
+        routeName: 'Parâmetros de Numeração de Fitas',
+        RouteId: 'ParamNumFitas@Index'
+    })
+    .when('/CriticaValoracao', {
+        templateUrl: 'view/CriticaValoracao.html',
+        authorize: true,
+        controller: 'CriticaValoracaoController',
+        routeName: 'Crítica da Valoração',
+        RouteId: 'CriticaValoracao@Index'
+    })
+    .when('/CriticaValoracao/:Cod_Empresa/:Numero_Mr/:Sequencia_Mr', {
+    templateUrl: 'view/CriticaValoracao.html',
+    authorize: true,
+    controller: 'CriticaValoracaoController',
+    routeName: 'Crítica da Valoração',
+    RouteId: 'CriticaValoracao@Index'
+})
         .otherwise({ redirectTo: "/blank" })
     .otherwise({ redirectTo: "/blank" })
 });

@@ -182,6 +182,7 @@
                             <th style="text-align:right">Vlr.Pago</th>
                             <th style="text-align:right">Vlr.Liqui.</th>
                             <th>Nat.Serv.</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -209,6 +210,9 @@
                             <td style="text-align:right">{{::Fatura.Vlr_Pago | currency}}</td>
                             <td style="text-align:right">{{::Fatura.Vlr_Liquido | currency}}</td>
                             <td>{{::Fatura.Cod_Natureza}}</td>
+                            <td>
+                                <label class="label label-danger" ng-show="Fatura.Data_Cancelamento">Cancelada</label>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

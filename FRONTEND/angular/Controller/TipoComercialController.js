@@ -20,6 +20,7 @@
     { 'title': 'Tipo_Valoracao', 'visible': true, 'searchable': true, 'sortable': true },
     { 'title': 'Indica_Midia_On_Line', 'visible': true, 'searchable': true, 'sortable': true },
     { 'title': 'Codigo Exibidora', 'visible': true, 'searchable': true, 'sortable': true },
+    { 'title': 'Tipo Comercialização', 'visible': true, 'searchable': true, 'sortable': true },
     ];
 
     //====================Quando terminar carga do grid, torna view do grid visible

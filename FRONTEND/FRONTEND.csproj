@@ -94,10 +94,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="angular\Controller\BaixaVeiculacaoSiteController.js" />
     <Content Include="angular\Controller\BaixaContratoController.js" />
     <Content Include="angular\Controller\BaixaRoteiroController.js" />
     <Content Include="angular\Controller\ConsultaFitasOrdenadasController.js" />
     <Content Include="angular\Controller\ConsultaRoteiroOrdenadoController.js" />
+    <Content Include="angular\Controller\CriticaValoracaoController.js" />
     <Content Include="angular\Controller\DeParaData.js" />
     <Content Include="angular\Controller\DeParaPeriodo.js" />
     <Content Include="angular\Controller\DeterminacaoTituloController.js" />
@@ -127,8 +129,11 @@
     <Content Include="angular\Controller\NumeracaoController.js" />
     <Content Include="angular\Controller\NumeracaoFitasCadastroController.js" />
     <Content Include="angular\Controller\NumeracaoFitasController.js" />
+    <Content Include="angular\Controller\ParamNumFitasController.js" />
     <Content Include="angular\Controller\ReabreCEController.js" />
     <Content Include="angular\Controller\RetornoPlaylistController.js" />
+    <Content Include="angular\Controller\TabelaPrecosMolCadastroController.js" />
+    <Content Include="angular\Controller\TabelaPrecosMolController.js" />
     <Content Include="angular\Controller\TiposComercializacaoCadastroController.js" />
     <Content Include="angular\Controller\TiposComercializacaoController.js" />
     <Content Include="css\custom - Copy.css" />
@@ -299,6 +304,7 @@
     <Content Include="view\Am_Reencaixe.html" />
     <Content Include="view\BaixaContrato.html" />
     <Content Include="view\BaixaRoteiro.html" />
+    <Content Include="view\BaixaVeiculacaoSite.html" />
     <Content Include="view\BaixaVeiculacoes.html" />
     <Content Include="view\ComplementoOutrasReceitas.html" />
     <Content Include="view\ComplementoContrato.html" />
@@ -308,6 +314,7 @@
     <Content Include="view\ConsultaProgramacaoDiaria.html" />
     <Content Include="view\ConsultaProgramacaoDiariaDetalhe.html" />
     <Content Include="view\ConsultaRoteiroOrdenado.html" />
+    <Content Include="view\CriticaValoracao.html" />
     <Content Include="view\DashboardTeste.html" />
     <Content Include="view\DashEvolucaoVendas.html" />
     <Content Include="view\DashFunilVendas.html" />
@@ -345,6 +352,7 @@
     <Content Include="view\ParametroValoracao.html" />
     <Content Include="view\ParametroValoracaoCadastro.html" />
     <Content Include="view\MapaReservaImport.html" />
+    <Content Include="view\ParamNumFitas.html" />
     <Content Include="view\ParamRoteiro.html" />
     <Content Include="view\ParRetorPlayList.Html" />
     <Content Include="view\FaturasPesquisa.html" />
@@ -407,6 +415,8 @@
     <Content Include="view\TabelaPrecos.html" />
     <Content Include="view\TabelaPrecosCadastro.html" />
     <Content Include="view\Produto.html" />
+    <Content Include="view\TabelaPrecosMol.html" />
+    <Content Include="view\TabelaPrecosMolCadastro.html" />
     <Content Include="view\Terceiro.html" />
     <Content Include="view\MapaReservaDetalhe.html" />
     <Content Include="view\TerceiroCadastro.html" />
@@ -421,6 +431,7 @@
     <Content Include="view\Veiculo.Html" />
     <Content Include="img\web.config" />
     <Content Include="view\VeiculoCadastro.html" />
+    <Content Include="Z-demo\HtmlPage1.html" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -621,7 +632,6 @@
   <ItemGroup>
     <Folder Include="js\vendor\bootstrap-datetimepicker\" />
     <Folder Include="js\vendor\bootstrap-tagsinput\" />
-    <Folder Include="Z-demo\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

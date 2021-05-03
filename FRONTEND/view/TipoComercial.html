@@ -1,4 +1,9 @@
-﻿<div class="container">
+﻿<style>
+    td {
+        white-space: nowrap;
+    }
+</style>
+<div class="container">
     <div class="block table-responsive" ng-show="ShowGrid">
         <!--===================================Botoes-->
         <a id="btnNovoTipoComercial" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#TipoComercialCadastro/New/0">Novo Tipo Comercial</a>
@@ -19,6 +24,7 @@
                         <th>Valor Tabela Merchandising</th>
                         <th>Midia On Line</th>
                         <th>Cod.Exibidora</th>
+                        <th>Tipo Comercialização</th>
 
                     </tr>
                 </thead>
@@ -31,7 +37,7 @@
                         </td>
                         <td>{{::TipoComercial.Cod_Tipo_Comercial}}</td>
                         <td>{{::TipoComercial.Descricao}}</td>
-                        <td  style="text-align:center">
+                        <td style="text-align:center">
                             <label ng-show="TipoComercial.Absorcao"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
                         </td>
                         <td style="text-align:center">
@@ -50,6 +56,9 @@
                             <label ng-show="TipoComercial.Indica_Midia_On_Line"><span class="fa fa-check text-success" style="font-size:20px"></span></label>
                         </td>
                         <td style="text-align:center">{{::TipoComercial.Exibidora_DAD}}</td>
+                        <td style="text-align:center">
+                            <span ng-show="TipoComercial.Cod_Tipo_Comercializacao">{{::TipoComercial.Cod_Tipo_Comercializacao}}-{{::TipoComercial.Desc_Tipo_Comercializacao}}</span>
+                        </td>
                     </tr>
                 </tbody>
             </table>

@@ -54,6 +54,7 @@
         { 'title': 'Vlr.Pago', 'visible': true, 'searchable': true, 'sortable': true },
         { 'title': 'Vlr.Liqui.', 'visible': true, 'searchable': true, 'sortable': true },
         { 'title': 'Nat.Serviço', 'visible': true, 'searchable': true, 'sortable': true },
+        { 'title': 'Cancelada', 'visible': true, 'searchable': true, 'sortable': true },
     ];
 
     //====================Quando terminar carga do grid, torna view do grid visible

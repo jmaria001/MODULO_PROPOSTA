@@ -87,6 +87,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_RoteiroNao", pVeiculo.Indica_RoteiroNao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Ocultar_MMA", pVeiculo.Ocultar_MMA);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Nao_Emite_Ce", pVeiculo.Indica_Nao_Emite_Ce);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Midia_Online", pVeiculo.Indica_Midia_Online);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_RedeId", pVeiculo.RedeId);
                 //Adp.SelectCommand.Parameters.AddWithValue("@Par_Nome_Rede", pVeiculo.NomeRede);
 
@@ -153,6 +154,7 @@ namespace PROPOSTA
                     Veiculo.Indica_RoteiroNao       = dtb.Rows[0]["Indica_RoteiroNao"].ToString().ConvertToBoolean(); 
                     Veiculo.Ocultar_MMA             = dtb.Rows[0]["Ocultar_MMA"].ToString().ConvertToBoolean(); ;
                     Veiculo.Indica_Nao_Emite_Ce     = dtb.Rows[0]["Indica_Nao_Emite_Ce"].ToString().ConvertToBoolean();
+                    Veiculo.Indica_Midia_Online     = dtb.Rows[0]["Indica_Midia_Online"].ToString().ConvertToBoolean();
                     Veiculo.RedeId                  = dtb.Rows[0]["RedeId"].ToString().ConvertToInt32(); 
                     Veiculo.NomeRede                = dtb.Rows[0]["NomeRede"].ToString();
                 }

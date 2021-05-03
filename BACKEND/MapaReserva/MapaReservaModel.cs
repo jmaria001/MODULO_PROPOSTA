@@ -34,6 +34,7 @@ namespace PROPOSTA
             public String Cod_Nucleo { get; set; }
             public String Nome_Nucleo { get; set; }
             public String Cod_Tipo_Midia { get; set; }
+            public Boolean Indica_Midia_Online { get; set; }
             public String Data_Recepcao_Reserva { get; set; }
             public String Numero_PI { get; set; }
             public String Obs_Roteiro { get; set; }
@@ -79,6 +80,7 @@ namespace PROPOSTA
             public Boolean Comprovado { get; set; }
             public List<ComercialModel> Comerciais { get; set; }
             public List<VeiculacacaoModel> Veiculacoes{ get; set; }
+            public List<VeiculacaoOnLineModel> VeiculacoesOnLine { get; set; }
             public List<VeiculoModel> Veiculos{ get; set; }
 
         }
@@ -95,6 +97,9 @@ namespace PROPOSTA
             public String Numero_Fita { get; set; }
             public String Titulo_Comercial { get; set; }
             public Boolean Tem_Veiculacao { get; set; }
+            public String Cod_Tipo_Comercializacao { get; set; }
+            public String Nome_Tipo_Comercializacao { get; set; }
+
         }
         public class VeiculacacaoModel
         {
@@ -104,7 +109,18 @@ namespace PROPOSTA
             public String Cod_Comercial    { get; set; }
             public Int32 Qtd_Total{ get; set; }
             public Boolean Permite_Editar { get; set; }
+            public String Cod_Tipo_Comercializacao{ get; set; }
+            public String Nome_Tipo_Comercializacao { get; set; }
             public List<InsercoesModel> Insercoes { get; set; }
+        }
+        public class VeiculacaoOnLineModel
+        {
+            public String Data_Inicio { get; set; }
+            public String Data_Fim{ get; set; }
+            public String Cod_Caracteristica { get; set; }
+            public String Cod_Comercial { get; set; }
+            public String Cod_Programa{ get; set; }
+            public String Qtd{ get; set; }
         }
         public class InsercoesModel
         {
@@ -173,11 +189,11 @@ namespace PROPOSTA
         }
         public  class ParamNewMidiaModel
         {
-
             public String Inicio_Campanha{ get; set; }
             public String Fim_Campanha{ get; set; }
             public String    Cod_Programa { get; set; }
-            public List<VeiculoModel> Veiculos;
+            public Boolean Indica_Midia_Online { get; set; }
+            public List<VeiculoModel> Veiculos { get; set; }
         }
     }
 }

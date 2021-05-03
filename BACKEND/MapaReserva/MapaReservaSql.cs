@@ -709,6 +709,7 @@ namespace PROPOSTA
                     Contrato.Versao_Projeto = dtb.Rows[0]["Versao_Projeto"].ToString().ConvertToInt32();
                     Contrato.Tem_Fatura = dtb.Rows[0]["Tem_Fatura"].ToString().ConvertToBoolean();
                     Contrato.Comprovado= dtb.Rows[0]["Comprovado"].ToString().ConvertToBoolean();
+                    Contrato.Indica_Midia_Online= dtb.Rows[0]["Indica_Midia_Online"].ToString().ConvertToBoolean();
                     Contrato.Editar_Negociacao = true;
                     Contrato.Editar_Cliente = true;
                     Contrato.Editar_Agencia = true;
@@ -767,6 +768,8 @@ namespace PROPOSTA
                         Numero_Fita = drw["Numero_Fita"].ToString(),
                         Indica_Titulo_Determinar = drw["Indica_Titulo_Determinar"].ToString().ConvertToBoolean(),
                         Tem_Veiculacao = drw["Tem_Veiculacao"].ToString().ConvertToBoolean(),
+                        Cod_Tipo_Comercializacao = drw["Cod_Tipo_Comercializacao"].ToString(),
+                        Nome_Tipo_Comercializacao = drw["Nome_Tipo_Comercializacao"].ToString(),
                     });
                 }
             }
@@ -936,6 +939,7 @@ namespace PROPOSTA
             String xmlVeiculos = null;
             String xmlComerciais = null;
             String xmlVeiculacoes = null;
+            String xmlVeiculacoes_Online = null;
             if (pContrato.Veiculos.Count > 0)
             {
                 xmlVeiculos = clsLib.SerializeToString(pContrato.Veiculos);
@@ -948,9 +952,14 @@ namespace PROPOSTA
             {
                 xmlVeiculacoes = clsLib.SerializeToString(pContrato.Veiculacoes);
             }
+            if (pContrato.VeiculacoesOnLine.Count > 0)
+            {
+                xmlVeiculacoes_Online = clsLib.SerializeToString(pContrato.VeiculacoesOnLine);
+            }
+
             try
             {
-                SqlCommand cmd = cnn.Procedure(cnn.Connection, "[Pr_Proposta_Mapa_Reserva_Salvar]");
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Mapa_Reserva_Salvar");
                 Adp.SelectCommand = cmd;
                 //Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
                 //Adp.SelectCommand.Parameters.AddWithValue("@Par_Operacao", pContrato.Operacao);
@@ -966,6 +975,7 @@ namespace PROPOSTA
                 clsLib.NewParameter(Adp, "@Par_Cod_Contato", pContrato.Cod_Contato);
                 clsLib.NewParameter(Adp, "@Par_Cod_Nucleo", pContrato.Cod_Nucleo);
                 clsLib.NewParameter(Adp, "@Par_Cod_Tipo_Midia", pContrato.Cod_Tipo_Midia);
+                clsLib.NewParameter(Adp, "@Par_Indica_Midia_On_Line", pContrato.Indica_Midia_Online);
                 clsLib.NewParameter(Adp, "@Par_Data_Recepcao_Reserva", pContrato.Data_Recepcao_Reserva.ConvertToDatetime());
                 clsLib.NewParameter(Adp, "@Par_Numero_PI", pContrato.Numero_PI);
                 clsLib.NewParameter(Adp, "@Par_Obs_Roteiro", pContrato.Obs_Roteiro);
@@ -990,7 +1000,9 @@ namespace PROPOSTA
                 clsLib.NewParameter(Adp, "@Par_Indica_Tqp", pContrato.Indica_Tqp);
                 clsLib.NewParameter(Adp, "@Par_Comerciais", xmlComerciais);
                 clsLib.NewParameter(Adp, "@Par_Veiculacoes", xmlVeiculacoes);
+                clsLib.NewParameter(Adp, "@Par_Veiculacoes_Online", xmlVeiculacoes_Online);
                 clsLib.NewParameter(Adp, "@Par_Veiculos", xmlVeiculos);
+
                 Adp.Fill(dtb);
             }
             catch (Exception)
@@ -1038,7 +1050,6 @@ namespace PROPOSTA
                         Valido= drw["Valido"].ToString().ConvertToBoolean(),
 
                     });
-
                 }
             }
             catch (Exception)
@@ -1068,6 +1079,7 @@ namespace PROPOSTA
                 clsLib.NewParameter(Adp, "@Par_Periodo_Campanha_Inicio", param.Periodo_Campanha_Inicio.ConvertToDatetime());
                 clsLib.NewParameter(Adp, "@Par_Periodo_Campanha_Termino", param.Periodo_Campanha_Termino.ConvertToDatetime());
                 clsLib.NewParameter(Adp, "@Par_Id_Contrato", param.Id_Contrato,true);
+                clsLib.NewParameter(Adp, "@Par_Indica_Midia_On_Line", param.Indica_Midia_Online, true);
                 Adp.Fill(dtb);
                 Retorno = dtb.Rows[0]["Mensagem"].ToString();
                 
@@ -1082,5 +1094,40 @@ namespace PROPOSTA
             }
             return Retorno;
         }
+        public DataTable ValidarGradePeriodo(ParamNewMidiaModel param)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            String xmlVeiculos = null;
+            if (param.Veiculos.Count > 0)
+            {
+                xmlVeiculos = clsLib.SerializeToString(param.Veiculos);
+            }
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "[Pr_Proposta_Validar_Grade_Periodo]");
+                Adp.SelectCommand = cmd;
+                clsLib.NewParameter(Adp, "@Par_Login", this.CurrentUser);
+                clsLib.NewParameter(Adp, "@Par_Inicio_Campanha", param.Inicio_Campanha.ConvertToDatetime());
+                clsLib.NewParameter(Adp, "@Par_Fim_Campanha", param.Fim_Campanha.ConvertToDatetime());
+                clsLib.NewParameter(Adp, "@Par_Cod_Programa", param.Cod_Programa);
+                clsLib.NewParameter(Adp, "@Par_Veiculos", xmlVeiculos);
+                Adp.Fill(dtb);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
+
     }
 }

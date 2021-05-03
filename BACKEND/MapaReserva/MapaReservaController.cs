@@ -273,6 +273,7 @@ namespace PROPOSTA
                 {
                     Retorno = Cls.MapaReservaGetContrato(Id_Contrato);
                     Retorno.Veiculacoes = new List<MapaReserva.VeiculacacaoModel>();
+                    Retorno.VeiculacoesOnLine = new List<MapaReserva.VeiculacaoOnLineModel>();
                     Retorno.Editar_Negociacao = false;
                     Retorno.Editar_Empresa_Venda = false;
                     Retorno.Editar_Tipo_Midia = false;
@@ -295,6 +296,7 @@ namespace PROPOSTA
                 {
                     Retorno.Comerciais = new List<MapaReserva.ComercialModel>();
                     Retorno.Veiculacoes = new List<MapaReserva.VeiculacacaoModel>();
+                    Retorno.VeiculacoesOnLine = new List<MapaReserva.VeiculacaoOnLineModel>();
                     Retorno.Veiculos = new List<MapaReserva.VeiculoModel>();
                     Retorno.Editar_Negociacao = true;
                     Retorno.Editar_Cliente = true;
@@ -369,10 +371,19 @@ namespace PROPOSTA
             MapaReserva Cls = new MapaReserva(User.Identity.Name);
             try
             {
-                MapaReserva.VeiculacacaoModel Veiculacao =  new MapaReserva.VeiculacacaoModel();
-                Veiculacao.Permite_Editar = true;
-                Veiculacao.Insercoes= Cls.MapaReservaNewMidia(param);
-                return Ok(Veiculacao);
+                if (param.Indica_Midia_Online)
+                {
+                    MapaReserva.VeiculacaoOnLineModel Veiculacao = new MapaReserva.VeiculacaoOnLineModel();
+                    return Ok(Veiculacao);
+                }
+                else
+                {
+                    MapaReserva.VeiculacacaoModel Veiculacao = new MapaReserva.VeiculacacaoModel();
+                    Veiculacao.Permite_Editar = true;
+                    Veiculacao.Insercoes = Cls.MapaReservaNewMidia(param);
+                    return Ok(Veiculacao);
+                }
+                
             }
             catch (Exception Ex)
             {
@@ -392,6 +403,25 @@ namespace PROPOSTA
             try
             {
                 String Retorno = Cls.MapaReservaValidarPeriodo(param);
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+        [Route("api/MapaReserva/ValidarGradePeriodo")]
+        [HttpPost]
+        [ActionName("ValidarGradePeriodo")]
+        [Authorize()]
+        public IHttpActionResult ValidarGradePeriodo([FromBody] MapaReserva.ParamNewMidiaModel param)
+        {
+            SimLib clsLib = new SimLib();
+            MapaReserva Cls = new MapaReserva(User.Identity.Name);
+            try
+            {
+               DataTable Retorno = Cls.ValidarGradePeriodo(param);
                 return Ok(Retorno);
             }
             catch (Exception Ex)

@@ -1,127 +1,129 @@
 ﻿<div class="container">
     <form name="frmPropagacaoGrade" autocomplete="off">
-        <!--=================================Campos de origem e destino-->
-        <div class="row">
-            <!--=======ORIGEM----Competencia(Base)---------->
-            <div class="col-md-2">
-                <div class="dictionary" dictionary="Competencia" caption="Competência Base" required>
-                    <input ng-model="ParametrosPropagacao.Competencia_Base"
-                           ui-MesAno ng-model-options="{updateOn: 'blur'}"
-                           ng-required="true"
-                           placeholder="Informe a Competência">
-                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="ParametrosPropagacao.Competencia_Base" params="CompetenciaKeys"></div>
-                </div>
-            </div>
-            <!--=======ORIGEM----Veiculo(Origem)----------->
-            <div class="col-md-2" ng-controller="dictionaryController">
-                <div class="dictionary" dictionary="Veiculo" caption="Copiar do Veículo:">
-                    <input id="txtCodVeiculo"
-                           ng-model="ParametrosPropagacao.Cod_Veiculo_Origem"
-                           ng-model-options="{updateOn: 'blur'}"
-                           ng-change="DicionaryValidate('txtCodVeiculo')"
-                           primarybind="txtCodVeiculo"
-                           secondarybind="txtNomeVeiculo"
-                           maxlength="3"/>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
-                    <div class="input-group">
-                        <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="ParametrosPropagacao.Nome_Veiculo_Origem">
-                    </div>
-                </div>
-            </div>
-            <!--=======DESTINO----Data Inicio---------->
-            <div class="col-md-2">
-                <div class="dictionary" dictionary="Competencia" caption="Compet.Inicial Destino" required>
-                    <input ng-model="ParametrosPropagacao.Data_Inicio"
-                           ui-MesAno ng-model-options="{updateOn: 'blur'}"
-                           ng-required="true"
-                           placeholder="Informe a Competência Inicial">
-                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="ParametrosPropagacao.Data_Inicio" params="CompetenciaKeys"></div>
-                </div>
-            </div>
-            <!--=======DESTINO----Data Fim---------->
-            <div class="col-md-2">
-                <div class="dictionary" dictionary="Competencia" caption="Compet.Final Destino" required>
-                    <input ng-model="ParametrosPropagacao.Data_Fim"
-                           ui-MesAno ng-model-options="{updateOn: 'blur'}"
-                           ng-required="true"
-                           placeholder="Informe a Competência Final">
-                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="ParametrosPropagacao.Data_Fim" params="CompetenciaKeys"></div>
-                </div>
-            </div>
-        </div>
-        <!--============================LISTAS------------------------>
-        <div class="row margin-top-20">
-            <!--==LISTA DE VEICULOS-->
-            <div class="col-md-6">
-                <div class="block" style="padding:5px 5px 5px 5px">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="alert alert-primary alert-icon-block" role="alert">
-                                <strong>Veículos</strong>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="app-checkbox">
-                                        <label><input type="checkbox" name="app-checkbox-1" ng-model="checkBoxVeiculo" ng-click="MarcarVeiculo()" /> Marcar/Desmarcar Todos<span></span></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px silver">
-                        <div class="col-md-12" ng-repeat="veiculo in ParametrosPropagacao.Veiculos track by $index">
-                            <div class="app-checkbox" style="width:auto;margin-top:5px">
-                                <label><input type="checkbox" name="app-checkbox-1" ng-model="veiculo.Selected" ng-click="CheckVeiculo(Veiculo)" />  {{veiculo.Cod_Veiculo}}-{{veiculo.Nome_Veiculo}} <span></span></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--==LISTA DE PROGRAMAS-->
-            <div class="col-md-6">
-                <div class="block" style="padding:5px 5px 5px 5px">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="alert alert-primary alert-icon-block" role="alert">
-                                <strong>Programas</strong>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="app-checkbox">
-                                        <label><input type="checkbox" name="app-checkbox-1" ng-model="checkBoxPrograma" ng-click="MarcarPrograma()" /> Marcar/Desmarcar Todos<span></span></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px silver">
-                        <div class="col-md-12" ng-repeat="Programa in ParametrosPropagacao.Programas track by $index">
-                            <div class="app-checkbox" style="width:auto;margin-top:5px">
-                                <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.Selected" ng-click="CheckPrograma(Programa)" />  {{Programa.Cod_Programa}}-{{Programa.Titulo}} <span></span></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--=============================Botoes-------------------->
-        <div class="fixed-buttons-bottom">
+        <div class="block">
+            <!--=================================Campos de origem e destino-->
             <div class="row">
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-success" ng-disabled="frmPropagacaoGrade.$invalid" ng-click="SalvarPropagacaoGrade()">Propagar</button>
-                    <a href="#Grade" class="btn btn-warning">Cancelar</a>
+                <!--=======ORIGEM----Competencia(Base)---------->
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Competencia" caption="Competência Base" required>
+                        <input ng-model="ParametrosPropagacao.Competencia_Base"
+                               ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                               ng-required="true"
+                               placeholder="Informe a Competência">
+                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="ParametrosPropagacao.Competencia_Base" params="CompetenciaKeys"></div>
+                    </div>
+                </div>
+                <!--=======ORIGEM----Veiculo(Origem)----------->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Veiculo" caption="Copiar do Veículo:">
+                        <input id="txtCodVeiculo"
+                               ng-model="ParametrosPropagacao.Cod_Veiculo_Origem"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodVeiculo')"
+                               primarybind="txtCodVeiculo"
+                               secondarybind="txtNomeVeiculo"
+                               maxlength="3" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="ParametrosPropagacao.Nome_Veiculo_Origem">
+                        </div>
+                    </div>
+                </div>
+                <!--=======DESTINO----Data Inicio---------->
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Competencia" caption="Compet.Inicial Destino" required>
+                        <input ng-model="ParametrosPropagacao.Data_Inicio"
+                               ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                               ng-required="true"
+                               placeholder="Informe a Competência Inicial">
+                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="ParametrosPropagacao.Data_Inicio" params="CompetenciaKeys"></div>
+                    </div>
+                </div>
+                <!--=======DESTINO----Data Fim---------->
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Competencia" caption="Compet.Final Destino" required>
+                        <input ng-model="ParametrosPropagacao.Data_Fim"
+                               ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                               ng-required="true"
+                               placeholder="Informe a Competência Final">
+                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="ParametrosPropagacao.Data_Fim" params="CompetenciaKeys"></div>
+                    </div>
+                </div>
+            </div>
+            <!--============================LISTAS------------------------>
+            <div class="row margin-top-20">
+                <!--==LISTA DE VEICULOS-->
+                <div class="col-md-6">
+                    <div class="block" style="padding:5px 5px 5px 5px">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-primary alert-icon-block" role="alert">
+                                    <strong>Veículos</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="app-checkbox">
+                                            <label><input type="checkbox" name="app-checkbox-1" ng-model="checkBoxVeiculo" ng-click="MarcarVeiculo()" /> Marcar/Desmarcar Todos<span></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px silver">
+                            <div class="col-md-12" ng-repeat="veiculo in ParametrosPropagacao.Veiculos track by $index">
+                                <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="veiculo.Selected" ng-click="CheckVeiculo(Veiculo)" />  {{veiculo.Cod_Veiculo}}-{{veiculo.Nome_Veiculo}} <span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--==LISTA DE PROGRAMAS-->
+                <div class="col-md-6">
+                    <div class="block" style="padding:5px 5px 5px 5px">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-primary alert-icon-block" role="alert">
+                                    <strong>Programas</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="app-checkbox">
+                                            <label><input type="checkbox" name="app-checkbox-1" ng-model="checkBoxPrograma" ng-click="MarcarPrograma()" /> Marcar/Desmarcar Todos<span></span></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px silver">
+                            <div class="col-md-12" ng-repeat="Programa in ParametrosPropagacao.Programas track by $index">
+                                <div class="app-checkbox" style="width:auto;margin-top:5px">
+                                    <label><input type="checkbox" name="app-checkbox-1" ng-model="Programa.Selected" ng-click="CheckPrograma(Programa)" />  {{Programa.Cod_Programa}}-{{Programa.Titulo}} <span></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--=============================Botoes-------------------->
+            <div class="fixed-buttons-bottom">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-success" ng-disabled="frmPropagacaoGrade.$invalid" ng-click="SalvarPropagacaoGrade()">Propagar</button>
+                        <a href="#Grade" class="btn btn-warning">Cancelar</a>
+                    </div>
                 </div>
             </div>
         </div>

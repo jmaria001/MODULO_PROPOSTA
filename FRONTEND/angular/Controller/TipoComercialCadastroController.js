@@ -19,11 +19,12 @@
 
     //==========================Salvar
     $scope.SalvarTipoComercial = function (pTipoComercial) {
-        //if ($scope.Parameters.Action == "New")
-        //{
-        //    $scope.Veiculo.id_operacao = 'I';Parameters.Action
-        //}
-        //$scope.TipoComercial.id_operacao = $scope.sw == "New" ? 'I' : 'E';
+        if (pTipoComercial.Indica_Midia_On_Line == 0) {
+            pTipoComercial.Cod_Tipo_Comercializacao = null;
+            pTipoComercial.Desc_Tipo_Comercializacao = null;
+
+        }
+
         $scope.TipoComercial.id_operacao = $scope.Parameters.Action == "New" ? 'I' : 'E';
         httpService.Post("SalvarTipoComercial", pTipoComercial).then(function (response) {
             if (response) {

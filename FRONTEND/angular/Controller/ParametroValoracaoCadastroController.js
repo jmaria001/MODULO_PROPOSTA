@@ -1,6 +1,5 @@
 ﻿angular.module('App').controller('ParametroValoracaoCadastroController', ['$scope', '$rootScope', '$routeParams', '$location', 'httpService', '$location', function ($scope, $rootScope, $routeParams, $location, httpService, $location) {
     //========================Recebe Parametro
-    $scope.Parameters = $routeParams;
     $scope.CompetenciaKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
     $scope.ParametroValoracao = "";
     //========================Verifica Permissoes

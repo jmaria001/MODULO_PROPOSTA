@@ -1,0 +1,140 @@
+﻿<div class="container">
+    <!--------------------------------- FILTRO ------------------------------------------>
+    <div id="divFiltro" class="block" ng-show="ShowFilter">
+        <div class="alert alert-info alert-icon-block" role="alert">
+            <div class="alert-icon">
+                <span class="fa fa-filter"></span>
+            </div>
+            <strong>Filtros</strong>
+        </div>
+        <div class="row">
+            <!---------------- Competencia ------------------->
+            <div class="col-md-2">
+                <div class="dictionary" dictionary="Competencia" caption="Competência">
+                    <input ng-model="Filtro.Competencia"
+                           ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                           placeholder="Informe a Competência">
+                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia" params="CompetenciaKeys"></div>
+                </div>
+            </div>
+            <!--------------------- Empresa Faturamento ------------------>
+            <div class="col-md-2" ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Empresa_Usuario" caption="Empresa de Faturamento">
+                    <input id="txtCodEmpresaFaturamento"
+                           ng-model="Filtro.Cod_Empresa_Faturamento"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodEmpresaFaturamento')"
+                           primarybind="txtCodEmpresaFaturamento"
+                           secondarybind="txtNomeEmpresaFaturamento">
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="txtNomeEmpresaFaturamento" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeEmpresaFaturamento" class="form-control" ng-model="Filtro.Razao_Social_Fat">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!--------------------- Empresa Venda ------------------>
+            <div class="col-md-2" ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Empresa_Usuario" caption="Empresa Venda">
+                    <input id="txtCodEmpresa"
+                           ng-model="Filtro.Cod_Empresa"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodEmpresa')"
+                           primarybind="txtCodEmpresa"
+                           secondarybind="txtNomeEmpresa">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="txtNomeEmpresa" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeEmpresa" class="form-control" ng-model="Filtro.Razao_Social_Ven">
+                    </div>
+                </div>
+            </div>
+            <!--------------------- Contrato -------------------------->
+            <div class="col-md-2">
+                <div class="form-group field-x">
+                    <label>Contrato</label>
+                    <input id="txtContrato" type="text" name="txtContrato" class="form-control" ng-model="Filtro.Numero_Mr" onkeypress='return NumericOnly(event)' maxlength="10" />
+                </div>
+            </div>
+            <!--------------------- Sequencia ------------------------>
+            <div class="col-md-1">
+                <div class="form-group field-x">
+                    <label>Sequencia</label>
+                    <input id="txtSequencia" type="text" name="txtSequencia" class="form-control" ng-model="Filtro.Sequencia_Mr" onkeypress='return NumericOnly(event)' maxlength="2" />
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <!--------------------- BOTÕES -------------------------->
+            <div id="divBotaoFiltro" class="row margin-top-20">
+                <div class="col-12">
+                    <button class="btn btn-primary" ng-click="FiltrarCriticaValoracao(Filtro)">Filtrar</button>
+                    <button class="btn btn-warning" ng-click="NewFiltro()">Novo Filtro</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--------------------------------- DADOS ------------------------------------------>
+    <div id="divDados" class="block" ng-show="ShowDados">
+        
+        <div ng-repeat="critica in CriticaValoracao track by $index" style="border-bottom:solid 1px silver;line-height:25px;margin-bottom:10px">
+
+            <strong>Contrato: </strong><span> {{critica.Cod_Empresa}}- {{critica.Numero_Mr}}-{{critica.Sequencia_Mr}}</span>
+            <br />
+            <strong>Crítica: </strong><span>{{critica.Descricao_Critica}}</span>
+            <br />
+            <strong>Competência: </strong><span>{{critica.Competencia_Text}}</span>
+            <br />
+            <strong>Tabela Negociada: </strong><span>{{critica.Tabela_Preco}}</span>
+            <br />
+            <strong>Sequência: </strong><span>{{critica.Sequencia_Tabela}}</span>
+            <br />
+            <strong>Veículo/Mercado: </strong><span>{{critica.Cod_Veiculo}}</span>
+            <br />
+            <strong>Programa: </strong><span>{{critica.Cod_Programa}}</span>
+            <br />
+            <strong>Tipo de Comercial: </strong><span>{{critica.Cod_Tipo_Comercial}}</span>
+            <br />
+            <strong>Duração: </strong><span>{{critica.Duracao}}</span>
+            <br />
+            <strong ng-show="critica.Tipo_Tabela">Tipo de Preço: </strong><span ng-show="critica.Tipo_Tabela">{{critica.Tipo_Tabela}}</span>
+            <br />
+            <a href="#MapaReservaDetalhe/{{::critica.Id_Contrato}}" target="_blank"  class="btn btn-success btn-sm">Ver Contrato</a>
+            
+        </div>
+
+        <div class="fixed-buttons-bottom">
+            <div class="row">
+                <div id="divBotaoFiltro">
+                    <div class="col-12">
+                        <button class="btn btn-warning" ng-click="ShowDados=false;ShowFilter=true;NewFiltro()">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>
+
+

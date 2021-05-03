@@ -3,7 +3,7 @@
         <div class="block">
             <div class="row">
                 <!--===================Codigo-->
-                <div class="col-md-1">
+                <div class="col-md-1 margin-top-10" >
                     <div class="form-group">
                         <label class="fieldrequired">Código</label>
                         <input type="text"
@@ -17,18 +17,48 @@
                     </div>
                 </div>
                 <!--===================Nome-->
-                <div class="col-md-4">
+                <div class="col-md-4 margin-top-10 ">
                     <div class="form-group">
                         <label class="fieldrequired">Descricao</label>
                         <input type="text" name="txtDescricao" class="form-control" ng-model="TipoComercial.Descricao" maxlength="30" ng-required="true" />
                     </div>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 margin-top-10 ">
                     <div class="form-group">
                         <label>Cod.Exibidora</label>
                         <input type="text" name="txtDescricao" class="form-control" ng-model="TipoComercial.Exibidora_DAD" maxlength="1" />
                     </div>
                 </div>
+
+                <!--===================Tipo Comercialização -->
+                <div class="col-md-2" ng-controller="dictionaryController"  ng-hide="!TipoComercial.Indica_Midia_On_Line">
+                    <div class="form-group">
+                        <div class="dictionary" dictionary="Tipo_Comercializacao">
+                            <input id="txtCod_Tipo_Comercializacao"
+                                   ng-model="TipoComercial.Cod_Tipo_Comercializacao"
+                                   ng-model-options="{updateOn: 'blur'}"
+                                   ng-change="DicionaryValidate('txtCod_Tipo_Comercializacao')"
+                                   primarybind="txtCod_Tipo_Comercializacao"
+                                   secondarybind="txtDescricao_Tipo_Comercializacao">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="txtDescricao_Tipo_Comercializacao" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" 
+                                   disabled="disabled" 
+                                   id="txtDescricao_Tipo_Comercializacao"  
+                                   ng-hide="!TipoComercial.Indica_Midia_On_Line" 
+                                   class="form-control " 
+                                   ng-model="TipoComercial.Desc_Tipo_Comercializacao">
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
             <div class="row">
                 <!--====================TipoComercial.Absorcao-->

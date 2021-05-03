@@ -18,6 +18,13 @@
 
     .cellGradeEnabled:hover {
     }
+    #tbDispo td{
+        padding:5px;
+        width:100%
+    }
+    #tbPrograma tr{
+        border-bottom:solid 1px #DBE0E4 !important;
+    }
 </style>
 <div class="container">
     <form name="frmGrade" autocomplete="off">
@@ -116,6 +123,9 @@
                         <strong>Veiculo:{{Filtro.Cod_Veiculo}} - {{Filtro.Nome_Veiculo}}</strong>
                     </div>
                 </div>
+                <div class="app-checkbox">
+                    <label><input type="checkbox" name="app-checkbox-1" ng-model="chkMostrarDispo"/>Mostrar Disponibílidade<span></span></label>
+                </div>
                 <div class="box table-responsive">
                     <table id="GridGrade" class="table table-bordered">
                         <tr style="background-color:bisque">
@@ -128,7 +138,7 @@
                         <tr>
 
                             <td ng-repeat="dia in Grades.Dias track by $index" style="vertical-align:top;text-align:center;padding:5px 5px 5px 5px">
-                                <table class="table table-bordered">
+                                <table class="table table-noborder" id="tbPrograma">
                                     <tr ng-repeat="programa in dia.Programas track by $index" style="font-size:11px">
                                         <td ng-class="(PermissaoEdit || PermissaoDelete || PermissaoActivate) ? 'cellGradeEnabled':'cellGradeDisabled'"
                                             ng-click="(PermissaoEdit || PermissaoDelete || PermissaoActivate) ? GradeCadastro('Edit',Filtro.Cod_Veiculo,dia.Data_Exibicao,programa.Cod_Programa) :''">
@@ -139,6 +149,28 @@
                                             <span>{{programa.Nome_Programa}}</span>
                                             <br />
                                             <span>{{programa.Nome_Genero}}</span>
+                                            <br />
+                                            <table class="table-clean-paddings table-condensed table-bordered" ng-show="chkMostrarDispo" id="tbDispo">
+                                                <tr style="background-color:#f5f5f5">
+                                                    <td></td>
+                                                    <td>Dispo</td>
+                                                    <td>Abs</td>
+                                                    <td>Saldo</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Net</td>
+                                                    <td>{{programa.Dispo_Net}}</td>
+                                                    <td>{{programa.Absorvido_Net}}</td>
+                                                    <td>{{programa.Saldo_Net}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Local</td>
+                                                    <td>{{programa.Dispo_Local}}</td>
+                                                    <td>{{programa.Absorvido_Local}}</td>
+                                                    <td>{{programa.Saldo_Local}}</td>
+                                                </tr>
+                                                
+                                            </table>
                                             <br />
                                             <span ng-show="programa.Indica_Desativado"><label class="label label-danger" >Desativado</label></span>
                                         </td>

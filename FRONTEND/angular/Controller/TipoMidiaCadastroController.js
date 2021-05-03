@@ -20,16 +20,15 @@
     $scope.CarregaDados();
     //==========================Salvar
     $scope.SalvarTipoMidia = function (pTipoMidia) {
-        //if ($scope.Parameters.Action == "New")
-        //{
-        //    $scope.Veiculo.id_operacao = 'I';Parameters.Action
-        //}
-        //$scope.TipoMidia.id_operacao = $scope.sw == "New" ? 'I' : 'E';
+      
+
+
         $scope.TipoMidia.id_operacao = $scope.Parameters.Action == "New" ? 'I' : 'E';
         httpService.Post("SalvarTipoMidia", pTipoMidia).then(function (response) {
             if (response) {
 
                 if (response.data[0].Status) {
+
                     ShowAlert(response.data[0].Mensagem, 'success');
                     $location.path("/TipoMidia")
                 }

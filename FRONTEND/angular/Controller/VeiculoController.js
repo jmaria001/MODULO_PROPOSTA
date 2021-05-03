@@ -20,6 +20,7 @@
     { 'title': 'Cidade', 'visible': true, 'searchable': true, 'sortable': true },
     { 'title': 'Sigla', 'visible': true, 'searchable': true, 'sortable': true },
     { 'title': 'Empresa', 'visible': true, 'searchable': true, 'sortable': true },
+    { 'title': 'Midia On-Line', 'visible': true, 'searchable': true, 'sortable': true },
     ];
     //====================Quando terminar carga do grid, torna view do grid visible
     $scope.RepeatFinished = function () {

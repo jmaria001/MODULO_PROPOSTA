@@ -10,6 +10,17 @@
 
     };
 }]);
+angular.module('App').filter('emtpyzero', ['$filter', function ($filter) {
+    return function (input) {
+        if (input) {
+            return input;
+        }
+        else {
+            return '';
+        }
+
+    };
+}]);
 
 angular.module('App').filter('MesExtenso', [function () {
     return function (input) {
@@ -40,6 +51,7 @@ angular.module('App').filter('MesExtenso', [function () {
         }
     };
 }]);
+
 angular.module('App').filter('hhmm', [function () {
     return function (input) {
         pdata = input;

@@ -227,7 +227,7 @@ namespace PROPOSTA
             Grade Cls = new Grade(User.Identity.Name);
             try
             {
-                DataTable retorno = Cls.SalvarPropagacaoGrade(Grade);
+                Boolean retorno = Cls.SalvarPropagacaoGrade(Grade);
                 return Ok(retorno);
             }
             catch (Exception Ex)

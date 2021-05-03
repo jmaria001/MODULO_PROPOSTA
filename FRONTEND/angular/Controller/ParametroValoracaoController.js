@@ -111,7 +111,8 @@
             if (response) {
                 $scope.ParametroValoracao= response.data;
                 $scope.ShowGrid = true;
-                $scope.ShowFilter   = false;
+                $scope.ShowFilter = false;
+                $rootScope.routeName = "Paramêtros de Valoração - " + pFiltro.TipoParametroValoracao;
             }
             localStorage.setItem('ParametroValoracaoFilter', JSON.stringify($scope.Filtro));
         });
@@ -127,6 +128,9 @@
         $scope.PesquisaTabelas = NewPesquisaTabela();
         $scope.listaTipoComercial = ""
         var _url = 'ListarTabela/Tipo_Comercial'
+        if ($scope.Filtro.TipoParametroValoracao = 'MidiaOnline') {
+            var _url = 'ListarTabela/Tipo_Comercial_Online/';
+        };
         httpService.Get(_url).then(function (response) {
             $scope.PesquisaTabelas.Items = response.data;
             $scope.PesquisaTabelas.FiltroTexto = ""
@@ -151,6 +155,10 @@
             };
         };
         var _url = "ValidarTabela/Tipo_Comercial/" + pCodigo.trim()
+        if ($scope.Filtro.TipoParametroValoracao = 'MidiaOnline') {
+            var _url = "ValidarTabela/Tipo_Comercial_Online/" + pCodigo.trim()
+        };
+        
         httpService.Get(_url).then(function (response) {
             if (response.data[0].Status == 0) {
                 ShowAlert(response.data[0].Mensagem, 'warning', 2000);
