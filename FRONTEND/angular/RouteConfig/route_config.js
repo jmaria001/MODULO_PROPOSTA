@@ -841,11 +841,11 @@
             RouteId: 'FitaPatrocino@Numerar'
         })
     .when('/RetornoPlayList', {
-    templateUrl: 'view/RetornoPlayList.html',
-    authorize: true,
-    controller: 'RetornoPlayListController',
-    routeName: 'Parametrização do Retorno da PlayList',
-    RouteId: 'Retorno@PlayList'
+        templateUrl: 'view/RetornoPlayList.html',
+        authorize: true,
+        controller: 'RetornoPlayListController',
+        routeName: 'Parametrização do Retorno da PlayList',
+        RouteId: 'Retorno@PlayList'
     })
          .when('/BaixaContrato', {
              templateUrl: 'view/BaixaContrato.html',
@@ -877,7 +877,7 @@
         authorize: true,
         controller: 'NaturezadeServicoCadastroController',
         routeName: 'Manutenção de Natureza de Serviço',
-        RouteId:  'Natureza@Index'
+        RouteId: 'Natureza@Index'
     })
     .when('/ConfirmacaoRoteiro', {
         templateUrl: 'view/ConfirmacaoRoteiro.html',
@@ -887,11 +887,11 @@
         RouteId: 'Roteiro@Confirmacao'
     })
     .when('/ConsultaFitasOrdenadas', {
-    templateUrl: 'view/ConsultaFitasOrdenadas.html',
-    authorize: true,
-    controller: 'ConsultaFitasOrdenadasController',
-    routeName: 'Consulta de Fitas Ordenadas',
-    RouteId: 'Roteiro@FitaOrdenada'
+        templateUrl: 'view/ConsultaFitasOrdenadas.html',
+        authorize: true,
+        controller: 'ConsultaFitasOrdenadasController',
+        routeName: 'Consulta de Fitas Ordenadas',
+        RouteId: 'Roteiro@FitaOrdenada'
     })
  .when('/HorarioExibicao', {
      templateUrl: 'view/HorarioExibicao.html',
@@ -966,18 +966,18 @@
         RouteId: 'TabelaPrecosMol@Index'
     })
     .when('/TabelaPrecosMolCadastroNew/:Action/:Id', {
-    templateUrl: 'view/TabelaPrecosMolCadastro.html',
-    authorize: true,
-    controller: 'TabelaPrecosMolCadastroController',
-    routeName: 'Inclusao de Tabela de Preço de Mídia On-Line',
-    RouteId: 'TabelaPrecosMol@New'
+        templateUrl: 'view/TabelaPrecosMolCadastro.html',
+        authorize: true,
+        controller: 'TabelaPrecosMolCadastroController',
+        routeName: 'Inclusao de Tabela de Preço de Mídia On-Line',
+        RouteId: 'TabelaPrecosMol@New'
     })
     .when('/TabelaPrecosMolCadastroEdit/:Action/:Id', {
-    templateUrl: 'view/TabelaPrecosMolCadastro.html',
-    authorize: true,
-    controller: 'TabelaPrecosMolCadastroController',
-    routeName: 'Alteração de Tabela de Preço de Mídia On-Line',
-    RouteId: 'TabelaPrecosMol@Edit'
+        templateUrl: 'view/TabelaPrecosMolCadastro.html',
+        authorize: true,
+        controller: 'TabelaPrecosMolCadastroController',
+        routeName: 'Alteração de Tabela de Preço de Mídia On-Line',
+        RouteId: 'TabelaPrecosMol@Edit'
     })
     .when('/ParamNumFitas', {
         templateUrl: 'view/ParamNumFitas.html',
@@ -994,13 +994,74 @@
         RouteId: 'CriticaValoracao@Index'
     })
     .when('/CriticaValoracao/:Cod_Empresa/:Numero_Mr/:Sequencia_Mr', {
-    templateUrl: 'view/CriticaValoracao.html',
-    authorize: true,
-    controller: 'CriticaValoracaoController',
-    routeName: 'Crítica da Valoração',
-    RouteId: 'CriticaValoracao@Index'
-})
-        .otherwise({ redirectTo: "/blank" })
+        templateUrl: 'view/CriticaValoracao.html',
+        authorize: true,
+        controller: 'CriticaValoracaoController',
+        routeName: 'Crítica da Valoração',
+        RouteId: 'CriticaValoracao@Index'
+    })
+
+        .when('/PrevisaoVendas', {
+            templateUrl: 'view/PrevisaoVendas.html',
+            authorize: true,
+            controller: 'PrevisaoVendasController',
+            routeName: 'Previsao de Vendas',
+            RouteId: 'PrevisaoVendas@Index'
+        })
+        .when('/PrevisaoVendasAgencia/:Competencia/:Cod_Contato', {
+            templateUrl: 'view/PrevisaoVendasAgencia.html',
+            authorize: true,
+            controller: 'PrevisaoVendasAgenciaController',
+            routeName: 'Previsao de Vendas por Agência / Clientes',
+            RouteId: 'PrevisaoVendas@Index'
+        })
+
+        .when('/PrevisaoVendasVeiculo/:Competencia/:Cod_Contato', {
+            templateUrl: 'view/PrevisaoVendasVeiculo.html',
+            authorize: true,
+            controller: 'PrevisaoVendasVeiculoController',
+            routeName: 'Previsao de Vendas por Veículo',
+            RouteId: 'PrevisaoVendas@Index'
+        })
+
+        .when('/PrevisaoVendasMensal/:Competencia/:Cod_Contato', {
+            templateUrl: 'view/PrevisaoVendasMensal.html',
+            authorize: true,
+            controller: 'PrevisaoVendasMensalController',
+            routeName: 'Previsao de Vendas por Mensal',
+            RouteId: 'PrevisaoVendas@Index'
+        })
+
+        .when('/PrevisaoVendasCadastroMensal', {
+            templateUrl: 'view/PrevisaoVendasCadastroMensal.html',
+            authorize: true,
+            controller: 'PrevisaoVendasCadastroMensalController',
+            routeName: 'Previsao de Vendas Mensal - Cadastro',
+            RouteId: 'PrevisaoVendas@Index'
+        })
+
+        .when('/PrevisaoVendasCadastroAgencia', {
+            templateUrl: 'view/PrevisaoVendasCadastroAgencia.html',
+            authorize: true,
+            controller: 'PrevisaoVendasCadastroAgenciaController',
+            routeName: 'Previsao de Vendas Agência/Cliente - Cadastro',
+            RouteId: 'PrevisaoVendas@Index'
+        })
+
+        .when('/PrevisaoVendasCadastroVeiculo', {
+            templateUrl: 'view/PrevisaoVendasCadastroVeiculo.html',
+            authorize: true,
+            controller: 'PrevisaoVendasCadastroVeiculoController',
+            routeName: 'Previsao de Vendas Veículo - Cadastro',
+            RouteId: 'PrevisaoVendas@Index'
+        })
+    .when('/EncerramentoRoteiro', {
+        templateUrl: 'view/EncerramentoRoteiro.html',
+        authorize: true,
+        controller: 'EncerramentoRoteiroController',
+        routeName: 'Encerramento do Roteiro',
+        RouteId: 'Roteiro@Encerramento'
+    })
     .otherwise({ redirectTo: "/blank" })
 });
 

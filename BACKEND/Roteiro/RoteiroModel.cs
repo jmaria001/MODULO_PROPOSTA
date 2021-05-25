@@ -170,6 +170,11 @@ namespace PROPOSTA
             public Boolean Indica_Evitar_Choque_Apresent { get; set; }
             public Boolean Indica_Nao_Colar_Comerciais { get; set; }
         }
+        public class EncerramentoRoteiroModel
+        {
+            public String Cod_Veiculo { get; set; }
+            public String Data { get; set; }
+        }
 
     }
 

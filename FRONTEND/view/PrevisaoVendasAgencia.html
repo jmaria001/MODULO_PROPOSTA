@@ -1,0 +1,90 @@
+﻿<style>
+    td,th{
+        white-space:nowrap;
+    }
+</style>
+<div class="container">
+    <div class="block table-responsive">
+        <!--===================================Botoes-->
+        <div class="row">
+            <div class="col-md-10">
+                <a href="#PrevisaoVendas" class="btn btn-info">Novo Filtro</a>
+                <button id="ExportReporttoExcel" class="btn btn-warning" ng-show="Previsao.length > 0">Exportar Excel</button>
+            </div>
+            <div class="col-md-2">
+                <div class="app-checkbox">
+                    <label><input type="checkbox" name="app-checkbox-1" ng-model="MostrarValorMes" />Mostrar Valores por Mês<span></span></label>
+                </div>
+            </div>
+        </div>
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Agencia</th>
+                        <th>Cliente</th>
+                        <th ng-show="MostrarValorMes">Janeiro</th>
+                        <th ng-show="MostrarValorMes">Fevereiro</th>
+                        <th ng-show="MostrarValorMes">Março</th>
+                        <th ng-show="MostrarValorMes">Abril</th>
+                        <th ng-show="MostrarValorMes">Maio</th>
+                        <th ng-show="MostrarValorMes">Junho</th>
+                        <th ng-show="MostrarValorMes">Julho</th>
+                        <th ng-show="MostrarValorMes">Agosto</th>
+                        <th ng-show="MostrarValorMes">Setembro</th>
+                        <th ng-show="MostrarValorMes">Outubro</th>
+                        <th ng-show="MostrarValorMes">Novembro</th>
+                        <th ng-show="MostrarValorMes">Dezembro</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--div ng-repeat="product in products | filter:{ colour: by_colour }">-->
+
+                    <tr ng-repeat="previsao in Previsao  |filter:{Tipo_Linha : 1} track by $index" on-finish-render="ngRepeatFinished()">
+                        <td>{{previsao.Nome_Agencia}}</td>
+                        <td>{{previsao.Nome_Cliente}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Jan | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Fev | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Mar | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Abr | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Mai | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Jun | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Jul | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Ago | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Set | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Out | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Nov | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Dez | currency}}</td>
+                        <td>{{previsao.Valor_Total | currency}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr ng-repeat="previsao in Previsao  |filter:{Tipo_Linha : 2} track by $index">
+                        <td colspan="2" style="text-align:center;font-weight:bold">Totais</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Jan | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Fev | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Mar | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Abr | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Mai | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Jun | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Jul | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Ago | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Set | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Out | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Nov | currency}}</td>
+                        <td ng-show="MostrarValorMes">{{previsao.Valor_Dez | currency}}</td>
+                        <td>{{previsao.Valor_Total | currency}}</td>
+                    </tr>
+                 </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

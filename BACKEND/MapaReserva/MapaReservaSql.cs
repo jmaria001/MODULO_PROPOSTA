@@ -376,6 +376,7 @@ namespace PROPOSTA
                     Contrato.Veiculacoes = AddVeiculacoesEsquema(pId_Esquema);
                     Contrato.Veiculos = AddVeiculosEsquema(pId_Esquema);
                     Contrato.Sequenciador_Veiculacao = Sequenciador_Veiculacao;
+                    Contrato.VeiculacoesOnLine = new List<VeiculacaoOnLineModel>();
 
                 };
             }

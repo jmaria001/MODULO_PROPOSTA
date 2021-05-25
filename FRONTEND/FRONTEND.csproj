@@ -112,6 +112,7 @@
     <Content Include="angular\Controller\ConsultaProgramacaoDiariaDetalheController.js" />
     <Content Include="angular\Controller\DepositorioFitasCadastroController.js" />
     <Content Include="angular\Controller\DepositorioFitasController.js" />
+    <Content Include="angular\Controller\EncerramentoRoteiroController.js" />
     <Content Include="angular\Controller\EnvioPlaylistController.js" />
     <Content Include="angular\Controller\FaturasPesquisaController.js" />
     <Content Include="angular\Controller\FitaPatrocinioController.js" />
@@ -130,6 +131,14 @@
     <Content Include="angular\Controller\NumeracaoFitasCadastroController.js" />
     <Content Include="angular\Controller\NumeracaoFitasController.js" />
     <Content Include="angular\Controller\ParamNumFitasController.js" />
+    <Content Include="angular\Controller\PrevisaoVendasAgenciaController.js" />
+    <Content Include="angular\Controller\PrevisaoVendasCadastroAgenciaController.js" />
+    <Content Include="angular\Controller\PrevisaoVendasCadastroMensalController.js" />
+    <Content Include="angular\Controller\PrevisaoVendasCadastroVeiculoController.js" />
+    <Content Include="angular\Controller\PrevisaoVendasController.js" />
+    <Content Include="angular\Controller\PrevisaoVendasMensalController.js" />
+    <Content Include="angular\Controller\PrevisaoVendasNovaAgencia.js" />
+    <Content Include="angular\Controller\PrevisaoVendasVeiculoController.js" />
     <Content Include="angular\Controller\ReabreCEController.js" />
     <Content Include="angular\Controller\RetornoPlaylistController.js" />
     <Content Include="angular\Controller\TabelaPrecosMolCadastroController.js" />
@@ -324,6 +333,7 @@
     <Content Include="view\DepositorioFitas.html" />
     <Content Include="view\DepositorioFitasCadastro.html" />
     <Content Include="view\DeterminacaoTitulo.html" />
+    <Content Include="view\EncerramentoRoteiro.html" />
     <Content Include="view\EnvioPlaylist.html" />
     <Content Include="view\FitaPatrocinio.html" />
     <Content Include="view\Genero.html" />
@@ -357,6 +367,14 @@
     <Content Include="view\ParRetorPlayList.Html" />
     <Content Include="view\FaturasPesquisa.html" />
     <Content Include="view\PreOrdenacao.html" />
+    <Content Include="view\PrevisaoVendas.html" />
+    <Content Include="view\PrevisaoVendasAgencia.html" />
+    <Content Include="view\PrevisaoVendasCadastroAgencia.html" />
+    <Content Include="view\PrevisaoVendasCadastroMensal.html" />
+    <Content Include="view\PrevisaoVendasCadastroVeiculo.html" />
+    <Content Include="view\PrevisaoVendasMensal.html" />
+    <Content Include="view\PrevisaoVendasNovaAgencia.html" />
+    <Content Include="view\PrevisaoVendasVeiculo.html" />
     <Content Include="view\ProdutoCadastro.html" />
     <Content Include="Proposta_Aprovacao.html" />
     <Content Include="TASKS.TXT" />
@@ -627,6 +645,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="angular\Controller\PrevisaoVendasController.cs" />
+    <Compile Include="angular\Controller\PrevisaoVendasModel.cs" />
+    <Compile Include="angular\Controller\PrevisaoVendasSql.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

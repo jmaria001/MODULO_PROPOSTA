@@ -1,0 +1,92 @@
+﻿<style>
+    input {
+        text-transform: uppercase
+    }
+</style>
+<div class="container">
+    <!--div do filtro-->
+    <div id="divFiltro" class="block">
+        <div class="alert alert-info alert-icon-block" role="alert">
+            <div class="alert-icon">
+                <span class="fa fa-filter"></span>
+            </div>
+            <strong>Filtros</strong>
+        </div>
+        <div class="row">
+            <!--<div class="col-md-3">
+                <div class="dictionary" dictionary="Competencia" caption="Competência">
+                    <input ng-model="Filtro.Competencia"
+                           ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                           placeholder="Informe a Competência">
+                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia" params="CompetenciaKeys"></div>
+                </div>
+            </div>-->
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="field-x">Competência</label>
+                    <input type="text"
+                           class="form-control numeric "
+                           ng-model="Filtro.Competencia"
+                           maxlength="4"
+                           ng-model-options="{updateOn: 'blur'}"
+                           placeholder="Ano"
+                           />
+                </div>
+            </div>
+            
+
+            <!--===================Contato-->
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Contato">
+                    <input id="txtCodContato"
+                           ng-model="Filtro.Cod_Contato"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodContato')"
+                           primarybind="txtCodContato"
+                           secondarybind="txtNomeContato">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtNomeContato" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeContato" class="form-control " ng-model="Filtro.Nome_Contato">
+                    </div>
+                </div>
+            </div>
+
+            <!--======================Tipo Previsão -->
+            <div class="col-md-2 margin-top-10">
+                <div class="form-group">
+                    <label>Tipo de Previsão </label>
+                    <select class="form-control"
+                            ng-model="Filtro.TipoPrevisao"
+                            name="optPrevisao"
+                            ng-options="PosTipo.id as PosTipo.nome for PosTipo in PosTipo"></select>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="divBotaoFiltro" class="row margin-top-20">
+            <div class="col-12">
+                <button class="btn btn-primary" ng-click="CarregarPrevisaoVendas(Filtro)">Filtrar</button>
+                <button class="btn btn-warning" ng-click="NewFiltro()">Limpar Filtro</button>
+                <a class="btn btn-primary" href="#PrevisaoVendasCadastroMensal">Nova Previsão de Vendas por Mês</a>
+                <a class="btn btn-primary" href="#PrevisaoVendasCadastroAgencia">Nova Previsão de Agência/Cliente</a>
+                <a class="btn btn-primary" href="#PrevisaoVendasCadastroVeiculo">Nova Previsão de Veículo</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

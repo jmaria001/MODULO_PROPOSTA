@@ -901,5 +901,32 @@ namespace PROPOSTA
             }
             return Retorno;
         }
+
+        public DataTable EncerrarRoteiro(EncerramentoRoteiroModel pFiltro)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_EncerramentoRoteiro");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Veiculo", pFiltro.Cod_Veiculo);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Data_Exibicao", pFiltro.Data.ConvertToDatetime());
+                Adp.Fill(dtb);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
+
     }
 }

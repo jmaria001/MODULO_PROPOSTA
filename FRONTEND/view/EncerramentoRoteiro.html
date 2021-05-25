@@ -1,0 +1,63 @@
+﻿<div class="container">
+    <form name="frmEncerramentoRoteiro" autocomplete="off">
+        <div class="block">
+            <div class="alert alert-info alert-icon-block" role="alert">
+                <div class="alert-icon">
+                    <span class="fa fa-filter"></span>
+                </div>
+                <strong>Filtros</strong>
+            </div>
+            <div class="row">
+                <!----- Veiculo ----->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Veiculo" caption="Veiculo">
+                        <input id="txtCodVeiculo"
+                               ng-model="Filtro.Cod_Veiculo"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodVeiculo')"
+                               primarybind="txtCodVeiculo"
+                               secondarybind="txtNomeVeiculo"
+                               maxlength="3" />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="txtNomeVeiculo" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtNomeVeiculo" class="form-control " ng-model="Filtro.Nome_Veiculo">
+                        </div>
+                    </div>
+                </div>
+                <!----- Data ----->
+                <div class="col-md-3">
+                    <div class="dictionary" dictionary="Data" caption="Data">
+                        <input ng-model="Filtro.Data"
+                               ui-date ng-model-options="{updateOn: 'blur'}"
+                               placeholder="Informe a Data">
+                        <div class="dictionary-ui-calendar" ui-calendar typdate="Filtro.Data"></div>
+                    </div>
+                </div>
+            </div>
+            <!--============================================== BOTÕES DO FILTRO ==========================================-->
+            <div class="fixed-buttons-bottom">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-success" ng-click="Encerrar(Filtro)">Encerrar Roteiro</button>
+                        <button type="button" class="btn btn-warning" ng-click="NewFilter()">Limpar Filtro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+    });
+</script>
+
+
+
+

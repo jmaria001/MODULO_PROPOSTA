@@ -312,7 +312,7 @@ function ValidaCompetencia(element) //Valida e formata uma Competencia
 }
 
 
-function MoneyFormat(pValue) {
+function MoneyFormat(pValue, return_zero) {
 
     var formatter = new Intl.NumberFormat('pt-BR', {
         style: 'currency',
@@ -323,7 +323,13 @@ function MoneyFormat(pValue) {
         return formatter.format(pValue.toString().replace(',', '.'));
     }
     else {
-        return "";
+        if (return_zero) {
+            return formatter.format(pValue.toString().replace(',', '.'));
+        }
+        else {
+            return "";
+        }
+
     }
 
 }

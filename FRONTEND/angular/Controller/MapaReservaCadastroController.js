@@ -106,13 +106,15 @@
                     $scope.Contrato.Editar_Tipo_Midia = true;
                 }
                 else {
-
                     httpService.Get('Negociacao/Get/?Numero_Negociacao=' + pNegociacao + '&').then(function (responseNegociacao) {
                         if (responseNegociacao) {
                             $scope.Negociacao = responseNegociacao.data;
                             $scope.Contrato.Cod_Tipo_Midia = $scope.Negociacao.Cod_Tipo_Midia;
                             $scope.Contrato.Editar_Tipo_Midia = false;
-                            $scope.Contrato.Indica_Midia_Online = $scope.Negociacao.Indica_Midia_Online;
+                            $scope.Contrato.Indica_Midia_Online = $scope.Negociacao.Indica_Midia_OnLine;
+                            console.log(responseNegociacao);
+                            console.log(responseNegociacao.data.Indica_Midia_OnLine);
+                            console.log($scope.Negociacao);
                             console.log($scope.Contrato);
                             if ($scope.Negociacao.Nucleos.length == 1) {
                                 $scope.Contrato.Cod_Nucleo = $scope.Negociacao.Nucleos[0].Cod_Nucleo;

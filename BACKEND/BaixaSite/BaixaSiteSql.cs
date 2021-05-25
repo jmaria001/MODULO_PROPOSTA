@@ -73,7 +73,7 @@ namespace PROPOSTA
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Numero_Mr", Param[i].Numero_Mr);
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Sequencia_Mr", Param[i].Sequencia_Mr);
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Comercial", Param[i].Cod_Comercial);
-                    //Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Qualidade", Param[i].Cod_Qualidade);
+                    Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Qualidade", Param[i].Cod_Qualidade);
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Qtd_Previsto", Param[i].Qtd_Previsto);
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Qtd_Exibido", Param[i].Qtd_Exibido);
                     Adp.SelectCommand.Parameters.AddWithValue("@Par_Qtd_Falha", Param[i].Qtd_Falha);

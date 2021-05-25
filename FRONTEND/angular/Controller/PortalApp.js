@@ -102,6 +102,7 @@
                 { 'Title': "Manutenção de Am's", 'Url': $rootScope.pageUrl + 'IndexVendas.html#/ConsultaAM' },
                 { 'Title': "Pacote de Descontos", 'Url': $rootScope.pageUrl + 'IndexVendas.html#/pacote' },
                 { 'Title': "Regras de Aprovação", 'Url': $rootScope.pageUrl + 'IndexVendas.html#/regraaprovacao' },
+                { 'Title': "Previsão de Vendas", 'Url': $rootScope.pageUrl + 'IndexVendas.html#/PrevisaoVendas' },
             ],  
         },
         {
@@ -131,6 +132,7 @@
                 { 'Title': 'Consulta de Fitas Ordenadas', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/ConsultaFitasOrdenadas' },
                 { 'Title': 'Envio Play-List', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/EnvioPlayList' },
                 { 'Title': 'Parâmetros de Numeração de Fitas ', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/ParamNumFitas' },
+                { 'Title': 'Encerramento do Roteiro', 'Url': $rootScope.pageUrl + 'IndexRoteiro.html#/EncerramentoRoteiro' },
             ],
         },
         {

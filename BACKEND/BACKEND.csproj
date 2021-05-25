@@ -374,6 +374,9 @@
     <Compile Include="PDF\ImpressaoProposta.cs" />
     <Compile Include="PDF\ImpressaoSimulacao.cs" />
     <Compile Include="PDF\ImpressaoMidia.cs" />
+    <Compile Include="PrevisaoVendas\PrevisaoVendasController.cs" />
+    <Compile Include="PrevisaoVendas\PrevisaoVendasModel.cs" />
+    <Compile Include="PrevisaoVendas\PrevisaoVendasSql.cs" />
     <Compile Include="Produto\ProdutoController.cs" />
     <Compile Include="Produto\ProdutoModel.cs" />
     <Compile Include="Produto\ProdutoSql.cs" />

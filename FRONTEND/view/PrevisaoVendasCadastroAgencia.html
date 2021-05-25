@@ -1,0 +1,394 @@
+﻿<style>
+    input {
+        text-transform: uppercase
+    }
+
+    #divValores td {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 10px;
+        white-space:nowrap;
+    }
+    td input
+    {
+        width:150px !important;
+    }
+</style>
+<div class="container">
+    <div class="block" ng-show="!ShowResult">
+        <!--===================Competencia-->
+        <div class="row">
+
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Competência</label>
+                    <input type="text"
+                           class="form-control numeric "
+                           ng-model="Filtro.Competencia"
+                           maxlength="4"
+                           ng-model-options="{updateOn: 'blur'}"
+                           placeholder="Ano" />
+                </div>
+            </div>
+
+            <!--===================Contato-->
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Contato">
+                    <input id="txtCodContato"
+                           ng-model="Filtro.Cod_Contato"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodContato')"
+                           primarybind="txtCodContato"
+                           secondarybind="txtNomeContato">
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="form-group">
+                    <label for="txtNomeContato" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeContato" class="form-control " ng-model="Filtro.Nome_Contato">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--=================================Botoes do filtro-->
+        <div class="row margin-top-20">
+            <div class="col-md-2">
+                <button class="btn btn-primary" ng-click="CarregarPrevisao(Filtro)">Carregar Previsão</button>
+            </div>
+            <div class="col-md-3" ng-show="Previsao.length>0">
+                <button class="btn btn-default btn-icon-fixed"
+                        ng-click="AdicionarLinha(Filtro,Previsao)"
+                        style="margin:0px 0px 0px 0px;margin-right:50px">
+                    <span class="fa fa-plus" ng-disabled="true"></span> Adicionar Agencia/Cliente
+                </button>
+            </div>
+            <div class="col-md-3" ng-show="Previsao.length>0">
+                <div class="app-checkbox">
+                    <label><input type="checkbox" name="app-checkbox-1" ng-model="ShowHistorico" ng-click="CarregarHistorico(Previsao)" /> Mostrar Histórico do Ano Anterior<span></span></label>
+                </div>
+            </div>
+            <div class="col-md-3" ng-show="Previsao.length>0">
+                <div class="app-checkbox">
+                    <label><input type="checkbox" name="app-checkbox-1" ng-model="ShowAjuste" /> Ajustes<span></span></label>
+                </div>
+            </div>
+        </div>
+        <!--==================================Ajustes-->
+        <div id="divAjuste" ng-show="ShowAjuste">
+            <div class="row">
+                <div class="col-md-1">
+                    <label class="field-x" for="txtPercentualVendas">% Percentual</label>
+                    <div class="form-group">
+                        <input id="txtPercentualVendas"
+                               class="form-control percent"
+                               ng-model="Ajuste.Percentual_Vendas"
+                               maxlength="10"
+                               ng-change="Ajuste.Valor_Vendas=0"
+                               ng-model-options="{updateOn: 'blur'}" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label class="field-x" for="txtValorVendas">Valor</label>
+                    <div class="form-group">
+                        <input id="txtValorVendas"
+                               class="form-control decimal"
+                               ng-model="Ajuste.Valor_Vendas"
+                               ng-change="Ajuste.Percentual_Vendas=0"
+                               maxlength="10"
+                               ng-model-options="{updateOn: 'blur'}" />
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Competencia" caption="Competência Inicial">
+                        <input ng-model="Ajuste.Competencia_Inicial"
+                               ui-MesAno ng-model-options="{updateOn: 'blur'}" />
+                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="Ajuste.Competencia_Inicial" params="PeriodoInicioKeys"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    <div class="dictionary" dictionary="Competencia" caption="Competência Final">
+                        <input ng-model="Ajuste.Competencia_Final"
+                               ui-MesAno ng-model-options="{updateOn: 'blur'}">
+                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="Ajuste.Competencia_Final" params="PeriodoFimKeys"></div>
+                    </div>
+                </div>
+
+                <!--======================Tipo Aumentar/Diminuir -->
+                <div class="col-md-2 margin-top-10">
+                    <div class="form-group">
+                        <label>Aumentar/Diminuir </label>
+                        <select class="form-control"
+                                 ng-model-options="{updateOn: 'blur'}"
+                                ng-model="Ajuste.TipoAjuste"
+                                name="optPrevisao"
+                                ng-options="PosTipo.id as PosTipo.nome for PosTipo in PosTipo"></select>
+                    </div>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-success btn" style="margin-top:35px" ng-click="AjustarPrevisao(Previsao,Ajuste)">Ok</button>
+                </div>
+            </div>
+        </div>
+        <!--=============================== Grid de Valores-->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive" id="divValores" ng-show="ShowGrid">
+                    <table class="table table-bordered margin-top-20">
+                        <thead>
+                            <tr style="background-color:#f5f5f5">
+                                <th></th>
+                                <th>Agência</th>
+                                <th>Cliente</th>
+                                <th>Janeiro</th>
+                                <th>Fevereiro</th>
+                                <th>Março</th>
+                                <th>Abril</th>
+                                <th>Maio</th>
+                                <th>Junho</th>
+                                <th>Julho</th>
+                                <th>Agosto</th>
+                                <th>Setembro</th>
+                                <th>Outubro</th>
+                                <th>Novembro</th>
+                                <th>Dezembro</th>
+                                <th style="text-align:center" ng-show="ShowHistorico" >Valor Negociado Ano Anterior</th>
+                                <th style="text-align:center">Valor Previsão</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="previsao in Previsao | filter:{Tipo_Linha:1 } track by $index">
+                                <td >
+                                    <span class="fa fa-trash span-btn" style="font-size:18px" ng-click="PrevisaoExcluirAgenciaCliente(previsao)" ></span>
+                                </td>
+                                <td>
+                                    {{previsao.Nome_Agencia}}
+                                    <span class="fa fa-search pull-right" ng-click="SelecionaAgencia(previsao)" ng-show="!previsao.Cod_Agencia"></span>
+                                </td>
+                                <td>
+                                    {{previsao.Nome_Cliente}}
+                                    <span class="fa fa-search pull-right" ng-click="SelecionaCliente(previsao)" ng-show="!previsao.Cod_Cliente"></span>
+                                </td>
+                                <td >
+                                    <input type="text" class="form-control"
+                                           onblur="this.value = MoneyFormat(this.value)"
+                                           onfocus="this.value = DecimalUnformat(this.value)"
+                                           onkeypress="return DecimalOnly(event)"
+                                           style="text-align:right"
+                                           ng-change="AtualizaTotal(Previsao)"
+                                           ng-model="previsao.Valor_Jan"
+                                           ng-model-options="{updateOn: 'blur'}" />
+                                </td>
+
+                                <td  >
+                                    <input type="text" class="form-control"
+                                           onblur="this.value = MoneyFormat(this.value)"
+                                           onfocus="this.value = DecimalUnformat(this.value)"
+                                           onkeypress="return DecimalOnly(event)"
+                                           style="text-align:right"
+                                           ng-change="AtualizaTotal(Previsao)"
+                                           ng-model="previsao.Valor_Fev"
+                                           ng-model-options="{updateOn: 'blur'}" />
+                                </td>
+
+
+                                <td  >
+                                    <input type="text" class="form-control"
+                                           onblur="this.value = MoneyFormat(this.value)"
+                                           onfocus="this.value = DecimalUnformat(this.value)"
+                                           onkeypress="return DecimalOnly(event)"
+                                           style="text-align:right"
+                                           ng-change="AtualizaTotal(Previsao)"
+                                           ng-model="previsao.Valor_Mar"
+                                           ng-model-options="{updateOn: 'blur'}" />
+                                </td>
+
+                                <td  >
+                                    <input type="text" class="form-control"
+                                           onblur="this.value = MoneyFormat(this.value)"
+                                           onfocus="this.value = DecimalUnformat(this.value)"
+                                           onkeypress="return DecimalOnly(event)"
+                                           style="text-align:right"
+                                           ng-change="AtualizaTotal(Previsao)"
+                                           ng-model="previsao.Valor_Abr"
+                                           ng-model-options="{updateOn: 'blur'}" />
+                                </td>
+
+                                <td  >
+                                    <input type="text" class="form-control"
+                                           onblur="this.value = MoneyFormat(this.value)"
+                                           onfocus="this.value = DecimalUnformat(this.value)"
+                                           onkeypress="return DecimalOnly(event)"
+                                           style="text-align:right"
+                                           ng-change="AtualizaTotal(Previsao)"
+                                           ng-model="previsao.Valor_Mai"
+                                           ng-model-options="{updateOn: 'blur'}" />
+                                </td>
+
+                                <td  >
+                                    <input type="text" class="form-control"
+                                           onblur="this.value = MoneyFormat(this.value)"
+                                           onfocus="this.value = DecimalUnformat(this.value)"
+                                           onkeypress="return DecimalOnly(event)"
+                                           style="text-align:right"
+                                           ng-change="AtualizaTotal(Previsao)"
+                                           ng-model="previsao.Valor_Jun"
+                                           ng-model-options="{updateOn: 'blur'}" />
+                                </td>
+
+                                <td  >
+                                    <input type="text" class="form-control"
+                                           onblur="this.value = MoneyFormat(this.value)"
+                                           onfocus="this.value = DecimalUnformat(this.value)"
+                                           onkeypress="return DecimalOnly(event)"
+                                           style="text-align:right"
+                                           ng-change="AtualizaTotal(Previsao)"
+                                           ng-model="previsao.Valor_Jul"
+                                           ng-model-options="{updateOn: 'blur'}" />
+                                </td>
+
+                                <td  >
+                                    <input type="text" class="form-control"
+                                           onblur="this.value = MoneyFormat(this.value)"
+                                           onfocus="this.value = DecimalUnformat(this.value)"
+                                           onkeypress="return DecimalOnly(event)"
+                                           style="text-align:right"
+                                           ng-change="AtualizaTotal(Previsao)"
+                                           ng-model="previsao.Valor_Ago"
+                                           ng-model-options="{updateOn: 'blur'}" />
+                                </td>
+
+                                <td  >
+                                    <input type="text" class="form-control"
+                                           onblur="this.value = MoneyFormat(this.value)"
+                                           onfocus="this.value = DecimalUnformat(this.value)"
+                                           onkeypress="return DecimalOnly(event)"
+                                           style="text-align:right"
+                                           ng-change="AtualizaTotal(Previsao)"
+                                           ng-model="previsao.Valor_Set"
+                                           ng-model-options="{updateOn: 'blur'}" />
+                                </td>
+
+                                <td>
+                                    <input type="text" class="form-control"
+                                           onblur="this.value = MoneyFormat(this.value)"
+                                           onfocus="this.value = DecimalUnformat(this.value)"
+                                           onkeypress="return DecimalOnly(event)"
+                                           style="text-align:right"
+                                           ng-change="AtualizaTotal(Previsao)"
+                                           ng-model="previsao.Valor_Out"
+                                           ng-model-options="{updateOn: 'blur'}" />
+                                </td>
+
+                                <td>
+                                    <input type="text" class="form-control"
+                                           onblur="this.value = MoneyFormat(this.value)"
+                                           onfocus="this.value = DecimalUnformat(this.value)"
+                                           onkeypress="return DecimalOnly(event)"
+                                           style="text-align:right"
+                                           ng-change="AtualizaTotal(Previsao)"
+                                           ng-model="previsao.Valor_Nov"
+                                           ng-model-options="{updateOn: 'blur'}" />
+                                </td>
+
+                                <td>
+                                    <input type="text" class="form-control"
+                                           onblur="this.value = MoneyFormat(this.value)"
+                                           onfocus="this.value = DecimalUnformat(this.value)"
+                                           onkeypress="return DecimalOnly(event)"
+                                           style="text-align:right"
+                                           ng-change="AtualizaTotal(Previsao)"
+                                           ng-model="previsao.Valor_Dez"
+                                           ng-model-options="{updateOn: 'blur'}" />
+                                </td>
+                                <td style="text-align:right;width:200px" ng-show="previsao.Tipo_Linha==1 && ShowHistorico">{{previsao.Valor_Negociado}}</td>
+                               
+                                <td style="text-align:right;width:200px">{{previsao.Valor_Total}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="text-align:center;font-weight:bold;padding:10px">Total</td>
+                                <td style="text-align:right">{{Total_Jan | currency}}</td>
+                                <td style="text-align:right">{{Total_Fev | currency}}</td>
+                                <td style="text-align:right">{{Total_Mar | currency}}</td>
+                                <td style="text-align:right">{{Total_Abr | currency}}</td>
+                                <td style="text-align:right">{{Total_Mai | currency}}</td>
+                                <td style="text-align:right">{{Total_Jun | currency}}</td>
+                                <td style="text-align:right">{{Total_Jul | currency}}</td>
+                                <td style="text-align:right">{{Total_Ago | currency}}</td>
+                                <td style="text-align:right">{{Total_Set | currency}}</td>
+                                <td style="text-align:right">{{Total_Out | currency}}</td>
+                                <td style="text-align:right">{{Total_Nov | currency}}</td>
+                                <td style="text-align:right">{{Total_Dez | currency}}</td>
+                                <td ng-show="ShowHistorico" style="text-align:right">{{Total_Negociado | currency}}</td>
+                                <td style="text-align:right">{{Total_Previsao | currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!--===================Botoes-->
+        <div class="fixed-buttons-bottom">
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-success" type="button" ng-disabled="Previsao.length==0" ng-click="SalvarPrevisaoVendasAgencia(Previsao)">Salvar</button>
+                    <a href="#PrevisaoVendas" class="btn btn-warning">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--===================Mostra Resultado da Gravação-->
+    <div class="col-md-6 col-md-offset-3" ng-show="ShowResult">
+        <div class="block" id="divResults">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Competencia</th>
+                            <th style="text-align:right">Valor Previsão Mensal</th>
+                            <th style="text-align:right">Valor Previsão Agência/Cliente</th>
+                            <th style="text-align:right">Diferença</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="result in Results">
+                            <td>{{result.Competencia}}</td>
+                            <td style="text-align:right">{{result.Valor_Mensal | currency}}</td>
+                            <td style="text-align:right">{{result.Valor_Previsao | currency}}</td>
+                            <td style="text-align:right">{{result.Diferenca | currency}} </td>
+                            <td>
+                                <span class="fa fa-check" style="color:seagreen" ng-show="result.Diferenca==0"></span>
+                                <span class="fa fa-times" style="color:red" ng-show="result.Diferenca!=0"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-11">
+                    <span ng-show="Results[0].Indica_Diferenca">
+                        Os Valores dessa previsão estão diferentes da previsão mensal e será gravada como rascunho.
+                    </span>
+                </div>
+                <div class="col-md-1">
+                    <button class="btn btn-success pull-right" ng-click="ShowResult=false;Results=''">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

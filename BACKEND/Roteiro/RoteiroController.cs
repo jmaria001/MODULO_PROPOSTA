@@ -248,6 +248,26 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
+        [Route("api/Roteiro/EncerrarRoteiro")]
+        [HttpPost]
+        [ActionName("EncerrarRoteiro")]
+        [Authorize()]
+        public IHttpActionResult EncerrarRoteiro([FromBody] Roteiro.EncerramentoRoteiroModel Param)
+        {
+            SimLib clsLib = new SimLib();
+            Roteiro Cls = new Roteiro(User.Identity.Name);
+            try
+            {
+                DataTable retorno = Cls.EncerrarRoteiro(Param);
+                return Ok(retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
 
     }
 

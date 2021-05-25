@@ -135,10 +135,10 @@
                             <th>Contrato</th>
                             <th>Comercial</th>
                             <th>Tipo</th>
-                            <th>Previsto</th>
+                            <th>Total</th>
                             <th>Exibidos</th>
                             <th>Falhas</th>
-                            <!--<th>Qual.Falha</th>-->
+                            <th>Qual.Falha</th>
                             <th>Comprovado</th>
                             <th>Critica</th>
                         </tr>
@@ -163,7 +163,7 @@
                                        style="width:70px;height:30px"/>
                             </td>
                             <td>{{veic.Qtd_Falha | emtpyzero}}</td>
-                            <!--<td>
+                            <td>
                                 <div class="input-group" style="width:100px;margin-bottom:0px">
                                     <input id="TxtCodQualidade"
                                            class="form-control"
@@ -177,7 +177,7 @@
                                         <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaQualidade(veic)"></span>
                                     </div>
                                 </div>
-                            </td>-->
+                            </td>
                             <td style="text-align:center">
                                 <span class="fa fa-check" style="color:seagreen" ng-show="veic.Indica_Comprovado"></span>
                                 <span ng-show="!veic.Indica_Comprovado">Não</span>
