@@ -69,7 +69,6 @@
                         { 'Codigo': 'CAL', 'Descricao': 'Calhau' }];
                 };
             };
-            console.log($scope.Contrato);
         });
     };
     //===========================Criar Negociacao Automatica
@@ -111,11 +110,6 @@
                             $scope.Negociacao = responseNegociacao.data;
                             $scope.Contrato.Cod_Tipo_Midia = $scope.Negociacao.Cod_Tipo_Midia;
                             $scope.Contrato.Editar_Tipo_Midia = false;
-                            $scope.Contrato.Indica_Midia_Online = $scope.Negociacao.Indica_Midia_OnLine;
-                            console.log(responseNegociacao);
-                            console.log(responseNegociacao.data.Indica_Midia_OnLine);
-                            console.log($scope.Negociacao);
-                            console.log($scope.Contrato);
                             if ($scope.Negociacao.Nucleos.length == 1) {
                                 $scope.Contrato.Cod_Nucleo = $scope.Negociacao.Nucleos[0].Cod_Nucleo;
                                 $scope.Contrato.Nome_Nucleo = $scope.Negociacao.Nucleos[0].Nome_Nucleo;
@@ -189,14 +183,13 @@
     };
     //===========================Mudou o Tipo de Midia
     $scope.TipoMidiaChange = function (pContrato) {
-        if (pContrato.Cod_Tipo_Midia) {
-            httpService.Get("GetTipoMidiaData/" + pContrato.Cod_Tipo_Midia.trim()).then(function (response) {
-                if (response.data) {
-                    pContrato.Indica_Midia_Online = response.data.Indica_Midia_Online;
-                    console.log($scope.Contrato);
-                };
-            });
-        };
+        //if (pContrato.Cod_Tipo_Midia) {
+        //    httpService.Get("GetTipoMidiaData/" + pContrato.Cod_Tipo_Midia.trim()).then(function (response) {
+        //        if (response.data) {
+        //            pContrato.Indica_Midia_Online = response.data.Indica_Midia_Online;
+        //        };
+        //    });
+        //};
     };
     //===========================Adicionar Linhas de Comercial
     $scope.AdicionarComercial = function () {
@@ -599,11 +592,21 @@
     };
     //================================Remover Midia
     $scope.RemoverMidia = function (pContrato, pVeiculacao) {
-        for (var i = 0; i < pContrato.Veiculacoes.length; i++) {
-            if (pContrato.Veiculacoes[i].Id_Veiculacao == pVeiculacao.Id_Veiculacao) {
-                pContrato.Veiculacoes.splice(i, 1);
+        if (!pContrato.Indica_Midia_Online) {
+            for (var i = 0; i < pContrato.Veiculacoes.length; i++) {
+                if (pContrato.Veiculacoes[i].Id_Veiculacao == pVeiculacao.Id_Veiculacao) {
+                    pContrato.Veiculacoes.splice(i, 1);
+                };
+            };
+        }
+        else {
+            for (var i = 0; i < pContrato.VeiculacoesOnLine.length; i++) {
+                if (pContrato.VeiculacoesOnLine[i].Id_Veiculacao == pVeiculacao.Id_Veiculacao) {
+                    pContrato.VeiculacoesOnLine.splice(i, 1);
+                };
             };
         };
+        
         $scope.AtualizaTemVeiculacao(pContrato);
     };
 
@@ -731,6 +734,11 @@
             pContrato.Comerciais[x].Tem_Veiculacao = false;
             for (var y = 0; y < pContrato.Veiculacoes.length; y++) {
                 if (pContrato.Comerciais[x].Cod_Comercial.trim().toUpperCase() == pContrato.Veiculacoes[y].Cod_Comercial.trim().toUpperCase()) {
+                    pContrato.Comerciais[x].Tem_Veiculacao = true;
+                };
+            }
+            for (var y = 0; y < pContrato.VeiculacoesOnLine.length; y++) {
+                if (pContrato.Comerciais[x].Cod_Comercial.trim().toUpperCase() == pContrato.VeiculacoesOnLine[y].Cod_Comercial.trim().toUpperCase()) {
                     pContrato.Comerciais[x].Tem_Veiculacao = true;
                 };
             }

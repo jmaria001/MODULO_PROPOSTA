@@ -97,6 +97,7 @@
     <Content Include="angular\Controller\BaixaVeiculacaoSiteController.js" />
     <Content Include="angular\Controller\BaixaContratoController.js" />
     <Content Include="angular\Controller\BaixaRoteiroController.js" />
+    <Content Include="angular\Controller\CalculoValoracaoController.js" />
     <Content Include="angular\Controller\ConsultaFitasOrdenadasController.js" />
     <Content Include="angular\Controller\ConsultaRoteiroOrdenadoController.js" />
     <Content Include="angular\Controller\CriticaValoracaoController.js" />
@@ -139,6 +140,7 @@
     <Content Include="angular\Controller\PrevisaoVendasMensalController.js" />
     <Content Include="angular\Controller\PrevisaoVendasNovaAgencia.js" />
     <Content Include="angular\Controller\PrevisaoVendasVeiculoController.js" />
+    <Content Include="angular\Controller\PropagacaoMapaController.js" />
     <Content Include="angular\Controller\ReabreCEController.js" />
     <Content Include="angular\Controller\RetornoPlaylistController.js" />
     <Content Include="angular\Controller\TabelaPrecosMolCadastroController.js" />
@@ -315,6 +317,7 @@
     <Content Include="view\BaixaRoteiro.html" />
     <Content Include="view\BaixaVeiculacaoSite.html" />
     <Content Include="view\BaixaVeiculacoes.html" />
+    <Content Include="view\CalculoValoracao.html" />
     <Content Include="view\ComplementoOutrasReceitas.html" />
     <Content Include="view\ComplementoContrato.html" />
     <Content Include="view\ComplementoContratoPesquisa.html" />
@@ -377,7 +380,6 @@
     <Content Include="view\PrevisaoVendasVeiculo.html" />
     <Content Include="view\ProdutoCadastro.html" />
     <Content Include="Proposta_Aprovacao.html" />
-    <Content Include="TASKS.TXT" />
     <Content Include="template\GeracaoProposta.html" />
     <Content Include="template\modalInfo.html" />
     <Content Include="template\modalConfirm.html" />
@@ -412,6 +414,7 @@
     <Content Include="view\Programa.html" />
     <Content Include="view\ProgramaCadastro.html" />
     <Content Include="view\PropagacaoGrade.html" />
+    <Content Include="view\PropagacaoMapa.html" />
     <Content Include="view\PropostaPendenteAprovacao.html" />
     <Content Include="view\Qualidade.html" />
     <Content Include="view\QualidadeCadastro.html" />

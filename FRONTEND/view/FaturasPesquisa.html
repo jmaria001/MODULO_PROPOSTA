@@ -4,161 +4,161 @@
     }
 </style>
 <div class="container">
-        <div id="divFiltro" class="block" ng-show="ShowFilter">
-            <div class="alert alert-info alert-icon-block" role="alert">
-                <div class="alert-icon">
-                    <span class="fa fa-filter"></span>
-                </div>
-                <strong>Filtros</strong>
+    <div id="divFiltro" class="block" ng-show="ShowFilter">
+        <div class="alert alert-info alert-icon-block" role="alert">
+            <div class="alert-icon">
+                <span class="fa fa-filter"></span>
             </div>
-            <div class="row">
-                <!--===================Empresa de Faturamento-->
-                <div class="col-md-2  " ng-controller="dictionaryController">
-                    <div class="dictionary" dictionary="Empresa_Usuario" caption="Empresa de Faturamento">
-                        <input id="txtCodEmpresaFaturamento"
-                               ng-model="Filtro.Cod_Emp_Faturamento"
-                               ng-model-options="{updateOn: 'blur'}"
-                               ng-change="DicionaryValidate('txtCodEmpresaFaturamento')"
-                               primarybind="txtCodEmpresaFaturamento"
-                               secondarybind="txtNomeEmpresaFaturamento">
+            <strong>Filtros</strong>
+        </div>
+        <div class="row">
+            <!--===================Empresa de Faturamento-->
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Empresa_Usuario" caption="Empresa de Faturamento">
+                    <input id="txtCodEmpresaFaturamento"
+                            ng-model="Filtro.Cod_Emp_Faturamento"
+                            ng-model-options="{updateOn: 'blur'}"
+                            ng-change="DicionaryValidate('txtCodEmpresaFaturamento')"
+                            primarybind="txtCodEmpresaFaturamento"
+                            secondarybind="txtNomeEmpresaFaturamento">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtNomeEmpresaFaturamento" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeEmpresaFaturamento" class="form-control " ng-model="Filtro.Nome_EmpresaFaturamento">
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="txtNomeEmpresaFaturamento" class="field-x" style="visibility:hidden">..</label>
-                        <div class="input-group">
-                            <input type="text" disabled="disabled" id="txtNomeEmpresaFaturamento" class="form-control " ng-model="Filtro.Nome_EmpresaFaturamento">
-                        </div>
-                    </div>
+            </div>
+            <!--===================Competência-->
+            <div class="col-md-2">
+                <div class="dictionary" dictionary="Competencia" caption="Competência">
+                    <input ng-model="Filtro.Competencia"
+                            ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                            placeholder="Informe a Competência">
+                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia" params="CompetenciaKeys"></div>
                 </div>
-                <!--===================Competência-->
-                <div class="col-md-2">
-                    <div class="dictionary" dictionary="Competencia" caption="Competência">
-                        <input ng-model="Filtro.Competencia"
-                               ui-MesAno ng-model-options="{updateOn: 'blur'}"
-                               placeholder="Informe a Competência">
-                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia" params="CompetenciaKeys"></div>
-                    </div>
+            </div>
+            <!--===================Nota Fiscal-->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">N.Fatura</label>
+                    <input id="txtNotaFiscal" type="text" name="txtNotaFiscal" class="form-control numeric" ng-model="Filtro.Nota_Fiscal" maxlength="6" />
                 </div>
-                <!--===================Nota Fiscal-->
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label class="field-x">N.Fatura</label>
-                        <input id="txtNotaFiscal" type="text" name="txtNotaFiscal" class="form-control numeric" ng-model="Filtro.Nota_Fiscal" maxlength="6" />
-                    </div>
+            </div>
+            <!--===================Número Selo Fiscal-->
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="field-x">Número ERP</label>
+                    <input id="txtNumeroErp" type="text" name="txtNumeroErp" class="form-control numeric" ng-model="Filtro.Numero_Erp" maxlength="10" />
                 </div>
-                <!--===================Número Selo Fiscal-->
-                <div class="col-md-1">
-                    <div class="form-group">
-                        <label class="field-x">Número ERP</label>
-                        <input id="txtNumeroErp" type="text" name="txtNumeroErp" class="form-control numeric" ng-model="Filtro.Numero_Erp" maxlength="10" />
-                    </div>
-                </div>
+            </div>
 
+        </div>
+        <div class="row">
+            <!--===================Empresa-->
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Empresa_Usuario" caption="Empresa">
+                    <input id="txtCodEmpresa"
+                            ng-model="Filtro.Cod_Emppresa"
+                            ng-model-options="{updateOn: 'blur'}"
+                            ng-change="DicionaryValidate('txtCodEmpresa')"
+                            primarybind="txtCodEmpresa"
+                            secondarybind="txtNomeEmpresa">
+                </div>
             </div>
-            <div class="row">
-                <!--===================Empresa-->
-                <div class="col-md-2  " ng-controller="dictionaryController">
-                    <div class="dictionary" dictionary="Empresa_Usuario" caption="Empresa">
-                        <input id="txtCodEmpresa"
-                               ng-model="Filtro.Cod_Emppresa"
-                               ng-model-options="{updateOn: 'blur'}"
-                               ng-change="DicionaryValidate('txtCodEmpresa')"
-                               primarybind="txtCodEmpresa"
-                               secondarybind="txtNomeEmpresa">
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group">
-                        <label for="txtNomeEmpresa" class="field-x" style="visibility:hidden">..</label>
-                        <div class="input-group">
-                            <input type="text" disabled="disabled" id="txtNomeEmpresa" class="form-control " ng-model="Filtro.Nome_Empresa">
-                        </div>
-                    </div>
-                </div>
-                <!--===================Negociação-->
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label class="field-x">Negociação</label>
-                        <input id="TxtNegociacao" type="text" name="txtNegociacao" class="form-control numeric" ng-model="Filtro.Numero_Negociacao" maxlength="6" />
-                    </div>
-                </div>
-                <!--===================Contrato-->
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label class="field-x">Contrato</label>
-                        <input id="txtContrato" type="text" name="txtContrato" class="form-control numeric" ng-model="Filtro.Contrato" maxlength="6" />
-                    </div>
-                </div>
-                <!--===================Sequência-->
-                <div class="col-md-1">
-                    <div class="form-group">
-                        <label class="field-x">Seq.</label>
-                        <input id="txtSequencia" type="text" name="txtSequencia" class="form-control numeric" ng-model="Filtro.Sequencia" maxlength="1" />
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtNomeEmpresa" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeEmpresa" class="form-control " ng-model="Filtro.Nome_Empresa">
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <!--==============================================Agencia-->
-                <div class="col-md-2" ng-controller="dictionaryController">
-                    <div class="dictionary" dictionary="Agencia">
-                        <input id="txtCodAgencia"
-                               ng-model="Filtro.Cod_Agencia"
-                               ng-model-options="{updateOn: 'blur'}"
-                               ng-change="DicionaryValidate('txtCodAgencia')"
-                               primarybind="txtCodAgencia"
-                               secondarybind="txtNomeAgencia" />
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="txtNomeAgencia" class="field-x" style="visibility:hidden">..</label>
-                        <div class="input-group">
-                            <input type="text" disabled="disabled" id="txtNomeAgencia" class="form-control " ng-model="Filtro.Nome_Agencia">
-                        </div>
-                    </div>
-                </div>
-                <!--===================Cliente-->
-                <div class="col-md-2" ng-controller="dictionaryController">
-                    <div class="dictionary" dictionary="Cliente">
-                        <input id="txtCodCliente"
-                               ng-model="Filtro.Cod_Cliente"
-                               ng-model-options="{updateOn: 'blur'}"
-                               ng-change="DicionaryValidate('txtCodCliente')"
-                               primarybind="txtCodCliente"
-                               secondarybind="txtNomeCliente" />
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="txtNomeCliente" class="field-x" style="visibility:hidden">..</label>
-                        <div class="input-group">
-                            <input type="text" disabled="disabled" id="txtNomeCliente" class="form-control " ng-model="Filtro.Nome_Cliente">
-                        </div>
-                    </div>
+            <!--===================Negociação-->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Negociação</label>
+                    <input id="TxtNegociacao" type="text" name="txtNegociacao" class="form-control numeric" ng-model="Filtro.Numero_Negociacao" maxlength="6" />
                 </div>
             </div>
-            <div class="row">
-                <!--===================Origem-->
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label class="field-x" for="ComplementoMapa">Origem</label>
-                        <select class="form-control"
-                                name="txtOrigem"
-                                ng-model="Filtro.Origem"
-                                ng-options="Origem.Origem as Origem.Origem  + '-' + Origem.Nome for Origem in Origem"></select>
-                    </div>
+            <!--===================Contrato-->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x">Contrato</label>
+                    <input id="txtContrato" type="text" name="txtContrato" class="form-control numeric" ng-model="Filtro.Contrato" maxlength="6" />
                 </div>
             </div>
-            <div id="divBotaoFiltro" class="row margin-top-30">
-                <div class="col-12">
-                    <button class="btn btn-primary" ng-click="ShowGrid=false;CarregaFaturas(Filtro)">CarregaFaturas</button>
-                    <button class="btn btn-info" ng-click="ShowGrid=false;ShowFilter=true;NewFiltro()">Novo Filtro</button>
-                    <button class="btn btn-info hidden" id="btnShowFiltro" ng-click="ShowGrid=false;ShowFilter=true">Novo Filtro</button>
+            <!--===================Sequência-->
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="field-x">Seq.</label>
+                    <input id="txtSequencia" type="text" name="txtSequencia" class="form-control numeric" ng-model="Filtro.Sequencia" maxlength="1" />
                 </div>
             </div>
         </div>
-        <!--Div do grid-->
+        <div class="row">
+            <!--==============================================Agencia-->
+            <div class="col-md-2" ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Agencia">
+                    <input id="txtCodAgencia"
+                            ng-model="Filtro.Cod_Agencia"
+                            ng-model-options="{updateOn: 'blur'}"
+                            ng-change="DicionaryValidate('txtCodAgencia')"
+                            primarybind="txtCodAgencia"
+                            secondarybind="txtNomeAgencia" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="txtNomeAgencia" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeAgencia" class="form-control " ng-model="Filtro.Nome_Agencia">
+                    </div>
+                </div>
+            </div>
+            <!--===================Cliente-->
+            <div class="col-md-2" ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Cliente">
+                    <input id="txtCodCliente"
+                            ng-model="Filtro.Cod_Cliente"
+                            ng-model-options="{updateOn: 'blur'}"
+                            ng-change="DicionaryValidate('txtCodCliente')"
+                            primarybind="txtCodCliente"
+                            secondarybind="txtNomeCliente" />
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="txtNomeCliente" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeCliente" class="form-control " ng-model="Filtro.Nome_Cliente">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!--===================Origem-->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x" for="ComplementoMapa">Origem</label>
+                    <select class="form-control"
+                            name="txtOrigem"
+                            ng-model="Filtro.Origem"
+                            ng-options="Origem.Origem as Origem.Origem  + '-' + Origem.Nome for Origem in Origem"></select>
+                </div>
+            </div>
+        </div>
+        <div id="divBotaoFiltro" class="row margin-top-30">
+            <div class="col-12">
+                <button class="btn btn-primary" ng-click="ShowGrid=false;CarregaFaturas(Filtro)">CarregaFaturas</button>
+                <button class="btn btn-info" ng-click="ShowGrid=false;ShowFilter=true;NewFiltro()">Novo Filtro</button>
+                <button class="btn btn-info hidden" id="btnShowFiltro" ng-click="ShowGrid=false;ShowFilter=true">Novo Filtro</button>
+            </div>
+        </div>
+    </div>
+    <!----------Div do grid---------------------------------------------------------------------------------------------------------------------->
     <div class="block" id="divGrid" ng-show="ShowGrid">
         <div id="divGrid" class="table-responsive">
             <!--===================================Botoes
@@ -219,262 +219,337 @@
             </div>
         </div>
     </div>
-        <!---------------Div dos Dados-->
-        <div id="divDados" class="block" ng-show="ShowDados">
-            <div class="row">
-                <!---------------------Dados lado esquerdo-->
-                <div class="col-md-10">
-                    <div class="row">
-                        <!--------------------Numero da Fatura-->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label class="field-x" for="txtNumeroFatura">N.Fatura</label>
-                                <label class="form-control" name="txtNumero_Fatura">{{FaturaDados.Numero_Fatura}}</label>
-                            </div>
-                        </div>
-                        <!--------------------Numero ERP-->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label class="field-x" for="txtNumeroFatura">N.ERP</label>
-                                <label class="form-control" name="txtNumeroErp">
-                                    <span ng-show="FaturaDados.Numero_Erp">{{FaturaDados.Numero_Erp}}</span>
-                                </label>
-                            </div>
-                        </div>
-                        <!--------------------Negociacao-->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label class="field-x" for="txtNumeroNegociacao">Negociação</label>
-                                <label class="form-control" name="txtNumeroNegociacao">
-                                    <span ng-show="FaturaDados.Numero_Negociacao">{{FaturaDados.Numero_Negociacao}}</span>
-                                </label>
-                            </div>
-                        </div>
-                        <!--------------------Emp Faturamento-->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label class="field-x" for="txtEmpresaFaturamento">Emp Fat</label>
-                                <label class="form-control" name="txtEmpresaFaturamento">
-                                    <span >{{FaturaDados.Cod_Empresa_Faturamento}}</span>
-                                </label>
-                            </div>
-                        </div>
-                        <!--------------------Emp de Venda-->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label class="field-x" for="txtEmpresa">Emp Venda</label>
-                                <label class="form-control" name="txtEmpresa">
-                                    <span>{{FaturaDados.Cod_Empresa}}</span>
-                                </label>
-                            </div>
-                        </div>
-                        <!--------------------Rateio-->
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label class="field-x" for="txtRateio">Rateio</label>
-                                <label class="form-control" name="txtRateio">
-                                    <span>{{FaturaDados.Numero_Rateio}}</span>
-                                </label>
-                            </div>
-                        </div>
+    <!--------------Div dos Dados-------------------------------------------------------------------------------------------------------------------------------------------->
+    <div id="divDados" class="block" ng-show="ShowDados">
 
-                    </div>
-                    <div class="row">
-                        <!--------------------Nucleo-->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="field-x" for="txtNucleo">Núcleo de Venda</label>
-                                <label class="form-control" name="txtNucleo">
-                                    <span ng-show="FaturaDados.Cod_Nucleo">{{FaturaDados.Cod_Nucleo}}-{{FaturaDados.Nome_Nucleo}}</span>
-                                </label>
-                            </div>
-                        </div>
-                        <!--------------------Contato-->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="field-x" for="txtContato">Contato</label>
-                                <label class="form-control" name="txtContato">
-                                    <span ng-show="FaturaDados.Cod_Contato">{{FaturaDados.Cod_Contato}}-{{FaturaDados.Nome_Contato}}</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!--------------------Agencia-->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="field-x" for="txtAgencia">Agência</label>
-                                <label class="form-control" name="txtAgencia">
-                                    <span>{{FaturaDados.Cod_Agencia}}-{{FaturaDados.Nome_Agencia}}</span>
-                                </label>
-                            </div>
-                        </div>
-                        <!--------------------Cliente-->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="field-x" for="txtCliente">Cliente</label>
-                                <label class="form-control" name="txtCliente">
-                                    <span>{{FaturaDados.Cod_Cliente}}-{{FaturaDados.Nome_Cliente}}</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!--------------------Referencia-->
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="field-x" for="txtReferencia">Referencia</label>
-                                <textarea class="form-control" name="txtReferencia"
-                                          style="height:122px;resize:none"
-                                          ng-disabled="true"
-                                          ng-model="FaturaDados.Referencia">
-                                </textarea>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!---------------------Dados lado direito / valores -->
-                <div class="col-md-2">
-                    <!--------------------Valor Bruto-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="field-x" for="txtValorBruto">Valor Bruto</label>
-                                <label style="text-align:right" class="form-control" name="txtValorBruto">{{FaturaDados.Valor_Bruto | currency}}</label>
-                            </div>
-                        </div>
-                    </div>
-                    <!--------------------Comissao de Agencia-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="field-x" for="txtComissaoAgencia">Com. Agência</label>
-                                <label style="text-align:right" class="form-control" name="txtComissaoAgencia">{{FaturaDados.Valor_Comissao | currency}}</label>
-                            </div>
-                        </div>
-                    </div>
-                    <!--------------------Valor Iss-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="field-x" for="txtValorIss">ISS</label>
-                                <label style="text-align:right" class="form-control" name="txtValorIss">{{FaturaDados.Valor_Iss| currency}}</label>
-                            </div>
-                        </div>
-                    </div>
-                    <!--------------------Comissao Intermediario-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="field-x" for="txtValorIntermediario">Com. Intermediário</label>
-                                <label style="text-align:right" class="form-control" name="txtValorIntermediario">{{FaturaDados.Valor_Intermediario| currency}}</label>
-                            </div>
-                        </div>
-                    </div>
-                    <!--------------------Valor Liquido-->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="field-x" for="txtValorLiquido">Valor Liquido</label>
-                                <label style="text-align:right" class="form-control" name="txtValorLiquido">{{FaturaDados.Valor_Liquido| currency}}</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!---------------------Dados parte de baixo-->
-            <div class="row">
-                <!--------------------Origem-->
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label class="field-x" for="txtOrigem">Origem</label>
-                        <label class="form-control" name="txtDataEmissao">{{Origem[FaturaDados.Origem].Nome}}</label>
-                    </div>
-                </div>
-                <!--------------------Data da Emissao-->
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label class="field-x" for="txtDataEmissao">Dt Emissão</label>
-                        <label class="form-control" name="txtDataEmissao">{{FaturaDados.Data_Emissao | date:"dd/MM/yyyy"}}</label>
-                    </div>
-                </div>
-                <!--------------------Cond Pagamento-->
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label class="field-x" for="txtCondicaoPgto">Cond. Pagamento</label>
-                        <label class="form-control" name="txtCondicaoPgto">{{FaturaDados.Condicao_Nf }}{{FaturaDados.Tipo_Vencimento}}</label>
-                    </div>
-                </div>
-                <!--------------------Intermediario-->
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="field-x" for="txtIntermediario">Intermediário</label>
-                        <label class="form-control" name="txtIntermediario">
-                            <span ng-show="FaturaDados.Cod_Intermediario">{{FaturaDados.Cod_Intermediario}}-{{FaturaDados.Nome_Intermediario}}</span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-            <!---------------------Duplicatas-->
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <th colspan="3" style="text-align:center;background-color:#f5f5f5">Vencimentos</th>
-                                </tr>
-                            </thead>
-                            <thead>
-                                <tr>
-                                    <th>Parcela</th>
-                                    <th>Vencimento</th>
-                                    <th style="text-align:right">Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="duplicata in FaturaDados.Duplicatas">
-                                    <td>{{duplicata.Parcela}}/{{FaturaDados.Duplicatas.length}}</td>
-                                    <td>{{duplicata.Vencimento | date:"dd/MM/yyyy"}}&nbsp;({{duplicata.Dia_Semana}})</td>
-                                    <td style="text-align:right">{{duplicata.Valor | currency}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped">
-                            <thead>
-                                <tr>
-                                    <td colspan="3" style="text-align:center;background-color:#f5f5f5">Composição</td>
-                                </tr>
-                                <tr>
-                                    <th>Contrato</th>
-                                    <th>Numero PI</th>
-                                    <th>Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="composicao in FaturaDados.Composicao track by $index">
-                                    <td>{{composicao.Cod_Empresa}}-{{composicao.Numero_Mr}}-{{composicao.Sequencia_Mr}}</td>
-                                    <td>{{composicao.Numero_Pi}}</td>
-                                    <td style="text-align:right">{{composicao.Vlr_Considerado_Contrato | currency}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!--===================================botao retorna-->
-            <div class="fixed-buttons-bottom">
+        <div class="row">
+            <!-- esta Row engloba lados esquerdo e direito  -->
+            <!---------------------Dados lado esquerdo------------------------------>
+            <div class="col-md-10">
+                <!-- col do lado esquerdo -->
+
                 <div class="row">
-                    <div class="col-md-10">
-                        <button class="btn btn-warning" ng-click="ShowDados=false;ShowGrid=true">Retornar</button>
+                    <!--------------------Numero da Fatura-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x" for="txtNumeroFatura">N.Fatura</label>
+                            <label class="form-control" name="txtNumero_Fatura">{{FaturaDados.Numero_Fatura}}</label>
+                        </div>
                     </div>
+                    <!--------------------Numero ERP-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x" for="txtNumeroFatura">N.ERP</label>
+                            <label class="form-control" name="txtNumeroErp">
+                                <span ng-show="FaturaDados.Numero_Erp">{{FaturaDados.Numero_Erp}}</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!--------------------Negociacao-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x" for="txtNumeroNegociacao">Negociação</label>
+                            <label class="form-control" name="txtNumeroNegociacao">
+                                <span ng-show="FaturaDados.Numero_Negociacao">{{FaturaDados.Numero_Negociacao}}</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!--------------------Emp Faturamento-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x" for="txtEmpresaFaturamento">Emp Fat</label>
+                            <label class="form-control" name="txtEmpresaFaturamento">
+                                <span>{{FaturaDados.Cod_Empresa_Faturamento}}</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!--------------------Emp de Venda-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x" for="txtEmpresa">Emp Venda</label>
+                            <label class="form-control" name="txtEmpresa">
+                                <span>{{FaturaDados.Cod_Empresa}}</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!--------------------Rateio-->
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="field-x" for="txtRateio">Rateio</label>
+                            <label class="form-control" name="txtRateio">
+                                <span>{{FaturaDados.Numero_Rateio}}</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <!--------------------Nucleo-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="field-x" for="txtNucleo">Núcleo de Venda</label>
+                            <label class="form-control" name="txtNucleo">
+                                <span ng-show="FaturaDados.Cod_Nucleo">{{FaturaDados.Cod_Nucleo}}-{{FaturaDados.Nome_Nucleo}}</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!--------------------Contato-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="field-x" for="txtContato">Contato</label>
+                            <label class="form-control" name="txtContato">
+                                <span ng-show="FaturaDados.Cod_Contato">{{FaturaDados.Cod_Contato}}-{{FaturaDados.Nome_Contato}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--------------------Agencia-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="field-x" for="txtAgencia">Agência</label>
+                            <label class="form-control" name="txtAgencia">
+                                <span>{{FaturaDados.Cod_Agencia}}-{{FaturaDados.Nome_Agencia}}</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!--------------------Cliente-->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="field-x" for="txtCliente">Cliente</label>
+                            <label class="form-control" name="txtCliente">
+                                <span>{{FaturaDados.Cod_Cliente}}-{{FaturaDados.Nome_Cliente}}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!--------------------Referencia-->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="field-x" for="txtReferencia">Referencia</label>
+                            <textarea class="form-control" name="txtReferencia"
+                                      style="height:122px;resize:none"
+                                      ng-disabled="true"
+                                      ng-model="FaturaDados.Referencia">
+                                </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--fim da col do lado esquerdo-->
+            <!---------------------Dados lado direito / valores ---------------------------->
+            <div class="col-md-2">
+                <!-- col do lado direito -->
+                <!--------------------Valor Bruto-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="field-x" for="txtValorBruto">Valor Bruto</label>
+                            <label style="text-align:right" class="form-control" name="txtValorBruto">{{FaturaDados.Valor_Bruto | currency}}</label>
+                        </div>
+                    </div>
+                </div>
+                <!--------------------Comissao de Agencia-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="field-x" for="txtComissaoAgencia">Com. Agência</label>
+                            <label style="text-align:right" class="form-control" name="txtComissaoAgencia">{{FaturaDados.Valor_Comissao | currency}}</label>
+                        </div>
+                    </div>
+                </div>
+                <!--------------------Valor Iss-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="field-x" for="txtValorIss">ISS</label>
+                            <label style="text-align:right" class="form-control" name="txtValorIss">{{FaturaDados.Valor_Iss| currency}}</label>
+                        </div>
+                    </div>
+                </div>
+                <!--------------------Comissao Intermediario-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="field-x" for="txtValorIntermediario">Com. Intermediário</label>
+                            <label style="text-align:right" class="form-control" name="txtValorIntermediario">{{FaturaDados.Valor_Intermediario| currency}}</label>
+                        </div>
+                    </div>
+                </div>
+                <!--------------------Valor Liquido-->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="field-x" for="txtValorLiquido">Valor Liquido</label>
+                            <label style="text-align:right" class="form-control" name="txtValorLiquido">{{FaturaDados.Valor_Liquido| currency}}</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--fim da col do lado direito-->
+        </div>
+        <!--fim da row que engloba esquerdo e direito-->
+        <!-------------------------Dados parte de baixo------------------------------->
+        <div class="row">
+            <!-- row da parte de baixo -->
+            <!--------------------Origem-->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x" for="txtOrigem">Origem</label>
+                    <label class="form-control" name="txtDataEmissao">{{Origem[FaturaDados.Origem].Nome}}</label>
+                </div>
+            </div>
+            <!--------------------Data da Emissao-->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x" for="txtDataEmissao">Dt Emissão</label>
+                    <label class="form-control" name="txtDataEmissao">{{FaturaDados.Data_Emissao | date:"dd/MM/yyyy"}}</label>
+                </div>
+            </div>
+            <!--------------------Cond Pagamento-->
+            <div class="col-md-2">
+                <div class="form-group">
+                    <label class="field-x" for="txtCondicaoPgto">Cond. Pagamento</label>
+                    <label class="form-control" name="txtCondicaoPgto">{{FaturaDados.Condicao_Nf }}{{FaturaDados.Tipo_Vencimento}}</label>
+                </div>
+            </div>
+            <!--------------------Intermediario-->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="field-x" for="txtIntermediario">Intermediário</label>
+                    <label class="form-control" name="txtIntermediario">
+                        <span ng-show="FaturaDados.Cod_Intermediario">{{FaturaDados.Cod_Intermediario}}-{{FaturaDados.Nome_Intermediario}}</span>
+                    </label>
                 </div>
             </div>
         </div>
+        <!--fim da row da parte de baixo-->
+        <!---------------------Duplicatas-->
+        <div class="row">       <!-- row dos grids de Vencimentos e Composição -->
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th colspan="3" style="text-align:center;background-color:#f5f5f5">Vencimentos</th>
+                            </tr>
+                        </thead>
+                        <thead>
+                            <tr>
+                                <th>Parcela</th>
+                                <th>Vencimento</th>
+                                <th style="text-align:right">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="duplicata in FaturaDados.Duplicatas">
+                                <td>{{duplicata.Parcela}}/{{FaturaDados.Duplicatas.length}}</td>
+                                <td>{{duplicata.Vencimento | date:"dd/MM/yyyy"}}&nbsp;({{duplicata.Dia_Semana}})</td>
+                                <td style="text-align:right">{{duplicata.Valor | currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <td colspan="3" style="text-align:center;background-color:#f5f5f5">Composição</td>
+                            </tr>
+                            <tr>
+                                <th>Contrato</th>
+                                <th>Numero PI</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="composicao in FaturaDados.Composicao track by $index">
+                                <td>{{composicao.Cod_Empresa}}-{{composicao.Numero_Mr}}-{{composicao.Sequencia_Mr}}</td>
+                                <td>{{composicao.Numero_Pi}}</td>
+                                <td style="text-align:right">{{composicao.Vlr_Considerado_Contrato | currency}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--fim do row dos grids-->
+
+        <!------------------Div Cancelamento da Fatura dentro da Div de Dados----------------------------------------->
+        <div id="divCancela" class="block" ng-show="ShowCancela">
+            <div class="row">
+                <!------------------------- Código Motivo Cancelamento-->
+                <div class="col-md-2" ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="Motivo_Cancelamento">
+                        <input id="txtCodCancelamento"
+                               ng-model="FaturaDados.Cod_Cancelamento"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCodCancelamento')"
+                               ng-disabled="FaturaDados.Indica_Cancelado"
+                               primarybind="txtCodCancelamento"
+                               secondarybind="txtDescCancelamento" />
+                    </div>
+                </div>
+                <!------------------------- Descrição Motivo Cancelamento-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="txtDescCancelamento" class="field-x" style="visibility:hidden">..</label>
+                        <div class="input-group">
+                            <input type="text" disabled="disabled" id="txtDescCancelamento" class="form-control "  ng-model="FaturaDados.Motivo_Cancelamento">
+                        </div>
+                    </div>
+                </div>
+                <!-----------------------Flag Reemissão-->
+                <div class="col-md-3" style="margin-top:35px">
+                    <div class="form-group">
+                        <div class="input-group" style="display:flex">
+                            <div class="app-checkbox">
+                                <label><input type="checkbox"  ng-disabled="FaturaDados.Indica_Cancelado" name="app-checkbox-1" ng-model="FaturaDados.Reemissao" />Reemissão da Fatura<span></span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-----------------------Observação-->
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="field-x" for="txtObsCancelamento">Observação</label>
+                        <textarea class="form-control" name="txtObsCancelamento"
+                                  style="height:122px;resize:none"
+                                  ng-disabled="FaturaDados.Indica_Cancelado"
+                                  ng-model="FaturaDados.Obs_Cancelamento">
+                                </textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-show="!FaturaDados.Indica_Cancelado">
+                <!--------------------------Botões-->
+                <div class="col-12" style="margin-top:20px">
+                    <button class="btn btn-success" ng-click="CancelaFatura(FaturaDados)">OK</button>
+                    <button class="btn btn-warning" ng-click="LimpaCancel(FaturaDados)">Retornar</button>
+                </div>
+            </div>
+        </div>
+        <!--fim da div cancelamento-->
+
+
+        <!--===================================Botões Rodapé-->
+        <div class="fixed-buttons-bottom">
+            <div class="row">
+                <div class="col-md-10">
+                    <!--<button class="btn btn-danger" ng-click="ShowCancela=true" ng-show="!FaturaDados.Indica_Cancelado" ng-disabled=_AbriuCampos>Cancelar NF</button>-->
+                    <button class="btn btn-danger" ng-click="AbreCampos()" ng-show="!FaturaDados.Indica_Cancelado" ng-disabled="_AbriuCampos;!PermissaoCancelaNF">Cancelar NF</button>
+                    <button class="btn btn-warning" ng-click="ShowDados=false;ShowCancela=false;ShowGrid=true" ng-disabled="_AbriuCampos">Retornar</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--fim da div de dados-->
 </div>
 <div ng-include="'template/SelectItem.html'"></div>
 <div ng-include="'template/PesquisaTabela.html'"></div>

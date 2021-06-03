@@ -1,0 +1,149 @@
+﻿<style>
+    input {
+        text-transform: uppercase
+    }
+
+    #divValores td {
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 10px;
+        white-space: nowrap;
+    }
+
+    td input {
+        width: 150px !important;
+    }
+</style>
+<div class="container">
+    <div class="block">
+
+        <!--===================Competencia-->
+        <div class="row">
+
+            <!--===================Empresa-->
+            <div class="col-md-2  " ng-controller="dictionaryController">
+                <div class="dictionary" dictionary="Empresa_Usuario" caption="Empresa">
+                    <input id="txtCodEmpresa"
+                           ng-model="Filtro.Cod_Empresa"
+                           ng-model-options="{updateOn: 'blur'}"
+                           ng-change="DicionaryValidate('txtCodEmpresa')"
+                           primarybind="txtCodEmpresa"
+                           secondarybind="txtNomeEmpresa">
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="txtNomeEmpresa" class="field-x" style="visibility:hidden">..</label>
+                    <div class="input-group">
+                        <input type="text" disabled="disabled" id="txtNomeEmpresa" class="form-control " ng-model="Filtro.Nome_Empresa">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+
+            <!--===================Contrato-->
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="field-x">Contrato</label>
+                    <input id="txtContrato" type="text" name="txtContrato" class="form-control" ng-model="Filtro.Numero_Mr" size='6' value='' onkeypress='return NumericOnly(event)' maxlength="6" />
+                </div>
+            </div>
+            <!--===================Sequência-->
+            <div class="col-md-1">
+                <div class="form-group">
+                    <label class="field-x">Seq.</label>
+                    <input id="txtSequencia" type="text" name="txtSequencia" class="form-control" ng-model="Filtro.Sequencia_Mr" size='6' value='' onkeypress='return NumericOnly(event)' maxlength="1" />
+                </div>
+            </div>
+
+            <!--===================Competência-->
+            <div class="col-md-3">
+                <div class="dictionary" dictionary="Competencia" caption="Competência">
+                    <input ng-model="Filtro.Competencia"
+                           ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                           placeholder="Informe a Competência">
+                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia" params="CompetenciaKeys"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="block">
+
+        <div class="row">
+
+            <!--===================Competência Inicial -->
+            <div class="col-md-2">
+                <div class="dictionary" dictionary="Competencia" caption="Destino Competência Inícial">
+                    <input ng-model="Filtro.Competencia_Inicial"
+                           ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                           placeholder="Informe a Competência">
+                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia_Inicial" params="PeriodoInicioKeys"></div>
+                </div>
+            </div>
+
+            <!--===================Competência  Final -->
+            <div class="col-md-2">
+                <div class="dictionary" dictionary="Competencia" caption="Destino Competência Final">
+                    <input ng-model="Filtro.Competencia_Final"
+                           ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                           placeholder="Informe a Competência">
+                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia_Final" params="PeriodoFimKeys"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--=============================== Grid de Retorno de Propagacao  -->
+    <div class="block" ng-show="ShowGrid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="table-responsive" id="divPropagacao">
+                    <!--<table class="table table-bordered margin-top-20">-->
+                    <table class="table table-bordered table-striped" >
+                        <thead>
+                            <!--<tr style="background-color:#f5f5f5">-->
+                            <tr>
+                                <th>Competência</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="propagacaomapa in Propagacao_Mapa track by $index">
+
+                                <td>{{propagacaomapa.Competencia}}</td>
+                                <td>{{propagacaomapa.Mensagem_Status}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--=================================Botoes do filtro-->
+
+    <div class="fixed-buttons-bottom">
+        <div class="row">
+            <div class="col-md-2">
+                <button class="btn btn-success" ng-click="CarregarPropagacaoMapa(Filtro)">Ok</button>
+                <button type="button" class="btn btn-warning" ng-click="Filtro=NewFiltro(); ShowGrid=false">Limpar Filtros</button>
+                <!--<a href="#PropagacaoMapa" class="btn btn-warning">Cancelar</a>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

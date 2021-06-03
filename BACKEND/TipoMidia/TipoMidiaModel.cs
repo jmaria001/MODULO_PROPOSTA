@@ -20,7 +20,6 @@ namespace PROPOSTA
             public String Descricao { get; set; }
             public Boolean Fatura_Antecipada { get; set; }
             public Boolean Gera_Receita { get; set; }
-            public Boolean Indica_Midia_Online { get; set; }
             public string id_operacao { get; set; }
         }
 

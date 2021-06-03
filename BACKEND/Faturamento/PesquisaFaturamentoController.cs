@@ -52,5 +52,31 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
+
+
+        //=================================Cancela Fatura
+        [Route("api/FaturaCancelar")]
+        [HttpPost]
+        [ActionName("FaturaCancelar")]
+        [Authorize()]
+        public IHttpActionResult FaturaCancelar([FromBody]PesquisaFaturamento.FaturaModel pFiltro)
+        {
+            SimLib clsLib = new SimLib();
+            PesquisaFaturamento Cls = new PesquisaFaturamento(User.Identity.Name);
+            try
+            {
+                DataTable Retorno = Cls.FaturaCancelar(pFiltro);
+                return Ok(Retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+
+
+
     }
 }

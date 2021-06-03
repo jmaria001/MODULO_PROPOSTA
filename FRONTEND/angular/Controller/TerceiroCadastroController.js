@@ -199,6 +199,17 @@
     }
     //=====================Validacao de Codigo IBGE
     $scope.ValidaIbge = function (pCodigo, pEndereco) {
+        if (!pCodigo) {
+            if (pEndereco == 'Principal') {
+                $scope.Terceiro.Enderecos[$scope.CurrentEmpresa].Municipio1 = "";
+                $scope.Terceiro.Enderecos[$scope.CurrentEmpresa].Uf1 = "";
+            }
+            if (pEndereco == 'Complementar') {
+                $scope.Terceiro.Enderecos[$scope.CurrentEmpresa].Municipio2 = "";
+                $scope.Terceiro.Enderecos[$scope.CurrentEmpresa].Uf2 = "";
+            }
+            return;
+        }
         var _url = 'GetCodigoIbge/' + pCodigo.trim();
         httpService.Get(_url).then(function (response) {
             if (response.data.length == 0) {

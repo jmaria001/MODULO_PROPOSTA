@@ -52,7 +52,6 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Descricao", pTipoMidia.Descricao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Fatura_Antecipada", pTipoMidia.Fatura_Antecipada);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Gera_Receita", pTipoMidia.Gera_Receita);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Midia_Online", pTipoMidia.Indica_Midia_Online);
 
 
                 Adp.Fill(dtb);
@@ -89,7 +88,6 @@ namespace PROPOSTA
                     TipoMidia.Descricao           = dtb.Rows[0]["Descricao"].ToString();
                     TipoMidia.Fatura_Antecipada   = dtb.Rows[0]["Fatura_Antecipada"].ToString().ConvertToBoolean();
                     TipoMidia.Gera_Receita        = dtb.Rows[0]["Gera_Receita"].ToString().ConvertToBoolean();
-                    TipoMidia.Indica_Midia_Online = dtb.Rows[0]["Indica_Midia_Online"].ToString().ConvertToBoolean();
                 }
             }
             catch (Exception)

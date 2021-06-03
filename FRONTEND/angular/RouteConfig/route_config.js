@@ -1062,6 +1062,20 @@
         routeName: 'Encerramento do Roteiro',
         RouteId: 'Roteiro@Encerramento'
     })
+    .when('/CalculoValoracao', {
+        templateUrl: 'view/CalculoValoracao.html',
+        authorize: true,
+        controller: 'CalculoValoracaoController',
+        routeName: 'Valoração de Contratos',
+        RouteId: 'Fatura@CalculoValoracao'
+    })
+    .when('/PropagacaoMapa', {
+        templateUrl: 'view/PropagacaoMapa.html',
+        authorize: true,
+        controller: 'PropagacaoMapaController',
+        routeName: 'Propagação de Mapa Reserva',
+        RouteId: 'PropagacaoMapa@Contrato'
+    })
     .otherwise({ redirectTo: "/blank" })
 });
 

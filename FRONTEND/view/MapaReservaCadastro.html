@@ -359,7 +359,7 @@
                     </div>
                 </div>
                 <!--==================Projeto-->
-                <div class="col-md-2" ng-controller="dictionaryController">
+                <!--<div class="col-md-2" ng-controller="dictionaryController">
                     <div class="dictionary" dictionary="Projeto" caption="Projeto">
                         <input id="txtCodProjeto"
                                maxlength="10"
@@ -371,9 +371,9 @@
                                extrabind="txtVersaoProjeto">
                     </div>
 
-                </div>
+                </div>-->
                 <!--==================Versao Projeto-->
-                <div class="col-md-1">
+                <!--<div class="col-md-1">
                     <div class="form-group">
                         <label for="txtVersaoProjeto" class="field-x">Versão</label>
                         <input type="text" id="txtVersaoProjeto" class="form-control numeric"
@@ -382,7 +382,7 @@
                                ng-model-options="{updateOn: 'blur'}"
                                maxlength="3" />
                     </div>
-                </div>
+                </div>-->
                 <!--==============================================Abrangencia -->
                 <div class="col-md-2">
                     <div class="form-group">
@@ -407,6 +407,17 @@
                                style="text-transform:uppercase"
                                ng-change="MercadoChange(Contrato)"
                                primarybind="txtCodMercado">
+                    </div>
+                </div>
+                <!--==================Indica Midia On Line-->
+                <div class="col-md-3">
+                    <div class="app-checkbox form-control" style="margin-top:35px">
+                        <label style="margin-top:3px">
+                            <input type="checkbox"
+                                   name="app-checkbox-1"
+                                   ng-disabled="!Contrato.Editar_Midia_OnLine|| Contrato.Comprovado"
+                                   ng-model="Contrato.Indica_Midia_Online"> &nbsp;&nbsp;Midia On Line<span></span>
+                        </label>
                     </div>
                 </div>
             </div>

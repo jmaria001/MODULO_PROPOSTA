@@ -1,5 +1,10 @@
 ﻿angular.module('App').controller('FaturasPesquisaController', ['$scope', '$rootScope', 'httpService', '$location', '$timeout', function ($scope, $rootScope, httpService, $location, $timeout) {
 
+    //========================Verifica Permissão Cancelar NF
+    $scope.PermissaoCancelaNF = false;
+    httpService.Get("credential/FaturasPesquisa@Cancel").then(function (response) {
+        $scope.PermissaoCancelaNF = response.data;
+    });
 
     //====================Inicializa scopes
     $scope.CompetenciaKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
@@ -33,10 +38,23 @@
         $scope.NewFiltro()
     }
 
-    
+
+    $scope.LimpaCancel = function (pParam) {
+        $scope.ShowCancela = false;
+        $scope._AbriuCampos = false;
+        pParam.Cod_Cancelamento = '';
+        pParam.Motivo_Cancelamento = '';
+        pParam.Reemissao = false;
+        pParam.Obs_Cancelamento = '';
+    }
+
+
     $scope.ShowFilter = true;
     $scope.ShowGrid = false;
-    $scope.ShowDados= false;
+    $scope.ShowDados = false;
+    $scope.ShowCancela = false;
+    var _AbriuCampos = false;
+
     //========================Parametros do Grid
     
     $scope.gridheaders = [/*{ 'title': '', 'visible': true, 'searchable': false, 'sortable': false },*/ //- se nao tem a coluna no grid nao pode ter no config
@@ -125,17 +143,66 @@
         }
     };
     //===========================Carrega Dados da Fatura
-    $scope.ShowFatura = function(pFatura)
-    {
+    $scope.ShowFatura = function (pFatura) {
         $scope.ShowDados = true;
         $scope.ShowFilter = false;
         $scope.ShowGrid = false;
         httpService.Post('FaturaGet', pFatura).then(function (response) {
             if (response) {
-                $scope.FaturaDados = response.data
+                $scope.FaturaDados = response.data;
+                if ($scope.FaturaDados.Cod_Cancelamento != "") {
+                    $scope.ShowCancela = true;
+                }
+                else {
+                    $scope._AbriuCampos = false;
+                };
             };
         });
+    };
+
+
+
+
+    //===========================Abre Campos
+    $scope.AbreCampos = function () {
+        $scope.ShowCancela = true;
+        $scope._AbriuCampos = true;
     }
+    
+
+
+    //===========================Cancela Fatura
+    $scope.CancelaFatura = function (pFaturaDados) {
+        //console.log(pFaturaDados);
+        if (pFaturaDados.Cod_Cancelamento == "") {
+            ShowAlert("Motivo do Cancelamento é obrigatório!");
+            return;
+        }
+
+
+        httpService.Post('FaturaCancelar', pFaturaDados).then(function (response) {
+            if (response) {
+                if (response.data[0].Status) {
+                    for (var x = 0; x < $scope.Faturas.length; x++) {
+                        $scope.FaturaDados.Indica_Cancelado = true;
+                        if ($scope.Faturas[x].Numero_Fatura == pFaturaDados.Numero_Fatura) {
+                            $scope.Faturas[x].Data_Cancelamento = new Date();
+                            break;
+                        };
+                    };
+                }
+                else {
+                    ShowAlert(response.data[0].Retorno, 'warning');
+                };
+            };
+            $scope._AbriuCampos = false;
+        });
+    };            
+
+
+
+    
+
     //===========================Evento chamado ao fim do ngrepeat ao carregar grid 
     $scope.$on('ngRepeatFinished', function (ngRepeatFinishedEvent) {
         $scope.RepeatFinished();

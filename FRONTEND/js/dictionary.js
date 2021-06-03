@@ -41,6 +41,7 @@ function GetDictionary() {
                         { 'Id': 'Qualidade', 'label': 'Tipo de Comercial', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'text' } },
                         { 'Id': 'Historico', 'label': 'Historico', 'icon': 'search', 'atributos': { 'maxlength': '4', 'type': 'text', 'keymode': 'text' } },
                         { 'Id': 'Tipo_Comercializacao', 'label': 'Tipo de Comercializacao', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'text' } },
+                        { 'Id': 'Motivo_Cancelamento', 'label': 'Motivo do Cancelamento', 'icon': 'search', 'atributos': { 'maxlength': '3', 'type': 'text', 'keymode': 'text' } }
     ];
 
     //==============Config html

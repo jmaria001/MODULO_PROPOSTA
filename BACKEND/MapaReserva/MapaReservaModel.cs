@@ -72,6 +72,7 @@ namespace PROPOSTA
             public Boolean Editar_Midia_Apoio{ get; set; } = true;
             public Boolean Editar_Conta_Credito{ get; set; } = true;
             public Boolean Editar_Caracteristica_Contrato{ get; set; } = true;
+            public Boolean Editar_Midia_OnLine{ get; set; } = true;
             public Int32 Id_Simulacao { get; set; }
             public Int32 Id_Esquema{ get; set; }
             public Boolean Indica_Tqp { get; set; }

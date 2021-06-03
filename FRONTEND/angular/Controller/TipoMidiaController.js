@@ -16,7 +16,6 @@
     { 'title': 'Descricao', 'visible': true, 'searchable': true, 'sortable': true },
     { 'title': 'Fatura Antecipada', 'visible': true, 'searchable': true, 'sortable': true },
     { 'title': 'Gera Receita', 'visible': true, 'searchable': true, 'sortable': true },
-    { 'title': 'Indica_Midia_On_Line', 'visible': true, 'searchable': true, 'sortable': true },
     ];
 
     //====================Quando terminar carga do grid, torna view do grid visible

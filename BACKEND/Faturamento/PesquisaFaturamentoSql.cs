@@ -170,6 +170,23 @@ namespace PROPOSTA
                 Fatura.Obs_Cancelamento = dtb.Rows[0]["Obs_Cancelamento"].ToString();
                 Fatura.Motivo_Cancelamento = dtb.Rows[0]["Motivo_Cancelamento"].ToString();
                 Fatura.Origem = dtb.Rows[0]["Origem"].ToString().ConvertToInt32();
+                if (dtb.Rows[0]["Reemissao"].ToString().Trim() == "S")
+                {
+                    Fatura.Reemissao = true;
+                }
+                else
+                {
+                    Fatura.Reemissao = false;
+                }
+                Fatura.Numero_Complemento = dtb.Rows[0]["Numero_Complemento"].ToString().ConvertToInt32();
+                if (dtb.Rows[0]["Cod_Cancelamento"].ToString().Trim() == "")
+                {
+                    Fatura.Indica_Cancelado = false;
+                }
+                else
+                {
+                    Fatura.Indica_Cancelado = true;
+                }
                 Fatura.Duplicatas = AddDuplicatas(dtb.Rows[0]["Numero_Complemento"].ToString().ConvertToInt32(), dtb.Rows[0]["Numero_Rateio"].ToString().ConvertToInt32());
                 Fatura.Composicao = AddComposicaoComplemento(dtb.Rows[0]["Numero_Complemento"].ToString().ConvertToInt32());
                 
@@ -260,5 +277,43 @@ namespace PROPOSTA
             }
             return Composicao;
         }
+
+
+
+        //===========================Cancela Fatura
+        public DataTable FaturaCancelar(FaturaModel pFiltro)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "SP_Cancela_Fatura");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Empresa_Faturamento", pFiltro.Cod_Empresa_Faturamento);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Numero_Fatura", pFiltro.Numero_Fatura);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Numero_Complemento", pFiltro.Numero_Complemento);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Numero_Negociacao", pFiltro.Numero_Negociacao);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Origem", pFiltro.Origem);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Cod_Cancelamento", pFiltro.Cod_Cancelamento);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Reemissao", pFiltro.Reemissao);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Obs_Cancelamento", pFiltro.Obs_Cancelamento);
+                Adp.Fill(dtb);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
+
+
+
     }
 }

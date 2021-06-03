@@ -241,6 +241,9 @@
     <Compile Include="BaixaSite\BaixaSiteController.cs" />
     <Compile Include="BaixaSite\BaixaSiteModel.cs" />
     <Compile Include="BaixaSite\BaixaSiteSql.cs" />
+    <Compile Include="CalculoValoracao\CalculoValoracaoController.cs" />
+    <Compile Include="CalculoValoracao\CalculoValoracaoModel.cs" />
+    <Compile Include="CalculoValoracao\CalculoValoracaoSql.cs" />
     <Compile Include="ConsultaFitasOrdenadas\ConsultaFitasOrdenadasController.cs" />
     <Compile Include="ConsultaFitasOrdenadas\ConsultaFitasOrdenadasModel.cs" />
     <Compile Include="ConsultaFitasOrdenadas\ConsultaFitasOrdenadasSql.cs" />
@@ -383,6 +386,9 @@
     <Compile Include="Programa\ProgramaController.cs" />
     <Compile Include="Programa\ProgramaModel.cs" />
     <Compile Include="Programa\ProgramaSQL.cs" />
+    <Compile Include="PropagacaoMapa\PropagacaoMapaController.cs" />
+    <Compile Include="PropagacaoMapa\PropagacaoMapaModel.cs" />
+    <Compile Include="PropagacaoMapa\PropagacaoMapaSql.cs" />
     <Compile Include="Qualidade\QualidadeController.cs" />
     <Compile Include="Qualidade\QualidadeModel.cs" />
     <Compile Include="Qualidade\QualidadeSql.cs" />

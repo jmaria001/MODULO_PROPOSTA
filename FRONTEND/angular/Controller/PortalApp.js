@@ -90,7 +90,8 @@
                 { 'Title': 'Manutenção de Mapa Reserva', 'Url': $rootScope.pageUrl + 'IndexOpec.html#/MapaReserva' },
                 { 'Title': 'Determinação de Títulos', 'Url': $rootScope.pageUrl + 'IndexOpec.html#/Determinacao' },
                 { 'Title': 'Importar Propostas', 'Url': $rootScope.pageUrl + 'IndexOpec.html#/MapaReservaImport' },
-                { 'Title': 'Consulta de Veiculações', 'Url': $rootScope.pageUrl + 'IndexOpec.html#/ConsultaVeiculacoes' },
+                { 'Title': 'Propagação de Mapa Reserva', 'Url': $rootScope.pageUrl + 'IndexOpec.html#/MapaReservaImport' },
+                { 'Title': 'Consulta de Veiculações', 'Url': $rootScope.pageUrl + 'IndexOpec.html#/PropagacaoMapa' },
             ],
         },
         {
@@ -159,6 +160,7 @@
                 { 'Title': 'Pesquisa de Complementos', 'Url': $rootScope.pageUrl + 'IndexFaturamento.html#/ComplementoContratoPesquisa' },
                 { 'Title': 'Geração de Faturas', 'Url': $rootScope.pageUrl + 'IndexFaturamento.html#/FaturaGeracao' },
                 { 'Title': 'Pesquisa de Faturas', 'Url': $rootScope.pageUrl + 'IndexFaturamento.html#/FaturasPesquisa' },
+                { 'Title': 'Valoração de Contratos', 'Url': $rootScope.pageUrl + 'IndexFaturamento.html#/CalculoValoracao' },
                 { 'Title': 'Crítica da Valoração', 'Url': $rootScope.pageUrl + 'IndexFaturamento.html#/CriticaValoracao' },
 
             ],

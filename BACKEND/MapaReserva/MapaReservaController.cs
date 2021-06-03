@@ -278,6 +278,11 @@ namespace PROPOSTA
                     Retorno.Editar_Empresa_Venda = false;
                     Retorno.Editar_Tipo_Midia = false;
                     Retorno.Editar_Abrangencia = false;
+                    if (Retorno.Comerciais.Count>0)
+                    {
+                        Retorno.Editar_Midia_OnLine = false;
+                    }
+
                     if (Retorno.Tem_Fatura)
                     {
                         Retorno.Editar_Cliente = false;

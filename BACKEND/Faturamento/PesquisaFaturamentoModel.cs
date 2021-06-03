@@ -52,6 +52,10 @@ namespace PROPOSTA
             public String Obs_Cancelamento { get; set; }
             public String Motivo_Cancelamento { get; set; }
             public Int32 Origem { get; set; }
+            //public String Reemissao { get; set; }
+            public Boolean Reemissao { get; set; }
+            public Int32 Numero_Complemento { get; set; }
+            public Boolean Indica_Cancelado { get; set; }
             public List<DuplicataModel> Duplicatas { get; set; }
             public List<ComposicaocomplementoModel> Composicao { get; set; }
         }
