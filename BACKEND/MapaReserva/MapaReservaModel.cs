@@ -77,17 +77,17 @@ namespace PROPOSTA
             public Int32 Id_Esquema{ get; set; }
             public Boolean Indica_Tqp { get; set; }
             public Int32 Sequenciador_Veiculacao { get; set; } = 0;
+            public Int32 Sequenciador_Comercial{ get; set; } = 0;
             public Boolean Tem_Fatura { get; set; }
             public Boolean Comprovado { get; set; }
             public List<ComercialModel> Comerciais { get; set; }
             public List<VeiculacacaoModel> Veiculacoes{ get; set; }
             public List<VeiculacaoOnLineModel> VeiculacoesOnLine { get; set; }
             public List<VeiculoModel> Veiculos{ get; set; }
-
         }
-
         public class ComercialModel
         {
+            public Int32 Id_Comercial { get; set; }
             public String Cod_Comercial { get; set; }
             public String Cod_Tipo_Comercial { get; set; }
             public String Nome_Tipo_Comercial { get; set; }
@@ -116,12 +116,16 @@ namespace PROPOSTA
         }
         public class VeiculacaoOnLineModel
         {
+            public Int32 Id_Veiculacao { get; set; }
             public String Data_Inicio { get; set; }
             public String Data_Fim{ get; set; }
             public String Cod_Caracteristica { get; set; }
             public String Cod_Comercial { get; set; }
+            public String Titulo_Comercial { get; set; }
             public String Cod_Programa{ get; set; }
-            public String Qtd{ get; set; }
+            public String Nome_Tipo_Comercializacao { get; set; }
+            public Int32 Qtd{ get; set; }
+            public Boolean Permite_Editar { get; set; } = true;
         }
         public class InsercoesModel
         {

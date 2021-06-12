@@ -453,12 +453,6 @@
     <Content Include="img\web.config" />
     <Content Include="view\VeiculoCadastro.html" />
     <Content Include="Z-demo\HtmlPage1.html" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="angular\angular-bin\angular-csp.css" />
@@ -645,17 +639,30 @@
     <Content Include="view\unauthorized.html" />
     <Content Include="view\unlogged.html" />
     <Content Include="view\PortalApp.html" />
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="angular\Controller\PrevisaoVendasController.cs" />
-    <Compile Include="angular\Controller\PrevisaoVendasModel.cs" />
-    <Compile Include="angular\Controller\PrevisaoVendasSql.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="js\vendor\bootstrap-datetimepicker\" />
     <Folder Include="js\vendor\bootstrap-tagsinput\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BACKEND\BACKEND.csproj">
+      <Project>{AADEECF1-06BA-4B85-931F-D4D0971D0F8A}</Project>
+      <Name>BACKEND</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

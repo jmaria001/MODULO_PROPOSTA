@@ -191,7 +191,7 @@ namespace PROPOSTA
                     AddTexto(500, xPosition, "Total Realizado:" + dtsCe.Tables["Resumo"].Rows[0]["Total_Realizado"].ToString(), "Verdana", 8, true, write);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 doc.Close();
                 doc.Dispose();

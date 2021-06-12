@@ -415,7 +415,7 @@
                         <label style="margin-top:3px">
                             <input type="checkbox"
                                    name="app-checkbox-1"
-                                   ng-disabled="!Contrato.Editar_Midia_OnLine|| Contrato.Comprovado"
+                                   ng-disabled="!Contrato.Editar_Midia_OnLine|| Contrato.Comerciais.length>0"
                                    ng-model="Contrato.Indica_Midia_Online"> &nbsp;&nbsp;Midia On Line<span></span>
                         </label>
                     </div>
@@ -568,7 +568,7 @@
                     <tbody>
                         <tr ng-repeat="comercial in Contrato.Comerciais track by $index">
                             <td style="max-width:50px">
-                                <button class="btn btn-default btn-sm" ng-disabled="comercial.Tem_Veiculacao || Contrato.Comprovado || !comercial.Cod_Comercial" ng-click="RemoverComercial(Contrato,comercial)">
+                                <button class="btn btn-default btn-sm" ng-disabled="comercial.Tem_Veiculacao || Contrato.Comprovado" ng-click="RemoverComercial(Contrato,comercial)">
                                     <span class="fa fa-trash"></span>
                                 </button>
                             </td>

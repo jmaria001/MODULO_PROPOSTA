@@ -11,7 +11,8 @@
                         <p style="text-align:center"> Nenhum registro disponível para essa pesquisa</p>
                     </div>
                     <div style="max-height:400px;overflow-y:auto;overflow-x:hidden;border:solid 1px #f5f5f5">
-                        <table class="table table-striped table-bordered">
+                        <!--==========================================Table para midia normal-->
+                        <table class="table table-striped table-bordered" ng-show="!DescontoDetalhado[0].Indica_Midia_OnLine">
                             <thead>
                                 <tr>
                                     <th>Veiculo</th>
@@ -25,11 +26,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
-
                                 <tr ng-repeat="rw in DescontoDetalhado track by $index">
-                                    <!--ng-style="{'background-color':(Esquema.Id_Esquema==Simulacao.Esquemas[currentEsquema].Id_Esquema) ?'orange':'#e0e0e0'}"--> 
-
                                     <td ng-style="{'font-weight':(rw.Tipo_Linha==1) ?'bolder':'unset'}">{{::rw.Cod_Veiculo}}</td>
                                     <td ng-style="{'font-weight':(rw.Tipo_Linha==1) ?'bolder':'unset'}">{{::rw.Data_Exibicao | date: "dd/MM/yyyy"}}</td>
                                     <td ng-style="{'font-weight':(rw.Tipo_Linha==1) ?'bolder':'unset'}">{{::rw.Qtd}}</td>
@@ -41,7 +38,31 @@
                                 </tr>
                             </tbody>
                         </table>
-
+                        <!--==========================================Table para midia Digital-->
+                        <table class="table table-striped table-bordered" ng-show="DescontoDetalhado[0].Indica_Midia_OnLine">
+                            <thead>
+                                <tr>
+                                    <th>Veiculo</th>
+                                    <th>Qtd</th>
+                                    <th>Vlr Tabela Unit.</th>
+                                    <th>Vlr Tabela Total</th>
+                                    <th>Vlr Negociado Total</th>
+                                    <th>Desconto</th>
+                                    <th>Tipo de Desconto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="rw in DescontoDetalhado track by $index">
+                                    <td ng-style="{'font-weight':(rw.Tipo_Linha==1) ?'bolder':'unset'}">{{::rw.Cod_Veiculo}}</td>
+                                    <td ng-style="{'font-weight':(rw.Tipo_Linha==1) ?'bolder':'unset'}">{{::rw.Qtd}}</td>
+                                    <td ng-style="{'font-weight':(rw.Tipo_Linha==1) ?'bolder':'unset'}">{{::rw.Valor_Tabela_Unitario | currency : "R$ ":2}}</td>
+                                    <td ng-style="{'font-weight':(rw.Tipo_Linha==1) ?'bolder':'unset'}">{{::rw.Valor_Tabela_Total | currency : "R$ ":2}}</td>
+                                    <td ng-style="{'font-weight':(rw.Tipo_Linha==1) ?'bolder':'unset'}">{{::rw.Valor_Negociado_Total | currency : "R$ ":2}}</td>
+                                    <td ng-style="{'font-weight':(rw.Tipo_Linha==1) ?'bolder':'unset'}">{{::rw.Desconto_aplicado | currency : "" :4}}%</td>
+                                    <td ng-style="{'font-weight':(rw.Tipo_Linha==1) ?'bolder':'unset'}">{{::rw.Tipo_Desconto}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

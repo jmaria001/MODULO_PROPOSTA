@@ -84,7 +84,20 @@
             }
         }
     };
-    //===================================Adicionar Esquema
+    //===================================Adicionar Esquema Digital
+    $scope.AdicionarEsquemaDigital = function () {
+        $scope.Simulacao.ContadorEsquema++;
+        httpService.Get("GetNewEsquemaDigital").then(function (response) {
+            _tempEsquema = response.data;
+            _tempEsquema.Id_Esquema = $scope.Simulacao.ContadorEsquema;
+            _tempEsquema.Abrangencia = 2; //assume local para digital
+            _tempEsquema.RedeId = "";
+            _tempEsquema.Cod_Empresa_Faturamento = $scope.FnSetEmpresaDefault("CODIGO");
+            $scope.Simulacao.Esquemas.push(angular.copy(_tempEsquema));
+            $scope.currentEsquema = $scope.Simulacao.Esquemas.length-1;
+        });
+    };
+    //===================================Adicionar Esquema 
     $scope.AdicionarEsquema = function () {
         $scope.Simulacao.ContadorEsquema++;
         httpService.Get("GetNewEsquema").then(function (response) {
@@ -94,10 +107,20 @@
             _tempEsquema.RedeId = "";
             _tempEsquema.Cod_Empresa_Faturamento = $scope.FnSetEmpresaDefault("CODIGO");
             $scope.Simulacao.Esquemas.push(angular.copy(_tempEsquema));
+            $scope.currentEsquema = $scope.Simulacao.Esquemas.length-1;
         });
-    }
-    //===================================Adicionar Midia
+    };
+    //===================================Botao Adicionar Midia
     $scope.AdicionarMidia = function (pEsquema) {
+        if (pEsquema.Indica_Midia_OnLine) {
+            $scope.AdicionarMidiaDigital(pEsquema);
+        }
+        else {
+            $scope.AdicionarMidiaNormal(pEsquema);
+        }
+    };
+    //===================================Adicionar Midia Normal
+    $scope.AdicionarMidiaNormal = function (pEsquema) {
         $scope.Simulacao.ContadorMidia++;
         var _mmyy = CompetenciaToInt(pEsquema.Competencia);
         httpService.Get("GetNewMidia/" + _mmyy).then(function (response) {
@@ -117,7 +140,30 @@
             _tempMidia.IsValid = false;
             $scope.Simulacao.Esquemas[$scope.currentEsquema].Midias.push(angular.copy(_tempMidia));
         });
-    }
+    };
+
+    //===================================Adicionar Midia Digital
+    $scope.AdicionarMidiaDigital = function (pEsquema) {
+        $scope.Simulacao.ContadorMidia++;
+        var _mmyy = CompetenciaToInt(pEsquema.Competencia);
+        httpService.Get("GetNewMidiaDigital/" + _mmyy).then(function (response) {
+            var _tempMidia = response.data;
+            var _year = pEsquema.Competencia.substr(3, 4);
+            var _month = pEsquema.Competencia.substr(0, 2);
+            var _ref_inicio = new Date(_year, _month - 1, _tempMidia.Dia_Inicio, 0, 0, 0, 0);
+            var _ref_fim = new Date(_year, _month - 1, _tempMidia.Dia_Fim, 0, 0, 0, 0);
+            if (_ref_inicio < StringToDate($scope.Simulacao.Validade_Inicio)) {
+                _tempMidia.Dia_Inicio = StringToDate($scope.Simulacao.Validade_Inicio).getDate();
+            };
+            if (_ref_fim > StringToDate($scope.Simulacao.Validade_Termino)) {
+                _tempMidia.Dia_Fim = StringToDate($scope.Simulacao.Validade_Termino).getDate();
+            };
+            _tempMidia.Id_Midia = $scope.Simulacao.ContadorMidia;
+            _tempMidia.Id_Esquema = pEsquema.Id_Esquema,
+            $scope.Simulacao.Esquemas[$scope.currentEsquema].Midia_OnLine.push(angular.copy(_tempMidia));
+        });
+    };
+    
     //==========================Mudou a abrangencia/ Se for Net ja carrega o veiculo
     $scope.Abrangencia_Change = function () {
         $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos = [];
@@ -183,27 +229,47 @@
         });
     };
     //==============================Mudou algum dado da midia
-    $scope.fnChangeMidia = function (pMidia, pField) {
+    $scope.fnChangeMidia = function (pMidia, pField, pIndica_OnLine) {
         switch (pField) {
             case 'Dia_Inicio':
+                break;
             case 'Dia_Fim':
+                break;
             case 'Qtd_Insercoes':
+                break;
             case 'Programa':
+                break;
+            case 'Tipo_Comercial':
+                pMidia.Nome_Tipo_Comercializacao = "";
+
+                if (pMidia.Cod_Tipo_Comercial && pIndica_OnLine) {
+                    _url = 'ValidarTabela/Tipo_Comercial_OnLine/' + pMidia.Cod_Tipo_Comercial
+                    httpService.Get(_url).then(function (response) {
+                        if (response.data[0].Status == 1) {
+                            pMidia.Nome_Tipo_Comercializacao = response.data[0].Extra;
+                        };
+                    });
+                };
+                break;
             case 'Distribuicao':
-                for (var i = 0; i < pMidia.Insercoes.length; i++) {
-                    pMidia.Insercoes[i].Qtd = "";
-                    pMidia.IsValid = false;
+                if (!pIndica_OnLine) {
+                    for (var i = 0; i < pMidia.Insercoes.length; i++) {
+                        pMidia.Insercoes[i].Qtd = "";
+                        pMidia.IsValid = false;
+                    };
                 }
                 break;
             case 'Qtd_Dia_Linha':
-                var _tot = 0
-                for (var i = 0; i < pMidia.Insercoes.length; i++) {
-                    _tot += parseInt(pMidia.Insercoes[i].Qtd ? pMidia.Insercoes[i].Qtd : 0);
-                }
-                pMidia.Qtd_Total_Insercoes = _tot;
-                if (pMidia.Distribuicao == 'M') {
-                    pMidia.Qtd_Insercoes = _tot;
-                }
+                if (!pIndica_OnLine) {
+                    var _tot = 0;
+                    for (var i = 0; i < pMidia.Insercoes.length; i++) {
+                        _tot += parseInt(pMidia.Insercoes[i].Qtd ? pMidia.Insercoes[i].Qtd : 0);
+                    };
+                    pMidia.Qtd_Total_Insercoes = _tot;
+                    if (pMidia.Distribuicao == 'M') {
+                        pMidia.Qtd_Insercoes = _tot;
+                    };
+                };
                 break;
             default:
                 break;
@@ -248,6 +314,7 @@
         _url += '&Cod_Empresa=' + NullToString($scope.Simulacao.Cod_Empresa_Venda);
         _url += '&Cod_Empresa_Faturamento=' + NullToString($scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Empresa_Faturamento);
         _url += '&RedeId=' + $scope.Simulacao.Esquemas[$scope.currentEsquema].RedeId;
+        _url += '&Indica_Midia_Online=' + $scope.Simulacao.Esquemas[$scope.currentEsquema].Indica_Midia_OnLine;
         _url += '&'
         httpService.Get(_url).then(function (response) {
             if (response.data) {
@@ -320,18 +387,22 @@
                 $scope.PesquisaTabelas.MultiSelect = false;
                 $scope.PesquisaTabelas.ClickCallBack = function (value) { pMidia.Cod_Caracteristica = value.Codigo; }
                 $("#modalTabela").modal(true);
-            }
+            };
         });
-    }
+    };
     //===============Clicou na lupa Tpo do Comercial do esquema
     $scope.PesquisaTipoComercial = function (pMidia) {
-        httpService.Get('ListarTabela/Tipo_Comercial').then(function (response) {
+        var _url = "ListarTabela/Tipo_Comercial";
+        if ($scope.Simulacao.Esquemas[$scope.currentEsquema].Indica_Midia_OnLine) {
+            var _url = "ListarTabela/Tipo_Comercial_Online";
+        }
+        httpService.Get(_url).then(function (response) {
             if (response.data) {
                 $scope.PesquisaTabelas.Items = response.data
                 $scope.PesquisaTabelas.FiltroTexto = ""
                 $scope.PesquisaTabelas.Titulo = "Seleção de Tipo de Comercial"
                 $scope.PesquisaTabelas.MultiSelect = false;
-                $scope.PesquisaTabelas.ClickCallBack = function (value) { pMidia.Cod_Tipo_Comercial = value.Codigo; }
+                $scope.PesquisaTabelas.ClickCallBack = function (value) { pMidia.Cod_Tipo_Comercial = value.Codigo; pMidia.Nome_Tipo_Comercializacao = value.Nome_Tipo_Comercializacao }
                 $("#modalTabela").modal(true);
             }
         });
@@ -356,6 +427,15 @@
         for (var i = 0; i < $scope.Simulacao.Esquemas[$scope.currentEsquema].Midias.length; i++) {
             if ($scope.Simulacao.Esquemas[$scope.currentEsquema].Midias[i].Id_Midia == Midia.Id_Midia) {
                 $scope.Simulacao.Esquemas[$scope.currentEsquema].Midias.splice(i, 1);
+            }
+        }
+        $scope.ChangePendenteCalculo();
+    };
+    //==================================Remover Midia
+    $scope.RemoverMidiaDigital = function (Midia) {
+        for (var i = 0; i < $scope.Simulacao.Esquemas[$scope.currentEsquema].Midia_OnLine.length; i++) {
+            if ($scope.Simulacao.Esquemas[$scope.currentEsquema].Midia_OnLine[i].Id_Midia == Midia.Id_Midia) {
+                $scope.Simulacao.Esquemas[$scope.currentEsquema].Midia_OnLine.splice(i, 1);
             }
         }
         $scope.ChangePendenteCalculo();
@@ -524,9 +604,9 @@
 
     }
     //===================================Detalhar Desconto
-    $scope.DetalharDesconto = function (pMidia) {
+    $scope.DetalharDesconto = function (pMidia, pIndica_OnLine) {
         $scope.DescontoDetalhado = [];
-        httpService.Get("DetalharDesconto/" + pMidia.Id_Midia).then(function (response) {
+        httpService.Get("DetalharDesconto/" + pMidia.Id_Midia + '/' + pIndica_OnLine).then(function (response) {
             if (response) {
                 $scope.DescontoDetalhado = response.data;
                 $("#modalDescontoDetalhe").modal(true);

@@ -207,7 +207,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo_Operacao", pContrato.Tipo_Operacao);
                 Adp.Fill(dtb);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }

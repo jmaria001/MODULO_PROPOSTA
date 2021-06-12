@@ -167,9 +167,37 @@ namespace PROPOSTA
             try
             {
                 Simulacao.EsquemaModel Esquema = new Simulacao.EsquemaModel();
+                Esquema.Indica_Midia_OnLine = false;
                 Esquema.BackColorTab = "#C0C0C0";
                 Esquema.Veiculos = new List<Simulacao.VeiculoModel>();
                 Esquema.Midias= new List<Simulacao.MidiaModel>();
+                Esquema.Midia_OnLine = new List<Simulacao.Midia_OnLineModel>();
+                return Ok(Esquema);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/GetNewEsquemaDigital")]
+        [HttpGet]
+        [ActionName("GetNewEsquemaDigital")]
+        [Authorize()]
+        public IHttpActionResult GetNewEsquemaDigital()
+        {
+            SimLib clsLib = new SimLib();
+            Simulacao Cls = new Simulacao(User.Identity.Name);
+
+            try
+            {
+                Simulacao.EsquemaModel Esquema = new Simulacao.EsquemaModel();
+                Esquema.Indica_Midia_OnLine = true;
+                Esquema.BackColorTab = "#C0C0C0";
+                Esquema.Veiculos = new List<Simulacao.VeiculoModel>();
+                Esquema.Midia_OnLine = new List<Simulacao.Midia_OnLineModel>();
+                Esquema.Midias = new List<Simulacao.MidiaModel>();
                 return Ok(Esquema);
             }
             catch (Exception Ex)
@@ -221,6 +249,33 @@ namespace PROPOSTA
                 Midia.Insercoes = Insercao;
 
                 return Ok(Midia);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
+
+        [Route("api/GetNewMidiaDigital/{pCompetencia}")]
+        [HttpGet]
+        [ActionName("GetNewMidiaOnLine")]
+        [Authorize()]
+        public IHttpActionResult GetNewMidiaOnLine(Int32 pCompetencia)
+        {
+            SimLib clsLib = new SimLib();
+            Simulacao Cls = new Simulacao(User.Identity.Name);
+
+            try
+            {
+                Simulacao.Midia_OnLineModel Midia = new Simulacao.Midia_OnLineModel();
+                Int32 mes = pCompetencia.ToString().Substring(4, 2).ConvertToInt32();
+                Int32 ano = pCompetencia.ToString().Substring(0, 4).ConvertToInt32();
+                DateTime Lastday = clsLib.LastDay(mes, ano);
+                DateTime FirstDay = clsLib.FirstDay(mes, ano);
+                Midia.Dia_Inicio = FirstDay.Day;
+                Midia.Dia_Fim = Lastday.Day;
+                return Ok( Midia);
             }
             catch (Exception Ex)
             {
@@ -324,18 +379,18 @@ namespace PROPOSTA
             }
         }
 
-        [Route("api/DetalharDesconto/{Id_Midia}")]
+        [Route("api/DetalharDesconto/{Id_Midia}/{Indica_OnLine}")]
         [HttpGet]
         [ActionName("DetalharDesconto")]
         [Authorize()]
-        public IHttpActionResult DetalharDesconto(Int32 Id_Midia)
+        public IHttpActionResult DetalharDesconto(Int32 Id_Midia,Boolean Indica_OnLine)
         {
             SimLib clsLib = new SimLib();
             Simulacao Cls = new Simulacao(User.Identity.Name);
 
             try
             {
-                DataTable dtbRetorno = Cls.DetalharDesconto(Id_Midia);
+                DataTable dtbRetorno = Cls.DetalharDesconto(Id_Midia, Indica_OnLine);
                 return Ok(dtbRetorno);
             }
             catch (Exception Ex)
@@ -548,15 +603,6 @@ namespace PROPOSTA
                         strBody += "<br>";
                         strBody += "<p>" + strAssinatura + "</p>";
                         strBody += "<br>";
-
-                        //strBody += "<a href ='http://www.google.com.br'";
-                        //strBody += " style='background-color:#6ea038;border:none;height:30px;padding:7px 10px 10px 10px;color:#fff;vertical-align:middle;border-radius: 5px;margin-right:20px;text-decoration: none !important;cursor:pointer'";
-                        //strBody += "> Aceitar a Proposta 21</a>";
-
-                        //strBody += "<a href ='http://www.globo.com'";
-                        //strBody += " style='background-color:#ef4043;border:none;height:30px;padding:7px 10px 10px 10px;color:#fff;vertical-align:middle;border-radius: 5px;margin-right:20px;text-decoration: none !important;cursor:pointer'";
-                        //strBody += "> Recusar a Proposta 21</a>";
-
                         strBody += "<br>";
                         strBody += "<br>";
                         strBody += "<p style='font-size=9'>" + "Email enviado automáticamente,favor não responder." + "</p>";

@@ -104,7 +104,9 @@ namespace PROPOSTA
             public String Cod_Empresa_Faturamento { get; set; }
             public String Caracteristica_Contrato { get; set; }
             public String Cod_Programa_Patrocinado { get; set; }
+            public Boolean Indica_Midia_OnLine{ get; set; }
             public List<MidiaModel> Midias { get; set; }
+            public List<Midia_OnLineModel> Midia_OnLine { get; set; }
             public List<VeiculoModel> Veiculos { get; set; }
             public String BackColorTab { get; set; }
         }
@@ -173,7 +175,33 @@ namespace PROPOSTA
             public String Cod_Veiculo { get; set; }
             public String Nome_Veiculo { get; set; }
         }
-
+        public class Midia_OnLineModel
+        {
+            public Int32 Id_Midia { get; set; }
+            public Int32 Id_Esquema { get; set; }
+            public String Cod_Programa{ get; set; }
+            public String Nome_Programa { get; set; }
+            public String Cod_Caracteristica { get; set; }
+            public String Nome_Caracteristica { get; set; }
+            public String Cod_Comercial { get; set; }
+            public String Titulo_Comercial{ get; set; }
+            public String Cod_Tipo_Comercial { get; set; }
+            public Int32 Duracao  { get; set; }
+            public String Nome_Tipo_Comercial { get; set; }
+            public Int32 Dia_Inicio { get; set; }
+            public Int32 Dia_Fim { get; set; }
+            public String Cod_Tipo_Comercializacao { get; set; }
+            public String Nome_Tipo_Comercializacao { get; set; }
+            public Int32 Qtd_Insercoes { get; set; }
+            public String Valor_Informado { get; set; }
+            public String Desconto_Informado { get; set; }
+            public String Desconto_Real { get; set; }
+            public String Valor_Tabela_Unitario { get; set; }
+            public String Valor_Tabela_Total { get; set; }
+            public String Valor_Negociado_Total { get; set; }
+            public String Critica { get; set; }
+            public Boolean IsValid { get; set; } = false;
+        }
         public class GetVeiculoParam
         {
             public Int32 Abrangencia { get; set; }

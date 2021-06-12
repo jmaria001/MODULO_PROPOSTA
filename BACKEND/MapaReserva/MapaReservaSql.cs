@@ -9,6 +9,7 @@ namespace PROPOSTA
 
     {
         Int32 Sequenciador_Veiculacao = 0;
+        Int32 Sequenciador_Comercial = 0;
         public DataTable MapaReservaList(MapaReservaFiltroModel Param)
         {
             clsConexao cnn = new clsConexao(this.Credential);
@@ -359,7 +360,8 @@ namespace PROPOSTA
                     Contrato.Editar_Periodo_Campanha = false;
                     Contrato.Editar_Valor_Informado = false;
                     Contrato.Editar_Nucleo = true;
-                    
+                    Contrato.Indica_Midia_Online = dtb.Rows[0]["Indica_Midia_Online"].ToString().ConvertToBoolean();
+
                     if (String.IsNullOrEmpty(Contrato.Cod_Cliente))
                     {
                         Contrato.Editar_Cliente = true;
@@ -376,7 +378,8 @@ namespace PROPOSTA
                     Contrato.Veiculacoes = AddVeiculacoesEsquema(pId_Esquema);
                     Contrato.Veiculos = AddVeiculosEsquema(pId_Esquema);
                     Contrato.Sequenciador_Veiculacao = Sequenciador_Veiculacao;
-                    Contrato.VeiculacoesOnLine = new List<VeiculacaoOnLineModel>();
+                    Contrato.VeiculacoesOnLine = AddVeiculacoesOnLineEsquema(pId_Esquema);
+                    Contrato.Sequenciador_Comercial = Sequenciador_Comercial;
 
                 };
             }
@@ -458,6 +461,48 @@ namespace PROPOSTA
                         Permite_Editar = false,
                         Qtd_Total = drw["Qtd_Total_Insercoes"].ToString().ConvertToInt32(),
                         Insercoes = AddInsercoesEsquema(drw["Id_Midia"].ToString().ConvertToInt32())
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return Veiculacoes;
+        }
+        private List<VeiculacaoOnLineModel> AddVeiculacoesOnLineEsquema(Int32 pId_Esquema)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            List<VeiculacaoOnLineModel> Veiculacoes = new List<VeiculacaoOnLineModel>();
+            try
+            {
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Add_Veiculacao_OnLine");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Esquema", pId_Esquema);
+                Adp.Fill(dtb);
+                foreach (DataRow drw in dtb.Rows)
+                {
+                    Sequenciador_Veiculacao++;
+                    Veiculacoes.Add(new VeiculacaoOnLineModel()
+                    {
+                        Id_Veiculacao = Sequenciador_Veiculacao,
+                        Data_Inicio = drw["Data_Inicio"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy"),
+                        Data_Fim = drw["Data_Fim"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy"),
+                        Cod_Caracteristica = drw["Cod_Caracteristica"].ToString(),
+                        Cod_Comercial = drw["Cod_Comercial"].ToString(),
+                        Titulo_Comercial = drw["Titulo_Comercial"].ToString(),
+                        Cod_Programa = drw["Cod_Programa"].ToString(),
+                        Nome_Tipo_Comercializacao = drw["Nome_Tipo_Comercializacao"].ToString(),
+                        Qtd = drw["Qtd"].ToString().ConvertToInt32(),
                     });
                 }
             }
@@ -757,8 +802,10 @@ namespace PROPOSTA
                 Adp.Fill(dtb);
                 foreach (DataRow drw in dtb.Rows)
                 {
+                    Sequenciador_Comercial++;
                     Comerciais.Add(new ComercialModel()
                     {
+                        Id_Comercial = Sequenciador_Comercial,
                         Cod_Comercial = drw["Cod_Comercial"].ToString(),
                         Cod_Tipo_Comercial = drw["Cod_Tipo_Comercial"].ToString(),
                         Titulo_Comercial = drw["Titulo_Comercial"].ToString(),

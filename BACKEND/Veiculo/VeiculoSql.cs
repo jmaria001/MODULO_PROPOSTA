@@ -93,7 +93,7 @@ namespace PROPOSTA
 
                 Adp.Fill(dtb);
             }
-            catch (Exception)
+            catch (Exception Ex)
             {
                 throw;
             }

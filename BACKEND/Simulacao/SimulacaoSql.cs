@@ -250,7 +250,6 @@ namespace PROPOSTA
                     ListEsquema.Add(new EsquemaModel()
                     {
                         Id_Esquema = drw["Id_Esquema"].ToString().ConvertToInt32(),
-                        //Id_Esquema = ContadorEsquema,
                         RedeId = drw["RedeId"].ToString().ConvertToInt32(),
                         Nome_Rede= drw["Nome_Rede"].ToString(),
                         Id_Simulacao = drw["Id_Simulacao"].ToString().ConvertToInt32(),
@@ -266,10 +265,10 @@ namespace PROPOSTA
                         Cod_Programa_Patrocinado= drw["Cod_Programa_Patrocinado"].ToString().Trim(),
                         BackColorTab= drw["BackColorTab"].ToString().Trim(),
                         Cod_Empresa_Faturamento = drw["Cod_Empresa_Faturamento"].ToString(),
+                        Indica_Midia_OnLine = drw["Indica_Midia_OnLine"].ToString().ConvertToBoolean(),
                         Midias = AddListMidia(drw["Id_Esquema"].ToString().ConvertToInt32()),
+                        Midia_OnLine = AddListMidia_Online(drw["Id_Esquema"].ToString().ConvertToInt32()),
                         Veiculos = AddListVeiculos(drw["Id_Esquema"].ToString().ConvertToInt32()),
-                        
-                        
                     });
                 }
             }
@@ -331,6 +330,65 @@ namespace PROPOSTA
                         Critica = drw["Critica"].ToString(),
                         IsValid = true,
                         Insercoes = AddListInsercoes(drw["Id_Midia"].ToString().ConvertToInt32()),
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return ListMidia;
+        }
+        private List<Midia_OnLineModel> AddListMidia_Online(Int32 pId_Esquema)
+        {
+            List<Midia_OnLineModel> ListMidia = new List<Midia_OnLineModel>();
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            try
+            {
+                SimLib clsLib = new SimLib();
+                DataTable dtb = new DataTable();
+                SqlDataAdapter Adp = new SqlDataAdapter();
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Midia_OnLine_Get");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Esquema", pId_Esquema);
+                Adp.Fill(dtb);
+
+                foreach (DataRow drw in dtb.Rows)
+                {
+                    //ContadorMidia++;
+                    ContadorMidia = drw["Id_Midia"].ToString().ConvertToInt32();
+                    ListMidia.Add(new Midia_OnLineModel()
+                    {
+                        Id_Midia = ContadorMidia,
+                        Id_Esquema = ContadorEsquema,
+                        Cod_Programa = drw["Cod_Programa"].ToString(),
+                        Nome_Programa = drw["Nome_Programa"].ToString(),
+                        Cod_Caracteristica = drw["Cod_Caracteristica"].ToString(),
+                        Nome_Caracteristica = drw["Nome_Caracteristica"].ToString(),
+                        Cod_Tipo_Comercial = drw["Cod_Tipo_Comercial"].ToString(),
+                        Nome_Tipo_Comercial = drw["Nome_Tipo_Comercial"].ToString(),
+                        Titulo_Comercial = drw["Titulo_Comercial"].ToString(),
+                        Cod_Comercial = drw["Cod_Comercial"].ToString(),
+                        Cod_Tipo_Comercializacao = drw["Cod_Tipo_Comercializacao"].ToString(),
+                        Nome_Tipo_Comercializacao = drw["Nome_Tipo_Comercializacao"].ToString(),
+                        Duracao = drw["Duracao"].ToString().ConvertToInt32(),
+                        Dia_Inicio = drw["Dia_Inicio"].ToString().ConvertToInt32(),
+                        Dia_Fim = drw["Dia_Fim"].ToString().ConvertToInt32(),
+                        Qtd_Insercoes = drw["Qtd_Insercoes"].ToString().ConvertToInt32(),
+                        Desconto_Informado = drw["Desconto_Informado"].ToString().ConvertToPercent(),
+                        Desconto_Real = drw["Desconto_Real"].ToString().ConvertToPercent(),
+                        Valor_Informado = drw["Valor_Informado"].ToString().ConvertToMoney(),
+                        Valor_Tabela_Unitario = drw["Valor_Tabela_Unitario"].ToString().ConvertToMoney(),
+                        Valor_Tabela_Total = drw["Valor_Tabela_Total"].ToString().ConvertToMoney(),
+                        Valor_Negociado_Total = drw["Valor_Negociado_Total"].ToString().ConvertToMoney(),
+                        Critica= drw["Critica"].ToString(),
+                        IsValid = true
                     });
                 }
             }
@@ -641,7 +699,7 @@ namespace PROPOSTA
             }
             return dtb;
         }
-        public DataTable DetalharDesconto(Int32 pId_Midia)
+        public DataTable DetalharDesconto(Int32 pId_Midia,Boolean pIndica_OnLine)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
@@ -653,6 +711,7 @@ namespace PROPOSTA
                 SqlCommand cmd = cnn.Procedure(cnn.Connection, "PR_PROPOSTA_Detalhar_Desconto");
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Midia", pId_Midia);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Indica_Midia_OnLine", pIndica_OnLine);
                 Adp.Fill(dtb);
             }
             catch (Exception)

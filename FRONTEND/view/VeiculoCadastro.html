@@ -199,7 +199,7 @@
                     <!--============================Pertence Net -->
                     <div class="row">
                         <div class="col-md-1  " ng-controller="dictionaryController">
-                            <div class="dictionary" dictionary="Veiculo">
+                            <div class="dictionary" dictionary="Veiculo" caption="Pertence ao NET da Geradora (Informe o Veiculo NET)">
                                 <input id="txtCodVeiculo"
                                        ng-model="Veiculo.Cod_Veiculo_Net"
                                        ng-model-options="{updateOn: 'blur'}"
@@ -211,7 +211,7 @@
                         <!--============================ Nome Veiculo Net  -->
                         <div class="col-md-4 margin-top-10">
                             <div class="form-group">
-                                <label>Pertence ao NET da Geradora (Informe o Veiculo NET)</label>
+                                <label>.</label>
                                 <div class="input-group">
                                     <input type="text" disabled="disabled" id="txtNomeVeiculo" maxlength="50" class="form-control" ng-model="Veiculo.Nome_Veiculo_Net">
                                 </div>
@@ -387,11 +387,13 @@
                 </div>
             </div>
             <!--===================Botoes-->
-            <div class="row margin-top-20">
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-success" ng-click="SalvarVeiculo(Veiculo)" ng-disabled="frmVeiculoCadastro.$invalid">Salvar</button>
-                    <button type="button" class="btn btn-danger" ng-click="ExcluirVeiculo(Veiculo)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
-                    <a href="#veiculo" class="btn btn-warning">Cancelar</a>
+            <div class="fixed-buttons-bottom">
+                <div class="row margin-top-20">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-success" ng-click="SalvarVeiculo(Veiculo)" ng-disabled="frmVeiculoCadastro.$invalid">Salvar</button>
+                        <button type="button" class="btn btn-danger" ng-click="ExcluirVeiculo(Veiculo)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
+                        <a href="#veiculo" class="btn btn-warning">Cancelar</a>
+                    </div>
                 </div>
             </div>
         </div>

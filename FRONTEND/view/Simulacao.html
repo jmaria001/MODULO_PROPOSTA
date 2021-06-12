@@ -7,10 +7,6 @@
         white-space: nowrap;
         overflow: hidden;
     }
-
-        /*.app-header {
-        display: none;
-    }*/
         .labelVeiculo span {
             display: inline-block;
             width: 80%;
@@ -22,19 +18,13 @@
         height: 30px;
     }
 
-    /*#btnEsquema {
-        height: 80px !important;
-        line-height: 20px !important;
-        border-radius: 0px 35px 0px 0px;
-    }*/
-
-    #tbDigitacaoEsquema td {
+    #tbDigitacaoEsquema td,#tbDigitacaoOnLine td {
         padding: 5px 5px !important;
         white-space: nowrap;
         text-align: center;
     }
 
-    #tbDigitacaoEsquema .input-group {
+    #tbDigitacaoEsquema .input-group,#tbDigitacaoOnLine .input-group {
         margin-bottom: 0px;
     }
 
@@ -46,7 +36,7 @@
         text-align: center !important;
     }
 
-    #tbMidia td, #tbMidia th {
+    #tbMidia td, #tbMidia th{
         padding: 2px 2px 2px 2px !important;
         text-align: center !important;
         vertical-align: middle !important;
@@ -572,6 +562,13 @@
                             style="margin:0px 0px 0px 0px;margin-right:50px">
                         <span class="fa fa-plus" ng-disabled="true"></span> Adicionar Esquema
                     </button>
+                    <button class="btn btn-default btn-icon-fixed btn-sm pull-left"
+                            ng-show="Simulacao.Permite_Editar"
+                            ng-disabled="!Simulacao.Validade_Inicio || !Simulacao.Validade_Termino || !Simulacao.Cod_Empresa_Venda"
+                            ng-click="AdicionarEsquemaDigital()"
+                            style="margin:0px 0px 0px 0px;margin-right:50px">
+                        <span class="fa fa-plus" ng-disabled="true"></span> Adicionar Esquema Digital
+                    </button>
 
                     <button class="btn btn-default btn-icon-fixed btn-sm pull-left"
                             ng-show="Simulacao.Esquemas.length && Simulacao.Permite_Editar>0"
@@ -584,12 +581,10 @@
                 <div ng-show="Simulacao.Esquemas.length>0">
                     <div class="row">
                         <div class="col-md-12">
-                            <!--<button style="color:white; width:180px" id="btnEsquema" class="btn btn-default margin-bottom-5 margin-right-5 btntab" ng-repeat="Esquema in Simulacao.Esquemas track by $index"
-                                 ng-style="{'background-color':(Esquema.Id_Esquema==Simulacao.Esquemas[currentEsquema].Id_Esquema) ?'orange':Esquema.BackColorTab}" ng-click="SetCurrenEsquema(Esquema.Id_Esquema)">-->
                             <button id="btnEsquema"  ng-repeat="Esquema in Simulacao.Esquemas track by $index"
                                     ng-style="{'background-color':Esquema.BackColorTab}"
                                     ng-class="(Esquema.Id_Esquema==Simulacao.Esquemas[currentEsquema].Id_Esquema) ?'btn btn-default btntab btnEsquemaSelected':'btn btn-default btntab btnEsquemaUnselected'" ng-click="SetCurrenEsquema(Esquema.Id_Esquema)">
-                                {{Simulacao.Esquemas[$index].Nome_Rede}}
+                                {{Simulacao.Esquemas[$index].Nome_Rede}} 
                                 <br />
                                 ({{$index+1}})-{{Esquema.Competencia | MesExtenso}}
                                 <br />
@@ -607,6 +602,8 @@
                                         <button class="btn btn-primary btn-sm" ng-click="DuplicarEsquema(Simulacao.Id_Simulacao,Simulacao.Esquemas[currentEsquema].Id_Esquema,'2')" ng-show="Simulacao.Permite_Editar">Duplicar no Período</button>
                                         <button class="btn btn-primary btn-sm" ng-click="DuplicarEsquema(Simulacao.Id_Simulacao,Simulacao.Esquemas[currentEsquema].Id_Esquema,'1')" ng-show="Simulacao.Permite_Editar">Duplicar Mês</button>
                                         <button class="btn btn-primary btn-sm" ng-click="RemoverEsquema(Simulacao.Esquemas[currentEsquema].Id_Esquema)" ng-show="Simulacao.Permite_Editar">Excluir Esquema </button>
+                                        <label class="label label-info pull-right margin-top-5 margin-right-5" ng-show="Simulacao.Esquemas[currentEsquema].Indica_Midia_OnLine">Mídia Digital</label>
+                                        <label class="label label-info pull-right margin-top-5 margin-right-5" ng-show="!Simulacao.Esquemas[currentEsquema].Indica_Midia_OnLine">Mídia Normal</label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -643,7 +640,7 @@
                                             <div class="dictionary-ui-competencia" ui-Competencia typmesano="Simulacao.Esquemas[currentEsquema].Competencia" params="CompetenciaEsquemaKeys"></div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-2" ng-show="!Simulacao.Esquemas[currentEsquema].Indica_Midia_OnLine">
                                         <div class="form-group">
                                             <label class="field-x" for="txtAbrangenciaEsquema">Abrangência</label>
                                             <select class="form-control"
@@ -654,7 +651,7 @@
                                                     ng-change="Abrangencia_Change()"></select>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-2" ng-show="!Simulacao.Esquemas[currentEsquema].Indica_Midia_OnLine">
                                         <div ng-controller="dictionaryController" ng-hide="Simulacao.Esquemas[currentEsquema].Abrangencia==0">
                                             <div class="dictionary" dictionary="Mercado" caption="Mercado">
                                                 <input id="txtCodMercado"
@@ -677,14 +674,14 @@
                                                 ng-disabled="Simulacao.Esquemas[currentEsquema].Abrangencia==0 || Simulacao.Esquemas[currentEsquema].Abrangencia==-1 || !Simulacao.Permite_Editar || Simulacao.Esquemas[currentEsquema].Cod_Mercado || !Simulacao.Esquemas[currentEsquema].RedeId">
                                             Selecionar Veiculos
                                         </button>
-                                        <div class="row margin-top-5 margin-left-20 margin-bottom-10" style="border:solid 1px #e5e5e5;width:95%;height:140px;overflow-y:scroll ;overflow-x:hidden">
+                                        <div class="row margin-top-5 margin-left-20 margin-bottom-10" style="border:solid 1px #e5e5e5;width:95%;min-height:95px;overflow-y:scroll ;overflow-x:hidden">
                                             <div class="row margin-top-5"></div>
                                             <div class="col-md-3" ng-repeat="Veiculo in Simulacao.Esquemas[currentEsquema].Veiculos track by $index">
                                                 <label class="label label-default labelVeiculo">
                                                     <span>
                                                         {{Veiculo.Cod_Veiculo}}-{{Veiculo.Nome_Veiculo}}
                                                     </span>
-                                                    <span class="fa fa-times span-btn" style="font-size:13px" ng-click="RemoverVeiculo(Veiculo.Cod_Veiculo)" ng-show="Simulacao.Esquemas[currentEsquema].Midias.length==0  && Simulacao.Esquemas[currentEsquema].Abrangencia!=0    "></span>
+                                                    <span class="fa fa-times span-btn" style="font-size:13px" ng-click="RemoverVeiculo(Veiculo.Cod_Veiculo)" ng-show="Simulacao.Esquemas[currentEsquema].Midias.length==0 && Simulacao.Esquemas[currentEsquema].Midia_OnLine.length==0  && Simulacao.Esquemas[currentEsquema].Abrangencia!=0"></span>
                                                 </label>
                                             </div>
                                         </div>
@@ -811,7 +808,7 @@
                             </div>
                         </div> <!--//fim do lado direito do esquema-->
                     </div>
-                    <!--=======================================digitacao da midia-->
+                    <!--=======================================Midia On Line e Normal-->
                     <div class="row">
                         <div class="col-md-12">
                             <button class="btn btn-default btn-icon-fixed btn-sm"
@@ -819,7 +816,8 @@
                                     ng-click="AdicionarMidia(Simulacao.Esquemas[currentEsquema])">
                                 <span class="fa fa-plus" ng-disabled="true"></span> Adicionar Mídias
                             </button>
-                            <div class="table table-responsive">
+                            <!--=======================================digitacao da midia Normal-->
+                            <div class="table table-responsive" ng-show="!Simulacao.Esquemas[currentEsquema].Indica_Midia_OnLine">
                                 <table id="tbDigitacaoEsquema" class="table table-bordered" style="border:solid 2px #e5e5e5 !important">
                                     <thead>
                                         <tr>
@@ -851,7 +849,8 @@
                                             <th colspan="2">
                                                 <label>Desc. ou Valor Informado</label>
                                             </th>
-                                            <td colspan="2"></td>
+                                            <td ></td>
+                                            <td></td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -862,6 +861,7 @@
                                                            class="form-control inputEsquema"
                                                            ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-model="midia.Cod_Programa"
+                                                           ng-model-options="{updateOn: 'blur'}"
                                                            maxlength="4"
                                                            style="text-transform:uppercase"
                                                            ng-change="fnChangeMidia(midia,'Programa')">
@@ -876,6 +876,7 @@
                                                            class="form-control inputEsquema"
                                                            ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-model="midia.Cod_Caracteristica"
+                                                           ng-model-options="{updateOn: 'blur'}"
                                                            ng-change="fnChangeMidia(midia,'Caracteristica')"
                                                            maxlength="2"
                                                            style="text-transform:uppercase">
@@ -888,6 +889,7 @@
                                                 <div class="input-group" style="min-width:90px">
                                                     <input class="form-control inputEsquema"
                                                            ng-model="midia.Cod_Tipo_Comercial"
+                                                           ng-model-options="{updateOn: 'blur'}"
                                                            ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-change="fnChangeMidia(midia,'Tipo_Comercial')"
                                                            maxlength="2"
@@ -904,6 +906,7 @@
                                                            placeholder="A Determinar"
                                                            ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-model="midia.Titulo_Comercial"
+                                                           ng-model-options="{updateOn: 'blur'}"
                                                            ng-change="fnChangeMidia(midia,'Titulo_Comercial')"
                                                            maxlength="30"
                                                            style="text-transform:uppercase">
@@ -914,6 +917,7 @@
                                                            class="form-control numeric inputEsquema "
                                                            ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-model="midia.Duracao"
+                                                           ng-model-options="{updateOn: 'blur'}"
                                                            maxlength="3"
                                                            ng-change="fnChangeMidia(midia,'Duracao')"
                                                            onkeypress="return NumericOnly(event)">
@@ -947,6 +951,7 @@
                                                 <div class="input-group" style="min-width:40px">
                                                     <input class="form-control inputEsquema"
                                                            ng-model="midia.Qtd_Insercoes"
+                                                           ng-model-options="{updateOn: 'blur'}"
                                                            ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-change="fnChangeMidia(midia,'Qtd_Insercoes')"
                                                            maxlength="4"
@@ -957,6 +962,7 @@
                                                 <div class="input-group" style="min-width:100px">
                                                     <select class="form-control inputEsquema"
                                                             ng-model="midia.Distribuicao"
+                                                            ng-model-options="{updateOn: 'blur'}"
                                                             ng-disabled="!Simulacao.Permite_Editar"
                                                             ng-change="fnChangeMidia(midia,'Distribuicao')"
                                                             ng-options="Distribuicao.Tipo as Distribuicao.Descricao for Distribuicao in Distribuicao">
@@ -997,10 +1003,177 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <!--=======================================digitacao da midia On Line-->
+                            <div class="table table-responsive" ng-show="Simulacao.Esquemas[currentEsquema].Indica_Midia_OnLine">
+                                <table id="tbDigitacaoOnLine" class="table table-bordered" style="border:solid 2px #e5e5e5 !important">
+                                    <thead>
+                                        <tr>
+                                            <th><label>Localização</label></th>                                            
+                                            <th><label>Carac</label></th>
+                                            <th><label>Tp Com</label></th>
+                                            <th><label>Tp Custo</label></th>
+                                            <th><label>Título Comercial</label></th>
+                                            <th><label>Dur.</label></th>
+                                            <th style="min-width:80px"><label>Dia Início</label></th>
+                                            <th style="min-width:80px"><label>Dia Fim</label></th>
+                                            <th><label>Qtd.</label></th>
+                                            <th colspan="2"><label>Desc. ou Valor Informado</label></th>
+                                            <th>Vlr Total Negociado</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="mol in Simulacao.Esquemas[currentEsquema].Midia_OnLine track by $index">
+                                            <td>
+                                                <div class="input-group" style="min-width:110px">
+                                                    <input id="txtLocalizacao"
+                                                           class="form-control inputEsquema"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
+                                                           ng-model="mol.Cod_Programa"
+                                                           ng-model-options="{updateOn: 'blur'}"
+                                                           maxlength="4"
+                                                           style="text-transform:uppercase"
+                                                           ng-change="fnChangeMidia(mol,'Programa',true)">
+                                                    <div class="input-group-addon" ng-show="Simulacao.Permite_Editar">
+                                                        <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaTabela_Grade(mol)"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group " style="min-width:90px">
+                                                    <input id="txtCodCaracteristicaMol"
+                                                           class="form-control inputEsquema"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
+                                                           ng-model="mol.Cod_Caracteristica"
+                                                           ng-model-options="{updateOn: 'blur'}"
+                                                           ng-change="fnChangeMidia(mol,'Caracteristica',true)"
+                                                           maxlength="2"
+                                                           style="text-transform:uppercase">
+                                                    <div class="input-group-addon" ng-show="Simulacao.Permite_Editar">
+                                                        <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaCaracteristica(mol)"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group" style="min-width:90px">
+                                                    <input class="form-control inputEsquema"
+                                                           ng-model="mol.Cod_Tipo_Comercial"
+                                                           ng-model-options="{updateOn: 'blur'}"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
+                                                           ng-change="fnChangeMidia(mol,'Tipo_Comercial',true)"
+                                                           maxlength="2"
+                                                           style="text-transform:uppercase">
+                                                    <div class="input-group-addon" ng-show="Simulacao.Permite_Editar">
+                                                        <span class="fa fa-search span-btn margin-left-10" ng-click="PesquisaTipoComercial(mol)"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>{{mol.Nome_Tipo_Comercializacao}}</td>
+                                            <td>
+                                                <div class="input-group" style="min-width:200px">
+                                                    <input class="form-control inputEsquema"
+                                                           placeholder="A Determinar"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
+                                                           ng-model="mol.Titulo_Comercial"
+                                                           ng-model-options="{updateOn: 'blur'}"
+                                                           ng-change="fnChangeMidia(mol,'Titulo_Comercial',true)"
+                                                           maxlength="30"
+                                                           style="text-transform:uppercase">
+                                                </div>
+                                            <td>
+                                                <div class="input-group" style="min-width:50px">
+                                                    <input id="midiaDuracao"
+                                                           class="form-control numeric inputEsquema "
+                                                           ng-disabled="!Simulacao.Permite_Editar"
+                                                           ng-model="mol.Duracao"
+                                                           ng-model-options="{updateOn: 'blur'}"
+                                                           maxlength="3"
+                                                           ng-change="fnChangeMidia(mol,'Duracao',true)"
+                                                           onkeypress="return NumericOnly(event)">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group" style="min-width:40px">
+                                                    <input type="text"
+                                                           class="form-control inputEsquema"
+                                                           maxlength="2"
+                                                           onkeypress="return NumericOnly(event)"
+                                                           ng-model="mol.Dia_Inicio"
+                                                           ng-model-options="{updateOn: 'blur'}"
+                                                           ng-disabled="!Simulacao.Permite_Editar"     
+                                                           ng-change="fnChangeMidia(mol,'Dia_Inicio',true);FnConsisteDia(mol,'I')" />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group" style="min-width:40px">
+                                                    <input type="text"
+                                                           class="form-control  inputEsquema"
+                                                           maxlength="2"
+                                                           onkeypress="return NumericOnly(event)"
+                                                           ng-model="mol.Dia_Fim"
+                                                           ng-model-options="{updateOn: 'blur'}"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
+                                                           ng-change="fnChangeMidia(mol,'Dia_Fim',true);FnConsisteDia(mol,'F')" />
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group" style="min-width:40px">
+                                                    <input class="form-control inputEsquema"
+                                                           ng-model="mol.Qtd_Insercoes"
+                                                           ng-model-options="{updateOn: 'blur'}"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
+                                                           ng-change="fnChangeMidia(mol,'Qtd_Insercoes',true)"
+                                                           maxlength="8"
+                                                           style="min-width:100px"
+                                                           onkeypress="return NumericOnly(event)">
+                                                </div>
+                                            </td>
+                                            
+                                            <td>
+                                                <div class="input-group" style="min-width:90px">
+                                                    <input class="form-control inputEsquema"
+                                                           ng-model="mol.Desconto_Informado"
+                                                           style="max-width:100px"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
+                                                           ng-change="fnControleDescontoValorMidia('Desconto',mol)"
+                                                           ng-model-options="{updateOn: 'blur'}"
+                                                           onblur="this.value = PercentFormat(this.value)"
+                                                           onfocus="this.value = DecimalUnformat(this.value)"
+                                                           onkeypress="return DecimalOnly(event)">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group" style="min-width:90px">
+                                                    <input class="form-control inputEsquema"
+                                                           style="max-width:200px"
+                                                           ng-model="mol.Valor_Informado"
+                                                           ng-change="fnControleDescontoValorMidia('Valor',mol)"
+                                                           ng-model-options="{updateOn: 'blur'}"
+                                                           ng-disabled="mol.Desconto_Informado>0 || !Simulacao.Permite_Editar"
+                                                           onblur="this.value = MoneyFormat(this.value)"
+                                                           onfocus="this.value = DecimalUnformat(this.value)"
+                                                           onkeypress="return DecimalOnly(event)">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="span-btn" style="text-decoration:underline" data-toggle="tooltip" title="Detalhar Valor" ng-click="DetalharDesconto(mol,true)">{{mol.Valor_Negociado_Total}}  </span>
+                                            </td>
+                                            <td>
+                                                <button ng-show="Simulacao.Permite_Editar" class="btn btn-default btn-sm" style="margin:0px 0px !important" ng-click="RemoverMidiaDigital(mol)"><span class="fa fa-trash"></span></button>
+                                            </td>
+                                            <td>
+                                                <span ng-show="!mol.Critica && mol.IsValid" class="fa fa-check" style="color:forestgreen"></span>
+                                                <span ng-show="mol.Critica" class="fa fa-times-circle span-btn" ng-click="MostraCritica(mol)" style="color:red"></span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <!--================Insercoes-->
-                    <div class="block" id="divMidia" ng-show="currentShow=='Base' && Simulacao.Esquemas[currentEsquema].Midias.length >0">
+                    <div class="block" id="divMidia" ng-show="currentShow=='Base' && !Simulacao.Esquemas[currentEsquema].Indica_Midia_OnLine && Simulacao.Esquemas[currentEsquema].Midias.length >0">
                         <div class="alert alert-info alert-icon-block" role="alert">
                             <div class="alert-icon">
                                 <span class="fa fa-camera"></span>
@@ -1060,11 +1233,11 @@
                                         <td><span ng-show="Linha.IsValid">{{Linha.Qtd_Total_Insercoes}}</span></td>
                                         <td><span ng-show="Linha.IsValid">{{Linha.Valor_Tabela_Unitario}}</span></td>
                                         <!--<td><span ng-show="Linha.IsValid">{{Linha.Desconto_Informado}}</span></td>-->
-                                        <td><span class="span-btn" style="text-decoration:underline" data-toggle="tooltip" title="Detalhar Descontos" ng-show="Linha.IsValid" ng-click="DetalharDesconto(Linha)">{{Linha.Desconto_Real}}  </span></td>
+                                        <td><span class="span-btn" style="text-decoration:underline" data-toggle="tooltip" title="Detalhar Descontos" ng-show="Linha.IsValid" ng-click="DetalharDesconto(Linha,false)">{{Linha.Desconto_Real}}  </span></td>
                                         <td><span ng-show="Linha.IsValid">{{Linha.Valor_Negociado_Total}} </span></td>
                                         <td>
-                                            <span ng-show="!Linha.Critica && Linha.IsValid" class="fa fa-check fa-2x" style="color:forestgreen"></span>
-                                            <span ng-show="Linha.Critica" class="fa fa-times-circle fa-2x span-btn" ng-click="MostraCritica(Linha)" style="color:red"></span>
+                                            <span ng-show="!Linha.Critica && Linha.IsValid" class="fa fa-check" style="color:forestgreen"></span>
+                                            <span ng-show="Linha.Critica" class="fa fa-times-circle span-btn" ng-click="MostraCritica(Linha)" style="color:red"></span>
                                         </td>
                                     </tr>
                                 </tbody>

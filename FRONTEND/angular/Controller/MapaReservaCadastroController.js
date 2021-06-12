@@ -193,17 +193,19 @@
     };
     //===========================Adicionar Linhas de Comercial
     $scope.AdicionarComercial = function () {
-        $scope.Contrato.Comerciais.push({});
+        $scope.Contrato.Sequenciador_Comercial++;
+        $scope.Contrato.Comerciais.push({Id_Comercial:$scope.Contrato.Sequenciador_Comercial});
+        
     }
     //===============Clicou na lupa Tpo do Comercial 
     $scope.PesquisaTipoComercial = function (pComercial) {
         $scope.PesquisaTabelas = NewPesquisaTabela();
         var _url = ""
         if ($scope.Contrato.Indica_Midia_Online) {
-            _url = 'ListarTabela/Tipo_Comercial_OnLine'
+            _url = 'ListarTabela/Tipo_Comercial_OnLine';
         }
         else {
-            'ListarTabela/Tipo_Comercial'
+            _url = 'ListarTabela/Tipo_Comercial';
         }
         httpService.Get(_url).then(function (response) {
             if (response.data) {
@@ -294,7 +296,7 @@
     //==============================Remover Comercial
     $scope.RemoverComercial = function (pContrato, pComercial) {
         for (var i = 0; i < pContrato.Comerciais.length; i++) {
-            if (pContrato.Comerciais[i].Cod_Comercial.trim().toUpperCase() == pComercial.Cod_Comercial.trim().toUpperCase()) {
+            if (pContrato.Comerciais[i].Id_Comercial == pComercial.Id_Comercial) {
                 pContrato.Comerciais.splice(i, 1);
                 break;
             };

@@ -250,16 +250,16 @@ namespace PROPOSTA
             //==================Imprime
             List<TableTemplate> Grid = new List<TableTemplate>();
             Grid.Add(new TableTemplate() { Size = 70, Header = "Mes/Ano", Field = "Competencia_Text" });
-            Grid.Add(new TableTemplate() { Size = 150, Header = "Veiculo", Field = "Veiculo", Align= PdfPCell.ALIGN_LEFT});
-            Grid.Add(new TableTemplate() { Size = 100, Header = "Tipo_Comercial", Field = "Tipo_Comercial" ,Align = PdfPCell.ALIGN_LEFT });
+            Grid.Add(new TableTemplate() { Size = 130, Header = "Veiculo", Field = "Veiculo", Align= PdfPCell.ALIGN_LEFT});
+            Grid.Add(new TableTemplate() { Size = 130, Header = "Programa", Field = "Programa", Align = PdfPCell.ALIGN_LEFT });
+            Grid.Add(new TableTemplate() { Size = 30, Header = "Tp Com", Field = "Tipo_Comercial" ,Align = PdfPCell.ALIGN_LEFT });
             Grid.Add(new TableTemplate() { Size = 30, Header = "Dur.", Field = "Duracao" });
             Grid.Add(new TableTemplate() { Size = 30, Header = "Qtd", Field = "Qtd_Insercoes" });
             Grid.Add(new TableTemplate() { Size = 70, Header = "Valor Tabela Unitário.", Field = "Valor_Tabela_Unitario" ,Align = PdfPCell.ALIGN_RIGHT});
             Grid.Add(new TableTemplate() { Size = 70, Header = "Valor Tabela Total", Field = "Valor_Tabela_Total", Align = PdfPCell.ALIGN_RIGHT });
             Grid.Add(new TableTemplate() { Size = 70, Header = "Valor Negociado Total", Field = "Valor_Negociado_Total", Align = PdfPCell.ALIGN_RIGHT });
-            Grid.Add(new TableTemplate() { Size = 70, Header = "Desconto", Field = "Desconto_aplicado", Align = PdfPCell.ALIGN_RIGHT });
-            Grid.Add(new TableTemplate() { Size = 162, Header = "Tipo Desconto", Field = "Tipo_Desconto", Align = PdfPCell.ALIGN_LEFT});
-            
+            Grid.Add(new TableTemplate() { Size = 40, Header = "Desconto", Field = "Desconto_aplicado", Align = PdfPCell.ALIGN_RIGHT });
+            Grid.Add(new TableTemplate() { Size = 152, Header = "Tipo Desconto", Field = "Tipo_Desconto", Align = PdfPCell.ALIGN_LEFT});
 
             float[] GridCells = new float[Grid.Count];
             for (int i = 0; i < Grid.Count; i++)
