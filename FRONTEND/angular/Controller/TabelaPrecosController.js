@@ -1,24 +1,27 @@
-﻿angular.module('App').controller('TabelaPrecosController', ['$scope', '$rootScope', 'httpService', '$location', '$timeout', function ($scope, $rootScope, httpService, $location, $timeout) {
-
+﻿angular.module('App').controller('TabelaPrecosController', ['$scope', '$rootScope', 'httpService', '$location', '$timeout', function ($scope, $rootScope, httpService, $location, $timeout) {[]
+    $scope.CompetenciaKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
     //========================Verifica Permissoes
     $scope.PermissaoNew = false;
-    $scope.CompetenciaKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
     $scope.PermissaoEdit = false;
+    $scope.PermissaoImport= false;
     httpService.Get("credential/TabelaPrecos@New").then(function (response) {
         $scope.PermissaoNew = response.data;
     });
     httpService.Get("credential/TabelaPrecos@Edit").then(function (response) {
         $scope.PermissaoEdit = response.data;
     });
+    httpService.Get("credential/TabelaPrecos@Import").then(function (response) {
+        $scope.PermissaoImport = response.data;
+    });
 
     //====================Inicializa scopes
     $scope.Filtro = {};
     $scope.NewFiltro = function () {
         $scope.Filtro = { 'Competencia': '', 'Veiculo': '', 'Programa': '', 'Titulo': '', 'Nome_Veiculo': '','Indica_Vigente':false };
-        localStorage.removeItem('TabelaPrecoFilter');
+        localStorage.removeItem('TabelaPreco_Filter');
     }
     //======================Verifica se tem filtro anterior
-    var _Filter = JSON.parse(localStorage.getItem('TabelaPrecoFilter'));
+    var _Filter = JSON.parse(localStorage.getItem('TabelaPreco_Filter'));
     if (!_Filter) {
         $scope.NewFiltro()
     }
@@ -48,12 +51,16 @@
 
     //====================Carrega o Grid
     $scope.CarregarTabelaPrecos = function (pFiltro) {
-        if (!pFiltro.Competencia && !pFiltro.Indica_Vigente) {
-            ShowAlert("Filtro Competência ou Vigente é obrigatório");
-            return;
-        }
-        if (!pFiltro.Veiculo && !pFiltro.Programa) {
-            ShowAlert("Filtro Veículo ou Programa é obrigatório");
+        //if (!pFiltro.Competencia && !pFiltro.Indica_Vigente) {
+        //    ShowAlert("Filtro Competência ou Vigente é obrigatório");
+        //    return;
+        //}
+        //if (!pFiltro.Veiculo && !pFiltro.Programa) {
+        //    ShowAlert("Filtro Veículo ou Programa é obrigatório");
+        //    return;
+        //}
+        if (!pFiltro.Competencia && !pFiltro.Indica_Vigente && !pFiltro.Veiculo && !pFiltro.Programa) {
+            ShowAlert("Preencha pela menos um Filtro");
             return;
         }
 
@@ -74,9 +81,13 @@
                 if ($scope.TabelaPrecosS.length == 0) {
                     $scope.RepeatFinished();
                 }
+                localStorage.setItem('TabelaPreco_Filter', JSON.stringify($scope.Filtro));
             }
-            localStorage.setItem('TabelaPrecoFilter', JSON.stringify($scope.Filtro));
         });
+    };
+    //====================Importar Tabela de Precos
+    $scope.ImportarPreco = function () {
+        $location.path("/TabelaPrecosImport")
     };
     //====================Funcao para configurar o Grid
     $scope.ConfiguraGrid = function () {
@@ -115,7 +126,5 @@
             $scope.CarregarTabelaPrecos($scope.Filtro);
         }
     });
-
-
 }]);
 

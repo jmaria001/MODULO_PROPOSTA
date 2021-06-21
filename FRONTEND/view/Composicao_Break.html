@@ -380,17 +380,19 @@
         </div>
         <!--========================Status da Gravacao-->
         <div class="row" ng-show="ShowStatus>0">
-            <div class="col-md-6 col-md-offset-3">
+            <div class="col-md-8 col-md-offset-2">
                 <div class="block">
                     <div class="table-responsive" style="max-height:400px">
                         <table class="table table-bordered table table-striped">
                             <thead>
                                 <tr>
-                                    <th colspan="4" style="background-color:#ededed;text-align:center">
+                                    <th colspan="6" style="background-color:#ededed;text-align:center">
                                         Status da gravação
                                     </th>
                                 </tr>
                                 <tr>
+                                    <th>Veículo</th>
+                                    <th>Data</th>
                                     <th>Programa</th>
                                     <th>Break</th>
                                     <th>Intervalo</th>
@@ -399,6 +401,8 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="critica in Critica track by $index">
+                                    <td>{{critica.Cod_Veiculo}}</td>
+                                    <td>{{critica.Data_Exibicao | date: "dd/MM/yyyy"}}</td>
                                     <td>{{critica.Cod_Programa}}</td>
                                     <td>{{critica.Breaks}}</td>
                                     <td>{{Intervalo[critica.Tipo_Break].Descricao}}</td>

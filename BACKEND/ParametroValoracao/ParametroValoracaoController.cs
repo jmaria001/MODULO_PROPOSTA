@@ -122,12 +122,29 @@ namespace PROPOSTA
             }
         }
 
+        //===========================Exportar Parametros
+        [Route("api/ExportarParametroValoracao")]
+        [HttpPost]
+        [ActionName("ExportarParametroValoracao")]
+        [Authorize()]
 
+        public IHttpActionResult ExportarParametroValoracao([FromBody] ParametroValoracao.Exportar_Model Param)
+        {
+            SimLib clsLib = new SimLib();
+            ParametroValoracao Cls = new ParametroValoracao(User.Identity.Name);
+            try
+            {
 
-
-
+                DataTable retorno = Cls.ParametroValoracaoExportar(Param);
+                return Ok(retorno);
+            }
+            catch (Exception Ex)
+            {
+                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+                throw new Exception(Ex.Message);
+            }
+        }
     }
-
 }
 
 

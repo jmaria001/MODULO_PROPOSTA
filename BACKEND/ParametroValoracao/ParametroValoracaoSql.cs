@@ -277,6 +277,37 @@ namespace PROPOSTA
             }
             return dtb;
         }
+        public DataTable ParametroValoracaoExportar(Exportar_Model pParam)
+        {
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            SqlDataAdapter Adp = new SqlDataAdapter();
+            DataTable dtb = new DataTable("dtb");
+            SimLib clsLib = new SimLib();
+            try
+            {
+
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Exporta_Parametro_Valoracao");
+                Adp.SelectCommand = cmd;
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Login",this. CurrentUser);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Origem", clsLib.CompetenciaInt(pParam.Competencia_Origem));
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Competencia_Destino", clsLib.CompetenciaInt(pParam.Competencia_Destino));
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_NOR", pParam.NOR);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_MER", pParam.MER);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_MOL", pParam.MOL);
+                Adp.Fill(dtb);
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                cnn.Close();
+            }
+            return dtb;
+        }
 
 
     }

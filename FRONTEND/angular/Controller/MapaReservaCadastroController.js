@@ -784,18 +784,22 @@
     }
 
     //===================================Preencher linha das insercoes
-    $scope.PreencherLinha = function (pVeiculacao) {
-        var _qtd = 1
-        if (pVeiculacao.Qtd_Replicar) {
-            _qtd = pVeiculacao.Qtd_Replicar + 1;
-        };
+    $scope.PreencherLinha = function (pVeiculacao,pQtd) {
+        //var _qtd = pQtd
+        //if (pVeiculacao.Qtd_Replicar) {
+            //_qtd = pVeiculacao.Qtd_Replicar + pQtd;
+        //};
         for (var i = 0; i < pVeiculacao.Insercoes.length; i++) {
             if (pVeiculacao.Insercoes[i].Tem_Grade && pVeiculacao.Insercoes[i].Valido) {
-                pVeiculacao.Insercoes[i].Qtd = _qtd;
-            }
-        }
+                pVeiculacao.Insercoes[i].Qtd = pVeiculacao.Insercoes[i].Qtd + parseInt(pQtd);
+                if (pVeiculacao.Insercoes[i].Qtd < 1) {
+                    pVeiculacao.Insercoes[i].Qtd = null;
+                };
+            };
+        };
+
         $scope.fnTotalizaVeiculacao(pVeiculacao);
-        pVeiculacao.Qtd_Replicar = _qtd;
+        //pVeiculacao.Qtd_Replicar = _qtd;
     };
 
     //===================================Change Periodo campanha

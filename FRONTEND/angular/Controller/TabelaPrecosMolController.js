@@ -47,8 +47,8 @@
 
     //====================Carrega o Grid
     $scope.CarregarTabelaPrecosMol = function (pFiltro) {
-        if (!pFiltro.Competencia) {
-            ShowAlert("Filtro Competência é obrigatório");
+        if (!pFiltro.Competencia && !pFiltro.Programa && !pFiltro.Veiculo) {
+            ShowAlert("Preencha pelo menos um filtro");
             return;
         }
         $rootScope.routeloading = true;
@@ -67,8 +67,8 @@
                 if ($scope.TabelaPrecosMolS.length == 0) {
                     $scope.RepeatFinished();
                 }
-            }
-            localStorage.setItem('TabelaPrecoMolFilter', JSON.stringify($scope.Filtro));
+                localStorage.setItem('TabelaPrecoMolFilter', JSON.stringify($scope.Filtro));
+            };
         });
     };
     //====================Funcao para configurar o Grid

@@ -220,6 +220,9 @@
     $scope.RedeChange = function (pRedeId) {
         $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos = [];
         $scope.Simulacao.Esquemas[$scope.currentEsquema].Cod_Mercado = "";
+        if (!pRedeId) {
+            return;
+        }
         httpService.Get('ValidarTabela/rede/' + pRedeId).then(function (response) {
             if (response.data) {
                 if (response.data[0].Status == 1) {

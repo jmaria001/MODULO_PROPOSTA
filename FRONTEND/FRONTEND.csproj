@@ -143,6 +143,7 @@
     <Content Include="angular\Controller\PropagacaoMapaController.js" />
     <Content Include="angular\Controller\ReabreCEController.js" />
     <Content Include="angular\Controller\RetornoPlaylistController.js" />
+    <Content Include="angular\Controller\TabelaPrecoImportacaoController.js" />
     <Content Include="angular\Controller\TabelaPrecosMolCadastroController.js" />
     <Content Include="angular\Controller\TabelaPrecosMolController.js" />
     <Content Include="angular\Controller\TiposComercializacaoCadastroController.js" />
@@ -433,6 +434,7 @@
     <Content Include="view\Simulacao - Copy.html" />
     <Content Include="view\Simulacao_List - Copy.html" />
     <Content Include="view\Simulacao_List.html" />
+    <Content Include="view\TabelaPrecoImportacao.html" />
     <Content Include="view\TabelaPrecos.html" />
     <Content Include="view\TabelaPrecosCadastro.html" />
     <Content Include="view\Produto.html" />

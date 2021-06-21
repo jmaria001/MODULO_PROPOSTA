@@ -1,6 +1,6 @@
 ﻿<style>
-    input{
-        text-transform:uppercase
+    input {
+        text-transform: uppercase;
     }
 </style>
 <div class="container">
@@ -41,7 +41,6 @@
                     </div>
                 </div>
             </div>
-
             <!--======================Tipo Valoracao -->
             <div class="col-md-2 margin-top-10">
                 <div class="form-group">
@@ -55,15 +54,81 @@
             </div>
         </div>
 
-
-        <div id="divBotaoFiltro" class="row margin-top-20">
-            <div class="col-12">
-                <button class="btn btn-primary" ng-click="CarregarParametroValoracao(Filtro)">Filtrar</button>
-                <button class="btn btn-warning" ng-click="NewFiltro()">Limpar Filtro</button>
-                <!--<a id="btnNovaParametroValoracao" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#ParametroValoracaoCadastroNew/New/0,0,0">Nova Parametro de Valores</a>-->
+        <div class="row">
+            <div id="divBotaoFiltro" class="row margin-top-20">
+                <div class="col-12">
+                    <button class="btn btn-primary" ng-click="CarregarParametroValoracao(Filtro)">Filtrar</button>
+                    <button class="btn btn-warning" ng-click="NewFiltro()">Limpar Filtro</button>
+                    <button class="btn btn-info" ng-show="PermissaoNew" ng-click="ShowPropagacao=true;ShowFilter=false">Exportar</button>
+                </div>
             </div>
         </div>
     </div>
+    <!--=========================================Propagacao-->
+    <div class="block" ng-show="ShowPropagacao">
+        <div class="alert alert-info alert-icon-block" role="alert">
+            <div class="alert-icon">
+                <span class="fa fa-send"></span>
+            </div>
+            <strong>Propagação dos Parametros</strong>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="dictionary" dictionary="Competencia" caption="Competência Origem">
+                    <input ng-model="exporta.Competencia_Origem"
+                           class="form-control"
+                           ui-MesAno ng-model-options="{updateOn: 'blur'}">
+                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="exporta.Competencia_Origem" params="CompetenciaKeys"></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="dictionary" dictionary="Competencia" caption="Competência Destino">
+                    <input ng-model="exporta.Competencia_Destino "
+                           class="form-control"
+                           ui-MesAno ng-model-options="{updateOn: 'blur'}">
+                    <div class="dictionary-ui-competencia" ui-Competencia typmesano="exporta.CompetenciaDestino" params="CompetenciaKeys"></div>
+                </div>
+            </div>
+        </div>
+        <!--======================Tipo Valoracao -->
+        <div class="row">
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="app-checkbox">
+                            <label><input type="checkbox" name="app-checkbox-1" ng-model="exporta.NOR" /> Normal<span></span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="app-checkbox">
+                            <label><input type="checkbox" name="app-checkbox-1" ng-model="exporta.MER" /> Merchandising<span></span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="app-checkbox">
+                            <label><input type="checkbox" name="app-checkbox-1" ng-model="exporta.MOL" /> Mídia On Line<span></span></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row margin-top-20">
+            <div class="col-md-12">
+                <button class="btn btn-success" ng-click="ExportarParametroValoracao(exporta)">Confimar Exportação</button>
+                <button class="btn btn-warning" ng-click="ShowPropagacao=false;ShowFilter=true; exporta = NewExporta()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <!--Div do grid-->
     <div id="divGrid" class="block table-responsive" ng-show="ShowGrid">
 
@@ -71,11 +136,9 @@
             <div class="col-md-8">
 
                 <div class="alert alert-primary alert-icon-block" role="alert">
-                    <div class="alert-icon">
-                        <!--<span class="fa fa-check-circle"></span>-->
-                    </div>
+
                     <strong class="pull-right">Tipos de Comerciais</strong>
-                    <!--<strong>Parametros</strong>-->
+
                     <button class="btn btn-default btn-icon-fixed btn-sm pull-left margin-right-20" style="margin-top:0;margin-bottom:0"
                             ng-click="Operacao='IT'"
                             ng-show="PermissaoNew">
@@ -89,6 +152,8 @@
 
                     <thead>
                         <tr>
+                            <th>Competência</th>
+                            <th>Tipo</th>
                             <th>Tipo Com.</th>
                             <th>Descricao</th>
                             <th>%30</th>
@@ -100,6 +165,8 @@
                     <tbody>
                         <!--====================================Linhas de input-->
                         <tr ng-show="Operacao=='IT'">
+                            <td>{{ParametroValoracao.Competencia}}</td>
+                            <td>{{ParametroValoracao.TipoParametroValoracao}}</td>
                             <td>
                                 <div class="form-group">
                                     <div class="input-group">
@@ -138,6 +205,8 @@
                         <!--====================================Linhas de Display-->
 
                         <tr ng-repeat="parametro in ParametroValoracao.Tipo_Comercial track by $index">
+                            <td>{{ParametroValoracao.Competencia}}</td>
+                            <td>{{ParametroValoracao.TipoParametroValoracao}}</td>
                             <td>{{parametro.Cod_Tipo_Comercial}}</td>
                             <td>{{parametro.Descricao}}</td>
                             <td>{{parametro.Vlr_Parametro}}</td>

@@ -25,7 +25,10 @@ namespace PROPOSTA
             public String Titulo { get; set; }
             public String Cod_Veiculo_Mercado { get; set; }
             public String Nome_Veiculo { get; set; }
-            public String Valor { get; set; }
+            public String Valor { get; set; } 
+            public Double Valor_Dec{ get; set; }
+            public String Critica   { get; set; }
+            public Boolean Indica_Processado { get; set; } = false;
         }
 
         public class FiltroModel
@@ -34,6 +37,13 @@ namespace PROPOSTA
             public String Veiculo{ get; set; }
             public String Programa{ get; set; }
             public Boolean Indica_Vigente { get; set; }
+        }
+
+        public class TabelaPrecoImportModel
+        {
+            public String Competencia { get; set; }
+            public String Tipo_Preco{ get; set; }
+            public String File{ get; set; }
         }
 
     }

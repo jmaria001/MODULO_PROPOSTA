@@ -19,11 +19,11 @@
         { 'id': 'Normal', 'nome': 'Normal' },
         { 'id': 'Merchandising', 'nome': 'Merchandising' },
         { 'id': 'MidiaOnline', 'nome': 'MidiaOnline' }
-    ]
-
-
-
+    ];
+    
     //====================Inicializa scopes
+    $scope.ShowFilter = true;
+    $scope.ShowPropagacao= false;
     $scope.Filtro = {};
     $scope.NewFiltro = function () {
         $scope.Filtro = { 'Competencia': '','Programa': '','TipoParametroValoracao': ''};
@@ -53,12 +53,14 @@
         }
     }
     $scope.Duracao_Temp = $scope.NewDuracao();
-
-
-
+   
     //Fim 
     $scope.Operacao = "";
     $scope.PesquisaTabelas = { "Items": [], 'FiltroTexto': '', ClickCallBack: '', 'Titulo': '', 'MultiSelect': false };
+    $scope.NewExporta =function(){
+        return { 'Competencia_Origem': '', 'Competencia_Destino': '','NOR':false,'MER':false,'MOL':false }
+    }
+    $scope.exporta = $scope.NewExporta();
     //======================Verifica se tem filtro anterior
     var _Filter = JSON.parse(localStorage.getItem('ParametroValoracaoFilter'));
     if (!_Filter) {
@@ -66,26 +68,6 @@
     }
 
     $scope.ShowGrid = false;
-    //========================Parametros do Grid
-    $scope.ShowFilter = true;
-    //$scope.gridheaders = [{ 'title': '', 'visible': true, 'searchable': false, 'sortable': false },
-    //{ 'title': 'Competencia', 'visible': true, 'searchable': true, 'sortable': true },
-    //{ 'title': 'Cod_Empresa', 'visible': true, 'searchable': true, 'sortable': true },
-    //{ 'title': 'Cod_Programa', 'visible': true, 'searchable': true, 'sortable': true },
-    ////{ 'title': 'Titulo', 'visible': true, 'searchable': true, 'sortable': true },
-    //];
-
-
-    //====================Quando terminar carga do grid, torna view do grid visible
-    //$scope.RepeatFinished = function () {
-    //    $rootScope.routeloading = false;
-    //    $scope.ConfiguraGrid();
-    //    $scope.ShowGrid = true;
-    //    setTimeout(function () {
-    //        $("#dataTable").dataTable().fnAdjustColumnSizing();
-    //    }, 10)
-    //};
-
     //====================Carrega o Grid
     $scope.CarregarParametroValoracao = function (pFiltro) {
         if (!pFiltro.Competencia) {
@@ -299,8 +281,21 @@
             });
         });
     };
-
-
-
+    //==========================Exportar Parametros Valoracao
+    $scope.ExportarParametroValoracao = function (pParam) {
+        httpService.Post('ExportarParametroValoracao', pParam).then(function (response) {
+            if (response.data) {
+                if (response.data[0].Status == 1) {
+                    ShowAlert("Paramêtros exportados com Sucesso !");
+                    $scope.exporta = $scope.NewExporta();
+                    $scope.ShowPropagacao = false;
+                    $scope.ShowFilter = true;
+                }
+                else {
+                    ShowAlert(response.data[0].Mensagem);
+                };
+            };
+        });
+    };
 }]);
 

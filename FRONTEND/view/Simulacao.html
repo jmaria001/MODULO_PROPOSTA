@@ -602,8 +602,8 @@
                                         <button class="btn btn-primary btn-sm" ng-click="DuplicarEsquema(Simulacao.Id_Simulacao,Simulacao.Esquemas[currentEsquema].Id_Esquema,'2')" ng-show="Simulacao.Permite_Editar">Duplicar no Período</button>
                                         <button class="btn btn-primary btn-sm" ng-click="DuplicarEsquema(Simulacao.Id_Simulacao,Simulacao.Esquemas[currentEsquema].Id_Esquema,'1')" ng-show="Simulacao.Permite_Editar">Duplicar Mês</button>
                                         <button class="btn btn-primary btn-sm" ng-click="RemoverEsquema(Simulacao.Esquemas[currentEsquema].Id_Esquema)" ng-show="Simulacao.Permite_Editar">Excluir Esquema </button>
-                                        <label class="label label-info pull-right margin-top-5 margin-right-5" ng-show="Simulacao.Esquemas[currentEsquema].Indica_Midia_OnLine">Mídia Digital</label>
-                                        <label class="label label-info pull-right margin-top-5 margin-right-5" ng-show="!Simulacao.Esquemas[currentEsquema].Indica_Midia_OnLine">Mídia Normal</label>
+                                        <label class="label label-warning pull-right margin-top-5 margin-right-5" ng-show="Simulacao.Esquemas[currentEsquema].Indica_Midia_OnLine">Mídia On Line</label>
+                                        <label class="label label-info pull-right margin-top-5 margin-right-5" ng-show="!Simulacao.Esquemas[currentEsquema].Indica_Midia_OnLine">Mídia Off-Line</label>
                                     </div>
                                 </div>
                                 <div class="row">

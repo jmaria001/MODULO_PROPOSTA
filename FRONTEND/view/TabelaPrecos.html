@@ -73,6 +73,7 @@
                 <button class="btn btn-primary" ng-click="CarregarTabelaPrecos(Filtro)">Filtrar</button>
                 <button class="btn btn-warning" ng-click="NewFiltro()">Limpar Filtro</button>
                 <a id="btnNovaTabelaPrecos" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#TabelaPrecosCadastroNew/New/0,0,0">Nova Tabela de Precos</a>
+                <button id="btnImportarTabelaPrecos" class="btn btn-info" ng-disabled="!PermissaoImport" ng-click="ImportarPreco()">Importar do Excel</button>
             </div>
         </div>
     </div>

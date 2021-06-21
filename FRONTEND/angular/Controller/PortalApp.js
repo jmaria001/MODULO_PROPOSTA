@@ -71,7 +71,7 @@
                 { 'Title': 'Evolução de Vendas', 'Url': $rootScope.pageUrl + 'indexDash.html#/EvolucaoVendas' },
                 { 'Title': 'Funil de Vendas', 'Url': $rootScope.pageUrl + 'indexDash.html#/FunilVendas' },
                 { 'Title': 'Gráfico de Vendas', 'Url': $rootScope.pageUrl + 'indexDash.html#/GraficoVendas' },
-                { 'Title': 'Power-Bi', 'Url': 'https://app.powerbi.com/view?r=eyJrIjoiYWY5ZTRlYTYtMWZhZC00ZGYxLWEyZTYtMGU5OWQwNmU5Mzk5IiwidCI6ImIyMWNiNTRlLTM1YzEtNDkwZi05OWRkLTBkNmQ4ODYwZTAyYSJ9&pageName=ReportSection294b1d6666875dd21759' }
+                { 'Title': 'Power-Bi', 'Url': 'https://app.powerbi.com/links/vh2IS6tO0r?ctid=83f7a8c8-e89b-4ca7-b107-f0765f6c7535&pbi_source=linkShare' }
             ],
         },
         {

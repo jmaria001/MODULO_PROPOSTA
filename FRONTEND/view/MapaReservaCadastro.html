@@ -720,7 +720,7 @@
                 <table class="table table-bordered" id="tbMidia" style="margin-bottom:200px">
                     <thead>
                         <tr class="bg-warning">
-                            <th colspan="5">
+                            <th colspan="6">
                                 <span ng-show="Contrato.Competencia_Text">{{Contrato.Competencia_Text}}</span>
                             </th>
                             <th class="td-insercoes" ng-repeat="item in Contrato.Veiculacoes[0].Insercoes track by $index">
@@ -735,6 +735,7 @@
                             <td>Programa</td>
                             <td>Carac.</td>
                             <td>Com</td>
+                            <td></td>
                             <td></td>
                             <td class="td-insercoes" ng-repeat="item in Contrato.Veiculacoes[0].Insercoes track by $index">
                                 {{item.Dia}}
@@ -794,7 +795,10 @@
                                 </div>
                             </td>
                             <td style="min-width:30px">
-                                <span class="fa fa-plus span-btn" ng-show="veiculacao.Permite_Editar" ng-click="PreencherLinha(veiculacao)"></span>
+                                <span class="fa fa-plus span-btn" ng-show="veiculacao.Permite_Editar" ng-click="PreencherLinha(veiculacao,1)"></span>
+                            </td>
+                            <td style="min-width:30px">
+                                <span class="fa fa-minus span-btn" ng-show="veiculacao.Permite_Editar" ng-click="PreencherLinha(veiculacao,-1)"></span>
                             </td>
                             <td class="td-insercoes" ng-repeat="insercao in veiculacao.Insercoes track by $index" style="min-width:35px" ng-style="{'background-color':(insercao.Tem_Grade) ?'#fff':'#f2f2f2'}">
                                 <input ng-model="insercao.Qtd"
@@ -916,7 +920,7 @@
                                            class="form-control"
                                            ng-model-options="{updateOn: 'blur'}"
                                            onkeypress="return NumericOnly(event)"
-                                           maxlength="4">
+                                           maxlength="9">
                                 </div>
                             </td>
                         </tr>

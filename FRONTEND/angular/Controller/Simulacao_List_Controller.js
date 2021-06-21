@@ -140,8 +140,13 @@
         }, function () {
             httpService.Post('SimulacaoDestroy', { 'Id_Simulacao': pIdSimulacao }).then(function (response) {
                 if (response) {
-                    $scope.CarregarSimulacao($scope.Filtro);
-                    $scope.CurrentShow = "Grid";
+                    if (response.data[0].Status==1) {
+                        $scope.CarregarSimulacao($scope.Filtro);
+                        $scope.CurrentShow = "Grid";
+                    }
+                    else {
+                        ShowAlert(response.data[0].Mensagem);
+                    }
                 }
             });
         });

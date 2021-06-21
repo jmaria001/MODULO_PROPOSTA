@@ -64,6 +64,13 @@ namespace PROPOSTA
             public String TipoParametroValoracao { get; set; }
 
         }
-
+        public class Exportar_Model
+        {
+            public String Competencia_Origem { get; set; }
+            public String Competencia_Destino{ get; set; }
+            public Boolean NOR { get; set; }
+            public Boolean MER { get; set; }
+            public Boolean MOL { get; set; }
+        }
     }
 }

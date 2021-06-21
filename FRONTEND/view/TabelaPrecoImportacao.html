@@ -1,0 +1,146 @@
+﻿<form name="frmImportPreco" autocomplete="off">
+    <div class="container">
+        <div class="block" ng-show="ShowFilter">
+            <div class="alert alert-info alert-icon-block" role="alert">
+                <div class="alert-icon">
+                    <span class="fa fa-filter"></span>
+                </div>
+                <strong>
+                    Filtros
+                </strong>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="dictionary" dictionary="Competencia" caption="Competência">
+                        <input ng-model="Filtro.Competencia"
+                               ui-MesAno ng-model-options="{updateOn: 'blur'}"
+                               placeholder="Informe a Competência">
+                        <div class="dictionary-ui-competencia" ui-Competencia typmesano="Filtro.Competencia" params="CompetenciaKeys"></div>
+                    </div>
+                </div>
+                <!--======================Tipo Preço -->
+                <div class="col-md-2 margin-top-10">
+                    <div class="form-group">
+                        <label class="fieldrequired">Tipo Preço </label>
+                        <select class="form-control"
+                                ng-model="Filtro.Tipo_Preco"
+                                ng-options="TabelaPrecos.id as TabelaPrecos.Nome for TabelaPrecos in TipoTabela"></select>
+                    </div>
+                </div>
+            </div>
+            <!--========================Upload do arquivo-->
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <div>
+                            <div id="actions">
+                                <span class="btn btn-primary fileinput-button">
+                                    <span>Selecionar Arquivo CSV</span>
+                                </span>
+                                <button type="submit" id="btnSendFiles" class="btn btn-success start" style="visibility:visible" ng-click="Validar(Filtro)">
+                                    <span>Importar Planilha</span>
+                                </button>
+                                <button type="reset" class="btn btn-warning cancel" id="btnLimpar" style="visibility:hidden">
+                                    <span>Limpar</span>
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <div class="files" id="previews">
+                        <div id="template" class="file-row">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <span class="name form-control" data-dz-name style="overflow:hidden"></span>
+                                </div>
+                                <div class="col-md-1 " id="fileAction">
+                                    <button class="btn btn-default destroy" data-dz-remove>
+                                        <span class="fa fa-trash fa-2x"></span>
+                                    </button>
+                                </div>
+                                <div class="col-md-1" id="downloadok" style="display:none;margin-top:-5px">
+                                    <span class="fa fa-check fa-3x" style="color:forestgreen"></span>
+                                </div>
+                                <!--<div class="col-md-1">
+                                <span class="size" data-dz-size></span>
+                            </div>-->
+                                <div class="col-md-3">
+                                    <div class="progress progress-striped active" id="ProgressBar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" style="background-color:transparent">
+                                        <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-1" id="downloaderror" style="display:none;none;margin-top:-5px">
+                                    <span class="fa fa-times-circle fa-3x" style="color:red"></span>
+                                </div>
+                                <div class="col-md-3">
+                                    <strong class="error text-danger" data-dz-errormessage></strong>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--========================Grid da tabela-->
+        <div class="block" ng-show="ShowGrid">
+            <div class="alert alert-info alert-icon-block" role="alert">
+                <div class="alert-icon">
+                    <span class="fa fa-table"></span>
+                </div>
+                <strong>
+                    Dados da Planilha
+                </strong>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Competência</th>
+                            <th>Tipo</th>
+                            <th>Veículo/Mercado</th>
+                            <th>Programa</th>
+                            <th>Valor_Dec</th>
+                            <th>Critica</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="preco in Precos track by $index">
+                            <td>{{preco.Competencia}}</td>
+                            <td>{{preco.Tipo_Preco}}</td>
+                            <td>{{preco.Cod_Veiculo_Mercado}}-{{preco.Nome_Veiculo}}</td>
+                            <td>{{preco.Cod_Programa}}-{{preco.Titulo}}</td>
+                            <td style="text-align:right">{{preco.Valor_Dec |currency}}</td>
+                            <td>
+                                <span ng-show="!preco.Indica_Processado && preco.Critica" style="color:red">{{preco.Critica}}</span>
+                                <span ng-show="preco.Indica_Processado" style="color:black">{{preco.Critica}}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="fixed-buttons-bottom">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-success" ng-click="ProcessarIntegracao(Precos)">Processar Importação</button>
+                        <button class="btn btn-warning" ng-click="NewFilter()">Cancela</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+        $("label").addClass("fieldrequired");
+    });
+</script>

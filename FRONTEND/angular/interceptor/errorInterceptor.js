@@ -8,7 +8,6 @@ angular.module('App').factory("errorInterceptor", function ($q, $location, $root
             if (!_url) {
                 _url = "";
             };
-            
             if (_url.indexOf('api/security/token') > 0 || _url.indexOf('api/api/CheckLogin') > 0) {
                 if (rejection.status == 404) {
                     $rootScope.App_Erro = _url + " Nao existe na Web Api"

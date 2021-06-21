@@ -1076,6 +1076,13 @@
         routeName: 'Propagação de Mapa Reserva',
         RouteId: 'PropagacaoMapa@Contrato'
     })
+    .when('/TabelaPrecosImport', {
+        templateUrl: 'view/TabelaPrecoImportacao.html',
+        authorize: true,
+        controller: 'TabelaPrecoImportacaoController',
+        routeName: 'Importação da Tabela de Preços de Planilhas',
+        RouteId: 'TabelaPrecos@Import'
+    })
     .otherwise({ redirectTo: "/blank" })
 });
 
