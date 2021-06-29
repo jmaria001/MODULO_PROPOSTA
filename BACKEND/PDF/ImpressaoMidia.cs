@@ -100,7 +100,7 @@ namespace PROPOSTA
                 SqlDataAdapter dtaEsquema = new SqlDataAdapter();
                 
                 cnn.Open();
-                dtaEsquema.SelectCommand = cnn.Text(cnn.Connection, "Select Distinct Id_Simulacao,Id_Esquema From Tb_Proposta_Esquema Where Id_Simulacao = " + pId_Simulacao);
+                dtaEsquema.SelectCommand = cnn.Text(cnn.Connection, "Select Distinct Id_Simulacao,Id_Esquema,Indica_Midia_OnLine From Tb_Proposta_Esquema Where Id_Simulacao = " + pId_Simulacao);
                 dtaEsquema.Fill(dtbEsquema);
 
                 foreach (DataRow drw in dtbEsquema.Rows)
@@ -108,7 +108,14 @@ namespace PROPOSTA
                     this.ImprimeCabecalho(write, doc, drw["Id_Esquema"].ToString().ConvertToInt32());
                     this.ImprimDadosBase(write, doc, drw["Id_Esquema"].ToString().ConvertToInt32());
                     this.ImprimeComerciais(write, doc, drw["Id_Esquema"].ToString().ConvertToInt32());
-                    this.ImprimeInsercao(write, doc, drw["Id_Esquema"].ToString().ConvertToInt32());
+                    if (drw["Indica_Midia_OnLine"].ToString().ConvertToBoolean())
+                    {
+                        this.ImprimeInsercaoOnLine(write, doc, drw["Id_Esquema"].ToString().ConvertToInt32());
+                    }
+                    else
+                    {
+                        this.ImprimeInsercao(write, doc, drw["Id_Esquema"].ToString().ConvertToInt32());
+                    }
                     this.ImprimeEmissoras(write, doc, drw["Id_Esquema"].ToString().ConvertToInt32());
                 }
 
@@ -160,7 +167,7 @@ namespace PROPOSTA
                 clsPdf.addCell(tbAgencia, new pdfLibCell() { Text = drw["Municipio_Agencia"].ToString(), Align = PdfPCell.ALIGN_LEFT, BorderRight = 0, BorderLeft = 0, BorderTop = 0, BorderBottom = 0 });
                 clsPdf.addCell(tbAgencia, new pdfLibCell() { Text = drw["Cep_Agencia"].ToString() ,Align = PdfPCell.ALIGN_LEFT, BorderRight = 0, BorderLeft = 0, BorderTop = 0, BorderBottom = 0 });
                 pc = ww.DirectContent;
-                tbAgencia.WriteSelectedRows(0, -1, 10, 495, pc);
+                tbAgencia.WriteSelectedRows(0, -1, 10, 480, pc);
 
                 PdfPTable tbCliente = clsPdf.CreateTable(new float[] { 300, 110 });
                 clsPdf.addCell(tbCliente, new pdfLibCell() { Text = "Cliente", colspan = 2, FontStyle = iTextSharp.text.Font.BOLD, Align = PdfPCell.ALIGN_CENTER, FontSize = 12, Background = System.Drawing.Color.Silver, Height = 20 });
@@ -171,8 +178,9 @@ namespace PROPOSTA
                 clsPdf.addCell(tbCliente, new pdfLibCell() { Text = drw["Municipio_Cliente"].ToString(), Align = PdfPCell.ALIGN_LEFT, BorderRight = 0, BorderLeft = 1, BorderTop = 0, BorderBottom = 0 });
                 clsPdf.addCell(tbCliente, new pdfLibCell() { Text = drw["Cep_Cliente"].ToString(), Align = PdfPCell.ALIGN_LEFT, BorderRight = 0, BorderLeft = 0, BorderTop = 0, BorderBottom = 0 });
                 pc = ww.DirectContent;
-                tbCliente.WriteSelectedRows(0, -1, 421, 495, pc);
-                CurrentPosition = 495 - tbCliente.TotalHeight;
+                tbCliente.WriteSelectedRows(0, -1, 421, 480, pc);
+                CurrentPosition = 480 - tbCliente.TotalHeight;
+                
 
             }
             catch (Exception)
@@ -234,56 +242,23 @@ namespace PROPOSTA
             clsPdf.addCell(tbDados, new pdfLibCell() { Text = drw["Termino_Campanha"].ToString() });
             clsPdf.addCell(tbDados, new pdfLibCell() { Text = "Tabela de Preços" });
             clsPdf.addCell(tbDados, new pdfLibCell() { Text = drw["Tabela_Preco"].ToString() });
+            clsPdf.addCell(tbDados, new pdfLibCell() { Text = "Tipo" });
+            if (drw["Indica_Midia_OnLine"].ToString().ConvertToBoolean())
+            {
+                clsPdf.addCell(tbDados, new pdfLibCell() { Text = "ON-LINE" });
+            }
+            else
+            {
+                clsPdf.addCell(tbDados, new pdfLibCell() { Text = "OFF-LINE" });
+            }
+            clsPdf.addCell(tbDados, new pdfLibCell() { Text = drw["Tabela_Preco"].ToString() });
 
             pc = ww.DirectContent;
             tbDados.WriteSelectedRows(0, -1, 632, 585, pc);
             CurrentPosition = 585 - tbDados.TotalHeight;
+            
+            
         }
-        //private void ImprimeDadosBase(PdfWriter ww, Document dd, DataRow drw)
-        //{
-        //    PdfContentByte pc;
-        //    PdfPTable tbDados = clsPdf.CreateTable(new float[] { 100, 100 });
-        //    clsPdf.addCell(tbDados, new pdfLibCell() { Text = "N.Simulacao" });
-        //    clsPdf.addCell(tbDados, new pdfLibCell() { Text = drw["Id_Simulacao"].ToString() });
-        //    clsPdf.addCell(tbDados, new pdfLibCell() { Text = "Data" });
-        //    clsPdf.addCell(tbDados, new pdfLibCell() { Text = drw["Data_Inclusao"].ToString() });
-        //    clsPdf.addCell(tbDados, new pdfLibCell() { Text = "Início Campanha" });
-        //    clsPdf.addCell(tbDados, new pdfLibCell() { Text = drw["Inicio_Campanha"].ToString() });
-        //    clsPdf.addCell(tbDados, new pdfLibCell() { Text = "Término Campanha" });
-        //    clsPdf.addCell(tbDados, new pdfLibCell() { Text = drw["Termino_Campanha"].ToString() });
-        //    clsPdf.addCell(tbDados, new pdfLibCell() { Text = "Tabela de Preços" });
-        //    clsPdf.addCell(tbDados, new pdfLibCell() { Text = drw["Tabela_Preco"].ToString() });
-        //    clsPdf.addCell(tbDados, new pdfLibCell() { Text = "Pacote Descontos" });
-        //    clsPdf.addCell(tbDados, new pdfLibCell() { Text = drw["Nome_Pacote"].ToString() });
-        //    pc = ww.DirectContent;
-        //    tbDados.WriteSelectedRows(0, -1, 632, 585, pc);
-
-        //    PdfPTable tbAgencia = clsPdf.CreateTable(new float[] { 301, 110 });
-        //    clsPdf.addCell(tbAgencia, new pdfLibCell() { Text = "Agencia", colspan = 2, FontStyle = iTextSharp.text.Font.BOLD, Align = PdfPCell.ALIGN_CENTER, FontSize = 12, Background = System.Drawing.Color.Silver, Height = 20 });
-        //    clsPdf.addCell(tbAgencia, new pdfLibCell() { Text = drw["Nome_Agencia"].ToString() });
-        //    clsPdf.addCell(tbAgencia, new pdfLibCell() { Text = drw["Cnpj_Agencia"].ToString() });
-        //    clsPdf.addCell(tbAgencia, new pdfLibCell() { Text = drw["Endereco_Agencia"].ToString() });
-        //    clsPdf.addCell(tbAgencia, new pdfLibCell() { Text = drw["Bairro_Agencia"].ToString() });
-        //    clsPdf.addCell(tbAgencia, new pdfLibCell() { Text = drw["Municipio_Agencia"].ToString() });
-        //    clsPdf.addCell(tbAgencia, new pdfLibCell() { Text = drw["Cep_Agencia"].ToString() });
-        //    pc = ww.DirectContent;
-        //    tbAgencia.WriteSelectedRows(0, -1, 10, 495, pc);
-
-        //    PdfPTable tbCliente = clsPdf.CreateTable(new float[] { 300, 110 });
-        //    clsPdf.addCell(tbCliente, new pdfLibCell() { Text = "Cliente", colspan = 2, FontStyle = iTextSharp.text.Font.BOLD, Align = PdfPCell.ALIGN_CENTER, FontSize = 12, Background = System.Drawing.Color.Silver, Height = 20 });
-        //    clsPdf.addCell(tbCliente, new pdfLibCell() { Text = drw["Nome_Cliente"].ToString() });
-        //    clsPdf.addCell(tbCliente, new pdfLibCell() { Text = drw["Cnpj_Cliente"].ToString() });
-        //    clsPdf.addCell(tbCliente, new pdfLibCell() { Text = drw["Endereco_Cliente"].ToString() });
-        //    clsPdf.addCell(tbCliente, new pdfLibCell() { Text = drw["Bairro_Cliente"].ToString() });
-        //    clsPdf.addCell(tbCliente, new pdfLibCell() { Text = drw["Municipio_Cliente"].ToString() });
-        //    clsPdf.addCell(tbCliente, new pdfLibCell() { Text = drw["Cep_Cliente"].ToString() });
-        //    pc = ww.DirectContent;
-        //    //tbCliente.WriteSelectedRows(0, -1, 10, 495, pc);
-        //    tbCliente.WriteSelectedRows(0, -1, 421, 495, pc);
-        //    CurrentPosition = 495 - tbCliente.TotalHeight;
-
-
-        //}
         private void ImprimeComerciais(PdfWriter ww, Document dd, Int32 pId_Esquema)
         {
             PdfContentByte pc;
@@ -355,8 +330,8 @@ namespace PROPOSTA
             //==================Imprime
             List<TableTemplate> Grid = new List<TableTemplate>();
             Grid.Add(new TableTemplate() { Size = 41, Header = "Programa", Field = "Cod_Programa" });
-            Grid.Add(new TableTemplate() { Size = 20, Header = "Car.", Field = "Cod_Caracteristica" });
-            Grid.Add(new TableTemplate() { Size = 20, Header = "Leg.", Field = "Cod_Comercial" });
+            Grid.Add(new TableTemplate() { Size = 25, Header = "Car.", Field = "Cod_Caracteristica" });
+            Grid.Add(new TableTemplate() { Size = 25, Header = "Leg.", Field = "Cod_Comercial" });
             Grid.Add(new TableTemplate() { Size = 15, Header = "01", Field = "D01" });
             Grid.Add(new TableTemplate() { Size = 15, Header = "02", Field = "D02" });
             Grid.Add(new TableTemplate() { Size = 15, Header = "03", Field = "D03" });
@@ -389,8 +364,8 @@ namespace PROPOSTA
             Grid.Add(new TableTemplate() { Size = 15, Header = "30", Field = "D30" });
             Grid.Add(new TableTemplate() { Size = 15, Header = "31", Field = "D31" });
             Grid.Add(new TableTemplate() { Size = 35, Header = "Qtd Total", Field = "Qtd_Linha", Align = PdfPCell.ALIGN_RIGHT });
-            Grid.Add(new TableTemplate() { Size = 60, Header = "Vlr Tabela Unit.", Field = "Valor_Tabela_Unitario", Align = PdfPCell.ALIGN_RIGHT });
-            Grid.Add(new TableTemplate() { Size = 60, Header = "Vlr Tabela Total.", Field = "Valor_Tabela_Total", Align = PdfPCell.ALIGN_RIGHT });
+            Grid.Add(new TableTemplate() { Size = 55, Header = "Vlr Tabela Unit.", Field = "Valor_Tabela_Unitario", Align = PdfPCell.ALIGN_RIGHT });
+            Grid.Add(new TableTemplate() { Size = 55, Header = "Vlr Tabela Total.", Field = "Valor_Tabela_Total", Align = PdfPCell.ALIGN_RIGHT });
             Grid.Add(new TableTemplate() { Size = 60, Header = "Vlr Negociado", Field = "Valor_Negociado_Total", Align = PdfPCell.ALIGN_RIGHT });
             Grid.Add(new TableTemplate() { Size = 60, Header = "Desc.", Field = "Desconto_Real", Align = PdfPCell.ALIGN_RIGHT });
 
@@ -422,6 +397,90 @@ namespace PROPOSTA
                     for (int i = 0; i < Grid.Count; i++)
                     {
                         clsPdf.addCell(tbMidia, new pdfLibCell() { Text = Grid[i].Header, FontSize = 7, FontStyle = iTextSharp.text.Font.BOLD ,Background=System.Drawing.Color.Silver});
+                    }
+                    BolPrimeiro = false;
+                }
+                if (drwM["Tipo_Linha"].ToString() == "0")
+                {
+                    for (int i = 0; i < Grid.Count; i++)
+                    {
+                        clsPdf.addCell(tbMidia, new pdfLibCell() { Text = drwM[Grid[i].Field].ToString(), FontSize = 7, Align = Grid[i].Align });
+                    }
+                }
+                else
+                {
+                    clsPdf.addCell(tbMidia, new pdfLibCell() { Text = "Totais", colspan = 3, FontSize = 7, FontStyle = iTextSharp.text.Font.BOLD });
+                    for (int i = 3; i < Grid.Count; i++)
+                    {
+                        clsPdf.addCell(tbMidia, new pdfLibCell() { Text = drwM[Grid[i].Field].ToString(), FontSize = 7, Align = Grid[i].Align });
+                    }
+                }
+
+
+                hasRow = true;
+            }
+            if (hasRow)
+            {
+                pc = ww.DirectContent;
+                tbMidia.WriteSelectedRows(0, -1, 10, CurrentPosition, pc);
+                CurrentPosition -= tbMidia.TotalHeight;
+            }
+        }
+        private void ImprimeInsercaoOnLine(PdfWriter ww, Document dd, Int32 pId_Esquema)
+        {
+            PdfContentByte pc;
+            Boolean hasRow = false;
+            Boolean BolPrimeiro;
+            //==================Carrega Midia On Line
+            DataTable dtb = new DataTable();
+            SqlDataAdapter dta = new SqlDataAdapter();
+            clsConexao cnn = new clsConexao(this.Credential);
+            cnn.Open();
+            dta.SelectCommand = cnn.Procedure(cnn.Connection, "Pr_Proposta_Imprime_Mapa_Midia_OnLine");
+            dta.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+            dta.SelectCommand.Parameters.AddWithValue("@Par_Id_Esquema", pId_Esquema);
+            dta.Fill(dtb);
+            //==================Imprime
+            List<TableTemplate> Grid = new List<TableTemplate>();
+            Grid.Add(new TableTemplate() { Size = 116, Header = "Localização", Field = "Nome_Programa", Align = PdfPCell.ALIGN_LEFT});
+            Grid.Add(new TableTemplate() { Size = 25, Header = "Car.", Field = "Cod_Caracteristica" });
+            Grid.Add(new TableTemplate() { Size = 25, Header = "Leg.", Field = "Cod_Comercial" });
+            Grid.Add(new TableTemplate() { Size = 100, Header = "Título Comercial", Field = "Titulo_Comercial", Align = PdfPCell.ALIGN_LEFT });
+            Grid.Add(new TableTemplate() { Size = 100, Header = "Tipo Comercial", Field = "Tipo_Comercial" });
+            Grid.Add(new TableTemplate() { Size = 80, Header = "Tipo Comercialização", Field = "Nome_Tipo_Comercializacao", Align = PdfPCell.ALIGN_LEFT });
+            Grid.Add(new TableTemplate() { Size = 100, Header = "Período", Field = "Periodo", Align = PdfPCell.ALIGN_CENTER});
+            Grid.Add(new TableTemplate() { Size = 35, Header = "Qtd Acões", Field = "Qtd_Insercoes", Align = PdfPCell.ALIGN_RIGHT });
+            Grid.Add(new TableTemplate() { Size = 60, Header = "Vlr Tabela Unit.", Field = "Valor_Tabela_Unitario", Align = PdfPCell.ALIGN_RIGHT });
+            Grid.Add(new TableTemplate() { Size = 60, Header = "Vlr Tabela Total.", Field = "Valor_Tabela_Total", Align = PdfPCell.ALIGN_RIGHT });
+            Grid.Add(new TableTemplate() { Size = 60, Header = "Vlr Negociado", Field = "Valor_Negociado_Total", Align = PdfPCell.ALIGN_RIGHT });
+            Grid.Add(new TableTemplate() { Size = 60, Header = "Desc.", Field = "Desconto_Real", Align = PdfPCell.ALIGN_RIGHT });
+
+            float[] GridCells = new float[Grid.Count];
+            for (int i = 0; i < Grid.Count; i++)
+            {
+                GridCells[i] = Grid[i].Size;
+            }
+            PdfPTable tbMidia = clsPdf.CreateTable(GridCells);
+            BolPrimeiro = true;
+            foreach (DataRow drwM in dtb.Rows)
+            {
+                if (CurrentPosition - tbMidia.TotalHeight < 50)
+                {
+                    if (hasRow)
+                    {
+                        pc = ww.DirectContent;
+                        tbMidia.WriteSelectedRows(0, -1, 10, CurrentPosition, pc);
+                        BolPrimeiro = true;
+                    }
+                    this.ImprimeCabecalho(ww, dd, pId_Esquema);
+                }
+                if (BolPrimeiro)
+                {
+                    tbMidia = clsPdf.CreateTable(GridCells);
+                    clsPdf.addCell(tbMidia, new pdfLibCell() { Text = "Mídia", Height = 20, Background = System.Drawing.Color.Silver, colspan = Grid.Count, FontStyle = iTextSharp.text.Font.BOLD });
+                    for (int i = 0; i < Grid.Count; i++)
+                    {
+                        clsPdf.addCell(tbMidia, new pdfLibCell() { Text = Grid[i].Header, FontSize = 7, FontStyle = iTextSharp.text.Font.BOLD, Background = System.Drawing.Color.Silver });
                     }
                     BolPrimeiro = false;
                 }

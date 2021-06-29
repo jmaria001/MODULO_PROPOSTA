@@ -221,6 +221,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Apresentadores\ApresentadoresController.cs" />
+    <Compile Include="Apresentadores\ApresentadoresModel.cs" />
+    <Compile Include="Apresentadores\ApresentadoresSql.cs" />
     <Compile Include="BaixaContrato\BaixaContratoController.cs" />
     <Compile Include="BaixaContrato\BaixaContratoModel.cs" />
     <Compile Include="BaixaContrato\BaixaContratoSql.cs" />

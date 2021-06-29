@@ -94,6 +94,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="angular\Controller\ApresentadoresCadastroController.js" />
+    <Content Include="angular\Controller\ApresentadoresController.js" />
     <Content Include="angular\Controller\BaixaVeiculacaoSiteController.js" />
     <Content Include="angular\Controller\BaixaContratoController.js" />
     <Content Include="angular\Controller\BaixaRoteiroController.js" />
@@ -314,6 +316,8 @@
     <Content Include="template\PesquisaGradeCompensacao.html" />
     <Content Include="view\Am_Consulta.html" />
     <Content Include="view\Am_Reencaixe.html" />
+    <Content Include="view\Apresentadores.html" />
+    <Content Include="view\ApresentadoresCadastro.html" />
     <Content Include="view\BaixaContrato.html" />
     <Content Include="view\BaixaRoteiro.html" />
     <Content Include="view\BaixaVeiculacaoSite.html" />

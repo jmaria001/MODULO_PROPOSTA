@@ -55,7 +55,7 @@
         $scope.Caracteristica_Contrato = response.data;
     });
     //=====================Carrega a Simulacao 
-    $scope.CarregarSimulacao = function (pId_Simulacao, pProcesso,fromImport) {
+    $scope.CarregarSimulacao = function (pId_Simulacao, pProcesso, fromImport) {
         $scope.GeracaoProposta = {};
         httpService.Get("GetSimulacao/" + pId_Simulacao + "/" + pProcesso).then(function (response) {
             if (response.data) {
@@ -94,7 +94,7 @@
             _tempEsquema.RedeId = "";
             _tempEsquema.Cod_Empresa_Faturamento = $scope.FnSetEmpresaDefault("CODIGO");
             $scope.Simulacao.Esquemas.push(angular.copy(_tempEsquema));
-            $scope.currentEsquema = $scope.Simulacao.Esquemas.length-1;
+            $scope.currentEsquema = $scope.Simulacao.Esquemas.length - 1;
         });
     };
     //===================================Adicionar Esquema 
@@ -107,7 +107,7 @@
             _tempEsquema.RedeId = "";
             _tempEsquema.Cod_Empresa_Faturamento = $scope.FnSetEmpresaDefault("CODIGO");
             $scope.Simulacao.Esquemas.push(angular.copy(_tempEsquema));
-            $scope.currentEsquema = $scope.Simulacao.Esquemas.length-1;
+            $scope.currentEsquema = $scope.Simulacao.Esquemas.length - 1;
         });
     };
     //===================================Botao Adicionar Midia
@@ -163,7 +163,7 @@
             $scope.Simulacao.Esquemas[$scope.currentEsquema].Midia_OnLine.push(angular.copy(_tempMidia));
         });
     };
-    
+
     //==========================Mudou a abrangencia/ Se for Net ja carrega o veiculo
     $scope.Abrangencia_Change = function () {
         $scope.Simulacao.Esquemas[$scope.currentEsquema].Veiculos = [];
@@ -233,6 +233,7 @@
     };
     //==============================Mudou algum dado da midia
     $scope.fnChangeMidia = function (pMidia, pField, pIndica_OnLine) {
+        pMidia.IsValid = false;
         switch (pField) {
             case 'Dia_Inicio':
                 break;
@@ -545,6 +546,16 @@
     }
     //===================================Remover esquema
     $scope.RemoverEsquema = function (pIdEsquema, pTodos) {
+        var _selecionados = 0;
+        for (var i = $scope.Simulacao.Esquemas.length - 1; i >= 0; i--) {
+            if ($scope.Simulacao.Esquemas[i].Selected) {
+                _selecionados++;
+            };
+        };
+        if (!_selecionados) {
+            ShowAlert("Nenhum Esquema foi selecionado.");
+            return;
+        };
         swal({
             title: "Tem certeza que deseja exclur " + (pTodos ? 'todos os Esquemas ?' : 'esse Esquema ?'),
             type: "warning",
@@ -559,23 +570,34 @@
                 $scope.currentEsquema = 0;
             }
             else {
+                //for (var i = 0; i < $scope.Simulacao.Esquemas.length; i++) {
+                //    if ($scope.Simulacao.Esquemas[i].Id_Esquema == pIdEsquema) {
+                //        $scope.Simulacao.Esquemas.splice(i, 1);
+                //        $scope.currentEsquema--;
+                //        if ($scope.currentEsquema < 0) {
+                //            $scope.currentEsquema = 0;
+                //        }
+                //        $scope.Simulacao.PendenteCalculo = true;
+                //        break;
+                //    };
+                //};
 
-                for (var i = 0; i < $scope.Simulacao.Esquemas.length; i++) {
-                    if ($scope.Simulacao.Esquemas[i].Id_Esquema == pIdEsquema) {
+                for (var i = $scope.Simulacao.Esquemas.length - 1; i >= 0; i--) {
+                    if ($scope.Simulacao.Esquemas[i].Selected) {
                         $scope.Simulacao.Esquemas.splice(i, 1);
-                        $scope.currentEsquema--;
-                        if ($scope.currentEsquema < 0) {
-                            $scope.currentEsquema = 0;
-                        }
+                        //$scope.currentEsquema--;
+                        //if ($scope.currentEsquema < 0) {
+                        //    $scope.currentEsquema = 0;
+                        //}
                         $scope.Simulacao.PendenteCalculo = true;
-                        break;
-                    }
-                }
-            }
+                        //break;
+                    };
+                };
+            };
             $scope.$digest();
-            $scope.SalvarSimulacao($scope.Simulacao, false)
+            $scope.SalvarSimulacao($scope.Simulacao, false);
         });
-    }
+    };
     //===================================Rebrir Proposta
     $scope.ReabrirProposta = function (pIdSimulacao) {
         swal({
@@ -591,7 +613,7 @@
                 if (response.data) {
                     ShowAlert("Proposta reaberta com Sucesso");
                     $scope.CarregarSimulacao(pIdSimulacao, $scope.Parameters.Processo)
-                }
+                };
             });
         });
     };
@@ -603,9 +625,8 @@
                 'Text': pLinha.Critica.split('#')
             }
             $("#modalInfo").modal(true);
-        }
-
-    }
+        };
+    };
     //===================================Detalhar Desconto
     $scope.DetalharDesconto = function (pMidia, pIndica_OnLine) {
         $scope.DescontoDetalhado = [];
@@ -613,12 +634,36 @@
             if (response) {
                 $scope.DescontoDetalhado = response.data;
                 $("#modalDescontoDetalhe").modal(true);
-            }
+            };
         });
     };
     //===================================Duplicar Esquemas
     $scope.DuplicarEsquema = function (pIdSimulacao, pId_Esquema, pTipo) {
-        httpService.Get("DuplicarEsquema/" + pId_Esquema + '/' + pTipo).then(function (response) {
+        var _ArrayEsquemas= [];
+        for (var i = 0; i < $scope.Simulacao.Esquemas.length ; i++) {
+            if ($scope.Simulacao.Esquemas[i].Selected) {
+                _ArrayEsquemas.push({ 'Id_Esquema': $scope.Simulacao.Esquemas[i].Id_Esquema, 'Tipo_Duplicacao': pTipo });
+            };
+        };
+        if (_ArrayEsquemas.length == 0) {
+            ShowAlert("Nenhum Esquema foi selecionado.");
+            return;
+        };
+        //httpService.Get("DuplicarEsquema/" + pId_Esquema + '/' + pTipo).then(function (response) {
+        //    if (response) {
+        //        if (response.data[0].Qtd_Exportado > 0) {
+        //            $scope.CarregarSimulacao(pIdSimulacao, $scope.Parameters.Processo);
+        //        }
+        //        if (response.data[0].Critica) {
+        //            $scope.Info = {
+        //                'Title': 'Crítica da Duplicação de Esquemas',
+        //                'Text': response.data[0].Critica.split('#')
+        //            }
+        //            $("#modalInfo").modal(true);
+        //        };
+        //    };
+        //});
+        httpService.Post("DuplicarEsquema/", _ArrayEsquemas).then(function (response) {
             if (response) {
                 if (response.data[0].Qtd_Exportado > 0) {
                     $scope.CarregarSimulacao(pIdSimulacao, $scope.Parameters.Processo);
@@ -629,25 +674,23 @@
                         'Text': response.data[0].Critica.split('#')
                     }
                     $("#modalInfo").modal(true);
-                }
-            }
+                };
+            };
         });
-    }
+    };
     //===================================Processa a Importação da Simulacao para Gerar a Proposta
     $scope.ImportarSimulacao = function (pId_Simulacao) {
         var _data = {
             'Id_Simulacao': pId_Simulacao,
             'Validade_Inicio': ($scope.Simulacao.Validade_Inicio) ? $scope.Simulacao.Validade_Inicio : null,
             'Validade_Termino': ($scope.Simulacao.Validade_Termino) ? $scope.Simulacao.Validade_Termino : null,
-        }
-
-
+        };
         httpService.Post('ImportarSimulacao', _data).then(function (response) {
             if (response) {
-                $scope.CarregarSimulacao(response.data[0].Id_Simulacao, 'P',true)
-            }
+                $scope.CarregarSimulacao(response.data[0].Id_Simulacao, 'P', true)
+            };
         });
-    }
+    };
     //===================================Selecionar Simulacao Para Importacao e gerar nova proposta
     $scope.SelecionarImportacao = function () {
         httpService.Get('ListarTabela/Simulacao').then(function (response) {
@@ -658,9 +701,9 @@
                 $scope.PesquisaTabelas.MultiSelect = false;
                 $scope.PesquisaTabelas.ClickCallBack = function (value) { $scope.ImportarSimulacao(value.Codigo, 'S', true) };
                 $("#modalTabela").modal(true);
-            }
+            };
         });
-    }
+    };
     //===================================Mostrar Aprovadores
     $scope.MostrarAprovadores = function (pId_Simulacao) {
         httpService.Get("MostrarAprovadores/" + pId_Simulacao).then(function (response) {
@@ -672,7 +715,7 @@
                 $scope.Info = {
                     'Title': 'Aprovadores',
                     'Text': _text
-                }
+                };
                 $("#modalInfo").modal(true);
             }
         });
@@ -694,9 +737,9 @@
                         };
                     };
                 });
-            }
+            };
         });
-    }
+    };
     //===================================Aprovar Proposta
     $scope.AprovarProposta = function (pId_Simulacao) {
         var _data = { 'Id_Simulacao': pId_Simulacao };
@@ -706,9 +749,9 @@
                 $scope.ShowOk = false;
                 ShowAlert(response.data[0].Mensagem, response.data[0].Status ? 'success' : 'warning');
                 $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo);
-            }
+            };
         });
-    }
+    };
 
     //===================================Impressao da Midia
     $scope.ImprimirMidia = function (pId_Simulacao) {
@@ -720,7 +763,7 @@
             }
             else {
                 ShowAlert("Não existe mídia a ser impressa para essa " + $scope.Descricao_Processo, "warning")
-            }
+            };
         });
     };
     //===================================Analisar Simulacao
@@ -746,15 +789,15 @@
             if (!ValidaEmail(_arrayEmail[i])) {
                 pProposta.Alerta = _arrayEmail[i] + ' não é um email válido'
                 return;
-            }
-        }
+            };
+        };
         _arrayEmail = pProposta.Email_Copia.split(',');
         for (var i = 0; i < _arrayEmail.length; i++) {
             if (!ValidaEmail(_arrayEmail[i])) {
                 pProposta.Alerta = _arrayEmail[i] + ' não é um email válido'
                 return;
-            }
-        }
+            };
+        };
         httpService.Post("GerarProposta/", pProposta).then(function (response) {
             if (response.data) {
                 $("#ModalGeracaoProposta").modal('hide');
@@ -766,19 +809,19 @@
                 else {
                     ShowAlert("Proposta Gerada e enviada com Sucesso!", "warning")
                     $scope.CarregarSimulacao($scope.Parameters.Id, $scope.Parameters.Processo);
-                }
+                };
             }
             else {
                 ShowAlert("Não há dados para geração da proposta", "warning")
-            }
+            };
         });
     };
     //=========================Marcar/Desmarcar todos os veiculos
     $scope.SelectAllVeiculo = function (pLista, pCheck) {
         for (var i = 0; i < pLista.length; i++) {
             pLista[i].Selected = pCheck;
-        }
-    }
+        };
+    };
     //===================================Preencher dados para geracao da proposta
     $scope.PreencherProposta = function (pId_Simulacao) {
         $scope.GeracaoProposta = { 'Id_Simulacao': pId_Simulacao, 'Nome_Contato': '', 'Email_Contato': '', 'Email_Copia': '', 'Observacao': '', 'Alerta': '', 'Visualizar': false };
@@ -793,7 +836,7 @@
                     'Text': response.data
                 };
                 $("#modalInfo").modal(true);
-            }
+            };
         });
     }
     $scope.ConfirmarVenda = function (pId_Simulacao) {
@@ -801,9 +844,9 @@
         httpService.Post('ConfirmarVenda', _data).then(function (response) {
             if (response.data) {
                 $scope.CarregarSimulacao(pId_Simulacao, $scope.Parameters.Processo);
-            }
+            };
         });
-    }
+    };
     //===================================Consiste a Competencia do Esquema
     $scope.ConsisteCompetencia = function (pCompetencia) {
         var _referenciaInicio = $scope.Simulacao.Validade_Inicio.substr(6, 5) + $scope.Simulacao.Validade_Inicio.substr(3, 2);
@@ -812,7 +855,7 @@
         if (_mesano < _referenciaInicio || _mesano > _referenciaFim) {
             ShowAlert('Competencia ' + pCompetencia + ' fora da validade do Modelo', 'warning')
             $scope.Simulacao.Esquemas[$scope.currentEsquema].Competencia = "";
-        }
+        };
     };
     //===================================Seta Iniciar calculo false apos o load da pagina
     //$timeout(function () {
@@ -843,7 +886,7 @@
         }
         else {
             $scope.Simulacao.Indica_Sem_Midia = pValue
-        }
+        };
     };
     $scope.SetTotalizadorIndex = function (pIndex) {
         $scope.TotalizadorIndex = pIndex;
@@ -888,7 +931,7 @@
             }
             else {
                 $scope.Simulacao.Descricao_Pacote = response.data[0].Descricao;
-            }
+            };
         });
     };
     //===========================Mostrar Historico do Status 
@@ -901,5 +944,4 @@
         });
         $("#modalHistorico").modal(true);
     }
-}]);
-;
+}])

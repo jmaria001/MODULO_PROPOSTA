@@ -1083,6 +1083,20 @@
         routeName: 'Importação da Tabela de Preços de Planilhas',
         RouteId: 'TabelaPrecos@Import'
     })
+    .when('/Apresentadores', {
+        templateUrl: 'view/Apresentadores.html',
+        authorize: true,
+        controller: 'ApresentadoresController',
+        routeName: 'Cadastro de Apresentadores',
+        RouteId: 'Apresentadores@Index'
+    })
+    .when('/ApresentadoresCadastro/:Action/:Id', {
+    templateUrl: 'view/ApresentadoresCadastro.html',
+    authorize: true,
+    controller: 'ApresentadoresCadastroController',
+    routeName: 'Apresentadores - Cadastro',
+    RouteId: 'Apresentadores@New'
+    })
     .otherwise({ redirectTo: "/blank" })
 });
 

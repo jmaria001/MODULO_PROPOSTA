@@ -458,9 +458,9 @@ namespace PROPOSTA
                         Cod_Programa = drw["Cod_Programa"].ToString(),
                         Cod_Caracteristica = drw["Cod_Caracteristica"].ToString(),
                         Cod_Comercial = drw["Cod_Comercial"].ToString(),
-                        Permite_Editar = false,
+                        Permite_Editar = true,
                         Qtd_Total = drw["Qtd_Total_Insercoes"].ToString().ConvertToInt32(),
-                        Insercoes = AddInsercoesEsquema(drw["Id_Midia"].ToString().ConvertToInt32())
+                        Insercoes = AddInsercoesEsquema(drw["Id_Midia"].ToString().ConvertToInt32()),
                     });
                 }
             }
@@ -501,6 +501,7 @@ namespace PROPOSTA
                         Cod_Comercial = drw["Cod_Comercial"].ToString(),
                         Titulo_Comercial = drw["Titulo_Comercial"].ToString(),
                         Cod_Programa = drw["Cod_Programa"].ToString(),
+                        Permite_Editar = true,
                         Nome_Tipo_Comercializacao = drw["Nome_Tipo_Comercializacao"].ToString(),
                         Qtd = drw["Qtd"].ToString().ConvertToInt32(),
                     });

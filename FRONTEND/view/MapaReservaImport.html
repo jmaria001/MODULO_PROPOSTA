@@ -12,6 +12,7 @@
                     <tr>
                         <th></th>
                         <th>Id</th>
+                        <th>Tipo</th>
                         <th>Identificação</th>
                         <th>Competência</th>
                         <th>Rede</th>
@@ -35,6 +36,10 @@
                             </a>
                         </td>
                         <td style="text-align:center">{{::Simulacao.Id_Simulacao}}</td>
+                        <td>
+                            <label class="label label-warning" ng-show="Simulacao.Indica_Midia_OnLine">On-Line</label>
+                            <label class="label label-info" ng-hide="Simulacao.Indica_Midia_OnLine">Off-Line</label>
+                        </td>
                         <td>{{::Simulacao.Identificacao}}</td>
                         <td style="text-align:center ">{{::Simulacao.Competencia_Text}}</td>
                         <td>{{::Simulacao.Nome_Rede}}</td>

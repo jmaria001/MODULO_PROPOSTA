@@ -107,10 +107,11 @@
     };
     //=======================Selecao de Tipo de Comercial
     $scope.PesquisaTipoComercial = function () {
+        console.log($scope.Filtro.TipoParametroValoracao);
         $scope.PesquisaTabelas = NewPesquisaTabela();
         $scope.listaTipoComercial = ""
         var _url = 'ListarTabela/Tipo_Comercial'
-        if ($scope.Filtro.TipoParametroValoracao = 'MidiaOnline') {
+        if ($scope.Filtro.TipoParametroValoracao == 'MidiaOnline') {
             var _url = 'ListarTabela/Tipo_Comercial_Online/';
         };
         httpService.Get(_url).then(function (response) {
@@ -137,7 +138,7 @@
             };
         };
         var _url = "ValidarTabela/Tipo_Comercial/" + pCodigo.trim()
-        if ($scope.Filtro.TipoParametroValoracao = 'MidiaOnline') {
+        if ($scope.Filtro.TipoParametroValoracao == 'MidiaOnline') {
             var _url = "ValidarTabela/Tipo_Comercial_Online/" + pCodigo.trim()
         };
         

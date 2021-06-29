@@ -5,6 +5,7 @@
 
     $scope.gridheaders = [{ 'title': '', 'visible': true, 'searchable': false, 'config': true, 'sortable': false},
                             { 'title': 'Id', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+                            { 'title': 'Tipo', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Identificação', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Rede', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
                             { 'title': 'Emp.Venda', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },

@@ -724,20 +724,54 @@ namespace PROPOSTA
             }
             return dtb;
         }
-        public DataTable DuplicarEsquema(Int32 pId_Esquema, Int32 pTipo)
+        //public DataTable DuplicarEsquema(Int32 pId_Esquema, Int32 pTipo)
+        //{
+        //    clsConexao cnn = new clsConexao(this.Credential);
+        //    cnn.Open();
+        //    SqlDataAdapter Adp = new SqlDataAdapter();
+        //    DataTable dtb = new DataTable("dtb");
+        //    SimLib clsLib = new SimLib();
+        //    try
+        //    {
+        //        SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Exportar_Esquema");
+        //        Adp.SelectCommand = cmd;
+        //        Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
+        //        Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Esquema", pId_Esquema);
+        //        Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo", pTipo);
+        //        Adp.Fill(dtb);
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw;ImportarSimulacao
+        //    }
+        //    finally
+        //    {
+        //        cnn.Close();
+        //    }
+        //    return dtb;
+        //}
+        public DataTable DuplicarEsquema(List<Simulacao.ParamDuplicarEsquemaModel> Param)
         {
             clsConexao cnn = new clsConexao(this.Credential);
             cnn.Open();
             SqlDataAdapter Adp = new SqlDataAdapter();
             DataTable dtb = new DataTable("dtb");
             SimLib clsLib = new SimLib();
+            String xmlEsquemas = null;
+            Int32 Tipo_Duplicacao = 0;
+            if (Param.Count > 0)
+            {
+                xmlEsquemas = clsLib.SerializeToString(Param);
+                Tipo_Duplicacao = Param[0].Tipo_Duplicacao;
+            }
             try
             {
-                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Exportar_Esquema");
+                SqlCommand cmd = cnn.Procedure(cnn.Connection, "Pr_Proposta_Exportar_Esquema_Xml");
                 Adp.SelectCommand = cmd;
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Login", this.CurrentUser);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Id_Esquema", pId_Esquema);
-                Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo", pTipo);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Esquema", xmlEsquemas);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Tipo_Duplicacao", Tipo_Duplicacao);
+
                 Adp.Fill(dtb);
             }
             catch (Exception)

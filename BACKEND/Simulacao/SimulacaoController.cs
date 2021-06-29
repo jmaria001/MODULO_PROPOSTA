@@ -400,18 +400,39 @@ namespace PROPOSTA
             }
         }
 
-        [Route("api/DuplicarEsquema/{Id_Esquema}/{Tipo}")]
-        [HttpGet]
+        //[Route("api/DuplicarEsquema/{Id_Esquema}/{Tipo}")]
+        //[HttpGet]
+        //[ActionName("DuplicarEsquema")]
+        //[Authorize()]
+        //public IHttpActionResult DuplicarEsquema(Int32 Id_Esquema,Int32 Tipo)
+        //{
+        //    SimLib clsLib = new SimLib();
+        //    Simulacao Cls = new Simulacao(User.Identity.Name);
+
+        //    try
+        //    {
+        //        DataTable dtbRetorno = Cls.DuplicarEsquema(Id_Esquema,Tipo);
+        //        return Ok(dtbRetorno);
+        //    }
+        //    catch (Exception Ex)
+        //    {
+        //        clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
+        //        throw new Exception(Ex.Message);
+        //    }
+        //}
+
+        [Route("api/DuplicarEsquema")]
+        [HttpPost]
         [ActionName("DuplicarEsquema")]
         [Authorize()]
-        public IHttpActionResult DuplicarEsquema(Int32 Id_Esquema,Int32 Tipo)
+        public IHttpActionResult DuplicarEsquema([FromBody] List<Simulacao.ParamDuplicarEsquemaModel> Param)
         {
             SimLib clsLib = new SimLib();
             Simulacao Cls = new Simulacao(User.Identity.Name);
 
             try
             {
-                DataTable dtbRetorno = Cls.DuplicarEsquema(Id_Esquema,Tipo);
+                DataTable dtbRetorno = Cls.DuplicarEsquema(Param);
                 return Ok(dtbRetorno);
             }
             catch (Exception Ex)
@@ -421,7 +442,6 @@ namespace PROPOSTA
             }
         }
 
-        
         [Route("api/MostrarAprovadores/{Id_Simulacao}")]
         [HttpGet]
         [Authorize()]

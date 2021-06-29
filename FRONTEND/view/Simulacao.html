@@ -7,6 +7,7 @@
         white-space: nowrap;
         overflow: hidden;
     }
+
         .labelVeiculo span {
             display: inline-block;
             width: 80%;
@@ -18,13 +19,13 @@
         height: 30px;
     }
 
-    #tbDigitacaoEsquema td,#tbDigitacaoOnLine td {
+    #tbDigitacaoEsquema td, #tbDigitacaoOnLine td {
         padding: 5px 5px !important;
         white-space: nowrap;
         text-align: center;
     }
 
-    #tbDigitacaoEsquema .input-group,#tbDigitacaoOnLine .input-group {
+    #tbDigitacaoEsquema .input-group, #tbDigitacaoOnLine .input-group {
         margin-bottom: 0px;
     }
 
@@ -36,7 +37,7 @@
         text-align: center !important;
     }
 
-    #tbMidia td, #tbMidia th{
+    #tbMidia td, #tbMidia th {
         padding: 2px 2px 2px 2px !important;
         text-align: center !important;
         vertical-align: middle !important;
@@ -233,7 +234,7 @@
                                 </div>
                             </div>
                             <div class="row  padding-right-10 padding-left-10 margin-bottom-20">
-                                <!--==============================Tipo de Mídia--> 
+                                <!--==============================Tipo de Mídia-->
                                 <div class="col-md-3" ng-controller="dictionaryController">
                                     <div class="dictionary" dictionary="TipoMidias">
                                         <input id="txtCodTipoMidia"
@@ -319,12 +320,12 @@
                                                     <td>Desconto Real </td>
                                                     <td style="text-align:right">{{Simulacao.Totalizadores[TotalizadorIndex].Desconto_Real |number:4}}% </td>
                                                 </tr>
-                                                <tr ng-show="Simulacao.Id_Simulacao" >
+                                                <tr ng-show="Simulacao.Id_Simulacao">
                                                     <!--<td>Status</td>-->
-                                                    <td>    
+                                                    <td>
                                                         <label class="label label-default pull-left"><span class="span-btn" ng-click="ShowHistorico(Simulacao.Id_Simulacao)">Histórico do Status</span></label>
                                                     </td>
-                                                    <td  style="text-align:right">
+                                                    <td style="text-align:right">
                                                         <label class="label" ng-style="{'background-color':Simulacao.BackColorStatus,'color':Simulacao.ForeColorStatus}">{{Simulacao.Descricao_Status}}</label>
                                                     </td>
                                                 </tr>
@@ -581,15 +582,17 @@
                 <div ng-show="Simulacao.Esquemas.length>0">
                     <div class="row">
                         <div class="col-md-12">
-                            <button id="btnEsquema"  ng-repeat="Esquema in Simulacao.Esquemas track by $index"
+                            <div id="btnEsquema" ng-repeat="Esquema in Simulacao.Esquemas track by $index"
                                     ng-style="{'background-color':Esquema.BackColorTab}"
                                     ng-class="(Esquema.Id_Esquema==Simulacao.Esquemas[currentEsquema].Id_Esquema) ?'btn btn-default btntab btnEsquemaSelected':'btn btn-default btntab btnEsquemaUnselected'" ng-click="SetCurrenEsquema(Esquema.Id_Esquema)">
-                                {{Simulacao.Esquemas[$index].Nome_Rede}} 
+                                {{Simulacao.Esquemas[$index].Nome_Rede}}
+                                <input type="checkbox" class="pull-right" ng-model="Esquema.Selected" style="margin-top:-1px"/>
                                 <br />
                                 ({{$index+1}})-{{Esquema.Competencia | MesExtenso}}
                                 <br />
                                 {{Esquema.Valor_Total_Negociado}}
-                            </button>
+                            </div>
+                            
                         </div>
                     </div>
                     <!--lado Esquerdo do esquema-->
@@ -601,7 +604,7 @@
                                     <div class="col-md-12">
                                         <button class="btn btn-primary btn-sm" ng-click="DuplicarEsquema(Simulacao.Id_Simulacao,Simulacao.Esquemas[currentEsquema].Id_Esquema,'2')" ng-show="Simulacao.Permite_Editar">Duplicar no Período</button>
                                         <button class="btn btn-primary btn-sm" ng-click="DuplicarEsquema(Simulacao.Id_Simulacao,Simulacao.Esquemas[currentEsquema].Id_Esquema,'1')" ng-show="Simulacao.Permite_Editar">Duplicar Mês</button>
-                                        <button class="btn btn-primary btn-sm" ng-click="RemoverEsquema(Simulacao.Esquemas[currentEsquema].Id_Esquema)" ng-show="Simulacao.Permite_Editar">Excluir Esquema </button>
+                                        <button class="btn btn-primary btn-sm" ng-click="RemoverEsquema(Simulacao.Esquemas[currentEsquema].Id_Esquema)" ng-show="Simulacao.Permite_Editar">Excluir Esquemas </button>
                                         <label class="label label-warning pull-right margin-top-5 margin-right-5" ng-show="Simulacao.Esquemas[currentEsquema].Indica_Midia_OnLine">Mídia On Line</label>
                                         <label class="label label-info pull-right margin-top-5 margin-right-5" ng-show="!Simulacao.Esquemas[currentEsquema].Indica_Midia_OnLine">Mídia Off-Line</label>
                                     </div>
@@ -849,7 +852,7 @@
                                             <th colspan="2">
                                                 <label>Desc. ou Valor Informado</label>
                                             </th>
-                                            <td ></td>
+                                            <td></td>
                                             <td></td>
                                         </tr>
                                     </thead>
@@ -1008,7 +1011,7 @@
                                 <table id="tbDigitacaoOnLine" class="table table-bordered" style="border:solid 2px #e5e5e5 !important">
                                     <thead>
                                         <tr>
-                                            <th><label>Localização</label></th>                                            
+                                            <th><label>Localização</label></th>
                                             <th><label>Carac</label></th>
                                             <th><label>Tp Com</label></th>
                                             <th><label>Tp Custo</label></th>
@@ -1101,7 +1104,7 @@
                                                            onkeypress="return NumericOnly(event)"
                                                            ng-model="mol.Dia_Inicio"
                                                            ng-model-options="{updateOn: 'blur'}"
-                                                           ng-disabled="!Simulacao.Permite_Editar"     
+                                                           ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-change="fnChangeMidia(mol,'Dia_Inicio',true);FnConsisteDia(mol,'I')" />
                                                 </div>
                                             </td>
@@ -1129,7 +1132,7 @@
                                                            onkeypress="return NumericOnly(event)">
                                                 </div>
                                             </td>
-                                            
+
                                             <td>
                                                 <div class="input-group" style="min-width:90px">
                                                     <input class="form-control inputEsquema"

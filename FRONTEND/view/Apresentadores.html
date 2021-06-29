@@ -1,0 +1,39 @@
+﻿<div class="container">
+    <div class="block table-responsive" ng-show="ShowGrid">
+        <!--===================================Botoes-->
+        <a id="btnNovaApresentadores" class="btn btn-primary" ng-disabled="!PermissaoNew" href="#ApresentadoresCadastro/New/0">Nova Apresentador</a>
+
+        <button id="ExportReporttoExcel" class="btn btn-warning" ng-disabled="Apresentadores.length==0">Exportar Excel</button>
+        <div class="box table-responsive " style="min-height:600px">
+            <table id="dataTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Código</th>
+                        <th>Nome Apresentado</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="Apresentador in Apresentadores track by $index" on-finish-render="ngRepeatFinished()">
+                        <td style="width:50px; text-align:center">
+                            <a href="#ApresentadoresCadastro/Edit/{{Apresentador.Cod_Apresentador}}" ng-show="PermissaoEdit">
+                                <span class="fa fa-edit fa-2x"></span>
+                            </a>
+                        </td>
+                        <td>{{::Apresentador.Cod_Apresentador}}</td>
+                        <td>{{::Apresentador.Nome_Apresentador}}</td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ExportReporttoExcel').on('click', function () {
+            $('.buttons-excel').click()
+        });
+    });
+</script>

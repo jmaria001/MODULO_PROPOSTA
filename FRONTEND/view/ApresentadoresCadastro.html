@@ -1,0 +1,154 @@
+﻿<style>
+    input[type=text] {
+        text-transform: uppercase;
+    }
+</style>
+<div class="container">
+    <form name="frmApresentadoresCadastro" autocomplete="off">
+        <div class="block">
+            <div class="row">
+                <!--===================Codigo do Apresentador-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Código</label>
+                        <input type="text"
+                               name="txtCod_Apresentador"
+                               ng-model="Apresentador.Cod_Apresentador"
+                               class="form-control"
+                               ng-disabled="Parameters.Action=='Edit'"
+                               ng-model-options="{updateOn: 'blur'}"
+                               maxlength="6" ng-required="true" 
+                               style="text-transform:uppercase"/>
+                    </div>
+                </div>
+
+                <!--==================== Nome do Apresentador -->
+                <div class="col-md-6 margin-top-10">
+                    <div class="form-group">
+                        <label>Nome</label>
+                        <div class="input-group">
+                            <input type="text"  id="txtNome_Apresentador" class="form-control" ng-model="Apresentador.Nome_Apresentador" style="text-transform:uppercase" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+                <!--====================CNJP/CPF-->
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">CPF/CNPJ</label>
+                        <input type="text" name="txtCNPJCPF" class="form-control cnpj" ng-model="Apresentador.CGC" maxlength="18" ng-required="true" />
+                    </div>
+                </div>
+
+                <!--====================Razão Social-->
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="fieldrequired field-x">Razão Social</label>
+                        <input type="text" name="txtRazaoSocial" class="form-control" ng-model="Apresentador.Razao_Social" maxlength="50" ng-required="true" style="text-transform:uppercase" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <!--====================Cod_UF-->
+                <div class="col-md-2  " ng-controller="dictionaryController">
+                    <div class="dictionary" dictionary="UF_Regional" required>
+                        <input id="txtCod_UF"
+                               ng-model="Apresentador.Cod_UF"
+                               ng-model-options="{updateOn: 'blur'}"
+                               ng-change="DicionaryValidate('txtCod_UF')"
+                               primarybind="txtCod_UF"
+                               style="text-transform:uppercase">
+                    </div>
+                </div>
+                <!--====================Nome de Fantasia-->
+                <div class="col-md-4 margin-top-10">
+                    <div class="form-group">
+                        <label>Nome Fantasia</label>
+                        <div class="input-group">
+                            <input type="text" id="txtNomeFantasia" class="form-control" ng-model="Apresentador.Nome_Fantasia" style="text-transform:uppercase">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 margin-top-10">
+                    <div class="form-group">
+                        <label>Remuneração</label>
+                        <div class="input-group">
+                            <input type="text" id="txtValor" maxlength="16" class="form-control money" ng-model="Apresentador.Salario">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive margin-top-20">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th colspan="2" style="background-color:#f5f5f5">Programas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                            <td style="border-right:none">
+                                <label ng-repeat="programa  in Apresentador.Programas track by $index"
+                                       class="label label-info"
+                                       style="margin-right:10px;display:inline-block">
+                                    {{programa.Cod_Programa}}-{{programa.Titulo}}
+                                    <span class="fa fa-times span-btn pull-right" ng-click="RemoverProgramas(programa.Cod_Programa)"></span>
+                                </label>
+                            </td>
+                            <td style="width:90px;min-width:90px;border-left:none">
+
+                                <button type="button" class="btn btn-default btn-sm" ng-click="SelecionarProgramas()">
+                                    <span class="fa fa-search"></span>
+                                </button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!--===================Botoes-->
+            <div class="row margin-top-20">
+                <div class="col-md-12">
+                    <button type="submit" class="btn btn-success" ng-click="SalvarApresentador(Apresentador)" ng-disabled="frmApresentadoresCadastro.$invalid">Salvar</button>
+                    <button type="button" class="btn btn-danger" ng-click="ExcluirApresentador(Apresentador)" ng-show="Parameters.Action=='Edit'" ng-disabled="!PermissaoDelete">Excluir</button>
+                    <a href="#Apresentadores" class="btn btn-warning">Cancelar</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-include="'template/SelectItem.html'"></div>
+<div ng-include="'template/PesquisaTabela.html'"></div>
+<div ng-include="'template/modalInfo.html'"></div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetDictionary();
+        $('.anchorscroll').click(function (e) {
+            var _target = this.getAttribute("target")
+            $('html, body').animate({
+                scrollTop: $('#' + _target).offset().top - 50
+            }, 'slow');
+        });
+
+        $("span[control_group*='icon_group']").click(function (e) {
+            var _group = this.getAttribute("control_group");
+            _group = _group.replace('icon', 'input');
+            var el = document.querySelector('[control_group="' + _group + '"]');
+            if ($(el).is(':disabled')) {
+                event.stopPropagation();
+            };
+        });
+        $('[data-toggle="tooltip"]').tooltip();
+
+    });
+</script>
+
+
+
