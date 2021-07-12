@@ -9,10 +9,10 @@ namespace PROPOSTA
     public class MapaReservaController : ApiController
     {
         [Route("api/MapaReserva/List")]
-        [HttpGet]
+        [HttpPost]
         [ActionName("MapaReservaList")]
         [Authorize()]
-        public IHttpActionResult MapaReservaList([FromUri]MapaReserva.MapaReservaFiltroModel Param)
+        public IHttpActionResult MapaReservaList([FromBody]MapaReserva.MapaReservaFiltroModel Param)
         {
             SimLib clsLib = new SimLib();
             MapaReserva Cls = new MapaReserva(User.Identity.Name);

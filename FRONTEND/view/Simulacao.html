@@ -634,7 +634,7 @@
 
 
                                     <div class="col-md-2">
-                                        <div class="dictionary " dictionary="Competencia" caption="Competência">
+                                        <div class="dictionary " dictionary="Competencia" caption="Competência Base">
                                             <input id="txtEsquemaCompetencia"
                                                    ng-model="Simulacao.Esquemas[currentEsquema].Competencia"
                                                    ng-disabled="!Simulacao.Validade_Inicio || !Simulacao.Validade_Termino || Simulacao.Esquemas[currentEsquema].Midias.length>0 || !Simulacao.Permite_Editar"
@@ -1096,7 +1096,7 @@
                                                            onkeypress="return NumericOnly(event)">
                                                 </div>
                                             </td>
-                                            <td>
+                                            <!--<td>
                                                 <div class="input-group" style="min-width:40px">
                                                     <input type="text"
                                                            class="form-control inputEsquema"
@@ -1107,9 +1107,31 @@
                                                            ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-change="fnChangeMidia(mol,'Dia_Inicio',true);FnConsisteDia(mol,'I')" />
                                                 </div>
+                                            </td>-->
+                                            <td>
+                                                <div class="input-group">
+                                                    <!--<div class="input-group-addon">
+                                                        <span class="fa fa-calendar dropdown-toggle" data-toggle="dropdown" style="cursor: pointer"></span>
+                                                        <ul id="calendar" ui-calendar="" typdate="mol.Dia_Inicio">
+                                                        </ul>
+                                                    </div>-->
+                                                    <input ng-model="mol.Dia_Inicio"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
+                                                           ng-change="fnChangeMidia(mol,'Dia_Inicio',true);FnConsisteDiaMol(mol,'I')"  
+                                                           ui-date=""
+                                                           style="min-width:100px"
+                                                           ng-model-options="{updateOn: 'blur'}"
+                                                           class="form-control inputEsquema"
+                                                           onkeypress="return DicionarioKeyPress(this,event)"
+                                                           onkeyup="DicionarioKeyUp(this)"
+                                                           maxlength="10"
+                                                           type="text"
+                                                           keymode="numeric"
+                                                           placeholder="ddmmyyyy">
+                                                </div>
                                             </td>
                                             <td>
-                                                <div class="input-group" style="min-width:40px">
+                                                <!--<div class="input-group" style="min-width:40px">
                                                     <input type="text"
                                                            class="form-control  inputEsquema"
                                                            maxlength="2"
@@ -1118,6 +1140,25 @@
                                                            ng-model-options="{updateOn: 'blur'}"
                                                            ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-change="fnChangeMidia(mol,'Dia_Fim',true);FnConsisteDia(mol,'F')" />
+                                                </div>-->
+                                                <div class="input-group">
+                                                    <!--<div class="input-group-addon">
+                                                        <span class="fa fa-calendar dropdown-toggle" data-toggle="dropdown" style="cursor: pointer"></span>
+                                                        <ul id="calendar" ui-calendar="" typdate="mol.Dia_Fim"></ul>
+                                                    </div>-->
+                                                    <input ng-model="mol.Dia_Fim"
+                                                           ng-disabled="!Simulacao.Permite_Editar"
+                                                           ng-change="fnChangeMidia(mol,'Dia_Inicio',true);FnConsisteDiaMol(mol,'F')"  
+                                                           ui-date=""
+                                                           style="min-width:100px"
+                                                           ng-model-options="{updateOn: 'blur'}"
+                                                           class="form-control inputEsquema"
+                                                           onkeypress="return DicionarioKeyPress(this,event)"
+                                                           onkeyup="DicionarioKeyUp(this)"
+                                                           maxlength="10"
+                                                           type="text"
+                                                           keymode="numeric"
+                                                           placeholder="ddmmyyyy">
                                                 </div>
                                             </td>
                                             <td>
@@ -1137,7 +1178,7 @@
                                                 <div class="input-group" style="min-width:90px">
                                                     <input class="form-control inputEsquema"
                                                            ng-model="mol.Desconto_Informado"
-                                                           style="max-width:100px"
+                                                           style="min-width:100px"
                                                            ng-disabled="!Simulacao.Permite_Editar"
                                                            ng-change="fnControleDescontoValorMidia('Desconto',mol)"
                                                            ng-model-options="{updateOn: 'blur'}"
@@ -1149,7 +1190,7 @@
                                             <td>
                                                 <div class="input-group" style="min-width:90px">
                                                     <input class="form-control inputEsquema"
-                                                           style="max-width:200px"
+                                                           style="min-width:100px"
                                                            ng-model="mol.Valor_Informado"
                                                            ng-change="fnControleDescontoValorMidia('Valor',mol)"
                                                            ng-model-options="{updateOn: 'blur'}"

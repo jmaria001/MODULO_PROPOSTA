@@ -77,6 +77,7 @@ namespace PROPOSTA
             public Int32 Termometro_Venda { get; set; }
             public String Cod_Programa_Patrocinado { get; set; }
             public List<TotalizadorModel> Totalizadores { get; set; }
+            public Boolean Ordenar_Esquema { get; set; }
         }
         public class TotalizadorModel
         {
@@ -188,8 +189,8 @@ namespace PROPOSTA
             public String Cod_Tipo_Comercial { get; set; }
             public Int32 Duracao { get; set; }
             public String Nome_Tipo_Comercial { get; set; }
-            public Int32 Dia_Inicio { get; set; }
-            public Int32 Dia_Fim { get; set; }
+            public String Dia_Inicio { get; set; }
+            public String Dia_Fim { get; set; }
             public String Cod_Tipo_Comercializacao { get; set; }
             public String Nome_Tipo_Comercializacao { get; set; }
             public Int32 Qtd_Insercoes { get; set; }

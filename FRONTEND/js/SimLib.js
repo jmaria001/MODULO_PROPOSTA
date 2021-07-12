@@ -184,7 +184,7 @@ function StringToDate(pData, pFormat) {
                 var ano = pData.substring(6, 10)
                 break;
         }
-        return new Date(ano, mes - 1, dia, 12, 0);
+        return new Date(ano, mes - 1, dia, 0, 0,0);
     } else {
         return undefined;
     }

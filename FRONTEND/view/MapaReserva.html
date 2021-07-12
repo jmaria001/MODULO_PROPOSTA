@@ -81,7 +81,7 @@
                     </div>
 
                     <!--==============================================Agencia-->
-                    <div class="col-md-8" ng-controller="dictionaryController">
+                    <div class="col-md-5" ng-controller="dictionaryController">
                         <div class="form-group">
                             <label class="field-x" for=" txtAgencia">Agência</label>
                             <input id="txtAgencia"
@@ -89,6 +89,16 @@
                                    ng-model="Filtro.Agencia"
                                    placeholder="Digite parte do nome da agência"
                                    ng-model-options="{updateOn: 'blur'}" />
+                        </div>
+                    </div>
+                    <!--==============================================Caracteristica do Contrato-->
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="field-x " for="txtTipoVenda">Tipo</label>
+                            <select class="form-control"
+                                    ng-model="Filtro.TipoVenda"
+                                    name="txtTipo"
+                                    ng-options="TipoVenda.Codigo as TipoVenda.Descricao for TipoVenda in TipoVenda"></select>
                         </div>
                     </div>
                 </div>
@@ -133,6 +143,7 @@
                         <tr>
                             <th></th>
                             <th>Contrato</th>
+                            <th>Tipo    </th>
                             <th>Negociação</th>
                             <th>Período Campanha</th>
                             <th>Agência</th>
@@ -158,8 +169,13 @@
                             </td>
                             <td style="text-align:center">
                                 <a href="#MapaReservaDetalhe/{{::contrato.Id_Contrato}}" class="btn btn-default btn-sm">
-                                    {{::contrato.Cod_Empresa}}-{{::contrato.Numero_Mr}}-{{::contrato.Sequencia_Mr}}
+                                    <!--{{::contrato.Cod_Empresa}}-{{::contrato.Numero_Mr}}-{{::contrato.Sequencia_Mr}}-->
+                                    {{::contrato.Contrato}}
                                 </a>
+                            </td>
+                            <td>
+                                <label class="label label-warning" ng-show="contrato.Indica_Midia_OnLine">On-Line</label>
+                                <label class="label label-info" ng-hide="contrato.Indica_Midia_OnLine">Off-Line</label>
                             </td>
                             <td>{{::contrato.Numero_Negociacao}}</td>
                             <td>{{::contrato.Periodo_Campanha}} </td>

@@ -406,6 +406,7 @@
                                         <th>AM</th>
                                         <th>Vlr Negociado</th>
                                         <th>Vlr Tabela</th>
+                                        <th>Desconto</th>
                                         <th>Vlr Informado</th>
                                         <th>Numero Ce</th>
                                         <th>Dt Emissao Ce</th>
@@ -435,6 +436,7 @@
                                         <td>{{::veic.Documento_Para}}</td>
                                         <td>{{::veic.Valor | currency}}</td>
                                         <td>{{::veic.Vlr_Tabela | currency}}</td>
+                                        <td>{{::veic.Desconto |number:4}}%</td>
                                         <td>{{::veic.Indica_Vlr_Informado}}</td>
                                         <td>{{::veic.Numero_Ce}}</td>
                                         <td>{{::veic.Data_Emissao_Ce | date: 'dd/MM/yyyy'}}</td>
@@ -498,7 +500,7 @@
                                     <td>{{resumo.Valor_Exibido | currency}}</td>
                                     <td>{{resumo.Valor_Tabela_Financeiro| currency}}</td>
                                     <td>{{resumo.Valor_Financeiro| currency}}</td>
-                                    <td>{{resumo.Desconto_Financeiro| number:4}}</td>
+                                    <td>{{resumo.Desconto_Financeiro| number:4}}%</td>
                                 </tr>
                             </tbody>
                         </table>

@@ -4,9 +4,9 @@ angular.module('App').factory("errorInterceptor", function ($q, $location, $root
         responseError: function (rejection) {
             $('.modal').modal('hide');// closes all active pop ups.
             $('.modal-backdrop').remove(); // removes the grey overlay.
-            var _url = rejection.config.url.toLowerCase();
-            if (!_url) {
-                _url = "";
+            var _url = ""
+            if (rejection.config.url) {
+                var _url = rejection.config.url.toLowerCase();
             };
             if (_url.indexOf('api/security/token') > 0 || _url.indexOf('api/api/CheckLogin') > 0) {
                 if (rejection.status == 404) {
@@ -46,17 +46,22 @@ angular.module('App').factory("errorInterceptor", function ($q, $location, $root
                             $rootScope.loading = false;
                         }
                         break;
+                    case -1:
+                        $rootScope.App_Erro = "";
+                        $rootScope.loading = false;
+                        break;
                     default:
                         $rootScope.App_Erro = rejection.data.statusText;
                         //$location.path("/error");
                         $rootScope.loading = false;
                         break
                 }
+                if ($rootScope.App_Erro) {
+                    ShowAlert($rootScope.App_Erro, 'error');
+                };
 
-                ShowAlert($rootScope.App_Erro, 'error');
-            }
+            };
         }
-
     };
 });
 

@@ -13,7 +13,7 @@ angular.module("App").factory("timestampInterceptor", function ($cookies) {
 		    var _token = $cookies.get('oAuth_token');
 			if(_token)
 			{
-    			config.headers.Authorization = 'Bearer ' + _token;
+			    config.headers.Authorization = 'Bearer ' + _token;
 			}
 		config.url = url;
 		return config;

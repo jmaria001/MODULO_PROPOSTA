@@ -32,6 +32,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Agencia", Param.Agencia);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Cliente", Param.Cliente);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Contato", Param.Contato);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_TipoVenda", Param.TipoVenda);
                 Adp.Fill(dtb);
             }
             catch (Exception)

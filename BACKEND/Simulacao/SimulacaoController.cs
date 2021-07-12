@@ -273,8 +273,8 @@ namespace PROPOSTA
                 Int32 ano = pCompetencia.ToString().Substring(0, 4).ConvertToInt32();
                 DateTime Lastday = clsLib.LastDay(mes, ano);
                 DateTime FirstDay = clsLib.FirstDay(mes, ano);
-                Midia.Dia_Inicio = FirstDay.Day;
-                Midia.Dia_Fim = Lastday.Day;
+                Midia.Dia_Inicio = FirstDay.ToString("dd/MM/yyyy");
+                Midia.Dia_Fim = Lastday.ToString("dd/MM/yyyy");
                 return Ok( Midia);
             }
             catch (Exception Ex)

@@ -53,29 +53,7 @@ namespace PROPOSTA
                 throw new Exception(Ex.Message);
             }
         }
-
-        //=================================Salvar Calculo de Valoração
-        [Route("api/ValoracaoPendentes")]
-        [HttpPost]
-        [ActionName("ValoracaoPendentes")]
-        [Authorize()]
-
-
-        public IHttpActionResult SalvarCalculoValoracao([FromBody]CalculoValoracao.CalculoValoracaoModel pNego)
-        {
-            SimLib clsLib = new SimLib();
-            CalculoValoracao Cls = new CalculoValoracao(User.Identity.Name);
-            try
-            {
-                DataTable dtb = Cls.ValoracaoPendentes(pNego);
-                return Ok(dtb);
-            }
-            catch (Exception Ex)
-            {
-                clsLib.EmailErrorToSuporte(User.Identity.Name, Ex.Message.ToString(), Ex.Source, Ex.StackTrace);
-                throw new Exception(Ex.Message);
-            }
-        }
+ 
 
         [Route("api/ValoracaoContratos")]
         [HttpPost]
@@ -88,7 +66,7 @@ namespace PROPOSTA
             CalculoValoracao Cls = new CalculoValoracao(User.Identity.Name);
             try
             {
-                DataTable retorno = Cls.ValoracaoContratos(pContrato);
+                List<CalculoValoracao.CalculoValoracaoModel> retorno = Cls.ValoracaoContratos(pContrato);
                 return Ok(retorno);
 
 
@@ -113,7 +91,7 @@ namespace PROPOSTA
             CalculoValoracao Cls = new CalculoValoracao(User.Identity.Name);
             try
             {
-                DataTable retorno = Cls.ValoracaoContratosNego(pContrato);
+                DataTable retorno = Cls.ValoracaoNegociacao(pContrato);
                 return Ok(retorno);
 
 

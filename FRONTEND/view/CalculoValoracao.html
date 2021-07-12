@@ -1,6 +1,6 @@
 ﻿<style>
     input {
-        text-transform: uppercase
+        text-transform: uppercase;
     }
 
     td {
@@ -20,7 +20,7 @@
                     </div>
                     <strong>Valoração por Contrato</strong>
                 </div>
-                <div class="block">
+                <div class="block" style="min-height:133px">
                     <button class="btn btn-default btn-icon-fixed btn-sm"
                             ng-click="AdicionarCalculoValoracao()">
                         <span class="fa fa-plus" ng-disabled="true"></span> Adicionar
@@ -33,24 +33,20 @@
                                 <th>Cod.Empresa</th>
                                 <th>Contrato</th>
                                 <th>Seq</th>
-                                <th ng-show="!PermissaoNego">Numero_Negociacao</th>
-                                <th ng-show="!PermissaoNego">Competencia</th>
-                                <th ng-show="!PermissaoNego">Indica_Valoracao</th>
-                                <!--<th></th>-->
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <!--====================================Linhas de input-->
-                            <tr ng-repeat="CalculoValoracao in CalculoValoracaoS track by $index">
+                            <tr ng-repeat="contrato in Contratos track by $index">
                                 <td>
                                     <span class="fa fa-trash span-btn" style="font-size:18px" ng-click="CalculoValoracaoExcluir(CalculoValoracao)"></span>
                                 </td>
                                 <td>
-                                    <div class="form-group">
+                                    <div class="form-group form-group-sm">
                                         <div class="input-group">
                                             <input type="text" class="form-control"
-                                                   ng-model="CalculoValoracao.Cod_Empresa"
-                                                   ng-change="ValidarEmpresa(CalculoValoracao)"
+                                                   ng-model="contrato.Cod_Empresa"
                                                    ng-model-options="{updateOn: 'blur'}"
                                                    size='3' value=''
                                                    onkeypress='return NumericOnly(event)'
@@ -63,26 +59,27 @@
                                 </td>
 
                                 <td>
-                                    <input type="text"
-                                           class="form-control"
-                                           ng-model="CalculoValoracao.Numero_Mr"
-                                           size='6' value=''
-                                           onkeypress='return NumericOnly(event)'
-                                           maxlength="6" />
+                                    <div class="form-group form-group-sm">
+                                        <input type="text"
+                                               class="form-control"
+                                               ng-model="contrato.Numero_Mr"
+                                               size='6' value=''
+                                               onkeypress='return NumericOnly(event)'
+                                               maxlength="6" />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group form-group-sm">
+                                        <input type="text"
+                                               class="form-control"
+                                               ng-model="contrato.Sequencia_Mr"
+                                               size='2' value=''
+                                               onkeypress='return NumericOnly(event)'
+                                               maxlength="2" />
+                                    </div>
                                 </td>
 
-                                <td>
-                                    <input type="text"
-                                           class="form-control"
-                                           ng-model="CalculoValoracao.Sequencia_Mr"
-                                           ng-change="ValidarContrato(CalculoValoracao)"
-                                           size='2' value=''
-                                           onkeypress='return NumericOnly(event)'
-                                           maxlength="2" />
-                                </td>
-                                <td ng-model="CalculoValoracao.Numero_Negociacao" ng-show="!PermissaoNego"></td>
-                                <td ng-model="CalculoValoracao.Competencia" ng-show="!PermissaoNego"></td>
-                                <td ng-model="CalculoValoracao.Indica_Valoracao" ng-show="!PermissaoNego"></td>
+                                <td style="min-width:150px">{{contrato.Critica}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -90,72 +87,57 @@
             </div>
             <!------------------------- Negociação/Pendentes--------------------->
             <div class="col-md-6">
-
-
                 <div class="alert alert-primary alert-icon-block" role="alert">
                     <div class="alert-icon">
                         <span class="fa fa-check-circle"></span>
                     </div>
-                    <strong>Negociação/Pendentes</strong>
+                    <strong>Competência/Negociação</strong>
                 </div>
 
                 <div class="block">
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="dictionary" dictionary="Competencia">
-                                <input ng-model="CalculoValoracao.Competencia"
+                            <div class="dictionary" dictionary="Competencia" caption="Todos da Competência">
+                                <input ng-model="Negociacao.Competencia"
                                        style="width:100px"
                                        ui-MesAno ng-model-options="{updateOn: 'blur'}"
                                        placeholder="Informe a Competência">
-                                <div class="dictionary-ui-competencia" ui-Competencia typmesano="CalculoValoracao.Competencia" params="CompetenciaKeys"></div>
+                                <div class="dictionary-ui-competencia" ui-Competencia typmesano="Negociacao.Competencia" params="CompetenciaKeys"></div>
                             </div>
                         </div>
-
-
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="field-x">Numero Negociação</label>
+                                <label class="field-x">Todos da  Negociação</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control"
                                            onkeypress="return NumericOnly(event)"
                                            maxlength="6"
-                                           ng-model="CalculoValoracao.Numero_Negociacao" />
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!--====================Valoração Contrato Pendentes -->
-                        <div class="col-md-8 margin-top-10">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="app-checkbox">
-                                        <label><input type="checkbox" name="app-checkbox-1" ng-model="CalculoValoracao.Indica_Valoracao" />Valorar Contratos pendentes de valoração<span></span></label>
-                                    </div>
+                                           ng-model="Negociacao.Numero_Negociacao" />
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="fixed-buttons-bottom">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <button class="btn btn-success btn-sm"
-                                        style="margin:0px 0px !important"
-                                        ng-click="SalvarCalculoValoracao(CalculoValoracaoS,CalculoValoracao)">
-                                    Ok
-                                </button>
-                                <!--<button class="btn btn-warning btn-sm" style="margin:0px 0px !important" ng-click="CancelaEdicao()">Cancela</button>-->
-                                <!--<a href="#CalculoValoracao" class="btn btn-warning">Cancelar</a>-->
-                            </div>
+                    <div class="row margin-top-20">
+                        <div class="col-md-12">
+                            <p class="text-muted">{{Negociacao.Mensagem}}</p>
                         </div>
-                    </div>
-
                     </div>
                 </div>
+            </div>
         </div>
 
+    </div>
+    <div class="fixed-buttons-bottom">
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-success "
+                        style="margin:0px 0px !important"
+                        ng-click="SalvarCalculoValoracao(Contratos,Negociacao)">
+                    Salvar
+                </button>
+                <button class="btn btn-warning" style="margin:0px 0px !important" ng-click="CancelaEdicao()">Cancela</button>
+            </div>
+        </div>
     </div>
 
 </div>

@@ -22,7 +22,7 @@ namespace PROPOSTA
             public Int32 Sequencia_Mr { get; set; }
             public String Competencia { get; set; }
             public Int32 Numero_Negociacao { get; set; }
-            public Boolean Indica_Valoracao { get; set; }
+            public String Critica { get; set; }
 
         }
 

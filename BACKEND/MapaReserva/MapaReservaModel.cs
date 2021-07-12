@@ -156,6 +156,7 @@ namespace PROPOSTA
             public String Cod_Empresa_Venda { get; set; }
             public String Cod_Empresa_Faturamento { get; set; }
             public String Contato { get; set; }
+            public Byte TipoVenda{ get; set; }
         }
         public class MapaReservaMidiaFiltroModel
         {

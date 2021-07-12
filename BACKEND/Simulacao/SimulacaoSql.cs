@@ -378,8 +378,8 @@ namespace PROPOSTA
                         Cod_Tipo_Comercializacao = drw["Cod_Tipo_Comercializacao"].ToString(),
                         Nome_Tipo_Comercializacao = drw["Nome_Tipo_Comercializacao"].ToString(),
                         Duracao = drw["Duracao"].ToString().ConvertToInt32(),
-                        Dia_Inicio = drw["Dia_Inicio"].ToString().ConvertToInt32(),
-                        Dia_Fim = drw["Dia_Fim"].ToString().ConvertToInt32(),
+                        Dia_Inicio = drw["Data_Inicio"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy"),
+                        Dia_Fim = drw["Data_Fim"].ToString().ConvertToDatetime().ToString("dd/MM/yyyy"),
                         Qtd_Insercoes = drw["Qtd_Insercoes"].ToString().ConvertToInt32(),
                         Desconto_Informado = drw["Desconto_Informado"].ToString().ConvertToPercent(),
                         Desconto_Real = drw["Desconto_Real"].ToString().ConvertToPercent(),
@@ -686,6 +686,7 @@ namespace PROPOSTA
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Esquemas", xmlEsquemas);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Observacao", Param.Observacao);
                 Adp.SelectCommand.Parameters.AddWithValue("@Par_Termometro_Venda", Param.Termometro_Venda);
+                Adp.SelectCommand.Parameters.AddWithValue("@Par_Ordenar_Esquemas", Param.Ordenar_Esquema);
                 Adp.Fill(dtb);
 
             }

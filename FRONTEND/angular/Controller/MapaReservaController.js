@@ -5,6 +5,7 @@
 
     $scope.gridheaders = [{ 'title': 'Edit', 'visible': true, 'searchable': false, 'config': false, 'sortable': false },
         { 'title': 'Contrato', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
+        { 'title': 'Tipo', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
         { 'title': 'Negociação', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
         { 'title': 'Período Campanha', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
         { 'title': 'Agencia', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
@@ -19,6 +20,7 @@
         { 'title': 'Status', 'visible': true, 'searchable': true, 'config': true, 'sortable': true },
     ];
     $scope.MesAnoKeys = { 'Year': new Date().getFullYear(), 'First': '', 'Last': '' }
+    $scope.TipoVenda = [{ 'Codigo': 1, 'Descricao': 'On-Line' },{'Codigo':2,'Descricao':'Off-Line'},{'Codigo':3,'Descricao':'Ambos'}]
 
     //====================Inicializa o Filtro
     $scope.NewFiltro = function () {
@@ -34,7 +36,8 @@
             'Cod_Empresa_Faturamento': '',
             'Agencia': '',
             'Cliente': '',
-            'Contato': ''
+            'Contato': '',
+            'TipoVenda':'',
         }
     }
     //===========================Se ja tiver filtro anterior gravado
@@ -74,18 +77,18 @@
         $scope.CurrentShow = '';
         $('#dataTable').dataTable().fnDestroy();
         var _url = 'MapaReserva/List';
-        _url += '?Numero_Negociacao=' + pFiltro.Numero_Negociacao;
-        _url += '&Numero_Mr=' + pFiltro.Numero_Mr;
-        _url += '&Numero_Pi=' + pFiltro.Numero_Pi;
-        _url += '&Competencia_Inicio=' + pFiltro.Competencia_Inicio;
-        _url += '&Competencia_Fim=' + pFiltro.Competencia_Fim;
-        _url += '&Cod_Empresa_Venda=' + pFiltro.Cod_Empresa_Venda;
-        _url += '&Cod_Empresa_Faturamento=' + pFiltro.Cod_Empresa_Faturamento;
-        _url += '&Agencia=' + pFiltro.Agencia;
-        _url += '&Cliente=' + pFiltro.Cliente;
-        _url += '&Contato=' + pFiltro.Contato;
-        _url += '&';
-        httpService.Get(_url).then(function (response) {
+        //_url += '?Numero_Negociacao=' + pFiltro.Numero_Negociacao;
+        //_url += '&Numero_Mr=' + pFiltro.Numero_Mr;
+        //_url += '&Numero_Pi=' + pFiltro.Numero_Pi;
+        //_url += '&Competencia_Inicio=' + pFiltro.Competencia_Inicio;
+        //_url += '&Competencia_Fim=' + pFiltro.Competencia_Fim;
+        //_url += '&Cod_Empresa_Venda=' + pFiltro.Cod_Empresa_Venda;
+        //_url += '&Cod_Empresa_Faturamento=' + pFiltro.Cod_Empresa_Faturamento;
+        //_url += '&Agencia=' + pFiltro.Agencia;
+        //_url += '&Cliente=' + pFiltro.Cliente;
+        //_url += '&Contato=' + pFiltro.Contato;
+        //_url += '&';
+        httpService.Post(_url,pFiltro).then(function (response) {
             if (response) {
                 $scope.Contratos = response.data;
                 if ($scope.Contratos.length == 0) {
@@ -121,7 +124,7 @@
             },
             { text: 'Novo Filtro' + '<span class="fa fa-filter margin-left-10"></span>', className: 'btn btn-info', action: function (e, dt, button, config) { $('#btnNovoFiltro').click(); } },
         ];
-        param.order = [[1, 'desc']];
+       // param.order = [[1, 'desc']];
         param.autoWidth = false;
 
         param.columns = [];

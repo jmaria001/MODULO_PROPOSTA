@@ -308,8 +308,51 @@
                 pMidia.Dia_Fim = "";
             }
         }
+    }
+    //=====================Consiste dia Inicio e Dia Fim  para Midia On Line  
+    $scope.FnConsisteDiaMol = function (pMidia, pTipo) {
+        if (pTipo=="I" && !pMidia.Dia_Inicio) {
+            return ;
+        }
+        if (pTipo == "F" && !pMidia.Dia_Fim) {
+            return;
+        }
+        if (! $scope.Simulacao.Validade_Inicio || ! $scope.Simulacao.Validade_Termino) {
+            ShowAlert('Informe a Validade do Modelo antes de Informar Períodos da Mídia');
+            pMidia.dia = "";
+            pMidia.Dia_Fim = "";
+            return;
+        }
+
+
+        _primeiro_dia = StringToDate($scope.Simulacao.Validade_Inicio);
+        _ultimo_dia = StringToDate($scope.Simulacao.Validade_Termino);
+        var _dia = "";
+        if (pTipo == 'I') {
+            _dia = StringToDate(pMidia.Dia_Inicio);
+        }
+        else {
+            _dia = StringToDate(pMidia.Dia_Fim);
+        }
+        _dia.setHours(0);
+        _dia.setMinutes(0);
+        _dia.setSeconds(0);
+        console.log(_dia);
+        console.log(_primeiro_dia);
+        console.log(_ultimo_dia);
+        console.log('-----------------------');
+        if (_dia > _ultimo_dia || _dia < _primeiro_dia) {
+            ShowAlert('Dia Inválido ou fora da validade do Modelo')
+            if (pTipo == 'I') {
+                pMidia.Dia_Inicio = "";
+            }
+            else {
+                pMidia.Dia_Fim = "";
+            }
+        }
 
     }
+
     //=====================Clicou em selecionar veiculos
     $scope.SelecionarVeiculos = function () {
         var _url = 'GetVeiculos'
@@ -482,6 +525,7 @@
             $scope.ChangePendenteCalculo();
         }
     });
+
     //===================================quando mudar a validade inicio ou final setar as chaves da competencia do esquema
     $scope.$watch('[Simulacao.Validade_Inicio,Simulacao.Validade_Termino]', function (newValue, oldValue) {
         $scope.SetaCompetenciaEsquema(newValue[0], newValue[1]);
@@ -511,7 +555,8 @@
         }
     };
     //===================================Salvar Simulacao
-    $scope.SalvarSimulacao = function (pSimulacao, pShowMessage) {
+    $scope.SalvarSimulacao = function (pSimulacao, pFromButton) {
+        pSimulacao.Ordenar_Esquema = pFromButton;
         httpService.Post('SalvarSimulacao', pSimulacao).then(function (response) {
             if (response) {
                 if (!response.data.Critica) {
@@ -519,7 +564,7 @@
                     if ($scope.Parameters.Action == 'New') {
                         $scope.Parameters.Action = "Edit";
                     }
-                    if (pShowMessage) {
+                    if (pFromButton) {
                         ShowAlert('Dados Gravados com Sucesso', 'success');
                     }
                     pSimulacao.PendenteCalculo = false;
